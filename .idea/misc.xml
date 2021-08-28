@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Krys Nkem/AndroidStudioProjects/zc_app_android/app/src/main/res/layout/activity_login.xml" value="0.14375" />
+        <entry key="..\:/Users/Krys Nkem/AndroidStudioProjects/zc_app_android/app/src/main/res/layout/activity_splash.xml" value="0.14375" />
+        <entry key="..\:/Users/Krys Nkem/AndroidStudioProjects/zc_app_android/app/src/main/res/layout/fragment_blank.xml" value="0.14375" />
         <entry key="..\:/Users/Peculiaruc/AndroidStudioProjects/zc_android/app/src/main/res/layout/activity_login.xml" value="0.15" />
         <entry key="..\:/Users/Peculiaruc/AndroidStudioProjects/zc_android/app/src/main/res/layout/activity_main.xml" value="0.15" />
         <entry key="..\:/Users/Peculiaruc/AndroidStudioProjects/zc_android/app/src/main/res/layout/activity_verify_email.xml" value="0.10277777777777777" />
@@ -10,7 +13,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8 (3)" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
