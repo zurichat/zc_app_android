@@ -1,4 +1,4 @@
-![Android Build](https://github.com/zurichat/zc_android/workflows/Android%20Build/badge.svg?branch=develop)
+[![Android Build](https://github.com/zurichat/zc_android/actions/workflows/android_build.yml/badge.svg)](https://github.com/zurichat/zc_android/actions/workflows/android_build.yml)
 # Zuri Chat
 Android repository for Zuri Chat project.
 
