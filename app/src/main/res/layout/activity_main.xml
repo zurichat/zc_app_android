@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_color"
     tools:context=".MainActivity">
 
     <TextView
@@ -14,7 +15,7 @@
         android:textSize="100sp"
         android:lineSpacingMultiplier="1.5"
         android:ellipsize="end"
-        android:textColor="@color/black"
+        android:textColor="@color/text_color"
         android:textAlignment="viewStart"
         android:layout_margin="10dp"
         />
