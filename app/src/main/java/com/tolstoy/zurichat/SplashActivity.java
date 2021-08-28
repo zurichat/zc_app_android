@@ -1,12 +1,9 @@
-package com.tolstoy.zurichat.ui;
+package com.tolstoy.zurichat;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.tolstoy.zurichat.R;
-import com.tolstoy.zurichat.ui.MainActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -19,7 +16,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 try {
                     sleep(3000);
-                    Intent i=new Intent(getBaseContext(), MainActivity.class);
+                    Intent i=new Intent(getBaseContext(),MainActivity.class);
                     startActivity(i);
                     finish();
                 } catch (Exception ignored) {}

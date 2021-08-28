@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.ui
+package com.tolstoy.zurichat
 
 import android.os.Bundle
 import android.view.LayoutInflater
