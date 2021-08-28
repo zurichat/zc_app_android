@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Peculiaruc/AndroidStudioProjects/zc_android/app/src/main/res/layout/activity_login.xml" value="0.15" />
+        <entry key="..\:/Users/Peculiaruc/AndroidStudioProjects/zc_android/app/src/main/res/layout/activity_main.xml" value="0.15" />
+        <entry key="..\:/Users/Peculiaruc/AndroidStudioProjects/zc_android/app/src/main/res/layout/activity_verify_email.xml" value="0.10277777777777777" />
         <entry key="..\:/Users/Peculiaruc/AndroidStudioProjects/zc_android/app/src/main/res/mipmap-anydpi-v26/login_place_holder.xml" value="0.16666666666666666" />
       </map>
     </option>
