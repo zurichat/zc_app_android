@@ -8,7 +8,6 @@ import com.tolstoy.zurichat.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-
     private val binding by viewBinding(ActivityMainBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +19,5 @@ class MainActivity : AppCompatActivity() {
         crossinline bindingInflater: (LayoutInflater) -> T
     ) =
         lazy(LazyThreadSafetyMode.NONE) {
-            bindingInflater.invoke(layoutInflater)
-        }
+            bindingInflater.invoke(layoutInflater)}
 }
