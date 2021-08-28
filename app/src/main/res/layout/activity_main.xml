@@ -10,14 +10,17 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/zuri_dms_team_tolstoy"
-        android:textStyle="bold"
-        android:textSize="100sp"
-        android:lineSpacingMultiplier="1.5"
-        android:ellipsize="end"
-        android:textColor="@color/text_color"
-        android:textAlignment="viewStart"
         android:layout_margin="10dp"
-        />
+        android:ellipsize="end"
+        android:lineSpacingMultiplier="1.5"
+        android:text="@string/zuri_dms_team_tolstoy"
+        android:textAlignment="viewStart"
+        android:textColor="@color/text_color"
+        android:textSize="60sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
