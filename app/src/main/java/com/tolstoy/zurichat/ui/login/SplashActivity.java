@@ -1,10 +1,11 @@
-package com.tolstoy.zurichat;
+package com.tolstoy.zurichat.ui.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.tolstoy.zurichat.R;
 import com.tolstoy.zurichat.ui.login.LoginActivity;
 
 public class SplashActivity extends AppCompatActivity {
