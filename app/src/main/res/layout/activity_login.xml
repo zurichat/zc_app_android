@@ -17,7 +17,8 @@
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:srcCompat="@drawable/login_holder" />
+      app:srcCompat="@drawable/login_holder"
+      android:contentDescription="@string/imagelogo" />
 
   <com.google.android.material.textfield.TextInputLayout
       android:id="@+id/textInputLayout"
@@ -33,7 +34,8 @@
     <com.google.android.material.textfield.TextInputEditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter registered zuri chat email" />
+        android:inputType="textEmailAddress"
+        android:hint="@string/enter_registered_email" />
   </com.google.android.material.textfield.TextInputLayout>
 
   <Button
@@ -43,7 +45,7 @@
       android:layout_marginStart="16dp"
       android:layout_marginTop="150dp"
       android:layout_marginEnd="16dp"
-      android:text="Verify Email"
+      android:text="@string/verify_email"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />

@@ -110,4 +110,10 @@ dependencies {
 
     //Joda time library for dealing with time
     implementation "joda-time:joda-time:2.10.10"
+
+    // ViewPager2
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
+    //Lottie
+    implementation "com.airbnb.android:lottie:3.4.0"
 }
