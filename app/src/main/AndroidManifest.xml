@@ -11,20 +11,18 @@
         android:theme="@style/Theme.ZuriChat">
         <activity
             android:name=".slider.SliderActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="true" />
         <activity
             android:name=".ui.login.SplashActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".ui.login.MainActivity" />
     </application>
