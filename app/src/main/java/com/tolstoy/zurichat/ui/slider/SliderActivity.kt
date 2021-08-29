@@ -1,6 +1,9 @@
 package com.tolstoy.zurichat.ui.slider
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.ViewGroup
@@ -16,6 +19,10 @@ import com.tolstoy.zurichat.ui.adapters.sliderAdapter
 import com.tolstoy.zurichat.ui.login.LoginActivity
 
 class SliderActivity : AppCompatActivity() {
+
+    private lateinit var preferences: SharedPreferences
+    val pref_show_intro = "Intro"
+
 
     private lateinit var binding: ActivitySliderBinding
     private val SliderAdapter = sliderAdapter(
@@ -45,6 +52,14 @@ class SliderActivity : AppCompatActivity() {
         binding = ActivitySliderBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        preferences = getSharedPreferences("introSlider", Context.MODE_PRIVATE)
+
+        //Check For First time Usage
+        if (!preferences.getBoolean(pref_show_intro, true)) {
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
+
         binding.sliderViewPager.adapter = SliderAdapter
         setupIndicator()
         setCurrentIndicator(0)
@@ -62,6 +77,9 @@ class SliderActivity : AppCompatActivity() {
                 Intent(applicationContext, LoginActivity::class.java).also {
                     startActivity(it)
                     finish()
+
+                    val editor = preferences.edit()
+                    editor.putBoolean(pref_show_intro, false).apply()
                 }
             }
         }
