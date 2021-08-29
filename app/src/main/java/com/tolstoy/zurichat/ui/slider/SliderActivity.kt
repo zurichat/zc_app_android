@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.slider
+package com.tolstoy.zurichat.ui.slider
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +11,8 @@ import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ActivitySliderBinding
+import com.tolstoy.zurichat.model.slide
+import com.tolstoy.zurichat.ui.adapters.sliderAdapter
 import com.tolstoy.zurichat.ui.login.LoginActivity
 
 class SliderActivity : AppCompatActivity() {

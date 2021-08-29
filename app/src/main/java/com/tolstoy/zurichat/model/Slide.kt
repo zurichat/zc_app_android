@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.slider
+package com.tolstoy.zurichat.model
 
 import androidx.recyclerview.widget.RecyclerView
 
