@@ -27,11 +27,22 @@
             android:name=".ui.login.LoginActivity"
             android:exported="true" />
         <activity
+<<<<<<< HEAD
+            android:name=".ui.splash.SplashActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+=======
             android:name=".ui.activities.SplashActivity"
             android:exported="true" >
+>>>>>>> 0b21b703117800eadc3d318923d586d431ef1e1f
 
         </activity>
+<<<<<<< HEAD
+        <activity android:name=".ui.MainActivity" />
+=======
         <activity android:name=".ui.activities.MainActivity" />
+>>>>>>> 0b21b703117800eadc3d318923d586d431ef1e1f
     </application>
 
 </manifest>
