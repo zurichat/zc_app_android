@@ -11,11 +11,7 @@ This is The Android repository for Zuri Chat project.
 - Fork the project.
 - Clone your own forked repository, run `git clone "https://github.com/[your_github_username]/zc_app_android.git"`
 
-<<<<<<< HEAD
-Add remote upstream using the command `git remote add origin "https://github.com/zurichat/zc_app_android.git"`
-=======
-Add remote upstream using the command `git remote add upstream "https://github.com/zurichat/zc_android.git"`
->>>>>>> 0b21b703117800eadc3d318923d586d431ef1e1f
+Add remote upstream using the command `git remote add upstream "https://github.com/zurichat/zc_app_android.git"`
 
 - run: `git fetch upstream` - You must fetch from develop before or after checkout<br/>
 - run: `git merge upstream/develop` - Merge updates from upstream<br/>
@@ -38,7 +34,4 @@ For a chore: `git commit -m "chore: updated read me to include API endpoints"`<b
 - Any background contexts ? (maybe something a tester might not notice and be useful for testing)
 - Screenshots (of your implementation - a web page, a mobile app screen or an API payload
 
-For Fragments, use the already created delegate function `viewBinding()` to use viewBinding. ![Read more here]("https://zhuinden.medium.com/simple-one-liner-viewbinding-in-fragments-and-activities-with-kotlin-961430c6c07c")
-
-Please work in the already created directories. for example, if your task is to implement the login screen, create a `login` folder inside the already created `ui` folder(if there's no login folder yet) and put your files there.
-
+For Fragments, use the already created delegate function `viewBinding()` to use viewBinding. [Read more here](https://zhuinden.medium.com/simple-one-liner-viewbinding-in-fragments-and-activities-with-kotlin-961430c6c07c)

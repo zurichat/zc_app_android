@@ -5,11 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_color"
-<<<<<<< HEAD
-    tools:context=".ui.MainActivity">
-=======
     tools:context=".ui.activities.MainActivity">
->>>>>>> 0b21b703117800eadc3d318923d586d431ef1e1f
 
     <TextView
         android:layout_width="match_parent"
