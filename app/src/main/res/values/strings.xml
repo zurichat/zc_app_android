@@ -8,4 +8,6 @@
     <string name="title_text">Title Text</string>
     <string name="next">Next</string>
     <string name="skip_intro">Skip Intro</string>
+    <string name="verification_code">A verification code has been sent to \n peculiarc@gmail.com, please enter the code \n to verify your account.</string>
+
 </resources>
