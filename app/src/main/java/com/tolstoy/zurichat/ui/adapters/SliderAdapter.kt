@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.slider
+package com.tolstoy.zurichat.ui.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.model.slide
 
 class sliderAdapter(private val slides: List<slide>) :
     RecyclerView.Adapter<sliderAdapter.sliderViewHolder>() {
