@@ -18,4 +18,17 @@
         <item name="android:navigationBarColor" tools:targetApi="l">@color/background_color</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <style name="Switch" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">#46bdbf</item>
+
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">#f1f1f1
+        </item>
+
+        <!-- inactive track color (30% transparency) -->
+        <item name="android:colorForeground">#42221f1f
+        </item>
+    </style>
 </resources>

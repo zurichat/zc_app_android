@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZuriChat">
         <activity
+            android:name=".fragment.ChatActivity"
+            android:exported="true" />
+        <activity
+            android:name=".navigation_bar_component.ProfileActivity"
+            android:exported="true" />
+        <activity
+            android:name=".change.mode.Dark_Light_Mode"
+            android:exported="true" />
+        <activity
             android:name=".slider.SliderActivity"
             android:exported="true" />
         <activity
