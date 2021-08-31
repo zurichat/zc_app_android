@@ -9,5 +9,16 @@
     <string name="next">Next</string>
     <string name="skip_intro">Skip Intro</string>
     <string name="verification_code">A verification code has been sent to \n peculiarc@gmail.com, please enter the code \n to verify your account.</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="skip">Skip</string>
+    <string name="slider_image">Slider Image</string>
+    <string name="never_miss_a_chat">Never miss a chat</string>
+    <string name="sub_heading_1">No more apologies for missing chats, take your chat with you</string>
+    <string name="powered_by_zuri_chat">Powered by Zuri Chat</string>
+    <string name="zuri_logo">Zuri Logo</string>
+    <string name="swift_response_to_dms">Swift response to DMs</string>
+    <string name="receive_notifications_on_chats_and_responds_swiftly">Receive notifications on chats and responds swiftly</string>
+    <string name="customize_your_chat_experience">Customize your chat experience</string>
+    <string name="customize_your_chat_environment_to_suit_your_preference">Customize your chat environment to suit your preference</string>
 
 </resources>
