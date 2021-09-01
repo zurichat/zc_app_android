@@ -10,22 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZuriChat">
         <activity
+            android:name=".ui.otp.OTP_Page"
+            android:exported="true" />
+        <activity
             android:name=".ui.settings.SettingsActivity"
             android:exported="true"
             android:label="@string/title_activity_settings"
-            android:theme="@style/Theme.ZuriChat.Settings">
-
-        </activity>
+            android:theme="@style/Theme.ZuriChat.Settings"></activity>
         <activity
             android:name=".ui.onboarding.OnboardingScreenActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".ui.verifyemail.VerifyEmailActivity"
             android:exported="true" />
@@ -37,9 +31,15 @@
             android:exported="true" />
         <activity
             android:name=".ui.activities.SplashActivity"
-            android:exported="true"/>
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.activities.MainActivity" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
