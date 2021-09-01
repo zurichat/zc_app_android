@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/channelsFragment"
+        android:name="com.tolstoy.zurichat.ui.fragments.ChannelsFragment"
+        android:label="Channels"
+        tools:layout="@layout/fragment_channels" />
+    <fragment
+        android:id="@+id/logoutFragment"
+        android:name="com.tolstoy.zurichat.ui.fragments.LogoutFragment"
+        android:label="Logout"
+        tools:layout="@layout/fragment_logout" />
+    <fragment
+        android:id="@+id/presenceFragment"
+        android:name="com.tolstoy.zurichat.ui.fragments.PresenceFragment"
+        android:label="Presence"
+        tools:layout="@layout/fragment_presence" />
+    <fragment
+        android:id="@+id/viewProfileFragment"
+        android:name="com.tolstoy.zurichat.ui.fragments.ViewProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_view_profile" />
+    <fragment
+        android:id="@+id/settingsFragment2"
+        android:name="com.tolstoy.zurichat.ui.fragments.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="com.tolstoy.zurichat.ui.fragments.NotificationFragment"
+        android:label="Notification"
+        tools:layout="@layout/fragment_notification" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.tolstoy.zurichat.ui.fragments.HomeFragment"
+        android:label="Home" />
+</navigation>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+    <item
+        android:id="@+id/viewProfileFragment"
+        android:title="View Profile"
+        android:icon="@drawable/person" />
+    <item
+        android:id="@+id/presenceFragment"
+        android:title="Presence"
+        android:icon="@drawable/remove_red_eye"/>
+    <item
+        android:id="@+id/channelsFragment"
+        android:title="Channels"
+        android:icon="@drawable/work"/>
+    <item
+        android:id="@+id/notificationFragment"
+        android:title="Notification"/>
+    <item
+        android:id="@+id/settingsFragment"
+        android:title="Settings"
+        android:icon="@drawable/brightness"/>
+    <item
+        android:id="@+id/logoutFragment"
+        android:title="Logout"/>
+    </group>
+</menu>
