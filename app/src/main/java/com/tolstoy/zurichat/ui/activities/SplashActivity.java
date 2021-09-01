@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.tolstoy.zurichat.R;
 import com.tolstoy.zurichat.ui.onboarding.OnboardingScreenActivity;
@@ -27,5 +28,7 @@ public class SplashActivity extends AppCompatActivity {
             }
         };
         thread.start();
+
+
     }
 }
