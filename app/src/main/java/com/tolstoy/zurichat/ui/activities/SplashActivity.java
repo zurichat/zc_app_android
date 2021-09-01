@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.ui.login;
+package com.tolstoy.zurichat.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.tolstoy.zurichat.R;
-import com.tolstoy.zurichat.slider.SliderActivity;
-import com.tolstoy.zurichat.ui.login.LoginActivity;
+import com.tolstoy.zurichat.ui.onboarding.OnboardingScreenActivity;
+import com.tolstoy.zurichat.ui.slider.SliderActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -20,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 try {
                     sleep(3000);
-                    Intent i = new Intent(getBaseContext(), SliderActivity.class);
+                    Intent i = new Intent(getBaseContext(), OnboardingScreenActivity.class);
                     startActivity(i);
                     finish();
                 } catch (Exception ignored) {}
