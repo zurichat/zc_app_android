@@ -9,4 +9,30 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
+
+    <string-array name="mobile_data_entries">
+        <item>Photos</item>
+        <item>Videos</item>
+        <item>Documents</item>
+    </string-array>
+
+    <string-array name="mobile_data_values">
+        <item>Photos</item>
+        <item>Videos</item>
+        <item>Documents</item>
+    </string-array>
+
+    <string-array name="wifi_data_entries">
+        <item>Photos</item>
+        <item>Videos</item>
+        <item>Documents</item>
+        <item>All Media</item>
+    </string-array>
+
+    <string-array name="wifi_data_values">
+        <item>Photos</item>
+        <item>Videos</item>
+        <item>Documents</item>
+        <item>All Media</item>
+    </string-array>
 </resources>
