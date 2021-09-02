@@ -32,4 +32,5 @@
         <item name="android:navigationBarColor" tools:targetApi="l">#E5E5E5</item>
         <!-- Customize your theme here. -->
     </style>
+
 </resources>
