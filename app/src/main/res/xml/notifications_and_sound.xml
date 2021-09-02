@@ -6,8 +6,13 @@
         app:summary="Play sound for incoming and outgoing
     message in channels"
         app:title="Channel tones" />
+
     <PreferenceCategory app:title="Messages">
 
+        <SwitchPreference
+            app:key="message_tone"
+            app:summary="Play sound on new messages"
+            app:title="Message tones"/>
 
     </PreferenceCategory>
 
