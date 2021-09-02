@@ -8,7 +8,7 @@
     <string name="title_text">Title Text</string>
     <string name="next">Next</string>
     <string name="skip_intro">Skip Intro</string>
-    <string name="verification_code">A verification code has been sent to \n peculiarc@gmail.com, please enter the code \n to verify your account.</string>
+    <string name="verification_code">A verification code has been sent to \n <b> nwevopeacechinedu@gmail.com,</b> please enter the code \n to verify your account.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="skip">Skip</string>
     <string name="slider_image">Slider Image</string>
@@ -39,5 +39,31 @@
     <string name="manage_storage">Manage Storage</string>
     <string name="network_usage">Network usage</string>
     <string name="type_a_message">Type a message</string>
+    <string name="search">Search</string>
+    <string name="new_channel">New Channel</string>
+    <string name="saved_messages">Saved Messages</string>
+    <string name="settings">Settings</string>
+    <string name="zuri">ZURI</string>
+    <string name="profile_image">Profile image</string>
+    <string name="chats">CHATS</string>
+    <string name="calls">CALLS</string>
+
+    <!-- Chat Settings -->
+    <string name="display_header">Display</string>
+    <string name="theme">Theme</string>
+    <string name="theme_dialog">Choose your Theme</string>
+    <string name="Wallpaper">Wallpaper</string>
+    <string name="enter_send">Enter is send</string>
+    <string name="system_default">System Default</string>
+    <string name="chat_settings_header">Chat Settings</string>
+    <string name="enter_to_send_main">Enter is send</string>
+    <string name="enter_to_send_subtitle">Enter key will send your message</string>
+    <string name="media_visibility_header">Media visibility</string>
+    <string name="media_visibility_subtitle">Show newly downloaded media in your phone’s gallery</string>
+    <string name="font_size_header">Font size</string>
+    <string name="font_dialog">Choose Font Size</string>
+    <string name="font_size_default">Medium</string>
+    <string name="chat_backup">Chat backup</string>
+    <string name="chat_history">Chat history</string>
 
 </resources>
