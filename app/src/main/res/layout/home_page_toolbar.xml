@@ -1,41 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/my_toolbar"
     style="@style/HeaderBar"
     android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:elevation="4dp"
-    app:popupTheme="@style/Theme.AppCompat.Light.DarkActionBar"
-    app:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+    android:layout_height="wrap_content"
+    android:theme="@style/ToolbarTheme">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/primaryColor">
 
-        <ImageView
-            android:id="@+id/home_zuri_logo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:contentDescription="@string/zuri_logo"
-            android:src="@drawable/zuri_home_logo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@string/zuri"
-            android:textColor="@color/white"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/home_zuri_logo"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.appcompat.widget.Toolbar>
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="4dp"
+            app:logo="@drawable/zuri_home_logo"
+            app:menu="@menu/home_menu"
+            app:popupTheme="@style/Theme.MaterialComponents.Light.NoActionBar"
+            app:subtitleTextColor="@color/background_color"
+            app:theme="@style/ToolbarTheme"
+            app:title="@string/zuri"
+            app:titleMarginStart="4dp"
+            app:titleTextColor="@color/white" />
+</com.google.android.material.appbar.AppBarLayout>

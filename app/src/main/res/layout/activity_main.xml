@@ -7,20 +7,28 @@
     android:background="@color/background_color"
     tools:context=".ui.activities.MainActivity">
 
-    <TextView
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/home_page_toolbar"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        style="@style/TabTheme"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:ellipsize="end"
-        android:lineSpacingMultiplier="1.5"
-        android:text="@string/zuri_dms_team_tolstoy"
-        android:textAlignment="viewStart"
-        android:textColor="@color/text_color"
-        android:textSize="60sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primaryColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

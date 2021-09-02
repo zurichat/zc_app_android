@@ -1,19 +1,17 @@
 package com.tolstoy.zurichat.ui.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.tolstoy.zurichat.ui.adapters.HomeFragmentPagerAdapter
-import android.view.MenuItem
-
-import android.widget.Toast
-import androidx.appcompat.widget.Toolbar
 import com.tolstoy.zurichat.R
-
+import com.tolstoy.zurichat.ui.adapters.HomeFragmentPagerAdapter
 
 class HomePageActivity : AppCompatActivity() {
 
@@ -47,6 +45,20 @@ class HomePageActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.home_menu, menu)
+        val menuItem: MenuItem = menu!!.findItem(R.id.search)
+        val searchView: SearchView = menuItem.actionView as SearchView
+        searchView.queryHint = "Search"
+
+        searchView.setOnSearchClickListener {object: SearchView.OnQueryTextListener{
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    return false
+                }
+            }
+        }
         return true
     }
 
@@ -54,6 +66,20 @@ class HomePageActivity : AppCompatActivity() {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
+        when (item.itemId) {
+            R.id.new_channel ->
+                // Do Activity menu item stuff here
+                return true
+            R.id.saved_messages->
+                // Not implemented here
+                return false
+            R.id.settings->
+                // Not implemented here
+                return false
+            else -> {
+            }
+        }
 
         return super.onOptionsItemSelected(item)
     }
