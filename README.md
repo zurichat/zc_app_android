@@ -35,3 +35,5 @@ For a chore: `git commit -m "chore: updated read me to include API endpoints"`<b
 - Screenshots (of your implementation - a web page, a mobile app screen or an API payload
 
 For Fragments, use the already created delegate function `viewBinding()` to use viewBinding. [Read more here](https://zhuinden.medium.com/simple-one-liner-viewbinding-in-fragments-and-activities-with-kotlin-961430c6c07c)
+
+![](https://media.giphy.com/media/FAp1wRRp6qVzqeyBeh/giphy.gif?cid=790b7611230d8d55d51a2daac3369831bd6fc52fb6071b1a&rid=giphy.gif&ct=g)
