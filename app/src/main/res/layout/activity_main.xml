@@ -7,20 +7,10 @@
     android:background="@color/background_color"
     tools:context=".ui.activities.MainActivity">
 
-    <TextView
+    <androidx.viewpager.widget.ViewPager
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        android:ellipsize="end"
-        android:lineSpacingMultiplier="1.5"
-        android:text="@string/zuri_dms_team_tolstoy"
-        android:textAlignment="viewStart"
-        android:textColor="@color/text_color"
-        android:textSize="60sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
