@@ -1,0 +1,15 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <SwitchPreference
+        app:key="channel_tones"
+        app:summary="Play sound for incoming and outgoing
+    message in channels"
+        app:title="Channel tones" />
+    <PreferenceCategory app:title="Messages">
+
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>

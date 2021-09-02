@@ -1,0 +1,23 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory android:title="Media Auto Download">
+        <ListPreference
+            android:defaultValue="1"
+            android:dialogTitle="When using mobile data"
+            android:entries="@array/mobile_data_entries"
+            android:entryValues="@array/mobile_data_values"
+            android:key="list_preference_1"
+            android:selectable="true"
+            android:summary="%s"
+            android:title="When using mobile data" />
+        <ListPreference
+            android:defaultValue="2"
+            android:dialogTitle="When using Wi-Fi"
+            android:entries="@array/wifi_data_entries"
+            android:entryValues="@array/wifi_data_values"
+            android:key="list_preference_2"
+            android:selectable="true"
+            android:summary="%s"
+            android:title="When using Wi-Fi" />
+    </PreferenceCategory>
+</PreferenceScreen>

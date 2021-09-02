@@ -1,0 +1,27 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Preference
+        app:fragment="com.tolstoy.zurichat.ui.settings.SettingsActivity$ChatFragment"
+        app:icon="@drawable/ic_chat"
+        app:key="chat_header"
+        app:title="Chat Settings" />
+
+    <Preference
+        app:fragment="com.tolstoy.zurichat.ui.settings.SettingsActivity$PrivacyAndSecurityFragment"
+        app:icon="@drawable/ic_lock"
+        app:key="security_header"
+        app:title="Privacy and Security" />
+
+    <Preference
+        app:fragment="com.tolstoy.zurichat.ui.settings.SettingsActivity$StorageAndDataFragment"
+        app:icon="@drawable/ic_folder"
+        app:key="storage_header"
+        app:title="Storage and Data" />
+
+    <Preference
+        app:fragment="com.tolstoy.zurichat.ui.settings.SettingsActivity$NotificationAndSounds"
+        app:icon="@drawable/ic_alarm"
+        app:key="notification_header"
+        app:title="Notification and Sounds" />
+
+</PreferenceScreen>

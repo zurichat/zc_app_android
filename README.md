@@ -9,9 +9,9 @@ This is The Android repository for Zuri Chat project.
 
 ## Contributing
 - Fork the project.
-- Clone your own forked repository, run `git clone "https://github.com/[your_github_username]/zc_android.git"`
+- Clone your own forked repository, run `git clone "https://github.com/[your_github_username]/zc_app_android.git"`
 
-Add remote upstream using the command `git remote add origin "https://github.com/zurichat/zc_android.git"`
+Add remote upstream using the command `git remote add upstream "https://github.com/zurichat/zc_app_android.git"`
 
 - run: `git fetch upstream` - You must fetch from develop before or after checkout<br/>
 - run: `git merge upstream/develop` - Merge updates from upstream<br/>
@@ -34,4 +34,4 @@ For a chore: `git commit -m "chore: updated read me to include API endpoints"`<b
 - Any background contexts ? (maybe something a tester might not notice and be useful for testing)
 - Screenshots (of your implementation - a web page, a mobile app screen or an API payload
 
-For Fragments, use the already created delegate function `viewBinding()` to use viewBinding. [Read more here]("https://zhuinden.medium.com/simple-one-liner-viewbinding-in-fragments-and-activities-with-kotlin-961430c6c07c")
+For Fragments, use the already created delegate function `viewBinding()` to use viewBinding. [Read more here](https://zhuinden.medium.com/simple-one-liner-viewbinding-in-fragments-and-activities-with-kotlin-961430c6c07c)
