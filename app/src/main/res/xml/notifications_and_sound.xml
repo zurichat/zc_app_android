@@ -14,6 +14,11 @@
             app:summary="Play sound on new messages"
             app:title="Message tones"/>
 
+        <SwitchPreference
+            app:key="vibrate"
+            app:summary="Vibrate on new messages"
+            app:title="Vibrate" />
+
     </PreferenceCategory>
 
 
