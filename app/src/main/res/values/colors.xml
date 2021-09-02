@@ -19,4 +19,6 @@
     <color name="secondaryDarkColor">#0038a8</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
+
+    <color name="canvas_color">#1A61DB</color>
 </resources>
