@@ -11,6 +11,18 @@
     <color name="background_color">#FFFFFF</color>
     <color name="text_color">#000000</color>
 
+    <color name="primaryColor">#1a61db</color>
+    <color name="primaryLightColor">#678eff</color>
+    <color name="primaryDarkColor">#0038a8</color>
+    <color name="secondaryColor">#1a61db</color>
+    <color name="secondaryLightColor">#678eff</color>
+    <color name="secondaryDarkColor">#0038a8</color>
+    <color name="primaryTextColor">#ffffff</color>
+    <color name="secondaryTextColor">#ffffff</color>
+
+    <color name="canvas_color">#1A61DB</color>
+    <color name="home_background_color">#F6F6F6</color>
+
     <!-- App Colors -->
     <color name="primary_color">#1A61DB</color>
     <color name="navigation_bar_color">#E5E5E5</color>

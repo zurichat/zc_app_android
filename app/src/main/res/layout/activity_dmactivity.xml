@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dmchat"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/body_color"
+    tools:context=".ui.activities.DMActivity">
+
+    <!--region DM Actionbar -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dm_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@color/canvas_color"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/dm_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_back" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/dm_profile_image"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/dm_back"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/dmuser" />
+
+        <TextView
+            android:id="@+id/textview_user_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/lato"
+            android:gravity="start"
+            android:text="John Doe Felix"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textFontWeight="700"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@id/imageView_video"
+            app:layout_constraintStart_toEndOf="@id/dm_profile_image"
+            app:layout_constraintTop_toTopOf="@id/dm_profile_image" />
+
+        <TextView
+            android:id="@+id/textview_user_lastseen"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="@font/lato"
+            android:gravity="start"
+            android:text="last seen at 5:50am"
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/dm_profile_image"
+            app:layout_constraintEnd_toStartOf="@id/imageView_video"
+            app:layout_constraintStart_toEndOf="@id/dm_profile_image"
+            app:layout_constraintTop_toBottomOf="@id/textview_user_name" />
+
+        <!-- region Actions -->
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_more_vert" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView_call"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imageView_more"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_phone" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imageView_call"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_videocam" />
+
+        <!--endregion-->
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!--endregion-->
+
+    <!--region Chat Body-->
+    <ScrollView
+        android:id="@+id/chat_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@id/dm_typing_bar_view"
+        app:layout_constraintTop_toBottomOf="@id/dm_toolbar"></ScrollView>
+    <!--endregion-->
+
+    <!-- region Typing and Attachments-->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dm_typing_bar_view"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <!-- region Emoji Message Pictures & Attachments-->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_typing_layout"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="70dp"
+            app:cardCornerRadius="27dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageView_emoticon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_insert_emoticon" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edittext_message"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="@string/type_a_message"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toStartOf="@id/imageView_attachment"
+                    app:layout_constraintStart_toEndOf="@id/imageView_emoticon" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageView_attachment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:rotation="-45"
+                    android:scaleType="fitXY"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/imageView_photo"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_attach_file" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/imageView_photo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:scaleType="fitXY"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_photo_camera" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <!-- endregion-->
+        <!-- region Voice Note-->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_voiceNote"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:src="@drawable/ic_keyboard_voice"
+            app:backgroundTint="@color/canvas_color"
+            app:fabSize="normal"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/card_typing_layout"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+        <!--endregion-->
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--endregion-->
+
+</androidx.constraintlayout.widget.ConstraintLayout>
