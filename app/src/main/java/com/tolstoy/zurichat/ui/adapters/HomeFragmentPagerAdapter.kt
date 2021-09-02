@@ -23,7 +23,7 @@ class HomeFragmentPagerAdapter(fragmentActivity: FragmentActivity) :
             0 -> fragment = ChatsFragment()
             1 -> fragment = CallsFragment()
         }
-        return fragment!!
+        return ChatsFragment()
     }
 
     override fun getItemCount(): Int {
