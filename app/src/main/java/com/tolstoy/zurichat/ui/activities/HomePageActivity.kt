@@ -11,6 +11,7 @@ import com.tolstoy.zurichat.ui.adapters.HomeFragmentPagerAdapter
 import android.view.MenuItem
 
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import com.tolstoy.zurichat.R
 
 
@@ -20,10 +21,15 @@ class HomePageActivity : AppCompatActivity() {
     private var homeFragmentPagerAdapter: FragmentStateAdapter? = null
     private lateinit var mTabLayout: TabLayout
     private val TAB_TITLES = intArrayOf(R.string.chats, R.string.calls)
+//    private lateinit var mToolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page)
+
+//        mToolbar = findViewById(R.id.toolbar)
+//        setSupportActionBar(mToolbar)
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         mViewPager2 = findViewById(R.id.pager)
         homeFragmentPagerAdapter = HomeFragmentPagerAdapter(this)
