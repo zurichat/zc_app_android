@@ -8,6 +8,7 @@
     <string name="title_text">Title Text</string>
     <string name="next">Next</string>
     <string name="skip_intro">Skip Intro</string>
+    <string name="enter_code">Please enter the code sent to \n <b>nwevopeacechinedu@gmail.com</b> address</string>
     <string name="verification_code">A verification code has been sent to \n peculiarc@gmail.com, please enter the code \n to verify your account.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="skip">Skip</string>
