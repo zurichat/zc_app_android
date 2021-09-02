@@ -1,25 +1,425 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/privacy"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PrivacyFragment">
+    android:background="@drawable/body_color"
+    tools:context=".ui.fragment.PrivacyFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="64dp"
+        android:background="@color/canvas_color"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_arrow_back" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
-
-
+            android:id="@+id/txt_privacy"
+            android:layout_width="327dp"
+            android:layout_height="40dp"
+            android:fontFamily="@font/lato"
+            android:gravity="start"
+            android:text="Privacy  "
+            android:textAlignment="textStart"
+            android:textColor="@color/white"
+            android:textFontWeight="800"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.636"
+            app:layout_constraintStart_toEndOf="@+id/back"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.666" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/privacy_info"
+        android:layout_width="246dp"
+        android:layout_height="23dp"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/lato"
+        android:gravity="start"
+        android:text="Who can see my personal info  "
+        android:textAlignment="textStart"
+        android:textColor="@color/canvas_color"
+        android:textFontWeight="500"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tool_bar"
+        app:layout_constraintVertical_bias="0.024" />
+
+    <TextView
+        android:id="@+id/privacy_info1"
+        android:layout_width="274dp"
+        android:layout_height="36dp"
+        android:layout_marginTop="1dp"
+        android:fontFamily="@font/lato"
+        android:gravity="start"
+        android:text="If you don't share your Last seen, you won't be able to see other people's Last seen  "
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy_info"
+        app:layout_constraintVertical_bias="0.0" />
 
 
-</ScrollView>
+    <TextView
+        android:id="@+id/privacy_info2"
+        android:layout_width="99dp"
+        android:layout_height="19dp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/lato"
+        android:gravity="start"
+        android:text="Last Seen  "
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textFontWeight="500"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.026"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy_info1"
+        app:layout_constraintVertical_bias="0.003" />
+
+    <TextView
+        android:id="@+id/privacy_info3"
+        android:layout_width="123dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="1dp"
+        android:fontFamily="@font/lato"
+        android:gravity="start"
+        android:text="My contacts "
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.026"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy_info2"
+        app:layout_constraintVertical_bias="0.019" />
+
+    <TextView
+        android:id="@+id/privacy_info4"
+        android:layout_width="100dp"
+        android:layout_height="25dp"
+        android:fontFamily="@font/lato"
+        android:gravity="start"
+        android:text=" Profile photo "
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.022"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy_info3"
+        app:layout_constraintVertical_bias="0.031" />
+
+
+    <TextView
+        android:id="@+id/privacy_info5"
+        android:layout_width="123dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="1dp"
+        android:fontFamily="@font/lato"
+        android:gravity="start"
+        android:text="My contacts "
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy_info4"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/privacy_info6"
+        android:layout_width="62dp"
+        android:layout_height="26dp"
+        android:fontFamily="@font/lato"
+        android:gravity="start"
+        android:text=" About  "
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.022"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy_info5"
+        app:layout_constraintVertical_bias="0.023" />
+
+    <TextView
+        android:id="@+id/privacy_info7"
+        android:layout_width="123dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="1dp"
+        android:fontFamily="@font/lato"
+        android:gravity="start"
+        android:text="My contacts "
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy_info6"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/privacy_info8"
+        android:layout_width="62dp"
+        android:layout_height="26dp"
+        android:fontFamily="@font/lato"
+        android:gravity="start"
+        android:text=" Status  "
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.022"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy_info7"
+        app:layout_constraintVertical_bias="0.034" />
+
+
+    <TextView
+        android:id="@+id/privacy_info9"
+        android:layout_width="123dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="1dp"
+        android:fontFamily="@font/lato"
+        android:gravity="start"
+        android:text="My contacts "
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy_info8"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/privacy_info10"
+        android:layout_width="99dp"
+        android:layout_height="23dp"
+        android:fontFamily="@font/lato"
+        android:gravity="start"
+        android:text=" Read receipt  "
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.025"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy_info9"
+        app:layout_constraintVertical_bias="0.06" />
+
+    <TextView
+        android:id="@+id/privacy_info11"
+        android:layout_width="224dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="1dp"
+        android:fontFamily="@font/lato"
+        android:gravity="start"
+        android:text="If turned off, you won't send or receive Read receipts. Read receipts are always sent for channels "
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.042"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy_info10"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch1"
+        android:layout_width="52dp"
+        android:layout_height="48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.931"
+        app:layout_constraintStart_toEndOf="@+id/privacy_info10"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.582" />
+
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="459dp"
+        android:layout_height="3dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tool_bar"
+        app:layout_constraintVertical_bias="0.645" />
+
+    <TextView
+        android:id="@+id/privacy_info12"
+        android:layout_width="88dp"
+        android:layout_height="21dp"
+        android:fontFamily="@font/lato"
+        android:gravity="start"
+        android:text=" Channels  "
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy_info11"
+        app:layout_constraintVertical_bias="0.142" />
+
+    <TextView
+        android:id="@+id/privacy_info13"
+        android:layout_width="123dp"
+        android:layout_height="25dp"
+        android:fontFamily="@font/lato"
+        android:gravity="start"
+        android:text="My contacts "
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy_info12"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/privacy_info14"
+        android:layout_width="128dp"
+        android:layout_height="28dp"
+        android:fontFamily="@font/lato"
+        android:gravity="start"
+        android:text=" Live locations  "
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy_info13"
+        app:layout_constraintVertical_bias="0.09" />
+
+    <TextView
+        android:id="@+id/privacy_info15"
+        android:layout_width="54dp"
+        android:layout_height="26dp"
+        android:fontFamily="@font/lato"
+        android:gravity="start"
+        android:text="No one  "
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/privacy_info16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.055"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy_info14"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/privacy_info16"
+        android:layout_width="88dp"
+        android:layout_height="21dp"
+        android:fontFamily="@font/lato"
+        android:gravity="start"
+        android:text=" Blocked contacts  "
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/privacy_info18"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.054"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy_info14"
+        app:layout_constraintVertical_bias="0.36" />
+
+    <TextView
+        android:id="@+id/privacy_info17"
+        android:layout_width="33dp"
+        android:layout_height="23dp"
+        android:fontFamily="@font/lato"
+        android:gravity="start"
+        android:text="0  "
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toTopOf="@+id/privacy_info18"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy_info16"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/privacy_info18"
+        android:layout_width="157dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="70dp"
+        android:fontFamily="@font/lato"
+        android:gravity="start"
+        android:text=" Fingerprints lock  "
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.063"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy_info14"
+        app:layout_constraintVertical_bias="0.225" />
+
+    <TextView
+        android:id="@+id/privacy_info19"
+        android:layout_width="166dp"
+        android:layout_height="24dp"
+        android:fontFamily="@font/lato"
+        android:gravity="start"
+        android:text="Enable after 1 minute   "
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy_info18"
+        app:layout_constraintVertical_bias="0.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
