@@ -201,6 +201,19 @@
             app:layout_constraintStart_toEndOf="@id/card_typing_layout"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_send_text"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:src="@drawable/ic_send"
+            app:backgroundTint="@color/canvas_color"
+            app:fabSize="normal"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/card_typing_layout"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
         <!--endregion-->
 
 
