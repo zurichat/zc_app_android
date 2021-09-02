@@ -65,5 +65,6 @@
     <string name="font_size_default">Medium</string>
     <string name="chat_backup">Chat backup</string>
     <string name="chat_history">Chat history</string>
+    <string name="string_manage_storage">Manage Storage</string>
 
 </resources>

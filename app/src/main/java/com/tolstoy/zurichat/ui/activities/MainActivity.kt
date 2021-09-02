@@ -1,7 +1,10 @@
 package com.tolstoy.zurichat.ui.activities
 
+
 import android.graphics.Color
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
@@ -36,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
         mTopToolbar = findViewById(R.id.my_toolbar)
         setSupportActionBar(mTopToolbar)
         mViewPager2 = findViewById(R.id.pager)
@@ -102,6 +106,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+
     }
 
     private inline fun <T : ViewBinding> AppCompatActivity.viewBinding(
