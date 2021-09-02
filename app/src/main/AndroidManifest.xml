@@ -33,6 +33,7 @@
     </activity>
 
     <activity
+
             android:name=".ui.slider.SliderActivity"
             android:exported="true" />
         <activity
