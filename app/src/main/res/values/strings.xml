@@ -47,5 +47,24 @@
     <string name="profile_image">Profile image</string>
     <string name="chats">CHATS</string>
     <string name="calls">CALLS</string>
+    <string name="title_activity_notification">Notification</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <!-- Notification -->
+    <string name="notification_channel_title">Channel tones</string>
+    <string name="notification_channel_text">Play sound for incoming and outgoing message in channels</string>
+    <string name="message">Messages</string>
+    <string name="notification_message_title">Message tone</string>
+    <string name="notification_message_text">Play sound on new messages</string>
+    <string name="notification_vibrate_title">Vibrate</string>
+    <string name="notification_vibrate_text">Vibrate on new messages</string>
+    <string name="notification_priority_title">High priority notifications</string>
+    <string name="notification_priority_text">Display preview of notification at the top of the screen.</string>
 
 </resources>

@@ -10,14 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZuriChat">
         <activity
+            android:name=".ui.settings.Notification"
+            android:exported="true"
+            android:label="@string/title_activity_notification"
+            android:theme="@style/Theme.ZuriChat.NoActionBar" />
+        <activity
             android:name=".ui.activities.DMActivity"
-            android:exported="true">
-        </activity>
-
+            android:exported="true" />
         <activity
             android:name=".ui.activities.HomePageActivity"
-            android:exported="true"/>
-
+            android:exported="true" />
         <activity
             android:name=".ui.otp.OTP_Page"
             android:exported="true" />
