@@ -25,7 +25,7 @@
         <activity
             android:name=".ui.settings.ManageStorageActivity"
             android:exported="true"
-            android:label="Manage Storage"
+            android:label="@string/string_manage_storage"
             android:parentActivityName=".ui.settings.ManageStorageActivity"
             android:theme="@style/Theme.ZuriChat.Settings" />
         <activity
