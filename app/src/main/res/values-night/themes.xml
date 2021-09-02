@@ -32,8 +32,5 @@
         <item name="android:navigationBarColor" tools:targetApi="l">#E5E5E5</item>
         <!-- Customize your theme here. -->
     </style>
-    <style name="ThemeOverlay.ZuriChat.FullscreenContainer" parent="">
-        <item name="fullscreenBackgroundColor">@color/light_blue_900</item>
-        <item name="fullscreenTextColor">@color/light_blue_A400</item>
-    </style>
+
 </resources>
