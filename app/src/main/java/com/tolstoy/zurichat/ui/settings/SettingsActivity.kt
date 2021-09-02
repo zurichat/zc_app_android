@@ -1,7 +1,10 @@
 package com.tolstoy.zurichat.ui.settings
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.tolstoy.zurichat.R
@@ -14,6 +17,12 @@ class SettingsActivity : AppCompatActivity(),
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
+
+        val profileContainer = findViewById<ConstraintLayout>(R.id.profile_container)
+        val manageStorageContainer = findViewById<ConstraintLayout>(R.id.manage_storage_container)
+        val networkUsageContainer = findViewById<ConstraintLayout>(R.id.network_usage_container)
+        val divider = findViewById<View>(R.id.divider);
+
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.settings, SettingsFragment()).commit()
         } else {
@@ -22,6 +31,10 @@ class SettingsActivity : AppCompatActivity(),
         supportFragmentManager.addOnBackStackChangedListener {
             if (supportFragmentManager.backStackEntryCount == 0) {
                 setTitle(R.string.title_activity_settings)
+                profileContainer.visibility = View.VISIBLE
+                manageStorageContainer.visibility = View.GONE
+                networkUsageContainer.visibility = View.GONE
+                divider.visibility = View.VISIBLE
             }
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -56,6 +69,77 @@ class SettingsActivity : AppCompatActivity(),
     class SettingsFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.settings_preferences, rootKey)
+
+            val chatSettings = findPreference<Preference>("chat_header")
+            val securitySettings = findPreference<Preference>("security_header")
+            val storageSettings = findPreference<Preference>("storage_header")
+            val notificationSettings = findPreference<Preference>("notification_header")
+
+            val profileContainer = activity?.findViewById<ConstraintLayout>(R.id.profile_container)
+            val manageStorageContainer = activity?.findViewById<ConstraintLayout>(R.id.manage_storage_container)
+            val networkUsageContainer = activity?.findViewById<ConstraintLayout>(R.id.network_usage_container)
+            val divider = activity?.findViewById<View>(R.id.divider);
+
+            chatSettings!!.setOnPreferenceClickListener {
+                if (profileContainer != null) {
+                    profileContainer.visibility = View.GONE
+                }
+                if (manageStorageContainer != null) {
+                    manageStorageContainer.visibility = View.GONE
+                }
+                if (networkUsageContainer != null) {
+                    networkUsageContainer.visibility = View.GONE
+                }
+                if (divider!=null){
+                    divider.visibility = View.GONE
+                }
+                false
+            }
+
+            securitySettings!!.setOnPreferenceClickListener {
+                if (profileContainer != null) {
+                    profileContainer.visibility = View.GONE
+                }
+                if (manageStorageContainer != null) {
+                    manageStorageContainer.visibility = View.GONE
+                }
+                if (networkUsageContainer != null) {
+                    networkUsageContainer.visibility = View.GONE
+                }
+                if (divider!=null){
+                    divider.visibility = View.GONE
+                }
+                false
+            }
+
+            storageSettings!!.setOnPreferenceClickListener {
+                if (profileContainer != null) {
+                    profileContainer.visibility = View.GONE
+                }
+                if (manageStorageContainer != null) {
+                    manageStorageContainer.visibility = View.VISIBLE
+                }
+                if (networkUsageContainer != null) {
+                    networkUsageContainer.visibility = View.VISIBLE
+                }
+                false
+            }
+
+            notificationSettings!!.setOnPreferenceClickListener {
+                if (profileContainer != null) {
+                    profileContainer.visibility = View.GONE
+                }
+                if (manageStorageContainer != null) {
+                    manageStorageContainer.visibility = View.GONE
+                }
+                if (networkUsageContainer != null) {
+                    networkUsageContainer.visibility = View.GONE
+                }
+                if (divider!=null){
+                    divider.visibility = View.GONE
+                }
+                false
+            }
         }
     }
 
