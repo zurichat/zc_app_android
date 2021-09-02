@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.ZuriChat" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primaryColor</item>
-        <item name="colorPrimaryVariant">@color/primaryColor</item>
-        <item name="colorOnPrimary">@color/primaryTextColor</item>
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryVariant">@color/primary_color</item>
+        <item name="colorOnPrimary">@color/primary_text_color</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/secondaryColor</item>
-        <item name="colorSecondaryVariant">@color/secondaryColor</item>
-        <item name="colorOnSecondary">@color/secondaryTextColor</item>
+        <item name="colorSecondary">@color/secondary_color</item>
+        <item name="colorSecondaryVariant">@color/secondary_color</item>
+        <item name="colorOnSecondary">@color/secondary_text_color</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/primaryColor</item>
         <!--<item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
@@ -31,7 +31,6 @@
         <item name="lineHeight">12sp</item>
         <item name="android:textColor">@color/message_sent_time</item>
     </style>
-
     <style name="MessageItem.Checkmark">
         <item name="tint">@color/message_checkmark_unread</item>
         <item name="android:layout_height">7sp</item>
@@ -44,7 +43,6 @@
         <item name="tabTextAppearance">@style/TabCustomTextAppearance</item>
         <item name="tabSelectedTextColor">@android:color/white</item>
     </style>
-
 
     <style name="TabCustomTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">15sp</item>
