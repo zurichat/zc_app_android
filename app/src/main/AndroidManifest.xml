@@ -11,13 +11,14 @@
         android:theme="@style/Theme.ZuriChat">
 
         <activity
+            android:name=".ui.emailverified.EmailVerifiedActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.activities.ChannelChatActivity"
             android:exported="true" />
-
         <activity
             android:name=".ui.activities.DMActivity"
-            android:exported="true"/>
-
+            android:exported="true" />
         <activity
             android:name=".ui.activities.HomePageActivity"
             android:exported="true" />
