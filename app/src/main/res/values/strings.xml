@@ -39,5 +39,13 @@
     <string name="manage_storage">Manage Storage</string>
     <string name="network_usage">Network usage</string>
     <string name="type_a_message">Type a message</string>
+    <string name="search">Search</string>
+    <string name="new_channel">New Channel</string>
+    <string name="saved_messages">Saved Messages</string>
+    <string name="settings">Settings</string>
+    <string name="zuri">ZURI</string>
+    <string name="profile_image">Profile image</string>
+    <string name="chats">CHATS</string>
+    <string name="calls">CALLS</string>
 
 </resources>

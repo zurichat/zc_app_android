@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/search"
+        android:title="@string/search"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="collapseActionView|ifRoom"
+        app:actionViewClass="android.widget.SearchView"
+        android:visible="true"/>
+    <item android:id="@+id/new_channel"
+        android:title="@string/new_channel"
+        android:visible="true"/>
+    <item android:id="@+id/saved_messages"
+        android:title="@string/saved_messages"
+        android:visible="true"/>
+    <item android:id="@+id/settings"
+        android:title="@string/settings"
+        android:visible="true"/>
+
+</menu>
