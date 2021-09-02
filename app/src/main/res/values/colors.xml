@@ -19,4 +19,10 @@
     <color name="secondaryDarkColor">#0038a8</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
+
+    <color name="grey">#43DBDBDB</color>
+    <color name="blueish_grey">#B8CCEA</color>
+    <color name="teal_500">#027B6F</color>
+
+
 </resources>
