@@ -11,6 +11,7 @@ import com.tolstoy.zurichat.ui.adapters.HomeFragmentPagerAdapter
 import android.view.MenuItem
 
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import com.tolstoy.zurichat.R
 
 
@@ -19,6 +20,7 @@ class HomePageActivity : AppCompatActivity() {
     private lateinit var mViewPager2: ViewPager2
     private var homeFragmentPagerAdapter: FragmentStateAdapter? = null
     private lateinit var mTabLayout: TabLayout
+    private var mTopToolbar: Toolbar? = null
     private val TAB_TITLES = intArrayOf(R.string.chats, R.string.calls)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +30,8 @@ class HomePageActivity : AppCompatActivity() {
         mViewPager2 = findViewById(R.id.pager)
         homeFragmentPagerAdapter = HomeFragmentPagerAdapter(this)
         mViewPager2.adapter = homeFragmentPagerAdapter
+        mTopToolbar = findViewById(R.id.my_toolbar)
+        setSupportActionBar(mTopToolbar)
 
         mTabLayout = findViewById(R.id.tabs)
 
@@ -40,8 +44,18 @@ class HomePageActivity : AppCompatActivity() {
         }.attach()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.home_menu, menu)
         return true
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        return super.onOptionsItemSelected(item)
+    }
+
 }
