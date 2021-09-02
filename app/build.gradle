@@ -118,6 +118,4 @@ dependencies {
     //Lottie
     implementation 'com.airbnb.android:lottie:4.1.0'
 
-    //dots indicator for the viewpager
-    implementation 'com.tbuonomo:dotsindicator:4.2'
 }

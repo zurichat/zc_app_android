@@ -17,8 +17,7 @@ import android.view.animation.ScaleAnimation;
 import android.widget.Toast;
 
 import com.tolstoy.zurichat.R;
-import com.tolstoy.zurichat.ui.onboarding.OnboardingScreenActivity;
-import com.tolstoy.zurichat.ui.slider.SliderActivity;
+import com.tolstoy.zurichat.ui.login.LoginActivity;
 
 public class SplashActivity extends AppCompatActivity implements Animation.AnimationListener {
 
@@ -39,7 +38,7 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
             public void run() {
                 try {
                     sleep(6000);
-                    Intent i = new Intent(getBaseContext(), OnboardingScreenActivity.class);
+                    Intent i = new Intent(getBaseContext(), LoginActivity.class);
                     startActivity(i);
                     finish();
                 } catch (Exception ignored) {}
