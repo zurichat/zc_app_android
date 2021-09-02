@@ -17,4 +17,22 @@
     </style>
 
     <style name="Theme.ZuriChat.Settings" parent="Theme.MaterialComponents.DayNight.DarkActionBar"/>
+
+    <style name="MessageItem" parent="Widget.MaterialComponents.TextView">
+        <item name="fontFamily">@font/lato_regular</item>
+        <item name="android:textSize">14sp</item>
+        <item name="lineHeight">22sp</item>
+        <item name="android:textColor">@color/message_content</item>
+    </style>
+    <style name="MessageItem.Time">
+        <item name="fontFamily">@font/roboto_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="lineHeight">12sp</item>
+        <item name="android:textColor">@color/message_sent_time</item>
+    </style>
+    <style name="MessageItem.Checkmark">
+        <item name="tint">@color/message_checkmark_unread</item>
+        <item name="android:layout_height">7sp</item>
+        <item name="android:layout_width">12sp</item>
+    </style>
 </resources>
