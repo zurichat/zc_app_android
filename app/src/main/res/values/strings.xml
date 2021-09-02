@@ -38,5 +38,6 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="manage_storage">Manage Storage</string>
     <string name="network_usage">Network usage</string>
+    <string name="type_a_message">Type a message</string>
 
 </resources>
