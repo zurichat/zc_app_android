@@ -23,18 +23,18 @@
             android:name=".ui.otp.OTP_Page"
             android:exported="true" />
         <activity
+            android:name=".ui.settings.ManageStorageActivity"
+            android:exported="true"
+            android:label="Manage Storage"
+            android:parentActivityName=".ui.settings.ManageStorageActivity"
+            android:theme="@style/Theme.ZuriChat.Settings" />
+        <activity
             android:name=".ui.settings.SettingsActivity"
             android:exported="true"
             android:label="@string/title_activity_settings"
             android:theme="@style/Theme.ZuriChat.Settings" />
         <activity
-            android:name=".ui.onboarding.OnboardingScreenActivity"
-            android:exported="true" />
-        <activity
             android:name=".ui.verifyemail.VerifyEmailActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.slider.SliderActivity"
             android:exported="true" />
         <activity
             android:name=".ui.login.LoginActivity"
