@@ -1,23 +1,23 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory
-        app:title="@string/display_header"
+        android:layout_height="match_parent"
         app:iconSpaceReserved="false"
-        >
+        app:title="@string/display_header">
 
         <ListPreference
             app:defaultValue="sys_default"
+            app:dialogTitle="@string/theme_dialog"
             app:entries="@array/themes"
             app:entryValues="@array/theme_values"
+            app:icon="@drawable/theme_icon"
             app:key="theme"
             app:title="@string/theme"
-            app:icon="@drawable/theme_icon"
-            app:dialogTitle="@string/theme_dialog"
             app:useSimpleSummaryProvider="true" />
         <Preference
-            app:title="@string/Wallpaper"
-            app:icon="@drawable/wallpaper_icon"
             app:allowDividerBelow="true"
-            />
+            app:icon="@drawable/wallpaper_icon"
+            app:title="@string/Wallpaper" />
     </PreferenceCategory>
 
     <PreferenceCategory

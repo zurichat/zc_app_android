@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <PreferenceCategory
+            android:layout_height="match_parent"
+            app:iconSpaceReserved="false"
+            android:title="Chat Backup">
+
+            <ListPreference
+                android:defaultValue="1"
+                android:entries="@array/fonts"
+                android:entryValues="@array/fonts"
+                android:icon="@drawable/backup_icon_"
+                android:key="list_preference_1"
+                android:title="Back up"
+                app:summary="Back up your messages and media to Google Drive,
+                                your messages will also back up to your phone's internal storage."
+                />
+
+        </PreferenceCategory>
+    <PreferenceCategory
+        android:layout_height="match_parent"
+        app:iconSpaceReserved="false"
+        android:icon="@drawable/sync"
+        android:title="Sync Settings">
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/fonts"
+            android:entryValues="@array/fonts"
+            android:key="list_preference_1"
+            android:title="Sync with Google Drive"
+            app:summary="Weekly"/>
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/fonts"
+            android:entryValues="@array/fonts"
+            android:key="list_preference_1"
+            android:title="My Google Account"
+            app:summary="johndoe@gmail.com"/>
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/fonts"
+            android:entryValues="@array/fonts"
+            android:key="list_preference_1"
+            android:title="Sync over"
+            app:summary="WI-FI only"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

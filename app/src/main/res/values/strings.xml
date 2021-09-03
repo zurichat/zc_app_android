@@ -80,6 +80,11 @@
 
     <string name="no_item_here_txt">Sorry, you do not have any \nitem here.</string>
     <string name="title_activity_chat_backup">ChatBackupActivity</string>
+    <string name="history_preference_header">Chat History</string>
+    <string name="export_chat">Export chat</string>
+    <string name="archive_chat">Archive all chats</string>
+    <string name="clear_chat">Clear all chats</string>
+    <string name="delete_chat">Delete all chats</string>
 
 
 </resources>

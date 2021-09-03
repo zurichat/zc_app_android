@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:layout_height="match_parent"
+        app:iconSpaceReserved="false"
+        app:title="@string/history_preference_header">
+
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/fonts"
+            android:entryValues="@array/fonts"
+            android:icon="@drawable/backup_icon_"
+            android:key="list_preference_1"
+            android:title="@string/export_chat" />
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/fonts"
+            android:entryValues="@array/fonts"
+            android:icon="@drawable/ic_folder"
+            android:key="list_preference_1"
+            android:title="@string/archive_chat" />
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/fonts"
+            android:entryValues="@array/font_values"
+            android:icon="@drawable/chat_history_icon"
+            android:key="list_preference_1"
+            android:title="@string/clear_chat" />
+        <ListPreference
+            android:defaultValue="1"
+            android:dialogIcon="@color/background_color"
+            android:entries="@array/fonts"
+            android:entryValues="@array/fonts"
+            android:icon="@drawable/ic_network"
+            android:key="list_preference_1"
+            android:title="@string/delete_chat" />
+    </PreferenceCategory>
+</PreferenceScreen>
