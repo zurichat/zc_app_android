@@ -70,8 +70,11 @@
     <string name="chat_history">Chat history</string>
     <string name="string_manage_storage">Manage Storage</string>
     <string name="profile_activity">Profile</string>
-
+    <string name="delete_txt">delete</string>
+    <string name="save_txt">save</string>
+    <string name="larger_items_or_no_items_string">No Item here</string>
     <!-- Theme Selection -->
     <string name="prefsThemesList_default">none</string>
+    <string name="no_item_here_txt">Sorry, you do not have any \nitem here.</string>
 
 </resources>
