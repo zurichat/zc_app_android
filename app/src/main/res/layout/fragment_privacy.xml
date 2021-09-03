@@ -46,21 +46,20 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
     <TextView
         android:id="@+id/privacy_info"
         android:layout_width="246dp"
         android:layout_height="23dp"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="7dp"
         android:fontFamily="@font/lato"
-        android:gravity="start"
         android:text="Who can see my personal info  "
-        android:textAlignment="textStart"
         android:textColor="@color/canvas_color"
-        android:textFontWeight="500"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/privacy_info1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.048"
+        app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tool_bar"
         app:layout_constraintVertical_bias="0.024" />
@@ -76,13 +75,12 @@
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/privacy_info2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.058"
+        app:layout_constraintHorizontal_bias="0.116"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/privacy_info"
         app:layout_constraintVertical_bias="0.0" />
-
 
     <TextView
         android:id="@+id/privacy_info2"
@@ -96,9 +94,9 @@
         android:textColor="@color/black"
         android:textFontWeight="500"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/privacy_info3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.026"
+        app:layout_constraintHorizontal_bias="0.051"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/privacy_info1"
         app:layout_constraintVertical_bias="0.003" />
@@ -114,9 +112,9 @@
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/privacy_info4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.026"
+        app:layout_constraintHorizontal_bias="0.055"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/privacy_info2"
         app:layout_constraintVertical_bias="0.019" />
@@ -131,13 +129,12 @@
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/privacy_info5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.022"
+        app:layout_constraintHorizontal_bias="0.048"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/privacy_info3"
         app:layout_constraintVertical_bias="0.031" />
-
 
     <TextView
         android:id="@+id/privacy_info5"
@@ -150,9 +147,9 @@
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/privacy_info6"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintHorizontal_bias="0.055"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/privacy_info4"
         app:layout_constraintVertical_bias="0.0" />
@@ -167,9 +164,9 @@
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/privacy_info7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.022"
+        app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/privacy_info5"
         app:layout_constraintVertical_bias="0.023" />
@@ -185,9 +182,9 @@
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/privacy_info8"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintHorizontal_bias="0.055"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/privacy_info6"
         app:layout_constraintVertical_bias="0.0" />
@@ -202,13 +199,12 @@
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/privacy_info9"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.022"
+        app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/privacy_info7"
         app:layout_constraintVertical_bias="0.034" />
-
 
     <TextView
         android:id="@+id/privacy_info9"
@@ -221,9 +217,9 @@
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/privacy_info10"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.027"
+        app:layout_constraintHorizontal_bias="0.055"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/privacy_info8"
         app:layout_constraintVertical_bias="0.0" />
@@ -238,9 +234,9 @@
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/privacy_info11"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.025"
+        app:layout_constraintHorizontal_bias="0.051"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/privacy_info9"
         app:layout_constraintVertical_bias="0.06" />
@@ -249,19 +245,165 @@
         android:id="@+id/privacy_info11"
         android:layout_width="224dp"
         android:layout_height="45dp"
-        android:layout_marginTop="1dp"
         android:fontFamily="@font/lato"
         android:gravity="start"
         android:text="If turned off, you won't send or receive Read receipts. Read receipts are always sent for channels "
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.042"
+        app:layout_constraintHorizontal_bias="0.085"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/privacy_info10"
         app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@id/layout"
+        android:layout_width="411dp"
+        android:layout_height="288dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tool_bar"
+        app:layout_constraintVertical_bias="0.992">
+
+        <TextView
+            android:id="@+id/privacy_info12"
+            android:layout_width="88dp"
+            android:layout_height="21dp"
+            android:fontFamily="@font/lato"
+            android:gravity="start"
+            android:text=" Channels  "
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/privacy_info13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.049"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/privacy_info13"
+            android:layout_width="123dp"
+            android:layout_height="25dp"
+            android:fontFamily="@font/lato"
+            android:gravity="start"
+            android:text="My contacts "
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/privacy_info14"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.055"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/privacy_info12"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/privacy_info14"
+            android:layout_width="128dp"
+            android:layout_height="28dp"
+            android:fontFamily="@font/lato"
+            android:gravity="start"
+            android:text=" Live locations  "
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/privacy_info15"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.053"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/privacy_info13"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/privacy_info15"
+            android:layout_width="54dp"
+            android:layout_height="26dp"
+            android:fontFamily="@font/lato"
+            android:gravity="start"
+            android:text="No one  "
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/privacy_info16"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.044"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/privacy_info14" />
+
+        <TextView
+            android:id="@+id/privacy_info16"
+            android:layout_width="159dp"
+            android:layout_height="26dp"
+            android:fontFamily="@font/lato"
+            android:gravity="start"
+            android:text=" Blocked contacts  "
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/privacy_info17"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.055"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/privacy_info15"
+            app:layout_constraintVertical_bias="0.486" />
+
+        <TextView
+            android:id="@+id/privacy_info17"
+            android:layout_width="33dp"
+            android:layout_height="23dp"
+            android:fontFamily="@font/lato"
+            android:gravity="start"
+            android:text="0  "
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@+id/privacy_info18"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.042"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/privacy_info16"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/privacy_info18"
+            android:layout_width="157dp"
+            android:layout_height="28dp"
+            android:fontFamily="@font/lato"
+            android:gravity="start"
+            android:text=" Fingerprints lock  "
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/privacy_info19"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.055"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/privacy_info17" />
+
+        <TextView
+            android:id="@+id/privacy_info19"
+            android:layout_width="168dp"
+            android:layout_height="27dp"
+            android:layout_marginBottom="24dp"
+            android:fontFamily="@font/lato"
+            android:gravity="start"
+            android:text="Enable after 1 minute   "
+            android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.065"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/privacy_info18" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switch1"
@@ -269,157 +411,23 @@
         android:layout_height="48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.931"
+        app:layout_constraintHorizontal_bias="0.94"
         app:layout_constraintStart_toEndOf="@+id/privacy_info10"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.582" />
+        app:layout_constraintVertical_bias="0.499" />
 
     <View
-        android:id="@+id/divider2"
-        android:layout_width="459dp"
-        android:layout_height="3dp"
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="70dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tool_bar"
-        app:layout_constraintVertical_bias="0.645" />
-
-    <TextView
-        android:id="@+id/privacy_info12"
-        android:layout_width="88dp"
-        android:layout_height="21dp"
-        android:fontFamily="@font/lato"
-        android:gravity="start"
-        android:text=" Channels  "
-        android:textAlignment="textStart"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/privacy_info11"
-        app:layout_constraintVertical_bias="0.142" />
+        app:layout_constraintVertical_bias="1.0" />
 
-    <TextView
-        android:id="@+id/privacy_info13"
-        android:layout_width="123dp"
-        android:layout_height="25dp"
-        android:fontFamily="@font/lato"
-        android:gravity="start"
-        android:text="My contacts "
-        android:textAlignment="textStart"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/privacy_info12"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/privacy_info14"
-        android:layout_width="128dp"
-        android:layout_height="28dp"
-        android:fontFamily="@font/lato"
-        android:gravity="start"
-        android:text=" Live locations  "
-        android:textAlignment="textStart"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.058"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/privacy_info13"
-        app:layout_constraintVertical_bias="0.09" />
-
-    <TextView
-        android:id="@+id/privacy_info15"
-        android:layout_width="54dp"
-        android:layout_height="26dp"
-        android:fontFamily="@font/lato"
-        android:gravity="start"
-        android:text="No one  "
-        android:textAlignment="textStart"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/privacy_info16"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.055"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/privacy_info14"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/privacy_info16"
-        android:layout_width="88dp"
-        android:layout_height="21dp"
-        android:fontFamily="@font/lato"
-        android:gravity="start"
-        android:text=" Blocked contacts  "
-        android:textAlignment="textStart"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/privacy_info18"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.054"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/privacy_info14"
-        app:layout_constraintVertical_bias="0.36" />
-
-    <TextView
-        android:id="@+id/privacy_info17"
-        android:layout_width="33dp"
-        android:layout_height="23dp"
-        android:fontFamily="@font/lato"
-        android:gravity="start"
-        android:text="0  "
-        android:textAlignment="textStart"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toTopOf="@+id/privacy_info18"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/privacy_info16"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/privacy_info18"
-        android:layout_width="157dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="70dp"
-        android:fontFamily="@font/lato"
-        android:gravity="start"
-        android:text=" Fingerprints lock  "
-        android:textAlignment="textStart"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.063"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/privacy_info14"
-        app:layout_constraintVertical_bias="0.225" />
-
-    <TextView
-        android:id="@+id/privacy_info19"
-        android:layout_width="166dp"
-        android:layout_height="24dp"
-        android:fontFamily="@font/lato"
-        android:gravity="start"
-        android:text="Enable after 1 minute   "
-        android:textAlignment="textStart"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.068"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/privacy_info18"
-        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
