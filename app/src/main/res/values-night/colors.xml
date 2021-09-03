@@ -11,10 +11,10 @@
     <color name="background_color">#000000</color>
     <color name="text_color">#FFFFFF</color>
 
-    <color name="primaryColor">#1a61db</color>
+    <color name="primaryColor">#000000</color>
     <color name="primaryLightColor">#678eff</color>
     <color name="primaryDarkColor">#0038a8</color>
-    <color name="secondaryColor">#1a61db</color>
+    <color name="secondaryColor">#132442</color>
     <color name="secondaryLightColor">#678eff</color>
     <color name="secondaryDarkColor">#0038a8</color>
     <color name="primaryTextColor">#ffffff</color>

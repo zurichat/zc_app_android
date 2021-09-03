@@ -1,5 +1,6 @@
 package com.tolstoy.zurichat.ui.settings
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -83,6 +84,11 @@ class SettingsActivity : AppCompatActivity(),
             val manageStorageContainer = activity?.findViewById<ConstraintLayout>(R.id.manage_storage_container)
             val networkUsageContainer = activity?.findViewById<ConstraintLayout>(R.id.network_usage_container)
             val divider = activity?.findViewById<View>(R.id.divider);
+
+            //make manage storage container clickable
+            manageStorageContainer?.setOnClickListener {
+                startActivity(Intent(activity, ManageStorageActivity::class.java))
+            }
 
             chatSettings!!.setOnPreferenceClickListener {
                 if (profileContainer != null) {
@@ -180,6 +186,8 @@ class SettingsActivity : AppCompatActivity(),
     class StorageAndDataFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.storage_and_data_preferences, rootKey)
+
+
         }
     }
 
