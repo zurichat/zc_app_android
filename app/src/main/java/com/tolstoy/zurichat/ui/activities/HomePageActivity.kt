@@ -31,7 +31,7 @@ class HomePageActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home_page)
 //        mToolbar = findViewById(R.id.toolbar)
 //        setSupportActionBar(mToolbar)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.my_toolbar))
 
         // This setups application theme to value stored in sharedPref
         setUpApplicationTheme(this)
