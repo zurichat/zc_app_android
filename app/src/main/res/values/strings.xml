@@ -73,4 +73,14 @@
     <!-- Theme Selection -->
     <string name="prefsThemesList_default">none</string>
 
+
+    <!--    dummy chat string resource-->
+    <string name="chat_item_mary_value">Mary Basset</string>
+    <string name="chat_item_luxanne_value">Luxanne</string>
+    <string name="chat_item_druids">Druids</string>
+    <string name="chat_item_kolade_value">Kolade</string>
+    <string name="chat_item_subomi_value">Subomi Dare</string>
+    <string name="chat_item_dummy_message_hey">Hey, what’s good</string>
+    <string name="chat_item_dummy_time">10:00</string>
+
 </resources>

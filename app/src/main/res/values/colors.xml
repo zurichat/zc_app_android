@@ -30,4 +30,6 @@
     <color name="divider_white">#D4D4D4</color>
     <color name="preference_name_color">#3A3A3A</color>
     <color name="onboarding_black">#000000</color>
+
+    <color name="lightGray">#A6A6A6</color>
 </resources>
