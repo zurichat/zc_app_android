@@ -69,6 +69,7 @@
     <string name="chat_backup">Chat backup</string>
     <string name="chat_history">Chat history</string>
     <string name="string_manage_storage">Manage Storage</string>
+    <string name="profile_activity">Profile</string>
 
     <!-- Theme Selection -->
     <string name="prefsThemesList_default">none</string>
