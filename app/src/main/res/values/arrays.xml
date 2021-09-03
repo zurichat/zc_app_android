@@ -46,7 +46,7 @@
     <string-array name="theme_values">
         <item>light</item>
         <item>dark</item>
-        <item>sys_default</item>
+        <item>system_default</item>
     </string-array>
 
     <!-- Font Size Preference -->
