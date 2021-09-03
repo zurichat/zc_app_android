@@ -1,8 +1,10 @@
 package com.tolstoy.zurichat.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuInflater
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
@@ -13,6 +15,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.ui.settings.SettingsActivity
 
 
 class HomePageActivity : AppCompatActivity() {
@@ -44,10 +47,36 @@ class HomePageActivity : AppCompatActivity() {
                 TAB_TITLES[position]
             )
         }.attach()
-    }
 
+
+    }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.home_menu, menu)
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.home_menu, menu)
         return true
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.search -> {
+                true
+            }
+            R.id.new_channel -> {
+                true
+            }
+            R.id.saved_messages -> {
+                true
+            }
+            R.id.settings -> {
+                intent = Intent(this, SettingsActivity::class.java)
+                // start your next activity
+                startActivity(intent)
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+
 }
