@@ -52,6 +52,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activities.ProfileActivity"
+            android:exported="true"
+            android:label="@string/profile_activity"
+            android:parentActivityName=".ui.settings.ManageStorageActivity"
+            android:theme="@style/Theme.ZuriChat.Settings"/>
         <activity android:name=".ui.activities.MainActivity" />
 
         <meta-data
