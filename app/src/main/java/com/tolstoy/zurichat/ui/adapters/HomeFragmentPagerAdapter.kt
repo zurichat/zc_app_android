@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.tolstoy.zurichat.R
-import com.tolstoy.zurichat.ui.chat.fragment.ChatsFragment
 import com.tolstoy.zurichat.ui.fragment.CallsFragment
+import com.tolstoy.zurichat.ui.fragment.ChatsFragment
 
 
 class HomeFragmentPagerAdapter(fragmentActivity: FragmentActivity) :
