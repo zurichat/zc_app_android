@@ -8,6 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
+import androidx.preference.SwitchPreference
 import com.tolstoy.zurichat.R
 
 private const val TITLE_TAG = "settingsActivityTitle"
@@ -22,7 +24,7 @@ class SettingsActivity : AppCompatActivity(),
         val profileContainer = findViewById<ConstraintLayout>(R.id.profile_container)
         val manageStorageContainer = findViewById<ConstraintLayout>(R.id.manage_storage_container)
         val networkUsageContainer = findViewById<ConstraintLayout>(R.id.network_usage_container)
-        val divider = findViewById<View>(R.id.divider);
+        val divider = findViewById<View>(R.id.divider)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.settings, SettingsFragment()).commit()
@@ -79,7 +81,7 @@ class SettingsActivity : AppCompatActivity(),
             val profileContainer = activity?.findViewById<ConstraintLayout>(R.id.profile_container)
             val manageStorageContainer = activity?.findViewById<ConstraintLayout>(R.id.manage_storage_container)
             val networkUsageContainer = activity?.findViewById<ConstraintLayout>(R.id.network_usage_container)
-            val divider = activity?.findViewById<View>(R.id.divider);
+            val divider = activity?.findViewById<View>(R.id.divider)
 
             //make manage storage container clickable
             manageStorageContainer?.setOnClickListener {
@@ -171,7 +173,19 @@ class SettingsActivity : AppCompatActivity(),
 
     class NotificationAndSounds : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+
             setPreferencesFromResource(R.xml.notifications_and_sound, rootKey)
+            val channelTones = findPreference<SwitchPreference>("channel_tones")
+            channelTones?.setOnPreferenceChangeListener { preference, newValue ->
+                if (channelTones.isChecked){
+                    Toast.makeText(activity, "channel tones off", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(activity, "channel tones on", Toast.LENGTH_SHORT).show()
+                }
+                return@setOnPreferenceChangeListener true
+            }
+
+
         }
     }
 }
