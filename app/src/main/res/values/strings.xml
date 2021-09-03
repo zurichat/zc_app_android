@@ -75,6 +75,10 @@
     <string name="larger_items_or_no_items_string">No Item here</string>
     <!-- Theme Selection -->
     <string name="prefsThemesList_default">none</string>
+
+    <string name="profile_about">About</string>
+
     <string name="no_item_here_txt">Sorry, you do not have any \nitem here.</string>
+
 
 </resources>
