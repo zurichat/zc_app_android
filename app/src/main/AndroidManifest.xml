@@ -10,14 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZuriChat">
         <activity
-            android:name=".ui.profile.ProfileActivity"
+            android:name=".ui.emailverified.EmailVerifiedActivity"
             android:exported="true" />
         <activity
             android:name=".ui.activities.ChannelChatActivity"
             android:exported="true" />
         <activity
             android:name=".ui.activities.DMActivity"
-            android:exported="true" />
+            android:exported="true"></activity>
         <activity
             android:name=".ui.activities.HomePageActivity"
             android:exported="true" />
@@ -25,22 +25,27 @@
             android:name=".ui.otp.OTP_Page"
             android:exported="true" />
         <activity
+            android:name=".ui.settings.ManageStorageActivity"
+            android:exported="true"
+            android:label="@string/string_manage_storage"
+            android:parentActivityName=".ui.settings.ManageStorageActivity"
+            android:theme="@style/Theme.ZuriChat.Settings" />
+        <activity
             android:name=".ui.settings.SettingsActivity"
             android:exported="true"
             android:label="@string/title_activity_settings"
             android:theme="@style/Theme.ZuriChat.Settings" />
-<!--        <activity-->
-<!--            android:name=".ui.onboarding.OnboardingScreenActivity"-->
-<!--            android:exported="true" />-->
         <activity
             android:name=".ui.verifyemail.VerifyEmailActivity"
             android:exported="true" />
         <activity
             android:name=".ui.login.LoginActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.ZuriChat.Splash" />
         <activity
             android:name=".ui.activities.SplashActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.ZuriChat.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

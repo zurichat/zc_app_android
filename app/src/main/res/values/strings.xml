@@ -3,6 +3,9 @@
     <string name="zuri_dms_team_tolstoy">Zuri DMs: \nTeam Tolstoy -\n Kotlin &amp; Java Mobile</string>
     <string name="enter_registered_email">Enter registered zuri chat email</string>
     <string name="verify_email">Verify Email</string>
+    <string name="email_verified">Email Verified</string>
+    <string name="continue_to_zuri_chat">Continue to Zuri Chat</string>
+    <string name="proceed_to_chat_button">Proceed to Chat</string>
     <string name="imagelogo">imageLogo</string>
     <string name="description">Description</string>
     <string name="title_text">Title Text</string>
@@ -47,7 +50,6 @@
     <string name="profile_image">Profile image</string>
     <string name="chats">CHATS</string>
     <string name="calls">CALLS</string>
-    <string name="profile">Profile</string>
 
     <!-- Chat Settings -->
     <string name="display_header">Display</string>
@@ -66,8 +68,9 @@
     <string name="font_size_default">Medium</string>
     <string name="chat_backup">Chat backup</string>
     <string name="chat_history">Chat history</string>
-    <string name="name_profile_header">Name</string>
-    <string name="about_profile_header">About</string>
-    <string name="phone_profile_header">Phone</string>
+    <string name="string_manage_storage">Manage Storage</string>
+
+    <!-- Theme Selection -->
+    <string name="prefsThemesList_default">none</string>
 
 </resources>
