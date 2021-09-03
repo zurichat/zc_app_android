@@ -69,7 +69,10 @@
     <string name="chat_backup">Chat backup</string>
     <string name="chat_history">Chat history</string>
     <string name="string_manage_storage">Manage Storage</string>
-
+    <string name="profile_activity">Profile</string>
+    <string name="delete_txt">delete</string>
+    <string name="save_txt">save</string>
+    <string name="larger_items_or_no_items_string">No Item here</string>
     <!-- Theme Selection -->
     <string name="prefsThemesList_default">none</string>
 
@@ -82,5 +85,18 @@
     <string name="chat_item_subomi_value">Subomi Dare</string>
     <string name="chat_item_dummy_message_hey">Hey, what’s good</string>
     <string name="chat_item_dummy_time">10:00</string>
+
+    <string name="profile_about">About</string>
+
+    <string name="no_item_here_txt">Sorry, you do not have any \nitem here.</string>
+
+    <!--Channels-->
+    <string name="make_your_channel_private">Make your channel private</string>
+    <string name="set_your_channel_privacy">Set your channel privacy</string>
+    <string name="channel_members">Channel members</string>
+    <string name="make_your_channel_public">Make your channel public</string>
+    <string name="et_channel_name">Name</string>
+    <string name="todo">TODO</string>
+
 
 </resources>

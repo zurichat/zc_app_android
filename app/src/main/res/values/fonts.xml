@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Roboto Font Styles -->
+    <style name="RobotoRegular" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/roboto_regular</item>
+    </style>
+
+    <!-- Lato Font Styles -->
+    <style name="LatoRegular" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/lato_regular</item>
+    </style>
+    <style name="LatoMedium" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/lato_medium</item>
+    </style>
+    <style name="LatoBold" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/lato_bold</item>
+    </style>
+</resources>
