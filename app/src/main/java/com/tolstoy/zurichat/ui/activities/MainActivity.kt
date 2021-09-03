@@ -23,7 +23,7 @@ import android.text.style.ForegroundColorSpan
 
 import android.text.SpannableString
 
-
+import com.tolstoy.zurichat.util.setUpApplicationTheme
 
 
 class MainActivity : AppCompatActivity() {
@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
 
         mTopToolbar = findViewById(R.id.my_toolbar)
         setSupportActionBar(mTopToolbar)
@@ -107,6 +108,8 @@ class MainActivity : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
 
+        // This setups application theme to value stored in sharedPref
+        setUpApplicationTheme(this)
     }
 
     private inline fun <T : ViewBinding> AppCompatActivity.viewBinding(
