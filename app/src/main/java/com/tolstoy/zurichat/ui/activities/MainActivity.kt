@@ -23,8 +23,8 @@ import com.tolstoy.zurichat.ui.adapters.HomeFragmentPagerAdapter
 import android.text.style.ForegroundColorSpan
 
 import android.text.SpannableString
-
-
+import android.widget.Toast
+import com.tolstoy.zurichat.ui.settings.SettingsActivity
 
 
 class MainActivity : AppCompatActivity() {
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
 
-        when (item.itemId) {
+        return when (item.itemId) {
             R.id.search ->
                 return true
             R.id.new_channel ->
@@ -102,14 +102,19 @@ class MainActivity : AppCompatActivity() {
             R.id.saved_messages->
                 // Not implemented here
                 return false
-            R.id.settings->
-                // Not implemented here
-                return false
+            R.id.settings->{
+                val intent = Intent(this, SettingsActivity::class.java)
+                // start your next activity
+                startActivity(intent)
+                return true
+            }
+
             else -> {
+                super.onOptionsItemSelected(item)
             }
         }
 
-        return super.onOptionsItemSelected(item)
+
 
     }
 
