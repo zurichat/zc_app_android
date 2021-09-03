@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
     private var mTopToolbar: Toolbar? = null
     private val TAB_TITLES = intArrayOf(R.string.chats, R.string.calls)
     var chat = ChatsFragment()
+    val searchView: SearchView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,29 +79,38 @@ class MainActivity : AppCompatActivity() {
         val positionOfMenuItem = 0 // or whatever...
 
         val item = menu.getItem(positionOfMenuItem)
-        val s = SpannableString("My red MenuItem")
-        s.setSpan(ForegroundColorSpan(Color.WHITE), 0, s.length, 0)
-        item.title = s
 
-        searchView.setOnSearchClickListener {object: SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(query: String?): Boolean {
-               var str = rcAdapter?.filter(query.toString())
+        processSearch(item)
 
-                if(str == null){
-                    Toast.makeText(this@MainActivity, "No Match found", Toast.LENGTH_LONG).show()
-                }
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                rcAdapter?.filter(newText.toString())
-                return true
-            }
-        }
-        }
         return true
     }
 
+    private fun processSearch(item: MenuItem?) {
+        val s = SpannableString("My red MenuItem")
+        s.setSpan(ForegroundColorSpan(Color.WHITE), 0, s.length, 0)
+        if (item != null) {
+            item.title = s
+        }
+
+        searchView?.setOnSearchClickListener {
+            object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    var str = rcAdapter?.filter(query.toString())
+
+                    if (str == null) {
+                        Toast.makeText(this@MainActivity, "No Match found", Toast.LENGTH_LONG)
+                            .show()
+                    }
+                    return false
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    rcAdapter?.filter(newText.toString())
+                    return true
+                }
+            }
+        }
+    }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -109,17 +119,22 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
 
         when (item.itemId) {
-            R.id.search ->
-                return true
-            R.id.new_channel ->
+            R.id.search ->{
+                processSearch(item)
+            }
+            R.id.new_channel ->{
                 // Do Activity menu item stuff here
                 return false
-            R.id.saved_messages->
+            }
+            R.id.saved_messages->{
                 // Not implemented here
                 return false
-            R.id.settings->
-                // Not implemented here
-                return false
+            }
+            R.id.settings->{
+                intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
+                true
+            }
             else -> {
             }
         }

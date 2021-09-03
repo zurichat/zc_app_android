@@ -23,7 +23,7 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ChatsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+
     private val ARG_COLUMN_COUNT: String? = "column-count"
     private var mColumnCount = 1
 

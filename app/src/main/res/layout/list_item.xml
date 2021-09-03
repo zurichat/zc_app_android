@@ -59,12 +59,10 @@
             android:layout_weight="1"
             android:textColor="@color/white"
             android:textSize="12sp"
-            android:paddingTop="5dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
+            android:gravity="center"
             android:background="@drawable/blue_circle"
             android:textStyle="italic"
-            android:text="22" />
+            android:text="@string/_22" />
         </LinearLayout>
 
     </LinearLayout>
