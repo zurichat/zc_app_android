@@ -18,5 +18,10 @@ class VerifyEmailActivity : AppCompatActivity() {
         // This setups application theme to value stored in sharedPref
         setUpApplicationTheme(this)
 
+        val btn_verify_email = findViewById<Button>(R.id.btn_verify_email)
+        btn_verify_email.setOnClickListener{
+            val intent = Intent(this, OTP_Page::class.java)
+            startActivity(intent)
+        }
     }
 }

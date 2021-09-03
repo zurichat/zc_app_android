@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.ui.activities.HomePageActivity
+import com.tolstoy.zurichat.ui.verifyemail.VerifyEmailActivity
 import com.tolstoy.zurichat.util.setUpApplicationTheme
 
 class LoginActivity : AppCompatActivity() {
@@ -18,7 +19,7 @@ class LoginActivity : AppCompatActivity() {
 
         val btnVerifyEmail = findViewById<Button>(R.id.btn_verify_email1)
         btnVerifyEmail.setOnClickListener{
-            val intent = Intent(this, HomePageActivity::class.java)
+            val intent = Intent(this, VerifyEmailActivity::class.java)
             startActivity(intent)
         }
     }
