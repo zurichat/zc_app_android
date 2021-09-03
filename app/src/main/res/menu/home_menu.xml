@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.activities.HomePageActivity">
 
-    <item android:id="@+id/search"
-        android:title="@string/search"
+    <item
+        android:id="@+id/search"
+        android:checkable="false"
+        android:enabled="true"
         android:icon="@drawable/ic_search"
-        app:showAsAction="collapseActionView|ifRoom"
+        android:title="@string/search"
         app:actionViewClass="android.widget.SearchView"
-        android:visible="true"/>
+        app:showAsAction="ifRoom" />
     <item android:id="@+id/new_channel"
         android:title="@string/new_channel"
         android:visible="true"/>
@@ -18,6 +20,7 @@
         android:visible="true"/>
     <item android:id="@+id/settings"
         android:title="@string/settings"
-        android:visible="true"/>
+        android:visible="true"
+        />
 
 </menu>
