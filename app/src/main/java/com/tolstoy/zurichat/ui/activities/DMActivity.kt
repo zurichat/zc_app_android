@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.util.setUpApplicationTheme
 import dev.ronnie.github.imagepicker.ImagePicker
 import dev.ronnie.github.imagepicker.ImageResult
 
@@ -20,6 +21,9 @@ class DMActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dmactivity)
+
+        // This setups application theme to value stored in sharedPref
+        setUpApplicationTheme(this)
         val dmEditText = findViewById<EditText>(R.id.edittext_message)
         val sendVoiceNote = findViewById<FloatingActionButton>(R.id.fab_voiceNote)
         val sendMessage = findViewById<FloatingActionButton>(R.id.fab_send_text)
