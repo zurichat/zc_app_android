@@ -13,6 +13,7 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.ui.activities.ProfileActivity
 import com.tolstoy.zurichat.util.THEME_KEY
 import com.tolstoy.zurichat.util.setUpApplicationTheme
 
@@ -90,6 +91,11 @@ class SettingsActivity : AppCompatActivity(),
             //make manage storage container clickable
             manageStorageContainer?.setOnClickListener {
                 startActivity(Intent(activity, ManageStorageActivity::class.java))
+            }
+
+            //make profile container clickable
+            profileContainer?.setOnClickListener {
+                startActivity(Intent(activity, ProfileActivity::class.java))
             }
 
             chatSettings!!.setOnPreferenceClickListener {

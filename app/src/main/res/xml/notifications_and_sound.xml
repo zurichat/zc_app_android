@@ -1,16 +1,25 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <EditTextPreference
-        app:key="signature"
-        app:title="@string/signature_title"
-        app:useSimpleSummaryProvider="true" />
 
-    <ListPreference
-        app:defaultValue="reply"
-        app:entries="@array/reply_entries"
-        app:entryValues="@array/reply_values"
-        app:key="reply"
-        app:title="@string/reply_title"
-        app:useSimpleSummaryProvider="true" />
+    <SwitchPreference
+        app:key="channel_tones"
+        app:summary="Play sound for incoming and outgoing
+    message in channels"
+        app:title="Channel tones" />
+
+    <PreferenceCategory app:title="Messages">
+
+        <SwitchPreference
+            app:key="message_tone"
+            app:summary="Play sound on new messages"
+            app:title="Message tones"/>
+
+        <SwitchPreference
+            app:key="vibrate"
+            app:summary="Vibrate on new messages"
+            app:title="Vibrate" />
+
+    </PreferenceCategory>
+
 
 </PreferenceScreen>
