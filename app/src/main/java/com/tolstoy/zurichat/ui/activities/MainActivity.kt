@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 import com.tolstoy.zurichat.databinding.ActivityMainBinding
+import com.tolstoy.zurichat.util.setUpApplicationTheme
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,6 +16,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        // This setups application theme to value stored in sharedPref
+        setUpApplicationTheme(this)
 
     }
 
