@@ -14,7 +14,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:text="@string/skip"
-        android:textColor="@color/black"
+        android:textColor="@color/onboarding_black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/never_miss_a_chat"
-        android:textColor="@color/black"
+        android:textColor="@color/onboarding_black"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,6 +55,7 @@
         android:lineHeight="25dp"
         android:text="No more apologies for missing chats, take your chat with you"
         android:textSize="16sp"
+        android:textColor="@color/onboarding_black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,6 +91,7 @@
             android:layout_height="wrap_content"
             android:text="Powered by Zuri Chat"
             android:textSize="16sp"
+            android:textColor="@color/onboarding_black"
             android:textStyle="bold" />
 
         <ImageView

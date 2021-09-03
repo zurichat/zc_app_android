@@ -15,7 +15,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:text="@string/skip"
-        android:textColor="@color/black"
+        android:textColor="@color/onboarding_black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +41,7 @@
         android:layout_marginEnd="32dp"
         android:gravity="center"
         android:text="@string/customize_your_chat_experience"
-        android:textColor="@color/black"
+        android:textColor="@color/onboarding_black"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,6 +59,7 @@
         android:lineHeight="25dp"
         android:text="@string/customize_your_chat_environment_to_suit_your_preference"
         android:textSize="16sp"
+        android:textColor="@color/onboarding_black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -93,6 +94,7 @@
             android:layout_height="wrap_content"
             android:text="@string/powered_by_zuri_chat"
             android:textSize="16sp"
+            android:textColor="@color/onboarding_black"
             android:textStyle="bold" />
 
         <ImageView

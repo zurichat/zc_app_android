@@ -1,10 +1,14 @@
 package com.tolstoy.zurichat.ui.settings
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.tolstoy.zurichat.R
@@ -144,6 +148,24 @@ class SettingsActivity : AppCompatActivity(),
     }
 
     class ChatFragment : PreferenceFragmentCompat() {
+        private  var listPref : ListPreference? = null
+        override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+        ): View? {
+
+            listPref = preferenceManager.findPreference("theme")
+            listPref?.setOnPreferenceChangeListener { preference, newValue ->
+                when(newValue){
+                    "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                    "dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                    "system_default" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+                }
+                return@setOnPreferenceChangeListener true
+            }
+            return super.onCreateView(inflater, container, savedInstanceState)
+        }
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.chat_preferences, rootKey)
         }

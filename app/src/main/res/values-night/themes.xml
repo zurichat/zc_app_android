@@ -10,10 +10,10 @@
         <item name="colorSecondaryVariant">@color/secondaryColor</item>
         <item name="colorOnSecondary">@color/secondaryTextColor</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/background_color</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
         <!--<item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>-->
         <!-- Navigation bar color -->
-        <item name="android:navigationBarColor" tools:targetApi="l">@color/background_color</item>
+        <item name="android:navigationBarColor" tools:targetApi="l">@color/white</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -27,9 +27,9 @@
         <item name="colorSecondaryVariant">@color/secondaryColor</item>
         <item name="colorOnSecondary">@color/secondaryTextColor</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">#1A61DB</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
         <!-- Navigation bar color -->
-        <item name="android:navigationBarColor" tools:targetApi="l">#E5E5E5</item>
+        <item name="android:navigationBarColor" tools:targetApi="l">@color/white</item>
         <!-- Customize your theme here. -->
     </style>
 

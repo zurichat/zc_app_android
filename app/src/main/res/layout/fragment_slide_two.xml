@@ -15,7 +15,7 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         android:text="@string/skip"
-        android:textColor="@color/black"
+        android:textColor="@color/onboarding_black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,7 +39,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/swift_response_to_dms"
         android:gravity="center"
-        android:textColor="@color/black"
+        android:textColor="@color/onboarding_black"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -90,6 +90,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/powered_by_zuri_chat"
+            android:textColor="@color/onboarding_black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
