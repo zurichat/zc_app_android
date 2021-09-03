@@ -32,4 +32,6 @@
     <color name="onboarding_black">#000000</color>
 
     <color name="lightGray">#A6A6A6</color>
+    <color name="fadeBlack">#454545</color>
+
 </resources>
