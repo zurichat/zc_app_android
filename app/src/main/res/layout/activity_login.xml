@@ -89,10 +89,10 @@
   <Button
       android:id="@+id/btn_verify_email"
       android:layout_width="312dp"
-      android:layout_height="48dp"
+      android:layout_height="wrap_content"
       android:layout_marginStart="24dp"
       android:layout_marginEnd="24dp"
-      android:layout_marginBottom="24sp"
+      android:layout_marginBottom="20dp"
       android:fontFamily="@font/lato"
       android:text="@string/verify_email"
       android:textAllCaps="false"
