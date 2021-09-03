@@ -7,20 +7,34 @@ import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ItemMessageBinding
 import com.tolstoy.zurichat.model.Message
 import com.tolstoy.zurichat.util.changeVisibility
+import com.tolstoy.zurichat.util.extractUrl
+import com.tolstoy.zurichat.util.getWebsiteMetadata
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import timber.log.Timber
+import java.time.format.DateTimeFormatter
+import kotlin.random.Random
 
 /**
  * @author Jeffrey Orazulike [chukwudumebiorazulike@gmail.com]
  * Created 02-Sep-21 at 12:00 AM
+ *
+ * @param currentUserId the current user of the app
+ * @param messages the list of messages to display on the screen
+ * @param isDm are the messages to be rendered gotten for dm or chat
  */
 class MessageAdapter(
     private val context: Context,
     private val currentUserId: Int,
     private val messages: MutableList<Message> = mutableListOf(),
-    private val isDm: Boolean = true): RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
+    private val isDm: Boolean = true):
+    RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemMessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -28,12 +42,45 @@ class MessageAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int): Unit = with(holder) {
-        styleMessage(messages[adapterPosition], messages[adapterPosition - 1], binding)
+        Timber.d("onBindViewHolder: " + messages[adapterPosition])
+        val previousMessage = if(adapterPosition - 1 >= 0) messages[adapterPosition - 1] else null
+        styleMessage(messages[adapterPosition], previousMessage, binding)
+        // add on click listeners for each message
+        binding.root.setOnClickListener {
+            Timber.d("onClick: ap: $adapterPosition, p: $position")
+            // this is just for testing purposes
+            // switch the user id of the message whenever it is clicked
+            // this aligns the message to the right or left of the screen
+            Timber.d("onClick: previous message ${messages[adapterPosition]}")
+            val message = messages[adapterPosition]
+            messages[adapterPosition] =
+                if (message.userId == currentUserId)
+                    message.copy(userId = Random(100000).nextInt())
+                else
+                    message.copy(userId = currentUserId)
+            Timber.d("onClick: new message ${messages[adapterPosition]}")
+
+            notifyItemChanged(position)
+        }
     }
 
     override fun getItemCount() = messages.size
 
-    private fun styleMessage(message: Message, previousMessage: Message, messageBox: ItemMessageBinding){
+    fun addMessage(message: Message){
+        messages.add(message)
+        notifyItemInserted(messages.lastIndex)    }
+
+    private fun styleMessage(message: Message, previousMessage: Message?, messageBox: ItemMessageBinding){
+        // load any hyperlink if there is one
+        loadHyperlink(message, messageBox)
+
+        // place content in the message box
+        messageBox.apply {
+            textIMessageSender.text = "John Felix Doe"
+            textIMessageContent.text = message.content
+            textIMessageTime.text = message.time.format(DateTimeFormatter.ofPattern("hh:mm a"))
+        }
+
         if(isDm) {
             messageBox.apply {
                 // hide the image and name of the sender if this message is being rendered in the dm
@@ -41,7 +88,7 @@ class MessageAdapter(
             }
         } else {
             // checks if the previous message and the current message were sent by the same user
-            if(message.userId == previousMessage.userId)
+            if(message.userId == previousMessage?.userId)
                 // remove the name of the person that sent this message
                 // if they were the same person that sent the previous message
                 changeVisibility(View.GONE, messageBox.textIMessageSender)
@@ -55,15 +102,57 @@ class MessageAdapter(
 
             alignMessage(messageBox, ALIGN_RIGHT.toFloat()) // align the message right
             // change the color of the message background
-            messageBox.boxIMessage.setBackgroundColor(
+            messageBox.layoutIMessage.setBackgroundColor(
                 ContextCompat.getColor(context, R.color.message_background_this_user))
         }else{
             // the message was sent by another user
 
             alignMessage(messageBox, ALIGN_LEFT.toFloat()) // align the message left
             // change the color of the message background
-            messageBox.boxIMessage.setBackgroundColor(
+            messageBox.layoutIMessage.setBackgroundColor(
                 ContextCompat.getColor(context, R.color.message_background_another_user))
+        }
+    }
+
+    private fun loadHyperlink(message: Message, binding: ItemMessageBinding) = with(binding.linkPreviewIMessage){
+        message.content.extractUrl()?.let { messageContent ->
+            CoroutineScope(Dispatchers.IO).launch {
+                messageContent.getWebsiteMetadata()?.let { document ->
+                    val metaTag = document.getElementsByTag("meta")
+                    var image = ""
+                    var title = ""
+                    var description = ""
+                    metaTag.forEach { element ->
+                        when {
+                            element.attr("property").equals("og:image") -> {
+                                image = element.attr("content")
+                            }
+                            element.attr("name").equals("title") ||
+                            element.attr("name").equals("og:title")-> {
+                                title = element.attr("content")
+                            }
+                            element.attr("name").equals("description") ||
+                            element.attr("name").equals("og:description") -> {
+                                description = element.attr("content")
+                            }
+                        }
+                    }
+                    CoroutineScope(Dispatchers.Main).launch {
+                        if(description.isNotBlank()){
+                            changeVisibility(View.VISIBLE, textPUrlDescription)
+                            textPUrlDescription.text = description
+
+                            if(image.isNotBlank()){
+                                changeVisibility(View.VISIBLE, imagePUrlImage)
+                                Glide.with(context).load(image).into(imagePUrlImage)
+                            }
+
+                            changeVisibility(View.VISIBLE, textPUrlTitle)
+                            textPUrlTitle.text = if(title.isNotBlank()){ title }else{ messageContent }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -86,6 +175,8 @@ class MessageAdapter(
         RecyclerView.ViewHolder(binding.root)
 
     companion object {
+        val TAG = MessageAdapter::class.simpleName
+
         const val ALIGN_LEFT = 0
         const val ALIGN_RIGHT = 1
     }
