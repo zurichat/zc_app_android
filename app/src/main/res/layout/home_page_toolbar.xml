@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.appbar.AppBarLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/HeaderBar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:theme="@style/ToolbarTheme">
+    android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/my_toolbar"
@@ -19,4 +22,5 @@
             app:title="@string/zuri"
             app:titleMarginStart="32dp"
             app:titleTextColor="@color/white" />
-</com.google.android.material.appbar.AppBarLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
