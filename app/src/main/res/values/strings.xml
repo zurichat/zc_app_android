@@ -75,6 +75,9 @@
     <string name="larger_items_or_no_items_string">No Item here</string>
     <!-- Theme Selection -->
     <string name="prefsThemesList_default">none</string>
+    <string name="username_">Username</string>
+    <string name="hey_what_s_good_">Hey what\'s good</string>
+    <string name="_10_07">10:07</string>
 
     <string name="profile_about">About</string>
 
@@ -87,6 +90,7 @@
     <string name="make_your_channel_public">Make your channel public</string>
     <string name="et_channel_name">Name</string>
     <string name="todo">TODO</string>
+    <string name="_22">22</string>
 
 
 </resources>
