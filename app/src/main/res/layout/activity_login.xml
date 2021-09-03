@@ -41,7 +41,7 @@
   </com.google.android.material.textfield.TextInputLayout>
 
   <Button
-      android:id="@+id/btn_verify_email"
+      android:id="@+id/btn_verify_email1"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"

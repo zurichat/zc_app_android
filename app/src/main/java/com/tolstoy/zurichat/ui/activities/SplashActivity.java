@@ -1,24 +1,19 @@
 package com.tolstoy.zurichat.ui.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnticipateInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.OvershootInterpolator;
-import android.view.animation.ScaleAnimation;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import com.tolstoy.zurichat.R;
-import com.tolstoy.zurichat.ui.onboarding.OnboardingScreenActivity;
-import com.tolstoy.zurichat.ui.slider.SliderActivity;
+import com.tolstoy.zurichat.ui.login.LoginActivity;
+import com.tolstoy.zurichat.util.UtilitiesKt;
 
 public class SplashActivity extends AppCompatActivity implements Animation.AnimationListener {
 
@@ -31,6 +26,9 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        // This setups application theme to value stored in sharedPref
+        UtilitiesKt.setUpApplicationTheme(this);
+
         image1 = findViewById(R.id.imageView);
         image2 = findViewById(R.id.imageView4);
 
@@ -39,10 +37,11 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
             public void run() {
                 try {
                     sleep(6000);
-                    Intent i = new Intent(getBaseContext(), OnboardingScreenActivity.class);
+                    Intent i = new Intent(getBaseContext(), LoginActivity.class);
                     startActivity(i);
                     finish();
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) {
+                }
             }
         };
         thread.start();
@@ -52,14 +51,14 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
 
     }
 
-    private void crossFade(){
+    private void crossFade() {
 
         a1 = new AlphaAnimation(0f, 1f);
         a1.setDuration(1000);
-         a2 = new AlphaAnimation(1f, 0f);
+        a2 = new AlphaAnimation(1f, 0f);
         a2.setDuration(2000);
         a2.setInterpolator(new AnticipateInterpolator());
-         a3 = new AlphaAnimation(0f, 1f);
+        a3 = new AlphaAnimation(0f, 1f);
         a3.setDuration(1000);
 
         a1.setAnimationListener(this);
@@ -79,12 +78,12 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
 
     @Override
     public void onAnimationEnd(Animation animation) {
-        if (animation == a1){
+        if (animation == a1) {
             image1.setAnimation(a2);
             image1.setVisibility(View.INVISIBLE);
         }
 
-        if(animation == a2){
+        if (animation == a2) {
             image2.setVisibility(View.VISIBLE);
             image2.setAnimation(a3);
 
