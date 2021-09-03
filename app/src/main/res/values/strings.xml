@@ -73,5 +73,6 @@
 
     <!-- Theme Selection -->
     <string name="prefsThemesList_default">none</string>
+    <string name="profile_about">About</string>
 
 </resources>
