@@ -8,7 +8,7 @@ import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.ui.activities.HomePageActivity
 import com.tolstoy.zurichat.util.setUpApplicationTheme
 import com.tolstoy.zurichat.ui.activities.MainActivity
-import com.tolstoy.zurichat.ui.otp.OTP_Page
+
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
