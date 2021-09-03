@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/login_graph"
+    app:startDestination="@id/enterEmailFragment">
+
+    <fragment
+        android:id="@+id/enterEmailFragment"
+        android:name="com.tolstoy.zurichat.ui.login.screens.EnterEmailFragment"
+        android:label="EnterEmailFragment" />
+    <fragment
+        android:id="@+id/OTPFragment"
+        android:name="com.tolstoy.zurichat.ui.login.screens.OTPFragment"
+        android:label="OTPFragment" />
+    <fragment
+        android:id="@+id/verifiedFragment"
+        android:name="com.tolstoy.zurichat.ui.login.screens.VerifiedFragment"
+        android:label="VerifiedFragment" />
+</navigation>

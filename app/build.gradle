@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
     id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs.kotlin'
 }
@@ -23,6 +24,7 @@ android {
 
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
 
     buildTypes {
@@ -32,12 +34,14 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = '11'
     }
+    buildToolsVersion '31.0.0'
+    compileSdkVersion 30
 }
 
 dependencies {
@@ -118,5 +122,16 @@ dependencies {
 
     //Lottie
     implementation 'com.airbnb.android:lottie:4.1.0'
+
+    //library for picking images and taking using camera
+    implementation 'com.github.ronnieotieno:Ronnie-Image-Picker:0.8.0'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+
+
+    // Pin View
+    implementation 'io.github.chaosleung:pinview:1.4.4'
 
 }
