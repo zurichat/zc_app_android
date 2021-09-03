@@ -17,6 +17,8 @@
         <!-- Navigation bar color -->
         <item name="android:navigationBarColor" tools:targetApi="l">@color/background_color</item>
         <!-- Customize your theme here. -->
+
+        <item name="android:textColor">@color/black</item>
     </style>
     <style name="ToolbarTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:textColorPrimary">@color/primaryTextColor</item>
@@ -54,6 +56,7 @@
         <!-- Navigation bar color -->
         <item name="android:navigationBarColor" tools:targetApi="l">#FFFFFF</item>
         <!-- Customize your theme here. -->
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="TabTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">

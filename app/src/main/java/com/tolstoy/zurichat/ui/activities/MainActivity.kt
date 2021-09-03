@@ -18,6 +18,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ActivityMainBinding
+import com.tolstoy.zurichat.util.setUpApplicationTheme
 import com.tolstoy.zurichat.ui.adapters.HomeFragmentPagerAdapter
 import android.text.style.ForegroundColorSpan
 
@@ -39,6 +40,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        // This setups application theme to value stored in sharedPref
+        setUpApplicationTheme(this)
 
         mTopToolbar = findViewById(R.id.my_toolbar)
         setSupportActionBar(mTopToolbar)

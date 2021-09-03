@@ -8,9 +8,14 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.models.DmMessages
+import com.tolstoy.zurichat.ui.adapters.DmMessagesRecyclerAdapter
+import com.tolstoy.zurichat.util.setUpApplicationTheme
 import dev.ronnie.github.imagepicker.ImagePicker
 import dev.ronnie.github.imagepicker.ImageResult
 
@@ -20,6 +25,9 @@ class DMActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dmactivity)
+
+        // This setups application theme to value stored in sharedPref
+        setUpApplicationTheme(this)
         val dmEditText = findViewById<EditText>(R.id.edittext_message)
         val sendVoiceNote = findViewById<FloatingActionButton>(R.id.fab_voiceNote)
         val sendMessage = findViewById<FloatingActionButton>(R.id.fab_send_text)
@@ -54,6 +62,26 @@ class DMActivity : AppCompatActivity() {
             takePictureCamera()
         }
 
+        // creating a demo conversation for a DM message
+        val demoDmMessages = mutableListOf(
+            DmMessages("me", "Hello! I'm Godfirst", "6:00 AM"),
+            DmMessages("me", "How are you doing?", "6:01 AM"),
+            DmMessages("", "Fine. I'm ChibuFirst", "6:05 AM"),
+            DmMessages("", "Nice to meet you, Godfirst", "6:06 AM"),
+            DmMessages("me", "Same here... Which team?", "6:08 AM"),
+            DmMessages("me", "Which stage are you?", "6:08 AM")
+        )
+        // initializing the DM message adapter
+        val dmMessagesAdapter = DmMessagesRecyclerAdapter(demoDmMessages, "me")
+        // setting up the DM message RecyclerView
+        val dmChatRecyclerView: RecyclerView = findViewById(R.id.dm_chat_recycler_view)
+        dmChatRecyclerView.apply {
+            val linearLayout = LinearLayoutManager(this@DMActivity)
+            linearLayout.stackFromEnd = true
+            layoutManager = linearLayout
+            setHasFixedSize(true)
+            adapter = dmMessagesAdapter
+        }
     }
 
     /**function to take image using camera
