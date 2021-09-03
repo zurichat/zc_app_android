@@ -24,6 +24,9 @@ import android.text.style.ForegroundColorSpan
 
 import android.text.SpannableString
 import android.widget.Toast
+import com.tolstoy.zurichat.ui.settings.SettingsActivity
+
+import android.widget.Toast
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
@@ -79,13 +82,6 @@ class MainActivity : AppCompatActivity() {
         val positionOfMenuItem = 0 // or whatever...
 
         val item = menu.getItem(positionOfMenuItem)
-
-        processSearch(item)
-
-        return true
-    }
-
-    private fun processSearch(item: MenuItem?) {
         val s = SpannableString("My red MenuItem")
         s.setSpan(ForegroundColorSpan(Color.WHITE), 0, s.length, 0)
         if (item != null) {
