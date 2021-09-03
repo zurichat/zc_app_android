@@ -131,8 +131,6 @@
                android:visibility="gone"
                android:layout_margin="10dp"
                />
-
-
        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
