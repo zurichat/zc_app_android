@@ -80,5 +80,13 @@
 
     <string name="no_item_here_txt">Sorry, you do not have any \nitem here.</string>
 
+    <!--Channels-->
+    <string name="make_your_channel_private">Make your channel private</string>
+    <string name="set_your_channel_privacy">Set your channel privacy</string>
+    <string name="channel_members">Channel members</string>
+    <string name="make_your_channel_public">Make your channel public</string>
+    <string name="et_channel_name">Name</string>
+    <string name="todo">TODO</string>
+
 
 </resources>
