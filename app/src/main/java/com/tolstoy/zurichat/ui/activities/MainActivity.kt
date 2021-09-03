@@ -23,9 +23,14 @@ import com.tolstoy.zurichat.ui.adapters.HomeFragmentPagerAdapter
 import android.text.style.ForegroundColorSpan
 
 import android.text.SpannableString
-
-
-
+import android.widget.Toast
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
+import com.tolstoy.zurichat.models.DmMessages
+import com.tolstoy.zurichat.ui.adapters.RecyclerViewAdapter
+import com.tolstoy.zurichat.ui.fragment.ChatsFragment
+import com.tolstoy.zurichat.ui.settings.SettingsActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,9 +38,11 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mViewPager2: ViewPager2
     private var homeFragmentPagerAdapter: FragmentStateAdapter? = null
+    private var rcAdapter: RecyclerViewAdapter? = null
     private lateinit var mTabLayout: TabLayout
     private var mTopToolbar: Toolbar? = null
     private val TAB_TITLES = intArrayOf(R.string.chats, R.string.calls)
+    var chat = ChatsFragment()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,16 +84,24 @@ class MainActivity : AppCompatActivity() {
 
         searchView.setOnSearchClickListener {object: SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?): Boolean {
+               var str = rcAdapter?.filter(query.toString())
+
+                if(str == null){
+                    Toast.makeText(this@MainActivity, "No Match found", Toast.LENGTH_LONG).show()
+                }
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                return false
+                rcAdapter?.filter(newText.toString())
+                return true
             }
         }
         }
         return true
     }
+
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here. The action bar will
