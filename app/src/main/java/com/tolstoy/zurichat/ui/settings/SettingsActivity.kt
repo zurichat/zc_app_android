@@ -172,7 +172,7 @@ class SettingsActivity : AppCompatActivity(),
         ): View? {
 
             val profileContainer = activity?.findViewById<ConstraintLayout>(R.id.profile_container)
-            val divider = activity?.findViewById<View>(R.id.divider);
+            val divider = activity?.findViewById<View>(R.id.divider)
             profileContainer?.visibility = View.GONE
             divider?.visibility = View.GONE
 
@@ -215,9 +215,9 @@ class SettingsActivity : AppCompatActivity(),
             val channelTones = findPreference<SwitchPreference>("channel_tones")
             channelTones?.setOnPreferenceChangeListener { preference, newValue ->
                 if (channelTones.isChecked){
-                    Toast.makeText(activity, "channel tones off", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Channel tones off", Toast.LENGTH_SHORT).show()
                 }else{
-                    Toast.makeText(activity, "channel tones on", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Channel tones on", Toast.LENGTH_SHORT).show()
                 }
                 return@setOnPreferenceChangeListener true
             }
