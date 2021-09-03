@@ -47,6 +47,7 @@
     <string name="profile_image">Profile image</string>
     <string name="chats">CHATS</string>
     <string name="calls">CALLS</string>
+    <string name="profile">Profile</string>
 
     <!-- Chat Settings -->
     <string name="display_header">Display</string>
@@ -65,5 +66,8 @@
     <string name="font_size_default">Medium</string>
     <string name="chat_backup">Chat backup</string>
     <string name="chat_history">Chat history</string>
+    <string name="name_profile_header">Name</string>
+    <string name="about_profile_header">About</string>
+    <string name="phone_profile_header">Phone</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.tolstoy.zurichat.ui.settings
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -8,6 +9,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.ui.profile.ProfileActivity
 
 private const val TITLE_TAG = "settingsActivityTitle"
 
@@ -22,6 +24,11 @@ class SettingsActivity : AppCompatActivity(),
         val manageStorageContainer = findViewById<ConstraintLayout>(R.id.manage_storage_container)
         val networkUsageContainer = findViewById<ConstraintLayout>(R.id.network_usage_container)
         val divider = findViewById<View>(R.id.divider);
+
+        profileContainer?.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
+            startActivity(intent)
+        }
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.settings, SettingsFragment()).commit()
