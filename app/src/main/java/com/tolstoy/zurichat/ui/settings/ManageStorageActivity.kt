@@ -1,15 +1,22 @@
 package com.tolstoy.zurichat.ui.settings
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+
+import android.widget.LinearLayout
 import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
+
 import com.google.android.material.slider.Slider
 import com.tolstoy.zurichat.R
+
+import android.content.Intent
+
 
 class ManageStorageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manage_storage)
+
 
 
         //references to the slider and progress bar
@@ -24,6 +31,13 @@ class ManageStorageActivity : AppCompatActivity() {
         //update storage value for other items
         otherItems.addOnChangeListener { slider, value, fromUser ->
             progressBar.secondaryProgress = value.toInt()
+        }
+        //to check for larger items in manage storage
+        val midLayout: LinearLayout = findViewById(R.id.mid_layout)
+        //set on click listener to mid layout
+        midLayout.setOnClickListener{
+            val intent = Intent(this,LargerItemsActivity::class.java)
+            startActivity(intent)
         }
     }
 }
