@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.ui.settings.SettingsActivity
+import com.tolstoy.zurichat.util.setUpApplicationTheme
 
 
 class HomePageActivity : AppCompatActivity() {
@@ -33,6 +34,9 @@ class HomePageActivity : AppCompatActivity() {
 //        mToolbar = findViewById(R.id.toolbar)
 //        setSupportActionBar(mToolbar)
         setSupportActionBar(findViewById(R.id.toolbar))
+
+        // This setups application theme to value stored in sharedPref
+        setUpApplicationTheme(this)
 
         mViewPager2 = findViewById(R.id.pager)
         homeFragmentPagerAdapter = HomeFragmentPagerAdapter(this)
