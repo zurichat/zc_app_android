@@ -79,6 +79,7 @@
     <string name="profile_about">About</string>
 
     <string name="no_item_here_txt">Sorry, you do not have any \nitem here.</string>
+    <string name="title_activity_chat_backup">ChatBackupActivity</string>
 
 
 </resources>
