@@ -26,6 +26,7 @@
     <color name="grey">#43DBDBDB</color>
     <color name="blueish_grey">#B8CCEA</color>
     <color name="teal_500">#027B6F</color>
+    <color name="chat_blue">#A8E1FF</color>
 
     <color name="canvas_color">#1A61DB</color>
     <color name="home_background_color">#F6F6F6</color>
