@@ -11,7 +11,6 @@
             android:id="@+id/my_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:elevation="4dp"
             app:logo="@drawable/zuri_home_logo"
             app:menu="@menu/home_menu"
             app:popupTheme="@style/Theme.MaterialComponents.Light.NoActionBar"

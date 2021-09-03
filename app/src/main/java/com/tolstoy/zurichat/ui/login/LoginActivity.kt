@@ -12,7 +12,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        val button: Button = findViewById(R.id.btn_verify_email)
+        val button: Button = findViewById(R.id.btn_verify_email1)
 
         button.setOnClickListener {
             val int = Intent(this, MainActivity::class.java)
