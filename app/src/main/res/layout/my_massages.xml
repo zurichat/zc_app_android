@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="end"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/chat_blue">
+
+    <TextView
+        android:id="@+id/my_massage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxWidth="240dp"
+        app:layout_constraintEnd_toStartOf="@id/my_time_text"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:textColor="@color/black"
+        />
+    <TextClock
+        android:id="@+id/my_time_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="5dp"
+        android:textColor="@color/grey"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
