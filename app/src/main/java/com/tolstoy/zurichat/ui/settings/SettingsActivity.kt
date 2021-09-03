@@ -160,7 +160,10 @@ class SettingsActivity : AppCompatActivity(),
             container: ViewGroup?,
             savedInstanceState: Bundle?
         ): View? {
-
+            val profileContainer = activity?.findViewById<ConstraintLayout>(R.id.profile_container)
+            val divider = activity?.findViewById<View>(R.id.divider);
+            profileContainer?.visibility = View.GONE
+            divider?.visibility = View.GONE
             listPref = preferenceManager.findPreference("theme")
             listPref?.setOnPreferenceChangeListener { preference, newValue ->
                 when(newValue){
