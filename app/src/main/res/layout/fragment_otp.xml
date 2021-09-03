@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.otp.OTP_Page">
+        >
 
         <TextView
             android:id="@+id/enterCodeLbl"
@@ -69,6 +69,7 @@
             android:layout_marginBottom="30dp"
             android:text="Verify Code"
             android:textAllCaps="false"
+            android:padding="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/textView2"
             app:layout_constraintHorizontal_bias="1.0"
@@ -83,7 +84,7 @@
             android:inputType="number"
             android:textSize="32sp"
             app:itemCount="4"
-            android:text="235"
+            tools:text="235"
             app:itemHeight="50dp"
             app:itemSpacing="8dp"
             app:itemWidth="50dp"
