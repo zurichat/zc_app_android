@@ -37,7 +37,7 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
             public void run() {
                 try {
                     sleep(6000);
-                    Intent i = new Intent(getBaseContext(), LoginActivity.class);
+                    Intent i = new Intent(getBaseContext(),LoginActivity.class);
                     startActivity(i);
                     finish();
                 } catch (Exception ignored) {
