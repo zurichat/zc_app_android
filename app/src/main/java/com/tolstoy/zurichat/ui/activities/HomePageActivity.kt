@@ -34,6 +34,7 @@ class HomePageActivity : AppCompatActivity() {
 //        setSupportActionBar(mToolbar)
         setSupportActionBar(findViewById(R.id.toolbar))
 
+
         mViewPager2 = findViewById(R.id.pager)
         homeFragmentPagerAdapter = HomeFragmentPagerAdapter(this)
         mViewPager2.adapter = homeFragmentPagerAdapter
