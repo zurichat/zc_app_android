@@ -17,7 +17,7 @@
             android:name=".ui.activities.DMActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activities.HomePageActivity"
+            android:name=".ui.activities.SplashActivity"
             android:exported="true" />
         <activity
             android:name=".ui.otp.OTP_Page"
@@ -40,7 +40,7 @@
             android:name=".ui.login.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activities.SplashActivity"
+            android:name=".ui.activities.HomePageActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
