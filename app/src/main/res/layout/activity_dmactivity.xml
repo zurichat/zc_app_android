@@ -108,17 +108,44 @@
     <!--endregion-->
 
     <!--region Chat Body-->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chat_view"
-        android:layout_width="0dp"
+    <ScrollView
+        android:id="@+id/chat_scrollview"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@id/dm_typing_bar_view"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dm_toolbar">
+
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="match_parent"
+           android:layout_gravity="bottom"
+           android:layout_height="0dp"
+           >
+
+           <ImageView
+               android:id="@+id/dm_send_image"
+               android:layout_width="100dp"
+               android:layout_height="100dp"
+               android:src="@drawable/ic_launcher_background"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintBottom_toBottomOf="parent"
+               android:visibility="gone"
+               android:layout_margin="10dp"
+               />
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dm_chat_recycler_view"
+        android:layout_width="0dp"
+        android:padding="16dp"
+        android:layout_height="0dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/dm_toolbar"
-        app:layout_constraintVertical_bias="0.95"
-        tools:listitem="@layout/item_message" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dm_toolbar"
+        app:layout_constraintBottom_toTopOf="@id/dm_typing_bar_view"
+        tools:listitem="@layout/dm_chat_list_item" />
     <!--endregion-->
 
     <!-- region Typing and Attachments-->
@@ -198,6 +225,19 @@
             android:layout_width="54dp"
             android:layout_height="54dp"
             android:src="@drawable/ic_keyboard_voice"
+            app:backgroundTint="@color/canvas_color"
+            app:fabSize="normal"
+            android:scaleType="fitXY"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/card_typing_layout"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_send_text"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            android:src="@drawable/ic_send"
             app:backgroundTint="@color/canvas_color"
             app:fabSize="normal"
             android:scaleType="fitXY"

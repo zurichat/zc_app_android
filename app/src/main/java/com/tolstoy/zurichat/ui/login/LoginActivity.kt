@@ -1,15 +1,21 @@
 package com.tolstoy.zurichat.ui.login
 
 import android.content.Intent
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.widget.Button
 import com.tolstoy.zurichat.R
-import com.tolstoy.zurichat.ui.activities.DMActivity
+import com.tolstoy.zurichat.ui.activities.HomePageActivity
+import com.tolstoy.zurichat.util.setUpApplicationTheme
+import com.tolstoy.zurichat.ui.activities.MainActivity
+
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        startActivity(Intent(this, DMActivity::class.java))
+        // This setups application theme to value stored in sharedPref
+        setUpApplicationTheme(this)
+
     }
 }

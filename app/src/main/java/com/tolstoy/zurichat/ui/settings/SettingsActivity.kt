@@ -1,13 +1,21 @@
 package com.tolstoy.zurichat.ui.settings
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.ui.activities.ProfileActivity
+import com.tolstoy.zurichat.util.THEME_KEY
+import com.tolstoy.zurichat.util.setUpApplicationTheme
 
 private const val TITLE_TAG = "settingsActivityTitle"
 
@@ -80,6 +88,16 @@ class SettingsActivity : AppCompatActivity(),
             val networkUsageContainer = activity?.findViewById<ConstraintLayout>(R.id.network_usage_container)
             val divider = activity?.findViewById<View>(R.id.divider);
 
+            //make manage storage container clickable
+            manageStorageContainer?.setOnClickListener {
+                startActivity(Intent(activity, ManageStorageActivity::class.java))
+            }
+
+            //make profile container clickable
+            profileContainer?.setOnClickListener {
+                startActivity(Intent(activity, ProfileActivity::class.java))
+            }
+
             chatSettings!!.setOnPreferenceClickListener {
                 if (profileContainer != null) {
                     profileContainer.visibility = View.GONE
@@ -144,6 +162,31 @@ class SettingsActivity : AppCompatActivity(),
     }
 
     class ChatFragment : PreferenceFragmentCompat() {
+        private  var listPref : ListPreference? = null
+        override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+        ): View? {
+
+            val profileContainer = activity?.findViewById<ConstraintLayout>(R.id.profile_container)
+            val divider = activity?.findViewById<View>(R.id.divider);
+            profileContainer?.visibility = View.GONE
+            divider?.visibility = View.GONE
+
+            // Gets the listPreference object using its key
+            listPref = preferenceManager.findPreference(THEME_KEY)
+
+            /*
+            checks for the value selected after making a choice from the listPreference and set up
+            the application theme
+             */
+            listPref?.setOnPreferenceChangeListener { _, newValue ->
+               setUpApplicationTheme(newValue as String)
+                return@setOnPreferenceChangeListener true
+            }
+            return super.onCreateView(inflater, container, savedInstanceState)
+        }
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.chat_preferences, rootKey)
         }
@@ -158,6 +201,8 @@ class SettingsActivity : AppCompatActivity(),
     class StorageAndDataFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.storage_and_data_preferences, rootKey)
+
+
         }
     }
 
