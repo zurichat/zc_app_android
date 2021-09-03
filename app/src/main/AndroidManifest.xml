@@ -17,10 +17,9 @@
             android:exported="true" />
         <activity
             android:name=".ui.activities.DMActivity"
-            android:exported="true"></activity>
-        <activity
-            android:name=".ui.activities.HomePageActivity"
-            android:exported="true" />
+            android:exported="true" /> <!-- <activity -->
+        <!-- android:name=".ui.activities.HomePageActivity" -->
+        <!-- android:exported="true" /> -->
         <activity
             android:name=".ui.otp.OTP_Page"
             android:exported="true" />
@@ -43,7 +42,7 @@
             android:exported="true"
             android:theme="@style/Theme.ZuriChat.Splash" />
         <activity
-            android:name=".ui.activities.SplashActivity"
+            android:name=".ui.activities.HomePageActivity"
             android:exported="true"
             android:theme="@style/Theme.ZuriChat.Splash">
             <intent-filter>
