@@ -36,10 +36,13 @@ class ChatsAdapter(
             item.chatItemPersonNameTxt.text = chat.name
             item.chatItemPersonIcon.setBackgroundResource(chat.imageResource)
             item.chatItemMessageTxt.text = chat.message
-            if (chat.name != context.getString(R.string.chat_item_mary_value) || chat.name != context.getString(R.string.chat_item_luxanne_value)){
-                item.chatItemTimeTxt.setTextColor(ContextCompat.getColor(context,R.color.lightGray))
-                item.chatItemMessageCountTxt.text = ""
+            if (chat.name == context.getString(R.string.chat_item_mary_value) || chat.name == context.getString(R.string.chat_item_luxanne_value)){
+                item.chatItemTimeTxt.setTextColor(ContextCompat.getColor(context,R.color.canvas_color))
+                item.chatItemMessageCountTxt.setText(chat.messageCount.toString())
+            }else{
+                item.chatItemTimeTxt.setTextColor(ContextCompat.getColor(context,R.color.canvas_color))
                 item.chatItemMessageCountTxt.setBackgroundResource(R.color.white)
+                item.chatItemTimeTxt.setTextColor(ContextCompat.getColor(context,R.color.lightGray))
             }
         }
     }

@@ -13,6 +13,7 @@
         android:text=""
         android:textColor="@color/fadeBlack"
         android:textSize="@dimen/chat_item_person_text_size"
+        android:fontFamily="@font/lato"
         app:layout_constraintBottom_toBottomOf="@+id/chat_item_person_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.03"
