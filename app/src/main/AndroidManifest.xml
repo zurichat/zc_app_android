@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZuriChat">
         <activity
+            android:name=".ui.activities.NewChannelActivity"
+            android:exported="true"/>
+        <activity
+            android:name=".ui.settings.LargerItemsActivity"
+            android:exported="true"
+            android:label="@string/larger_items_or_no_items_string"
+            android:parentActivityName=".ui.settings.LargerItemsActivity"
+            android:theme="@style/Theme.ZuriChat.Settings" />
+        <activity
             android:name=".ui.emailverified.EmailVerifiedActivity"
             android:exported="true" />
         <activity
@@ -17,7 +26,7 @@
             android:exported="true" />
         <activity
             android:name=".ui.activities.DMActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".ui.activities.HomePageActivity"
             android:exported="true" />
@@ -57,7 +66,13 @@
             android:exported="true"
             android:label="@string/profile_activity"
             android:parentActivityName=".ui.settings.ManageStorageActivity"
-            android:theme="@style/Theme.ZuriChat.Settings"/>
+            android:theme="@style/Theme.ZuriChat.Settings" />
+        <activity
+            android:name=".ui.activities.ProfileAboutActivity"
+            android:exported="true"
+            android:label="@string/profile_about"
+            android:parentActivityName=".ui.settings.ManageStorageActivity"
+            android:theme="@style/Theme.ZuriChat.Settings" />
         <activity android:name=".ui.activities.MainActivity" />
 
         <meta-data

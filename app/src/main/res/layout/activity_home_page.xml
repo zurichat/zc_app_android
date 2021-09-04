@@ -12,13 +12,13 @@
         layout="@layout/home_page_toolbar"/>
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/tabs"
         style="@style/TabTheme"
         app:tabMode="fixed"
         app:tabGravity="fill"
-        android:background="@color/primaryColor"/>
+        android:background="@color/primary_color"/>
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pager"
