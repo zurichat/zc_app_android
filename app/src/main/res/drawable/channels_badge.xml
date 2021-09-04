@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval"
+    android:tint="@color/teal_200"
+    android:visible="true"
+
+    >
+<corners android:radius="14px"/>
+    <solid android:color="@color/teal_200"/>
+    <size android:height="14px"
+        android:width="14px"/>
+
+</shape>
