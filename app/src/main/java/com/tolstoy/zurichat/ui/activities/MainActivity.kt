@@ -121,7 +121,7 @@ class MainActivity : AppCompatActivity() {
                             processSearch(item)
                         }
                         R.id.new_channel -> {
-                            // Do Activity menu item stuff here
+                            startActivity(Intent(this@MainActivity,NewChannelActivity::class.java))
                             return false
                         }
                         R.id.saved_messages -> {
