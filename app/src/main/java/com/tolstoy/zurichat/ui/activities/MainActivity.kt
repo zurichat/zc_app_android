@@ -13,6 +13,9 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.viewbinding.ViewBinding
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -127,6 +130,12 @@ class MainActivity : AppCompatActivity() {
                         }
                         R.id.settings -> {
                             intent = Intent(this, SettingsActivity::class.java)
+                            startActivity(intent)
+                            true
+                        }
+
+                        R.id.channel_info ->{
+                            intent = Intent(this, ChannelInfoActivity::class.java)
                             startActivity(intent)
                             true
                         }

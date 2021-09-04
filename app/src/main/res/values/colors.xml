@@ -54,4 +54,10 @@
     <color name="divider_white">#D4D4D4</color>
     <color name="preference_name_color">#3A3A3A</color>
     <color name="onboarding_black">#000000</color>
+
+    <!-- Channel Info Colors -->
+    <color name="whitesmoke">#f6f6f6</color>
+    <color name="royalblue">#2266dc</color>
+    <color name="text_black">#454545</color>
+
 </resources>
