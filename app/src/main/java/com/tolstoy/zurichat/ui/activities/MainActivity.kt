@@ -35,9 +35,12 @@ class MainActivity : AppCompatActivity() {
     private var rcAdapter: RecyclerViewAdapter? = null
     private lateinit var mTabLayout: TabLayout
     private var mTopToolbar: Toolbar? = null
-    private val TAB_TITLES = intArrayOf(R.string.chats, R.string.calls)
+
+    private val TAB_TITLES = intArrayOf(R.string.chats, R.string.channels)
+
     var chat = ChatsFragment()
     val searchView: SearchView? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
