@@ -70,5 +70,10 @@
     <style name="TabCustomTextAppearance" parent="TextAppearance.Design.Tab">
         <item name="android:textSize">15sp</item>
     </style>
+    
+    <style name="Theme.ZuriChat.AttachmentTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
 
 </resources>
