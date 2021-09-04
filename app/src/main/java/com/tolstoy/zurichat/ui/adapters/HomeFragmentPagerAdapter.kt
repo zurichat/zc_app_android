@@ -15,7 +15,7 @@ class HomeFragmentPagerAdapter(fragmentActivity: FragmentActivity) :
 
     val PAGE_COUNT = 2
     @StringRes
-    val TAB_TITLES = intArrayOf(R.string.chats, R.string.calls)
+    val TAB_TITLES = intArrayOf(R.string.chats, R.string.channels)
 
 
     override fun createFragment(position: Int): Fragment {

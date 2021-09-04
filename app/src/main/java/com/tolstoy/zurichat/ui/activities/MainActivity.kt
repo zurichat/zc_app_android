@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     private var rcAdapter: RecyclerViewAdapter? = null
     private lateinit var mTabLayout: TabLayout
     private var mTopToolbar: Toolbar? = null
-    private val TAB_TITLES = intArrayOf(R.string.chats, R.string.calls)
+    private val TAB_TITLES = intArrayOf(R.string.chats, R.string.channels)
     var chat = ChatsFragment()
     val searchView: SearchView? = null
 
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun processSearch(item: MenuItem?) {
-        val s = SpannableString("My red MenuItem")
+        val s = SpannableString("My MenuItem")
         s.setSpan(ForegroundColorSpan(Color.WHITE), 0, s.length, 0)
         if (item != null) {
             item.title = s
