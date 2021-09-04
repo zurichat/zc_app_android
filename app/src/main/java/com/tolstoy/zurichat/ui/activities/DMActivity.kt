@@ -15,13 +15,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.models.DmMessages
 import com.tolstoy.zurichat.ui.adapters.DmMessagesRecyclerAdapter
+import com.tolstoy.zurichat.ui.dm_channels.adapters.MessageAdapter
 import com.tolstoy.zurichat.util.setUpApplicationTheme
 import dev.ronnie.github.imagepicker.ImagePicker
 import dev.ronnie.github.imagepicker.ImageResult
+import java.text.SimpleDateFormat
+import java.util.*
 
 class DMActivity : AppCompatActivity() {
     lateinit var imagePicker: ImagePicker
-
+    private val adapter by lazy { MessageAdapter(this, 0) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dmactivity)
@@ -71,16 +74,41 @@ class DMActivity : AppCompatActivity() {
             DmMessages("me", "Same here... Which team?", "6:08 AM"),
             DmMessages("me", "Which stage are you?", "6:08 AM")
         )
+        //update chat screen
+        update(demoDmMessages)
+
+        //call the sendMessage function when button is clicked and pass message as argument
+        sendMessage.setOnClickListener {
+            val message = dmEditText.text.toString()
+            //function to format time
+            fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
+                val formatter = SimpleDateFormat(format, locale)
+                return formatter.format(this)
+            }
+            //function to get system current time
+            fun getCurrentDateTime(): Date {
+                return Calendar.getInstance().time
+            }
+            val currentTime = getCurrentDateTime()
+            val time = currentTime.toString("HH:mm")
+            val dms = DmMessages("me", "$message", time)
+            demoDmMessages.add(dms)
+            update(demoDmMessages)
+            dmEditText.text.clear()
+        }
+    }
+
+    fun update(demoDmMessages:MutableList<DmMessages>){
         // initializing the DM message adapter
         val dmMessagesAdapter = DmMessagesRecyclerAdapter(demoDmMessages, "me")
         // setting up the DM message RecyclerView
         val dmChatRecyclerView: RecyclerView = findViewById(R.id.dm_chat_recycler_view)
         dmChatRecyclerView.apply {
             val linearLayout = LinearLayoutManager(this@DMActivity)
-            linearLayout.stackFromEnd = true
+//            linearLayout.stackFromEnd = true
             layoutManager = linearLayout
-            setHasFixedSize(true)
-            adapter = dmMessagesAdapter
+//            setHasFixedSize(true)
+            adapter = this@DMActivity.adapter
         }
     }
 
@@ -118,5 +146,4 @@ class DMActivity : AppCompatActivity() {
             }
         }
     }
-
 }

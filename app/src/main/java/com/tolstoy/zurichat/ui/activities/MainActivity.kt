@@ -1,15 +1,17 @@
 package com.tolstoy.zurichat.ui.activities
 
 
-import android.graphics.Color
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.SearchView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.viewbinding.ViewBinding
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -18,14 +20,11 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ActivityMainBinding
-import com.tolstoy.zurichat.util.setUpApplicationTheme
 import com.tolstoy.zurichat.ui.adapters.HomeFragmentPagerAdapter
-import android.text.style.ForegroundColorSpan
-
-import android.text.SpannableString
-
-
-
+import com.tolstoy.zurichat.ui.adapters.RecyclerViewAdapter
+import com.tolstoy.zurichat.ui.fragment.ChatsFragment
+import com.tolstoy.zurichat.ui.settings.SettingsActivity
+import com.tolstoy.zurichat.util.setUpApplicationTheme
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,9 +32,12 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mViewPager2: ViewPager2
     private var homeFragmentPagerAdapter: FragmentStateAdapter? = null
+    private var rcAdapter: RecyclerViewAdapter? = null
     private lateinit var mTabLayout: TabLayout
     private var mTopToolbar: Toolbar? = null
     private val TAB_TITLES = intArrayOf(R.string.chats, R.string.calls)
+    var chat = ChatsFragment()
+    val searchView: SearchView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,51 +73,75 @@ class MainActivity : AppCompatActivity() {
         val positionOfMenuItem = 0 // or whatever...
 
         val item = menu.getItem(positionOfMenuItem)
-        val s = SpannableString("My red MenuItem")
-        s.setSpan(ForegroundColorSpan(Color.WHITE), 0, s.length, 0)
-        item.title = s
 
-        searchView.setOnSearchClickListener {object: SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
+        processSearch(item)
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
-            }
-        }
-        }
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
-        when (item.itemId) {
-            R.id.search ->
-                return true
-            R.id.new_channel ->
-                // Do Activity menu item stuff here
-                return false
-            R.id.saved_messages->
-                // Not implemented here
-                return false
-            R.id.settings->
-                // Not implemented here
-                return false
-            else -> {
-            }
+    private fun processSearch(item: MenuItem?) {
+        val s = SpannableString("My red MenuItem")
+        s.setSpan(ForegroundColorSpan(Color.WHITE), 0, s.length, 0)
+        if (item != null) {
+            item.title = s
         }
+            searchView?.setOnSearchClickListener {
+                object : SearchView.OnQueryTextListener {
+                    override fun onQueryTextSubmit(query: String?): Boolean {
+                        var str = rcAdapter?.filter(query.toString())
 
-        return super.onOptionsItemSelected(item)
-
+                        if (str == null) {
+                            Toast.makeText(
+                                this@MainActivity,
+                                "No Match found",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                        return false
+                    }
+                    override fun onQueryTextChange(newText: String?): Boolean {
+                        rcAdapter?.filter(newText.toString())
+                        return true
+                    }
+                }
+            }
     }
 
-    private inline fun <T : ViewBinding> AppCompatActivity.viewBinding(
-        crossinline bindingInflater: (LayoutInflater) -> T
-    ) =
-        lazy(LazyThreadSafetyMode.NONE) {
-            bindingInflater.invoke(layoutInflater)}
-}
+
+                override fun onOptionsItemSelected(item: MenuItem): Boolean {
+                    // Handle action bar item clicks here. The action bar will
+                    // automatically handle clicks on the Home/Up button, so long
+                    // as you specify a parent activity in AndroidManifest.xml.
+
+                    when (item.itemId) {
+                        R.id.search -> {
+                            processSearch(item)
+                        }
+                        R.id.new_channel -> {
+                            // Do Activity menu item stuff here
+                            return false
+                        }
+                        R.id.saved_messages -> {
+                            // Not implemented here
+                            return false
+                        }
+                        R.id.settings -> {
+                            intent = Intent(this, SettingsActivity::class.java)
+                            startActivity(intent)
+                            true
+                        }
+                        else -> {
+                        }
+                    }
+
+                    return super.onOptionsItemSelected(item)
+
+                }
+            }
+            private inline fun <T : ViewBinding> AppCompatActivity.viewBinding(
+                crossinline bindingInflater: (LayoutInflater) -> T
+            ) =
+                lazy(LazyThreadSafetyMode.NONE) {
+                    bindingInflater.invoke(layoutInflater)
+                }
+
