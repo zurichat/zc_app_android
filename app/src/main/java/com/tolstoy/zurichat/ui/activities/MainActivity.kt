@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun processSearch(item: MenuItem?) {
-        val s = SpannableString("My red MenuItem")
+        val s = SpannableString("My MenuItem")
         s.setSpan(ForegroundColorSpan(Color.WHITE), 0, s.length, 0)
         if (item != null) {
             item.title = s
