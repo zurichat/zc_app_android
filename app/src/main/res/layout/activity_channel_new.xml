@@ -90,7 +90,7 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2500 contacts"
+        android:text="2500 Contacts"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="@+id/textView8"
