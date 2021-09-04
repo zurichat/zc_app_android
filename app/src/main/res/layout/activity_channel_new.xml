@@ -13,7 +13,7 @@
         android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/home_menu"
+        app:menu="@menu/new_channel_menu"
         app:popupTheme="@style/Theme.MaterialComponents.Light.NoActionBar"
         app:subtitleTextColor="@color/white"
         app:theme="@style/ToolbarTheme" />
@@ -81,6 +81,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:padding="16dp"
         android:background="@drawable/ic_arrow_back"
         app:layout_constraintStart_toStartOf="@+id/toolbar"
         app:layout_constraintTop_toTopOf="@+id/toolbar" />
