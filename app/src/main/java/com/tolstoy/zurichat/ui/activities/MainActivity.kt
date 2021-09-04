@@ -122,6 +122,7 @@ class MainActivity : AppCompatActivity() {
                         }
                         R.id.new_channel -> {
                             startActivity(Intent(this@MainActivity,NewChannelActivity::class.java))
+                            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
                             return false
                         }
                         R.id.saved_messages -> {

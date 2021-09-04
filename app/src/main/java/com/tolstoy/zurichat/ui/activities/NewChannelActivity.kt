@@ -1,5 +1,6 @@
 package com.tolstoy.zurichat.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
@@ -17,6 +18,11 @@ class NewChannelActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityChannelNewBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.backBtn.setOnClickListener {
+            startActivity(Intent(this@NewChannelActivity,MainActivity::class.java))
+            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
+        }
         val newChannelAdapter = NewChannelAdapter(getNewChannel())
         binding.recyclerView.apply {
             adapter = newChannelAdapter

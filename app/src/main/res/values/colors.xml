@@ -60,4 +60,7 @@
     <color name="royalblue">#2266dc</color>
     <color name="text_black">#454545</color>
 
+    <color name="lightGray">#A6A6A6</color>
+    <color name="fadeBlack">#454545</color>
+
 </resources>
