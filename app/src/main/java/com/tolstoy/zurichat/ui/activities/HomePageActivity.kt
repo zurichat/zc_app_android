@@ -20,18 +20,20 @@ import com.tolstoy.zurichat.util.setUpApplicationTheme
 
 
 class HomePageActivity : AppCompatActivity() {
+
     private lateinit var mViewPager2: ViewPager2
     private var homeFragmentPagerAdapter: FragmentStateAdapter? = null
     private lateinit var mTabLayout: TabLayout
-    private val TAB_TITLES = intArrayOf(R.string.chats, R.string.channels)
+    private val TAB_TITLES = intArrayOf(R.string.chats, R.string.calls)
 //    private lateinit var mToolbar: Toolbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page)
+
 //        mToolbar = findViewById(R.id.toolbar)
 //        setSupportActionBar(mToolbar)
-        setSupportActionBar(findViewById(R.id.my_toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         // This setups application theme to value stored in sharedPref
         setUpApplicationTheme(this)
