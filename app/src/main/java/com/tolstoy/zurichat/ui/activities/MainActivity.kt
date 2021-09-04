@@ -121,7 +121,8 @@ class MainActivity : AppCompatActivity() {
                             processSearch(item)
                         }
                         R.id.new_channel -> {
-                            // Do Activity menu item stuff here
+                            startActivity(Intent(this@MainActivity,NewChannelActivity::class.java))
+                            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
                             return false
                         }
                         R.id.saved_messages -> {
