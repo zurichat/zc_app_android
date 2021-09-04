@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:scaleType="center"
+        app:fabCustomSize="30dp"
+        app:maxImageSize="15dp"
+        app:background="@color/teal_200"
+        app:backgroundTint="@color/light_blue"
+        app:tint="@color/teal_200"
+        app:srcCompat="@drawable/ic_channel_lock"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/channelTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Comedy-and-riddles"
+        app:layout_constraintStart_toEndOf="@id/fab"
+        app:layout_constraintTop_toTopOf="@id/fab"
+        app:layout_constraintBottom_toBottomOf="@id/fab"/>
+    <TextView
+        android:id="@+id/badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:padding="3dp"
+        android:background="@drawable/channels_badge"
+        app:layout_constraintStart_toEndOf="@id/channelTitle"
+        app:layout_constraintTop_toTopOf="@id/channelTitle"
+        app:layout_constraintBottom_toBottomOf="@id/channelTitle"
+        android:text="1"
+        android:textColor="@android:color/white"
+        />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_arrow_forward"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/channelTitle"
+        app:layout_constraintBottom_toBottomOf="@id/channelTitle"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

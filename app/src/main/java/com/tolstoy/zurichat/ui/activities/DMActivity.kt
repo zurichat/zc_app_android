@@ -20,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.models.DmMessages
 import com.tolstoy.zurichat.ui.adapters.DmMessagesRecyclerAdapter
+import com.tolstoy.zurichat.ui.dm_channels.adapters.MessageAdapter
 import com.tolstoy.zurichat.util.setUpApplicationTheme
 import dev.ronnie.github.imagepicker.ImagePicker
 import dev.ronnie.github.imagepicker.ImageResult
@@ -28,6 +29,7 @@ import java.util.*
 
 class DMActivity : AppCompatActivity() {
     lateinit var imagePicker: ImagePicker
+    private val adapter by lazy { MessageAdapter(this, 0) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dmactivity)
@@ -122,10 +124,10 @@ class DMActivity : AppCompatActivity() {
         val dmChatRecyclerView: RecyclerView = findViewById(R.id.dm_chat_recycler_view)
         dmChatRecyclerView.apply {
             val linearLayout = LinearLayoutManager(this@DMActivity)
-            linearLayout.stackFromEnd = true
+//            linearLayout.stackFromEnd = true
             layoutManager = linearLayout
-            setHasFixedSize(true)
-            adapter = dmMessagesAdapter
+//            setHasFixedSize(true)
+            adapter = this@DMActivity.adapter
         }
     }
 
@@ -163,5 +165,4 @@ class DMActivity : AppCompatActivity() {
             }
         }
     }
-
 }
