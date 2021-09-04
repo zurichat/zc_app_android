@@ -43,7 +43,7 @@
 
     <style name="TabTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="tabIndicatorColor">@android:color/white</item>
-        <item name="tabTextColor">@android:color/darker_gray</item>
+        <item name="tabTextColor">@color/divider_white</item>
         <item name="tabTextAppearance">@style/TabCustomTextAppearance</item>
         <item name="tabSelectedTextColor">@android:color/white</item>
     </style>
