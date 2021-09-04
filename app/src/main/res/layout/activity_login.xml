@@ -7,48 +7,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.login.LoginActivity">
 
-  <ImageView
-      android:id="@+id/imageView2"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="30dp"
-      android:layout_marginTop="30dp"
-      android:layout_marginEnd="30dp"
-      android:scaleType="centerCrop"
+  <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/fragmentContainerView"
+      android:name="androidx.navigation.fragment.NavHostFragment"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:defaultNavHost="true"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:srcCompat="@drawable/ic_login_placeholder"
-      android:contentDescription="@string/imagelogo" />
-
-  <com.google.android.material.textfield.TextInputLayout
-      android:id="@+id/textInputLayout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="60dp"
-      android:layout_marginEnd="16dp"
-      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/imageView2">
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:hint="@string/enter_registered_email" />
-  </com.google.android.material.textfield.TextInputLayout>
-
-  <Button
-      android:id="@+id/btn_verify_email1"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginEnd="16dp"
-      android:layout_marginBottom="30dp"
-      android:text="@string/verify_email"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintBottom_toBottomOf="parent" />
+      app:navGraph="@navigation/login_graph" />
 </androidx.constraintlayout.widget.ConstraintLayout>

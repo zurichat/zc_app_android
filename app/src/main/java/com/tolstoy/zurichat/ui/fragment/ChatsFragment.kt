@@ -1,11 +1,16 @@
 package com.tolstoy.zurichat.ui.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.models.DmMessages
+import com.tolstoy.zurichat.ui.adapters.RecyclerViewAdapter
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,15 +23,23 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ChatsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private val ARG_COLUMN_COUNT: String? = "column-count"
+    private var mColumnCount = 1
+
+    var messages: ArrayList<DmMessages>? = null
+    private var displayedList: List<DmMessages?>? = null
+
+    private var mRootView: View? = null
+    var list: RecyclerView? = null
+    var msgAdapter: RecyclerViewAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
+                mColumnCount =
+                    requireArguments().getInt(ARG_COLUMN_COUNT)
         }
     }
 
@@ -35,7 +48,33 @@ class ChatsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chats, container, false)
+        mRootView = inflater.inflate(R.layout.fragment_chats, container, false)
+
+        messages= ArrayList<DmMessages>()
+
+        messages!!.add(DmMessages("Mary Basset", "Hey what's good", "22"))
+        messages!!.add(DmMessages("Druids", "Hey what's good", "1"))
+        messages!!.add(DmMessages("Kolade", "Hey what's good", "5"))
+        messages!!.add(DmMessages("Hamid.O", "Hey what's good", "3"))
+        messages!!.add(DmMessages("Luxanne", "Hey what's good", "7"))
+        messages!!.add(DmMessages("Cephas", "Hey what's good", "10"))
+        messages!!.add(DmMessages("Mark", "Hey what's good", "3"))
+        messages!!.add(DmMessages("John Victor", "Hey what's good", "2"))
+        messages!!.add(DmMessages("Hillary Jackson", "Hey what's good", "8"))
+
+        list = mRootView?.findViewById(R.id.recycler)
+
+        // Set the adapter
+        println(messages)
+        // Set the adapter
+
+            val context = (list as RecyclerView).context
+            val recyclerView = list as RecyclerView
+            recyclerView.layoutManager = LinearLayoutManager(context)
+            msgAdapter = RecyclerViewAdapter(messages!!)
+            list?.adapter = msgAdapter
+
+        return mRootView
     }
 
     companion object {
@@ -43,18 +82,17 @@ class ChatsFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
+         * @param columnCount the column position.
          * @return A new instance of fragment ChatsFragment.
          */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
+        fun newInstance(columnCount: Int) =
             ChatsFragment().apply {
                 arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+                    putInt(ARG_COLUMN_COUNT, columnCount)
                 }
             }
     }
+
+
 }
