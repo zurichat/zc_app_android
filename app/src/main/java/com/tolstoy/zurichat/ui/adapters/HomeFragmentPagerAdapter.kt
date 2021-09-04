@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.ui.fragment.CallsFragment
+import com.tolstoy.zurichat.ui.fragment.ChannelsFragment
 import com.tolstoy.zurichat.ui.fragment.ChatsFragment
 
 
@@ -21,9 +22,9 @@ class HomeFragmentPagerAdapter(fragmentActivity: FragmentActivity) :
         var fragment: Fragment? = null
         when (position) {
             0 -> fragment = ChatsFragment()
-            1 -> fragment = CallsFragment()
+            1 -> fragment = ChannelsFragment()
         }
-        return ChatsFragment()
+        return fragment!!
     }
 
     override fun getItemCount(): Int {
