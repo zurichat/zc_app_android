@@ -26,7 +26,6 @@ import android.text.SpannableString
 
 
 
-
 class MainActivity : AppCompatActivity() {
 
     private val binding by viewBinding(ActivityMainBinding::inflate)
