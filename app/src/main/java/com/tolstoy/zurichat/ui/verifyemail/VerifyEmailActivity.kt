@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.tolstoy.zurichat.R
-import com.tolstoy.zurichat.ui.otp.OtpPage
+import com.tolstoy.zurichat.ui.otp.OTP_Page
 import com.tolstoy.zurichat.util.setUpApplicationTheme
 
 class VerifyEmailActivity : AppCompatActivity() {
@@ -18,7 +18,7 @@ class VerifyEmailActivity : AppCompatActivity() {
 
         val btn_verify_email: Button = findViewById(R.id.btn_verify_email)
         btn_verify_email.setOnClickListener {
-            val int = Intent(this, OtpPage::class.java)
+            val int = Intent(this, OTP_Page::class.java)
             startActivity(int)
         }
     }

@@ -21,8 +21,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ActivityMainBinding
 import com.tolstoy.zurichat.ui.adapters.HomeFragmentPagerAdapter
-import android.text.style.ForegroundColorSpan
-import android.text.SpannableString
+//import android.text.style.ForegroundColorSpan
+//import android.text.SpannableString
 import com.tolstoy.zurichat.ui.adapters.RecyclerViewAdapter
 import com.tolstoy.zurichat.ui.channel_info.ChannelInfoActivity
 import com.tolstoy.zurichat.ui.fragment.ChatsFragment

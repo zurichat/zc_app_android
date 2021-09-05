@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.otp.OtpPage">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -14,41 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.otp.OTP_Page">
-      
-    <View
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintEnd_toEndOf="@+id/otpResendCodeBtn"
-        app:layout_constraintStart_toStartOf="@+id/otpResendCodeBtn"
-        app:layout_constraintTop_toBottomOf="@+id/otpResendCodeBtn" />
 
-    <Button
-        android:id="@+id/otpVerifyCodeBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:text="Verify Code"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textView2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/textView2" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="0dp"
-        android:layout_height="79dp"
-        android:layout_marginTop="148dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
-
-        <EditText
-            android:id="@+id/otpCodeEdtxt1"
-            android:layout_width="48dp"/>
         <TextView
             android:id="@+id/enterCodeLbl"
             android:layout_width="0dp"
@@ -111,26 +74,25 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/textView2" />
 
-        <com.chaos.view.PinView
-            android:id="@+id/pin_view"
-            style="@style/PinWidget.PinView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:inputType="number"
-            android:textSize="32sp"
-            app:itemCount="4"
-            android:text="235"
-            app:itemHeight="50dp"
-            app:itemSpacing="8dp"
-            app:itemWidth="50dp"
-            app:viewType="line"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:lineColor="@color/black"
-            app:lineWidth="2dp" />
-      </Linearlayout>
+<!--        <com.chaos.view.PinView-->
+<!--            android:id="@+id/pin_view"-->
+<!--            style="@style/PinWidget.PinView"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="32dp"-->
+<!--            android:inputType="number"-->
+<!--            android:textSize="32sp"-->
+<!--            app:itemCount="4"-->
+<!--            android:text="235"-->
+<!--            app:itemHeight="50dp"-->
+<!--            app:itemSpacing="8dp"-->
+<!--            app:itemWidth="50dp"-->
+<!--            app:viewType="line"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/textView2"-->
+<!--            app:lineColor="@color/black"-->
+<!--            app:lineWidth="2dp" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
