@@ -16,6 +16,5 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         // This setups application theme to value stored in sharedPref
         setUpApplicationTheme(this)
-
     }
 }

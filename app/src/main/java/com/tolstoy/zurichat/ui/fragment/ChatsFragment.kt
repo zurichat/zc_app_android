@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.models.DmMessages
 import com.tolstoy.zurichat.ui.activities.DMActivity
@@ -46,10 +47,7 @@ class ChatsFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         mRootView = inflater.inflate(R.layout.fragment_chats, container, false)
 
@@ -80,6 +78,10 @@ class ChatsFragment : Fragment() {
         //let's implement a click listener for our listView
         //this will execute when the user selects a note item from the listView
         list?.setOnClickListener() {
+            startActivity(Intent(activity, DMActivity::class.java))
+        }
+
+        mRootView?.findViewById<FloatingActionButton>(R.id.fab_add_chat)?.setOnClickListener {
             startActivity(Intent(activity, DMActivity::class.java))
         }
 
