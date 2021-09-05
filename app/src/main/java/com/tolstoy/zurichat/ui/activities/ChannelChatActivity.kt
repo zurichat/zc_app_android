@@ -37,6 +37,7 @@ class ChannelChatActivity : AppCompatActivity() {
         val sendMessage = findViewById<FloatingActionButton>(R.id.send_message_btn)
         var text: String? = null
 
+        //Change Icon on editText Click
         val currentMessage = channelChatEdit.text.toString()
         if (currentMessage.isEmpty()) {
             sendMessage.isEnabled = false
