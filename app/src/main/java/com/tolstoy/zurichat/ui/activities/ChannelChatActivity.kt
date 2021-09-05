@@ -9,7 +9,6 @@ import android.view.*
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.PopupWindow
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
@@ -18,7 +17,6 @@ import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.ui.channel_info.ChannelInfoActivity
 import com.tolstoy.zurichat.util.setUpApplicationTheme
 import dev.ronnie.github.imagepicker.ImagePicker
-import dev.ronnie.github.imagepicker.ImageResult
 
 
 class ChannelChatActivity : AppCompatActivity() {
@@ -30,7 +28,7 @@ class ChannelChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_channel_chat)
 
-        mTopToolbar = findViewById(R.id.custom_toolbar)
+        mTopToolbar = findViewById(R.id.my_toolbar)
         setSupportActionBar(mTopToolbar)
         // This setups application theme to value stored in sharedPref
         setUpApplicationTheme(this)
