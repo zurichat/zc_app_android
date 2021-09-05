@@ -13,9 +13,6 @@ import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.viewbinding.ViewBinding
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -25,6 +22,7 @@ import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ActivityMainBinding
 import com.tolstoy.zurichat.ui.adapters.HomeFragmentPagerAdapter
 import com.tolstoy.zurichat.ui.adapters.RecyclerViewAdapter
+import com.tolstoy.zurichat.ui.channel_info.ChannelInfoActivity
 import com.tolstoy.zurichat.ui.fragment.ChatsFragment
 import com.tolstoy.zurichat.ui.settings.SettingsActivity
 import com.tolstoy.zurichat.util.setUpApplicationTheme

@@ -10,9 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZuriChat">
         <activity
-            android:name=".ui.activities.ChannelInfoActivity"
+            android:name=".ui.channel_info.ChannelInfoActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
         <activity
             android:name=".ui.welcome.WelcomeActivity"
             android:exported="true" />
