@@ -33,7 +33,7 @@ class HomePageActivity : AppCompatActivity() {
 
 //        mToolbar = findViewById(R.id.toolbar)
 //        setSupportActionBar(mToolbar)
-        setSupportActionBar(findViewById(R.id.toolbar))
+//        setSupportActionBar(findViewById(R.id.toolbar))
 
         // This setups application theme to value stored in sharedPref
         setUpApplicationTheme(this)
@@ -72,7 +72,7 @@ class HomePageActivity : AppCompatActivity() {
                 true
             }
             R.id.settings -> {
-                intent = Intent(this, SettingsActivity::class.java)
+                val intent = Intent(this, SettingsActivity::class.java)
                 // start your next activity
                 startActivity(intent)
                 true
