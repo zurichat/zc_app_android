@@ -6,8 +6,6 @@
         />
 
         <Preference
-            app:defaultValue="1"
-            app:key="list_preference_1"
             app:iconSpaceReserved="false"
             app:selectable="false"
             app:summary="@string/who_can_see_summary"/>
