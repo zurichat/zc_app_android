@@ -20,7 +20,6 @@ class ChannelChatActivity : AppCompatActivity() {
         // This setups application theme to value stored in sharedPref
         setUpApplicationTheme(this)
 
-
         //Launch Attachment Popup
         val attachment = findViewById<ImageView>(R.id.link_btn)
         val popupView: View = layoutInflater.inflate(R.layout.attachment_popup, null)

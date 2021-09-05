@@ -71,7 +71,7 @@ class ChatsFragment : Fragment() {
             val context = (list as RecyclerView).context
             val recyclerView = list as RecyclerView
             recyclerView.layoutManager = LinearLayoutManager(context)
-            msgAdapter = RecyclerViewAdapter(messages!!)
+            msgAdapter = RecyclerViewAdapter(requireActivity(),messages!!)
             list?.adapter = msgAdapter
 
         return mRootView
