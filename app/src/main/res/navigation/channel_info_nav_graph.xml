@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/channel_info_nav_graph"
+    app:startDestination="@id/channelInfoFragment">
+
+    <fragment
+        android:id="@+id/channelInfoFragment"
+        android:name="com.tolstoy.zurichat.ui.channel_info.fragments.ChannelInfoFragment"
+        android:label="fragment_channel_info"
+        tools:layout="@layout/fragment_channel_info" >
+        <action
+            android:id="@+id/action_channelInfoFragment_to_mediaDocsFragment"
+            app:destination="@id/mediaDocsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mediaDocsFragment"
+        android:name="com.tolstoy.zurichat.ui.channel_info.fragments.MediaDocsFragment"
+        android:label="{title}"
+        tools:layout="@layout/fragment_media_docs">
+        <argument
+            android:name="title"
+            app:argType="string" />
+    </fragment>
+</navigation>

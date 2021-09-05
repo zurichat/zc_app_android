@@ -18,7 +18,7 @@
     </style>
 
     <style name="Theme.ZuriChat.Settings" parent="Theme.MaterialComponents.DayNight.DarkActionBar"/>
-<style name="ToolbarTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="ToolbarTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:textColorPrimary">@color/primaryTextColor</item>
         <item name="android:textColorSecondary">@color/primaryTextColor</item>
 
@@ -43,7 +43,7 @@
 
     <style name="TabTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="tabIndicatorColor">@android:color/white</item>
-        <item name="tabTextColor">@android:color/darker_gray</item>
+        <item name="tabTextColor">@color/divider_white</item>
         <item name="tabTextAppearance">@style/TabCustomTextAppearance</item>
         <item name="tabSelectedTextColor">@android:color/white</item>
     </style>
