@@ -20,3 +20,10 @@ fun setUpApplicationTheme(context: Context){
         THEME_KEY,context.getString(R.string.prefsThemesList_default))
     themeName?.let { setUpApplicationTheme(it) }
 }
+
+
+val String.isValidEmail: Boolean
+    get() {
+        val emailPattern = """[a-zA-Z0-9._-]+@[a-z]+\.+[a-z]+"""
+        return matches(emailPattern.toRegex())
+    }

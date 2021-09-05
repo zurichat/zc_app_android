@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.ui.activities.ProfileActivity
 import com.tolstoy.zurichat.util.THEME_KEY
@@ -29,7 +29,7 @@ class SettingsActivity : AppCompatActivity(),
         val profileContainer = findViewById<ConstraintLayout>(R.id.profile_container)
         val manageStorageContainer = findViewById<ConstraintLayout>(R.id.manage_storage_container)
         val networkUsageContainer = findViewById<ConstraintLayout>(R.id.network_usage_container)
-        val divider = findViewById<View>(R.id.divider);
+        val divider = findViewById<View>(R.id.divider)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.settings, SettingsFragment()).commit()
@@ -86,7 +86,7 @@ class SettingsActivity : AppCompatActivity(),
             val profileContainer = activity?.findViewById<ConstraintLayout>(R.id.profile_container)
             val manageStorageContainer = activity?.findViewById<ConstraintLayout>(R.id.manage_storage_container)
             val networkUsageContainer = activity?.findViewById<ConstraintLayout>(R.id.network_usage_container)
-            val divider = activity?.findViewById<View>(R.id.divider);
+            val divider = activity?.findViewById<View>(R.id.divider)
 
             //make manage storage container clickable
             manageStorageContainer?.setOnClickListener {
@@ -170,7 +170,7 @@ class SettingsActivity : AppCompatActivity(),
         ): View? {
 
             val profileContainer = activity?.findViewById<ConstraintLayout>(R.id.profile_container)
-            val divider = activity?.findViewById<View>(R.id.divider);
+            val divider = activity?.findViewById<View>(R.id.divider)
             profileContainer?.visibility = View.GONE
             divider?.visibility = View.GONE
 
@@ -208,7 +208,19 @@ class SettingsActivity : AppCompatActivity(),
 
     class NotificationAndSounds : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+
             setPreferencesFromResource(R.xml.notifications_and_sound, rootKey)
+            val channelTones = findPreference<SwitchPreference>("channel_tones")
+            channelTones?.setOnPreferenceChangeListener { preference, newValue ->
+                if (channelTones.isChecked){
+                    Toast.makeText(activity, "Channel tones off", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(activity, "Channel tones on", Toast.LENGTH_SHORT).show()
+                }
+                return@setOnPreferenceChangeListener true
+            }
+
+
         }
     }
 }

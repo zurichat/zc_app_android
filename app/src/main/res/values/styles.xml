@@ -4,4 +4,36 @@
         <item name="android:background">@color/primaryColor</item>
 
     </style>
+
+    <style name="gallery">
+        <item name="android:textSize">
+            12sp
+        </item>
+
+        <item name="android:textColor">
+            #B3000000
+        </item>
+    </style>
+
+    <style name="audio">
+        <item name="android:textSize">
+            12sp
+        </item>
+
+        <item name="android:textColor">
+            #B3000000
+        </item>
+
+    </style>
+
+    <style name="document">
+        <item name="android:textSize">
+            12sp
+        </item>
+
+        <item name="android:textColor">
+            #B3000000
+        </item>
+
+    </style>
 </resources>

@@ -1,12 +1,17 @@
 package com.tolstoy.zurichat.ui.activities
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Gravity
 import android.view.View
+import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.PopupWindow
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.models.DmMessages
 import com.tolstoy.zurichat.ui.adapters.DmMessagesRecyclerAdapter
+import com.tolstoy.zurichat.ui.dm_channels.adapters.MessageAdapter
 import com.tolstoy.zurichat.util.setUpApplicationTheme
 import dev.ronnie.github.imagepicker.ImagePicker
 import dev.ronnie.github.imagepicker.ImageResult
@@ -23,6 +29,7 @@ import java.util.*
 
 class DMActivity : AppCompatActivity() {
     lateinit var imagePicker: ImagePicker
+    private val adapter by lazy { MessageAdapter(this, 0) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dmactivity)
@@ -94,6 +101,20 @@ class DMActivity : AppCompatActivity() {
             update(demoDmMessages)
             dmEditText.text.clear()
         }
+
+        //Launch Attachment popup
+        val attachment = findViewById<ImageView>(R.id.imageView_attachment)
+        val popupView: View = layoutInflater.inflate(R.layout.attachment_popup, null)
+        var popupWindow = PopupWindow(
+            popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT
+        )
+        popupWindow.setBackgroundDrawable(ColorDrawable())
+        popupWindow.isOutsideTouchable = true
+
+        attachment.setOnClickListener {
+            popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 600)
+        }
+
     }
 
     fun update(demoDmMessages:MutableList<DmMessages>){
@@ -103,10 +124,10 @@ class DMActivity : AppCompatActivity() {
         val dmChatRecyclerView: RecyclerView = findViewById(R.id.dm_chat_recycler_view)
         dmChatRecyclerView.apply {
             val linearLayout = LinearLayoutManager(this@DMActivity)
-            linearLayout.stackFromEnd = true
+//            linearLayout.stackFromEnd = true
             layoutManager = linearLayout
-            setHasFixedSize(true)
-            adapter = dmMessagesAdapter
+//            setHasFixedSize(true)
+            adapter = this@DMActivity.adapter
         }
     }
 
@@ -144,5 +165,4 @@ class DMActivity : AppCompatActivity() {
             }
         }
     }
-
 }
