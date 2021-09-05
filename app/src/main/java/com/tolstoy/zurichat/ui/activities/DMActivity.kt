@@ -42,6 +42,17 @@ class DMActivity : AppCompatActivity() {
         val takePicture = findViewById<ImageView>(R.id.imageView_photo)
         var text: String? = null
 
+
+        //Change Icon on editText Click
+        val currentMessage = dmEditText.text.toString()
+        if (currentMessage.isEmpty()) {
+            sendMessage.isEnabled = false
+            sendVoiceNote.isEnabled = true
+        } else {
+            sendMessage.isEnabled = true
+            sendVoiceNote.isEnabled = false
+        }
+
         //initialize imagePicker library
         imagePicker = ImagePicker(this)
 

@@ -92,7 +92,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2"
-            app:lineColor="@color/black"
+            app:lineColor="@color/text_color"
             app:lineWidth="2dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
