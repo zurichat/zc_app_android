@@ -25,11 +25,13 @@
                 android:layout_height="135dp"
                 android:src="@drawable/user_profile_placeholder" />
         </FrameLayout>
+
         <ImageView
+            android:id="@+id/img_camera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
-            android:src="@drawable/camera_icon"/>
+            android:src="@drawable/camera_icon" />
     </FrameLayout>
 
     <LinearLayout
