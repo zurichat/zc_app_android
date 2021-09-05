@@ -78,6 +78,23 @@
     <string name="delete_txt">delete</string>
     <string name="save_txt">save</string>
     <string name="larger_items_or_no_items_string">No Item here</string>
+
+    <!-- Privacy Settings -->
+    <string name="who_can_see_header">Who can see my personal info</string>
+    <string name="who_can_see_summary">If you don’t share your Last seen,
+         you won’t be able to see other people’s Last seen</string>
+    <string name="last_seen_header">Last seen</string>
+    <string name="profile_photo_header">Profile photo</string>
+    <string name="about_header">About</string>
+    <string name="status_header">Status</string>
+    <string name="read_receipt_header">Read receipt</string>
+    <string name="read_receipt_summary">If turned off, you won’t send or receive Read receipts.
+        Read receipts are always sent for channels</string>
+    <string name="channels_header">Channels</string>
+    <string name="live_locations_header">Live locations</string>
+    <string name="blocked_contacts_header">Blocked contacts</string>
+    <string name="fingerprint_lock_header">Fingerprint lock</string>
+
     <!-- Theme Selection -->
     <string name="prefsThemesList_default">none</string>
     <string name="username_">Username</string>
