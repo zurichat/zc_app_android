@@ -1,20 +1,21 @@
 package com.tolstoy.zurichat.ui.activities
 
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.Gravity
-import android.view.View
-import android.view.WindowManager
+import android.view.*
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.ui.channel_info.ChannelInfoActivity
 import com.tolstoy.zurichat.util.setUpApplicationTheme
 import dev.ronnie.github.imagepicker.ImagePicker
 import dev.ronnie.github.imagepicker.ImageResult
@@ -23,11 +24,14 @@ import dev.ronnie.github.imagepicker.ImageResult
 class ChannelChatActivity : AppCompatActivity() {
 
     lateinit var imagePicker: ImagePicker
+    private var mTopToolbar: Toolbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_channel_chat)
 
+        mTopToolbar = findViewById(R.id.custom_toolbar)
+        setSupportActionBar(mTopToolbar)
         // This setups application theme to value stored in sharedPref
         setUpApplicationTheme(this)
 
@@ -85,6 +89,24 @@ class ChannelChatActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.channel_chat_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.channel_info ->{
+                intent = Intent(this, ChannelInfoActivity::class.java)
+                startActivity(intent)
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 
