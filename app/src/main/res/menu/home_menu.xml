@@ -22,9 +22,6 @@
         android:title="@string/settings"
         android:visible="true"
         />
-    <item android:id="@+id/channel_info"
-        android:title="@string/Channel_info"
-        android:visible="true"
-        />
+
 
 </menu>
