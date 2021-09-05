@@ -26,7 +26,7 @@ class EnterEmailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val button: Button = binding.btnVerifyEmail1
+        val button: Button = binding.btnVerifyEmail
         val emailContainer = binding.textInputLayout
 
         button.setOnClickListener {

@@ -1,5 +1,6 @@
 package com.tolstoy.zurichat.ui.fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.models.DmMessages
+import com.tolstoy.zurichat.ui.activities.DMActivity
+import com.tolstoy.zurichat.ui.activities.MainActivity
 import com.tolstoy.zurichat.ui.adapters.RecyclerViewAdapter
 import java.util.*
 
@@ -73,6 +76,12 @@ class ChatsFragment : Fragment() {
             recyclerView.layoutManager = LinearLayoutManager(context)
             msgAdapter = RecyclerViewAdapter(requireActivity(),messages!!)
             list?.adapter = msgAdapter
+
+        //let's implement a click listener for our listView
+        //this will execute when the user selects a note item from the listView
+        list?.setOnClickListener() {
+            startActivity(Intent(activity, DMActivity::class.java))
+        }
 
         return mRootView
     }
