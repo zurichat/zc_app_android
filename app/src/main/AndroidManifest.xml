@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZuriChat">
         <activity
+            android:name=".ui.activities.ChannelNameAndIconActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.welcome.WelcomeActivity"
             android:exported="true" />
         <activity

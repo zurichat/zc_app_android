@@ -25,6 +25,8 @@
     <color name="secondary_dark_color">#0038a8</color>
     <color name="primary_text_color">#ffffff</color>
     <color name="secondary_text_color">#ffffff</color>
+    <color name="green_color">#09B133</color>
+
     <color name="navigation_bar_color">#E5E5E5</color>
 
     <!-- Message Item Colors -->
