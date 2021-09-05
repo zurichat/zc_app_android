@@ -30,10 +30,11 @@
         app:layout_constraintBottom_toBottomOf="@id/fab"/>
     <TextView
         android:id="@+id/badge"
-        android:layout_width="wrap_content"
+        android:layout_width="24dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:padding="3dp"
+        android:gravity="center"
         android:background="@drawable/channels_badge"
         app:layout_constraintStart_toEndOf="@id/channelTitle"
         app:layout_constraintTop_toTopOf="@id/channelTitle"
