@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.models.DmMessages
+import com.tolstoy.zurichat.model.Message
 import com.tolstoy.zurichat.ui.adapters.DmMessagesRecyclerAdapter
 import com.tolstoy.zurichat.ui.dm_channels.adapters.MessageAdapter
 import com.tolstoy.zurichat.util.setUpApplicationTheme
@@ -96,6 +97,7 @@ class DMActivity : AppCompatActivity() {
         //call the sendMessage function when button is clicked and pass message as argument
         sendMessage.setOnClickListener {
             val message = dmEditText.text.toString()
+            adapter.addMessage(Message(0, message))
             //function to format time
             fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
                 val formatter = SimpleDateFormat(format, locale)
