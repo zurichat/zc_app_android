@@ -26,7 +26,7 @@
     <string name="title_activity_settings">Settings</string>
     <string name="welcome_title">Welcome to Zuri Chat</string>
     <string name="welcome_text">Send DMs to your contacts and channels with \n ease, start conversations with just a click</string>
-    <string name="register_mail">Enter registered email</string>
+    <string name="register_mail">Email Address</string>
     <string name="welcome_image">Welcome Image</string>
 
 
@@ -54,7 +54,7 @@
     <string name="zuri">ZURI</string>
     <string name="profile_image">Profile image</string>
     <string name="chats">CHATS</string>
-    <string name="calls">CALLS</string>
+    <string name="calls">CHANNELS</string>
 
     <!-- Chat Settings -->
     <string name="display_header">Display</string>

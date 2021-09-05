@@ -50,6 +50,7 @@
             android:name=".ui.settings.SettingsActivity"
             android:exported="true"
             android:label="@string/title_activity_settings"
+            android:parentActivityName=".ui.activities.HomePageActivity"
             android:theme="@style/Theme.ZuriChat.Settings" />
         <activity
             android:name=".ui.verifyemail.VerifyEmailActivity"

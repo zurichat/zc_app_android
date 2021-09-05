@@ -187,6 +187,7 @@
                     android:id="@+id/edittext_message"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="5dp"
                     android:background="@null"
                     android:hint="@string/type_a_message"
                     android:textSize="18sp"
