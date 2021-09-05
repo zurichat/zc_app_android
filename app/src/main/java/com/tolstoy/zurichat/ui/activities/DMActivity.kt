@@ -1,12 +1,17 @@
 package com.tolstoy.zurichat.ui.activities
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Gravity
 import android.view.View
+import android.view.WindowManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.PopupWindow
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -96,6 +101,20 @@ class DMActivity : AppCompatActivity() {
             update(demoDmMessages)
             dmEditText.text.clear()
         }
+
+        //Launch Attachment popup
+        val attachment = findViewById<ImageView>(R.id.imageView_attachment)
+        val popupView: View = layoutInflater.inflate(R.layout.attachment_popup, null)
+        var popupWindow = PopupWindow(
+            popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT
+        )
+        popupWindow.setBackgroundDrawable(ColorDrawable())
+        popupWindow.isOutsideTouchable = true
+
+        attachment.setOnClickListener {
+            popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 600)
+        }
+
     }
 
     fun update(demoDmMessages:MutableList<DmMessages>){

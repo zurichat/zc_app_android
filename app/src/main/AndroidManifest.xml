@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tolstoy.zurichat">
 
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="true" />
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/splash_logo"
@@ -14,11 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZuriChat">
         <activity
-            android:name=".ui.profile.GalleryActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.profile.CameraActivity"
-            android:exported="true" />
+            android:name=".ui.activities.ChannelInfoActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".ui.welcome.WelcomeActivity"
             android:exported="true" />
