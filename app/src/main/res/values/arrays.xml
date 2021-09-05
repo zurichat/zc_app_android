@@ -62,16 +62,30 @@
         <item>1</item>
     </string-array>
 
-    <string-array name="last_seen">
-        <item>My Contacts</item>
+<!-- Personal info Preferences-->
+    <string-array name="personal_info_list">
+        <item>My contacts</item>
         <item>Everyone</item>
-        <item>Nobody</item>
+        <item>No one</item>
+    </string-array>
+    <string-array name="personal_info_values">
+        <item>contacts</item>
+        <item>all</item>
+        <item>none</item>
     </string-array>
 
-    <string-array name="last_seen_values">
-        <item>my_contacts</item>
-        <item>everyone</item>
-        <item>nobody</item>
+<!-- Unlock with fingerprint preferences   -->
+    <string-array name="fingerprint_unlock_list">
+        <item>Disabled</item>
+        <item>Immediately</item>
+        <item>Enable after 1 minute</item>
+        <item>After 30 minutes</item>
+    </string-array>
+    <string-array name="fingerprint_unlock_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
     </string-array>
 
 </resources>
