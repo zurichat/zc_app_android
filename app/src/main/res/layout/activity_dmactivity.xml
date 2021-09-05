@@ -113,7 +113,39 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/dm_typing_bar_view"
-        app:layout_constraintTop_toBottomOf="@id/dm_toolbar"></ScrollView>
+        app:layout_constraintTop_toBottomOf="@id/dm_toolbar">
+
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="match_parent"
+           android:layout_gravity="bottom"
+           android:layout_height="0dp"
+           >
+
+           <ImageView
+               android:id="@+id/dm_send_image"
+               android:layout_width="100dp"
+               android:layout_height="100dp"
+               android:src="@drawable/ic_launcher_background"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintBottom_toBottomOf="parent"
+               android:visibility="gone"
+               android:layout_margin="10dp"
+               />
+       </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dm_chat_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@id/dm_typing_bar_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dm_toolbar"
+        tools:listitem="@layout/item_message" />
     <!--endregion-->
 
     <!-- region Typing and Attachments-->
@@ -158,6 +190,8 @@
                     android:background="@null"
                     android:hint="@string/type_a_message"
                     android:textSize="18sp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="5dp"
                     app:layout_constraintEnd_toStartOf="@id/imageView_attachment"
                     app:layout_constraintStart_toEndOf="@id/imageView_emoticon" />
 

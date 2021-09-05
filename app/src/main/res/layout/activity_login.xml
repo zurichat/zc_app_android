@@ -5,47 +5,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/login_activity"
     tools:context=".ui.login.LoginActivity">
 
-  <ImageView
-      android:id="@+id/imageView2"
-      android:layout_width="match_parent"
-      android:layout_height="254dp"
-      android:layout_marginStart="8dp"
-      android:layout_marginTop="16dp"
-      android:layout_marginEnd="8dp"
+  <androidx.fragment.app.FragmentContainerView
+      android:id="@+id/fragmentContainerView"
+      android:name="androidx.navigation.fragment.NavHostFragment"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+      app:defaultNavHost="true"
+      app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent"
-      app:srcCompat="@drawable/login_holder" />
-
-  <com.google.android.material.textfield.TextInputLayout
-      android:id="@+id/textInputLayout"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="60dp"
-      android:layout_marginEnd="16dp"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/imageView2">
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:backgroundTint="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter registered zuri chat email" />
-  </com.google.android.material.textfield.TextInputLayout>
-
-  <Button
-      android:id="@+id/btn_verify_email1"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginStart="16dp"
-      android:layout_marginTop="150dp"
-      android:layout_marginEnd="16dp"
-      android:text="Verify Email"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+      app:navGraph="@navigation/login_graph" />
 </androidx.constraintlayout.widget.ConstraintLayout>
