@@ -53,7 +53,6 @@ class MainActivity : AppCompatActivity() {
         homeFragmentPagerAdapter = HomeFragmentPagerAdapter(this)
         mViewPager2.adapter = homeFragmentPagerAdapter
 
-
         mTabLayout = findViewById(R.id.tabs)
 
         TabLayoutMediator(
@@ -107,8 +106,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
     }
-
-
                 override fun onOptionsItemSelected(item: MenuItem): Boolean {
                     // Handle action bar item clicks here. The action bar will
                     // automatically handle clicks on the Home/Up button, so long
