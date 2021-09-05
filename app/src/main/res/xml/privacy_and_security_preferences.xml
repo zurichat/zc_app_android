@@ -1,93 +1,94 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="Who can see my personal info"
-        app:iconSpaceReserved="false"/>
+    <PreferenceCategory app:title="@string/who_can_see_header"
+        app:iconSpaceReserved="false"
+        app:singleLineTitle="false"
+        />
 
         <Preference
-            app:defaultValue="1"
-            app:key="list_preference_1"
             app:iconSpaceReserved="false"
             app:selectable="false"
-            app:summary="If you don't share your Last seen, you won't be able to see other people's Last seen " />
+            app:summary="@string/who_can_see_summary"/>
+
+
 
         <ListPreference
-            app:defaultValue="2"
-            app:key="list_preference_2"
-            app:title="Last seen"
-            app:summary="My contacts"
             app:iconSpaceReserved="false"
-            app:entries="@array/last_seen"
-            app:entryValues="@array/last_seen_values"/>
+            app:defaultValue="contacts"
+            app:key="last_seen"
+            app:entries="@array/personal_info_list"
+            app:entryValues="@array/personal_info_values"
+            app:title="@string/last_seen_header"
+            app:useSimpleSummaryProvider="true" />
 
         <ListPreference
-            app:defaultValue="3"
-            app:key="list_preference_3"
-            app:title="Profile photo"
-            app:summary="My contacts "
             app:iconSpaceReserved="false"
-            app:entries="@array/last_seen"
-            app:entryValues="@array/last_seen_values"/>
+            app:defaultValue="contacts"
+            app:key="profile_photo"
+            app:entries="@array/personal_info_list"
+            app:entryValues="@array/personal_info_values"
+            app:title="@string/profile_photo_header"
+            app:useSimpleSummaryProvider="true" />
 
         <ListPreference
-            app:defaultValue="4"
-            app:key="list_preference_4"
-            app:title="About"
-            app:summary="My contacts"
             app:iconSpaceReserved="false"
-            app:entries="@array/last_seen"
-            app:entryValues="@array/last_seen_values"/>
+            app:defaultValue="contacts"
+            app:key="about"
+            app:entries="@array/personal_info_list"
+            app:entryValues="@array/personal_info_values"
+            app:title="@string/about_header"
+            app:useSimpleSummaryProvider="true"/>
 
         <ListPreference
-            app:defaultValue="5"
-            app:key="list_preference_5"
-            app:title="Status"
-            app:summary="My contacts"
             app:iconSpaceReserved="false"
-            app:entries="@array/last_seen"
-            app:entryValues="@array/last_seen_values"/>
+            app:defaultValue="contacts"
+            app:key="status"
+            app:entries="@array/personal_info_list"
+            app:entryValues="@array/personal_info_values"
+            app:title="@string/status_header"
+            app:useSimpleSummaryProvider="true" />
 
         <SwitchPreferenceCompat
-            app:key="list_preference"
-            app:title="Read receipt"
+            app:allowDividerBelow="true"
             app:iconSpaceReserved="false"
-            app:summary="If turned off, you won't send or receive Read receipts. Read receipts are always sent for channels "
+            app:key="read_receipt"
+            app:title="@string/read_receipt_header"
+            app:summary="@string/read_receipt_summary"
             />
 
     <ListPreference
-        app:defaultValue="6"
-        app:key="list_preference_6"
-        app:title="Channels"
-        app:summary="My contacts"
         app:iconSpaceReserved="false"
-        app:entries="@array/last_seen"
-        app:entryValues="@array/last_seen_values"/>
+        app:defaultValue="contacts"
+        app:allowDividerAbove="true"
+        app:key="channels"
+        app:entries="@array/personal_info_list"
+        app:entryValues="@array/personal_info_values"
+        app:title="@string/channels_header"
+        app:useSimpleSummaryProvider="true" />
 
     <ListPreference
-        app:defaultValue="7"
-        app:key="list_preference_7"
-        app:title="Live location"
-        app:summary="No one"
         app:iconSpaceReserved="false"
-        app:entries="@array/last_seen"
-        app:entryValues="@array/last_seen_values"/>
+        app:defaultValue="none"
+        app:key="live_locations"
+        app:entries="@array/personal_info_list"
+        app:entryValues="@array/personal_info_values"
+        app:title="@string/live_locations_header"
+        app:useSimpleSummaryProvider="true" />
+
+    <Preference
+        app:iconSpaceReserved="false"
+        app:key="blocked_contacts"
+        app:title="@string/blocked_contacts_header"
+        app:summary="0" />
 
     <ListPreference
-        app:defaultValue="8"
-        app:key="list_preference_8"
-        app:title="Blocked contacts"
-        app:summary="0"
         app:iconSpaceReserved="false"
-        app:entries="@array/last_seen"
-        app:entryValues="@array/last_seen_values"/>
-
-    <ListPreference
-        app:defaultValue="9"
-        app:key="list_preference_9"
-        app:title="Fingerprint lock"
-        app:summary="Enable after one minute  "
-        app:iconSpaceReserved="false"
-        app:entries="@array/last_seen"
-        app:entryValues="@array/last_seen_values"/>
+        app:defaultValue="2"
+        app:key="fingerprint_lock"
+        app:entries="@array/fingerprint_unlock_list"
+        app:entryValues="@array/fingerprint_unlock_values"
+        app:title="@string/fingerprint_lock_header"
+        app:useSimpleSummaryProvider="true" />
 
 
 </PreferenceScreen>
