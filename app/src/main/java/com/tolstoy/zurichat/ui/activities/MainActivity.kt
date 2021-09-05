@@ -133,11 +133,6 @@ class MainActivity : AppCompatActivity() {
                             true
                         }
 
-                        R.id.channel_info ->{
-                            intent = Intent(this, ChannelInfoActivity::class.java)
-                            startActivity(intent)
-                            true
-                        }
                         else -> {
                         }
                     }

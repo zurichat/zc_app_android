@@ -104,5 +104,8 @@
     <string name="tab_title_media">MEDIA</string>
     <string name="tab_title_docs">DOCS</string>
     <string name="tab_title_links">LINKS</string>
+    <string name="mute_notifications">Mute notifications</string>
+    <string name="chanel_search">Search</string>
+    <string name="channel_media">Channel media</string>
 
 </resources>
