@@ -3,21 +3,24 @@
 
     <SwitchPreference
         app:key="channel_tones"
-        app:summary="Play sound for incoming and outgoing
-    message in channels"
-        app:title="Channel tones" />
+        app:summary="Play sound for incoming and outgoing message in channels"
+        app:title="Channel tones"
+        app:iconSpaceReserved="false"/>
 
-    <PreferenceCategory app:title="Messages">
+    <PreferenceCategory app:title="Messages"
+        app:iconSpaceReserved="false">
 
         <SwitchPreference
             app:key="message_tone"
             app:summary="Play sound on new messages"
-            app:title="Message tones"/>
+            app:title="Message tones"
+            app:iconSpaceReserved="false"/>
 
         <SwitchPreference
             app:key="vibrate"
             app:summary="Vibrate on new messages"
-            app:title="Vibrate" />
+            app:title="Vibrate"
+            app:iconSpaceReserved="false"/>
 
     </PreferenceCategory>
 
