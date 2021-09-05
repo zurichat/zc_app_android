@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <Preference
+            android:layout="@layout/activity_wallpaper_settings"
+            android:selectable="false"/>
+
+        <Preference
+            android:layout="@layout/wallpaper_select_button"
+            android:selectable="true"
+            app:allowDividerBelow="false"/>
+
+        <PreferenceCategory
+            android:title="Wallpaper Dimming">
+                <SeekBarPreference
+                    app:allowDividerBelow="true"
+                    android:max="@integer/material_motion_duration_long_1" />
+
+        </PreferenceCategory>
+
+
+</PreferenceScreen>
