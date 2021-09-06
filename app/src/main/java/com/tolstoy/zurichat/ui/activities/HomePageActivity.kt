@@ -38,36 +38,6 @@ class HomePageActivity : AppCompatActivity() {
 //        setSupportActionBar(mToolbar)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-
-        //
-        //Request permission for accessing media and files from storage
-        val requestPermissionLauncher =
-            registerForActivityResult(
-                ActivityResultContracts.RequestPermission())
-            { isGranted: Boolean ->
-                //Shows Toast message if permission is granted or denied.
-                if (isGranted) {
-                    Toast.makeText(this, "Permission Granted!", Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(this, "Permission Denied!", Toast.LENGTH_LONG).show()
-                }
-            }
-
-        //This runs automatically,
-        //This checks if the permission has been granted, if it has, pass, else, it request for the permission using the function above
-        //Comment this if and else statements to prevent permission from showing on startup.
-        if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            ) == PackageManager.PERMISSION_GRANTED ) {
-            //Pass
-        }
-        else {//Request permission
-            requestPermissionLauncher.launch(
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            )
-        }
-
         mViewPager2 = findViewById(R.id.pager)
         homeFragmentPagerAdapter = HomeFragmentPagerAdapter(this)
         mViewPager2.adapter = homeFragmentPagerAdapter
