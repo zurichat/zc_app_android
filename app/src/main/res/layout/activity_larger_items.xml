@@ -57,6 +57,8 @@
 
     </FrameLayout>
 
+    <!--    RecyclerView to be implemented here-->
+
     <LinearLayout
         android:id="@+id/layout_largeItems_1"
         android:layout_width="match_parent"
