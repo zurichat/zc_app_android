@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/dmchat"
@@ -131,12 +132,21 @@
                android:visibility="gone"
                android:layout_margin="10dp"
                />
-
-
        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </ScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/dm_chat_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@id/dm_typing_bar_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dm_toolbar"
+        tools:listitem="@layout/item_message" />
     <!--endregion-->
 
     <!-- region Typing and Attachments-->
@@ -181,6 +191,8 @@
                     android:background="@null"
                     android:hint="@string/type_a_message"
                     android:textSize="18sp"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="5dp"
                     app:layout_constraintEnd_toStartOf="@id/imageView_attachment"
                     app:layout_constraintStart_toEndOf="@id/imageView_emoticon" />
 

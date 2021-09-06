@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/image_p_message_sent"
+        style="@style/MessageItem.Checkmark"
+        android:layout_weight="1"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_check"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/image_p_message_delivered"
+        style="@style/MessageItem.Checkmark"
+        android:layout_weight="1"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_check"
+        tools:visibility="visible" />
+</LinearLayout>

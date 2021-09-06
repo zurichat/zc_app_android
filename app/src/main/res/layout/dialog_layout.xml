@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/constraint_cl"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/lato"
+        android:text="Profile photos"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView_delete"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:srcCompat="@drawable/circle_camera" />
+
+    <ImageView
+        android:id="@+id/imageView_gallery"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_delete"
+        app:layout_constraintEnd_toStartOf="@+id/imageView_cam"
+        app:layout_constraintStart_toEndOf="@+id/imageView_delete"
+        app:layout_constraintTop_toTopOf="@+id/imageView_delete"
+        app:srcCompat="@drawable/circle_camera" />
+
+    <ImageView
+        android:id="@+id/imageView_cam"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_gallery"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView_gallery"
+        app:srcCompat="@drawable/circle_camera" />
+
+    <ImageView
+        android:id="@+id/img_delete_photo"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_delete"
+        app:layout_constraintEnd_toEndOf="@+id/imageView_delete"
+        app:layout_constraintStart_toStartOf="@+id/imageView_delete"
+        app:layout_constraintTop_toTopOf="@+id/imageView_delete"
+        app:srcCompat="@drawable/delete_photos" />
+
+    <ImageView
+        android:id="@+id/img_gallery"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView_gallery"
+        app:layout_constraintEnd_toEndOf="@+id/imageView_gallery"
+        app:layout_constraintStart_toStartOf="@+id/imageView_gallery"
+        app:layout_constraintTop_toTopOf="@+id/imageView_gallery"
+        app:srcCompat="@drawable/gallery" />
+
+    <ImageView
+        android:id="@+id/img_camera_profile"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView_cam"
+        app:layout_constraintEnd_toEndOf="@id/imageView_cam"
+        app:layout_constraintStart_toStartOf="@+id/imageView_cam"
+        app:layout_constraintTop_toTopOf="@+id/imageView_cam"
+        app:srcCompat="@drawable/photo_camera" />
+
+    <TextView
+        android:id="@+id/textView_del_photo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="19dp"
+        android:fontFamily="@font/lato"
+        android:gravity="center"
+        android:text="Remove photo"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/imageView_delete"
+        app:layout_constraintStart_toStartOf="@id/imageView_delete"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_delete" />
+
+    <TextView
+        android:id="@+id/textView_gallery"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Gallery"
+        android:fontFamily="@font/lato"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@id/imageView_gallery"
+        app:layout_constraintStart_toStartOf="@id/imageView_gallery"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_gallery" />
+
+    <TextView
+        android:id="@+id/textView_camera"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:fontFamily="@font/lato"
+        android:text="Camera"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView_cam"
+        app:layout_constraintStart_toStartOf="@id/imageView_cam"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_cam" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

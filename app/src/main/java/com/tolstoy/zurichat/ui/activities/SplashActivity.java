@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.tolstoy.zurichat.R;
 import com.tolstoy.zurichat.ui.login.LoginActivity;
+import com.tolstoy.zurichat.util.UtilitiesKt;
 
 public class SplashActivity extends AppCompatActivity implements Animation.AnimationListener {
 
@@ -22,6 +23,9 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+
+        // This setups application theme to value stored in sharedPref
+        UtilitiesKt.setUpApplicationTheme(this);
 
         image1 = findViewById(R.id.imageView);
         image2 = findViewById(R.id.imageView4);

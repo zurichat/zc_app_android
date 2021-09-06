@@ -24,6 +24,11 @@
     <string name="customize_your_chat_experience">Customize your chat experience</string>
     <string name="customize_your_chat_environment_to_suit_your_preference">Customize your chat environment to suit your preference</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="welcome_title">Welcome to Zuri Chat</string>
+    <string name="welcome_text">Send DMs to your contacts and channels with \n ease, start conversations with just a click</string>
+    <string name="register_mail">Email Address</string>
+    <string name="welcome_image">Welcome Image</string>
+
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -49,7 +54,7 @@
     <string name="zuri">ZURI</string>
     <string name="profile_image">Profile image</string>
     <string name="chats">CHATS</string>
-    <string name="calls">CALLS</string>
+    <string name="calls">CHANNELS</string>
 
     <!-- Chat Settings -->
     <string name="display_header">Display</string>
@@ -69,5 +74,55 @@
     <string name="chat_backup">Chat backup</string>
     <string name="chat_history">Chat history</string>
     <string name="string_manage_storage">Manage Storage</string>
+    <string name="profile_activity">Profile</string>
+    <string name="delete_txt">delete</string>
+    <string name="save_txt">save</string>
+    <string name="larger_items_or_no_items_string">No Item here</string>
+
+    <!-- Privacy Settings -->
+    <string name="who_can_see_header">Who can see my personal info</string>
+    <string name="who_can_see_summary">If you don’t share your Last seen,
+         you won’t be able to see other people’s Last seen</string>
+    <string name="last_seen_header">Last seen</string>
+    <string name="profile_photo_header">Profile photo</string>
+    <string name="about_header">About</string>
+    <string name="status_header">Status</string>
+    <string name="read_receipt_header">Read receipt</string>
+    <string name="read_receipt_summary">If turned off, you won’t send or receive Read receipts.
+        Read receipts are always sent for channels</string>
+    <string name="channels_header">Channels</string>
+    <string name="live_locations_header">Live locations</string>
+    <string name="blocked_contacts_header">Blocked contacts</string>
+    <string name="fingerprint_lock_header">Fingerprint lock</string>
+
+    <!-- Theme Selection -->
+    <string name="prefsThemesList_default">none</string>
+    <string name="username_">Username</string>
+    <string name="hey_what_s_good_">Hey what\'s good</string>
+    <string name="_10_07">10:07</string>
+
+    <string name="profile_about">About</string>
+
+    <string name="no_item_here_txt">Sorry, you do not have any \nitem here.</string>
+    <string name="gallery">Gallery</string>
+    <string name="audio">Audio</string>
+    <string name="document">Document</string>
+
+    <!--Channels-->
+    <string name="make_your_channel_private">Make your channel private</string>
+    <string name="set_your_channel_privacy">Set your channel privacy</string>
+    <string name="channel_members">Channel members</string>
+    <string name="make_your_channel_public">Make your channel public</string>
+    <string name="et_channel_name">Name</string>
+    <string name="todo">TODO</string>
+    <string name="_22">22</string>
+    <string name="channels">CHANNELS</string>
+    <string name="Channel_info">Channel Info</string>
+    <string name="tab_title_media">MEDIA</string>
+    <string name="tab_title_docs">DOCS</string>
+    <string name="tab_title_links">LINKS</string>
+    <string name="mute_notifications">Mute notifications</string>
+    <string name="chanel_search">Search</string>
+    <string name="channel_media">Channel media</string>
 
 </resources>

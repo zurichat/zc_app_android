@@ -6,17 +6,15 @@ import android.os.Bundle
 import android.widget.Button
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.ui.activities.HomePageActivity
+import com.tolstoy.zurichat.util.setUpApplicationTheme
+import com.tolstoy.zurichat.ui.activities.MainActivity
+
 
 class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
-
-        val btnVerifyEmail = findViewById<Button>(R.id.btn_verify_email1)
-        btnVerifyEmail.setOnClickListener{
-            val intent = Intent(this, HomePageActivity::class.java)
-            startActivity(intent)
-        }
+        // This setups application theme to value stored in sharedPref
+        setUpApplicationTheme(this)
     }
 }
