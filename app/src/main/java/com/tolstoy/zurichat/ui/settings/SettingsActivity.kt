@@ -1,7 +1,14 @@
 package com.tolstoy.zurichat.ui.settings
 
 import android.content.Intent
-import android.os.Bundle
+import android.content.SharedPreferences
+import android.media.AudioAttributes
+import android.media.AudioManager
+import android.media.SoundPool
+import android.os.Build
+import android.os.Bundle 
+import android.util.Log
+import android.widget.Switch
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreference
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.ui.activities.ProfileActivity
@@ -20,11 +28,18 @@ import com.tolstoy.zurichat.util.setUpApplicationTheme
 private const val TITLE_TAG = "settingsActivityTitle"
 
 class SettingsActivity : AppCompatActivity(),
-    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback,
+    SharedPreferences.OnSharedPreferenceChangeListener {
+
+    var soundPool: SoundPool? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
+
+        initializePool()
+
+
 
         val profileContainer = findViewById<ConstraintLayout>(R.id.profile_container)
         val manageStorageContainer = findViewById<ConstraintLayout>(R.id.manage_storage_container)
@@ -32,7 +47,8 @@ class SettingsActivity : AppCompatActivity(),
         val divider = findViewById<View>(R.id.divider)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().replace(R.id.settings, SettingsFragment()).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.settings, SettingsFragment())
+                .commit()
         } else {
             title = savedInstanceState.getCharSequence(TITLE_TAG)
         }
@@ -61,15 +77,20 @@ class SettingsActivity : AppCompatActivity(),
         return super.onSupportNavigateUp()
     }
 
-    override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
+    override fun onPreferenceStartFragment(
+        caller: PreferenceFragmentCompat,
+        pref: Preference
+    ): Boolean {
         // Instantiate the new Fragment
         val args = pref.extras
-        val fragment = supportFragmentManager.fragmentFactory.instantiate(classLoader, pref.fragment).apply {
-            arguments = args
-            setTargetFragment(caller, 0)
-        }
+        val fragment =
+            supportFragmentManager.fragmentFactory.instantiate(classLoader, pref.fragment).apply {
+                arguments = args
+                setTargetFragment(caller, 0)
+            }
         // Replace the existing Fragment with the new Fragment
-        supportFragmentManager.beginTransaction().replace(R.id.settings, fragment).addToBackStack(null).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.settings, fragment)
+            .addToBackStack(null).commit()
         title = pref.title
         return true
     }
@@ -84,9 +105,12 @@ class SettingsActivity : AppCompatActivity(),
             val notificationSettings = findPreference<Preference>("notification_header")
 
             val profileContainer = activity?.findViewById<ConstraintLayout>(R.id.profile_container)
+
+
             val manageStorageContainer = activity?.findViewById<ConstraintLayout>(R.id.manage_storage_container)
             val networkUsageContainer = activity?.findViewById<ConstraintLayout>(R.id.network_usage_container)
             val divider = activity?.findViewById<View>(R.id.divider)
+
 
             //make manage storage container clickable
             manageStorageContainer?.setOnClickListener {
@@ -108,7 +132,7 @@ class SettingsActivity : AppCompatActivity(),
                 if (networkUsageContainer != null) {
                     networkUsageContainer.visibility = View.GONE
                 }
-                if (divider!=null){
+                if (divider != null) {
                     divider.visibility = View.GONE
                 }
                 false
@@ -124,7 +148,7 @@ class SettingsActivity : AppCompatActivity(),
                 if (networkUsageContainer != null) {
                     networkUsageContainer.visibility = View.GONE
                 }
-                if (divider!=null){
+                if (divider != null) {
                     divider.visibility = View.GONE
                 }
                 false
@@ -153,7 +177,7 @@ class SettingsActivity : AppCompatActivity(),
                 if (networkUsageContainer != null) {
                     networkUsageContainer.visibility = View.GONE
                 }
-                if (divider!=null){
+                if (divider != null) {
                     divider.visibility = View.GONE
                 }
                 false
@@ -223,4 +247,32 @@ class SettingsActivity : AppCompatActivity(),
 
         }
     }
+
+    //    listening to changes on the sharedPreference
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+     val  sound:Int = soundPool?.load(this,R.raw.swit,1)!!
+            if (key.equals("channel_tones")){
+                soundPool?.autoPause()
+                soundPool?.play(sound, 1F, 1F,0,0, 1F)
+            }
+        Toast.makeText(this, key, Toast.LENGTH_LONG).show()
+//        TODO("Not yet implemented")
+    }
+
+    fun initializePool() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val audioAttributes: AudioAttributes = AudioAttributes.Builder().build()
+            soundPool =
+                SoundPool.Builder()
+                    .setMaxStreams(6)
+                    .setAudioAttributes(audioAttributes)
+                    .build()
+        }else{
+            soundPool = SoundPool(6,AudioManager.STREAM_NOTIFICATION,0)
+        }
+
+
+    }
+
 }

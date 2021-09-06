@@ -19,9 +19,14 @@
         <SwitchPreference
             app:key="vibrate"
             app:summary="Vibrate on new messages"
+
+            />
+        <SwitchPreference
+            app:key="high_priority"
+            app:summary="Display Preview of notification at the top of  screen"
+            app:title="High priority Notification" />
             app:title="Vibrate"
             app:iconSpaceReserved="false"/>
-
     </PreferenceCategory>
 
 
