@@ -5,18 +5,9 @@
     android:layout_height="match_parent"
     android:background="#F8F8F8">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/custom_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/teal_200"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/home_page_toolbar"/>
     <TextView
         android:id="@+id/intro_group_text"
         android:layout_width="wrap_content"
@@ -28,7 +19,7 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/custom_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/channel_typing_bar"
