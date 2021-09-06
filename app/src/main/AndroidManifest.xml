@@ -2,10 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tolstoy.zurichat">
 
-    // Camera Permission
     <uses-feature android:name="android.hardware.camera.any" />
     <uses-permission android:name="android.permission.CAMERA" />
-    // Store the image taken
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
@@ -15,6 +14,19 @@
         android:roundIcon="@drawable/splash_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.ZuriChat">
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.tolstoy.zurichat.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_path">
+
+            </meta-data>
+        </provider>
         <activity
             android:name=".ui.emailverified.EmailVerifiedActivity"
             android:exported="true" />
