@@ -1,6 +1,8 @@
 package com.tolstoy.zurichat.ui.activities
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -13,7 +15,9 @@ import com.tolstoy.zurichat.ui.adapters.HomeFragmentPagerAdapter
 import android.view.MenuItem
 
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.ui.settings.SettingsActivity
 import com.tolstoy.zurichat.util.setUpApplicationTheme
