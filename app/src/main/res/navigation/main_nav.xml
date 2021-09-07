@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/homeScreenFragment">
+
+    <fragment android:id="@+id/direct_messages_screen" />
+    <fragment android:id="@+id/channel_messages_screen" />
+    <fragment
+        android:id="@+id/homeScreenFragment"
+        android:name="com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragment"
+        android:label="HomeScreenFragment" >
+        <action
+            android:id="@+id/action_homeScreenFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_direct_messages_screen"
+            app:destination="@id/direct_messages_screen" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_channel_messages_screen"
+            app:destination="@id/channel_messages_screen" />
+    </fragment>
+    <activity
+        android:id="@+id/settingsActivity"
+        android:name="com.tolstoy.zurichat.ui.settings.SettingsActivity"
+        android:label="SettingsActivity" />
+</navigation>
