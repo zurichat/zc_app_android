@@ -31,9 +31,6 @@
             android:parentActivityName=".ui.settings.LargerItemsActivity"
             android:theme="@style/Theme.ZuriChat.Settings" />
         <activity
-            android:name=".ui.emailverified.EmailVerifiedActivity"
-            android:exported="true" />
-        <activity
             android:name=".ui.activities.ChannelChatActivity"
             android:exported="true" />
         <activity
