@@ -12,7 +12,7 @@ import com.tolstoy.zurichat.databinding.FragmentOtpBinding
 import com.tolstoy.zurichat.ui.activities.MainActivity
 
 class OTPFragment : Fragment() {
-   private lateinit var binding: FragmentOtpBinding
+    private lateinit var binding: FragmentOtpBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -26,6 +26,8 @@ class OTPFragment : Fragment() {
 
         val pinView = binding.pinView
         val button =   binding.otpVerifyCodeBtn
+        val txtemail = binding.textViewEmail
+        txtemail.setText("Please enter the code sent to\n"+arguments?.getString("email"))
 
         button.setOnClickListener {
             if (pinView.length() != 4){
@@ -33,13 +35,9 @@ class OTPFragment : Fragment() {
                 return@setOnClickListener
             } else {
                 pinView.error = null
-
                 findNavController().navigate(R.id.verifiedFragment)
 
             }
-
-
-
 
         }
     }

@@ -28,12 +28,14 @@ class EnterEmailFragment : Fragment() {
 
         val button: Button = binding.btnVerifyEmail
         val emailContainer = binding.textInputLayout
+        val bundle = Bundle()
 
         button.setOnClickListener {
             val email = emailContainer.editText?.text.toString()
 
             if (email.isValidEmail){
-                findNavController().navigate(R.id.OTPFragment)
+                bundle.putString("email", email)
+                findNavController().navigate(R.id.OTPFragment, bundle)
             } else {
                 emailContainer.error = "Please enter a valid email address"
             }
