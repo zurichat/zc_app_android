@@ -26,8 +26,8 @@ import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ActivityMainBinding
 import com.tolstoy.zurichat.ui.adapters.HomeFragmentPagerAdapter
 import com.tolstoy.zurichat.ui.adapters.RecyclerViewAdapter
-import com.tolstoy.zurichat.ui.channel_info.ChannelInfoActivity
 import com.tolstoy.zurichat.ui.fragment.ChatsFragment
+import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 import com.tolstoy.zurichat.ui.settings.SettingsActivity
 import com.tolstoy.zurichat.util.setUpApplicationTheme
 
@@ -150,8 +150,7 @@ class MainActivity : AppCompatActivity() {
                             processSearch(item)
                         }
                         R.id.new_channel -> {
-                            startActivity(Intent(this@MainActivity,NewChannelActivity::class.java))
-                            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out)
+                            startActivity(Intent(this@MainActivity, NewChannelActivity::class.java))
                             return false
                         }
                         R.id.saved_messages -> {
