@@ -9,7 +9,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.ui.activities.ChannelChatActivity
-import com.tolstoy.zurichat.ui.activities.NewChannelActivity
 import com.tolstoy.zurichat.ui.fragment.Channel
 
 class UnreadChannelMessageAdapter(val context: Activity, private val list: List<Channel>):

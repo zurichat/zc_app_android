@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/new_channel_nav_graph"
+    app:startDestination="@id/selectContactFragment">
+
+    <fragment
+        android:id="@+id/selectContactFragment"
+        android:name="com.tolstoy.zurichat.ui.newchannel.SelectContactFragment"
+        android:label="SelectContactFragment" >
+        <action
+            android:id="@+id/action_selectContactFragment_to_selectMemberFragment"
+            app:destination="@id/selectMemberFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectMemberFragment"
+        android:name="com.tolstoy.zurichat.ui.newchannel.SelectMemberFragment"
+        android:label="fragment_select_member"
+        tools:layout="@layout/fragment_select_member" >
+        <action
+            android:id="@+id/action_selectMemberFragment_to_newChannelSelectPersonFragment"
+            app:destination="@id/newChannelSelectPersonFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newChannelSelectPersonFragment"
+        android:name="com.tolstoy.zurichat.ui.newchannel.NewChannelSelectPersonFragment"
+        android:label="NewChannelSelectPersonFragment" >
+        <action
+            android:id="@+id/action_newChannelSelectPersonFragment_to_newChannelConfirmationFragment"
+            app:destination="@id/newChannelConfirmationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newChannelConfirmationFragment"
+        android:name="com.tolstoy.zurichat.ui.newchannel.NewChannelConfirmationFragment"
+        android:label="NewChannelConfirmationFragment" />
+</navigation>

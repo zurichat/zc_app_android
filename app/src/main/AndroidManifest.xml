@@ -22,7 +22,7 @@
             android:name=".ui.welcome.WelcomeActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activities.NewChannelActivity"
+            android:name=".ui.newchannel.NewChannelActivity"
             android:exported="true" />
         <activity
             android:name=".ui.settings.LargerItemsActivity"
