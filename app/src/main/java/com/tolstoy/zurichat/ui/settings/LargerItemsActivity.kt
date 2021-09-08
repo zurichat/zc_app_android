@@ -1,14 +1,12 @@
 package com.tolstoy.zurichat.ui.settings
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.tolstoy.zurichat.R
-import com.tolstoy.zurichat.ui.fragment.DataAndStorageFragment
-
 
 
 class LargerItemsActivity : AppCompatActivity() {
@@ -32,7 +30,7 @@ class LargerItemsActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId){
+        return when (item.itemId) {
 
             R.id.action_save -> {
                 Toast.makeText(applicationContext, "click on save", Toast.LENGTH_SHORT).show()

@@ -54,7 +54,6 @@
     <string name="zuri">ZURI</string>
     <string name="profile_image">Profile image</string>
     <string name="chats">CHATS</string>
-    <string name="calls">CHANNELS</string>
 
     <!-- Chat Settings -->
     <string name="display_header">Display</string>

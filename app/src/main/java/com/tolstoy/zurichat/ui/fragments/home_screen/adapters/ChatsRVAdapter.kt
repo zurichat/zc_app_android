@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.ui.adapters
+package com.tolstoy.zurichat.ui.fragments.home_screen.adapters
 
 import android.app.Activity
 import android.content.Intent
@@ -7,11 +7,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.databinding.ListItemBinding
 import com.tolstoy.zurichat.models.DmMessages
-import com.tolstoy.zurichat.ui.activities.ChannelChatActivity
 import com.tolstoy.zurichat.ui.activities.DMActivity
-import com.tolstoy.zurichat.ui.settings.SettingsActivity
 
-class RecyclerViewAdapter(val context: Activity, private val characters: List<DmMessages>): RecyclerView.Adapter<RecyclerViewAdapter.ChatViewHolder>() {
+class ChatsRVAdapter(val context: Activity, private val characters: List<DmMessages>): RecyclerView.Adapter<ChatsRVAdapter.ChatViewHolder>() {
 
     private var displayedList: List<DmMessages?>? = null
         inner class ChatViewHolder(private val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root){
