@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import com.tolstoy.zurichat.databinding.FragmentChatsBinding
 import com.tolstoy.zurichat.models.DmMessages
 import com.tolstoy.zurichat.ui.activities.DMActivity
-import com.tolstoy.zurichat.ui.adapters.RecyclerViewAdapter
+import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChatsRVAdapter
 
 class ChatsFragment : Fragment() {
 
@@ -40,7 +40,7 @@ class ChatsFragment : Fragment() {
             DmMessages("Hillary Jackson", "Hey what's good", "8"),
         )
 
-        val chatsRVAdapter = RecyclerViewAdapter(requireActivity(), messages)
+        val chatsRVAdapter = ChatsRVAdapter(requireActivity(), messages)
         binding.recycler.adapter = chatsRVAdapter
 
         binding.fabAddChat.setOnClickListener {
