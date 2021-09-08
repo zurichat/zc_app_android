@@ -3,9 +3,11 @@ package com.tolstoy.zurichat.ui.fragments.channel_chat
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
+import android.widget.ImageView
 import android.widget.PopupWindow
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentChannelChatBinding
 import dev.ronnie.github.imagepicker.ImagePicker
@@ -56,17 +58,21 @@ class ChannelChatFragment : Fragment() {
 
         //Launch Attachment Popup
         val attachment = binding.channelLink
-        val popupView: View = layoutInflater.inflate(R.layout.attachment_popup, null)
-        val popupWindow = PopupWindow(
-            popupView,
-            WindowManager.LayoutParams.WRAP_CONTENT,
-            WindowManager.LayoutParams.WRAP_CONTENT
-        )
-        popupWindow.setBackgroundDrawable(ColorDrawable())
-        popupWindow.isOutsideTouchable = true
 
+        //launch attachment dialog pop up
         attachment.setOnClickListener {
-            popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 600)
+            val dialog = BottomSheetDialog(requireActivity())
+            val view=layoutInflater.inflate(R.layout.dialog_attachment_layout,null)
+            dialog.setCancelable(true)
+            dialog.setContentView(view)
+            dialog.show()
+
+            val galleryIcon = view.findViewById<ImageView>(R.id.ic_gallery_attach)
+            galleryIcon.setOnClickListener {
+                imagePicker.pickFromStorage {
+
+                }
+            }
         }
 
     }
