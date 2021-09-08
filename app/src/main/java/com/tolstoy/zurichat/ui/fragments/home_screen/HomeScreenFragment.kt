@@ -22,6 +22,7 @@ class HomeScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeScreenBinding
 
+
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
 
 
@@ -36,7 +37,7 @@ class HomeScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewPagerAdapter = HomeFragmentPagerAdapter(requireActivity())
+        val viewPagerAdapter = HomeFragmentPagerAdapter(childFragmentManager, lifecycle)
         val viewPager = binding.pager
         val tabs = binding.tabs
         val toolbar = binding.toolbarContainer.toolbar

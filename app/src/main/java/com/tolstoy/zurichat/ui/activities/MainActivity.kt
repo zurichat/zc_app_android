@@ -2,38 +2,18 @@ package com.tolstoy.zurichat.ui.activities
 
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.style.ForegroundColorSpan
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.viewbinding.ViewBinding
-import androidx.viewpager2.adapter.FragmentStateAdapter
-import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
-import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ActivityMainBinding
-import com.tolstoy.zurichat.ui.adapters.HomeFragmentPagerAdapter
-import com.tolstoy.zurichat.ui.adapters.RecyclerViewAdapter
-import com.tolstoy.zurichat.ui.fragment.ChatsFragment
-import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
-import com.tolstoy.zurichat.ui.settings.SettingsActivity
 import com.tolstoy.zurichat.util.setUpApplicationTheme
 
 class MainActivity : AppCompatActivity() {
 
-    private val binding:ActivityMainBinding by lazy {
+    private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
@@ -74,7 +54,6 @@ class MainActivity : AppCompatActivity() {
                 Manifest.permission.READ_EXTERNAL_STORAGE
             )
         }
-
 
 
     }

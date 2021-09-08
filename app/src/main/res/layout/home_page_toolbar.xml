@@ -22,5 +22,6 @@
             app:title="@string/zuri"
             app:titleMarginStart="32dp"
             app:titleTextColor="@color/white" />
+
         </com.google.android.material.appbar.AppBarLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

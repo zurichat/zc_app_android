@@ -37,9 +37,6 @@
             android:name=".ui.activities.DMActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activities.HomePageActivity"
-            android:exported="true" />
-        <activity
             android:name=".ui.settings.ManageStorageActivity"
             android:exported="true"
             android:label="@string/string_manage_storage"
@@ -49,7 +46,7 @@
             android:name=".ui.settings.SettingsActivity"
             android:exported="true"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".ui.activities.HomePageActivity"
+            android:parentActivityName=".ui.activities.MainActivity"
             android:theme="@style/Theme.ZuriChat.Settings" />
         <activity
             android:name=".ui.login.LoginActivity"
