@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.ui.fragment
+package com.tolstoy.zurichat.ui.settings
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,20 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import com.tolstoy.zurichat.R
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-class CallsFragment : Fragment() {
+class DataAndStorageFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_calls, container, false)
+        return inflater.inflate(R.layout.fragment_data_and_storage, container, false)
     }
-
 
 }
