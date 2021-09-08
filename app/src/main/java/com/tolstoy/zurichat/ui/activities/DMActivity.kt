@@ -43,7 +43,6 @@ class DMActivity : AppCompatActivity() {
         val takePicture = findViewById<ImageView>(R.id.imageView_photo)
         var text: String? = null
 
-
         //Change Icon on editText Click
         val currentMessage = dmEditText.text.toString()
         if (currentMessage.isEmpty()) {

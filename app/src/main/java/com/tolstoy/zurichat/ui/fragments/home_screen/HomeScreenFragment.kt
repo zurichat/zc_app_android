@@ -37,6 +37,7 @@ class HomeScreenFragment : Fragment() {
 
         // setup for viewpager2 and tab layout
         viewPager.adapter = viewPagerAdapter
+        viewPager.offscreenPageLimit = 2
 
         // attaches the viewpager to the tabs layout
         TabLayoutMediator(
