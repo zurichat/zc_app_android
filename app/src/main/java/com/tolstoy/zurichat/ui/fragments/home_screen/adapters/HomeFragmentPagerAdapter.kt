@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.ui.adapters
+package com.tolstoy.zurichat.ui.fragments.home_screen.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -11,14 +11,11 @@ import com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.ChatsFra
 class HomeFragmentPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
-
     override fun createFragment(position: Int): Fragment {
-        var fragment: Fragment? = null
-        when (position) {
-            0 -> fragment = ChatsFragment()
-            1 -> fragment = ChannelsFragment()
+        return when (position) {
+            0 ->  ChatsFragment()
+            else -> ChannelsFragment()
         }
-        return fragment!!
     }
 
     override fun getItemCount(): Int {

@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentHomeScreenBinding
-import com.tolstoy.zurichat.ui.adapters.HomeFragmentPagerAdapter
+import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
 
 class HomeScreenFragment : Fragment() {
 
