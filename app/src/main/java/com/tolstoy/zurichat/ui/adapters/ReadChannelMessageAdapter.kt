@@ -1,7 +1,6 @@
 package com.tolstoy.zurichat.ui.adapters
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +8,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
-import com.tolstoy.zurichat.ui.fragment.Channel
-import com.tolstoy.zurichat.databinding.ChannelsAdapterBinding
+import com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.Channel
 import com.tolstoy.zurichat.ui.activities.ChannelChatActivity
 
 class ReadChannelMessageAdapter(val context: Activity, private val list: List<Channel>):

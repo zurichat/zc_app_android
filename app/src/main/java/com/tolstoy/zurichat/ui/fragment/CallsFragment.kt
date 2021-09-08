@@ -12,11 +12,6 @@ import com.tolstoy.zurichat.R
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [CallsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class CallsFragment : Fragment() {
 
     override fun onCreateView(

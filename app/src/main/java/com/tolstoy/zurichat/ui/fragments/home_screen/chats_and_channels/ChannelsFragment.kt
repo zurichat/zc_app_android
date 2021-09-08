@@ -1,10 +1,8 @@
-package com.tolstoy.zurichat.ui.fragment
+package com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.util.viewBinding

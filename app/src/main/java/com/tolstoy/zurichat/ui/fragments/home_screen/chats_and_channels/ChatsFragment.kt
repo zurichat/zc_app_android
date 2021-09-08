@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.ui.fragment
+package com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels
 
 import android.content.Intent
 import android.os.Bundle

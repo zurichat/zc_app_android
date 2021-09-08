@@ -1,20 +1,15 @@
 package com.tolstoy.zurichat.ui.adapters
 
-import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.tolstoy.zurichat.R
-import com.tolstoy.zurichat.ui.fragment.CallsFragment
-import com.tolstoy.zurichat.ui.fragment.ChannelsFragment
-import com.tolstoy.zurichat.ui.fragment.ChatsFragment
+import com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.ChannelsFragment
+import com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.ChatsFragment
 
 
 class HomeFragmentPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle) :
     FragmentStateAdapter(fragmentManager, lifecycle) {
-
 
 
     override fun createFragment(position: Int): Fragment {
