@@ -1,7 +1,6 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen.adapters
 
 import android.app.Activity
-import android.content.Intent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -9,21 +8,25 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.models.Channel
-import com.tolstoy.zurichat.ui.activities.ChannelChatActivity
 
-class ReadChannelMessageAdapter(val context: Activity, private val list: List<Channel>):
+class ReadChannelMessageAdapter(val context: Activity, private val list: List<Channel>) :
     RecyclerView.Adapter<ReadChannelMessageAdapter.CustomViewHolder>() {
 
+    private var onItemClickListener: (() -> Unit)? = null
 
+    fun setItemClickListener(listener: () -> Unit) {
+        onItemClickListener = listener
+    }
 
-    inner class CustomViewHolder(val view: View): RecyclerView.ViewHolder(view) {
+    inner class CustomViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         init {
 
         }
+
         fun bind(channel: Channel) {
             view.findViewById<TextView>(R.id.channelTitle).text = channel.name
             view.findViewById<ConstraintLayout>(R.id.root_layout).setOnClickListener {
-                context.startActivity(Intent(context, ChannelChatActivity::class.java))
+                onItemClickListener?.invoke()
             }
         }
     }

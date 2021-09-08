@@ -6,7 +6,6 @@
     app:startDestination="@id/homeScreenFragment">
 
     <fragment android:id="@+id/direct_messages_screen" />
-    <fragment android:id="@+id/channel_messages_screen" />
     <fragment
         android:id="@+id/homeScreenFragment"
         android:name="com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragment"
@@ -19,11 +18,24 @@
             android:id="@+id/action_homeScreenFragment_to_direct_messages_screen"
             app:destination="@id/direct_messages_screen" />
         <action
-            android:id="@+id/action_homeScreenFragment_to_channel_messages_screen"
-            app:destination="@id/channel_messages_screen" />
+            android:id="@+id/action_homeScreenFragment_to_channelChatFragment"
+            app:destination="@id/channelChatFragment" />
     </fragment>
     <activity
         android:id="@+id/settingsActivity"
         android:name="com.tolstoy.zurichat.ui.settings.SettingsActivity"
         android:label="SettingsActivity" />
+    <fragment
+        android:id="@+id/channelChatFragment"
+        android:name="com.tolstoy.zurichat.ui.fragments.channel_chat.ChannelChatFragment"
+        android:label="ChannelChatFragment" />
+    <fragment
+        android:id="@+id/chatsFragment"
+        android:name="com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.ChatsFragment"
+        android:label="ChatsFragment" />
+    <fragment
+        android:id="@+id/channelsFragment"
+        android:name="com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.ChannelsFragment"
+        android:label="fragment_channels"
+        tools:layout="@layout/fragment_channels" />
 </navigation>

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentChannelsBinding
 import com.tolstoy.zurichat.models.Channel
@@ -41,11 +42,19 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
 
-        val adapt = UnreadChannelMessageAdapter(requireActivity(),channelList)
+        val adapt = UnreadChannelMessageAdapter(requireActivity(), channelList)
+
+        adapt.setItemClickListener {
+            findNavController().navigate(R.id.channelChatFragment)
+        }
         binding.unreadRecycler.adapter = adapt
 
 
         val adapt2 = ReadChannelMessageAdapter(requireActivity(), channelList)
+
+        adapt2.setItemClickListener {
+            findNavController().navigate(R.id.channelChatFragment)
+        }
         binding.readRecycler.adapter = adapt2
 
     }

@@ -30,9 +30,7 @@
             android:label="@string/larger_items_or_no_items_string"
             android:parentActivityName=".ui.settings.LargerItemsActivity"
             android:theme="@style/Theme.ZuriChat.Settings" />
-        <activity
-            android:name=".ui.activities.ChannelChatActivity"
-            android:exported="true" />
+
         <activity
             android:name=".ui.activities.DMActivity"
             android:exported="true" />
