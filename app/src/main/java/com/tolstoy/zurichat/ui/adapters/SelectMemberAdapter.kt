@@ -1,11 +1,15 @@
 package com.tolstoy.zurichat.ui.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.databinding.ListItemSelectMemberBinding
 import com.tolstoy.zurichat.models.MembersData
+import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
+import com.tolstoy.zurichat.ui.newchannel.NewChannelPersonsActivity
+import com.tolstoy.zurichat.ui.newchannel.NewChannelSelectPersonFragment
 
 class SelectMemberAdapter(private val memberList: List<MembersData>, val context: Context):
     RecyclerView.Adapter<SelectMemberAdapter.SelectMemberViewModel>() {
@@ -25,6 +29,19 @@ class SelectMemberAdapter(private val memberList: List<MembersData>, val context
                 binding.txtMemberName.text = this.name
                 binding.txtMemberDescription.text = this.description
 
+                with(holder.binding){
+                    holder.binding.selectMemberLayout.setOnClickListener {
+                        when (adapterPosition){
+                            0 -> {
+                                val intent = Intent(context, NewChannelPersonsActivity::class.java)
+                                intent.putExtra("Image", image)
+                                intent.putExtra("Name", name)
+                                intent.putExtra("Description", description)
+                                context.startActivity(intent)
+                            }
+                        }
+                    }
+                }
 
             }
         }
