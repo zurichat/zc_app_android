@@ -29,16 +29,15 @@ class OTPFragment : Fragment() {
         val txtemail = binding.textViewEmail
         txtemail.setText("Please enter the code sent to\n"+arguments?.getString("email"))
 
-        button.setOnClickListener {
-            if (pinView.length() != 4){
+        button.setOnClickListener(fun(it: View) {
+            if (pinView.length() != 4) {
                 pinView.error = "Pin incomplete"
-                return@setOnClickListener
+                return
             } else {
                 pinView.error = null
                 findNavController().navigate(R.id.verifiedFragment)
 
             }
-
-        }
+        })
     }
 }
