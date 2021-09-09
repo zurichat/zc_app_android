@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.model
+package com.tolstoy.zurichat.models
 
 import java.time.LocalTime
 

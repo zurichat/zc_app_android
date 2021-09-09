@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ItemMessageBinding
-import com.tolstoy.zurichat.model.Message
+import com.tolstoy.zurichat.models.Message
 import com.tolstoy.zurichat.util.changeVisibility
 import com.tolstoy.zurichat.util.extractUrl
 import com.tolstoy.zurichat.util.getWebsiteMetadata
