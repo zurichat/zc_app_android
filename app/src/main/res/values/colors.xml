@@ -62,5 +62,7 @@
 
     <color name="lightGray">#A6A6A6</color>
     <color name="fadeBlack">#454545</color>
+    <color name="darkGray">#FF727272</color>
+    <color name="deepBlack">#FF333333</color>
 
 </resources>

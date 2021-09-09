@@ -125,7 +125,7 @@
     <string name="channel_media">Channel media</string>
     <string name="select_contact">Select Contact</string>
 
-<!--    Notifications & Sounds-->
+    <!--    Notifications & Sounds-->
     <string name="channel_tones_header">Channel tones</string>
     <string name="channel_tones_summary">Play sound for incoming and outgoing message in channels</string>
     <string name="messages_cat_header">Messages</string>
@@ -139,5 +139,6 @@
 
     <string name="unread_messages">Unread messages</string>
     <string name="channels_">Channels</string>
+    <string name="lbl_terms_and_conditions"><u>terms and conditions</u></string>
 
 </resources>
