@@ -11,7 +11,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +18,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.models.DmMessages
-import com.tolstoy.zurichat.model.Message
+import com.tolstoy.zurichat.models.Message
 import com.tolstoy.zurichat.ui.adapters.DmMessagesRecyclerAdapter
 import com.tolstoy.zurichat.ui.dm_channels.adapters.MessageAdapter
 import com.tolstoy.zurichat.util.setUpApplicationTheme
