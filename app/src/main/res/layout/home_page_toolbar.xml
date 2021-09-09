@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.Toolbar
-            android:id="@+id/my_toolbar"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:logo="@drawable/zuri_home_logo"
@@ -22,5 +22,6 @@
             app:title="@string/zuri"
             app:titleMarginStart="32dp"
             app:titleTextColor="@color/white" />
+
         </com.google.android.material.appbar.AppBarLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
