@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login_graph"
-    app:startDestination="@id/enterEmailFragment">
+    app:startDestination="@id/signupFragment">
 
     <fragment
         android:id="@+id/enterEmailFragment"
@@ -17,4 +17,22 @@
         android:id="@+id/verifiedFragment"
         android:name="com.tolstoy.zurichat.ui.login.screens.VerifiedFragment"
         android:label="VerifiedFragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.tolstoy.zurichat.ui.login.screens.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.tolstoy.zurichat.ui.login.screens.SignupFragment"
+        android:label="fragment_signup"
+        tools:layout="@layout/fragment_signup" >
+        <action
+            android:id="@+id/action_signupFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

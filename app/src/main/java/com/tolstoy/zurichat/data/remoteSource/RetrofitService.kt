@@ -11,9 +11,9 @@ import retrofit2.create
 //    https://api.zuri.chat/users
 
 private  val BASE_URL = "https://api.zuri.chat/auth/login "
+
 interface RetrofitService {
-
-
+    fun getUser(): String
 }
 
         //add retrofit library
