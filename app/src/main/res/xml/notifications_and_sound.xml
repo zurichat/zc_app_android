@@ -5,28 +5,34 @@
         app:key="channel_tones"
         app:summary="Play sound for incoming and outgoing message in channels"
         app:title="Channel tones"
-        app:iconSpaceReserved="false"/>
+        app:iconSpaceReserved="false"
+        />
 
     <PreferenceCategory app:title="Messages"
-        app:iconSpaceReserved="false">
+        app:iconSpaceReserved="false"
+        >
 
         <SwitchPreference
             app:key="message_tone"
             app:summary="Play sound on new messages"
             app:title="Message tones"
-            app:iconSpaceReserved="false"/>
+            app:iconSpaceReserved="false"
+            />
 
         <SwitchPreference
             app:key="vibrate"
+            app:title="Vibrate"
             app:summary="Vibrate on new messages"
+            app:iconSpaceReserved="false"
 
             />
         <SwitchPreference
             app:key="high_priority"
             app:summary="Display Preview of notification at the top of  screen"
-            app:title="High priority Notification" />
-            app:title="Vibrate"
-            app:iconSpaceReserved="false"/>
+            app:title="High priority Notification"
+            app:iconSpaceReserved="false"
+
+            />
     </PreferenceCategory>
 
 
