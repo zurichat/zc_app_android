@@ -107,7 +107,7 @@ class DMActivity : AppCompatActivity() {
             }
             val currentTime = getCurrentDateTime()
             val time = currentTime.toString("HH:mm")
-            val dms = DmMessages("me", "$message", time)
+            val dms = DmMessages("me", message, time)
             demoDmMessages.add(dms)
             update(demoDmMessages)
             dmEditText.text.clear()

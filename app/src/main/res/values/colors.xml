@@ -17,8 +17,8 @@
 
 
     <!-- App Colors -->
-    <color name="primary_color">#1a61db</color>
-    <color name="primary_light_color">#678eff</color>
+    <color name="primary_color">#024E35</color>
+    <color name="primary_light_color">#00B87C</color>
     <color name="primary_dark_color">#0038a8</color>
     <color name="secondary_color">#1a61db</color>
     <color name="secondary_light_color">#678eff</color>
