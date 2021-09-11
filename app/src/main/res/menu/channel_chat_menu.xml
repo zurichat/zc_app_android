@@ -9,7 +9,6 @@
         android:enabled="true"
         android:icon="@drawable/ic_add_call"
         android:title="Add Call"
-        app:actionViewClass="android.widget.SearchView"
         app:showAsAction="ifRoom"
         tools:ignore="HardcodedText" />
     <item android:id="@+id/channel_info"
