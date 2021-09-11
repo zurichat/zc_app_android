@@ -28,9 +28,9 @@ class SignupFragment : Fragment() {
 
         val textView = binding.textViewSignin
 
-        textView.setOnClickListener(fun(it: View){
+        textView.setOnClickListener {
             findNavController().navigate(R.id.loginFragment)
-        })
+        }
 
     }
 
