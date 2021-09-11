@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:id="@+id/add_call"
+        android:checkable="false"
+        android:enabled="true"
+        android:icon="@drawable/ic_add_call"
+        android:title="Add Call"
+        app:showAsAction="ifRoom"
+        tools:ignore="HardcodedText" />
     <item android:id="@+id/channel_info"
         android:title="@string/Channel_info"
         android:visible="true"

@@ -2,12 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tolstoy.zurichat">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <!--Permissions for Media attachments-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
 
     <application
+        android:name=".di.ZuriChatApplication"
         android:allowBackup="true"
         android:icon="@drawable/splash_logo"
         android:label="@string/app_name"
@@ -75,7 +78,10 @@
             android:label="@string/profile_about"
             android:parentActivityName=".ui.settings.ManageStorageActivity"
             android:theme="@style/Theme.ZuriChat.Settings" />
-        <activity android:name=".ui.activities.MainActivity" />
+
+        <activity android:name=".ui.activities.MainActivity" >
+            
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"

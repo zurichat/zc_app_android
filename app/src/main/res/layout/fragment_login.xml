@@ -47,6 +47,7 @@
         app:startIconDrawable="@drawable/ic_baseline_email_24">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
@@ -70,6 +71,7 @@
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
@@ -88,7 +90,7 @@
         app:layout_constraintTop_toBottomOf="@+id/user_password" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_signUp"
+        android:id="@+id/button_signIn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -104,9 +106,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="24dp"
-        app:layout_constraintEnd_toEndOf="@+id/button_signUp"
-        app:layout_constraintStart_toStartOf="@+id/button_signUp"
-        app:layout_constraintTop_toBottomOf="@+id/button_signUp">
+        app:layout_constraintEnd_toEndOf="@+id/button_signIn"
+        app:layout_constraintStart_toStartOf="@+id/button_signIn"
+        app:layout_constraintTop_toBottomOf="@+id/button_signIn">
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"

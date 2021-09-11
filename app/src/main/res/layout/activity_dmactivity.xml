@@ -14,7 +14,7 @@
         android:id="@+id/dm_toolbar"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:background="@color/canvas_color"
+        android:background="@color/primary_color"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -51,7 +51,8 @@
             android:textSize="18sp"
             app:layout_constraintEnd_toStartOf="@id/imageView_video"
             app:layout_constraintStart_toEndOf="@id/dm_profile_image"
-            app:layout_constraintTop_toTopOf="@id/dm_profile_image" />
+            app:layout_constraintTop_toTopOf="@id/dm_profile_image"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/textview_user_lastseen"
@@ -67,7 +68,8 @@
             app:layout_constraintBottom_toBottomOf="@id/dm_profile_image"
             app:layout_constraintEnd_toStartOf="@id/imageView_video"
             app:layout_constraintStart_toEndOf="@id/dm_profile_image"
-            app:layout_constraintTop_toBottomOf="@id/textview_user_name" />
+            app:layout_constraintTop_toBottomOf="@id/textview_user_name"
+            tools:ignore="HardcodedText" />
 
         <!-- region Actions -->
 
@@ -228,7 +230,7 @@
             android:layout_width="54dp"
             android:layout_height="54dp"
             android:src="@drawable/ic_keyboard_voice"
-            app:backgroundTint="@color/canvas_color"
+            app:backgroundTint="@color/primary_light_color"
             app:fabSize="normal"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -241,7 +243,7 @@
             android:layout_width="54dp"
             android:layout_height="54dp"
             android:src="@drawable/ic_send"
-            app:backgroundTint="@color/canvas_color"
+            app:backgroundTint="@color/primary_light_color"
             app:fabSize="normal"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
