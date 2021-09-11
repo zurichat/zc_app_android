@@ -1,34 +1,74 @@
 package com.tolstoy.zurichat.ui.login.screens
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentLoginBinding
-import com.tolstoy.zurichat.databinding.FragmentSignupBinding
+import com.tolstoy.zurichat.models.LoginBody
+import com.tolstoy.zurichat.models.LoginResponse
+import com.tolstoy.zurichat.ui.activities.MainActivity
+import com.tolstoy.zurichat.ui.login.LoginViewModel
+import com.tolstoy.zurichat.util.Result
+import com.tolstoy.zurichat.util.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
-class LoginFragment : Fragment() {
-    private lateinit var binding: FragmentLoginBinding
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentLoginBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+@AndroidEntryPoint
+class LoginFragment : Fragment(R.layout.fragment_login) {
+
+    private val binding by viewBinding(FragmentLoginBinding::bind)
+    private val viewModel by viewModels<LoginViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val textView = binding.textViewRegister
 
-        textView.setOnClickListener(fun(it: View){
+        textView.setOnClickListener(fun(it: View) {
             findNavController().navigate(R.id.signupFragment)
         })
+
+        handleSignIn()
+        setupObservers()
     }
 
+    private fun handleSignIn() = with(binding) {
+        buttonSignIn.setOnClickListener {
+            val loginBody =
+                LoginBody(email = email.text.toString().trim(), password = password.text.toString())
+            viewModel.login(loginBody)
+        }
+    }
+
+    private fun setupObservers() {
+        viewModel.loginResponse.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Result.Loading -> handleLoading()
+                is Result.Success -> handleSuccess(result.data)
+                is Result.Error -> handleError(result.error)
+            }
+        }
+    }
+
+    private fun handleLoading() {
+        // TODO: 9/11/2021 Show loading indicator
+        Timber.d("Loading...")
+    }
+
+    private fun handleSuccess(response: LoginResponse) {
+        // TODO: 9/11/2021 Save token and navigate users to next screen
+        Timber.d(response.toString())
+        val action = LoginFragmentDirections.actionLoginFragmentToMainNav(response.data.user)
+        findNavController().navigate(action)
+    }
+
+    private fun handleError(throwable: Throwable) {
+        // TODO: 9/11/2021 Display error message
+        Timber.e(throwable)
+    }
 }
+
