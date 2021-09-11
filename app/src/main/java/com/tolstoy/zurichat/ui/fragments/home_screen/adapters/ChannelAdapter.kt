@@ -83,7 +83,7 @@ class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>
             viewHolder = DividerViewHolder(view)
             return viewHolder
         }
-        view = context.layoutInflater.inflate(R.layout.channels_adapter, parent, false)
+        view = context.layoutInflater.inflate(R.layout.channels_list_item, parent, false)
         viewHolder = ChannelViewHolder(view)
         return viewHolder
     }

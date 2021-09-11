@@ -7,7 +7,7 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/home_page_toolbar"/>
+        layout="@layout/channel_toolbar"/>
     <TextView
         android:id="@+id/intro_group_text"
         android:layout_width="wrap_content"
@@ -15,11 +15,10 @@
         android:layout_marginTop="16dp"
         android:text="Hi there, this is the beginning of \n the conversation in this channel"
         android:textAlignment="center"
-        android:textColor="#323232"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        tools:ignore="HardcodedText" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/channel_typing_bar"
@@ -98,7 +97,7 @@
             android:layout_width="54dp"
             android:layout_height="54dp"
             android:src="@drawable/ic_voice"
-            app:backgroundTint="@color/canvas_color"
+            app:backgroundTint="@color/primary_light_color"
             app:fabSize="normal"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -106,21 +105,24 @@
             app:layout_constraintStart_toEndOf="@id/cardView"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white"
-            android:contentDescription="TODO" />
+            android:contentDescription="record voice button"
+            tools:ignore="HardcodedText" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/send_message_btn"
             android:layout_width="54dp"
             android:layout_height="54dp"
             android:src="@drawable/ic_send"
-            app:backgroundTint="@color/canvas_color"
+            app:backgroundTint="@color/primary_light_color"
             app:fabSize="normal"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cardView"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            android:contentDescription="send button"
+            tools:ignore="HardcodedText" />
         <!--endregion-->
 
 

@@ -7,7 +7,8 @@
     android:layout_height="wrap_content"
     android:clickable="true"
     android:background="?attr/selectableItemBackground"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusable="true">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -17,9 +18,9 @@
         android:scaleType="center"
         app:fabCustomSize="30dp"
         app:maxImageSize="15dp"
-        app:background="@color/teal_200"
+        app:background="@color/primary_light_color"
         app:backgroundTint="@color/light_blue"
-        app:tint="@color/teal_200"
+        app:tint="@color/primary_light_color"
         app:srcCompat="@drawable/ic_new_lock"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,7 +34,8 @@
         android:text="Comedy-and-riddles"
         app:layout_constraintStart_toEndOf="@id/fab"
         app:layout_constraintTop_toTopOf="@id/fab"
-        app:layout_constraintBottom_toBottomOf="@id/fab"/>
+        app:layout_constraintBottom_toBottomOf="@id/fab"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/badge"
@@ -49,7 +51,7 @@
         android:text="1"
         android:textSize="11sp"
         android:textColor="@android:color/white"
-        />
+        tools:ignore="HardcodedText" />
 
     <ImageView
         android:layout_width="wrap_content"
