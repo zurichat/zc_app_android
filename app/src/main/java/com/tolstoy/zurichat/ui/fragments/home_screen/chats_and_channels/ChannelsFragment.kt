@@ -4,41 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.DiffUtil.DiffResult
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentChannelsBinding
-import com.tolstoy.zurichat.models.Channel
+import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChannelAdapter
 import com.tolstoy.zurichat.ui.fragments.home_screen.diff_utils.ChannelDiffUtil
-import java.util.ArrayList
+import com.tolstoy.zurichat.ui.fragments.networking.ChannelsList
+import com.tolstoy.zurichat.ui.fragments.networking.RetrofitClientInstance
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.*
 import kotlin.random.Random
 
 
 class ChannelsFragment : Fragment(R.layout.fragment_channels) {
-    // TODO: Rename and change types of parameters
-
     private lateinit var binding: FragmentChannelsBinding
-    //Dummy List for populating the recyclerView
 
-    private var channelList = mutableListOf(
-        Channel("stage-4", true, false,"channel",generateRandomLong(),1),
-        Channel("announcement", true, false,"channel",generateRandomLong(),1),
-        Channel("comedy", false, true,"channel",generateRandomLong(),1),
-        Channel("team-tolstoy", false, true,"channel",generateRandomLong(),1),
-        Channel("resources", true, false,"channel",generateRandomLong(),1),
-        Channel("stage-5", true, false,"channel",generateRandomLong(),1),
-        Channel("stage-6", true, false,"channel",generateRandomLong(),1),
-        Channel("probation", true, false,"channel",generateRandomLong(),1),
-        Channel("android", false, true,"channel",generateRandomLong(),1),
-        Channel("general", false, true,"channel",generateRandomLong(),1),
-        Channel("track-mobile", true, false,"channel",generateRandomLong(),1),
-        Channel("random", true, false,"channel",generateRandomLong(),1)
-    )
-    private lateinit var channelsArrayList: ArrayList<Channel>
+    private lateinit var channelsArrayList: ArrayList<ChannelModel>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelsBinding.inflate(inflater, container, false)
@@ -48,14 +34,17 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private lateinit var adapt:ChannelAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         channelsArrayList = ArrayList()
-        channelsArrayList.addAll(channelList)
 
         adapt = ChannelAdapter(requireActivity(), channelsArrayList)
         adapt.setItemClickListener {
             findNavController().navigate(R.id.channelChatFragment)
         }
+        adapt.setAddChannelClickListener {
+
+        }
         binding.channelRecycleView.adapter = adapt
-        addHeaders()
+        //addHeaders()
+        getListOfChannels()
     }
 
     private fun generateRandomLong(): Long {
@@ -67,39 +56,17 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
      * Headers Are Added Here. This will also be called after every update on the list to properly update the header positions
      */
     private fun addHeaders(){
-        val newList: ArrayList<Channel> = ArrayList()
+        val newList: ArrayList<ChannelModel> = ArrayList()
 
-        val unreadList: ArrayList<Channel> = ArrayList()
-        val unreadChannelHeader = Channel(
-            name = getString(R.string.unread_messages),
-            privacy = false,
-            read = false,
-            type = "channel_header_unread",
-            id = generateRandomLong(),
-            viewType = 0
-        )
+        val unreadList: ArrayList<ChannelModel> = ArrayList()
+        val unreadChannelHeader = ChannelModel(getString(R.string.unread_messages), false, false, "channel_header_unread", generateRandomLong().toString(), 0)
 
-        val readList: ArrayList<Channel> = ArrayList()
-        val addChannelHeader = Channel(
-            name = getString(R.string.channels_),
-            privacy = false,
-            read = false,
-            type = "channel_header_add",
-            id = generateRandomLong(),
-            viewType = 0
-        )
-
-        val dividerHeader = Channel(
-            name = "",
-            privacy = false,
-            read = false,
-            type = "channel_header_add",
-            id = generateRandomLong(),
-            viewType = 2
-        )
+        val readList: ArrayList<ChannelModel> = ArrayList()
+        val addChannelHeader = ChannelModel(getString(R.string.channels_), false, false, "channel_header_add", generateRandomLong().toString(), 0)
+        val dividerHeader = ChannelModel("", false, false, "channel_header_add", generateRandomLong().toString(), 2)
 
         for (channel in channelsArrayList){
-            if (channel.read){
+            if (channel.isRead){
                 readList.add(channel)
             }else{
                 unreadList.add(channel)
@@ -127,6 +94,29 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         channelsArrayList.clear()
         channelsArrayList.addAll(newList)
         diffResult.dispatchUpdatesTo(adapt)
+    }
+
+    /**
+     * Getting The Channels List Is Ready Now.
+     * Adding A Progressbar will be next
+     */
+    private fun getListOfChannels() {
+        val service = RetrofitClientInstance.retrofitInstance!!.create(ChannelsList::class.java)
+        val call = service.channelList
+
+        call!!.enqueue(object : Callback<List<ChannelModel>>{
+            override fun onResponse(call: Call<List<ChannelModel>>,response: Response<List<ChannelModel>>) {
+                val res : List<ChannelModel>? = response.body()
+                if (res != null) {
+                    channelsArrayList.addAll(response.body()!!)
+                    addHeaders()
+                }
+            }
+
+            override fun onFailure(call: Call<List<ChannelModel>>, t: Throwable) {
+                t.printStackTrace()
+            }
+        })
     }
 
 }

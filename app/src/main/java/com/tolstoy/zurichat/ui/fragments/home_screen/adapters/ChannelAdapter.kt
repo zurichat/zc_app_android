@@ -1,30 +1,40 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen.adapters
 
 import android.app.Activity
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.models.Channel
+import com.tolstoy.zurichat.models.ChannelModel
 
-class ChannelAdapter(val context: Activity, private val list: List<Channel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var onItemClickListener: (() -> Unit)? = null
+    private var onAddChannelClickListener: (() -> Unit)? = null
 
     fun setItemClickListener(listener: () -> Unit) {
         onItemClickListener = listener
     }
 
+    fun setAddChannelClickListener(listener: () -> Unit) {
+        onAddChannelClickListener = listener
+    }
+
     inner class ChannelViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(channel: Channel) {
+        fun bind(channel: ChannelModel) {
             val fab = view.findViewById<FloatingActionButton>(R.id.fab)
 
-            if (!channel.privacy){
+            if (!channel.isPrivate){
                 fab.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_hash))
+            }else{
+                fab.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_new_lock))
             }
 
             view.findViewById<TextView>(R.id.channelTitle).text = channel.name
@@ -35,7 +45,7 @@ class ChannelAdapter(val context: Activity, private val list: List<Channel>) : R
     }
 
     inner class HeaderViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(channel: Channel) {
+        fun bind(channel: ChannelModel) {
             val nameView = view.findViewById<TextView>(R.id.headerTextView)
             nameView.text = channel.name
 
@@ -46,7 +56,7 @@ class ChannelAdapter(val context: Activity, private val list: List<Channel>) : R
              */
             if (channel.type == "channel_header_add"){
                 view.findViewById<ConstraintLayout>(R.id.root_layout).setOnClickListener {
-                    //onItemClickListener?.invoke()
+                    onAddChannelClickListener?.invoke()
                 }
             }else{
                 nameView.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,0,0)
@@ -91,7 +101,7 @@ class ChannelAdapter(val context: Activity, private val list: List<Channel>) : R
     override fun getItemCount() = list.size
 
     override fun getItemId(position: Int): Long {
-        return list[position].id
+        return list[position].hashCode().toLong()
     }
 
     override fun getItemViewType(position: Int): Int {
