@@ -25,6 +25,13 @@
         <action
             android:id="@+id/action_loginFragment_to_signupFragment"
             app:destination="@id/signupFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_main_nav"
+            app:destination="@id/main_nav">
+            <argument
+                android:name="user"
+                app:argType="com.tolstoy.zurichat.models.User" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
@@ -35,4 +42,5 @@
             android:id="@+id/action_signupFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <include app:graph="@navigation/main_nav" />
 </navigation>
