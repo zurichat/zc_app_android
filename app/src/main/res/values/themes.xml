@@ -17,7 +17,22 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.ZuriChat.Settings" parent="Theme.MaterialComponents.DayNight.DarkActionBar"/>
+    <style name="Theme.ZuriChat.Settings" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryVariant">@color/primary_color</item>
+        <item name="colorOnPrimary">@color/primary_text_color</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/secondary_color</item>
+        <item name="colorSecondaryVariant">@color/secondary_color</item>
+        <item name="colorOnSecondary">@color/secondary_text_color</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/primaryColor</item>
+        <!-- Navigation bar color -->
+        <item name="android:navigationBarColor" tools:targetApi="l">#E5E5E5</item>
+        <!-- Customize your theme here. -->
+    </style>
+
     <style name="ToolbarTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:textColorPrimary">@color/primaryTextColor</item>
         <item name="android:textColorSecondary">@color/primaryTextColor</item>

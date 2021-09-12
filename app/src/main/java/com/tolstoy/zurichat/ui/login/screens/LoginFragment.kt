@@ -2,8 +2,8 @@ package com.tolstoy.zurichat.ui.login.screens
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.tolstoy.zurichat.R
@@ -38,8 +38,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun handleSignIn() = with(binding) {
         buttonSignIn.setOnClickListener {
-            val loginBody =
-                LoginBody(email = email.text.toString().trim(), password = password.text.toString())
+            val loginBody = LoginBody(email = email.text.toString().trim(), password = password.text.toString())
             viewModel.login(loginBody)
         }
     }
@@ -60,10 +59,18 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun handleSuccess(response: LoginResponse) {
-        // TODO: 9/11/2021 Save token and navigate users to next screen
-        Timber.d(response.toString())
-        val action = LoginFragmentDirections.actionLoginFragmentToMainNav(response.data.user)
-        findNavController().navigate(action)
+        //val action = LoginFragmentDirections.actionLoginFragmentToMainNav(response.data.user)
+       // findNavController().navigate(action)
+        //findNavController().navigate(R.id.action_loginFragment_to_main_nav,bundle)
+
+        //Starting A Activity With A Navigation Component Causes Issues With The Activity Theme.
+        //Better To Sse An Intent
+        val bundle = Bundle()
+        bundle.putParcelable("USER",response.data.user)
+        val intent = Intent(requireContext(),MainActivity::class.java)
+        intent.putExtras(bundle)
+        startActivity(intent)
+        requireActivity().finish()
     }
 
     private fun handleError(throwable: Throwable) {
