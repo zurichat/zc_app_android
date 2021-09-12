@@ -4,22 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8F8F8">
-
     <include
         android:id="@+id/toolbar"
-        layout="@layout/home_page_toolbar"/>
+        layout="@layout/channel_chat_toolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/intro_group_text"/>
+
     <TextView
         android:id="@+id/intro_group_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Hi there, this is the beginning of \n the conversation in this channel"
+        android:text="@string/hi_there_this_is_the_beginning_of_n_the_conversation_in_this_channel"
         android:textAlignment="center"
-        android:textColor="#323232"
-        android:textStyle="bold"
+        android:textColor="#454545"
+        android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toTopOf="@id/group_recycler"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/channel_typing_bar"
@@ -28,7 +33,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
         <!-- region Emoji Message Pictures & Attachments-->
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardView"
+            android:id="@+id/card_typing_layout"
             android:layout_width="match_parent"
             android:layout_height="54dp"
             android:layout_marginStart="5dp"
@@ -44,9 +49,9 @@
                 android:layout_height="match_parent">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/icon_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/imageView_emoticon"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_marginStart="10dp"
                     android:scaleType="fitXY"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -55,7 +60,7 @@
                     app:srcCompat="@drawable/ic_insert_emoticon" />
 
                 <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/channel_chat_editText"
+                    android:id="@+id/channelChatEditText"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:background="@null"
@@ -64,12 +69,12 @@
                     android:layout_marginStart="6dp"
                     android:layout_marginEnd="5dp"
                     app:layout_constraintEnd_toStartOf="@id/channel_link"
-                    app:layout_constraintStart_toEndOf="@id/icon_btn" />
+                    app:layout_constraintStart_toEndOf="@id/imageView_emoticon" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/channel_link"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_marginEnd="15dp"
                     android:rotation="-45"
                     android:scaleType="fitXY"
@@ -80,8 +85,8 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/camera_channel_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
                     android:layout_marginEnd="10dp"
                     android:scaleType="fitXY"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -90,38 +95,37 @@
                     app:srcCompat="@drawable/ic_photo_camera" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </com.google.android.material.card.MaterialCardView>
-        <!-- endregion-->
-        <!-- region Voice Note-->
+        <!--endregion-->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/send_voice_btn"
+            android:id="@+id/sendVoiceBtn"
             android:layout_width="54dp"
             android:layout_height="54dp"
-            android:src="@drawable/ic_voice"
-            app:backgroundTint="@color/canvas_color"
+            android:src="@drawable/ic_keyboard_voice"
+            app:backgroundTint="@color/canvasbtn_color"
             app:fabSize="normal"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cardView"
+            app:layout_constraintStart_toEndOf="@id/card_typing_layout"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white"
-            android:contentDescription="TODO" />
-
+            android:contentDescription="@string/app_name" />
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/send_message_btn"
+            android:id="@+id/sendMessageBtn"
             android:layout_width="54dp"
             android:layout_height="54dp"
             android:src="@drawable/ic_send"
-            app:backgroundTint="@color/canvas_color"
+            app:backgroundTint="@color/canvasbtn_color"
             app:fabSize="normal"
             android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/cardView"
+            app:layout_constraintStart_toEndOf="@id/card_typing_layout"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/white" />
-        <!--endregion-->
+            app:tint="@color/white"
+            android:contentDescription="@string/app_name" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -135,7 +139,8 @@
         app:layout_constraintBottom_toTopOf="@+id/channel_typing_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/intro_group_text" />
+        app:layout_constraintTop_toBottomOf="@+id/intro_group_text"
+        tools:listitem="@layout/channel_chat_item"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

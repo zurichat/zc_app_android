@@ -13,7 +13,7 @@
         android:orientation="horizontal"
         android:clickable="true"
         android:background="?attr/selectableItemBackground"
-        >
+        android:focusable="true">
 
         <FrameLayout
             android:layout_width="wrap_content"
@@ -24,15 +24,16 @@
                 android:layout_height="64dp"
                 android:padding="8dp"
                 android:src="@drawable/dmuser"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/app_name"/>
             <ImageView
                 android:layout_width="8dp"
                 android:layout_height="12dp"
                 android:src="@drawable/img"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="2dp"
                 android:layout_gravity="bottom|end"
-                />
+                android:contentDescription="@string/app_name" />
         </FrameLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,12 +44,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingEnd="8dp">
+                android:paddingEnd="8dp"
+                android:paddingStart="0dp">
                 <TextView
                     android:id="@+id/textViewName"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:paddingStart="16dp"
+                    android:paddingEnd="0dp"
                     android:layout_weight="1"
                     android:textColor="@color/chat_name_txt"
                     android:text="@string/username_" />
@@ -63,12 +66,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingEnd="8dp">
+                android:paddingEnd="8dp"
+                android:paddingStart="0dp">
                 <TextView
                     android:id="@+id/textViewSpecie"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingStart="16dp"
+                    android:paddingEnd="0dp"
                     android:layout_weight="1"
                     android:textColor="@color/chat_txt"
                     android:textSize="12sp"

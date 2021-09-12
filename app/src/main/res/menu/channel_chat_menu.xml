@@ -2,6 +2,13 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:id="@+id/action_phone"
+        android:icon="@drawable/ic_add_call"
+        android:orderInCategory="100"
+        android:title="@string/item_action_phone"
+        android:visible="true"
+        app:showAsAction="always" />
     <item android:id="@+id/channel_info"
         android:title="@string/Channel_info"
         android:visible="true"
