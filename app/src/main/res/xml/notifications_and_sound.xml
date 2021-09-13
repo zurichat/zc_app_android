@@ -1,16 +1,36 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <EditTextPreference
-        app:key="signature"
-        app:title="@string/signature_title"
-        app:useSimpleSummaryProvider="true" />
 
-    <ListPreference
-        app:defaultValue="reply"
-        app:entries="@array/reply_entries"
-        app:entryValues="@array/reply_values"
-        app:key="reply"
-        app:title="@string/reply_title"
-        app:useSimpleSummaryProvider="true" />
+    <SwitchPreference
+        app:key="channel_tones"
+        app:summary="@string/channel_tones_summary"
+        app:title="@string/channel_tones_header"
+        app:iconSpaceReserved="false"
+        app:allowDividerBelow="true"/>
+
+    <PreferenceCategory app:title="@string/messages_cat_header"
+        app:iconSpaceReserved="false"
+        app:allowDividerAbove="true">
+
+        <SwitchPreference
+            app:key="message_tone"
+            app:summary="@string/message_tones_summary"
+            app:title="@string/message_tones_header"
+            app:iconSpaceReserved="false"/>
+
+        <SwitchPreference
+            app:key="vibrate"
+            app:summary="@string/vibrate_summary"
+            app:title="@string/vibrate_header"
+            app:iconSpaceReserved="false"
+            />
+
+        <SwitchPreference
+            app:key="high_priority"
+            app:summary="@string/high_priority_summary"
+            app:title="@string/high_priority_header"
+            app:iconSpaceReserved="false"/>
+    </PreferenceCategory>
+
 
 </PreferenceScreen>

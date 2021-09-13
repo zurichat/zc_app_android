@@ -1,6 +1,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <PreferenceCategory android:title="Media Auto Download">
+    <PreferenceCategory android:title="Media Auto Download"
+        app:iconSpaceReserved="false">
         <ListPreference
             android:defaultValue="1"
             android:dialogTitle="When using mobile data"
@@ -9,7 +10,8 @@
             android:key="list_preference_1"
             android:selectable="true"
             android:summary="%s"
-            android:title="When using mobile data" />
+            android:title="When using mobile data"
+            app:iconSpaceReserved="false"/>
         <ListPreference
             android:defaultValue="2"
             android:dialogTitle="When using Wi-Fi"
@@ -18,6 +20,7 @@
             android:key="list_preference_2"
             android:selectable="true"
             android:summary="%s"
-            android:title="When using Wi-Fi" />
+            android:title="When using Wi-Fi"
+            app:iconSpaceReserved="false"/>
     </PreferenceCategory>
 </PreferenceScreen>

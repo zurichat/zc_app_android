@@ -1,16 +1,60 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:title="@string/display_header"
+        app:iconSpaceReserved="false"
+        >
 
-    <EditTextPreference
-        app:key="signature"
-        app:title="@string/signature_title"
-        app:useSimpleSummaryProvider="true" />
+        <ListPreference
+            app:defaultValue="sys_default"
+            app:entries="@array/themes"
+            app:entryValues="@array/theme_values"
+            app:key="theme"
+            app:title="@string/theme"
+            app:icon="@drawable/theme_icon"
+            app:dialogTitle="@string/theme_dialog"
+            app:useSimpleSummaryProvider="true" />
+        <Preference
+            app:fragment="com.tolstoy.zurichat.ui.settings.WallpaperActivity$WallpaperFragment"
+            app:title="@string/Wallpaper"
+            app:icon="@drawable/wallpaper_icon"
+            app:allowDividerBelow="true"
+            />
+    </PreferenceCategory>
 
-    <ListPreference
-        app:defaultValue="reply"
-        app:entries="@array/reply_entries"
-        app:entryValues="@array/reply_values"
-        app:key="reply"
-        app:title="@string/reply_title"
-        app:useSimpleSummaryProvider="true" />
+    <PreferenceCategory
+        app:title="@string/chat_settings_header"
+        app:iconSpaceReserved="false">
+        <SwitchPreferenceCompat
+            app:key="enter_to_send"
+            app:title="@string/enter_to_send_main"
+            app:summary="@string/media_visibility_subtitle"/>
+
+        <SwitchPreferenceCompat
+            app:key="media_visible"
+            app:summary="@string/media_visibility_subtitle"
+            app:title="@string/media_visibility_header" />
+        <ListPreference
+            app:title="@string/font_size_header"
+            app:entryValues="@array/font_values"
+            app:key="font_size"
+            app:dialogTitle="@string/font_dialog"
+            app:entries="@array/fonts"
+            app:defaultValue="2"
+            app:useSimpleSummaryProvider="true"
+            app:allowDividerBelow="true"/>
+
+    </PreferenceCategory>
+
+    <Preference
+        app:title="@string/chat_backup"
+        app:allowDividerAbove="true"
+        app:icon="@drawable/backup_icon_"/>
+    <Preference
+        app:title="@string/chat_history"
+        app:icon="@drawable/chat_history_icon"/>
+
+
+
+
 
 </PreferenceScreen>

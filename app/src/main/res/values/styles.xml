@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="HeaderBar">
+        <item name="android:background">@color/primary_color</item>
+        <item name="iconTint">@color/white</item>
+    </style>
+
+    <style name="gallery">
+        <item name="android:textSize">
+            12sp
+        </item>
+
+        <item name="android:textColor">
+            #B3000000
+        </item>
+    </style>
+
+    <style name="audio">
+        <item name="android:textSize">
+            12sp
+        </item>
+
+        <item name="android:textColor">
+            #B3000000
+        </item>
+
+    </style>
+
+    <style name="document">
+        <item name="android:textSize">
+            12sp
+        </item>
+
+        <item name="android:textColor">
+            #B3000000
+        </item>
+
+    </style>
+</resources>
