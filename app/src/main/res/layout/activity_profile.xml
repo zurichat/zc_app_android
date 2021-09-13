@@ -23,7 +23,8 @@
             <ImageView
                 android:layout_width="170dp"
                 android:layout_height="135dp"
-                android:src="@drawable/user_profile_placeholder" />
+                android:src="@drawable/user_profile_placeholder"
+                />
         </FrameLayout>
 
         <ImageView
@@ -31,7 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
-            android:src="@drawable/camera_icon" />
+            android:src="@drawable/camera_icon"
+            />
     </FrameLayout>
 
     <LinearLayout
@@ -47,11 +49,13 @@
            android:layout_weight="1"
            android:layout_width="0dp"
            android:layout_height="match_parent">
+
            <ImageView
-               android:layout_centerVertical="true"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:src="@drawable/ic_baseline_person_24"/>
+               android:layout_centerVertical="true"
+               android:src="@drawable/ic_baseline_person_24"
+               app:tint="@color/primary_color" />
        </RelativeLayout>
         <LinearLayout
             android:layout_weight="8"
@@ -128,10 +132,12 @@ visible to all memebers of the channel"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_info_24"/>
+                android:src="@drawable/ic_baseline_info_24"
+                app:tint="@color/primary_color"/>
         </RelativeLayout>
 
         <LinearLayout
@@ -200,11 +206,12 @@ visible to all memebers of the channel"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_phone"
-                app:tint="@color/primaryColor" />
+                app:tint="@color/primary_color" />
         </RelativeLayout>
 
         <LinearLayout

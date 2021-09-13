@@ -4,14 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import androidx.navigation.navArgs
 import androidx.recyclerview.widget.DiffUtil
 import centrifuge.Centrifuge
 import centrifuge.Client
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentChannelsBinding
 import com.tolstoy.zurichat.models.ChannelModel
+import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChannelAdapter
 import com.tolstoy.zurichat.ui.fragments.home_screen.diff_utils.ChannelDiffUtil
 import com.tolstoy.zurichat.ui.fragments.networking.ChannelsList
@@ -20,29 +24,37 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.random.Random
-
 
 class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private lateinit var binding: FragmentChannelsBinding
-
     private lateinit var channelsArrayList: ArrayList<ChannelModel>
+    private lateinit var originalChannelsArrayList: ArrayList<ChannelModel>
+    private lateinit var user : User
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelsBinding.inflate(inflater, container, false)
+
+        user = requireActivity().intent.extras?.getParcelable("USER")!!
+
         return binding.root
     }
 
     private lateinit var adapt:ChannelAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         channelsArrayList = ArrayList()
+        originalChannelsArrayList = ArrayList()
 
         adapt = ChannelAdapter(requireActivity(), channelsArrayList)
         adapt.setItemClickListener {
             findNavController().navigate(R.id.channelChatFragment)
         }
         adapt.setAddChannelClickListener {
-
+            val bundle = Bundle()
+            bundle.putParcelable("USER",user)
+            bundle.putParcelableArrayList("Channels List",originalChannelsArrayList)
+            findNavController().navigate(R.id.addChannelFragment,bundle)
         }
         binding.channelRecycleView.adapter = adapt
         //addHeaders()
@@ -74,6 +86,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
                 unreadList.add(channel)
             }
         }
+
         if (unreadList.size>0){
             newList.add(unreadChannelHeader)
             for (channel in unreadList){
@@ -111,6 +124,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
                 val res : List<ChannelModel>? = response.body()
                 if (res != null) {
                     channelsArrayList.addAll(response.body()!!)
+                    originalChannelsArrayList.addAll(response.body()!!)
                     addHeaders()
                 }
             }
