@@ -42,7 +42,7 @@ android {
     kotlinOptions {
         jvmTarget = '11'
     }
-    buildToolsVersion '30.0.2'
+    buildToolsVersion '30.0.3'
     compileSdkVersion 30
 }
 
@@ -69,7 +69,7 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
 
     // coroutines for getting off the UI thread
-    def coroutines = '1.5.1-native-mt'
+    def coroutines = '1.5.2-native-mt'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.5.30"
@@ -101,7 +101,7 @@ dependencies {
     testImplementation "androidx.room:room-testing:$room_version"
 
     //Work
-    def work_version = "2.5.0"
+    def work_version = "2.6.0"
     implementation "androidx.work:work-runtime-ktx:$work_version"
 
     implementation 'com.android.support:multidex:1.0.3'
@@ -133,7 +133,7 @@ dependencies {
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+    kapt 'com.github.bumptech.glide:compiler:4.12.0'
 
     // Pin View
     implementation 'io.github.chaosleung:pinview:1.4.4'
