@@ -40,7 +40,6 @@ object RetrofitModule {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
-
     @Provides
     fun provideRetrofitService(retrofit: Retrofit): RetrofitService =
         retrofit.create(RetrofitService::class.java)

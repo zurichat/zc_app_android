@@ -8,6 +8,7 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/channel_toolbar"/>
+
     <TextView
         android:id="@+id/intro_group_text"
         android:layout_width="wrap_content"
