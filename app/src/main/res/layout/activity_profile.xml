@@ -245,11 +245,13 @@ visible to all memebers of the channel"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent">
+
             <ImageView
+                android:id="@+id/imgPhone_editBT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_baseline_edit_24"/>
+                android:src="@drawable/ic_baseline_edit_24" />
         </RelativeLayout>
 
     </LinearLayout>
