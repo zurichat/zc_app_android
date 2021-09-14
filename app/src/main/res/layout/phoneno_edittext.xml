@@ -7,6 +7,8 @@
     <EditText
         android:id="@+id/et_phoneno"
         android:layout_width="match_parent"
+        android:hint="@string/changephoneno_hint_txt"
+        android:maxLength="14"
         android:inputType="phone"
         android:layout_height="wrap_content"/>
 

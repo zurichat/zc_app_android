@@ -50,17 +50,15 @@ class ProfileActivity: AppCompatActivity() {
                     editText.text.toString()
                 }
                 setNegativeButton("Cancel") { _, _ ->
-                    Timber.d("This button clicked sucessfully!!")
+                    Timber.d("This button clicked successfully!!") //just for log purposes
                 }
                 setView(dialogLayout)
                 show()
             }
 
-
         }
     }
 
 
-
-
 }
+
