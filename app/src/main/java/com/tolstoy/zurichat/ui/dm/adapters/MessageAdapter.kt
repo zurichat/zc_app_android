@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.ui.dm_channels.adapters
+package com.tolstoy.zurichat.ui.dm.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
