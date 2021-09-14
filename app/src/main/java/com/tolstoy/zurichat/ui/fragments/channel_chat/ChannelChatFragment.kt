@@ -12,7 +12,6 @@ import com.tolstoy.zurichat.databinding.FragmentChannelChatBinding
 import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.User
 import dev.ronnie.github.imagepicker.ImagePicker
-import java.util.ArrayList
 
 class ChannelChatFragment : Fragment() {
     private lateinit var binding: FragmentChannelChatBinding
@@ -68,7 +67,7 @@ class ChannelChatFragment : Fragment() {
 
         //Launch Attachment Popup
         val attachment = binding.channelLink
-        val popupView: View = layoutInflater.inflate(R.layout.attachment_popup, null)
+        val popupView: View = layoutInflater.inflate(R.layout.partial_attachment_popup, null)
         val popupWindow = PopupWindow(
             popupView,
             WindowManager.LayoutParams.WRAP_CONTENT,
