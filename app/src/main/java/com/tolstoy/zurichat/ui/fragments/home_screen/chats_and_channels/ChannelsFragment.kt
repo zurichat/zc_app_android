@@ -24,11 +24,13 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.random.Random
 
 class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private lateinit var binding: FragmentChannelsBinding
     private lateinit var channelsArrayList: ArrayList<ChannelModel>
+    private lateinit var originalChannelsArrayList: ArrayList<ChannelModel>
     private lateinit var user : User
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -42,13 +44,17 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private lateinit var adapt:ChannelAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         channelsArrayList = ArrayList()
+        originalChannelsArrayList = ArrayList()
 
         adapt = ChannelAdapter(requireActivity(), channelsArrayList)
         adapt.setItemClickListener {
             findNavController().navigate(R.id.channelChatFragment)
         }
         adapt.setAddChannelClickListener {
-
+            val bundle = Bundle()
+            bundle.putParcelable("USER",user)
+            bundle.putParcelableArrayList("Channels List",originalChannelsArrayList)
+            findNavController().navigate(R.id.addChannelFragment,bundle)
         }
         binding.channelRecycleView.adapter = adapt
         //addHeaders()
@@ -80,6 +86,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
                 unreadList.add(channel)
             }
         }
+
         if (unreadList.size>0){
             newList.add(unreadChannelHeader)
             for (channel in unreadList){
@@ -117,6 +124,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
                 val res : List<ChannelModel>? = response.body()
                 if (res != null) {
                     channelsArrayList.addAll(response.body()!!)
+                    originalChannelsArrayList.addAll(response.body()!!)
                     addHeaders()
                 }
             }
