@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.tolstoy.zurichat.models.ChannelModel
+import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.fragments.networking.ChannelsList
 import com.tolstoy.zurichat.ui.fragments.networking.RetrofitClientInstance
 import retrofit2.Call
@@ -14,10 +15,9 @@ import retrofit2.Response
  * Viewmodel to handle updates to the list when a network call is made and result is retrieved
  */
 class ChannelViewModel : ViewModel() {
-
     private var _channelsList = MutableLiveData<List<ChannelModel>>()
-    val channelsList : LiveData<List<ChannelModel>>
-        get() = _channelsList
+    val channelsList : LiveData<List<ChannelModel>> get() = _channelsList
+    var user = MutableLiveData<User>()
 
     fun getChannelsList() {
         val service = RetrofitClientInstance.retrofitInstance!!.create(ChannelsList::class.java)
@@ -35,6 +35,9 @@ class ChannelViewModel : ViewModel() {
                 t.printStackTrace()
             }
         })
+    }
 
+    fun setUser(user: User){
+        this.user.value = user
     }
 }
