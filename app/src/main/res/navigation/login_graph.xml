@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/welcomeFragment">
 
     <fragment
         android:id="@+id/loginFragment"
@@ -47,5 +47,17 @@
         <action
             android:id="@+id/action_forgotPasswordFragment_to_confirmPasswordFragment"
             app:destination="@id/confirmPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.tolstoy.zurichat.ui.login.screens.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_registerUserFragment"
+            app:destination="@id/registerUserFragment" />
     </fragment>
 </navigation>
