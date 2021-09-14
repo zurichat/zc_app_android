@@ -41,7 +41,6 @@ class HomeScreenFragment : Fragment() {
             )
         }.attach()
 
-
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.settings -> {
@@ -56,7 +55,6 @@ class HomeScreenFragment : Fragment() {
             }
             true
         }
-
     }
 
     /**private fun processSearch(item: MenuItem?) {

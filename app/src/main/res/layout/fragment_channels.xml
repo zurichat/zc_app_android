@@ -74,6 +74,7 @@
             android:layout_height="match_parent"
             app:layout_constrainedHeight="true"
             app:layoutManager="LinearLayoutManager"
+            android:requiresFadingEdge="vertical"
             tools:listitem="@layout/channels_list_item" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
