@@ -12,8 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navArgs
 import androidx.recyclerview.widget.DiffUtil
-import centrifuge.Centrifuge
-import centrifuge.Client
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentChannelsBinding
 import com.tolstoy.zurichat.models.ChannelModel

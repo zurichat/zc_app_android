@@ -64,5 +64,7 @@
     <color name="fadeBlack">#454545</color>
     <color name="darkGray">#FF727272</color>
     <color name="deepBlack">#FF333333</color>
+    <color name="txt_black">#1D1C1D</color>
+    <color name="txt_light_gray">#616061</color>
 
 </resources>
