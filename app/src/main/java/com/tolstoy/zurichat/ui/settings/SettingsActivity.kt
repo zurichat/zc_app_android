@@ -72,13 +72,11 @@ class SettingsActivity : AppCompatActivity(),
         if (supportFragmentManager.popBackStackImmediate()) {
             return true
         }
-        return super.onSupportNavigateUp()
+        super.onBackPressed()
+        return false
     }
 
-    override fun onPreferenceStartFragment(
-        caller: PreferenceFragmentCompat,
-        pref: Preference
-    ): Boolean {
+    override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
         // Instantiate the new Fragment
         val args = pref.extras
         val fragment =

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_m_i_message"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/background_curved_rectangle"
+        android:backgroundTint="@android:color/white"
+        android:clipToPadding="true"
+        android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/fab_m_i_record_audio"
+        app:layout_constraintCircleRadius="50dp"
+        app:layout_constraintEnd_toStartOf="@+id/fab_m_i_record_audio"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fab_m_i_record_audio">
+
+        <ImageView
+            android:id="@+id/image_m_i_emoji_insert"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_insert_emoticon" />
+
+        <EditText
+            android:id="@+id/textinput_m_i_message"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="4dp"
+            android:background="@null"
+            android:hint="@string/type_a_message"
+            android:inputType="textMultiLine"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/image_m_i_attach_file"
+            app:layout_constraintStart_toEndOf="@+id/image_m_i_emoji_insert"
+            app:layout_constraintTop_toTopOf="@+id/image_m_i_emoji_insert" />
+
+        <ImageView
+            android:id="@+id/image_m_i_attach_file"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginEnd="4dp"
+            android:rotation="-45"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toStartOf="@+id/image_m_i_attach_image"
+            app:layout_constraintTop_toTopOf="@+id/textinput_m_i_message"
+            app:srcCompat="@drawable/ic_attach_file" />
+
+        <ImageView
+            android:id="@+id/image_m_i_attach_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="H,1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textinput_m_i_message"
+            app:srcCompat="@drawable/ic_camera" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_m_i_record_audio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        app:backgroundTint="@color/primary_light_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_btn_speak_now" />
+</merge>
