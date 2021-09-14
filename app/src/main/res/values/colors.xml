@@ -34,12 +34,12 @@
     <color name="message_background_this_user">#A8E1FF</color>
     <color name="message_background_another_user">@android:color/white</color>
 
-    <color name="primaryColor">#00B87C</color>
+    <color name="primaryColor">#024E35</color>
     <color name="primaryLightColor">#00B87C</color>
-    <color name="primaryDarkColor">#00B87C</color>
-    <color name="secondaryColor">#00B87C</color>
+    <color name="primaryDarkColor">#024E35</color>
+    <color name="secondaryColor">#024E35</color>
     <color name="secondaryLightColor">#00B87C</color>
-    <color name="secondaryDarkColor">#00B87C</color>
+    <color name="secondaryDarkColor">#024E35</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
 
@@ -64,5 +64,7 @@
     <color name="fadeBlack">#454545</color>
     <color name="darkGray">#FF727272</color>
     <color name="deepBlack">#FF333333</color>
-    <color name="button_colour">#00B87C</color>
+    <color name="txt_black">#1D1C1D</color>
+    <color name="txt_light_gray">#616061</color>
+
 </resources>

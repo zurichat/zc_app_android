@@ -30,7 +30,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val materialTextView = binding.materialTextView
 
         textView.setOnClickListener(fun(it: View) {
-            findNavController().navigate(R.id.signupFragment)
+            findNavController().navigate(R.id.action_loginFragment_to_registerUserFragment)
         })
         materialTextView.setOnClickListener(fun(it: View) {
             findNavController().navigate(R.id.forgotPasswordFragment)
