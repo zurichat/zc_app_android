@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
     tools:context=".ui.login.screens.WelcomeFragment">
 
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/register_zc_btn"
-        android:layout_width="363dp"
-        android:layout_height="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
@@ -19,50 +20,33 @@
         android:text="@string/register_string"
         android:textAllCaps="false"
         android:textColor="#00B87C"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_in_zc_btn"
-        app:layout_constraintVertical_bias="0.0"
         app:strokeColor="#00B87C"
         app:strokeWidth="1dp"
         tools:ignore="TextContrastCheck" />
 
     <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/welcome_rect"
-        android:src="@drawable/side_rect"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ImageContrastCheck" />
-
-    <ImageView
         android:id="@+id/imageView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="254dp"
+        android:layout_height="230dp"
         android:layout_marginStart="53dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="52dp"
         android:layout_marginEnd="53dp"
-        android:layout_marginBottom="450dp"
         android:contentDescription="@string/welcome_image"
         android:src="@drawable/welcome_zc"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.097" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/welcome_zc_txtview"
         android:layout_width="180dp"
         android:layout_height="23dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="45dp"
         android:fontFamily="@font/lato"
         android:text="@string/welcome_zc_txt"
         android:textAlignment="center"
@@ -88,12 +72,12 @@
         app:layout_constraintTop_toBottomOf="@+id/welcome_zc_txtview"
         tools:textSize="14sp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/sign_in_zc_btn"
-        android:layout_width="363dp"
-        android:layout_height="48dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="71dp"
+        android:layout_marginTop="50dp"
         android:layout_marginEnd="24dp"
         android:backgroundTint="#00B87C"
         android:fontFamily="@font/lato"

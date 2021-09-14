@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -63,7 +64,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun handleLoading() {
-        // TODO: 9/11/2021 Show loading indicator
+        Toast.makeText(context, "Please wait", Toast.LENGTH_LONG).show()
         Timber.d("Loading...")
         progressDialog.show()
     }
@@ -85,7 +86,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun handleError(throwable: Throwable) {
-        // TODO: 9/11/2021 Display error message
+
+        Toast.makeText(context, "Invalid email or password, please sign UP", Toast.LENGTH_LONG).show()
         Timber.e(throwable)
         progressDialog.dismiss()
     }

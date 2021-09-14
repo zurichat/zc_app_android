@@ -7,22 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.tolstoy.zurichat.R
-import com.tolstoy.zurichat.databinding.FragmentForgotPasswordBinding
+import com.tolstoy.zurichat.databinding.FragmentEnterOtpBinding
 import com.tolstoy.zurichat.util.viewBinding
 
 
-class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
-    private val binding by viewBinding(FragmentForgotPasswordBinding::bind)
+class EnterOtpFragment : Fragment(R.layout.fragment_enter_otp) {
+
+    private val binding by viewBinding(FragmentEnterOtpBinding::bind)
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val btnContinue = binding.btnForgotPassword
+        val butOtp = binding.btnOtp
 
-        btnContinue.setOnClickListener(fun(it: View) {
-            findNavController().navigate(R.id.enterOtpFragment)
+        butOtp.setOnClickListener(fun(it: View) {
+            findNavController().navigate(R.id.confirmPasswordFragment)
         })
-
     }
-
 }
