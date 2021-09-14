@@ -142,4 +142,10 @@
     <string name="lbl_terms_and_conditions"><u>terms and conditions</u></string>
     <string name="search_for_channels">Search for channels</string>
 
+<!--                      Forgot Password-->
+    <string name="please_ente">
+        Please enter the email used in registering this account</string>
+    <string name="email_addre">Email Address</string>
+    <string name="back_to_sig">Back to Sign In </string>
+
 </resources>
