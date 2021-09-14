@@ -38,9 +38,6 @@
             android:theme="@style/Theme.ZuriChat.Settings" />
 
         <activity
-            android:name=".ui.activities.DMActivity"
-            android:exported="true" />
-        <activity
             android:name=".ui.settings.ManageStorageActivity"
             android:exported="true"
             android:label="@string/string_manage_storage"
