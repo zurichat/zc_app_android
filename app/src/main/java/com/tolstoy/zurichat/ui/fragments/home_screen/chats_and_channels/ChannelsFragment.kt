@@ -31,12 +31,12 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private lateinit var binding: FragmentChannelsBinding
     private lateinit var channelsArrayList: ArrayList<ChannelModel>
     private lateinit var originalChannelsArrayList: ArrayList<ChannelModel>
-    private lateinit var user : User
+    private var user : User? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelsBinding.inflate(inflater, container, false)
 
-        user = requireActivity().intent.extras?.getParcelable("USER")!!
+        user = requireActivity().intent.extras?.getParcelable("USER")
 
         return binding.root
     }
