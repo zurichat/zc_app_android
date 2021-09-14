@@ -19,14 +19,14 @@ class AddChannelFragment : Fragment() {
     private lateinit var binding: FragmentAddChannelBinding
     private lateinit var channelListAdapter : BaseListAdapter
 
-    private lateinit var user : User
+    private var user : User? = null
     private lateinit var channelsArrayList: ArrayList<ChannelModel>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentAddChannelBinding.inflate(inflater, container, false)
         val bundle = arguments
         if (bundle != null) {
-            user = bundle.getParcelable("USER")!!
+            user = bundle.getParcelable("USER")
             channelsArrayList = bundle.getParcelableArrayList("Channels List")!!
 
             binding.channelToolbar.subtitle = channelsArrayList.size.toString().plus(" channels")

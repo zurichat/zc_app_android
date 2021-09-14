@@ -15,12 +15,12 @@ import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChatsRVAdapter
 
 class ChatsFragment : Fragment() {
     private lateinit var binding: FragmentChatsBinding
-    private lateinit var user : User
+    private var user : User? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChatsBinding.inflate(inflater, container, false)
 
-        user = requireActivity().intent.extras?.getParcelable("USER")!!
+        user = requireActivity().intent.extras?.getParcelable("USER")
 
         return binding.root
     }
