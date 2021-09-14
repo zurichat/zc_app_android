@@ -1,5 +1,6 @@
 package com.tolstoy.zurichat.ui.login.screens
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -22,15 +23,23 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private val binding by viewBinding(FragmentLoginBinding::bind)
     private val viewModel by viewModels<LoginViewModel>()
+    private lateinit var progressDialog : ProgressDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val textView = binding.textViewRegister
+        val materialTextView = binding.materialTextView
+        progressDialog = ProgressDialog(context)
 
         textView.setOnClickListener(fun(it: View) {
-            findNavController().navigate(R.id.signupFragment)
+            findNavController().navigate(R.id.action_loginFragment_to_registerUserFragment)
         })
+
+        materialTextView.setOnClickListener(fun(it: View) {
+            findNavController().navigate(R.id.forgotPasswordFragment)
+        })
+
 
         handleSignIn()
         setupObservers()
@@ -56,6 +65,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun handleLoading() {
         // TODO: 9/11/2021 Show loading indicator
         Timber.d("Loading...")
+        progressDialog.show()
     }
 
     private fun handleSuccess(response: LoginResponse) {
@@ -65,6 +75,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         //Starting A Activity With A Navigation Component Causes Issues With The Activity Theme.
         //Better To Sse An Intent
+        progressDialog.dismiss()
         val bundle = Bundle()
         bundle.putParcelable("USER",response.data.user)
         val intent = Intent(requireContext(),MainActivity::class.java)
@@ -76,6 +87,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun handleError(throwable: Throwable) {
         // TODO: 9/11/2021 Display error message
         Timber.e(throwable)
+        progressDialog.dismiss()
     }
 }
 

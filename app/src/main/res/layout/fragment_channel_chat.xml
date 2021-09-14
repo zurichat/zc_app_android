@@ -8,6 +8,7 @@
     <include
         android:id="@+id/toolbar"
         layout="@layout/channel_toolbar"/>
+
     <TextView
         android:id="@+id/intro_group_text"
         android:layout_width="wrap_content"
@@ -89,6 +90,7 @@
                     app:srcCompat="@drawable/ic_photo_camera" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </com.google.android.material.card.MaterialCardView>
         <!-- endregion-->
         <!-- region Voice Note-->
@@ -106,6 +108,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white"
             android:contentDescription="record voice button"
+            android:outlineProvider="none"
             tools:ignore="HardcodedText" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -122,9 +125,9 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white"
             android:contentDescription="send button"
+            android:outlineProvider="none"
             tools:ignore="HardcodedText" />
         <!--endregion-->
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     <!--endregion-->
@@ -138,6 +141,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/intro_group_text" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,22 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.tolstoy.zurichat.databinding.FragmentChatsBinding
 import com.tolstoy.zurichat.models.DmMessages
 import com.tolstoy.zurichat.models.User
-import com.tolstoy.zurichat.ui.activities.DMActivity
+import com.tolstoy.zurichat.ui.dm.DMFragment
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChatsRVAdapter
 
 class ChatsFragment : Fragment() {
     private lateinit var binding: FragmentChatsBinding
-    private lateinit var user : User
+    private var user : User? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChatsBinding.inflate(inflater, container, false)
 
-        user = requireActivity().intent.extras?.getParcelable("USER")!!
+        user = requireActivity().intent.extras?.getParcelable("USER")
 
         return binding.root
     }
@@ -44,7 +43,7 @@ class ChatsFragment : Fragment() {
         binding.recycler.adapter = chatsRVAdapter
 
         binding.fabAddChat.setOnClickListener {
-            startActivity(Intent(activity, DMActivity::class.java))
+            startActivity(Intent(activity, DMFragment::class.java))
         }
     }
 }
