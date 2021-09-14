@@ -1,17 +1,17 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navArgs
 import androidx.recyclerview.widget.DiffUtil
-import centrifuge.Centrifuge
-import centrifuge.Client
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentChannelsBinding
 import com.tolstoy.zurichat.models.ChannelModel
@@ -20,21 +20,25 @@ import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChannelAdapter
 import com.tolstoy.zurichat.ui.fragments.home_screen.diff_utils.ChannelDiffUtil
 import com.tolstoy.zurichat.ui.fragments.networking.ChannelsList
 import com.tolstoy.zurichat.ui.fragments.networking.RetrofitClientInstance
+import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.random.Random
 
 class ChannelsFragment : Fragment(R.layout.fragment_channels) {
+    private val viewModel : ChannelViewModel by viewModels()
     private lateinit var binding: FragmentChannelsBinding
     private lateinit var channelsArrayList: ArrayList<ChannelModel>
-    private lateinit var user : User
+    private lateinit var originalChannelsArrayList: ArrayList<ChannelModel>
+    private var user : User? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelsBinding.inflate(inflater, container, false)
 
-        user = requireActivity().intent.extras?.getParcelable("USER")!!
+        user = requireActivity().intent.extras?.getParcelable("USER")
 
         return binding.root
     }
@@ -42,15 +46,8 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private lateinit var adapt:ChannelAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         channelsArrayList = ArrayList()
+        originalChannelsArrayList = ArrayList()
 
-        adapt = ChannelAdapter(requireActivity(), channelsArrayList)
-        adapt.setItemClickListener {
-            findNavController().navigate(R.id.channelChatFragment)
-        }
-        adapt.setAddChannelClickListener {
-
-        }
-        binding.channelRecycleView.adapter = adapt
         //addHeaders()
         getListOfChannels()
     }
@@ -80,6 +77,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
                 unreadList.add(channel)
             }
         }
+
         if (unreadList.size>0){
             newList.add(unreadChannelHeader)
             for (channel in unreadList){
@@ -88,7 +86,11 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
                     newList.add(channel)
                 }
             }
-            newList.add(dividerHeader)
+
+            // Makes sure addition of divider is not repeated
+            if (!newList.contains(dividerHeader)){
+                newList.add(dividerHeader)
+            }
         }
         newList.add(addChannelHeader)
         for (channel in readList){
@@ -101,6 +103,21 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         val diffResult = DiffUtil.calculateDiff(ChannelDiffUtil(channelsArrayList, newList))
         channelsArrayList.clear()
         channelsArrayList.addAll(newList)
+
+        /**
+         * Sets up adapter after channelList has been computed
+         */
+        adapt = ChannelAdapter(requireActivity(), channelsArrayList)
+        adapt.setItemClickListener {
+            findNavController().navigate(R.id.channelChatFragment)
+        }
+        adapt.setAddChannelClickListener {
+            val bundle = Bundle()
+            bundle.putParcelable("USER",user)
+            bundle.putParcelableArrayList("Channels List",originalChannelsArrayList)
+            findNavController().navigate(R.id.addChannelFragment,bundle)
+        }
+        binding.channelRecycleView.adapter = adapt
         diffResult.dispatchUpdatesTo(adapt)
     }
 
@@ -109,21 +126,12 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
      * Adding A Progressbar will be next
      */
     private fun getListOfChannels() {
-        val service = RetrofitClientInstance.retrofitInstance!!.create(ChannelsList::class.java)
-        val call = service.channelList
 
-        call!!.enqueue(object : Callback<List<ChannelModel>>{
-            override fun onResponse(call: Call<List<ChannelModel>>,response: Response<List<ChannelModel>>) {
-                val res : List<ChannelModel>? = response.body()
-                if (res != null) {
-                    channelsArrayList.addAll(response.body()!!)
-                    addHeaders()
-                }
-            }
-
-            override fun onFailure(call: Call<List<ChannelModel>>, t: Throwable) {
-                t.printStackTrace()
-            }
+        viewModel.getChannelsList()
+        viewModel.channelsList.observe(viewLifecycleOwner,{
+                channelsArrayList = it as ArrayList<ChannelModel>
+                originalChannelsArrayList = it
+                addHeaders()
         })
     }
 

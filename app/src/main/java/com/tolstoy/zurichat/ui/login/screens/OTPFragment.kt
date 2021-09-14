@@ -24,20 +24,21 @@ class OTPFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val pinView = binding.pinView
-        val button =   binding.otpVerifyCodeBtn
-        val txtemail = binding.textViewEmail
-        txtemail.setText("Please enter the code sent to\n"+arguments?.getString("email"))
-
-        button.setOnClickListener(fun(it: View) {
-            if (pinView.length() != 4) {
-                pinView.error = "Pin incomplete"
-                return
-            } else {
-                pinView.error = null
-                findNavController().navigate(R.id.verifiedFragment)
-
-            }
-        })
+//        val pinView = binding.pinView
+//        val button =   binding.otpVerifyCodeBtn
+//        val txtemail = binding.textViewEmail
+//        txtemail.setText("Please enter the code sent to\n"+arguments?.getString("email"))
+//
+//        button.setOnClickListener(fun(it: View) {
+//            if (pinView.length() != 4) {
+//                pinView.error = "Pin incomplete"
+//                return
+//            } else {
+//                pinView.error = null
+//                findNavController().navigate(R.id.verifiedFragment)
+//
+//            }
+//        })
+//    }
     }
 }

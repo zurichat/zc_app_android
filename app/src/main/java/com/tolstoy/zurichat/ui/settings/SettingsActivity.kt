@@ -39,8 +39,6 @@ class SettingsActivity : AppCompatActivity(),
 
         initializePool()
 
-
-
         val profileContainer = findViewById<ConstraintLayout>(R.id.profile_container)
         val manageStorageContainer = findViewById<ConstraintLayout>(R.id.manage_storage_container)
         val networkUsageContainer = findViewById<ConstraintLayout>(R.id.network_usage_container)
