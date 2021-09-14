@@ -36,10 +36,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             findNavController().navigate(R.id.action_loginFragment_to_registerUserFragment)
         })
         
-         materialTextView.setOnClickListener(fun(it: View) {
-            findNavController().navigate(R.id.forgotPasswordFragment)
-        })
-
+       
         handleSignIn()
         setupObservers()
     }
