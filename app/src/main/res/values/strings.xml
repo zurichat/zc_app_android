@@ -147,5 +147,6 @@
         Please enter the email used in registering this account</string>
     <string name="email_addre">Email Address</string>
     <string name="back_to_sig">Back to Sign In </string>
+    <string name="didn_t_rece">Didn\u00E2\u0080\u0099t receive any code?</string>
 
 </resources>
