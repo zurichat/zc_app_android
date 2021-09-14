@@ -27,10 +27,15 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         super.onViewCreated(view, savedInstanceState)
 
         val textView = binding.textViewRegister
+        val materialTextView = binding.materialTextView
 
         textView.setOnClickListener(fun(it: View) {
             findNavController().navigate(R.id.signupFragment)
         })
+        materialTextView.setOnClickListener(fun(it: View) {
+            findNavController().navigate(R.id.forgotPasswordFragment)
+        })
+
 
         handleSignIn()
         setupObservers()

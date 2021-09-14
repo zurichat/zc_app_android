@@ -32,6 +32,9 @@
                 android:name="user"
                 app:argType="com.tolstoy.zurichat.models.User" />
         </action>
+        <action
+            android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
@@ -43,4 +46,18 @@
             app:destination="@id/loginFragment" />
     </fragment>
     <include app:graph="@navigation/main_nav" />
+    <fragment
+        android:id="@+id/confirmPasswordFragment"
+        android:name="com.tolstoy.zurichat.ui.login.screens.ConfirmPasswordFragment"
+        android:label="fragment_confirm_password"
+        tools:layout="@layout/fragment_confirm_password" />
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.tolstoy.zurichat.ui.login.screens.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_confirmPasswordFragment"
+            app:destination="@id/confirmPasswordFragment" />
+    </fragment>
 </navigation>

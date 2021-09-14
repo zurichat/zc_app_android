@@ -16,16 +16,16 @@
             android:id="@+id/imageView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="70dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView10"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/new_logo" />
 
         <ImageView
             android:id="@+id/imageView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="260dp"
+            android:layout_height="99dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/coner_card" />
@@ -79,8 +79,6 @@
             android:id="@+id/didn_t_rece"
             android:layout_width="wrap_content"
             android:layout_height="18dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
             android:layout_marginStart="100dp"
             android:layout_marginTop="16dp"
             android:gravity="center_vertical"
@@ -92,13 +90,13 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_otp"
-            android:layout_width="367dp"
+            android:layout_width="match_parent"
             android:layout_height="61dp"
             android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
             android:layout_marginTop="40dp"
-            android:text="Button"
-            android:backgroundTint="@color/primaryDarkColor"
+            android:layout_marginEnd="24dp"
+            android:backgroundTint="@color/secondary_color"
+            android:text="Continue"
             android:textAppearance="@style/forgot_text_style"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -109,6 +107,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Resend"
+            android:textSize="14sp"
+            android:textColor="@color/primaryDarkColor"
             app:layout_constraintBottom_toBottomOf="@+id/didn_t_rece"
             app:layout_constraintStart_toEndOf="@+id/didn_t_rece"
             app:layout_constraintTop_toTopOf="@+id/didn_t_rece" />
