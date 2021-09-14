@@ -1,6 +1,5 @@
 package com.tolstoy.zurichat.ui.login.screens
 
-import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -29,14 +28,17 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         super.onViewCreated(view, savedInstanceState)
 
         val textView = binding.textViewRegister
-        progressDialog = ProgressDialog(context)
         val materialTextView = binding.materialTextView
+        progressDialog = ProgressDialog(context)
 
         textView.setOnClickListener(fun(it: View) {
             findNavController().navigate(R.id.action_loginFragment_to_registerUserFragment)
         })
-        
-       
+        materialTextView.setOnClickListener(fun(it: View) {
+            findNavController().navigate(R.id.forgotPasswordFragment)
+        })
+
+
         handleSignIn()
         setupObservers()
     }
@@ -59,6 +61,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun handleLoading() {
+        // TODO: 9/11/2021 Show loading indicator
         Timber.d("Loading...")
         progressDialog.show()
     }
@@ -85,4 +88,3 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         progressDialog.dismiss()
     }
 }
-
