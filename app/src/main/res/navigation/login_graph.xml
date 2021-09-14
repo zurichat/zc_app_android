@@ -45,8 +45,8 @@
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password" >
         <action
-            android:id="@+id/action_forgotPasswordFragment_to_confirmPasswordFragment"
-            app:destination="@id/confirmPasswordFragment" />
+            android:id="@+id/action_forgotPasswordFragment_to_enterOtpFragment"
+            app:destination="@id/enterOtpFragment" />
     </fragment>
     <fragment
         android:id="@+id/welcomeFragment"
@@ -59,5 +59,14 @@
         <action
             android:id="@+id/action_welcomeFragment_to_registerUserFragment"
             app:destination="@id/registerUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterOtpFragment"
+        android:name="com.tolstoy.zurichat.ui.login.screens.EnterOtpFragment"
+        android:label="fragment_enter_otp"
+        tools:layout="@layout/fragment_enter_otp" >
+        <action
+            android:id="@+id/action_enterOtpFragment_to_confirmPasswordFragment"
+            app:destination="@id/confirmPasswordFragment" />
     </fragment>
 </navigation>
