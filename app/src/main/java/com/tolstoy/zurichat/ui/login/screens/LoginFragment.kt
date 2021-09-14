@@ -29,7 +29,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         val textView = binding.textViewRegister
         val materialTextView = binding.materialTextView
-        progressDialog = ProgressDialog(context)
+       
 
         textView.setOnClickListener(fun(it: View) {
             findNavController().navigate(R.id.action_loginFragment_to_registerUserFragment)
