@@ -10,7 +10,8 @@
 <!--    Remember to make a PR to the members of the team depending on ur work, to view your work first before getting to make PR on the main repo
         for each tasks assigned, i will be using the member's github username in the comments-->
 
-<!-- 1. There is first an expected navigation from HomePage through a fab button, to get us to the first screen(SelectNewChannelFragment)on this nav-graph-->
+<!-- 1. There is first an expected navigation from HomePage through a fab button, to start the NewChannelActivity and
+        get us to the first screen (SelectNewChannelFragment)-->
 <!--    @EbubeCode is expected to implement this feature. (This feature doesn't require any API consumption)-->
 
 
