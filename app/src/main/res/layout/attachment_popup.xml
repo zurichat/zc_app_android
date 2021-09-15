@@ -33,7 +33,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="18dp"
-                android:background="@drawable/ellipse_317">
+                android:background="@drawable/ellipse_319">
             </View>
 
             <View
@@ -153,7 +153,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentBottom="true"
                 android:background="@drawable/document_image"
-                android:backgroundTint="@color/primaryColor"
+                android:backgroundTint="@color/primary_light_color"
                 app:layout_constraintLeft_toLeftOf="@id/ellipse_320"
                 app:layout_constraintRight_toRightOf="@id/ellipse_320"
                 app:layout_constraintBottom_toBottomOf="@id/ellipse_320"

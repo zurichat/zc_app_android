@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="@color/white"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -11,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="5dp"
-        android:background="@color/white">
+        >
 
         <ImageView
             android:id="@+id/profile_image"
@@ -52,7 +51,6 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="5dp"
-        android:background="@color/white"
         android:visibility="gone">
 
         <ImageView
@@ -98,7 +96,6 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="5dp"
-        android:background="@color/white"
         android:visibility="gone">
 
         <ImageView
@@ -149,8 +146,6 @@
     <FrameLayout
         android:id="@+id/settings"
         android:layout_width="match_parent"
-        android:background="@color/white"
-        android:layout_height="match_parent"
-        />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

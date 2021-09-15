@@ -1,29 +1,23 @@
 package com.tolstoy.zurichat.data.remoteSource
 
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
+import com.tolstoy.zurichat.models.LoginBody
+import com.tolstoy.zurichat.models.LoginResponse
+import com.tolstoy.zurichat.models.RegisterUser
+import retrofit2.Call
+import retrofit2.http.Body
+import retrofit2.http.POST
 
 
-//   https://api.zuri.chat/auth/login
-//    https://api.zuri.chat/users
-
-private  val BASE_URL = "https://api.zuri.chat/auth/login "
+ //'https://api.zuri.chat/v1/auth/login'
 
 interface RetrofitService {
-    fun getUser(): String
+
+    @POST("auth/login")
+    suspend fun login(@Body loginBody: LoginBody): LoginResponse
+
+    @POST("users")
+    fun register(@Body registerUser: RegisterUser?): Call<RegisterUser?>?
+
 }
 
-        //add retrofit library
-val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
 
-val retrofit = Retrofit.Builder().addConverterFactory(MoshiConverterFactory.create(moshi))
-    .baseUrl(BASE_URL).build()
-
-object Api {
-    val retrofitService: RetrofitService by lazy {
-        retrofit.create(RetrofitService::class.java)
-    }
-}

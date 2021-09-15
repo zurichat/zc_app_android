@@ -4,7 +4,8 @@
         app:fragment="com.tolstoy.zurichat.ui.settings.SettingsActivity$ChatFragment"
         app:icon="@drawable/ic_chat"
         app:key="chat_header"
-        app:title="Chat Settings" />
+        app:title="Chat Settings"
+        />
 
     <Preference
         app:fragment="com.tolstoy.zurichat.ui.settings.SettingsActivity$PrivacyAndSecurityFragment"
