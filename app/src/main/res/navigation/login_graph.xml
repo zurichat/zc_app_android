@@ -38,7 +38,11 @@
         android:id="@+id/confirmPasswordFragment"
         android:name="com.tolstoy.zurichat.ui.login.screens.ConfirmPasswordFragment"
         android:label="fragment_confirm_password"
-        tools:layout="@layout/fragment_confirm_password" />
+        tools:layout="@layout/fragment_confirm_password" >
+        <action
+            android:id="@+id/action_confirmPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
         android:name="com.tolstoy.zurichat.ui.login.screens.ForgotPasswordFragment"

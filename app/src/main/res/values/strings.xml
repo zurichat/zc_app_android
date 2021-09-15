@@ -159,5 +159,8 @@
     <string name="back_to_sig">Back to Sign In </string>
     <string name="didn_t_rece">Didn\u00E2\u0080\u0099t receive any code?</string>
     <string name="label">Sign in to your Zuri account</string>
+    <string name="forgotten_password">Forgot Password</string>
+    <string name="new_password">Your new password must be different from previously used password</string>
+    <string name="new_pass">New Password</string>
 
 </resources>
