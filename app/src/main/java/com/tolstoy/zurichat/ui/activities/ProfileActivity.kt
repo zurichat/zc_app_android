@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -43,11 +44,12 @@ class ProfileActivity: AppCompatActivity() {
             val inflater = layoutInflater
             val dialogLayout = inflater.inflate(R.layout.phoneno_edittext, null)
             val editText = dialogLayout.findViewById<EditText>(R.id.et_phoneno)
+            val phoneTextView = findViewById<TextView>(R.id.tv_phoneno)
 
             with(builder){
                 setTitle("Edit Phone Number")
                 setPositiveButton("Save"){ _, _ ->
-                    editText.text.toString()
+                    phoneTextView.text = editText.text.toString()
                 }
                 setNegativeButton("Cancel") { _, _ ->
                     Timber.d("This button clicked successfully!!") //just for log purposes
