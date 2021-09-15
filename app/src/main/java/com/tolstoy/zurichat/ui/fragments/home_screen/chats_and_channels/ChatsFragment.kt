@@ -43,7 +43,6 @@ class ChatsFragment : Fragment() {
         binding.recycler.adapter = chatsRVAdapter
 
         binding.fabAddChat.setOnClickListener {
-            startActivity(Intent(activity, DMFragment::class.java))
         }
     }
 }
