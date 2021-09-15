@@ -1,7 +1,7 @@
 package com.tolstoy.zurichat.di
 
 import android.app.Application
-import com.tolstoy.zurichat.BuildConfig
+import androidx.databinding.ktx.BuildConfig
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
