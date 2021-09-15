@@ -244,6 +244,30 @@ class SettingsActivity : AppCompatActivity(),
         }
     }
 
+    class ChannelsPrefFragment : PreferenceFragmentCompat() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.channels_pref, rootKey)
+        }
+    }
+
+    class LiveLocationPrefFragment : PreferenceFragmentCompat() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.live_location_pref, rootKey)
+        }
+    }
+
+    class BlockedContactsPrefFragment : PreferenceFragmentCompat() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.blocked_contacts_pref, rootKey)
+        }
+    }
+
+    class FingerPrintPrefFragment : PreferenceFragmentCompat() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.fingerprint_pref, rootKey)
+        }
+    }
+
     //    listening to changes on the sharedPreference
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
      val  sound:Int = soundPool?.load(this,R.raw.swit,1)!!
