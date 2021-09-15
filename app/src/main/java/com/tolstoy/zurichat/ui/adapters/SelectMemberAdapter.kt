@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.databinding.ListItemSelectMemberBinding
 import com.tolstoy.zurichat.models.MembersData
-import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
+import com.tolstoy.zurichat.ui.newchannel.NewChannelPersonsActivity
 
 class SelectMemberAdapter(private val memberList: List<MembersData>, val context: Context):
     RecyclerView.Adapter<SelectMemberAdapter.SelectMemberViewModel>() {
@@ -31,7 +31,7 @@ class SelectMemberAdapter(private val memberList: List<MembersData>, val context
                     holder.binding.selectMemberLayout.setOnClickListener {
                         when (adapterPosition){
                             0 -> {
-                                val intent = Intent(context, NewChannelActivity::class.java)
+                                val intent = Intent(context, NewChannelPersonsActivity::class.java)
                                 intent.putExtra("Image", image)
                                 intent.putExtra("Name", name)
                                 intent.putExtra("Description", description)
