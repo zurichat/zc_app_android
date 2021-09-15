@@ -60,20 +60,7 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/unread_messages_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/mentionLayout">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:text="@string/unread_messages"/>
-            <androidx.recyclerview.widget.RecyclerView
+       <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/channelRecycleView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -84,7 +71,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mentionLayout"
                 tools:listitem="@layout/channels_list_item" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

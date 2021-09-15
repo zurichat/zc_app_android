@@ -60,7 +60,11 @@
             android:name=".ui.activities.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.ZuriChat.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity
@@ -77,11 +81,7 @@
             android:theme="@style/Theme.ZuriChat.Settings" />
 
         <activity android:name=".ui.activities.MainActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
