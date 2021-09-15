@@ -130,7 +130,10 @@
     <string name="chanel_search">Search</string>
     <string name="channel_media">Channel media</string>
     <string name="select_contact">Select Contact</string>
+    <string name="changephoneno_hint_txt">Enter your new phone number</string>
+    <string name="search_for_channels">Search for channels</string>
 
+  
     <!--    Notifications & Sounds-->
     <string name="channel_tones_header">Channel tones</string>
     <string name="channel_tones_summary">Play sound for incoming and outgoing message in channels</string>
@@ -146,18 +149,21 @@
     <string name="unread_messages">Unread messages</string>
     <string name="channels_">Channels</string>
     <string name="lbl_terms_and_conditions"><u>terms and conditions</u></string>
-    <string name="search_for_channels">Search for channels</string>
+
+
     <string name="welcome_desc">Send DMs to your contacts and channels with\n ease, start conversations with just a click</string>
     <string name="register_string">Register</string>
     <string name="sign_in_txt">Sign in to your Zuri account</string>
     <string name="welcome_zc_txt">Welcome to Zuri Chat</string>
     <string name="welcome_rect">welcome top rectangle</string>
 
-<!--                      Forgot Password-->
+
+    <!--                      Forgot Password-->
     <string name="please_ente">
         Please enter the email used in registering this account</string>
     <string name="email_addre">Email Address</string>
     <string name="back_to_sig">Back to Sign In </string>
     <string name="didn_t_rece">Didn\u00E2\u0080\u0099t receive any code?</string>
+    <string name="label">Sign in to your Zuri account</string>
 
 </resources>
