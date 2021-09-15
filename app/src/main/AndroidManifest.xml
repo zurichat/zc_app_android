@@ -28,18 +28,12 @@
             android:name=".ui.welcome.WelcomeActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.newchannel.NewChannelActivity"
-            android:exported="true" />
-        <activity
             android:name=".ui.settings.LargerItemsActivity"
             android:exported="true"
             android:label="@string/larger_items_or_no_items_string"
             android:parentActivityName=".ui.settings.LargerItemsActivity"
             android:theme="@style/Theme.ZuriChat.Settings" />
 
-        <activity
-            android:name=".ui.activities.DMActivity"
-            android:exported="true" />
         <activity
             android:name=".ui.settings.ManageStorageActivity"
             android:exported="true"
@@ -65,7 +59,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".ui.activities.ProfileActivity"
@@ -81,7 +74,7 @@
             android:theme="@style/Theme.ZuriChat.Settings" />
 
         <activity android:name=".ui.activities.MainActivity" >
-
+            
         </activity>
 
         <meta-data

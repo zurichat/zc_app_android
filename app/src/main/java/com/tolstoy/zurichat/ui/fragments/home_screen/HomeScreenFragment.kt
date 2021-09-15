@@ -15,14 +15,9 @@ class HomeScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeScreenBinding
 
-
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -40,17 +35,13 @@ class HomeScreenFragment : Fragment() {
         viewPager.offscreenPageLimit = 2
 
         // attaches the viewpager to the tabs layout
-        TabLayoutMediator(
-            tabs, viewPager
-        ) { tab, position ->
+        TabLayoutMediator(tabs, viewPager) { tab, position ->
             tab.text = resources.getString(
                 tabTitles[position]
             )
         }.attach()
 
-
         toolbar.setOnMenuItemClickListener {
-
             when (it.itemId) {
                 R.id.settings -> {
                     findNavController().navigate(R.id.settingsActivity)
@@ -64,8 +55,6 @@ class HomeScreenFragment : Fragment() {
             }
             true
         }
-
-
     }
 
     /**private fun processSearch(item: MenuItem?) {

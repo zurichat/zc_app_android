@@ -39,8 +39,6 @@ class SettingsActivity : AppCompatActivity(),
 
         initializePool()
 
-
-
         val profileContainer = findViewById<ConstraintLayout>(R.id.profile_container)
         val manageStorageContainer = findViewById<ConstraintLayout>(R.id.manage_storage_container)
         val networkUsageContainer = findViewById<ConstraintLayout>(R.id.network_usage_container)
@@ -74,13 +72,11 @@ class SettingsActivity : AppCompatActivity(),
         if (supportFragmentManager.popBackStackImmediate()) {
             return true
         }
-        return super.onSupportNavigateUp()
+        super.onBackPressed()
+        return false
     }
 
-    override fun onPreferenceStartFragment(
-        caller: PreferenceFragmentCompat,
-        pref: Preference
-    ): Boolean {
+    override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
         // Instantiate the new Fragment
         val args = pref.extras
         val fragment =

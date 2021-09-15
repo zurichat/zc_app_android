@@ -4,9 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/primary_color">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/channel_toolbar"
@@ -19,9 +21,11 @@
             app:subtitleTextColor="@color/white"
             app:theme="@style/ToolbarTheme"
             app:title="Android Devs"
-            app:subtitle="vicksoson"
             app:titleMarginStart="32dp"
-            app:titleTextColor="@color/white" />
+            app:subtitle="vicksoson"
+            app:titleTextColor="@color/white"
+            app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

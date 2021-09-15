@@ -16,10 +16,10 @@ import com.tolstoy.zurichat.models.ChannelModel
 
 class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var onItemClickListener: (() -> Unit)? = null
+    private var onItemClickListener: ((channel:ChannelModel) -> Unit)? = null
     private var onAddChannelClickListener: (() -> Unit)? = null
 
-    fun setItemClickListener(listener: () -> Unit) {
+    fun setItemClickListener(listener: (channel:ChannelModel) -> Unit) {
         onItemClickListener = listener
     }
 
@@ -39,7 +39,7 @@ class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>
 
             view.findViewById<TextView>(R.id.channelTitle).text = channel.name
             view.findViewById<ConstraintLayout>(R.id.root_layout).setOnClickListener {
-                onItemClickListener?.invoke()
+                onItemClickListener?.invoke(channel)
             }
         }
     }
