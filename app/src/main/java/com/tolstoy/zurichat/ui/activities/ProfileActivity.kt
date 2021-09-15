@@ -1,6 +1,7 @@
 package com.tolstoy.zurichat.ui.activities
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.widget.EditText
@@ -49,7 +50,8 @@ class ProfileActivity: AppCompatActivity() {
             with(builder){
                 setTitle("Edit Phone Number")
                 setPositiveButton("Save"){ _, _ ->
-                    phoneTextView.text = editText.text.toString()
+                    phoneTextView.text = editText.text.toString() // populates the value of the
+                                                                    // EditText on the TextView
                 }
                 setNegativeButton("Cancel") { _, _ ->
                     Timber.d("This button clicked successfully!!") //just for log purposes
