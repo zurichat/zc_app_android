@@ -8,6 +8,7 @@
     <fragment
         android:id="@+id/direct_messages_screen"
         android:name="com.tolstoy.zurichat.ui.dm.DMFragment"
+        android:label="directMessagesScreen"
         tools:layout="@layout/fragment_dm" />
     <fragment
         android:id="@+id/homeScreenFragment"
