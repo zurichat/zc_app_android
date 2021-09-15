@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.databinding.ListItemBinding
 import com.tolstoy.zurichat.models.DmMessages
-import com.tolstoy.zurichat.ui.activities.DMActivity
+import com.tolstoy.zurichat.ui.dm.DMFragment
 
 class ChatsRVAdapter(val context: Activity, private val characters: List<DmMessages>): RecyclerView.Adapter<ChatsRVAdapter.ChatViewHolder>() {
 
@@ -19,7 +19,7 @@ class ChatsRVAdapter(val context: Activity, private val characters: List<DmMessa
                 binding.textViewStatus.text = character.time
 
                 binding.dmRoot.setOnClickListener {
-                    val intent = Intent(context, DMActivity::class.java)
+                    val intent = Intent(context, DMFragment::class.java)
                     context.startActivity(intent)
                 }
             }
