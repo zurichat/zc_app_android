@@ -28,9 +28,6 @@
             android:name=".ui.welcome.WelcomeActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.newchannel.NewChannelActivity"
-            android:exported="true" />
-        <activity
             android:name=".ui.settings.LargerItemsActivity"
             android:exported="true"
             android:label="@string/larger_items_or_no_items_string"

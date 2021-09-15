@@ -7,15 +7,15 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tolstoy.zurichat.R
-import com.tolstoy.zurichat.databinding.FragmentSelectContactBinding
+import com.tolstoy.zurichat.databinding.FragmentSelectNewChannelBinding
 import com.tolstoy.zurichat.models.NewChannel
 import com.tolstoy.zurichat.ui.activities.MainActivity
 import com.tolstoy.zurichat.ui.adapters.NewChannelAdapter
 import com.tolstoy.zurichat.util.viewBinding
 import timber.log.Timber
 
-class SelectContactFragment : Fragment(R.layout.fragment_select_contact) {
-    private val binding by viewBinding(FragmentSelectContactBinding::bind)
+class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) {
+    private val binding by viewBinding(FragmentSelectNewChannelBinding::bind)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -25,7 +25,7 @@ class SelectContactFragment : Fragment(R.layout.fragment_select_contact) {
             memberButton.setOnClickListener {
                 try {
                     val action =
-                        SelectContactFragmentDirections.actionSelectContactFragmentToSelectMemberFragment()
+                        SelectNewChannelFragmentDirections.actionSelectNewChannelFragmentToSelectMemberFragment()
                     findNavController().navigate(action)
                 } catch (exc: Exception) {
                     Timber.e(TAG, exc.toString())
@@ -34,14 +34,14 @@ class SelectContactFragment : Fragment(R.layout.fragment_select_contact) {
             memberLabel.setOnClickListener {
                 try {
                     val action =
-                        SelectContactFragmentDirections.actionSelectContactFragmentToSelectMemberFragment()
+                        SelectNewChannelFragmentDirections.actionSelectNewChannelFragmentToSelectMemberFragment()
                     findNavController().navigate(action)
                 } catch (exc: Exception) {
                     Timber.e(TAG, exc.toString())
                 }
             }
             backBtn.setOnClickListener {
-                requireActivity().startActivity(Intent(requireContext(),MainActivity::class.java))
+                requireActivity().startActivity(Intent(requireContext(), MainActivity::class.java))
             }
             recyclerView.apply {
                 adapter = NewChannelAdapter(getNewChannel())

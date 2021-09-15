@@ -45,8 +45,6 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
         thread.start();
 
         crossFade();
-
-
     }
 
     private void crossFade() {
