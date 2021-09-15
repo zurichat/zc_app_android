@@ -83,11 +83,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         intent.putExtras(bundle)
         startActivity(intent)
         requireActivity().finish()
+        Toast.makeText(context, "You have successfully login", Toast.LENGTH_LONG).show()
     }
 
     private fun handleError(throwable: Throwable) {
 
-        Toast.makeText(context, "Invalid email or password, please sign UP", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Invalid email or password, please sign up", Toast.LENGTH_LONG).show()
         Timber.e(throwable)
         progressDialog.dismiss()
     }
