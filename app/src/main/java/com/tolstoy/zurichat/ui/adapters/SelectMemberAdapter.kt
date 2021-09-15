@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.databinding.ListItemSelectMemberBinding
 import com.tolstoy.zurichat.models.MembersData
-import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 import com.tolstoy.zurichat.ui.newchannel.NewChannelPersonsActivity
-import com.tolstoy.zurichat.ui.newchannel.NewChannelSelectPersonFragment
 
 class SelectMemberAdapter(private val memberList: List<MembersData>, val context: Context):
     RecyclerView.Adapter<SelectMemberAdapter.SelectMemberViewModel>() {

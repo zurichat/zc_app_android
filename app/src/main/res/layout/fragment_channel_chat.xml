@@ -139,7 +139,9 @@
         android:layout_margin="6dp"
         app:layout_constraintBottom_toTopOf="@+id/channel_typing_bar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/intro_group_text" />
+        app:layout_constraintTop_toBottomOf="@+id/intro_group_text"
+        app:layout_constraintVertical_bias="0.513" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
