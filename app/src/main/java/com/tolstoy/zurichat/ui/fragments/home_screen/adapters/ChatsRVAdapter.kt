@@ -4,7 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ListItemBinding
 import com.tolstoy.zurichat.models.DmMessages
 import com.tolstoy.zurichat.ui.dm.DMFragment
@@ -19,8 +21,7 @@ class ChatsRVAdapter(val context: Activity, private val characters: List<DmMessa
                 binding.textViewStatus.text = character.time
 
                 binding.dmRoot.setOnClickListener {
-                    val intent = Intent(context, DMFragment::class.java)
-                    context.startActivity(intent)
+//                    context.findNavController().navigate(R.id.direct_messages_screen)
                 }
             }
         }

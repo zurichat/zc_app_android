@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentChatsBinding
 import com.tolstoy.zurichat.models.DmMessages
 import com.tolstoy.zurichat.models.User
@@ -43,7 +45,7 @@ class ChatsFragment : Fragment() {
         binding.recycler.adapter = chatsRVAdapter
 
         binding.fabAddChat.setOnClickListener {
-            startActivity(Intent(activity, DMFragment::class.java))
+            findNavController().navigate(R.id.direct_messages_screen)
         }
     }
 }
