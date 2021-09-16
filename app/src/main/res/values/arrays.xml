@@ -62,6 +62,19 @@
         <item>1</item>
     </string-array>
 
+    <string-array name="back_up_over">
+        <item>Wi-Fi</item>
+        <item>Cellular Data</item>
+    </string-array>
+
+    <string-array name="back_up_google">
+        <item>Never</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Only when I tap "Back up"</item>
+    </string-array>
+
 <!-- Personal info Preferences-->
     <string-array name="personal_info_list">
         <item>My contacts</item>
