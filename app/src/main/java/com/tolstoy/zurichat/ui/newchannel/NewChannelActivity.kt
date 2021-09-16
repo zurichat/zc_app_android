@@ -1,8 +1,7 @@
 package com.tolstoy.zurichat.ui.newchannel
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.tolstoy.zurichat.R
+import androidx.appcompat.app.AppCompatActivity
 import com.tolstoy.zurichat.databinding.ActivityNewChannelBinding
 
 class NewChannelActivity : AppCompatActivity() {

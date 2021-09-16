@@ -23,7 +23,7 @@ class ChannelChatFragment : Fragment() {
     private var user : User? = null
     private lateinit var channel: ChannelModel
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelChatBinding.inflate(inflater, container, false)
         val bundle = arguments
         if (bundle != null) {
@@ -51,9 +51,9 @@ class ChannelChatFragment : Fragment() {
             }
         })
 
-        val channelChatEdit = binding.channelChatEditText
+        val channelChatEdit = binding.channelChatEditText           //get message from this edit text
         val sendVoiceNote = binding.sendVoiceBtn
-        val sendMessage = binding.sendMessageBtn
+        val sendMessage = binding.sendMessageBtn                    //use this button to send the message
         val toolbar = view.findViewById<Toolbar>(R.id.channel_toolbar)
 
         toolbar.title = channel.name
@@ -72,6 +72,10 @@ class ChannelChatFragment : Fragment() {
             }
         }
 
+//        OnclickListener for the sendMessageBtn to send message to the channel
+        sendMessage.setOnClickListener{
+//  TODO(check if channelChatEdit is null or empty, and do nothing else, get the _id of the user that sent the message from user variable, get the string message from the edit text, send the to show up as one of the list items on the recyclerview in that)
+        }
 
         //initialize imagePicker library
         val imagePicker = ImagePicker(this)
