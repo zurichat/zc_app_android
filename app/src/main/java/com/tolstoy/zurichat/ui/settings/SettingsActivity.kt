@@ -107,7 +107,6 @@ class SettingsActivity : AppCompatActivity(),
             val networkUsageContainer = activity?.findViewById<ConstraintLayout>(R.id.network_usage_container)
             val divider = activity?.findViewById<View>(R.id.divider)
 
-
             //make manage storage container clickable
             manageStorageContainer?.setOnClickListener {
                 startActivity(Intent(activity, ManageStorageActivity::class.java))

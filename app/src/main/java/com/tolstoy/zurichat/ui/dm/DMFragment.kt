@@ -27,7 +27,7 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
 
 
         //Launch Attachment popup
-        val attachment = requireActivity().findViewById<ImageView>(R.id.imageView_attachment)
+//        val attachment = requireActivity().findViewById<ImageView>(R.id.imageView_attachment)
         val popupView: View = layoutInflater.inflate(R.layout.partial_attachment_popup, null)
         var popupWindow = PopupWindow(
             popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT
@@ -35,9 +35,9 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
         popupWindow.setBackgroundDrawable(ColorDrawable())
         popupWindow.isOutsideTouchable = true
 
-        attachment.setOnClickListener {
-            popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 600)
-        }
+//        attachment.setOnClickListener {
+//            popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 600)
+//        }
 
     }
 
