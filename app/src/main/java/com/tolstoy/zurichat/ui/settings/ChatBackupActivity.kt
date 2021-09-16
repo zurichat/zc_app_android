@@ -9,6 +9,7 @@ import android.view.View
 import androidx.viewbinding.ViewBinding
 import com.tolstoy.zurichat.databinding.ActivityChatBackupBinding
 import com.tolstoy.zurichat.databinding.ActivityMainBinding
+import com.tolstoy.zurichat.ui.settings.dialogs.BackUpGoogleDialogFragment
 import com.tolstoy.zurichat.ui.settings.dialogs.BackUpOverDialogFragment
 
 class ChatBackupActivity : AppCompatActivity() {
@@ -46,7 +47,7 @@ class ChatBackupActivity : AppCompatActivity() {
         }
 
         binding.btnBackupGoogle.setOnClickListener {
-            val backupGoogleDialog = BackUpOverDialogFragment(this)
+            val backupGoogleDialog = BackUpGoogleDialogFragment(this)
             backupGoogleDialog.show(supportFragmentManager, "Back up Google")
         }
 
