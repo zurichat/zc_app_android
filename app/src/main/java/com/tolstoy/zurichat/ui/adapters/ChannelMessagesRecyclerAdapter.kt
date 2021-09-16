@@ -1,5 +1,6 @@
 package com.tolstoy.zurichat.ui.adapters
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -13,22 +14,22 @@ class ChannelMessagesRecyclerAdapter(
     private val currentUser: String
     ) : RecyclerView.Adapter<ChannelMessagesRecyclerAdapter.ChannelMessagesRecyclerViewHolder>(){
 
-
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ChannelMessagesRecyclerViewHolder {
-        TODO("Not yet implemented")
+       return ChannelMessagesRecyclerViewHolder(
+           LayoutInflater.from(parent.context).inflate(R.layout.channel_chat_list_items,parent, false)
+       )
     }
 
     override fun onBindViewHolder(holder: ChannelMessagesRecyclerViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val channelMessages = channelMessagesList[position]
+        holder.bind(channelMessages, currentUser)
+
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount(): Int = channelMessagesList.size
 
     class ChannelMessagesRecyclerViewHolder(itemView: View) :
         RecyclerView.ViewHolder(itemView) {
