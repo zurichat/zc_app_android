@@ -22,7 +22,9 @@
         <item name="colorPrimary">@color/primary_color</item>
         <item name="colorPrimaryVariant">@color/primary_color</item>
         <item name="colorOnPrimary">@color/primary_text_color</item>
+        <item name="colorAccent">@android:color/white</item>
         <!-- Secondary brand color. -->
+        <item name="android:textColorSecondary">@color/message_content</item>
         <item name="colorSecondary">@color/secondary_color</item>
         <item name="colorSecondaryVariant">@color/secondary_color</item>
         <item name="colorOnSecondary">@color/secondary_text_color</item>

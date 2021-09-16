@@ -11,7 +11,6 @@ import android.widget.PopupWindow
 import android.widget.Toast
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.ui.dm.adapters.MessageAdapter
-import com.tolstoy.zurichat.util.setUpApplicationTheme
 import dev.ronnie.github.imagepicker.ImagePicker
 import dev.ronnie.github.imagepicker.ImageResult
 import java.util.*
@@ -28,17 +27,17 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
 
 
         //Launch Attachment popup
-        val attachment = requireActivity().findViewById<ImageView>(R.id.imageView_attachment)
-        val popupView: View = layoutInflater.inflate(R.layout.attachment_popup, null)
+//        val attachment = requireActivity().findViewById<ImageView>(R.id.imageView_attachment)
+        val popupView: View = layoutInflater.inflate(R.layout.partial_attachment_popup, null)
         var popupWindow = PopupWindow(
             popupView, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT
         )
         popupWindow.setBackgroundDrawable(ColorDrawable())
         popupWindow.isOutsideTouchable = true
 
-        attachment.setOnClickListener {
-            popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 600)
-        }
+//        attachment.setOnClickListener {
+//            popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 600)
+//        }
 
     }
 

@@ -5,7 +5,11 @@
     android:id="@+id/main_nav"
     app:startDestination="@id/homeScreenFragment">
 
-    <fragment android:id="@+id/direct_messages_screen" />
+    <fragment
+        android:id="@+id/direct_messages_screen"
+        android:name="com.tolstoy.zurichat.ui.dm.DMFragment"
+        android:label="directMessagesScreen"
+        tools:layout="@layout/fragment_dm" />
     <fragment
         android:id="@+id/homeScreenFragment"
         android:name="com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragment"
