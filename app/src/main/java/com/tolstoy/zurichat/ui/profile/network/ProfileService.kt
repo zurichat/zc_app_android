@@ -18,4 +18,12 @@ interface ProfileService {
         @Path("mem_id") mem_id: String,
         @Body profilePayload: ProfilePayload
     ): Call<ProfileResponse>
+
+    @PATCH("organizations/{id}/members/{mem_id}/photo")
+    fun updatePhoto(
+        @Header("Authorization") authToken: String?,
+        @Path("id") id: String,
+        @Path("mem_id") mem_id: String,
+        @Body profilePayload: ProfilePayload
+    ): Call<ProfileResponse>
 }
