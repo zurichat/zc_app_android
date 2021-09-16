@@ -143,12 +143,6 @@ class SettingsActivity : AppCompatActivity(),
         }
     }
 
-    class ChatFragment : PreferenceFragmentCompat() {
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            setPreferencesFromResource(R.xml.chat_preferences, rootKey)
-        }
-    }
-
     class PrivacyAndSecurityFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.privacy_and_security_preferences, rootKey)

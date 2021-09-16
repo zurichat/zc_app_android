@@ -1,7 +1,7 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Preference
-        app:fragment="com.tolstoy.zurichat.ui.settings.SettingsActivity$ChatFragment"
+        app:fragment="com.tolstoy.zurichat.ui.settings.fragments.ChatFragment"
         app:icon="@drawable/ic_chat"
         app:key="chat_header"
         app:title="Chat Settings" />
