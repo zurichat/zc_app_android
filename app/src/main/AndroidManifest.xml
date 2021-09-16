@@ -18,11 +18,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZuriChat">
         <activity
+            android:name=".ui.newchannel.NewChannelPersonsActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.channel_info.ChannelInfoActivity"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
         <activity
-            android:name=".ui.welcome.WelcomeActivity"
+            android:name=".ui.newchannel.NewChannelActivity"
             android:exported="true" />
         <activity
             android:name=".ui.settings.LargerItemsActivity"
@@ -71,7 +74,7 @@
             android:theme="@style/Theme.ZuriChat.Settings" />
 
         <activity android:name=".ui.activities.MainActivity" >
-
+            
         </activity>
 
         <meta-data
