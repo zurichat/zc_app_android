@@ -44,15 +44,16 @@ class ChatsFragment : Fragment() {
 
         val chatsRVAdapter = ChatsRVAdapter(requireActivity(), messages)
         chatsRVAdapter.setItemClickListener {
-            //findNavController().navigate(R.id.direct_messages_screen)
+            findNavController().navigate(R.id.direct_messages_screen)
 
-            val intent = Intent(context, NewChannelActivity::class.java)
-            startActivity(intent)
+            
         }
         binding.recycler.adapter = chatsRVAdapter
 
         binding.fabAddChat.setOnClickListener {
-            findNavController().navigate(R.id.direct_messages_screen)
+            //findNavController().navigate(R.id.direct_messages_screen)
+            val intent = Intent(context, NewChannelActivity::class.java)
+            startActivity(intent)
         }
     }
 }
