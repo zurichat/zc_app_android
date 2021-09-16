@@ -7,8 +7,26 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.ui.profile.data.ProfilePayload
+import com.tolstoy.zurichat.ui.profile.data.ProfileResponse
+import com.tolstoy.zurichat.ui.profile.network.Constants
+import com.tolstoy.zurichat.ui.profile.network.ProfileService
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.Body
+import retrofit2.http.Header
+import retrofit2.http.PATCH
+import retrofit2.http.Path
 
 class ProfileActivity: AppCompatActivity() {
+
+    //prepare retrofit service
+    private val retrofit: Retrofit = Retrofit.Builder()
+        .baseUrl(Constants.BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .build()
+    val retrofitService: ProfileService = retrofit
+        .create(ProfileService::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
