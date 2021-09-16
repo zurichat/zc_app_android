@@ -4,16 +4,21 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.PopupWindow
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentChannelChatBinding
 import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.User
+import com.tolstoy.zurichat.ui.fragments.model.JoinChannelUser
+import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
 import dev.ronnie.github.imagepicker.ImagePicker
 
 class ChannelChatFragment : Fragment() {
+    private val viewModel : ChannelViewModel by viewModels()
     private lateinit var binding: FragmentChannelChatBinding
     private var user : User? = null
     private lateinit var channel: ChannelModel
@@ -30,6 +35,21 @@ class ChannelChatFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        /**
+        Temporary location to make network call to join channel. To be associated with the joinChannel button
+        @Param: organizationId- organizationId will come from the clicked channel to join
+        @Param: channelId - comes from channel to join
+        @Param: user - creates a JoinChannelUser from the user Id, role_Id and adminRole
+         */
+        viewModel.joinChannel("1",channel._id, JoinChannelUser("cephas","manager"))
+
+        viewModel.joinedUser.observe(viewLifecycleOwner,{joinedUser->
+            if (joinedUser != null){
+                Toast.makeText(requireContext(), "${joinedUser._id} Joined Channel Successfully", Toast.LENGTH_SHORT).show()
+            }
+        })
 
         val channelChatEdit = binding.channelChatEditText
         val sendVoiceNote = binding.sendVoiceBtn
