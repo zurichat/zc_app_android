@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/new_channel_nav_graph"
+    app:startDestination="@id/selectNewChannelFragment">
+
+<!--    Hi guys, this is what is expected of everyone!. I decided to comment here because this file controls the workflow in it's entirety-->
+<!--    Please do not delete the comments here while you work, I will do it myself once our workflow is complete. thanks-->
+<!--    Remember to make a PR to the members of the team depending on ur work, to view your work first before getting to make PR on the main repo
+        for each tasks assigned, i will be using the member's github username in the comments-->
+
+<!-- 1. There is first an expected navigation from HomePage through a fab button, to get us to the first screen(SelectNewChannelFragment)on this nav-graph-->
+<!--    @EbubeCode is expected to implement this feature. (This feature doesn't require any API consumption)-->
+
+
+<!-- 2. SelectNewChannelFragment:
+        First fragment to move to after clicking the fab button from homepage-->
+<!--    Here we are interested in moving to the next screen (SelectMemberFragment)when the user clicks on New Channel and nothing else->
+<!-    @somebody is expected to implement this feature, below is the navigation details. (This feature doesn't require any API consumption)-->
+    <fragment
+        android:id="@+id/selectNewChannelFragment"
+        android:name="com.tolstoy.zurichat.ui.newchannel.SelectNewChannelFragment"
+        android:label="SelectContactFragment" >
+        <action
+            android:id="@+id/action_selectNewChannelFragment_to_selectMemberFragment"
+            app:destination="@id/selectMemberFragment" />
+    </fragment>
+
+<!-- 3. SelectMemberFragment:
+        Second fragment to move to after selecting New Channel option from 2 above-->
+<!--    Here we are interested in selecting members, and displaying those members as they are selected
+        afterwards, parse the selected members information unto the next screen (newChannelDataFragment)
+        when the forward fab button is clicked->
+<!-    @somebody is expected to implement this feature, below is the navigation details.(This feature requires API consumption for storing new channel members)-->
+    <fragment
+        android:id="@+id/selectMemberFragment"
+        android:name="com.tolstoy.zurichat.ui.newchannel.SelectMemberFragment"
+        android:label="fragment_select_member"
+        tools:layout="@layout/fragment_select_member" >
+        <action
+            android:id="@+id/action_selectMemberFragment_to_newChannelDataFragment"
+            app:destination="@id/newChannelDataFragment" />
+    </fragment>
+<!-- 4. NewChannelDataFragment:
+        Third fragment to move to after selecting members from 3 above-->
+<!--    Here we are interested in imputing the name, and privacy status of the new channel we are creating,
+        while still able to see selected contacts.
+        Afterwards, the channel name, privacy status and selected members details is parsed on for use
+        to the next screen (ChannelChatFragment)->
+<!-     @kolinton is expected to implement this feature, below is the navigation details. (This feature requires API consumption for creating new channel)-->
+    <fragment
+        android:id="@+id/newChannelDataFragment"
+        android:name="com.tolstoy.zurichat.ui.newchannel.NewChannelDataFragment"
+        android:label="NewChannelDataFragment">
+        <action
+            android:id="@+id/action_newChannelDataFragment_to_channelChatFragment"
+            app:destination="@id/channelChatFragment" />
+    </fragment>
+
+<!-- 5. ChannelChatFragment:
+        Fourth fragment to move to after imputing the new channel data from 4 above-->
+<!--    Here we are interested in making sure we can send and retrieve messages to/from the channel.->
+<!-     @solidtm is expected to implement this feature, below is the navigation details. (This feature requires API consumption for channel messaging)-->
+    <fragment
+        android:id="@+id/channelChatFragment"
+        android:name="com.tolstoy.zurichat.ui.fragments.channel_chat.ChannelChatFragment"
+        android:label="ChannelChatFragment" />
+</navigation>

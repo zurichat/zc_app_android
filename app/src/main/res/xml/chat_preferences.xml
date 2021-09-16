@@ -14,6 +14,7 @@
             app:dialogTitle="@string/theme_dialog"
             app:useSimpleSummaryProvider="true" />
         <Preference
+            app:fragment="com.tolstoy.zurichat.ui.settings.WallpaperActivity$WallpaperFragment"
             app:title="@string/Wallpaper"
             app:icon="@drawable/wallpaper_icon"
             app:allowDividerBelow="true"
@@ -39,17 +40,17 @@
             app:dialogTitle="@string/font_dialog"
             app:entries="@array/fonts"
             app:defaultValue="2"
-            app:useSimpleSummaryProvider="true"/>
+            app:useSimpleSummaryProvider="true"
+            app:allowDividerBelow="true"/>
 
     </PreferenceCategory>
 
     <Preference
         app:key="chat_backup"
         app:title="@string/chat_backup"
+        app:allowDividerAbove="true"
         app:icon="@drawable/backup_icon_"/>
-    <Preference
-        app:title="@string/chat_history"
-        app:icon="@drawable/chat_history_icon"/>
+
 
 
 

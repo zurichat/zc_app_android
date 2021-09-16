@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_color">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/channel_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:logo="@drawable/ic_group"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:menu="@menu/channel_chat_menu"
+            app:popupTheme="@style/Theme.MaterialComponents.Light.NoActionBar"
+            app:subtitleTextColor="@color/white"
+            app:theme="@style/ToolbarTheme"
+            app:title="Android Devs"
+            app:titleMarginStart="32dp"
+            app:subtitle="vicksoson"
+            app:titleTextColor="@color/white"
+            app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

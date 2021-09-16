@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
-    android:background="#f5f5f5"
     android:orientation="vertical">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -11,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="5dp"
-        android:background="#FFFFFF">
+        >
 
         <ImageView
             android:id="@+id/profile_image"
@@ -29,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:text="Joseph Kalu"
-            android:textColor="#3A3A3A"
+            android:textColor="@color/preference_name_color"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/profile_image"
             app:layout_constraintTop_toTopOf="@id/profile_image" />
@@ -52,7 +51,6 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="5dp"
-        android:background="#FFFFFF"
         android:visibility="gone">
 
         <ImageView
@@ -98,7 +96,6 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="5dp"
-        android:background="#FFFFFF"
         android:visibility="gone">
 
         <ImageView
@@ -144,7 +141,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginBottom="20dp"
-        android:background="#D4D4D4" />
+        android:background="@color/divider_white" />
 
     <FrameLayout
         android:id="@+id/settings"

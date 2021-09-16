@@ -4,13 +4,14 @@
         app:fragment="com.tolstoy.zurichat.ui.settings.fragments.ChatFragment"
         app:icon="@drawable/ic_chat"
         app:key="chat_header"
-        app:title="Chat Settings" />
+        app:title="Chat Settings"
+        />
 
     <Preference
         app:fragment="com.tolstoy.zurichat.ui.settings.SettingsActivity$PrivacyAndSecurityFragment"
         app:icon="@drawable/ic_lock"
         app:key="security_header"
-        app:title="Privacy and Security" />
+        app:title="Privacy" />
 
     <Preference
         app:fragment="com.tolstoy.zurichat.ui.settings.SettingsActivity$StorageAndDataFragment"
