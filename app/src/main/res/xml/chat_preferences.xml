@@ -46,6 +46,7 @@
     </PreferenceCategory>
 
     <Preference
+        app:key="chat_backup"
         app:title="@string/chat_backup"
         app:allowDividerAbove="true"
         app:icon="@drawable/backup_icon_"/>
