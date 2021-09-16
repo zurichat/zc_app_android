@@ -13,9 +13,9 @@ import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentChannelsBinding
 import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.User
-import com.tolstoy.zurichat.ui.add_channel.ListItem
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChannelAdapter
 import com.tolstoy.zurichat.ui.fragments.home_screen.diff_utils.ChannelDiffUtil
+import com.tolstoy.zurichat.ui.fragments.model.JoinChannelUser
 import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
 import kotlin.random.Random
 
@@ -39,6 +39,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         originalChannelsArrayList = ArrayList()
         //addHeaders()
         getListOfChannels()
+
     }
 
     private fun generateRandomLong(): Long {
@@ -102,6 +103,8 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
             bundle1.putParcelable("USER",user)
             bundle1.putParcelable("Channel",it)
             findNavController().navigate(R.id.channelChatFragment,bundle1)
+
+
         }
         adapt.setAddChannelClickListener {
             val bundle = Bundle()

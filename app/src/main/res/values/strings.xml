@@ -29,6 +29,12 @@
     <string name="register_mail">Email Address</string>
     <string name="welcome_image">Welcome Image</string>
 
+    <!-- Toolbar -->
+    <string name="send_to">Send to %1$s</string>
+
+    <!-- Menu: DM -->
+    <string name="action_video_call">Video Call</string>
+    <string name="action_voice_call">Voice Call</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -90,7 +96,7 @@
     <string name="read_receipt_summary">If turned off, you won’t send or receive Read receipts.
         Read receipts are always sent for channels</string>
     <string name="channels_header">Channels</string>
-    <string name="live_locations_header">Live locations</string>
+    <string name="live_locations_header">Live location</string>
     <string name="blocked_contacts_header">Blocked contacts</string>
     <string name="fingerprint_lock_header">Fingerprint lock</string>
 
@@ -159,5 +165,19 @@
     <string name="back_to_sig">Back to Sign In </string>
     <string name="didn_t_rece">Didn\u00E2\u0080\u0099t receive any code?</string>
     <string name="label">Sign in to your Zuri account</string>
+    <string name="forgotten_password">Forgot Password</string>
+    <string name="new_password">Your new password must be different from previously used password</string>
+    <string name="new_pass">New Password</string>
+    <string name="channels_who_add">Who can Add me to channels</string>
+    <string name="everyone">Everyone</string>
+    <string name="my_contacts">My Contacts</string>
+    <string name="my_contacts_except">My Contacts Except</string>
+    <string name="nobody">Nobody</string>
+    <string name="live_location_manage__device_settings">Live location requires background location. You can manage this in your device settings.</string>
+    <string name="immediately">Immediately</string>
+    <string name="one_minute">After 1 minute</string>
+    <string name="thirty_minutes">After 30 minutes</string>
+    <string name="you_aren_t_sharing_live_location">You aren’t sharing live location in any chats</string>
+    <string name="contacts_who_can_t_add_you">Contacts who can’t add you to a channel will have the option of inviting you privately instead.</string>
 
 </resources>

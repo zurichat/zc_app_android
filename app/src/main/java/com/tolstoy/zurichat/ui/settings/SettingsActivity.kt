@@ -107,7 +107,6 @@ class SettingsActivity : AppCompatActivity(),
             val networkUsageContainer = activity?.findViewById<ConstraintLayout>(R.id.network_usage_container)
             val divider = activity?.findViewById<View>(R.id.divider)
 
-
             //make manage storage container clickable
             manageStorageContainer?.setOnClickListener {
                 startActivity(Intent(activity, ManageStorageActivity::class.java))
@@ -241,6 +240,30 @@ class SettingsActivity : AppCompatActivity(),
             }
 
 
+        }
+    }
+
+    class ChannelsPrefFragment : PreferenceFragmentCompat() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.channels_pref, rootKey)
+        }
+    }
+
+    class LiveLocationPrefFragment : PreferenceFragmentCompat() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.live_location_pref, rootKey)
+        }
+    }
+
+    class BlockedContactsPrefFragment : PreferenceFragmentCompat() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.blocked_contacts_pref, rootKey)
+        }
+    }
+
+    class FingerPrintPrefFragment : PreferenceFragmentCompat() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.fingerprint_pref, rootKey)
         }
     }
 
