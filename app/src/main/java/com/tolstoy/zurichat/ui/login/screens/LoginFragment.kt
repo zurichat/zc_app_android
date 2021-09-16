@@ -48,7 +48,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun handleSignIn() = with(binding) {
         buttonSignIn.setOnClickListener {
-            val loginBody = LoginBody(email = email.text.toString().trim(), password = password.text.toString())
+            val loginBody = LoginBody(email = email.text.toString().trim(), password = password.text.toString(),)
             viewModel.login(loginBody)
         }
     }
