@@ -81,7 +81,7 @@ public class RegisterUserFragment extends Fragment {
                     email.setError(null);
                     password.setError("Password cannot be empty");
                 }else if(!isValidPassword(userPassword.trim())){
-                    password.setError("Use special characters + alphanumeric keys");
+                    password.setError("Invalid password pattern");
                 }else if(!password.getEditText().getText().toString().equals(password2.getEditText().getText().toString())){
                     password2.setError("Password does not match");
                 }else{
