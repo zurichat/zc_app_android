@@ -60,6 +60,17 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         val addChannelHeader = ChannelModel(getString(R.string.channels_), false, false, "channel_header_add", generateRandomLong().toString(), 0)
         val dividerHeader = ChannelModel("", false, false, "channel_header_add", generateRandomLong().toString(), 2)
 
+        //display fab if channel list is empty
+        val fabButton = binding.fabAddChannel
+        if(channelsArrayList.isEmpty()){
+                fabButton.show()
+            fabButton.setOnClickListener {
+                findNavController().navigate(R.id.addChannelFragment)
+            }
+        }else{
+            fabButton.hide()
+        }
+
         for (channel in channelsArrayList){
             if (channel.isRead){
                 readList.add(channel)

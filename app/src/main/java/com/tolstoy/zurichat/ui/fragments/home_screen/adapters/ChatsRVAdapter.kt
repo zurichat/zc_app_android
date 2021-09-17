@@ -12,7 +12,8 @@ import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.DmMessages
 import com.tolstoy.zurichat.ui.dm.DMFragment
 
-class ChatsRVAdapter(val context: Activity, private val characters: List<DmMessages>): RecyclerView.Adapter<ChatsRVAdapter.ChatViewHolder>() {
+class ChatsRVAdapter(val context: Activity, private val characters: List<DmMessages>):
+    RecyclerView.Adapter<ChatsRVAdapter.ChatViewHolder>() {
 
     private var displayedList: List<DmMessages?>? = null
     private var onItemClickListener: ((dmMessages: DmMessages) -> Unit)? = null
