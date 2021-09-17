@@ -7,103 +7,99 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.activities.ProfileActivity">
 
-    <FrameLayout
-        android:id="@+id/profile_image_container"
-        android:layout_width="180dp"
-        android:layout_height="150dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="41dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/profile_photo"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/user_profile_placeholder" />
-        </FrameLayout>
-
         <ImageView
-            android:id="@+id/img_camera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:src="@drawable/camera_icon"
-            />
-    </FrameLayout>
+            android:id="@+id/profile_photo"
+            android:layout_width="200dp"
+            android:layout_height="180dp"
+            android:src="@drawable/profile_photoo"
+            android:layout_marginTop="41dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/img_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="-16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_profile_camera"
+        app:layout_constraintBottom_toTopOf="@+id/user_details_section"
+        app:layout_constraintEnd_toEndOf="@+id/profile_photo" />
 
     <LinearLayout
         android:id="@+id/user_details_section"
-        android:layout_marginTop="34dp"
-        android:layout_marginStart="35dp"
         android:layout_width="match_parent"
-        android:layout_height="87dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginBottom="389dp"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_image_container">
-       <RelativeLayout
-           android:layout_weight="1"
-           android:layout_width="0dp"
-           android:layout_height="match_parent">
+        app:layout_constraintTop_toBottomOf="@+id/floatingActionButton3">
 
-           <ImageView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_centerVertical="true"
-               android:src="@drawable/ic_baseline_person_24"
-               app:tint="@color/primary_color" />
-       </RelativeLayout>
-        <LinearLayout
-            android:layout_weight="8"
-            android:layout_marginStart="10dp"
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Name"
-                android:fontFamily="@font/lato"
-                android:textSize="14sp"
-                />
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Abeid Juma"
-                android:fontFamily="@font/lato"
-                android:textColor="#454545"
-                android:textSize="18sp"
-                />
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="This is not in anyway your pin, the name will be
-visible to all memebers of the channel"
-                android:fontFamily="@font/lato"
-                android:textSize="12sp"
-                />
+            android:layout_weight="1">
 
-        </LinearLayout>
-        <RelativeLayout
-            android:layout_marginEnd="10dp"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_baseline_edit_24"/>
+                android:src="@drawable/ic_outline_person_outline_24"
+                app:tint="@color/primary_color" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="0dp"
+            android:layout_weight="8"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/lato"
+                android:text="Name"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lato"
+                android:text="Abeid Juma"
+                android:textColor="#454545"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/lato"
+                android:text="This is not in anyway your pin, the name will be
+visible to all memebers of the channel"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_edit_pen_icon" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -137,20 +133,20 @@ visible to all memebers of the channel"
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_info_24"
-                app:tint="@color/primary_color"/>
+                android:src="@drawable/ic_outline_info_24"
+                app:tint="@color/primary_color" />
         </RelativeLayout>
 
         <LinearLayout
             android:layout_weight="8"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="0dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="10dp"
                 android:text="About"
                 android:fontFamily="@font/lato"
                 android:textSize="14sp"
@@ -159,7 +155,7 @@ visible to all memebers of the channel"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="10dp"
                 android:text="Presently building..."
                 android:fontFamily="@font/lato"
                 android:textColor="#454545"
@@ -172,12 +168,13 @@ visible to all memebers of the channel"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent">
+
             <ImageView
                 android:id="@+id/edit_about"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_baseline_edit_24"/>
+                android:src="@drawable/ic_edit_pen_icon" />
         </RelativeLayout>
 
     </LinearLayout>
@@ -211,20 +208,20 @@ visible to all memebers of the channel"
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_phone"
+                android:src="@drawable/ic_outline_phone_24"
                 app:tint="@color/primary_color" />
         </RelativeLayout>
 
         <LinearLayout
             android:layout_weight="8"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="0dp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="vertical">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="10dp"
                 android:text="Phone"
                 android:fontFamily="@font/lato"
                 android:textSize="14sp"
@@ -233,7 +230,7 @@ visible to all memebers of the channel"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="10dp"
                 android:text="+255719858439"
                 android:fontFamily="@font/lato"
                 android:textColor="#454545"
@@ -246,11 +243,12 @@ visible to all memebers of the channel"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="match_parent">
+
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_baseline_edit_24"/>
+                android:src="@drawable/ic_edit_pen_icon" />
         </RelativeLayout>
 
     </LinearLayout>
