@@ -1,156 +1,260 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.settings.ManageWallpaperActivity">
+    >
 
-    <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
-        android:id="@+id/wallpaper_container"
-        android:layout_width="200dp"
-        android:layout_height="350dp"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical"
-        android:background="@color/blueish_grey"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="visible">
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/wallpaper_container"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    android:layout_marginBottom="8dp"
+    android:layout_marginTop="30dp"
+    android:visibility="visible">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="34dp"
-            android:background="#1A61DB"
-            android:orientation="horizontal">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="350dp">
 
-            <ImageView
-                android:id="@+id/dm_profile_image"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:src="@drawable/ic_profile"/>
+        <View
+            android:id="@+id/linearLayout"
+            android:layout_width="250dp"
+            android:layout_height="43dp"
+            android:background="@color/background_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/activity_horizontal_margin"
-                android:text="Contact Name"
-                android:textColor="@color/white" />
+        <View
+            android:id="@+id/imageView2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/linearLayout"
+            app:layout_constraintStart_toStartOf="@id/linearLayout"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            android:background="@drawable/sample_background_wallpaper" />
 
-        </LinearLayout>
+        <View
+            android:id="@+id/imageView3"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginStart="20dp"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout"
+            android:background="@drawable/ic_arrow_back" />
 
-        <LinearLayout
-            android:layout_width="120dp"
-            android:layout_height="20dp"
-            android:background="#1A61DB"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="160dp"
-            android:orientation="horizontal"/>
+        <View
+            android:id="@+id/imageView4"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+            app:layout_constraintStart_toEndOf="@+id/imageView3"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout"
+            android:background="@drawable/ic_mary_icon" />
 
-        <LinearLayout
-            android:layout_width="100dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="90dp"
-            android:background="#fff"
-            android:layout_marginTop="20dp"
-            android:orientation="horizontal"/>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/dm_typing_bar_view"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
-            app:layout_constraintBottom_toBottomOf="parent">
-            <!-- region Emoji Message Pictures & Attachments-->
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card_typing_layout"
-                android:layout_width="161dp"
-                android:layout_height="22dp"
-                android:layout_marginStart="5dp"
-                app:cardElevation="0dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/lato"
+            android:text="Jane Doe Felicia"
+            android:textColor="@android:color/white"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="@+id/linearLayout" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato"
+            android:text="Online"
+            android:textColor="@android:color/white"
+            android:textSize="8sp"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/imageView_emoticon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:scaleType="fitXY"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_insert_emoticon" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/recieve_message_box"
+            android:layout_width="140dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="@color/message_background_another_user"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/input_field"
+            app:layout_constraintStart_toStartOf="@+id/imageView2">
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/imageView_attachment"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:rotation="-45"
-                        android:scaleType="fitXY"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/imageView_photo"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_attach_file" />
-
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:id="@+id/imageView_photo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:scaleType="fitXY"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_photo_camera" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </com.google.android.material.card.MaterialCardView>
-            <!-- endregion-->
-            <!-- region Voice Note-->
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_voiceNote"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_keyboard_voice"
-                app:backgroundTint="@color/canvas_color"
-                app:fabSize="normal"
-                android:scaleType="fitXY"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/card_typing_layout"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/white" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_send_text"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_send"
-                app:backgroundTint="@color/canvas_color"
-                app:fabSize="normal"
-                android:scaleType="fitXY"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/card_typing_layout"
-                app:layout_constraintTop_toTopOf="parent"
-                app:tint="@color/white" />
-            <!--endregion-->
+        </androidx.cardview.widget.CardView>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/input_field"
+            android:layout_width="0dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="8dp"
+            app:cardCornerRadius="30dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toStartOf="@+id/imageView2">
 
-    </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/chat_text5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:elevation="2dp"
+            android:text="@string/type_a_message"
+            android:textColor="@color/darkGray"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/input_field"
+            app:layout_constraintStart_toEndOf="@+id/insert_emoji"
+            app:layout_constraintTop_toTopOf="@+id/input_field" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/insert_emoji"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="8dp"
+            android:elevation="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/input_field"
+            app:layout_constraintStart_toStartOf="@+id/input_field"
+            app:layout_constraintTop_toTopOf="@+id/input_field"
+            app:srcCompat="@drawable/ic_insert_emoticon" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/take_picture"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginEnd="8dp"
+            android:elevation="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/input_field"
+            app:layout_constraintEnd_toEndOf="@+id/input_field"
+            app:layout_constraintTop_toTopOf="@+id/input_field"
+            app:srcCompat="@drawable/ic_photo_camera" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageView_attachment"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginEnd="8dp"
+            android:elevation="2dp"
+            android:rotation="-45"
+            app:layout_constraintBottom_toBottomOf="@+id/input_field"
+            app:layout_constraintEnd_toStartOf="@+id/take_picture"
+            app:layout_constraintTop_toTopOf="@+id/input_field"
+            app:srcCompat="@drawable/ic_attach_file" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/send_message_box"
+            android:layout_width="90dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:cardBackgroundColor="@color/message_background_this_user"
+            app:cardCornerRadius="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/recieve_message_box"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2">
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/chat_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:elevation="2dp"
+            android:text="How you dey my guy "
+            android:textColor="@color/text_color"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/recieve_message_box"
+            app:layout_constraintStart_toStartOf="@+id/recieve_message_box"
+            app:layout_constraintTop_toTopOf="@+id/recieve_message_box" />
+
+        <TextView
+            android:id="@+id/chat_text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:elevation="2dp"
+            android:text="Hi Boo"
+            android:textColor="@color/text_color"
+            android:textSize="10sp"
+            app:layout_constraintBottom_toBottomOf="@+id/send_message_box"
+            app:layout_constraintStart_toStartOf="@+id/send_message_box"
+            app:layout_constraintTop_toTopOf="@+id/send_message_box" />
+
+        <TextView
+            android:id="@+id/chat_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="2dp"
+            android:elevation="2dp"
+            android:text="5:48 PM"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="@+id/recieve_message_box"
+            app:layout_constraintEnd_toEndOf="@+id/recieve_message_box" />
+
+        <TextView
+            android:id="@+id/chat_text4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="2dp"
+            android:elevation="2dp"
+            android:text="5:40 PM"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toBottomOf="@+id/send_message_box"
+            app:layout_constraintEnd_toStartOf="@id/double_tick"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/double_tick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="2dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="2dp"
+            app:layout_constraintBottom_toBottomOf="@+id/send_message_box"
+            app:layout_constraintEnd_toEndOf="@id/send_message_box"
+            app:srcCompat="@drawable/ic_double_tick" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            app:fabCustomSize="25dp"
+            app:layout_constraintBottom_toBottomOf="@+id/input_field"
+            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/input_field"
+            app:layout_constraintTop_toTopOf="@+id/input_field"
+            app:layout_constraintVertical_bias="0.521"
+            app:maxImageSize="15dp"
+            app:srcCompat="@drawable/ic_voice"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

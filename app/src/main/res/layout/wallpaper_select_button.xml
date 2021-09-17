@@ -4,18 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center|top"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="80dp">
+    >
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:gravity="center"
-        android:clickable="true"
-        android:text="change"
-        android:textColor="#1A61DB"
-        android:textSize="18dp"
+        android:text="@string/change_wallpaper"
+        android:textColor="@color/primary_dark_color"
+        android:textSize="14sp"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
