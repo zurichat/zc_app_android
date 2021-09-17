@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/canvas_color"
+        android:layout_height="64dp"
+        android:background="@color/top_color"
         android:minHeight="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -18,7 +19,6 @@
         app:subtitleTextColor="@color/white"
         app:theme="@style/ToolbarTheme" />
 
-
     <ImageButton
         android:id="@+id/member_button"
         android:layout_width="wrap_content"
@@ -26,7 +26,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/ic_person_background"
-        android:src="@drawable/ic_people_icon"
+        android:src="@drawable/ic_baseline_people_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:text="@string/new_channel"
         android:textColor="@color/fadeBlack"
-        android:textSize="16sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/member_button"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="8dp"
@@ -68,19 +68,20 @@
         android:layout_height="wrap_content"
         android:text="@string/select_contact"
         android:textColor="@android:color/white"
-        android:textSize="18sp"
+        android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/back_btn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.06"
+        app:layout_constraintHorizontal_bias="0.059"
         app:layout_constraintStart_toEndOf="@+id/back_btn"
-        app:layout_constraintTop_toTopOf="@+id/back_btn" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.304" />
 
     <ImageButton
         android:id="@+id/back_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/ic_arrow_back"
         android:padding="16dp"
         app:layout_constraintStart_toStartOf="@+id/toolbar"
@@ -92,12 +93,13 @@
         android:layout_height="wrap_content"
         android:text="2500 Contacts"
         android:textColor="@color/white"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="@+id/toolbar"
         app:layout_constraintEnd_toEndOf="@+id/textView8"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView8"
         app:layout_constraintTop_toBottomOf="@+id/textView8"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.533" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
