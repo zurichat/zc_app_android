@@ -23,7 +23,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="-16dp"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_profile_camera"
+        app:fabSize="mini"
+        android:src="@drawable/ic_profile_camera_logo"
         app:layout_constraintBottom_toTopOf="@+id/user_details_section"
         app:layout_constraintEnd_toEndOf="@+id/profile_photo" />
 
