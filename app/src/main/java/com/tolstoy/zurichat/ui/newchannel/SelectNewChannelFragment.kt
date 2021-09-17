@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentSelectNewChannelBinding
 import com.tolstoy.zurichat.models.NewChannel
-import com.tolstoy.zurichat.ui.activities.MainActivity
+import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 import com.tolstoy.zurichat.ui.adapters.NewChannelAdapter
 import com.tolstoy.zurichat.util.viewBinding
 import timber.log.Timber
@@ -41,7 +41,8 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
                 }
             }
             backBtn.setOnClickListener {
-                requireActivity().startActivity(Intent(requireContext(), MainActivity::class.java))
+                val intent = Intent(activity, NewChannelActivity::class.java)
+                startActivity(intent)
             }
             recyclerView.apply {
                 adapter = NewChannelAdapter(getNewChannel())
