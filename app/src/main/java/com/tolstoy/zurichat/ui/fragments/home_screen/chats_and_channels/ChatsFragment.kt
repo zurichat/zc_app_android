@@ -46,7 +46,6 @@ class ChatsFragment : Fragment() {
         chatsRVAdapter.setItemClickListener {
             findNavController().navigate(R.id.direct_messages_screen)
 
-  
         }
         binding.recycler.adapter = chatsRVAdapter
 
