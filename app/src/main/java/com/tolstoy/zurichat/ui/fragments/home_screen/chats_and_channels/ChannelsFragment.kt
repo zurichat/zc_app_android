@@ -102,14 +102,14 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
             val bundle1 = Bundle()
             bundle1.putParcelable("USER",user)
             bundle1.putParcelable("Channel",it)
+            bundle1.putBoolean("Channel Joined",true)
             findNavController().navigate(R.id.channelChatFragment,bundle1)
-
-
         }
         adapt.setAddChannelClickListener {
             val bundle = Bundle()
             bundle.putParcelable("USER",user)
             bundle.putParcelableArrayList("Channels List",originalChannelsArrayList)
+            bundle.putBoolean("Channel Joined",true)
             findNavController().navigate(R.id.addChannelFragment,bundle)
         }
         binding.channelRecycleView.adapter = adapt

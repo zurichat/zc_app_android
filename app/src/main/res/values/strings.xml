@@ -179,5 +179,7 @@
     <string name="thirty_minutes">After 30 minutes</string>
     <string name="you_aren_t_sharing_live_location">You aren’t sharing live location in any chats</string>
     <string name="contacts_who_can_t_add_you">Contacts who can’t add you to a channel will have the option of inviting you privately instead.</string>
+    <string name="you_are_viewing">You are viewing</string>
+    <string name="join_channel">Join Channel</string>
 
 </resources>
