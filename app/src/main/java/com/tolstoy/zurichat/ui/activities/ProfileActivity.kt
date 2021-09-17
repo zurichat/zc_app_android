@@ -12,6 +12,7 @@ import com.tolstoy.zurichat.ui.profile.data.ProfilePayload
 import com.tolstoy.zurichat.ui.profile.data.ProfileResponse
 import com.tolstoy.zurichat.ui.profile.network.Constants
 import com.tolstoy.zurichat.ui.profile.network.ProfileService
+import dev.ronnie.github.imagepicker.ImagePicker
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,6 +54,15 @@ class ProfileActivity: AppCompatActivity() {
             dialog.setCancelable(true)
             dialog.setContentView(view)
             dialog.show()
+
+            val gallery = view.findViewById<ImageView>(R.id.imageView_gallery)
+
+            //initialize imagePicker library
+            val imagePicker = ImagePicker(this)
+
+            gallery.setOnClickListener {
+                imagePicker.pickFromStorage {  }
+            }
 
         }
     }
