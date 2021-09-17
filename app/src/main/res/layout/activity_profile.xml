@@ -20,11 +20,12 @@
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <ImageView
-                android:layout_width="170dp"
-                android:layout_height="135dp"
-                android:src="@drawable/user_profile_placeholder"
-                />
+                android:id="@+id/profile_photo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/user_profile_placeholder" />
         </FrameLayout>
 
         <ImageView

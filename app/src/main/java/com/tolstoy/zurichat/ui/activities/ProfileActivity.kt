@@ -1,9 +1,11 @@
 package com.tolstoy.zurichat.ui.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -58,14 +60,32 @@ class ProfileActivity: AppCompatActivity() {
             val gallery = view.findViewById<ImageView>(R.id.imageView_gallery)
 
             //initialize imagePicker library
-            val imagePicker = ImagePicker(this)
-
             gallery.setOnClickListener {
-                imagePicker.pickFromStorage {  }
+                launcher.launch(
+                    com.github.drjacky.imagepicker.ImagePicker.with(this)
+                        //...
+                        .galleryOnly()
+                        .crop()
+                        .createIntent()
+                )
+
             }
 
         }
     }
+
+    //start activity for result launcher for Image gallery
+    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            val uri = it.data?.data!!
+            // Use the uri to load the image
+
+            val profilePhoto = findViewById<ImageView>(R.id.profile_photo)
+
+            profilePhoto.setImageURI(uri)
+        }
+    }
+
 
     //update profile details
     private fun updateProfile() {
