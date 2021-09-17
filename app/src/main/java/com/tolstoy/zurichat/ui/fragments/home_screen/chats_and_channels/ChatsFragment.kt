@@ -53,8 +53,8 @@ class ChatsFragment : Fragment() {
 
         binding.fabAddChat.setOnClickListener {
            // findNavController().navigate(R.id.direct_messages_screen)
-            val intent = Intent(activity, NewChannelActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(activity, NewChannelActivity::class.java)
+//            startActivity(intent)
         }
     }
 }
