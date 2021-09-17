@@ -25,6 +25,7 @@
         <action
             android:id="@+id/action_selectNewChannelFragment_to_selectMemberFragment"
             app:destination="@id/selectMemberFragment" />
+
     </fragment>
 
 <!-- 3. SelectMemberFragment:
@@ -41,6 +42,9 @@
         <action
             android:id="@+id/action_selectMemberFragment_to_newChannelDataFragment"
             app:destination="@id/newChannelDataFragment" />
+        <action
+            android:id="@+id/action_selectMemberFragment_to_selectNewChannelFragment"
+            app:destination="@+id/selectNewChannelFragment" />
     </fragment>
 <!-- 4. NewChannelDataFragment:
         Third fragment to move to after selecting members from 3 above-->
