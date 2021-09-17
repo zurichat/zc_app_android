@@ -75,8 +75,9 @@
         android:layout_height="56sp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="29dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="center"
+        android:layout_marginBottom="28dp"
         android:src="@drawable/arrow_forward_nc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
