@@ -34,6 +34,18 @@
         <item name="android:navigationBarColor" tools:targetApi="l">#E5E5E5</item>
         <!-- Customize your theme here. -->
     </style>
+    
+    <style name="Theme.ZuriChat.TextChatBackupTitle">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/primaryColor</item>
+        <item name="fontFamily">@font/lato</item>
+    </style>
+
+    <style name="Theme.ZuriChat.TextChatBackupDesc">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="fontFamily">@font/lato</item>
+    </style>
 
     <style name="ToolbarTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:textColorPrimary">@color/primaryTextColor</item>

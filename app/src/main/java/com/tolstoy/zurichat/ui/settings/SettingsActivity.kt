@@ -180,37 +180,6 @@ class SettingsActivity : AppCompatActivity(),
         }
     }
 
-    class ChatFragment : PreferenceFragmentCompat() {
-        private  var listPref : ListPreference? = null
-        override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View? {
-
-            val profileContainer = activity?.findViewById<ConstraintLayout>(R.id.profile_container)
-            val divider = activity?.findViewById<View>(R.id.divider)
-            profileContainer?.visibility = View.GONE
-            divider?.visibility = View.GONE
-
-            // Gets the listPreference object using its key
-            listPref = preferenceManager.findPreference(THEME_KEY)
-
-            /*
-            checks for the value selected after making a choice from the listPreference and set up
-            the application theme
-             */
-            listPref?.setOnPreferenceChangeListener { _, newValue ->
-               setUpApplicationTheme(newValue as String)
-                return@setOnPreferenceChangeListener true
-            }
-            return super.onCreateView(inflater, container, savedInstanceState)
-        }
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            setPreferencesFromResource(R.xml.chat_preferences, rootKey)
-        }
-    }
-
     class PrivacyAndSecurityFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.privacy_and_security_preferences, rootKey)
