@@ -1,6 +1,9 @@
 package com.tolstoy.zurichat.models;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.squareup.moshi.Json;
 
 import java.util.List;
@@ -17,7 +20,7 @@ import java.util.Objects;
  * viewType: Only contains three values. 0 for the header, 1 for the channel body, 2 for divider
  */
 
-public class ChannelModel {
+public class ChannelModel implements Parcelable {
     @Json(name = "_id")
     private String _id;
     @Json(name = "created_on")
@@ -41,6 +44,10 @@ public class ChannelModel {
     private transient int viewType;
     private transient boolean read;
 
+    /***
+     * Do Not Remove Constructor
+     * Removing constructor will make moshi ignore the transient variables
+     */
     ChannelModel(){
         type = "channel";
         viewType = 1;
@@ -53,6 +60,16 @@ public class ChannelModel {
         this.type = type;
         this.viewType = viewType;
         this.read = read;
+    }
+
+    protected ChannelModel(Parcel in) {
+        _id = in.readString();
+        createdOn = in.readString();
+        description = in.readString();
+        name = in.readString();
+        _private = in.readByte() != 0;
+        slug = in.readString();
+        members = in.readLong();
     }
 
     public String get_id() {
@@ -163,4 +180,32 @@ public class ChannelModel {
     public int hashCode() {
         return Objects.hash(_id, viewType);
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(_id);
+        dest.writeString(createdOn);
+        dest.writeString(description);
+        dest.writeString(name);
+        dest.writeByte((byte) (_private ? 1 : 0));
+        dest.writeString(slug);
+        dest.writeLong(members);
+    }
+
+    public static final Creator<ChannelModel> CREATOR = new Creator<>() {
+        @Override
+        public ChannelModel createFromParcel(Parcel in) {
+            return new ChannelModel(in);
+        }
+
+        @Override
+        public ChannelModel[] newArray(int size) {
+            return new ChannelModel[size];
+        }
+    };
 }

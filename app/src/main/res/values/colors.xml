@@ -14,6 +14,8 @@
     <color name="chat_bg">#F6F6F6</color>
     <color name="chat_name_txt">#454545</color>
     <color name="chat_txt">#A6A6A6</color>
+    <color name="pref_txt">#1D1C1D</color>
+    <color name="category_contact_pref">#EBEBEB</color>
 
 
     <!-- App Colors -->
@@ -64,5 +66,7 @@
     <color name="fadeBlack">#454545</color>
     <color name="darkGray">#FF727272</color>
     <color name="deepBlack">#FF333333</color>
+    <color name="txt_black">#1D1C1D</color>
+    <color name="txt_light_gray">#616061</color>
 
 </resources>

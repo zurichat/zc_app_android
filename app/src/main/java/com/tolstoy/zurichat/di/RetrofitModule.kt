@@ -11,6 +11,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+
 @Module
 @InstallIn(SingletonComponent::class)
 object RetrofitModule {
@@ -39,7 +40,6 @@ object RetrofitModule {
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
-
 
     @Provides
     fun provideRetrofitService(retrofit: Retrofit): RetrofitService =
