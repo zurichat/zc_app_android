@@ -71,6 +71,17 @@ class ProfileActivity: AppCompatActivity() {
 
             }
 
+            val cam = view.findViewById<ImageView>(R.id.imageView_cam)
+            //launch camera
+            cam.setOnClickListener {
+                launcher.launch((
+                        com.github.drjacky.imagepicker.ImagePicker.with(this)
+                            .cameraOnly()
+                            .crop()
+                            .createIntent()
+                        ))
+            }
+
         }
     }
 
