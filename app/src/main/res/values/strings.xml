@@ -84,6 +84,10 @@
     <string name="save_txt">save</string>
     <string name="larger_items_or_no_items_string">No Item here</string>
 
+    <!-- Wallpaper Settings -->
+    <string name="wallpaper_dimming_header">Wallpaper Dimming</string>
+    <string name="change_wallpaper">Change</string>
+
     <!-- Privacy Settings -->
     <string name="who_can_see_header">Who can see my personal info</string>
     <string name="who_can_see_summary">If you don’t share your Last seen,
