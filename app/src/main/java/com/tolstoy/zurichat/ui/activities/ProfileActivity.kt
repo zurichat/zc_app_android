@@ -21,6 +21,9 @@ import com.tolstoy.zurichat.ui.profile.data.ProfilePayload
 import com.tolstoy.zurichat.ui.profile.data.ProfileResponse
 import com.tolstoy.zurichat.ui.profile.network.Constants
 import com.tolstoy.zurichat.ui.profile.network.ProfileService
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,6 +35,13 @@ class ProfileActivity: AppCompatActivity() {
 
     //token id
     private var token: String? = null
+
+    private var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
+        val newRequest: Request = chain.request().newBuilder()
+            .addHeader("Authorization", "Bearer $token")
+            .build()
+        chain.proceed(newRequest)
+    }).build()
 
     //prepare retrofit service
     private val retrofit: Retrofit = Retrofit.Builder()
@@ -158,9 +168,9 @@ class ProfileActivity: AppCompatActivity() {
             "PorayMan",
             "09876543212")
 
-        val authToken: String? = token
+        val authToken: String = "Bearer $token"
 
-        val call: Call<ProfileResponse> = retrofitService.updateProfile(authToken, Constants.ORG_ID, Constants.MEM_ID, profileData)
+        val call: Call<ProfileResponse> = retrofitService.updateProfile(Constants.ORG_ID, Constants.MEM_ID, profileData)
 
         call.enqueue(object : Callback<ProfileResponse> {
             override fun onResponse(
