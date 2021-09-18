@@ -132,6 +132,8 @@ dependencies {
 
     //library for picking images and taking using camera
     implementation 'com.github.ronnieotieno:Ronnie-Image-Picker:0.8.0'
+    implementation 'com.github.Drjacky:ImagePicker:2.1.13'
+
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
