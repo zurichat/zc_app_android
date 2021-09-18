@@ -1,8 +1,8 @@
 package com.tolstoy.zurichat.ui.newchannel
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ActivityNewChannelBinding
 
 class NewChannelActivity : AppCompatActivity() {
@@ -11,7 +11,6 @@ class NewChannelActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityNewChannelBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_new_channel)
     }
 }

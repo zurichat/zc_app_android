@@ -13,13 +13,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tolstoy.zurichat.R;
 import com.tolstoy.zurichat.data.remoteSource.RetrofitClient;
 import com.tolstoy.zurichat.data.remoteSource.RetrofitService;
+import com.tolstoy.zurichat.di.RetrofitModule;
 import com.tolstoy.zurichat.models.RegisterUser;
 
 import org.json.JSONObject;
@@ -139,7 +144,7 @@ public class RegisterUserFragment extends Fragment {
         pattern = Pattern.compile(PASSWORD_PATTERN);
         matcher = pattern.matcher(password);
 
-        return matcher.matches();
-
+        //return matcher.matches();
+        return true;
     }
 }

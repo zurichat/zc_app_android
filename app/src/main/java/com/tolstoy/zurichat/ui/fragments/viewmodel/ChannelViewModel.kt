@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tolstoy.zurichat.models.ChannelModel
+import com.tolstoy.zurichat.models.JoinedChannelModel
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.fragments.model.JoinChannelUser
 import com.tolstoy.zurichat.ui.fragments.networking.ChannelsList
@@ -25,9 +26,11 @@ class ChannelViewModel : ViewModel() {
     val channelsList : LiveData<List<ChannelModel>> get() = _channelsList
     var user = MutableLiveData<User>()
 
+    private var _joinedChannelsList = MutableLiveData<List<JoinedChannelModel>>()
+    val joinedChannelsList : LiveData<List<JoinedChannelModel>> get() = _joinedChannelsList
+
     private var _joinedUser = MutableLiveData<JoinChannelUser?>()
-    val joinedUser : LiveData<JoinChannelUser?>
-    get() = _joinedUser
+    val joinedUser : LiveData<JoinChannelUser?> get() = _joinedUser
 
     fun getChannelsList() {
         val service = RetrofitClientInstance.retrofitInstance!!.create(ChannelsList::class.java)
@@ -42,6 +45,24 @@ class ChannelViewModel : ViewModel() {
             }
 
             override fun onFailure(call: Call<List<ChannelModel>>, t: Throwable) {
+                t.printStackTrace()
+            }
+        })
+    }
+
+    fun getJoinedChannelsList(organizationId : String, userId : String) {
+        val service = RetrofitClientInstance.retrofitInstance!!.create(ChannelsList::class.java)
+        val call = service.getJoinedChannelList(organizationId, userId)
+
+        call!!.enqueue(object : Callback<List<JoinedChannelModel>> {
+            override fun onResponse(call: Call<List<JoinedChannelModel>>, response: Response<List<JoinedChannelModel>>) {
+                val res : List<JoinedChannelModel>? = response.body()
+                res?.let {
+                    _joinedChannelsList.value = it
+                }
+            }
+
+            override fun onFailure(call: Call<List<JoinedChannelModel>>, t: Throwable) {
                 t.printStackTrace()
             }
         })
