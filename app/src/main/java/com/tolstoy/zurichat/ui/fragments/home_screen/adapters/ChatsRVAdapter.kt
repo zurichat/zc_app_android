@@ -8,13 +8,21 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ListItemBinding
+import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.DmMessages
 import com.tolstoy.zurichat.ui.dm.DMFragment
 
-class ChatsRVAdapter(val context: Activity, private val characters: List<DmMessages>): RecyclerView.Adapter<ChatsRVAdapter.ChatViewHolder>() {
+class ChatsRVAdapter(val context: Activity, private val characters: List<DmMessages>):
+    RecyclerView.Adapter<ChatsRVAdapter.ChatViewHolder>() {
 
     private var displayedList: List<DmMessages?>? = null
-        inner class ChatViewHolder(private val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root){
+    private var onItemClickListener: ((dmMessages: DmMessages) -> Unit)? = null
+
+    fun setItemClickListener(listener: (dmMessages:DmMessages) -> Unit) {
+        onItemClickListener = listener
+    }
+
+    inner class ChatViewHolder(private val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root){
             fun bindItem(character: DmMessages){
                 binding.textViewName.text = character.sender
                 binding.textViewSpecie.text = character.message
@@ -22,6 +30,7 @@ class ChatsRVAdapter(val context: Activity, private val characters: List<DmMessa
 
                 binding.dmRoot.setOnClickListener {
 //                    context.findNavController().navigate(R.id.direct_messages_screen)
+                    onItemClickListener?.invoke(character)
                 }
             }
         }

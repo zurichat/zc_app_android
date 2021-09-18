@@ -53,4 +53,28 @@
         <item name="android:letterSpacing">0.01</item>
         <item name="android:textColor">#1D1C1D</item>
     </style>
+
+    <style name="mute_channel_option">
+
+        <item name="android:textSize">
+            14sp
+        </item>
+
+        <item name="android:textColor">
+            #DE041529
+        </item>
+
+    </style>
+
+    <style name="leave_channel_option">
+
+        <item name="android:textSize">
+            14sp
+        </item>
+
+        <item name="android:textColor">
+            #FF0000
+        </item>
+
+    </style>
 </resources>
