@@ -67,6 +67,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/saved_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -95,6 +96,7 @@ visible to all memebers of the channel"
             android:layout_weight="1">
 
             <ImageView
+                android:id="@+id/edit_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -151,6 +153,7 @@ visible to all memebers of the channel"
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/saved_about"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -164,6 +167,7 @@ visible to all memebers of the channel"
 
         <RelativeLayout
             android:layout_width="0dp"
+            android:layout_height="match_parent">
             android:layout_height="match_parent"
             android:layout_marginEnd="10dp"
             android:layout_weight="1">
@@ -256,5 +260,4 @@ visible to all memebers of the channel"
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
 

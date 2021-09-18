@@ -30,6 +30,8 @@ import timber.log.Timber
 
 class ProfileActivity: AppCompatActivity() {
 
+    private lateinit var savedName : TextView
+    private lateinit var savedAbout : TextView
     //token id
     private var token: String? = null
 
@@ -46,12 +48,25 @@ class ProfileActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
 
+        savedName = findViewById(R.id.saved_name)
+        savedAbout = findViewById(R.id.saved_about)
+
         val about = findViewById<ImageView>(R.id.edit_about)
         val camera = findViewById<ImageView>(R.id.img_camera)
         val phoneEdit = findViewById<ImageView>(R.id.imgPhone_editBT)
+        val userName = findViewById<ImageView>(R.id.edit_name)
+
+        val dialog = CreateDialog(layoutInflater,this)
+
+        val editNameDialog = dialog.createEditNameDialog(savedName)
+        val editAboutDialog = dialog.createEditAboutDialog(savedAbout)
+
+        userName.setOnClickListener {
+            editNameDialog.show()
+        }
 
         about.setOnClickListener {
-            startActivity(Intent(this, ProfileAboutActivity::class.java))
+            editAboutDialog.show()
         }
 
         camera.setOnClickListener {
