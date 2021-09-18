@@ -5,9 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.databinding.ItemSelectedMembersBinding
 import com.tolstoy.zurichat.models.MembersData
-import com.tolstoy.zurichat.ui.createchannel.Contact
 
-class MemberSelectedAdapter(private val data: Unit):
+class MemberSelectedAdapter(private val data:(MembersData)->Unit):
     RecyclerView.Adapter<MemberSelectedAdapter.SelectedViewHolder>() {
 
     private var DataList = mutableListOf<MembersData>()
@@ -18,6 +17,9 @@ class MemberSelectedAdapter(private val data: Unit):
         fun bindItem(dat: MembersData) {
             binding.imageView7.setImageResource(dat.image)
             binding.textView16.text = dat.name
+            binding.imageView10.setOnClickListener {
+                data(dat)
+            }
         }
 
     }
@@ -25,7 +27,7 @@ class MemberSelectedAdapter(private val data: Unit):
     fun addMembers(members: List<MembersData>) {
         this.DataList.clear()
         this.DataList.addAll(members)
-        this.notifyDataSetChanged()
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectedViewHolder {

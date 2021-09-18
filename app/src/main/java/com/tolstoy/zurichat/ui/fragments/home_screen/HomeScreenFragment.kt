@@ -53,8 +53,8 @@ class HomeScreenFragment : Fragment() {
                 R.id.search -> {
                 }
                 R.id.new_channel -> {
-//                    val intent = Intent(context, NewChannelActivity::class.java)
-//                    startActivity(intent)
+                    val intent = Intent(context, NewChannelActivity::class.java)
+                    startActivity(intent)
                 }
                 R.id.saved_messages -> {
                 }

@@ -12,10 +12,19 @@ import com.tolstoy.zurichat.databinding.FragmentSelectMemberBinding
 import com.tolstoy.zurichat.models.MembersData
 import com.tolstoy.zurichat.ui.adapters.MemberSelectedAdapter
 import com.tolstoy.zurichat.ui.adapters.SelectMemberAdapter
+import com.tolstoy.zurichat.ui.createchannel.ContactListAdapter
 import com.tolstoy.zurichat.util.viewBinding
 import timber.log.Timber
 
 class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
+
+    private val memberSelectedAdapter = MemberSelectedAdapter{
+            member -> removeMember(member)
+    }
+
+    private val selectMemberAdapter = SelectMemberAdapter{
+        member -> addMember(member)
+    }
 
     private lateinit var selectedList:MutableList<MembersData>
     private lateinit var fab: FloatingActionButton
@@ -26,10 +35,13 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        fab = binding.floatingActionButton2
+
 
 
         with(binding) {
-            imageButton.setOnClickListener {
+           textView6.text = "${selectMember().size} Members"
+            toolbar.setNavigationOnClickListener {
                 try {
                     val action =
                         SelectMemberFragmentDirections.actionSelectMemberFragmentToSelectNewChannelFragment()
@@ -39,26 +51,35 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
                 }
             }
             recyclerView.apply {
-                adapter = SelectMemberAdapter(selectMember(), requireContext())
+                adapter = selectMemberAdapter
+                selectMemberAdapter.loadMembers(selectMember())
                 layoutManager = LinearLayoutManager(requireContext())
             }
-            toolbar.subtitle = selectMember().size.toString() + " Members"
             rcvSelected.apply {
-                adapter = MemberSelectedAdapter(addMember(selectMember().first()))
-                layoutManager = LinearLayoutManager(requireContext())
+                adapter = memberSelectedAdapter
 
             }
             selectedListOfMembers.observe(requireActivity()){
                 if (it.isEmpty()){
                     rcvSelected.visibility = View.GONE
-                    fab.visibility =View.GONE
+                    fab.visibility = View.GONE
                 }else{
-                    rcvSelected.visibility =View.VISIBLE
-                    rcvSelected.apply {
-                        MemberSelectedAdapter(addMember(selectMember().first())).addMembers(selectedMembers)
-                    }
-                    fab.visibility =View.VISIBLE
+                    rcvSelected.visibility = View.VISIBLE
+
+                    memberSelectedAdapter.addMembers(selectedMembers)
+                    textView4.text = "New Channel"
+                    textView6.text = "${selectedMembers.size} out of ${selectMember().size} Selected"
+                    fab.visibility = View.VISIBLE
                     rcvSelected.smoothScrollToPosition(selectedMembers.size - 1)
+                }
+                memberSelectedAdapter.addMembers(selectedMembers)
+            }
+            fab.setOnClickListener {
+                try{
+                    val action = SelectMemberFragmentDirections.actionSelectMemberFragmentToNewChannelDataFragment()
+                    findNavController().navigate(action)
+                }catch (err: Exception){
+                    Timber.e(SelectNewChannelFragment.TAG, err.printStackTrace())
                 }
             }
         }
@@ -92,11 +113,18 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
         MembersData(R.drawable.dmuser, "Uche Mentessa", "I will get to level ten"),
         MembersData(R.drawable.dmuser, "Oluwaseyi Oga", "God is great"),
         MembersData(R.drawable.dmuser, "John Chumme", "God is great"))
-
-
     }
 
     companion object {
         const val TAG = "SelectContactFragment"
+
+        fun newInstance(memberSelectedList: ArrayList<MembersData>): SelectMemberFragment {
+
+            val args = Bundle()
+            args.putParcelableArrayList("Selected Members", memberSelectedList)
+            val frag = SelectMemberFragment()
+            frag.arguments = args
+            return frag
+        }
     }
 }
