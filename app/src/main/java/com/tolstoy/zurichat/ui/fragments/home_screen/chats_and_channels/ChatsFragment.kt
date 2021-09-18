@@ -44,7 +44,7 @@ class ChatsFragment : Fragment() {
 
         val chatsRVAdapter = ChatsRVAdapter(requireActivity(), messages)
         chatsRVAdapter.setItemClickListener {
-            findNavController().navigate(R.id.direct_messages_screen)
+            findNavController().navigate(R.id.dmFragment)
 
         }
         binding.recycler.adapter = chatsRVAdapter

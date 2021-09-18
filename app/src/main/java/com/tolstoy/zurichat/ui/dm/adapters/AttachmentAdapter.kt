@@ -4,7 +4,6 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewbinding.ViewBinding
 import com.tolstoy.zurichat.databinding.ItemAttachmentImageBinding
 import com.tolstoy.zurichat.ui.dm.MEDIA
 
