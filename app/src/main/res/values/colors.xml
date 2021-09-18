@@ -72,5 +72,6 @@
 
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#00B87C</color>
     <color name="toobar_color">#008B5E</color>
+    <color name="new_channel_divider_color">#E7E7E7</color>
 
 </resources>
