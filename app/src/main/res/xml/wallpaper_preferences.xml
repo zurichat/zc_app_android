@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
         <Preference
             app:layout="@layout/activity_wallpaper_settings"
             app:selectable="false"/>
@@ -15,9 +16,13 @@
             app:iconSpaceReserved="false"
             app:allowDividerAbove="true">
                 <SeekBarPreference
+                    app:adjustable="true"
+                    android:max="100"
+                    app:min="0"
+                    app:key="bar"
+                    app:defaultValue="50"
+                    app:seekBarIncrement="10"
                     app:iconSpaceReserved="false"
-                    app:allowDividerBelow="true"
-                    app:seekBarIncrement="@integer/material_motion_duration_long_1"
                     />
         </PreferenceCategory>
 

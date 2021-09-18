@@ -1,6 +1,7 @@
 package com.tolstoy.zurichat.ui.settings
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,9 +12,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.preference.ListPreference
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.*
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.util.THEME_KEY
 import com.tolstoy.zurichat.util.setUpApplicationTheme
@@ -70,7 +69,7 @@ class WallpaperActivity : AppCompatActivity(),
         return true
     }
 
-    class WallpaperFragment : PreferenceFragmentCompat() {
+    class WallpaperFragment : PreferenceFragmentCompat(),SharedPreferences.OnSharedPreferenceChangeListener {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.wallpaper_preferences, rootKey)
 
@@ -81,7 +80,27 @@ class WallpaperActivity : AppCompatActivity(),
                 startActivity(Intent(activity, ManageWallpaperActivity::class.java))
             }
 
+            val barPref = findPreference<SeekBarPreference>("bar")
+            barPref?.updatesContinuously = true
+
+            PreferenceManager.getDefaultSharedPreferences(context).registerOnSharedPreferenceChangeListener(this)
+
+                }
+
+            override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+                    val dimmer:View? = view?.findViewById<View>(R.id.dimmer_view)
+                    if (key == "bar"){
+                        val barIncr = sharedPreferences?.getInt("bar",50)?.toFloat()
+                        val flt = barIncr?.div(100.0f)
+                        if (flt != null) {
+                            dimmer?.alpha=flt
+                        }
+                    }
+                }
         }
     }
 
-}
+
+
+
+
