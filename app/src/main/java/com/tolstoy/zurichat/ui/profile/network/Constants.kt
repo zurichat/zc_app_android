@@ -8,8 +8,8 @@ import android.os.Build
 object Constants {
 
     const val BASE_URL: String = "https://api.zuri.chat/"
-    const val ORG_ID: String = "614360aed0284bc6a922342d"
-    const val MEM_ID: String = "614360aed0284bc6a922342e"
+    const val ORG_ID: String = "6145eab7285e4a18402074b7"
+    const val MEM_ID: String = "6145ed0b285e4a18402074c5"
 
     //Ensure the phone has internet connectivity. Make sure internet is turn on.
     fun isNetworkAvailable(context: Context) : Boolean {
