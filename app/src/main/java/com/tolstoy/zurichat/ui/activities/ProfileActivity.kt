@@ -48,6 +48,7 @@ class ProfileActivity: AppCompatActivity() {
 
     //prepare retrofit service
     private val retrofit: Retrofit = Retrofit.Builder()
+        .client(client)
         .baseUrl(Constants.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
@@ -170,8 +171,6 @@ class ProfileActivity: AppCompatActivity() {
         val profileData = ProfilePayload("Zuri chat member",
             "PorayMan",
             "09876543212")
-
-        val authToken: String = "Bearer $token"
 
         val call: Call<ProfileResponse> = retrofitService.updateProfile(Constants.ORG_ID, Constants.MEM_ID, profileData)
 
