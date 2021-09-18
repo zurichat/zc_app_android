@@ -25,6 +25,10 @@ import retrofit2.http.Header
 import retrofit2.http.PATCH
 import retrofit2.http.Path
 import timber.log.Timber
+import android.content.SharedPreferences
+import android.net.Uri
+import androidx.preference.PreferenceManager
+
 
 class ProfileActivity: AppCompatActivity() {
 
@@ -78,6 +82,7 @@ class ProfileActivity: AppCompatActivity() {
                         com.github.drjacky.imagepicker.ImagePicker.with(this)
                             .cameraOnly()
                             .crop()
+                            .cropSquare()
                             .createIntent()
                         ))
             }
@@ -90,13 +95,31 @@ class ProfileActivity: AppCompatActivity() {
         if (it.resultCode == Activity.RESULT_OK) {
             val uri = it.data?.data!!
             // Use the uri to load the image
-
             val profilePhoto = findViewById<ImageView>(R.id.profile_photo)
 
+            // Saves image URI as string to Default Shared Preferences
+            val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+            val editor = preferences.edit()
+            editor.putString("image", java.lang.String.valueOf(uri))
+            editor.commit()
+
+            //set profile photo to image uri
             profilePhoto.setImageURI(uri)
+            profilePhoto.invalidate()
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        val profilePhoto = findViewById<ImageView>(R.id.profile_photo)
+
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val mImageUri = preferences.getString("image", null)
+        if(mImageUri != null){
+            profilePhoto.setImageURI(Uri.parse(mImageUri))
+        }
+    }
 
     //update profile details
     private fun updateProfile() {
