@@ -41,7 +41,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             findNavController().navigate(R.id.forgotPasswordFragment)
         })
 
-
         handleSignIn()
         setupObservers()
     }
@@ -76,7 +75,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         //Starting A Activity With A Navigation Component Causes Issues With The Activity Theme.
         //Better To Sse An Intent
+
+        viewModel.isLoggedIn = true
         progressDialog.dismiss()
+        // TODO: 9/18/2021  Save user object to Room database
         val bundle = Bundle()
         bundle.putParcelable("USER",response.data.user)
         val intent = Intent(requireContext(),MainActivity::class.java)

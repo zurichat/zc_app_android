@@ -33,4 +33,6 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
             _loginResponse.postValue(Result.Success(loginResponse))
         }
     }
+
+    var isLoggedIn = repository.isLoggedIn
 }
