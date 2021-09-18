@@ -153,6 +153,14 @@
     <string name="unread_messages">Unread messages</string>
     <string name="channels_">Channels</string>
     <string name="lbl_terms_and_conditions"><u>terms and conditions</u></string>
+    <string name="online">online</string>
+    <string name="android_devs">Android Devs</string>
+    <string name="channel_group_members">Lux, Hamid, Joe, +234707…</string>
+    <string name="search_hint">Search</string>
+    <string name="item_action_phone">Item_action_phone</string>
+    <string name="hi_there_this_is_the_beginning_of_n_the_conversation_in_this_channel">Hi there, this is the beginning of \n the conversation in this channel</string>
+    <string name="john_felix_doe">John Felix Doe</string>
+    <string name="last_seen_">last seen at 5:50am</string>
 
 
     <string name="welcome_desc">Send DMs to your contacts and channels with\n ease, start conversations with just a click</string>
@@ -195,5 +203,8 @@
     <string name="set_your_channel_privacy_here">Set your channel privacy here</string>
     <string name="make_my_channel_public">Make my channel public</string>
     <string name="make_my_channel_private">Make my channel private</string>
+    <string name="select_members_">Select Members</string>
+    <string name="choose_channel_members">Choose Channel Members</string>
+    <string name="select_contact_">Select Contact</string>
 
 </resources>
