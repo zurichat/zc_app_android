@@ -94,6 +94,7 @@ class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>
             //Perform Channel Related Actions Here
         }else if (holder is HeaderViewHolder){
             holder.bind(list[position])
+            holder.setIsRecyclable(false)
             //Perform Header Related actions here
         }
     }

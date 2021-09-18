@@ -139,7 +139,7 @@ public class RegisterUserFragment extends Fragment {
         pattern = Pattern.compile(PASSWORD_PATTERN);
         matcher = pattern.matcher(password);
 
-        return matcher.matches();
-
+        //return matcher.matches();
+        return true;
     }
 }

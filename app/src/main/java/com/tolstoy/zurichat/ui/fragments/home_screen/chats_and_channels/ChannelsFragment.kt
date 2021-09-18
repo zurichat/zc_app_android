@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -15,7 +14,6 @@ import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChannelAdapter
 import com.tolstoy.zurichat.ui.fragments.home_screen.diff_utils.ChannelDiffUtil
-import com.tolstoy.zurichat.ui.fragments.model.JoinChannelUser
 import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
 import kotlin.random.Random
 
@@ -63,12 +61,15 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         //display fab if channel list is empty
         val fabButton = binding.fabAddChannel
         if(channelsArrayList.isEmpty()){
-                fabButton.show()
+            fabButton.visibility = View.VISIBLE
             fabButton.setOnClickListener {
-                findNavController().navigate(R.id.addChannelFragment)
+                val bundle = Bundle()
+                bundle.putParcelable("USER",user)
+                bundle.putParcelableArrayList("Channels List",originalChannelsArrayList)
+                findNavController().navigate(R.id.addChannelFragment,bundle)
             }
         }else{
-            fabButton.hide()
+            fabButton.visibility = View.GONE
         }
 
         for (channel in channelsArrayList){
@@ -120,7 +121,6 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
             val bundle = Bundle()
             bundle.putParcelable("USER",user)
             bundle.putParcelableArrayList("Channels List",originalChannelsArrayList)
-            bundle.putBoolean("Channel Joined",true)
             findNavController().navigate(R.id.addChannelFragment,bundle)
         }
         binding.channelRecycleView.adapter = adapt
@@ -134,8 +134,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private fun getListOfChannels() {
         viewModel.getChannelsList()
         viewModel.channelsList.observe(viewLifecycleOwner,{
-            channelsArrayList.clear()
-            channelsArrayList.addAll(it)
+           // channelsArrayList.addAll(it)
 
             originalChannelsArrayList.clear()
             originalChannelsArrayList.addAll(it)
@@ -147,6 +146,24 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
              */
             // channelsArrayList = it as ArrayList<ChannelModel>
             //originalChannelsArrayList = it
+
+            //Get List Of Joined Channels
+            viewModel.getJoinedChannelsList("1",user.id)
+        })
+
+        viewModel.joinedChannelsList.observe(viewLifecycleOwner,{
+            binding.progressBar2.visibility = View.GONE
+            channelsArrayList.clear()
+            if (it.isNotEmpty()){
+                it.forEach{ joinedChannel ->
+                    originalChannelsArrayList.forEach{ channel ->
+                        if (joinedChannel.id == channel._id){
+                            channelsArrayList.add(channel)
+                        }
+                    }
+                }
+            }
+            addHeaders()
         })
     }
 
