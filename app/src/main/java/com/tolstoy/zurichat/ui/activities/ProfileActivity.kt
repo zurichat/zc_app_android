@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.preference.PreferenceManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.profile.data.ProfilePayload
 import com.tolstoy.zurichat.ui.profile.data.ProfileResponse
 import com.tolstoy.zurichat.ui.profile.network.Constants
@@ -33,8 +34,10 @@ import timber.log.Timber
 
 class ProfileActivity: AppCompatActivity() {
 
+    //user id
+    private lateinit var user: User
     //token id
-    private var token: String? = null
+    private var token: String? = user.token
 
     private var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
         val newRequest: Request = chain.request().newBuilder()
