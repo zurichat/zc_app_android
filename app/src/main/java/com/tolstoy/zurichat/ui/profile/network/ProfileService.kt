@@ -11,7 +11,6 @@ interface ProfileService {
     @Headers("Content-Type: application/json;charset=UTF-8")
     @PATCH("organizations/{id}/members/{mem_id}/profile")
     fun updateProfile(
-        @Header("Authorization") Bearer: String?,
         @Path("id") id: String,
         @Path("mem_id") mem_id: String,
         @Body profilePayload: ProfilePayload
@@ -20,7 +19,6 @@ interface ProfileService {
     @Headers("Content-Type: application/json;charset=UTF-8")
     @PATCH("organizations/{id}/members/{mem_id}/photo")
     fun updatePhoto(
-        @Header("Authorization") Bearer: String?,
         @Path("id") id: String,
         @Path("mem_id") mem_id: String,
         @Body profilePayload: ProfilePayload
