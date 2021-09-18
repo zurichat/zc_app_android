@@ -46,12 +46,11 @@
     </PreferenceCategory>
 
     <Preference
+        app:key="chat_backup"
         app:title="@string/chat_backup"
         app:allowDividerAbove="true"
         app:icon="@drawable/backup_icon_"/>
-    <Preference
-        app:title="@string/chat_history"
-        app:icon="@drawable/chat_history_icon"/>
+
 
 
 

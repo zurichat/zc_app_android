@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentAddChannelBinding
 import com.tolstoy.zurichat.databinding.FragmentChannelChatBinding
@@ -19,22 +20,25 @@ class AddChannelFragment : Fragment() {
     private lateinit var binding: FragmentAddChannelBinding
     private lateinit var channelListAdapter : BaseListAdapter
 
-    private lateinit var user : User
+    private var user : User? = null
     private lateinit var channelsArrayList: ArrayList<ChannelModel>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentAddChannelBinding.inflate(inflater, container, false)
         val bundle = arguments
         if (bundle != null) {
-            user = bundle.getParcelable("USER")!!
+            user = bundle.getParcelable("USER")
             channelsArrayList = bundle.getParcelableArrayList("Channels List")!!
 
             binding.channelToolbar.subtitle = channelsArrayList.size.toString().plus(" channels")
 
             val channelsWithAlphabetHeaders = createAlphabetizedChannelsList(channelsArrayList)
 
-            channelListAdapter = BaseListAdapter {
-
+            channelListAdapter = BaseListAdapter { channelItem ->
+                val bundle1 = Bundle()
+                bundle1.putParcelable("USER",user)
+                bundle1.putParcelable("Channel",(channelItem as ListItem).channel)
+                findNavController().navigate(R.id.channelChatFragment,bundle1)
             }
 
             binding.channelsList.adapter = channelListAdapter
@@ -56,6 +60,9 @@ class AddChannelFragment : Fragment() {
             channelListAdapter.submitList(channelsWithAlphabetHeaders)
         }
 
+        binding.channelToolbar.setNavigationOnClickListener {
+            requireActivity().onBackPressed()
+        }
         return binding.root
     }
 
@@ -109,7 +116,4 @@ class AddChannelFragment : Fragment() {
         return channelsWithAlphabetHeaders
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-    }
 }

@@ -5,22 +5,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentChatsBinding
 import com.tolstoy.zurichat.models.DmMessages
 import com.tolstoy.zurichat.models.User
-import com.tolstoy.zurichat.ui.activities.DMActivity
+import com.tolstoy.zurichat.ui.dm.DMFragment
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChatsRVAdapter
+import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 
 class ChatsFragment : Fragment() {
     private lateinit var binding: FragmentChatsBinding
-    private lateinit var user : User
+    private var user : User? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChatsBinding.inflate(inflater, container, false)
 
-        user = requireActivity().intent.extras?.getParcelable("USER")!!
+        user = requireActivity().intent.extras?.getParcelable("USER")
 
         return binding.root
     }
@@ -41,10 +43,15 @@ class ChatsFragment : Fragment() {
         )
 
         val chatsRVAdapter = ChatsRVAdapter(requireActivity(), messages)
+        chatsRVAdapter.setItemClickListener {
+            findNavController().navigate(R.id.dmFragment)
+
+        }
         binding.recycler.adapter = chatsRVAdapter
 
         binding.fabAddChat.setOnClickListener {
-            startActivity(Intent(activity, DMActivity::class.java))
+            val intent = Intent(activity, NewChannelActivity::class.java)
+            startActivity(intent)
         }
     }
 }
