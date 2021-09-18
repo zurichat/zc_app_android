@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -15,7 +14,6 @@ import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChannelAdapter
 import com.tolstoy.zurichat.ui.fragments.home_screen.diff_utils.ChannelDiffUtil
-import com.tolstoy.zurichat.ui.fragments.model.JoinChannelUser
 import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
 import kotlin.random.Random
 
@@ -57,8 +55,11 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         val unreadChannelHeader = ChannelModel(getString(R.string.unread_messages), false, false, "channel_header_unread", generateRandomLong().toString(), 0)
 
         val readList: ArrayList<ChannelModel> = ArrayList()
-        val addChannelHeader = ChannelModel(getString(R.string.channels_), false, false, "channel_header_add", generateRandomLong().toString(), 0)
+        val addChannelHeader = ChannelModel(getString(R.string._add_channel), false, false, "channel_header_add", generateRandomLong().toString(), 0)
         val dividerHeader = ChannelModel("", false, false, "channel_header_add", generateRandomLong().toString(), 2)
+
+        //display fab if channel list is empty
+        val fabButton = binding.fabAddChannel
 
         for (channel in channelsArrayList){
             if (channel.isRead){
@@ -102,9 +103,8 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
             val bundle1 = Bundle()
             bundle1.putParcelable("USER",user)
             bundle1.putParcelable("Channel",it)
+            bundle1.putBoolean("Channel Joined",true)
             findNavController().navigate(R.id.channelChatFragment,bundle1)
-
-
         }
         adapt.setAddChannelClickListener {
             val bundle = Bundle()
@@ -114,6 +114,18 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         }
         binding.channelRecycleView.adapter = adapt
         diffResult.dispatchUpdatesTo(adapt)
+
+        if(channelsArrayList.isEmpty()){
+            fabButton.visibility = View.VISIBLE
+            fabButton.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putParcelable("USER",user)
+                bundle.putParcelableArrayList("Channels List",originalChannelsArrayList)
+                findNavController().navigate(R.id.addChannelFragment,bundle)
+            }
+        }else{
+            fabButton.visibility = View.GONE
+        }
     }
 
     /**
@@ -123,8 +135,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private fun getListOfChannels() {
         viewModel.getChannelsList()
         viewModel.channelsList.observe(viewLifecycleOwner,{
-            channelsArrayList.clear()
-            channelsArrayList.addAll(it)
+           // channelsArrayList.addAll(it)
 
             originalChannelsArrayList.clear()
             originalChannelsArrayList.addAll(it)
@@ -136,6 +147,24 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
              */
             // channelsArrayList = it as ArrayList<ChannelModel>
             //originalChannelsArrayList = it
+
+            //Get List Of Joined Channels
+            viewModel.getJoinedChannelsList("1",user.id)
+        })
+
+        viewModel.joinedChannelsList.observe(viewLifecycleOwner,{
+            binding.progressBar2.visibility = View.GONE
+            channelsArrayList.clear()
+            if (it.isNotEmpty()){
+                it.forEach{ joinedChannel ->
+                    originalChannelsArrayList.forEach{ channel ->
+                        if (joinedChannel.id == channel._id){
+                            channelsArrayList.add(channel)
+                        }
+                    }
+                }
+            }
+            addHeaders()
         })
     }
 

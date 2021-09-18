@@ -22,13 +22,15 @@ class ChannelChatFragment : Fragment() {
     private lateinit var binding: FragmentChannelChatBinding
     private var user : User? = null
     private lateinit var channel: ChannelModel
+    private var channelJoined = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelChatBinding.inflate(inflater, container, false)
         val bundle = arguments
         if (bundle != null) {
             user = bundle.getParcelable("USER")
             channel = bundle.getParcelable("Channel")!!
+            channelJoined = bundle.getBoolean("Channel Joined")
         }
         return binding.root
     }
@@ -36,24 +38,39 @@ class ChannelChatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         /**
         Temporary location to make network call to join channel. To be associated with the joinChannel button
         @Param: organizationId- organizationId will come from the clicked channel to join
         @Param: channelId - comes from channel to join
         @Param: user - creates a JoinChannelUser from the user Id, role_Id and adminRole
          */
-        viewModel.joinChannel("1",channel._id, JoinChannelUser("cephas","manager"))
-
-        viewModel.joinedUser.observe(viewLifecycleOwner,{joinedUser->
-            if (joinedUser != null){
-                Toast.makeText(requireContext(), "${joinedUser._id} Joined Channel Successfully", Toast.LENGTH_SHORT).show()
+        if (channelJoined){
+            binding.channelJoinBar.visibility = View.GONE
+        }else{
+            binding.joinChannel.setOnClickListener {
+                binding.joinChannel.visibility = View.GONE
+                binding.text2.visibility = View.GONE
+                binding.channelName.visibility = View.GONE
+                binding.progressBar2.visibility = View.VISIBLE
+                user?.let { JoinChannelUser(it.id,"manager") }?.let { viewModel.joinChannel("1",channel._id, it) }
             }
-        })
 
-        val channelChatEdit = binding.channelChatEditText
+            viewModel.joinedUser.observe(viewLifecycleOwner,{joinedUser->
+                if (joinedUser != null){
+                    Toast.makeText(requireContext(), "Joined Channel Successfully", Toast.LENGTH_SHORT).show()
+                    binding.channelJoinBar.visibility = View.GONE
+                }else{
+                    binding.joinChannel.visibility = View.VISIBLE
+                    binding.text2.visibility = View.VISIBLE
+                    binding.channelName.visibility = View.VISIBLE
+                    binding.progressBar2.visibility = View.GONE
+                }
+            })
+        }
+
+        val channelChatEdit = binding.channelChatEditText           //get message from this edit text
         val sendVoiceNote = binding.sendVoiceBtn
-        val sendMessage = binding.sendMessageBtn
+        val sendMessage = binding.sendMessageBtn                    //use this button to send the message
         val toolbar = view.findViewById<Toolbar>(R.id.channel_toolbar)
 
         toolbar.title = channel.name
@@ -72,10 +89,13 @@ class ChannelChatFragment : Fragment() {
             }
         }
 
+//        OnclickListener for the sendMessageBtn to send message to the channel
+        sendMessage.setOnClickListener{
+//  TODO(check if channelChatEdit is null or empty, and do nothing else, get the _id of the user that sent the message from user variable, get the string message from the edit text, send the to show up as one of the list items on the recyclerview in that)
+        }
 
         //initialize imagePicker library
         val imagePicker = ImagePicker(this)
-
 
         // TODO(Remove after test)
 
@@ -101,4 +121,5 @@ class ChannelChatFragment : Fragment() {
         }
 
     }
+
 }

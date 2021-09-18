@@ -13,6 +13,7 @@ import com.tolstoy.zurichat.models.DmMessages
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.dm.DMFragment
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChatsRVAdapter
+import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 
 class ChatsFragment : Fragment() {
     private lateinit var binding: FragmentChatsBinding
@@ -43,12 +44,14 @@ class ChatsFragment : Fragment() {
 
         val chatsRVAdapter = ChatsRVAdapter(requireActivity(), messages)
         chatsRVAdapter.setItemClickListener {
-            findNavController().navigate(R.id.direct_messages_screen)
+            findNavController().navigate(R.id.dmFragment)
+
         }
         binding.recycler.adapter = chatsRVAdapter
 
         binding.fabAddChat.setOnClickListener {
-            findNavController().navigate(R.id.direct_messages_screen)
+            val intent = Intent(activity, NewChannelActivity::class.java)
+            startActivity(intent)
         }
     }
 }

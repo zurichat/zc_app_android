@@ -6,7 +6,6 @@
     <!--Permissions for Media attachments-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
 
 
     <application
@@ -18,11 +17,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZuriChat">
         <activity
+            android:name=".ui.settings.ChatBackupActivity"
+            android:theme="@style/Theme.ZuriChat.Settings"
+            android:exported="true" />
+        <activity
+            android:name=".ui.newchannel.NewChannelPersonsActivity"
+            android:exported="true" />
+        <activity
             android:name=".ui.channel_info.ChannelInfoActivity"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
         <activity
-            android:name=".ui.welcome.WelcomeActivity"
+            android:name=".ui.newchannel.NewChannelActivity"
             android:exported="true" />
         <activity
             android:name=".ui.settings.LargerItemsActivity"
@@ -30,7 +36,6 @@
             android:label="@string/larger_items_or_no_items_string"
             android:parentActivityName=".ui.settings.LargerItemsActivity"
             android:theme="@style/Theme.ZuriChat.Settings" />
-
         <activity
             android:name=".ui.settings.ManageStorageActivity"
             android:exported="true"
@@ -71,8 +76,11 @@
             android:theme="@style/Theme.ZuriChat.Settings" />
 
         <activity android:name=".ui.activities.MainActivity" >
-
+            
         </activity>
+
+
+
 
         <meta-data
             android:name="preloaded_fonts"
