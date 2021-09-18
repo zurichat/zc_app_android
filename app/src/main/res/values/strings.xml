@@ -187,5 +187,6 @@
     <string name="join_channel">Join Channel</string>
     <string name="mute_channel">Mute Channel</string>
     <string name="leave_channel">Leave Channel</string>
+    <string name="_add_channel">Add Channel</string>
 
 </resources>

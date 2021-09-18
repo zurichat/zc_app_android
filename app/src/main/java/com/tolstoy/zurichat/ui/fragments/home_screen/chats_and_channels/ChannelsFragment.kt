@@ -55,22 +55,11 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         val unreadChannelHeader = ChannelModel(getString(R.string.unread_messages), false, false, "channel_header_unread", generateRandomLong().toString(), 0)
 
         val readList: ArrayList<ChannelModel> = ArrayList()
-        val addChannelHeader = ChannelModel(getString(R.string.channels_), false, false, "channel_header_add", generateRandomLong().toString(), 0)
+        val addChannelHeader = ChannelModel(getString(R.string._add_channel), false, false, "channel_header_add", generateRandomLong().toString(), 0)
         val dividerHeader = ChannelModel("", false, false, "channel_header_add", generateRandomLong().toString(), 2)
 
         //display fab if channel list is empty
         val fabButton = binding.fabAddChannel
-        if(channelsArrayList.isEmpty()){
-            fabButton.visibility = View.VISIBLE
-            fabButton.setOnClickListener {
-                val bundle = Bundle()
-                bundle.putParcelable("USER",user)
-                bundle.putParcelableArrayList("Channels List",originalChannelsArrayList)
-                findNavController().navigate(R.id.addChannelFragment,bundle)
-            }
-        }else{
-            fabButton.visibility = View.GONE
-        }
 
         for (channel in channelsArrayList){
             if (channel.isRead){
@@ -125,6 +114,18 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         }
         binding.channelRecycleView.adapter = adapt
         diffResult.dispatchUpdatesTo(adapt)
+
+        if(channelsArrayList.isEmpty()){
+            fabButton.visibility = View.VISIBLE
+            fabButton.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putParcelable("USER",user)
+                bundle.putParcelableArrayList("Channels List",originalChannelsArrayList)
+                findNavController().navigate(R.id.addChannelFragment,bundle)
+            }
+        }else{
+            fabButton.visibility = View.GONE
+        }
     }
 
     /**
