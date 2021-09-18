@@ -21,6 +21,10 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
+        val toolbar = binding.toolbar
+        toolbar.setNavigationOnClickListener {
+            requireActivity().startActivity(Intent(requireContext(), MainActivity::class.java))
+        }
         with(binding) {
             memberButton.setOnClickListener {
                 try {
@@ -40,9 +44,9 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
                     Timber.e(TAG, exc.toString())
                 }
             }
-            backBtn.setOnClickListener {
+            /*backBtn.setOnClickListener {
                 requireActivity().startActivity(Intent(requireContext(), MainActivity::class.java))
-            }
+            }*/
             recyclerView.apply {
                 adapter = NewChannelAdapter(getNewChannel())
                 layoutManager = LinearLayoutManager(requireContext())

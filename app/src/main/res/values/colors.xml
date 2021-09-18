@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -69,5 +69,9 @@
     <color name="deepBlack">#FF333333</color>
     <color name="txt_black">#1D1C1D</color>
     <color name="txt_light_gray">#616061</color>
+
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#00B87C</color>
+    <color name="toobar_color">#008B5E</color>
+    <color name="new_channel_divider_color">#E7E7E7</color>
 
 </resources>
