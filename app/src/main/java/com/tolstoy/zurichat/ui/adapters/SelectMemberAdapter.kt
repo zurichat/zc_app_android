@@ -14,7 +14,6 @@ import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 class SelectMemberAdapter(private val memberList:(MembersData)->Unit):
     RecyclerView.Adapter<SelectMemberAdapter.SelectMemberViewModel>() {
     private var members = listOf<MembersData>()
-    var selectedList = listOf<MembersData>()
 
     @SuppressLint("NotifyDataSetChanged")
     fun loadMembers(contacts: List<MembersData>) {
