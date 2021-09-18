@@ -1,6 +1,5 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentChatsBinding
 import com.tolstoy.zurichat.models.DmMessages
 import com.tolstoy.zurichat.models.User
-import com.tolstoy.zurichat.ui.dm.DMFragment
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChatsRVAdapter
 
 class ChatsFragment : Fragment() {
@@ -45,7 +43,7 @@ class ChatsFragment : Fragment() {
         binding.recycler.adapter = chatsRVAdapter
 
         binding.fabAddChat.setOnClickListener {
-            findNavController().navigate(R.id.direct_messages_screen)
+            findNavController().navigate(R.id.dmFragment)
         }
     }
 }
