@@ -1,5 +1,8 @@
 package com.tolstoy.zurichat.ui.channel_info.fragments;
 
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,9 +15,13 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.tolstoy.zurichat.R;
@@ -39,6 +46,7 @@ public class ChannelInfoFragment extends Fragment {
     private ConstraintLayout mediaDocs;
     private TextView channel_name;
     private Bundle bundle;
+    private ImageView moreMenuIcon;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,6 +70,7 @@ public class ChannelInfoFragment extends Fragment {
         participants_recyclerView = view.findViewById(R.id.p_recyclerView);
         mediaDocs = view.findViewById(R.id.media_docs);
         channel_name = view.findViewById(R.id.textView_channel_name);
+        moreMenuIcon = view.findViewById(R.id.moreMenuIconView);
 
         mediaDocs.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,6 +82,20 @@ public class ChannelInfoFragment extends Fragment {
 
         initMedia();
         initParticipant();
+
+        //Launch More Menu Popup
+        View moreOptions = LayoutInflater.from(getActivity()).inflate(R.layout.channel_info_more_menu, null);
+        final PopupWindow popupWindow = new PopupWindow(moreOptions, WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setFocusable(true);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+
+        moreMenuIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popupWindow.showAtLocation(moreOptions, Gravity.RIGHT, 0,-450);
+            }
+        });
 
     }
 

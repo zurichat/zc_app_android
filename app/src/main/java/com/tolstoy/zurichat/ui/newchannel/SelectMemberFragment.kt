@@ -22,7 +22,7 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
             imageButton.setOnClickListener {
                 try {
                     val action =
-                        SelectMemberFragmentDirections.actionSelectMemberFragmentToNewChannelDataFragment()
+                        SelectMemberFragmentDirections.actionSelectMemberFragmentToSelectNewChannelFragment()
                     findNavController().navigate(action)
                 } catch (exc: Exception) {
                     Timber.e(SelectNewChannelFragment.TAG, exc.toString())

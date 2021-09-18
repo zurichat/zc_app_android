@@ -6,7 +6,6 @@
     <!--Permissions for Media attachments-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
 
 
     <application
@@ -21,9 +20,7 @@
             android:name=".ui.settings.ChatBackupActivity"
             android:theme="@style/Theme.ZuriChat.Settings"
             android:exported="true" />
-        <activity
-            android:name=".ui.newchannel.NewChannelPersonsActivity"
-            android:exported="true" />
+
         <activity
             android:name=".ui.channel_info.ChannelInfoActivity"
             android:exported="true"

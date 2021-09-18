@@ -1,7 +1,6 @@
 package com.tolstoy.zurichat.ui.dm.adapters
 
 import android.net.Uri
-import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
@@ -19,9 +18,8 @@ sealed class AttachmentViewHolder(open val binding: ViewBinding):
     class Image(override val binding: ItemAttachmentImageBinding): AttachmentViewHolder(binding){
 
         override fun bind(uri: Uri) {
-            Glide.with(binding.root).load(uri).into(binding.imageIAI)
-            binding.buttonIAI.text = "Gallery"
-            // TODO: Set the image for the display
+            Glide.with(binding.root.context.applicationContext)
+                .load(uri).thumbnail(0.5f).into(binding.imageIAI)
         }
     }
 }
