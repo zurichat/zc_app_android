@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.databinding.ListItemSelectMemberBinding
 import com.tolstoy.zurichat.models.MembersData
 import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
+import okhttp3.internal.notifyAll
 
 class SelectMemberAdapter(private val memberList: List<MembersData>, val context: Context):
     RecyclerView.Adapter<SelectMemberAdapter.SelectMemberViewModel>() {
@@ -29,8 +30,11 @@ class SelectMemberAdapter(private val memberList: List<MembersData>, val context
 
                 with(holder.binding){
                     holder.binding.selectMemberLayout.setOnClickListener {
+
                         when (adapterPosition){
+
                             0 -> {
+                                MemberSelectedAdapter(membersData.notifyAll())
                                 val intent = Intent(context, NewChannelActivity::class.java)
                                 intent.putExtra("Image", image)
                                 intent.putExtra("Name", name)

@@ -84,6 +84,7 @@
         app:entryValues="@array/fingerprint_unlock_values"
         app:title="@string/fingerprint_lock_header"
         app:useSimpleSummaryProvider="true"
+        app:summary="Enabled after 1 minute"
         android:layout="@layout/my_pref_item" />
 
 
