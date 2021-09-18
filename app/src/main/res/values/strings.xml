@@ -190,5 +190,10 @@
     <string name="mute_channel">Mute Channel</string>
     <string name="leave_channel">Leave Channel</string>
     <string name="_add_channel">Add Channel</string>
+    <string name="provide_basic_information">Provide basic information</string>
+    <string name="enter_channel_name">Enter channel name</string>
+    <string name="set_your_channel_privacy_here">Set your channel privacy here</string>
+    <string name="make_my_channel_public">Make my channel public</string>
+    <string name="make_my_channel_private">Make my channel private</string>
 
 </resources>
