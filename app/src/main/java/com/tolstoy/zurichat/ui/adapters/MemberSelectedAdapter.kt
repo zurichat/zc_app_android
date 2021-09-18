@@ -10,7 +10,6 @@ class MemberSelectedAdapter(private val data:(MembersData)->Unit):
     RecyclerView.Adapter<MemberSelectedAdapter.SelectedViewHolder>() {
 
     private var DataList = mutableListOf<MembersData>()
-    var selectedList = listOf<MembersData>()
 
     inner class SelectedViewHolder(val binding: ItemSelectedMembersBinding):
         RecyclerView.ViewHolder(binding.root){
