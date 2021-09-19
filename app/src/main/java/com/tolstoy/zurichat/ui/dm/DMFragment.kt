@@ -61,6 +61,11 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDmBinding.bind(view)
         setupUI()
+        // code to control the dimming of background
+        val dimmerBox:View? = view?.findViewById<View>(R.id.dimmer_background)
+        val prefMngr = PreferenceManager.getDefaultSharedPreferences(context)
+        val dimVal = prefMngr.getInt("bar",50).toFloat().div(100f)
+        dimmerBox?.alpha = dimVal
     }
 
     override fun onPause() {
