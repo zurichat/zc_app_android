@@ -20,11 +20,11 @@ class WelcomeFragment : Fragment(R.layout.fragment_welcome) {
         val signInbottom = binding.signInZcBtn
         val registerButton = binding.registerZcBtn
 
-        signInbottom.setOnClickListener  {
+        signInbottom.setOnClickListener {
             findNavController().navigate(R.id.loginFragment)
         }
 
-        registerButton.setOnClickListener  {
+        registerButton.setOnClickListener {
             findNavController().navigate(R.id.registerUserFragment)
         }
     }

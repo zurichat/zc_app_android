@@ -3,6 +3,7 @@ package com.tolstoy.zurichat.util
 import com.tolstoy.zurichat.data.localSource.entities.UserEntity
 import com.tolstoy.zurichat.models.User
 
+
 fun User.mapToEntity(): UserEntity {
     return UserEntity(
         id = id,

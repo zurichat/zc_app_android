@@ -14,7 +14,6 @@ import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
 import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 import com.tolstoy.zurichat.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-
 @AndroidEntryPoint
 class ChatsFragment : Fragment(R.layout.fragment_chats) {
     private val binding: FragmentChatsBinding by viewBinding(FragmentChatsBinding::bind)

@@ -21,6 +21,7 @@ import com.tolstoy.zurichat.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
+
 @AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
@@ -101,4 +102,3 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         Toast.makeText(context, "You have successfully login", Toast.LENGTH_LONG).show()
     }
 }
-

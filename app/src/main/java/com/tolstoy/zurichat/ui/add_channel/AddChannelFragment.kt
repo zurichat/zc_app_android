@@ -15,6 +15,7 @@ import com.tolstoy.zurichat.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.ArrayList
 
+
 @AndroidEntryPoint
 class AddChannelFragment : Fragment(R.layout.fragment_add_channel) {
     private val binding: FragmentAddChannelBinding by viewBinding(FragmentAddChannelBinding::bind)
