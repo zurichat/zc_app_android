@@ -46,6 +46,7 @@ public class RegisterUserFragment extends Fragment {
     private TextInputLayout email, password, password2;
     private ProgressDialog progressDialog;
     private RetrofitService retrofitService;
+    private Bundle bundle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,6 +66,7 @@ public class RegisterUserFragment extends Fragment {
 
         textView_login = view.findViewById(R.id.textView_signin);
         navController = Navigation.findNavController(view);
+        bundle = new Bundle();
 
         retrofitService = RetrofitClient.getClient("https://api.zuri.chat/").create(RetrofitService.class);
 
@@ -93,6 +95,7 @@ public class RegisterUserFragment extends Fragment {
 
                     password.setError(null);
                     password2.setError(null);
+                    bundle.putString("email", userEmail);
                     registerUser("", "", "", userEmail, userPassword, "");
                 }
 
@@ -102,7 +105,7 @@ public class RegisterUserFragment extends Fragment {
         textView_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_registerUserFragment_to_loginFragment);
+                navController.navigate(R.id.action_registerUserFragment_to_loginFragment, bundle);
             }
         });
     }
@@ -119,8 +122,8 @@ public class RegisterUserFragment extends Fragment {
 
                 }else {
                     if (response.body().getMessage().matches("user created")){
-                        navController.navigate(R.id.action_registerUserFragment_to_loginFragment);
                         Toast.makeText(getContext(), "Registration Successful", Toast.LENGTH_LONG).show();
+                        navController.navigate(R.id.action_registerUserFragment_to_emailVerificationFragment, bundle);
                     }
                 }
                 progressDialog.dismiss();

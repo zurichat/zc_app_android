@@ -27,12 +27,20 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_channelChatFragment"
             app:destination="@id/channelChatFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_newChannelActivity"
+            app:destination="@id/newChannelActivity" />
     </fragment>
 
     <activity
         android:id="@+id/settingsActivity"
         android:name="com.tolstoy.zurichat.ui.settings.SettingsActivity"
         android:label="SettingsActivity" />
+
+    <activity
+        android:id="@+id/newChannelActivity"
+        android:name="com.tolstoy.zurichat.ui.newchannel.NewChannelActivity"
+        android:label="NewChannelActivity" />
 
     <fragment
         android:id="@+id/channelChatFragment"
