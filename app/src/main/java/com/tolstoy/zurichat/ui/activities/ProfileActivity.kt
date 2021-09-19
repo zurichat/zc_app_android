@@ -10,6 +10,7 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -87,8 +88,6 @@ class ProfileActivity: AppCompatActivity() {
         }
 
         about.setOnClickListener {
-            startActivity(Intent(this, ProfileAboutActivity::class.java))
-
             editAboutDialog.show()
         }
 
@@ -112,6 +111,7 @@ class ProfileActivity: AppCompatActivity() {
                 )
 
             }
+
 
             val cam = view.findViewById<ImageView>(R.id.imageView_cam)
             //launch camera
@@ -144,7 +144,13 @@ class ProfileActivity: AppCompatActivity() {
                 setPositiveButton("Save"){ _, _ ->
                     updateProfile()
                     phoneTextView.text = editText.text.toString() // populates the value of the
-                                                                    // EditText on the TextView
+                    Timber.d("Update Successful") // EditText on the TextView
+
+                    val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+                    val editor = preferences.edit()
+                    editor.putString("phone", java.lang.String.valueOf(editText.text.toString()))
+                    editor.apply()
+
                 }
                 setNegativeButton("Cancel") { _, _ ->
                     Timber.d("This button clicked successfully!!") //just for log purposes
@@ -173,6 +179,7 @@ class ProfileActivity: AppCompatActivity() {
             //set profile photo to image uri
             profilePhoto.setImageURI(uri)
             profilePhoto.invalidate()
+            Toast.makeText(this, "Update Successful", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -186,6 +193,19 @@ class ProfileActivity: AppCompatActivity() {
         if(mImageUri != null){
             profilePhoto.setImageURI(Uri.parse(mImageUri))
         }
+
+        val phoneTextView = findViewById<TextView>(R.id.tv_phoneno)
+        val phoneText = preferences.getString("phone", null)
+        phoneTextView.text = phoneText
+
+        val nameTextView = findViewById<TextView>(R.id.saved_name)
+        val aboutTextView = findViewById<TextView>(R.id.saved_about)
+
+        val nameText = preferences.getString("name", null)
+        nameTextView.text = nameText
+
+        val aboutText = preferences.getString("about", null)
+        aboutTextView.text = aboutText
     }
 
 
