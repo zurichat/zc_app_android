@@ -14,6 +14,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.data.localSource.Cache
@@ -56,6 +57,12 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
         binding = FragmentDmBinding.bind(view)
         setupUI()
         setupObservers()
+        // code to control the dimming of background
+        val dimmerBox:View? = view?.findViewById<View>(R.id.dimmer_background)
+        val prefMngr = PreferenceManager.getDefaultSharedPreferences(context)
+        val dimVal = prefMngr.getInt("bar",50).toFloat().div(100f)
+        dimmerBox?.alpha = dimVal
+
     }
 
     override fun onPause() {
