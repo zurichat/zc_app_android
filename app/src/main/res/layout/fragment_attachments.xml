@@ -17,7 +17,9 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_back"
         app:navigationIconTint="@android:color/white"
-        app:title="@string/send_to"
+        app:subtitle="@string/tap_to_select"
+        app:subtitleTextColor="@android:color/white"
+        app:title="@string/all_view"
         app:titleMarginStart="20dp"
         app:titleTextColor="@android:color/white" />
 
