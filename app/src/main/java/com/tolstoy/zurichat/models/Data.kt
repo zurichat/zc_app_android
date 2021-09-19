@@ -1,6 +1,6 @@
 package com.tolstoy.zurichat.models
 
-data class DataX(
+data class Data(
     val session_id: String,
     val user: User
 )

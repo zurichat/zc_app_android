@@ -8,11 +8,12 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.navigation.navArgs
 import com.tolstoy.zurichat.databinding.ActivityMainBinding
+import com.tolstoy.zurichat.models.User
+import com.tolstoy.zurichat.ui.login.screens.LoginFragmentDirections
 import com.tolstoy.zurichat.util.setUpApplicationTheme
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val binding: ActivityMainBinding by lazy {
