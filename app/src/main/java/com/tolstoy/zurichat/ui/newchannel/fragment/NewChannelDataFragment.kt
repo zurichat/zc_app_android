@@ -61,6 +61,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                 private = privateValue
             )
             viewModel.createNewChannel(createChannelBodyModel = createChannelBodyModel)
+            progressLoader.show("creating new channel.......")
         }
 
         binding.radioGroup1.setOnCheckedChangeListener { group, checkedId ->
@@ -94,7 +95,6 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
 
                 when (it) {
                     is CreateChannelViewState.Loading -> {
-                        progressLoader.show("creating new channel.......")
 
                     }
                     is CreateChannelViewState.Success -> {
