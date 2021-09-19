@@ -41,6 +41,9 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
 
     private fun setupViewsAndListeners() {
 
+        binding.newChannelToolbar.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
 
         binding.floatingActionButton.setOnClickListener {
 
