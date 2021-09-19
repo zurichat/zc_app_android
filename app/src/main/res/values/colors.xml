@@ -36,6 +36,9 @@
     <color name="message_background_this_user">#A8E1FF</color>
     <color name="message_background_another_user">@android:color/white</color>
 
+    <!-- Attachment Colors -->
+    <color name="attachment_image_selected">#6F000000</color>
+
     <color name="primaryColor">#024E35</color>
     <color name="primaryLightColor">#00B87C</color>
     <color name="primaryDarkColor">#024E35</color>
