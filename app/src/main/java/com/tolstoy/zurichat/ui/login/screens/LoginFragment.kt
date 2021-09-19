@@ -9,12 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.data.localSource.entities.UserEntity
 import com.tolstoy.zurichat.databinding.FragmentLoginBinding
 import com.tolstoy.zurichat.models.LoginBody
 import com.tolstoy.zurichat.models.LoginResponse
 import com.tolstoy.zurichat.ui.activities.MainActivity
 import com.tolstoy.zurichat.ui.login.LoginViewModel
 import com.tolstoy.zurichat.util.Result
+import com.tolstoy.zurichat.util.mapToEntity
 import com.tolstoy.zurichat.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -24,7 +26,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private val binding by viewBinding(FragmentLoginBinding::bind)
     private val viewModel by viewModels<LoginViewModel>()
-    private lateinit var progressDialog : ProgressDialog
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,14 +35,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val materialTextView = binding.materialTextView
         progressDialog = ProgressDialog(context)
 
-        textView.setOnClickListener(fun(it: View) {
+        textView.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registerUserFragment)
-        })
+        }
 
-        materialTextView.setOnClickListener(fun(it: View) {
+        materialTextView.setOnClickListener {
             findNavController().navigate(R.id.forgotPasswordFragment)
-        })
-
+        }
 
         handleSignIn()
         setupObservers()
@@ -48,7 +49,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun handleSignIn() = with(binding) {
         buttonSignIn.setOnClickListener {
-            val loginBody = LoginBody(email = email.text.toString().trim(), password = password.text.toString(),)
+            val loginBody = LoginBody(
+                email = email.text.toString().trim(),
+                password = password.text.toString(),
+            )
             viewModel.login(loginBody)
         }
     }
@@ -70,27 +74,31 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun handleSuccess(response: LoginResponse) {
-        //val action = LoginFragmentDirections.actionLoginFragmentToMainNav(response.data.user)
-       // findNavController().navigate(action)
-        //findNavController().navigate(R.id.action_loginFragment_to_main_nav,bundle)
-
-        //Starting A Activity With A Navigation Component Causes Issues With The Activity Theme.
-        //Better To Sse An Intent
+        viewModel.setLoggedIn(true)
         progressDialog.dismiss()
-        val bundle = Bundle()
-        bundle.putParcelable("USER",response.data.user)
-        val intent = Intent(requireContext(),MainActivity::class.java)
-        intent.putExtras(bundle)
-        startActivity(intent)
-        requireActivity().finish()
-        Toast.makeText(context, "You have successfully login", Toast.LENGTH_LONG).show()
+        response.data.user.apply {
+            viewModel.saveUser(this.mapToEntity())
+        }
+
+        viewModel.saveUserResponse.observe(viewLifecycleOwner) {
+            // only navigate when user data has been saved to local database
+            navigateToMainScreen()
+        }
     }
 
     private fun handleError(throwable: Throwable) {
 
-        Toast.makeText(context, "Invalid email or password, please sign up", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, throwable.localizedMessage, Toast.LENGTH_LONG).show()
         Timber.e(throwable)
         progressDialog.dismiss()
+    }
+
+    private fun navigateToMainScreen() {
+        Intent(requireContext(), MainActivity::class.java).run {
+            startActivity(this)
+            requireActivity().finish()
+        }
+        Toast.makeText(context, "You have successfully login", Toast.LENGTH_LONG).show()
     }
 }
 
