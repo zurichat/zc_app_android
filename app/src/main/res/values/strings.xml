@@ -209,5 +209,8 @@
     <string name="leave_channel_warning_message">Are you sure you want to leave this channel? You will no longer receive messages from this channel once you leave</string>
     <string name="leave_channel_warning_cancel_option">CANCEL</string>
     <string name="leave_channel_warning_leave_option">LEAVE</string>
+    <string name="unable_to_create_new_channel">Unable to create a new channel</string>
+    <string name="invalid_information">Invalid information</string>
+    <string name="successful_new_channel_creation">Successful create new channel</string>
 
 </resources>

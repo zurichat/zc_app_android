@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.ui.newchannel
+package com.tolstoy.zurichat.ui.newchannel.fragment
 
 import android.os.Bundle
 import android.view.View
@@ -81,6 +81,11 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
                 }catch (err: Exception){
                     Timber.e(SelectNewChannelFragment.TAG, err.printStackTrace())
                 }
+            }
+
+            fab.setOnClickListener {
+                val action = SelectMemberFragmentDirections.actionSelectMemberFragmentToNewChannelDataFragment()
+                findNavController().navigate(action)
             }
         }
 

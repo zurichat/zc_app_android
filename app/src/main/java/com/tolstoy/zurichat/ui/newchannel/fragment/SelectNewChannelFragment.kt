@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.ui.newchannel
+package com.tolstoy.zurichat.ui.newchannel.fragment
 
 import android.content.Intent
 import android.os.Bundle

@@ -13,7 +13,6 @@ import com.tolstoy.zurichat.databinding.FragmentHomeScreenBinding
 import com.tolstoy.zurichat.ui.createchannel.CreateChannelActivity
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
 import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
-import com.tolstoy.zurichat.ui.newchannel.SelectMemberFragment
 
 class HomeScreenFragment : Fragment() {
 
