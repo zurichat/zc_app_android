@@ -206,5 +206,8 @@
     <string name="select_members_">Select Members</string>
     <string name="choose_channel_members">Choose Channel Members</string>
     <string name="select_contact_">Select Contact</string>
+    <string name="leave_channel_warning_message">Are you sure you want to leave this channel? You will no longer receive messages from this channel once you leave</string>
+    <string name="leave_channel_warning_cancel_option">CANCEL</string>
+    <string name="leave_channel_warning_leave_option">LEAVE</string>
 
 </resources>
