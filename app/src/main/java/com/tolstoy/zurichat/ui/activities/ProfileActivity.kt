@@ -34,10 +34,9 @@ import timber.log.Timber
 
 class ProfileActivity: AppCompatActivity() {
 
-    //user id
-    private lateinit var user: User
+
     //token id
-    private var token: String? = user.token
+    private var token: String? = null
 
     private var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
         val newRequest: Request = chain.request().newBuilder()
@@ -58,7 +57,15 @@ class ProfileActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val extras: Bundle? = intent.extras
+
+        val user: User? = extras?.getParcelable("USER")
+
         setContentView(R.layout.activity_profile)
+
+
+        token = user?.token
 
         val about = findViewById<ImageView>(R.id.edit_about)
         val camera = findViewById<ImageView>(R.id.img_camera)
@@ -66,6 +73,7 @@ class ProfileActivity: AppCompatActivity() {
 
         about.setOnClickListener {
             startActivity(Intent(this, ProfileAboutActivity::class.java))
+
         }
 
         camera.setOnClickListener {
@@ -118,6 +126,7 @@ class ProfileActivity: AppCompatActivity() {
             with(builder){
                 setTitle("Edit Phone Number")
                 setPositiveButton("Save"){ _, _ ->
+                    updateProfile()
                     phoneTextView.text = editText.text.toString() // populates the value of the
                                                                     // EditText on the TextView
                 }
