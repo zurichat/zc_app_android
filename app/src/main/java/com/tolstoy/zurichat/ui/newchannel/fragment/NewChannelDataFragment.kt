@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
@@ -15,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import com.tolstoy.zurichat.databinding.FragmentNewChannelDataBinding
 import com.tolstoy.zurichat.models.CreateChannelBodyModel
 import com.tolstoy.zurichat.models.MembersData
+import com.tolstoy.zurichat.ui.adapters.NewChannelMemberSelectedAdapter
 import com.tolstoy.zurichat.ui.adapters.SelectMemberAdapter
 import com.tolstoy.zurichat.ui.newchannel.states.CreateChannelViewState
 import com.tolstoy.zurichat.ui.newchannel.viewmodel.CreateChannelViewModel
@@ -28,6 +30,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     lateinit var progressLoader: ProgressLoader
     private val binding by viewBinding(FragmentNewChannelDataBinding::bind)
     private val viewModel: CreateChannelViewModel by viewModels()
+    private val args: SelectMemberFragmentArgs by navArgs()
     private var private = false
     private var channelOwner = ""
 
@@ -61,39 +64,45 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
         }
 
         binding.radioGroup1.setOnCheckedChangeListener { group, checkedId ->
-           when(checkedId){
-               R.id.make_public ->{
-                   private = true
-               }
-               R.id.make_private->{
-                   private = false
-               }
-           }
+            when (checkedId) {
+                R.id.make_public -> {
+                    private = true
+                }
+                R.id.make_private -> {
+                    private = false
+                }
+            }
 
         }
 
         binding.recycler.apply {
-           // val memberAdapter = SelectMemberAdapter()
-            layoutManager = LinearLayoutManager(requireContext(),RecyclerView.HORIZONTAL,false)
-           // adapter = memberAdapter
+            if (args.memberData != null) {
+                val memberDataList: List<MembersData> = args.memberData!!.toList()
+                val memberAdapter = NewChannelMemberSelectedAdapter(memberDataList)
+                layoutManager =
+                    LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+                adapter = memberAdapter
+            }
+
         }
     }
 
-    private fun observerData(){
+
+    private fun observerData() {
         lifecycleScope.launchWhenCreated {
             viewModel.createChannelViewFlow.collect {
 
-                when(it){
-                    is CreateChannelViewState.Loading->{
+                when (it) {
+                    is CreateChannelViewState.Loading -> {
                         progressLoader.show("creating new channel.......")
 
                     }
-                    is CreateChannelViewState.Success->{
+                    is CreateChannelViewState.Success -> {
                         progressLoader.hide()
                         Toast.makeText(context, getString(it.message), Toast.LENGTH_LONG).show()
                         navigateToDetails()
                     }
-                    is CreateChannelViewState.Failure->{
+                    is CreateChannelViewState.Failure -> {
                         progressLoader.hide()
                         Toast.makeText(context, getString(it.message), Toast.LENGTH_LONG).show()
                     }

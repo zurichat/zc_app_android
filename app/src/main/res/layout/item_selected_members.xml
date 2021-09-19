@@ -44,6 +44,7 @@
                 android:layout_height="wrap_content"
                 android:padding="8dp"
                 android:maxLines="2"
+                android:singleLine="true"
                 android:text="@string/username_"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

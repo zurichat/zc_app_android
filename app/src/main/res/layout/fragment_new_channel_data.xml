@@ -94,7 +94,8 @@
         app:layout_constraintTop_toBottomOf="@id/divider"
         android:layout_margin="16dp"
         android:text="@string/set_your_channel_privacy_here"
-        android:textSize="22sp"
+        android:textSize="15sp"
+        android:textColor="@color/text_black"
         android:fontFamily="@font/lato"
         />
 
@@ -136,7 +137,8 @@
         app:layout_constraintTop_toBottomOf="@id/radioGroup1"
         android:layout_margin="16dp"
         android:text="@string/channel_members"
-        android:textSize="25sp"
+        android:textSize="16sp"
+        android:textColor="@color/text_black"
         android:fontFamily="@font/lato"
         />
 

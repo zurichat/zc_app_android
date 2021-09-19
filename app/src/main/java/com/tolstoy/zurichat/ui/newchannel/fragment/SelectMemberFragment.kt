@@ -76,17 +76,13 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
             }
             fab.setOnClickListener {
                 try{
-                    val action = SelectMemberFragmentDirections.actionSelectMemberFragmentToNewChannelDataFragment()
+                    val action = SelectMemberFragmentDirections.actionSelectMemberFragmentToNewChannelDataFragment(selectedMembers.toTypedArray())
                     findNavController().navigate(action)
                 }catch (err: Exception){
                     Timber.e(SelectNewChannelFragment.TAG, err.printStackTrace())
                 }
             }
 
-            fab.setOnClickListener {
-                val action = SelectMemberFragmentDirections.actionSelectMemberFragmentToNewChannelDataFragment()
-                findNavController().navigate(action)
-            }
         }
 
     }
