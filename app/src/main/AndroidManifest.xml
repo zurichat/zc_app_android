@@ -25,9 +25,9 @@
             android:name=".ui.channel_info.ChannelInfoActivity"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
-<!--        <activity-->
-<!--            android:name=".ui.newchannel.NewChannelActivity"-->
-<!--            android:exported="true" />-->
+        <activity
+            android:name=".ui.newchannel.NewChannelActivity"
+            android:exported="true" />
         <activity
             android:name=".ui.settings.LargerItemsActivity"
             android:exported="true"
@@ -51,7 +51,7 @@
             android:exported="true"
             android:theme="@style/Theme.ZuriChat.Splash" />
         <activity
-            android:name=".ui.newchannel.NewChannelActivity"
+            android:name=".ui.activities.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.ZuriChat.Splash">
             <intent-filter>

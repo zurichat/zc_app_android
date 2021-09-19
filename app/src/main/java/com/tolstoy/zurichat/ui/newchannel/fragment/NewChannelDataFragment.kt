@@ -43,46 +43,45 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     }
 
     private fun setupViewsAndListeners() {
-
-        binding.newChannelToolbar.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
-
-        binding.floatingActionButton.setOnClickListener {
-
-            val name = binding.channelName.text.toString()
-            val description = "$name description"
-            val owner = channelOwner
-            val privateValue = private
-            val createChannelBodyModel = CreateChannelBodyModel(
-                description = description,
-                name = name,
-                owner = owner,
-                private = privateValue
-            )
-            viewModel.createNewChannel(createChannelBodyModel = createChannelBodyModel)
-            progressLoader.show("creating new channel.......")
-        }
-
-        binding.radioGroup1.setOnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
-                R.id.make_public -> {
-                    private = true
-                }
-                R.id.make_private -> {
-                    private = false
-                }
+        with(binding) {
+            newChannelToolbar.setNavigationOnClickListener {
+                findNavController().navigateUp()
             }
 
-        }
+            floatingActionButton.setOnClickListener {
+                val name = binding.channelName.text.toString()
+                val description = "$name description"
+                val owner = channelOwner
+                val privateValue = private
+                val createChannelBodyModel = CreateChannelBodyModel(
+                    description = description,
+                    name = name,
+                    owner = owner,
+                    private = privateValue
+                )
+                viewModel.createNewChannel(createChannelBodyModel = createChannelBodyModel)
+                progressLoader.show("creating new channel.......")
+            }
 
-        binding.recycler.apply {
-            if (args.memberData != null) {
-                val memberDataList: List<MembersData> = args.memberData!!.toList()
-                val memberAdapter = NewChannelMemberSelectedAdapter(memberDataList)
-                layoutManager =
-                    LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
-                adapter = memberAdapter
+            radioGroup1.setOnCheckedChangeListener { _, checkedId ->
+                when (checkedId) {
+                    R.id.make_public -> {
+                        private = true
+                    }
+                    R.id.make_private -> {
+                        private = false
+                    }
+                }
+            }
+            recycler.apply {
+                if (args.memberData != null) {
+                    val memberDataList: List<MembersData> = args.memberData!!.toList()
+                    val memberAdapter = NewChannelMemberSelectedAdapter(memberDataList)
+                    layoutManager =
+                        LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
+                    adapter = memberAdapter
+                }
+
             }
 
         }
@@ -92,11 +91,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     private fun observerData() {
         lifecycleScope.launchWhenCreated {
             viewModel.createChannelViewFlow.collect {
-
                 when (it) {
-                    is CreateChannelViewState.Loading -> {
-
-                    }
                     is CreateChannelViewState.Success -> {
                         progressLoader.hide()
                         Toast.makeText(context, getString(it.message), Toast.LENGTH_LONG).show()
@@ -106,6 +101,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                         progressLoader.hide()
                         Toast.makeText(context, getString(it.message), Toast.LENGTH_LONG).show()
                     }
+
                 }
             }
 
