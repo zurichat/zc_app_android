@@ -72,14 +72,14 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
 
         // set keyboard to send if "enter is send" is set to true in settings
         binding.messageinputDm.textinputMIMessage.apply {
-            if(isEnterSend) {
+            if (isEnterSend) {
                 this.inputType = InputType.TYPE_CLASS_TEXT
                 this.imeOptions = EditorInfo.IME_ACTION_SEND
             }
         }
 
         binding.messageinputDm.textinputMIMessage.setOnEditorActionListener { v, actionId, event ->
-            if(actionId == EditorInfo.IME_ACTION_SEND) {
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
                 sendMessage(binding.messageinputDm.textinputMIMessage.editableText)
                 true
             } else {

@@ -21,9 +21,9 @@ import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
 import dev.ronnie.github.imagepicker.ImagePicker
 
 class ChannelChatFragment : Fragment() {
-    private val viewModel : ChannelViewModel by viewModels()
+    private val viewModel: ChannelViewModel by viewModels()
     private lateinit var binding: FragmentChannelChatBinding
-    private var user : User? = null
+    private var user: User? = null
     private lateinit var channel: ChannelModel
     private var channelJoined = false
 
@@ -54,22 +54,22 @@ class ChannelChatFragment : Fragment() {
         @Param: channelId - comes from channel to join
         @Param: user - creates a JoinChannelUser from the user Id, role_Id and adminRole
          */
-        if (channelJoined){
+        if (channelJoined) {
             binding.channelJoinBar.visibility = View.GONE
-        }else{
+        } else {
             binding.joinChannel.setOnClickListener {
                 binding.joinChannel.visibility = View.GONE
                 binding.text2.visibility = View.GONE
                 binding.channelName.visibility = View.GONE
                 binding.progressBar2.visibility = View.VISIBLE
-                user?.let { JoinChannelUser(it.id,"manager") }?.let { viewModel.joinChannel("1",channel._id, it) }
+                user?.let { JoinChannelUser(it.id, "manager") }?.let { viewModel.joinChannel("1", channel._id, it) }
             }
 
-            viewModel.joinedUser.observe(viewLifecycleOwner,{joinedUser->
-                if (joinedUser != null){
+            viewModel.joinedUser.observe(viewLifecycleOwner, { joinedUser ->
+                if (joinedUser != null) {
                     Toast.makeText(requireContext(), "Joined Channel Successfully", Toast.LENGTH_SHORT).show()
                     binding.channelJoinBar.visibility = View.GONE
-                }else{
+                } else {
                     binding.joinChannel.visibility = View.VISIBLE
                     binding.text2.visibility = View.VISIBLE
                     binding.channelName.visibility = View.VISIBLE
@@ -100,7 +100,7 @@ class ChannelChatFragment : Fragment() {
         }
 
 //        OnclickListener for the sendMessageBtn to send message to the channel
-        sendMessage.setOnClickListener{
+        sendMessage.setOnClickListener {
 //  TODO(check if channelChatEdit is null or empty, and do nothing else, get the _id of the user that sent the message from user variable, get the string message from the edit text, send the to show up as one of the list items on the recyclerview in that)
         }
 
@@ -135,14 +135,14 @@ class ChannelChatFragment : Fragment() {
     private fun setupKeyboard() {
         // set keyboard to send if "enter is send" is set to true in settings
         binding.channelChatEditText.apply {
-            if(isEnterSend) {
+            if (isEnterSend) {
                 this.inputType = InputType.TYPE_CLASS_TEXT
                 this.imeOptions = EditorInfo.IME_ACTION_SEND
             }
         }
 
         binding.channelChatEditText.setOnEditorActionListener { v, actionId, event ->
-            if(actionId == EditorInfo.IME_ACTION_SEND) {
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
                 // send message
 
                 true
@@ -151,5 +151,4 @@ class ChannelChatFragment : Fragment() {
             }
         }
     }
-
 }

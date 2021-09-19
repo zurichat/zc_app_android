@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tolstoy.zurichat">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <!--Permissions for Media attachments-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -18,13 +18,13 @@
         android:theme="@style/Theme.ZuriChat">
         <activity
             android:name=".ui.settings.ChatBackupActivity"
-            android:theme="@style/Theme.ZuriChat.Settings"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.ZuriChat.Settings" />
 
         <activity
             android:name=".ui.channel_info.ChannelInfoActivity"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
         <activity
             android:name=".ui.newchannel.NewChannelActivity"
             android:exported="true" />
@@ -73,7 +73,7 @@
             android:parentActivityName=".ui.settings.ManageStorageActivity"
             android:theme="@style/Theme.ZuriChat.Settings" />
 
-        <activity android:name=".ui.activities.MainActivity" >
+        <activity android:name=".ui.activities.MainActivity">
 
         </activity>
 
