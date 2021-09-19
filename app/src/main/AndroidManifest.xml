@@ -9,7 +9,7 @@
 
 
     <application
-        android:name=".ZuriChatApplication"
+        android:name=".di.ZuriChatApplication"
         android:allowBackup="true"
         android:icon="@drawable/splash_logo"
         android:label="@string/app_name"
@@ -51,7 +51,7 @@
             android:exported="true"
             android:theme="@style/Theme.ZuriChat.Splash" />
         <activity
-            android:name=".ui.splash.SplashActivity"
+            android:name=".ui.activities.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.ZuriChat.Splash">
             <intent-filter>

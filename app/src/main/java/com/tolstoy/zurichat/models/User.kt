@@ -3,6 +3,7 @@ package com.tolstoy.zurichat.models
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
+
 @Parcelize
 data class User(
     val created_at: String,
@@ -14,6 +15,5 @@ data class User(
     val phone: String,
     val status: Int,
     val time_zone: String,
-    val token: String,
     val updated_at: String
 ): Parcelable
