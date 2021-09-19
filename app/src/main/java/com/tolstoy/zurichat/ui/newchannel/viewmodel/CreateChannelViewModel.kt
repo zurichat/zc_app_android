@@ -38,6 +38,9 @@ class CreateChannelViewModel @Inject constructor(
                             Failure.InvalidParameter -> {
                                 _createChannelFlow.value =
                                     CreateChannelViewState.Failure(R.string.invalid_information)
+                            }   Failure.userNotFound -> {
+                                _createChannelFlow.value =
+                                    CreateChannelViewState.Failure(R.string.user_not_found)
                             }
                             else -> {
                                 _createChannelFlow.value =

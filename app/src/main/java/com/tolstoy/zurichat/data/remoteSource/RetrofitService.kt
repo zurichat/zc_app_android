@@ -18,7 +18,7 @@ interface RetrofitService {
     fun register(@Body registerUser: RegisterUser?): Call<RegisterUser?>?
 
     @POST("v1/1/channels/")
-    fun createChannel(@Body createChannelBodyModel: CreateChannelBodyModel): Response<CreateChannelResponseModel>
+    suspend fun createChannel(@Body createChannelBodyModel: CreateChannelBodyModel): Response<CreateChannelResponseModel>
 
 }
 

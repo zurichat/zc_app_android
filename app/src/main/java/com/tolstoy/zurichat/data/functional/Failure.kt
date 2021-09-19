@@ -13,4 +13,5 @@ sealed class Failure {
     abstract class FeatureFailure : Failure()
 
     object InvalidParameter : FeatureFailure()
+    object userNotFound : FeatureFailure()
 }

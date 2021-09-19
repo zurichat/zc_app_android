@@ -12,7 +12,6 @@ class CreateChannel @Inject constructor(
     private val channelRepository: ChannelRepository,
 ) : FlowUseCase<CreateChannelBodyModel, CreateChannelResponseModel> {
     override fun invoke(params: CreateChannelBodyModel?): Flow<Result<CreateChannelResponseModel>> {
-        println("############ $params")
         return channelRepository.createChannel(createChannelBodyModel = params!!)
     }
 }

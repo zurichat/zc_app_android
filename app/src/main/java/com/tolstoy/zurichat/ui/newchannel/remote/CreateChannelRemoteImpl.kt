@@ -15,6 +15,7 @@ class CreateChannelRemoteImpl @Inject constructor(
     override suspend fun saveNewChannel(createChannelBodyModel: CreateChannelBodyModel): Result<CreateChannelResponseModel> {
         return try {
             val res = apiService.createChannel(createChannelBodyModel = createChannelBodyModel)
+            println("Res $res")
             when(res.isSuccessful){
                 true ->{
                     res.body()?.let {
@@ -25,7 +26,12 @@ class CreateChannelRemoteImpl @Inject constructor(
                     when(res.code()){
                         ResponseCode.INVALID_PARAMETER->{
                            Result.Error(Failure.InvalidParameter)
-                        }else->{
+
+                        }  ResponseCode.USER_NOT_FOUND->{
+                           Result.Error(Failure.userNotFound)
+
+                        }
+                        else->{
                         Result.Error(Failure.ServerError)
                     }
                     }
@@ -33,6 +39,7 @@ class CreateChannelRemoteImpl @Inject constructor(
                 }
             }
         }catch (exc:Exception){
+            println(exc)
             Result.Error(Failure.ServerError)
         }
     }
