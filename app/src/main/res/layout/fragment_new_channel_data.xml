@@ -46,8 +46,8 @@
 
         <ImageView
             android:id="@+id/new_channel_camera"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:src="@drawable/camera_image"
             android:layout_margin="8dp"/>
 
@@ -57,8 +57,8 @@
             android:layout_height="match_parent"
             android:hint="@string/enter_channel_name"
             app:endIconMode="custom"
-            android:weightSum="1"
-            app:hintTextColor="@color/black"
+            android:padding="8dp"
+            app:hintTextColor="@color/text_black"
             app:endIconDrawable="@drawable/ic_smile"
             app:endIconContentDescription="smiley image"
             app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
@@ -68,6 +68,8 @@
                 android:id="@+id/channel_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:imeOptions="actionDone"
+                android:singleLine="true"
                 />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -113,7 +115,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/make_my_channel_public"
-            android:textSize="20sp"
+            android:textSize="14sp"
+            android:textColor="@color/text_black"
             android:fontFamily="@font/lato"
             />
 
@@ -122,7 +125,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/make_my_channel_private"
-            android:textSize="20sp"
+            android:textSize="14sp"
+            android:textColor="@color/text_black"
             android:fontFamily="@font/lato"
             />
 

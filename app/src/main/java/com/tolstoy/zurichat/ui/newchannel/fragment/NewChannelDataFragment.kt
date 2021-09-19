@@ -114,6 +114,8 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     }
 
     private fun navigateToDetails() {
-
+        val action =
+            NewChannelDataFragmentDirections.actionNewChannelDataFragmentToChannelChatFragment()
+        findNavController().navigate(action)
     }
 }
