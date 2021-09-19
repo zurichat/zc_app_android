@@ -28,13 +28,13 @@ class MainActivity : AppCompatActivity() {
 
         //Request permission for accessing media and files from storage
         val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-                //Shows Toast message if permission is granted or denied.
-                if (isGranted) {
-                    Toast.makeText(this, "Permission Granted!", Toast.LENGTH_LONG).show()
-                } else {
-                    Toast.makeText(this, "Permission Denied!", Toast.LENGTH_LONG).show()
-                }
+            //Shows Toast message if permission is granted or denied.
+            if (isGranted) {
+                Toast.makeText(this, "Permission Granted!", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Permission Denied!", Toast.LENGTH_LONG).show()
             }
+        }
 
         //This code runs automatically,
         //This checks if the permission has been granted, if it has, pass, else, it request for the permission using the function above
@@ -48,5 +48,4 @@ class MainActivity : AppCompatActivity() {
     }
 
 }
-
 
