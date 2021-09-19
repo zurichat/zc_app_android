@@ -1,28 +1,29 @@
 package com.tolstoy.zurichat.ui.dm
 
-import android.content.Context.MODE_PRIVATE
 import android.graphics.drawable.ColorDrawable
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
-import android.text.InputType
 import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.preference.Preference
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.FragmentDmBinding
 import com.tolstoy.zurichat.databinding.PartialAttachmentPopupBinding
 import com.tolstoy.zurichat.models.Message
+import com.tolstoy.zurichat.models.Room
+import com.tolstoy.zurichat.models.User
+import com.tolstoy.zurichat.models.network_response.RoomInfoResponse
+import com.tolstoy.zurichat.ui.base.ViewModelFactory
 import com.tolstoy.zurichat.ui.dm.adapters.MessageAdapter
 import com.tolstoy.zurichat.util.setClickListener
 import dev.ronnie.github.imagepicker.ImagePicker
@@ -34,38 +35,34 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
     private val adapter by lazy { MessageAdapter(requireContext(), 0) }
     private lateinit var binding: FragmentDmBinding
     private val attachmentPopup by lazy { PopupWindow(requireContext()) }
-
-    private var isEnterSend: Boolean = false
+    private val user by lazy { Cache.map["user"] as? User }
+    private val viewModel by viewModels<DMViewModel> { ViewModelFactory.INSTANCE }
 
     private val sendDrawable by lazy {
         ResourcesCompat.getDrawable(requireContext().resources, R.drawable.ic_send, null)
     }
     private val speakDrawable by lazy {
-        ResourcesCompat.getDrawable(
-            requireContext().resources,
-            android.R.drawable.ic_btn_speak_now,
-            null
-        )
+        ResourcesCompat.getDrawable(requireContext().resources, android.R.drawable.ic_btn_speak_now, null)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         imagePicker = ImagePicker(this)
-
-        isEnterSend = PreferenceManager.getDefaultSharedPreferences(requireContext())
-            .getBoolean("enter_to_send", false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDmBinding.bind(view)
         setupUI()
+
         // code to control the dimming of background
         val dimmerBox:View? = view?.findViewById<View>(R.id.dimmer_background)
         val prefMngr = PreferenceManager.getDefaultSharedPreferences(context)
         val dimVal = prefMngr.getInt("bar",50).toFloat().div(100f)
         dimmerBox?.alpha = dimVal
+        setupObservers()
+
     }
 
     override fun onPause() {
@@ -75,29 +72,20 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
 
     private fun setupUI() {
 
-        // set keyboard to send if "enter is send" is set to true in settings
-        binding.messageinputDm.textinputMIMessage.apply {
-            if(isEnterSend) {
-                this.inputType = InputType.TYPE_CLASS_TEXT
-                this.imeOptions = EditorInfo.IME_ACTION_SEND
-            }
-        }
-
-        binding.messageinputDm.textinputMIMessage.setOnEditorActionListener { v, actionId, event ->
-            if(actionId == EditorInfo.IME_ACTION_SEND) {
-                sendMessage(binding.messageinputDm.textinputMIMessage.editableText)
-                true
-            } else {
-                false
-            }
-        }
-
-
         // set up the message input view
         binding.messageinputDm.also {
-            it.fabMIRecordAudio.setOnClickListener { _ ->
+            it.fabMIRecordAudio.setOnClickListener { _->
                 it.textinputMIMessage.text.also { editable ->
-                    sendMessage(editable)
+                    if(editable.isNotBlank()) {
+                        val message = Message(
+                            message = editable.toString(),
+                            senderId = user!!.id,
+                            roomId = user!!.id
+                        )
+                        adapter.addMessage(message)
+                        viewModel.sendMessage(message.roomId,message)
+                        editable.clear()
+                    }
                 }
             }
             it.imageMIAttachImage.setOnClickListener { takePictureCamera() }
@@ -105,10 +93,7 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
                 val anchor = binding.messageinputDm.root
 //                val location = IntArray(2).apply { anchor.getLocationOnScreen(this) }
 //                val size = Size(attachmentPopup.contentView.measuredWidth, attachmentPopup.contentView.measuredHeight)
-                attachmentPopup.showAtLocation(
-                    anchor, Gravity.BOTTOM or Gravity.START,
-                    0, anchor.height
-                )
+                attachmentPopup.showAtLocation(anchor,Gravity.BOTTOM or Gravity.START, 0, anchor.height)
             }
             it.textinputMIMessage.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -117,7 +102,7 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
                 override fun afterTextChanged(p0: Editable?) {
                     // checks if the the user types in a something
                     // if they do change the fab drawable
-                    if (p0?.isNotBlank() == true)
+                    if(p0?.isNotBlank() == true)
                         it.fabMIRecordAudio.setImageDrawable(sendDrawable)
                     else it.fabMIRecordAudio.setImageDrawable(speakDrawable)
                 }
@@ -141,21 +126,25 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
                 setBackgroundDrawable(ColorDrawable())
             }
         }
+
+        // observe values from the attachment fragment
+        findNavController().currentBackStackEntry?.savedStateHandle
+            ?.getLiveData<AttachmentsFragment.Attachment>(AttachmentsFragment.Attachment.TAG)?.observe(
+            viewLifecycleOwner){ receiveAttachment(it) }
     }
 
-    private fun sendMessage(editable: Editable) {
-        if (editable.isNotBlank()) {
-            adapter.addMessage(Message(0, editable.toString()))
-            editable.clear()
+    private fun setupObservers(){
+        viewModel.imageUploadResonse.observe(viewLifecycleOwner){
+            if (it.success){
+                Toast.makeText(requireContext(), "Image Uploaded", Toast.LENGTH_LONG).show()
+            } }
+        viewModel.sendMessageResponse.observe(viewLifecycleOwner){
+            Toast.makeText(requireContext(), "Message sent", Toast.LENGTH_LONG).show()
         }
     }
 
-    private fun navigateToAttachmentScreen(media: MEDIA = MEDIA.IMAGE) {
-        findNavController().navigate(
-            DMFragmentDirections.actionDmFragmentToAttachmentsFragment(
-                media
-            )
-        )
+    private fun navigateToAttachmentScreen(media: MEDIA = MEDIA.IMAGE){
+        findNavController().navigate(DMFragmentDirections.actionDmFragmentToAttachmentsFragment(media))
     }
 
     /**function to take image using camera
@@ -170,15 +159,7 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
              */
 
             when (imageResult) {
-                is ImageResult.Success -> {
-//                    val uri = imageResult.value
-//
-//                    imageView.visibility = View.VISIBLE
-//                    Glide.with(this)
-//                        .load(uri)
-//                        .into(imageView)
-
-                }
+                is ImageResult.Success -> handleImageUpload(listOf(imageResult.value))
 
                 /**
                  * incase it's unsuccessful we toast the message and hide the image view
@@ -189,5 +170,23 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
                 }
             }
         }
+    }
+
+    private fun receiveAttachment(attachment: AttachmentsFragment.Attachment){
+        when(attachment.media){
+            MEDIA.IMAGE -> handleImageUpload(attachment.selected)
+        }
+    }
+
+    private fun handleImageUpload(imageList: List<Uri>) = imageList.forEach{
+        adapter.addMessage(
+            Message(
+                message = "",
+                senderId = user!!.id,
+                roomId = user!!.id,
+                media = listOf(it.toString())
+            )
+        )
+        viewModel.uploadImage(requireContext().applicationContext, it)
     }
 }

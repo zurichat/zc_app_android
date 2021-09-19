@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.FragmentLoginBinding
 import com.tolstoy.zurichat.models.LoginBody
 import com.tolstoy.zurichat.models.LoginResponse
@@ -80,6 +81,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val bundle = Bundle()
         bundle.putParcelable("USER",response.data.user)
         val intent = Intent(requireContext(),MainActivity::class.java)
+        Cache.map.putIfAbsent("user", response.data.user)
         intent.putExtras(bundle)
         startActivity(intent)
         requireActivity().finish()
