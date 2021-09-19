@@ -135,7 +135,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private fun getListOfChannels() {
         viewModel.getChannelsList()
         viewModel.channelsList.observe(viewLifecycleOwner,{
-           // channelsArrayList.addAll(it)
+            // channelsArrayList.addAll(it)
 
             originalChannelsArrayList.clear()
             originalChannelsArrayList.addAll(it)
@@ -169,4 +169,3 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     }
 
 }
-
