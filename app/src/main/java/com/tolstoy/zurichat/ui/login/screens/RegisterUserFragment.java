@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +47,7 @@ public class RegisterUserFragment extends Fragment {
     private TextInputLayout email, password, password2;
     private ProgressDialog progressDialog;
     private RetrofitService retrofitService;
+    private CheckBox checkBox;
     private Bundle bundle;
 
     @Override
@@ -67,6 +69,7 @@ public class RegisterUserFragment extends Fragment {
         textView_login = view.findViewById(R.id.textView_signin);
         navController = Navigation.findNavController(view);
         bundle = new Bundle();
+        checkBox = view.findViewById(R.id.checkBox);
 
         retrofitService = RetrofitClient.getClient("https://api.zuri.chat/").create(RetrofitService.class);
 
@@ -91,7 +94,9 @@ public class RegisterUserFragment extends Fragment {
                     password.setError("Invalid password pattern");
                 }else if(!password.getEditText().getText().toString().equals(password2.getEditText().getText().toString())){
                     password2.setError("Password does not match");
-                }else{
+                }else if(!checkBox.isChecked()){
+                    checkBox.setError("Terms and conditions must be accepted!");
+                } else{
 
                     password.setError(null);
                     password2.setError(null);
