@@ -15,11 +15,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.preference.ListPreference
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
-import androidx.preference.SwitchPreference
+import androidx.preference.*
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.ui.activities.ProfileActivity
 import com.tolstoy.zurichat.util.THEME_KEY
@@ -235,6 +231,8 @@ class SettingsActivity : AppCompatActivity(),
             setPreferencesFromResource(R.xml.fingerprint_pref, rootKey)
         }
     }
+
+
 
     //    listening to changes on the sharedPreference
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {

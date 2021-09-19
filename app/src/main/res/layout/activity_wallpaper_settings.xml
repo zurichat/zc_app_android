@@ -43,6 +43,17 @@
             android:background="@drawable/sample_background_wallpaper" />
 
         <View
+            android:id="@+id/dimmer_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/linearLayout"
+            app:layout_constraintStart_toStartOf="@id/linearLayout"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            android:background="#000000" />
+
+        <View
             android:id="@+id/imageView3"
             android:layout_width="14dp"
             android:layout_height="14dp"
