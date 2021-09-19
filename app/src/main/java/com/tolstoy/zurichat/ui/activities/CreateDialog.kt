@@ -1,6 +1,7 @@
 package com.tolstoy.zurichat.ui.activities
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.preference.PreferenceManager
 import com.tolstoy.zurichat.R
 
 class CreateDialog(private val layoutInflater: LayoutInflater,
@@ -51,6 +53,11 @@ class CreateDialog(private val layoutInflater: LayoutInflater,
             if(name.text.isNotEmpty()){
                 savedName.text = name.text.toString()
                 dialog.dismiss()
+
+                val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+                val editor = preferences.edit()
+                editor.putString("name", java.lang.String.valueOf(name.text.toString()))
+                editor.apply()
             }
         }
         return dialog
@@ -78,9 +85,15 @@ class CreateDialog(private val layoutInflater: LayoutInflater,
             if(about.text.isNotEmpty()){
                 savedAbout.text = about.text.toString()
                 dialog1.dismiss()
+
+                val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+                val editor = preferences.edit()
+                editor.putString("about", java.lang.String.valueOf(about.text.toString()))
+                editor.apply()
             }
         }
         return dialog1
     }
+
 
 }

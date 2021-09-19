@@ -1,10 +1,10 @@
 package com.tolstoy.zurichat.ui.fragments.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tolstoy.zurichat.data.repository.UserRepository
 import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.JoinedChannelModel
 import com.tolstoy.zurichat.models.User
@@ -12,26 +12,16 @@ import com.tolstoy.zurichat.ui.fragments.model.JoinChannelUser
 import com.tolstoy.zurichat.ui.fragments.networking.ChannelsList
 import com.tolstoy.zurichat.ui.fragments.networking.JoinNewChannel
 import com.tolstoy.zurichat.ui.fragments.networking.RetrofitClientInstance
-import com.tolstoy.zurichat.util.mapToApp
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.create
 
 /**
  * Viewmodel to handle updates to the list when a network call is made and result is retrieved
  */
-
-@HiltViewModel
-class ChannelViewModel @Inject constructor(
-    private val dispatcher: CoroutineDispatcher,
-    private val userRepository: UserRepository
-) : ViewModel() {
+class ChannelViewModel : ViewModel() {
     private var _channelsList = MutableLiveData<List<ChannelModel>>()
     val channelsList : LiveData<List<ChannelModel>> get() = _channelsList
     var user = MutableLiveData<User>()
@@ -41,13 +31,6 @@ class ChannelViewModel @Inject constructor(
 
     private var _joinedUser = MutableLiveData<JoinChannelUser?>()
     val joinedUser : LiveData<JoinChannelUser?> get() = _joinedUser
-
-    private val _userItem = MutableLiveData<User>()
-    val userItem: LiveData<User> get() = _userItem
-
-    init {
-        getUser()
-    }
 
     fun getChannelsList() {
         val service = RetrofitClientInstance.retrofitInstance!!.create(ChannelsList::class.java)
@@ -102,11 +85,5 @@ class ChannelViewModel @Inject constructor(
 
     fun setUser(user: User){
         this.user.value = user
-    }
-
-    private fun getUser() = viewModelScope.launch {
-        userRepository.getUserData().flowOn(dispatcher).collect {
-            _userItem.postValue(it.mapToApp())
-        }
     }
 }
