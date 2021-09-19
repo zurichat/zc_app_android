@@ -74,7 +74,7 @@
             android:theme="@style/Theme.ZuriChat.Settings" />
 
         <activity android:name=".ui.activities.MainActivity" >
-            
+
         </activity>
 
 
