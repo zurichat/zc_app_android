@@ -37,6 +37,7 @@ class ProfileActivity: AppCompatActivity() {
 
     private lateinit var savedName : TextView
     private lateinit var savedAbout : TextView
+    private var user : User? = null
 
     //token id
     private var token: String? = null
@@ -61,17 +62,18 @@ class ProfileActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val extras: Bundle? = intent.extras
+        //user = intent.extras?.getParcelable("USER")!!
 
-        val user: User? = extras?.getParcelable("USER")
-
+        user = intent.getParcelableExtra<User>("USER") as User
         setContentView(R.layout.activity_profile)
+
+        token = user?.token
 
         savedName = findViewById(R.id.saved_name)
         savedAbout = findViewById(R.id.saved_about)
 
 
-        token = user?.token
+
 
         val about = findViewById<ImageView>(R.id.edit_about)
         val camera = findViewById<ImageView>(R.id.img_camera)

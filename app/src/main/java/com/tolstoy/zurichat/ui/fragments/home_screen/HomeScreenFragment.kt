@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentHomeScreenBinding
+import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.createchannel.CreateChannelActivity
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
 import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
@@ -17,12 +18,15 @@ import com.tolstoy.zurichat.ui.newchannel.SelectMemberFragment
 
 class HomeScreenFragment : Fragment() {
 
+    private lateinit var user : User
+
     private lateinit var binding: FragmentHomeScreenBinding
 
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
+        user = requireActivity().intent.extras?.getParcelable("USER")!!
         return binding.root
     }
 
@@ -48,7 +52,9 @@ class HomeScreenFragment : Fragment() {
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.settings -> {
-                    findNavController().navigate(R.id.settingsActivity)
+                    val bundle = Bundle()
+                    bundle.putParcelable("USER",user)
+                    findNavController().navigate(R.id.settingsActivity, bundle)
                 }
                 R.id.search -> {
                 }
