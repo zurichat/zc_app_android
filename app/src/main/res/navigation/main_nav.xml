@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/homeScreenFragment">
+
+    <fragment
+        android:id="@+id/dmFragment"
+        android:name="com.tolstoy.zurichat.ui.dm.DMFragment"
+        tools:layout="@layout/fragment_dm" >
+        <action
+            android:id="@+id/action_dmFragment_to_attachmentsFragment"
+            app:destination="@id/attachmentsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeScreenFragment"
+        android:name="com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragment"
+        android:label="HomeScreenFragment"
+        tools:layout="@layout/fragment_home_screen">
+        <action
+            android:id="@+id/action_homeScreenFragment_to_settingsActivity"
+            app:destination="@id/settingsActivity" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_dmFragment"
+            app:destination="@id/dmFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_channelChatFragment"
+            app:destination="@id/channelChatFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_newChannelActivity"
+            app:destination="@id/newChannelActivity" />
+    </fragment>
+
+    <activity
+        android:id="@+id/settingsActivity"
+        android:name="com.tolstoy.zurichat.ui.settings.SettingsActivity"
+        android:label="SettingsActivity" />
+
+    <activity
+        android:id="@+id/newChannelActivity"
+        android:name="com.tolstoy.zurichat.ui.newchannel.NewChannelActivity"
+        android:label="NewChannelActivity" />
+
+    <fragment
+        android:id="@+id/channelChatFragment"
+        android:name="com.tolstoy.zurichat.ui.fragments.channel_chat.ChannelChatFragment"
+        android:label="ChannelChatFragment" />
+
+    <fragment
+        android:id="@+id/addChannelFragment"
+        android:name="com.tolstoy.zurichat.ui.add_channel.AddChannelFragment"
+        android:label="AddChannelFragment" />
+
+    <fragment
+        android:id="@+id/chatsFragment"
+        android:name="com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.ChatsFragment"
+        android:label="ChatsFragment" />
+    <fragment
+        android:id="@+id/channelsFragment"
+        android:name="com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.ChannelsFragment"
+        android:label="fragment_channels"
+        tools:layout="@layout/fragment_channels" />
+    <fragment
+        android:id="@+id/attachmentsFragment"
+        android:name="com.tolstoy.zurichat.ui.dm.AttachmentsFragment"
+        tools:layout="@layout/fragment_attachments">
+        <argument
+            android:name="media"
+            app:argType="com.tolstoy.zurichat.ui.dm.MEDIA"
+            android:defaultValue="IMAGE" />
+    </fragment>
+</navigation>
