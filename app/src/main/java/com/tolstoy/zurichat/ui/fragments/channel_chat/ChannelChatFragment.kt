@@ -22,6 +22,7 @@ import com.tolstoy.zurichat.ui.fragments.model.JoinChannelUser
 import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
 import com.tolstoy.zurichat.ui.newchannel.fragment.NewChannelDataFragmentArgs
 //import com.tolstoy.zurichat.ui.newchannel.fragment.NewChannelDataFragmentArgs
+//import com.tolstoy.zurichat.ui.newchannel.fragment.NewChannelDataFragmentArgs
 //import com.tolstoy.zurichat.ui.newchannel.fragment.SelectMemberFragmentArgs
 import dev.ronnie.github.imagepicker.ImagePicker
 
@@ -44,7 +45,7 @@ class ChannelChatFragment : Fragment() {
     ): View {
         binding = FragmentChannelChatBinding.inflate(inflater, container, false)
 
-        channelJoined = args.private
+        channelJoined = args.channelStatus
         user = args.user
 
         isEnterSend = PreferenceManager.getDefaultSharedPreferences(requireContext())

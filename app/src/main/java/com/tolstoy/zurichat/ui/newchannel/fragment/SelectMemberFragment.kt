@@ -18,15 +18,15 @@ import timber.log.Timber
 class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
 
 
-    private val memberSelectedAdapter = MemberSelectedAdapter{
-            member -> removeMember(member)
+    private val memberSelectedAdapter = MemberSelectedAdapter { member ->
+        removeMember(member)
     }
 
-    private val selectMemberAdapter = SelectMemberAdapter{
-        member -> addMember(member)
+    private val selectMemberAdapter = SelectMemberAdapter { member ->
+        addMember(member)
     }
 
-    private lateinit var selectedList:MutableList<MembersData>
+    private lateinit var selectedList: MutableList<MembersData>
     private lateinit var fab: FloatingActionButton
     private var selectedListOfMembers = MutableLiveData<List<MembersData>>()
     private var selectedMembers = mutableListOf<MembersData>()
@@ -40,7 +40,7 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
 
 
         with(binding) {
-           textView6.text = "${selectMember().size} Members"
+            textView6.text = "${selectMember().size} Members"
             toolbar.setNavigationOnClickListener {
                 try {
                     val action =
@@ -59,26 +59,33 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
                 adapter = memberSelectedAdapter
 
             }
-            selectedListOfMembers.observe(requireActivity()){
-                if (it.isEmpty()){
+            selectedListOfMembers.observe(requireActivity()) {
+                if (it.isEmpty()) {
                     rcvSelected.visibility = View.GONE
                     fab.visibility = View.GONE
-                }else{
+                } else {
                     rcvSelected.visibility = View.VISIBLE
 
                     memberSelectedAdapter.addMembers(selectedMembers)
                     textView4.text = "New Channel"
-                    textView6.text = "${selectedMembers.size} out of ${selectMember().size} Selected"
+                    textView6.text =
+                        "${selectedMembers.size} out of ${selectMember().size} Selected"
                     fab.visibility = View.VISIBLE
                     rcvSelected.smoothScrollToPosition(selectedMembers.size - 1)
                 }
                 memberSelectedAdapter.addMembers(selectedMembers)
             }
             fab.setOnClickListener {
-                try{
-                    val action = SelectMemberFragmentDirections.actionSelectMemberFragmentToNewChannelDataFragment(channelName = "",memberData = selectedMembers.toTypedArray(),members = null,user = null,private = false)
+                try {
+                    val action =
+                        SelectMemberFragmentDirections.actionSelectMemberFragmentToNewChannelDataFragment(
+                            channelName = "",
+                            memberData = selectedMembers.toTypedArray(),
+                            members = null,
+                            user = null,
+                            channelStatus = false)
                     findNavController().navigate(action)
-                }catch (err: Exception){
+                } catch (err: Exception) {
                     Timber.e(SelectNewChannelFragment.TAG, err.printStackTrace())
                 }
             }
@@ -86,34 +93,34 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
         }
 
     }
-    fun addMember(member: MembersData){
+
+    fun addMember(member: MembersData) {
         binding.newChannelLayout.visibility = View.GONE
-        if(!selectedMembers.contains(member)){
+        if (!selectedMembers.contains(member)) {
             selectedMembers.add(member)
             selectedListOfMembers.value = selectedMembers
-        }
-        else{
+        } else {
             removeMember(member)
         }
 
     }
 
     //Remove Contact from Selected List
-    fun removeMember(member: MembersData){
+    fun removeMember(member: MembersData) {
         selectedMembers.remove(member)
         selectedListOfMembers.value = selectedMembers
     }
 
     private fun selectMember(): List<MembersData> {
-                return listOf(MembersData(R.drawable.dmuser, "Peculiar Umeh", "God is great"),
-        MembersData(R.drawable.dmuser, "Joseph Kalu", "I am having fun"),
-        MembersData(R.drawable.dmuser, "Ahmed Johnson", "God is great"),
-        MembersData(R.drawable.dmuser, "Chuks Fire", "I am happy"),
-        MembersData(R.drawable.dmuser, "Lukanne Godness", "Eat, code and sleep"),
-        MembersData(R.drawable.dmuser, "Sammy Bloomy", "Seeing all of you"),
-        MembersData(R.drawable.dmuser, "Uche Mentessa", "I will get to level ten"),
-        MembersData(R.drawable.dmuser, "Oluwaseyi Oga", "God is great"),
-        MembersData(R.drawable.dmuser, "John Chumme", "God is great"))
+        return listOf(MembersData(R.drawable.dmuser, "Peculiar Umeh", "God is great"),
+            MembersData(R.drawable.dmuser, "Joseph Kalu", "I am having fun"),
+            MembersData(R.drawable.dmuser, "Ahmed Johnson", "God is great"),
+            MembersData(R.drawable.dmuser, "Chuks Fire", "I am happy"),
+            MembersData(R.drawable.dmuser, "Lukanne Godness", "Eat, code and sleep"),
+            MembersData(R.drawable.dmuser, "Sammy Bloomy", "Seeing all of you"),
+            MembersData(R.drawable.dmuser, "Uche Mentessa", "I will get to level ten"),
+            MembersData(R.drawable.dmuser, "Oluwaseyi Oga", "God is great"),
+            MembersData(R.drawable.dmuser, "John Chumme", "God is great"))
     }
 
     companion object {

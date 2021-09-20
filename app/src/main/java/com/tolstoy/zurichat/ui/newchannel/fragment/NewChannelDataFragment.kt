@@ -137,7 +137,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                 members = members.toTypedArray(),
                 channelName = channelName,
                 user = user,
-                private = private
+                channelStatus = private
             )
         findNavController().navigate(action)
     }

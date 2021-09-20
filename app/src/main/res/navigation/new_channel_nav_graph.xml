@@ -84,8 +84,7 @@
                 app:argType="com.tolstoy.zurichat.models.User"/>
 
             <argument
-                android:name="private"
-                app:nullable="true"
+                android:name="channel_status"
                 app:argType="boolean" />
 
 
@@ -105,8 +104,7 @@
             app:nullable="true"/>
 
         <argument
-            android:name="private"
-            app:nullable="true"
+            android:name="channel_status"
             app:argType="boolean" />
     </fragment>
 
