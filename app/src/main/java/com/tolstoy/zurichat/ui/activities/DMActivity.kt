@@ -1,6 +1,13 @@
 package com.tolstoy.zurichat.ui.activities
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,6 +20,8 @@ import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -31,6 +40,11 @@ import java.util.*
 class DMActivity : AppCompatActivity() {
     lateinit var imagePicker: ImagePicker
     private val adapter by lazy { MessageAdapter(this, 0) }
+
+    //For Message Notifications
+    private val CHANNEL_ID = "zuriChat_dms_id_01"
+    private val notificationId = 102
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dmactivity)
@@ -94,6 +108,9 @@ class DMActivity : AppCompatActivity() {
         //update chat screen
         update(demoDmMessages)
 
+        //This makes a call to the message notifications function
+        createNotificationChannel()
+
         //call the sendMessage function when button is clicked and pass message as argument
         sendMessage.setOnClickListener {
             val message = dmEditText.text.toString()
@@ -113,6 +130,9 @@ class DMActivity : AppCompatActivity() {
             demoDmMessages.add(dms)
             update(demoDmMessages)
             dmEditText.text.clear()
+
+            //This sends a notification, that a message has been sent, as soon as the send button is clicked
+            sendNotification()
         }
 
         //Launch Attachment popup
@@ -176,6 +196,45 @@ class DMActivity : AppCompatActivity() {
                     Toast.makeText(this, "Picture not taken", Toast.LENGTH_LONG).show()
                 }
             }
+        }
+    }
+
+    //Function to start message notification for Oreo version devices and above
+    fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val name = "ZuriChat Message Notification"
+            val descriptionText = "You've got a new message from one of your contacts on ZuriChat"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+                description = descriptionText
+            }
+            val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    //Function to start message notification for older version devices
+    fun sendNotification() {
+        val intent = Intent(this, DMActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+
+        val bitmap = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.logo1)
+        val bitmapLargeIcon = BitmapFactory.decodeResource(applicationContext.resources, R.drawable.splash_logo)
+
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.logo1)
+            .setContentTitle("ZuriChat Channels Message Notification")
+            .setContentText("You've got a new message on Channels - ZuriChat")
+            .setLargeIcon(bitmapLargeIcon)
+//            .setStyle(NotificationCompat.BigTextStyle().bigText("You've got a new message on 4 Channels you belong to - ZuriChat"))
+            .setStyle(NotificationCompat.BigPictureStyle().bigPicture(bitmap))
+            .setContentIntent(pendingIntent)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+
+        with(NotificationManagerCompat.from(this)){
+            notify(notificationId, builder.build())
         }
     }
 }
