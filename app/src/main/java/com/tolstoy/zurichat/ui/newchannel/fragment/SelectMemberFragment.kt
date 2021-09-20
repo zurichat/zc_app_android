@@ -12,11 +12,11 @@ import com.tolstoy.zurichat.databinding.FragmentSelectMemberBinding
 import com.tolstoy.zurichat.models.MembersData
 import com.tolstoy.zurichat.ui.adapters.MemberSelectedAdapter
 import com.tolstoy.zurichat.ui.adapters.SelectMemberAdapter
-import com.tolstoy.zurichat.ui.createchannel.ContactListAdapter
 import com.tolstoy.zurichat.util.viewBinding
 import timber.log.Timber
 
 class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
+
 
     private val memberSelectedAdapter = MemberSelectedAdapter{
             member -> removeMember(member)
@@ -76,7 +76,7 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
             }
             fab.setOnClickListener {
                 try{
-                    val action = SelectMemberFragmentDirections.actionSelectMemberFragmentToNewChannelDataFragment(selectedMembers.toTypedArray())
+                    val action = SelectMemberFragmentDirections.actionSelectMemberFragmentToNewChannelDataFragment(channelName = "",memberData = selectedMembers.toTypedArray(),members = null,user = null,private = false)
                     findNavController().navigate(action)
                 }catch (err: Exception){
                     Timber.e(SelectNewChannelFragment.TAG, err.printStackTrace())

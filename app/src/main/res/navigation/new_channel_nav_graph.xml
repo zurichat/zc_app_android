@@ -72,16 +72,42 @@
             app:destination="@id/channelChatFragment">
             <argument
                 android:name="members"
+                app:nullable="true"
                 app:argType="string[]" />
             <argument
                 android:name="channel_name"
+                app:nullable="true"
                 app:argType="string" />
             <argument
-                android:name="channel_id"
-                app:argType="string" />
+                android:name="user"
+                app:nullable="true"
+                app:argType="com.tolstoy.zurichat.models.User"/>
+
+            <argument
+                android:name="private"
+                app:nullable="true"
+                app:argType="boolean" />
+
 
         </action>
 
+        <argument
+            android:name="members"
+            app:argType="string[]"
+            app:nullable="true" />
+        <argument
+            android:name="channel_name"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="user"
+            app:argType="com.tolstoy.zurichat.models.User"
+            app:nullable="true"/>
+
+        <argument
+            android:name="private"
+            app:nullable="true"
+            app:argType="boolean" />
     </fragment>
 
     <!-- 5. ChannelChatFragment:

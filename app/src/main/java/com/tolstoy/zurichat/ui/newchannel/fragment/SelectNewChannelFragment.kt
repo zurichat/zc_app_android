@@ -29,7 +29,9 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
             memberButton.setOnClickListener {
                 try {
                     val action =
-                        SelectNewChannelFragmentDirections.actionSelectNewChannelFragmentToSelectMemberFragment(null)
+                        SelectNewChannelFragmentDirections.actionSelectNewChannelFragmentToSelectMemberFragment(
+                            null
+                        )
                     findNavController().navigate(action)
                 } catch (exc: Exception) {
                     Timber.e(TAG, exc.toString())
@@ -38,7 +40,9 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
             memberLabel.setOnClickListener {
                 try {
                     val action =
-                        SelectNewChannelFragmentDirections.actionSelectNewChannelFragmentToSelectMemberFragment(null)
+                        SelectNewChannelFragmentDirections.actionSelectNewChannelFragmentToSelectMemberFragment(
+                            null
+                        )
                     findNavController().navigate(action)
                 } catch (exc: Exception) {
                     Timber.e(TAG, exc.toString())

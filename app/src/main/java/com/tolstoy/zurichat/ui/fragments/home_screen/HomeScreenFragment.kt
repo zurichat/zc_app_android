@@ -7,20 +7,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentHomeScreenBinding
+import com.tolstoy.zurichat.ui.activities.MainActivity
 import com.tolstoy.zurichat.ui.createchannel.CreateChannelActivity
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
 import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
+import com.tolstoy.zurichat.ui.newchannel.fragment.SelectMemberFragmentArgs
+
+//import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 
 class HomeScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeScreenBinding
 
+
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -32,6 +42,8 @@ class HomeScreenFragment : Fragment() {
         val viewPager = binding.pager
         val tabs = binding.tabs
         val toolbar = binding.toolbarContainer.toolbar
+        val activity = requireActivity() as MainActivity
+        val user = activity.user
 
         // setup for viewpager2 and tab layout
         viewPager.adapter = viewPagerAdapter
@@ -52,7 +64,10 @@ class HomeScreenFragment : Fragment() {
                 R.id.search -> {
                 }
                 R.id.new_channel -> {
-                    val intent = Intent(context, NewChannelActivity::class.java)
+                    val intent = Intent(requireContext(),NewChannelActivity::class.java)
+                    intent.apply {
+                        putExtra("user",user)
+                    }
                     startActivity(intent)
                 }
                 R.id.saved_messages -> {

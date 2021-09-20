@@ -1,9 +1,10 @@
 package com.tolstoy.zurichat.ui.newchannel.fragment
 
+//import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -12,18 +13,18 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
-import com.tolstoy.zurichat.util.viewBinding
-import dagger.hilt.android.AndroidEntryPoint
 import com.tolstoy.zurichat.databinding.FragmentNewChannelDataBinding
 import com.tolstoy.zurichat.models.CreateChannelBodyModel
-import com.tolstoy.zurichat.models.CreateChannelResponseModel
 import com.tolstoy.zurichat.models.MembersData
 import com.tolstoy.zurichat.models.User
+import com.tolstoy.zurichat.ui.activities.MainActivity
 import com.tolstoy.zurichat.ui.adapters.NewChannelMemberSelectedAdapter
-import com.tolstoy.zurichat.ui.adapters.SelectMemberAdapter
+import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 import com.tolstoy.zurichat.ui.newchannel.states.CreateChannelViewState
 import com.tolstoy.zurichat.ui.newchannel.viewmodel.CreateChannelViewModel
 import com.tolstoy.zurichat.util.ProgressLoader
+import com.tolstoy.zurichat.util.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
@@ -36,29 +37,32 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     private val args: SelectMemberFragmentArgs by navArgs()
     private var private = false
     private var channelId = ""
+    private var user:User?= null
     private var channelsMember = ArrayList<String>()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val activity = requireActivity() as NewChannelActivity
+        user = activity.user
+
         setupViewsAndListeners()
         observerData()
 
     }
 
-    /*
-    this fun will return the authenticatedId
-    N.B Not implemented yet,am hardcoding.
-    please implement it later
-     */
     private fun retrieveChannelOwner(): String {
-        return "6145ac3c285e4a18402073aa"
+       if (user != null){
+           return user!!.id
+       }
+        return ""
     }
 
     private fun setupViewsAndListeners() {
         with(binding) {
             newChannelToolbar.setNavigationOnClickListener {
-                findNavController().navigateUp()
+                startActivity(Intent(requireContext(),MainActivity::class.java))
+                requireActivity().finish()
             }
 
             floatingActionButton.setOnClickListener {
@@ -128,12 +132,13 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     private fun navigateToDetails() {
         val members = channelsMember
         val channelName = binding.channelName.text.toString()
-        val channelId = channelId
         val action =
             NewChannelDataFragmentDirections.actionNewChannelDataFragmentToChannelChatFragment(
                 members = members.toTypedArray(),
                 channelName = channelName,
-                channelId = channelId)
+                user = user,
+                private = private
+            )
         findNavController().navigate(action)
     }
 }
