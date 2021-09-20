@@ -29,8 +29,11 @@
     <string name="register_mail">Email Address</string>
     <string name="welcome_image">Welcome Image</string>
 
-    <!-- Toolbar -->
+    <!-- Attachments -->
     <string name="send_to">Send to %1$s</string>
+    <string name="x_selected">%1$d selected</string>
+    <string name="all_view">All %1$s</string>
+    <string name="tap_to_select">Tap to select</string>
 
     <!-- Menu: DM -->
     <string name="action_video_call">Video Call</string>
@@ -137,7 +140,7 @@
     <string name="changephoneno_hint_txt">Enter your new phone number</string>
     <string name="search_for_channels">Search for channels</string>
 
-  
+
     <!--    Notifications & Sounds-->
     <string name="channel_tones_header">Channel tones</string>
     <string name="channel_tones_summary">Play sound for incoming and outgoing message in channels</string>
@@ -206,5 +209,8 @@
     <string name="select_members_">Select Members</string>
     <string name="choose_channel_members">Choose Channel Members</string>
     <string name="select_contact_">Select Contact</string>
+    <string name="leave_channel_warning_message">Are you sure you want to leave this channel? You will no longer receive messages from this channel once you leave</string>
+    <string name="leave_channel_warning_cancel_option">CANCEL</string>
+    <string name="leave_channel_warning_leave_option">LEAVE</string>
 
 </resources>

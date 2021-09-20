@@ -45,7 +45,11 @@ class ChannelChatFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        // code to control the dimming of background
+        val dimmerBox:View? = view?.findViewById<View>(R.id.dm_chat_dimmer)
+        val prefMngr = PreferenceManager.getDefaultSharedPreferences(context)
+        val dimVal = prefMngr.getInt("bar",50).toFloat().div(100f)
+        dimmerBox?.alpha = dimVal
         setupKeyboard()
 
         /**
