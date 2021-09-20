@@ -216,5 +216,6 @@
     <string name="invalid_information">Invalid information</string>
     <string name="user_not_found">User not found</string>
     <string name="successful_new_channel_creation">Successful create new channel</string>
+    <string name="creating_new_channel">creating new channel.......</string>
 
 </resources>

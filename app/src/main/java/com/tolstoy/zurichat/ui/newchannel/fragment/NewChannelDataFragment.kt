@@ -3,6 +3,7 @@ package com.tolstoy.zurichat.ui.newchannel.fragment
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.view.isEmpty
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -15,7 +16,9 @@ import com.tolstoy.zurichat.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import com.tolstoy.zurichat.databinding.FragmentNewChannelDataBinding
 import com.tolstoy.zurichat.models.CreateChannelBodyModel
+import com.tolstoy.zurichat.models.CreateChannelResponseModel
 import com.tolstoy.zurichat.models.MembersData
+import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.adapters.NewChannelMemberSelectedAdapter
 import com.tolstoy.zurichat.ui.adapters.SelectMemberAdapter
 import com.tolstoy.zurichat.ui.newchannel.states.CreateChannelViewState
@@ -32,7 +35,8 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     private val viewModel: CreateChannelViewModel by viewModels()
     private val args: SelectMemberFragmentArgs by navArgs()
     private var private = false
-    private var channelOwner = ""
+    private var channelId = ""
+    private var channelsMember = ArrayList<String>()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,6 +44,14 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
         setupViewsAndListeners()
         observerData()
 
+    }
+
+    /*
+    this fun will return the authenticatedId
+    N.B Not implemented yet.
+     */
+    private fun retrieveChannelOwner(): String {
+        return ""
     }
 
     private fun setupViewsAndListeners() {
@@ -51,7 +63,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
             floatingActionButton.setOnClickListener {
                 val name = binding.channelName.text.toString()
                 val description = "$name description"
-                val owner = channelOwner
+                val owner = retrieveChannelOwner()
                 val privateValue = private
                 val createChannelBodyModel = CreateChannelBodyModel(
                     description = description,
@@ -59,8 +71,12 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                     owner = owner,
                     private = privateValue
                 )
-                viewModel.createNewChannel(createChannelBodyModel = createChannelBodyModel)
-                progressLoader.show("creating new channel.......")
+                if (channelName.text!!.isEmpty()) {
+                    newChannelNameInput.error = "Channel name can't be empty."
+                } else {
+                    viewModel.createNewChannel(createChannelBodyModel = createChannelBodyModel)
+                    progressLoader.show(getString(R.string.creating_new_channel))
+                }
             }
 
             radioGroup1.setOnCheckedChangeListener { _, checkedId ->
@@ -76,6 +92,9 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
             recycler.apply {
                 if (args.memberData != null) {
                     val memberDataList: List<MembersData> = args.memberData!!.toList()
+                    memberDataList.forEach {
+                        channelsMember.add(it.name!!)
+                    }
                     val memberAdapter = NewChannelMemberSelectedAdapter(memberDataList)
                     layoutManager =
                         LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
@@ -93,6 +112,8 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
             viewModel.createChannelViewFlow.collect {
                 when (it) {
                     is CreateChannelViewState.Success -> {
+                        val channelResponseModel = it.createChannelResponseModel
+                        channelId = channelResponseModel!!._id
                         progressLoader.hide()
                         Toast.makeText(context, getString(it.message), Toast.LENGTH_LONG).show()
                         navigateToDetails()
@@ -101,17 +122,20 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                         progressLoader.hide()
                         Toast.makeText(context, getString(it.message), Toast.LENGTH_LONG).show()
                     }
-
                 }
             }
-
         }
-
     }
 
     private fun navigateToDetails() {
+        val members = channelsMember
+        val channelName = binding.channelName.text.toString()
+        val channelId = channelId
         val action =
-            NewChannelDataFragmentDirections.actionNewChannelDataFragmentToChannelChatFragment()
+            NewChannelDataFragmentDirections.actionNewChannelDataFragmentToChannelChatFragment(
+                members = members.toTypedArray(),
+                channelName = channelName,
+                channelId = channelId)
         findNavController().navigate(action)
     }
 }
