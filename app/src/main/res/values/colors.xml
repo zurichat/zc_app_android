@@ -22,6 +22,12 @@
 
     <color name="canvas_color">#1A61DB</color>
     <color name="home_background_color">#F6F6F6</color>
-    <color name="green_color">#09B133</color>
+    <color name="green_color">#048022</color>
+
+    <color name="selected">#FAD1D5D2</color>
+    <color name="light_blue">#FA16B2E6</color>
+    <color name="milk">#FAF8F7EF</color>
+
+
 
 </resources>

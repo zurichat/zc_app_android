@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/milk"
+    tools:context=".ui.activities.DocumentSentActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@color/green_color"
+        android:id="@+id/sentLayout1">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/documentBack"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_back"
+            android:layout_centerVertical="true"/>
+
+        <ImageView
+            android:layout_width="41dp"
+            android:layout_height="41dp"
+            android:id="@+id/documentImage"
+            android:layout_toEndOf="@id/documentBack"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/dmuser"
+            android:layout_centerVertical="true"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/documentImage"
+            android:layout_marginTop="11dp"
+            android:layout_marginStart="6dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/doc_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/lato"
+                android:text="John Doe Felix"
+                android:textAlignment="textStart"
+                android:textColor="@color/white"
+                android:textAppearance="?attr/textAppearanceBody1"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="last seen at 5:50am"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"/>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_more_vert"
+            android:id="@+id/docSentMore"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="5dp"/>
+
+    </RelativeLayout>
+<RelativeLayout
+    android:layout_width="300dp"
+    android:layout_height="68dp"
+    android:background="@drawable/chat_sent_bg"
+    android:layout_alignParentEnd="true"
+    android:layout_below="@id/sentLayout1"
+    android:layout_marginTop="90dp"
+    android:layout_marginEnd="10dp"
+    android:id="@+id/sentMessage1">
+    <LinearLayout
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/chat_linea"
+        android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textDirection="ltr"
+        android:textSize="18sp"
+        android:layout_marginStart="10dp"
+        android:textAppearance="?attr/textAppearanceBody2"
+        android:fontFamily="@font/basic"
+        android:text="They know you\'re here. Its better you get across to them as soon as possible"/>
+
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/docSentTime"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@id/chat_linea"
+        android:layout_toEndOf="@id/chat_linea"
+        android:layout_marginEnd="4dp"
+        android:text="5:40 AM"/>
+
+<ImageView
+    android:layout_width="18dp"
+    android:layout_height="18dp"
+    android:src="@drawable/ic_seen"
+    android:layout_alignBottom="@id/docSentTime"
+    android:layout_alignParentEnd="true"/>
+</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="30dp"
+        android:id="@+id/sentMessage2"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/chat_sent_bg"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/sentMessage1">
+
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginStart="10dp"
+           android:layout_centerVertical="true"
+           android:id="@+id/chat2">
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:fontFamily="@font/basic"
+               android:text="They know you\'re here"
+               android:textAppearance="?attr/textAppearanceBody2"
+               android:textSize="18sp"/>
+       </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/docSentTime1"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@id/chat2"
+            android:layout_marginEnd="28dp"
+            android:text="5:40 AM"/>
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_seen"
+            android:layout_alignBottom="@id/docSentTime1"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="88dp"
+        android:id="@+id/sentMessage3"
+        android:background="@drawable/chat_received_bg"
+        android:layout_below="@id/sentMessage2"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp">
+        <LinearLayout
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:id="@+id/chat3">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I understand your point. But i think it is best i find my foot first before taking any decision"
+                android:textSize="18sp"
+                android:fontFamily="@font/basic"
+                android:textAppearance="?attr/textAppearanceBody2"/>
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/docSentTime2"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@id/chat3"
+            android:layout_marginEnd="21dp"
+            android:text="5:40 AM"/>
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_seen"
+            android:layout_alignBottom="@id/docSentTime2"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="30dp"
+        android:id="@+id/sentMessage4"
+        android:background="@drawable/chat_received_bg"
+        android:layout_below="@id/sentMessage3"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp">
+        <LinearLayout
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:id="@+id/chat4">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="They know you\'re here"
+            android:textSize="18sp"
+            android:fontFamily="@font/basic"
+            android:textAppearance="?attr/textAppearanceBody2"/>
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/docSentTime3"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@id/chat4"
+            android:layout_marginEnd="21dp"
+            android:text="5:40 AM"/>
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_seen"
+            android:layout_alignBottom="@id/docSentTime3"
+            android:layout_alignParentEnd="true"/>
+
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="30dp"
+        android:id="@+id/sentMessage5"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/chat_sent_bg"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/sentMessage4">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/chat5">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/basic"
+                android:text="They know you\'re here"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textSize="18sp"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/docSentTime4"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@id/chat5"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="28dp"
+            android:text="5:40 AM"/>
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_seen"
+            android:layout_alignBottom="@id/docSentTime4"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="68dp"
+        android:background="@drawable/chat_sent_bg"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/sentMessage5"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/sentMessage6">
+        <LinearLayout
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/chat_linea1"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textDirection="ltr"
+                android:textSize="18sp"
+                android:layout_marginStart="10dp"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:fontFamily="@font/basic"
+                android:text="They know you\'re here. Its better you get across to them as soon as possible"/>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/docSentTime5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@id/chat_linea1"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="1dp"
+            android:layout_toEndOf="@id/chat_linea1"
+            android:text="5:40 AM" />
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_seen"
+            android:layout_alignBottom="@id/docSentTime5"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="250dp"
+        android:layout_height="160dp"
+        android:layout_below="@id/sentMessage6"
+        android:id="@+id/sentMessage7"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/chat_sent_bg"
+        android:layout_marginTop="5dp">
+        <ImageView
+            android:layout_width="280dp"
+            android:layout_height="100dp"
+            android:src="@drawable/doc_sent"
+            android:id="@+id/docImage"
+            android:layout_margin="5dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/docName"
+            android:layout_below="@+id/docImage"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:src="@drawable/pdf"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New First Bank Resources For New..."
+                android:textSize="13sp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/basic"
+                android:textAppearance="?attr/textAppearanceBody2"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/docDateTime"
+            android:layout_below="@+id/docName"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="1dp"
+                android:text="45 pages • 456 KB"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/docSentTime6"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="21dp"
+            android:layout_marginBottom="3dp"
+            android:text="5:40 AM"/>
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/ic_seen"
+            android:layout_alignBottom="@id/docSentTime6"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true">
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:orientation="horizontal">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:orientation="horizontal"
+                android:paddingStart="15dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="5dp">
+
+                <ImageView
+                    android:id="@+id/icon_btn"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/ic_smile"
+                    app:tint="#737373"
+                    android:contentDescription="Todo" />
+
+                <EditText
+                    android:id="@+id/message_edit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:hint="@string/type_a_message"
+                    android:padding="10dp"
+                    android:inputType="text" />
+
+                <ImageView
+                    android:id="@+id/link_btn"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="15dp"
+                    android:src="@drawable/link"
+                    app:tint="#737373"
+                    android:contentDescription="Todo" />
+
+                <ImageView
+                    android:id="@+id/camera_btn"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/ic_camera"
+                    app:tint="#737373"
+                    android:contentDescription="Todo" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/recorder_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/green_color"
+            android:src="@drawable/ic_voice"
+            android:contentDescription="Todo" />
+
+    </LinearLayout>
+
+</RelativeLayout>
+</RelativeLayout>
