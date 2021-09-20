@@ -86,7 +86,10 @@
             <argument
                 android:name="channel_status"
                 app:argType="boolean" />
-
+            <argument
+                android:name="channel_id"
+                app:argType="string"
+                app:nullable="true" />
 
         </action>
 
@@ -106,6 +109,11 @@
         <argument
             android:name="channel_status"
             app:argType="boolean" />
+
+        <argument
+            android:name="channel_id"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
 
     <!-- 5. ChannelChatFragment:

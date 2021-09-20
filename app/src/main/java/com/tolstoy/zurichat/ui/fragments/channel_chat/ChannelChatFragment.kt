@@ -78,7 +78,7 @@ class ChannelChatFragment : Fragment() {
                 binding.channelName.visibility = View.GONE
                 binding.progressBar2.visibility = View.VISIBLE
                 user?.let { JoinChannelUser(it.id, "manager") }
-                    ?.let { viewModel.joinChannel("1", channel._id, it) }
+                    ?.let { viewModel.joinChannel("1", args.channelId!!, it) }
             }
 
             viewModel.joinedUser.observe(viewLifecycleOwner, { joinedUser ->
@@ -106,7 +106,7 @@ class ChannelChatFragment : Fragment() {
 
         toolbar.title = args.channelName
         args.members?.forEach {
-            toolbar.subtitle = it
+            toolbar.subtitle = "$it..."
         }
 
 

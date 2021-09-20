@@ -83,7 +83,9 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
                             memberData = selectedMembers.toTypedArray(),
                             members = null,
                             user = null,
-                            channelStatus = false)
+                            channelStatus = false,
+                            channelId = null
+                        )
                     findNavController().navigate(action)
                 } catch (err: Exception) {
                     Timber.e(SelectNewChannelFragment.TAG, err.printStackTrace())
