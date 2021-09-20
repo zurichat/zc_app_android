@@ -215,4 +215,13 @@
     <string name="gif">GIF</string>
     <string name="an_error_occured">An Error Occurred</string>
 
+    <string name="image1">All images</string>
+    <string name="image2">All videos</string>
+    <string name="image3">Camera</string>
+    <string name="image4">Dev App images</string>
+    <string name="image5">Xender images</string>
+    <string name="image6">Xender images</string>
+    <string name="image7">WhatsApp images</string>
+    <string name="image8">WhatsApp videos</string>
+
 </resources>
