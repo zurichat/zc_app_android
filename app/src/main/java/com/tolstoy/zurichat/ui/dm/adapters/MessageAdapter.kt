@@ -1,17 +1,20 @@
 package com.tolstoy.zurichat.ui.dm.adapters
 
 import android.content.Context
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ItemAttachmentImageBinding
 import com.tolstoy.zurichat.databinding.ItemMessageBinding
 import com.tolstoy.zurichat.models.Message
+import com.tolstoy.zurichat.util.FONT_KEY
 import com.tolstoy.zurichat.util.changeVisibility
 import com.tolstoy.zurichat.util.extractUrl
 import com.tolstoy.zurichat.util.getWebsiteMetadata
@@ -46,10 +49,27 @@ class MessageAdapter(
     }
 
     override fun onBindViewHolder(holder: MessageViewHolder, position: Int) {
-//        Timber.d("onBindViewHolder: " + messages[adapterPosition])
+        //        Timber.d("onBindViewHolder: " + messages[adapterPosition])
 //        val previousMessage = if(adapterPosition - 1 >= 0) messages[adapterPosition - 1] else null
 //        styleMessage(messages[adapterPosition], previousMessage, binding)
         // add on click listeners for each message
+
+        // get chat font size
+        val fontSizeText = PreferenceManager.getDefaultSharedPreferences(context).getString(FONT_KEY, "")
+        var fontSizeSP = 0f
+        when(fontSizeText) {
+            "1" -> {
+                fontSizeSP =  14f
+            }
+            "2" -> {
+                fontSizeSP = 16f
+            }
+            "3" -> {
+                fontSizeSP =  18f
+            }
+        }
+
+        messages[position].fontSize = fontSizeSP
         holder.bind(messages[position])
     }
 
@@ -61,6 +81,7 @@ class MessageAdapter(
         messages.add(message)
         notifyItemInserted(messages.lastIndex)
     }
+
 
     /**
      * Aligns the message box depending on the bias, 1 means right, 0 means left
@@ -76,6 +97,9 @@ class MessageAdapter(
             applyTo(message.root)
         }
     }
+
+    inner class ViewHolder(val binding: ItemMessageBinding):
+        RecyclerView.ViewHolder(binding.root)
 
     companion object {
         val TAG = MessageAdapter::class.simpleName

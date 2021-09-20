@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +47,8 @@ public class RegisterUserFragment extends Fragment {
     private TextInputLayout email, password, password2;
     private ProgressDialog progressDialog;
     private RetrofitService retrofitService;
+    private CheckBox checkBox;
+    private Bundle bundle;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,8 @@ public class RegisterUserFragment extends Fragment {
 
         textView_login = view.findViewById(R.id.textView_signin);
         navController = Navigation.findNavController(view);
+        bundle = new Bundle();
+        checkBox = view.findViewById(R.id.checkBox);
 
         retrofitService = RetrofitClient.getClient("https://api.zuri.chat/").create(RetrofitService.class);
 
@@ -89,10 +94,13 @@ public class RegisterUserFragment extends Fragment {
                     password.setError("Invalid password pattern");
                 }else if(!password.getEditText().getText().toString().equals(password2.getEditText().getText().toString())){
                     password2.setError("Password does not match");
-                }else{
+                }else if(!checkBox.isChecked()){
+                    checkBox.setError("Terms and conditions must be accepted!");
+                } else{
 
                     password.setError(null);
                     password2.setError(null);
+                    bundle.putString("email", userEmail);
                     registerUser("", "", "", userEmail, userPassword, "");
                 }
 
@@ -102,7 +110,7 @@ public class RegisterUserFragment extends Fragment {
         textView_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                navController.navigate(R.id.action_registerUserFragment_to_loginFragment);
+                navController.navigate(R.id.action_registerUserFragment_to_loginFragment, bundle);
             }
         });
     }
@@ -119,8 +127,8 @@ public class RegisterUserFragment extends Fragment {
 
                 }else {
                     if (response.body().getMessage().matches("user created")){
-                        navController.navigate(R.id.action_registerUserFragment_to_loginFragment);
                         Toast.makeText(getContext(), "Registration Successful", Toast.LENGTH_LONG).show();
+                        navController.navigate(R.id.action_registerUserFragment_to_emailVerificationFragment, bundle);
                     }
                 }
                 progressDialog.dismiss();

@@ -140,7 +140,7 @@
     <string name="changephoneno_hint_txt">Enter your new phone number</string>
     <string name="search_for_channels">Search for channels</string>
 
-  
+
     <!--    Notifications & Sounds-->
     <string name="channel_tones_header">Channel tones</string>
     <string name="channel_tones_summary">Play sound for incoming and outgoing message in channels</string>
