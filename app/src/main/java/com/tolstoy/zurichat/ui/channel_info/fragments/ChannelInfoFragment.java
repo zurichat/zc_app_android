@@ -107,33 +107,22 @@ public class ChannelInfoFragment extends Fragment {
         View thePopUpWindow = popupWindow.getContentView();
         TextView muteChannel = (TextView)thePopUpWindow.findViewById(R.id.muteChannelOption);
         TextView leaveChannel = (TextView)thePopUpWindow.findViewById(R.id.leaveChannelOption);
-        TextView cancel = view.findViewById(R.id.leaveChannelWarningCancelTextView);
-        TextView leave = view.findViewById(R.id.leaveChannelWarningLeaveTextView);
-        TextView warningMessage = view.findViewById(R.id.leaveChannelWarningTextView);
+
+        View leaveChannelView = LayoutInflater.from(requireContext()).inflate(R.layout.leave_channel_confirmation, null);
+        TextView cancel = leaveChannelView.findViewById(R.id.leaveChannelWarningCancelTextView);
+        TextView leave = leaveChannelView.findViewById(R.id.leaveChannelWarningLeaveTextView);
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-        builder.setMessage(R.string.leave_channel_warning_message)
-                .setCancelable(true)
-                .setPositiveButton(R.string.leave_channel_warning_leave_option, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //navController.navigate(R.id.channelsFragment);
-                        dialog.dismiss();
-                    }
-                })
-                .setNegativeButton(R.string.leave_channel_warning_cancel_option, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                }).create();
+        builder.setCancelable(true)
+                .setView(leaveChannelView);
+        AlertDialog dialog = builder.create();
+        cancel.setOnClickListener(view1 -> dialog.dismiss());
+        leave.setOnClickListener(view2 -> {
+            dialog.dismiss();
+            Toast.makeText(requireContext(), "You successfully left the channel", Toast.LENGTH_SHORT).show();
+        });
 
         //when leave channel is clicked
-        leaveChannel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                builder.show();
-            }
-        });
+        leaveChannel.setOnClickListener(v -> dialog.show());
 
     }
 
