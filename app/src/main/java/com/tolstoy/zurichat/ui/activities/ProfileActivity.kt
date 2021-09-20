@@ -21,6 +21,8 @@ import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.profile.data.ProfilePayload
 import com.tolstoy.zurichat.ui.profile.data.ProfileResponse
+import com.tolstoy.zurichat.ui.profile.data.UserMemberResponse
+import com.tolstoy.zurichat.ui.profile.data.UserOrganizationResponse
 import com.tolstoy.zurichat.ui.profile.network.Constants
 import com.tolstoy.zurichat.ui.profile.network.ProfileService
 import okhttp3.Interceptor
@@ -144,7 +146,7 @@ class ProfileActivity: AppCompatActivity() {
             with(builder){
                 setTitle("Edit Phone Number")
                 setPositiveButton("Save"){ _, _ ->
-                    updateProfile()
+                    getUserOrganization()
                     phoneTextView.text = editText.text.toString() // populates the value of the
                     Timber.d("Update Successful") // EditText on the TextView
 
@@ -250,6 +252,82 @@ class ProfileActivity: AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
+                Timber.e(t.message.toString())
+            }
+
+        })
+    }
+
+    //Get user organization
+    private fun getUserOrganization() {
+        val email: String? = user?.email
+
+        val call: Call<UserOrganizationResponse> = retrofitService.getUserOrg(email)
+        call.enqueue(object : Callback<UserOrganizationResponse> {
+            override fun onResponse(
+                call: Call<UserOrganizationResponse>,
+                response: Response<UserOrganizationResponse>?
+            ) {
+                if(response!!.isSuccessful) {
+                    Log.i("Login Response Result", response.body()!!.message)
+
+                    val orgId: String = response.body()!!.data[1].id
+
+                    getMemberId(orgId)
+                } else {
+                    when(response.code()){
+                        400 -> {
+                            Log.e("Error 400", "invalid authorization")
+                        }
+                        404 -> {
+                            Log.e("Error 404", "Not Found")
+                        }
+                        401 -> {
+                            Log.e("Error 401", "No authorization or session expired")
+                        }
+                        else -> {
+                            Log.e("Error", "Generic Error")
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<UserOrganizationResponse>, t: Throwable) {
+                Timber.e(t.message.toString())
+            }
+
+        })
+    }
+
+    private fun getMemberId(orgId: String) {
+        val call: Call<UserMemberResponse> = retrofitService.getUserMemberId(orgId)
+        call.enqueue(object : Callback<UserMemberResponse> {
+            override fun onResponse(
+                call: Call<UserMemberResponse>,
+                response: Response<UserMemberResponse>?
+            ) {
+                if(response!!.isSuccessful) {
+                    Log.i("Login Response Result", response.body()!!.message)
+
+                } else {
+                    when(response.code()){
+                        400 -> {
+                            Log.e("Error 400", "invalid authorization")
+                        }
+                        404 -> {
+                            Log.e("Error 404", "Not Found")
+                        }
+                        401 -> {
+                            Log.e("Error 401", "No authorization or session expired")
+                        }
+                        else -> {
+                            Log.e("Error", "Generic Error")
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<UserMemberResponse>, t: Throwable) {
                 Timber.e(t.message.toString())
             }
 
