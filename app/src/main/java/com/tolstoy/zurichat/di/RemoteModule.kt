@@ -1,5 +1,7 @@
 package com.tolstoy.zurichat.di
 
+import com.tolstoy.zurichat.data.remoteSource.ApiServiceFactory
+import com.tolstoy.zurichat.data.remoteSource.NewChannelApiService
 import com.tolstoy.zurichat.data.remoteSource.RetrofitService
 import com.tolstoy.zurichat.ui.newchannel.CreateChannelRemote
 import com.tolstoy.zurichat.ui.newchannel.remote.CreateChannelRemoteImpl
@@ -16,4 +18,10 @@ import javax.inject.Singleton
 interface RemoteModule {
     @get:Binds
     val CreateChannelRemoteImpl.createChannelRepositoryRemote: CreateChannelRemote
+
+    companion object {
+        @[Provides Singleton]
+        fun provideApiService(): NewChannelApiService =
+            ApiServiceFactory.createApiService()
+    }
 }

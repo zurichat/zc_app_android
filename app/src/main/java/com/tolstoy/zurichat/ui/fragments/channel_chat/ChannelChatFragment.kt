@@ -32,11 +32,16 @@ class ChannelChatFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelChatBinding.inflate(inflater, container, false)
         val bundle = arguments
-        if (bundle != null) {
-            user = bundle.getParcelable("USER")
-            channel = bundle.getParcelable("Channel")!!
-            channelJoined = bundle.getBoolean("Channel Joined")
-        }
+       try {
+           if (bundle != null) {
+               user = bundle.getParcelable("USER")
+               channel = bundle.getParcelable("Channel")!!
+               channelJoined = bundle.getBoolean("Channel Joined")
+           }
+       }
+       catch (exc:Exception){
+           exc.printStackTrace()
+       }
 
         isEnterSend = PreferenceManager.getDefaultSharedPreferences(requireContext())
             .getBoolean("enter_to_send", false)

@@ -2,6 +2,7 @@ package com.tolstoy.zurichat.ui.newchannel.remote
 
 import com.tolstoy.zurichat.data.functional.Failure
 import com.tolstoy.zurichat.data.functional.Result
+import com.tolstoy.zurichat.data.remoteSource.NewChannelApiService
 import com.tolstoy.zurichat.data.remoteSource.ResponseCode
 import com.tolstoy.zurichat.data.remoteSource.RetrofitService
 import com.tolstoy.zurichat.models.CreateChannelBodyModel
@@ -10,7 +11,7 @@ import com.tolstoy.zurichat.ui.newchannel.CreateChannelRemote
 import javax.inject.Inject
 
 class CreateChannelRemoteImpl @Inject constructor(
-    private val apiService: RetrofitService
+    private val apiService: NewChannelApiService
 ): CreateChannelRemote {
     override suspend fun saveNewChannel(createChannelBodyModel: CreateChannelBodyModel): Result<CreateChannelResponseModel> {
         return try {

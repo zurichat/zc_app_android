@@ -116,6 +116,7 @@
             android:layout_height="wrap_content"
             android:text="@string/make_my_channel_public"
             android:textSize="14sp"
+            android:checked="true"
             android:textColor="@color/text_black"
             android:fontFamily="@font/lato"
             />

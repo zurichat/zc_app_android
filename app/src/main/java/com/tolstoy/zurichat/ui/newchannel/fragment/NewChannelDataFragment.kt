@@ -48,10 +48,11 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
 
     /*
     this fun will return the authenticatedId
-    N.B Not implemented yet.
+    N.B Not implemented yet,am hardcoding.
+    please implement it later
      */
     private fun retrieveChannelOwner(): String {
-        return ""
+        return "6145ac3c285e4a18402073aa"
     }
 
     private fun setupViewsAndListeners() {
@@ -72,7 +73,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                     private = privateValue
                 )
                 if (channelName.text!!.isEmpty()) {
-                    newChannelNameInput.error = "Channel name can't be empty."
+                    channelName.error = "Channel name can't be empty."
                 } else {
                     viewModel.createNewChannel(createChannelBodyModel = createChannelBodyModel)
                     progressLoader.show(getString(R.string.creating_new_channel))
@@ -82,10 +83,10 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
             radioGroup1.setOnCheckedChangeListener { _, checkedId ->
                 when (checkedId) {
                     R.id.make_public -> {
-                        private = true
+                        private = false
                     }
                     R.id.make_private -> {
-                        private = false
+                        private = true
                     }
                 }
             }
@@ -100,12 +101,9 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                         LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
                     adapter = memberAdapter
                 }
-
             }
-
         }
     }
-
 
     private fun observerData() {
         lifecycleScope.launchWhenCreated {
