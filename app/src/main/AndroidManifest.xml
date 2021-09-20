@@ -10,16 +10,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZuriChat">
         <activity
-            android:name=".ui.activities.DocumentSentActivity"
+            android:name=".ui.activities.ChannelInfoActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name=".ui.welcome.WelcomeActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activities.DocumentsSelectedActivity"
+            android:name=".ui.activities.NewChannelActivity"
             android:exported="true" />
         <activity
-            android:name=".ui.activities.DocumentOtions"
-            android:exported="true" />
+            android:name=".ui.settings.LargerItemsActivity"
+            android:exported="true"
+            android:label="@string/larger_items_or_no_items_string"
+            android:parentActivityName=".ui.settings.LargerItemsActivity"
+            android:theme="@style/Theme.ZuriChat.Settings" />
         <activity
-            android:name=".ui.activities.ChannelNameAndIconActivity"
+            android:name=".ui.emailverified.EmailVerifiedActivity"
             android:exported="true" />
         <activity
             android:name=".ui.activities.ChannelChatActivity"
@@ -34,6 +41,12 @@
             android:name=".ui.otp.OTP_Page"
             android:exported="true" />
         <activity
+            android:name=".ui.settings.ManageStorageActivity"
+            android:exported="true"
+            android:label="@string/string_manage_storage"
+            android:parentActivityName=".ui.settings.ManageStorageActivity"
+            android:theme="@style/Theme.ZuriChat.Settings" />
+        <activity
             android:name=".ui.settings.SettingsActivity"
             android:exported="true"
             android:label="@string/title_activity_settings"
@@ -43,16 +56,30 @@
             android:exported="true" />
         <activity
             android:name=".ui.login.LoginActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.ZuriChat.Splash" />
         <activity
             android:name=".ui.activities.SplashActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.ZuriChat.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activities.ProfileActivity"
+            android:exported="true"
+            android:label="@string/profile_activity"
+            android:parentActivityName=".ui.settings.ManageStorageActivity"
+            android:theme="@style/Theme.ZuriChat.Settings" />
+        <activity
+            android:name=".ui.activities.ProfileAboutActivity"
+            android:exported="true"
+            android:label="@string/profile_about"
+            android:parentActivityName=".ui.settings.ManageStorageActivity"
+            android:theme="@style/Theme.ZuriChat.Settings" />
         <activity android:name=".ui.activities.MainActivity" />
 
         <meta-data

@@ -3,6 +3,9 @@
     <string name="zuri_dms_team_tolstoy">Zuri DMs: \nTeam Tolstoy -\n Kotlin &amp; Java Mobile</string>
     <string name="enter_registered_email">Enter registered zuri chat email</string>
     <string name="verify_email">Verify Email</string>
+    <string name="email_verified">Email Verified</string>
+    <string name="continue_to_zuri_chat">Continue to Zuri Chat</string>
+    <string name="proceed_to_chat_button">Proceed to Chat</string>
     <string name="imagelogo">imageLogo</string>
     <string name="description">Description</string>
     <string name="title_text">Title Text</string>
@@ -21,6 +24,11 @@
     <string name="customize_your_chat_experience">Customize your chat experience</string>
     <string name="customize_your_chat_environment_to_suit_your_preference">Customize your chat environment to suit your preference</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="welcome_title">Welcome to Zuri Chat</string>
+    <string name="welcome_text">Send DMs to your contacts and channels with \n ease, start conversations with just a click</string>
+    <string name="register_mail">Enter registered email</string>
+    <string name="welcome_image">Welcome Image</string>
+
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -65,5 +73,33 @@
     <string name="font_size_default">Medium</string>
     <string name="chat_backup">Chat backup</string>
     <string name="chat_history">Chat history</string>
+    <string name="string_manage_storage">Manage Storage</string>
+    <string name="profile_activity">Profile</string>
+    <string name="delete_txt">delete</string>
+    <string name="save_txt">save</string>
+    <string name="larger_items_or_no_items_string">No Item here</string>
+    <!-- Theme Selection -->
+    <string name="prefsThemesList_default">none</string>
+    <string name="username_">Username</string>
+    <string name="hey_what_s_good_">Hey what\'s good</string>
+    <string name="_10_07">10:07</string>
+
+    <string name="profile_about">About</string>
+
+    <string name="no_item_here_txt">Sorry, you do not have any \nitem here.</string>
+    <string name="gallery">Gallery</string>
+    <string name="audio">Audio</string>
+    <string name="document">Document</string>
+
+    <!--Channels-->
+    <string name="make_your_channel_private">Make your channel private</string>
+    <string name="set_your_channel_privacy">Set your channel privacy</string>
+    <string name="channel_members">Channel members</string>
+    <string name="make_your_channel_public">Make your channel public</string>
+    <string name="et_channel_name">Name</string>
+    <string name="todo">TODO</string>
+    <string name="_22">22</string>
+    <string name="channels">CHANNELS</string>
+    <string name="Channel_info">Channel Info</string>
 
 </resources>

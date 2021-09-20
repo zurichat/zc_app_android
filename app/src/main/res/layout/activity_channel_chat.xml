@@ -177,13 +177,13 @@
 
                 <ImageView
                     android:id="@+id/link_btn"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="17dp"
+                    android:layout_height="16dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginEnd="15dp"
+                    android:contentDescription="Todo"
                     android:src="@drawable/link"
-                    app:tint="#737373"
-                    android:contentDescription="Todo" />
+                    app:tint="#737373" />
 
                 <ImageView
                     android:id="@+id/camera_btn"

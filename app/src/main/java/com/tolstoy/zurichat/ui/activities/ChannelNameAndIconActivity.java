@@ -2,8 +2,6 @@ package com.tolstoy.zurichat.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.tolstoy.zurichat.R;
-
 import android.os.Bundle;
 
 public class ChannelNameAndIconActivity extends AppCompatActivity {

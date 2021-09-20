@@ -7,9 +7,34 @@
     <color name="teal_700">#1A61DB</color>
     <color name="black">#FFFFFF</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="light_blue">#E8F0FC</color>
 
     <color name="background_color">#1A61DB</color>
     <color name="text_color">#000000</color>
+    <color name="chat_bg">#F6F6F6</color>
+    <color name="chat_name_txt">#454545</color>
+    <color name="chat_txt">#A6A6A6</color>
+
+
+    <!-- App Colors -->
+    <color name="primary_color">#1a61db</color>
+    <color name="primary_light_color">#678eff</color>
+    <color name="primary_dark_color">#0038a8</color>
+    <color name="secondary_color">#1a61db</color>
+    <color name="secondary_light_color">#678eff</color>
+    <color name="secondary_dark_color">#0038a8</color>
+    <color name="primary_text_color">#ffffff</color>
+    <color name="secondary_text_color">#ffffff</color>
+    <color name="green_color">#09B133</color>
+
+    <color name="navigation_bar_color">#E5E5E5</color>
+
+    <!-- Message Item Colors -->
+    <color name="message_checkmark_unread">#3A3A3A80</color>
+    <color name="message_sent_time">#45454580</color>
+    <color name="message_content">#454545</color>
+    <color name="message_background_this_user">#A8E1FF</color>
+    <color name="message_background_another_user">@android:color/white</color>
 
     <color name="primaryColor">#1a61db</color>
     <color name="primaryLightColor">#678eff</color>
@@ -20,14 +45,24 @@
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
 
+    <color name="grey">#43DBDBDB</color>
+    <color name="blueish_grey">#B8CCEA</color>
+    <color name="teal_500">#027B6F</color>
+    <color name="chat_blue">#A8E1FF</color>
+
     <color name="canvas_color">#1A61DB</color>
     <color name="home_background_color">#F6F6F6</color>
-    <color name="green_color">#048022</color>
 
-    <color name="selected">#FAD1D5D2</color>
-    <color name="light_blue">#FA16B2E6</color>
-    <color name="milk">#FAF8F7EF</color>
+    <color name="divider_white">#D4D4D4</color>
+    <color name="preference_name_color">#3A3A3A</color>
+    <color name="onboarding_black">#000000</color>
 
+    <!-- Channel Info Colors -->
+    <color name="whitesmoke">#f6f6f6</color>
+    <color name="royalblue">#2266dc</color>
+    <color name="text_black">#454545</color>
 
+    <color name="lightGray">#A6A6A6</color>
+    <color name="fadeBlack">#454545</color>
 
 </resources>
