@@ -36,7 +36,7 @@ class ChannelChatFragment : Fragment() {
     val args: NewChannelDataFragmentArgs by navArgs()
 
 
-   // private val args: NewChannelDataFragmentArgs by navArgs()
+    // private val args: NewChannelDataFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,6 +61,7 @@ class ChannelChatFragment : Fragment() {
         val dimVal = prefMngr.getInt("bar", 50).toFloat().div(100f)
         dimmerBox?.alpha = dimVal
         setupKeyboard()
+        user = args.user
 
         /**
         Temporary location to make network call to join channel. To be associated with the joinChannel button
@@ -104,7 +105,9 @@ class ChannelChatFragment : Fragment() {
         val toolbar = view.findViewById<Toolbar>(R.id.channel_toolbar)
 
         toolbar.title = args.channelName
-        //toolbar.subtitle = channel.members.toString().plus(" Members")
+        args.members?.forEach {
+            toolbar.subtitle = it
+        }
 
 
         toolbar.setNavigationOnClickListener {
