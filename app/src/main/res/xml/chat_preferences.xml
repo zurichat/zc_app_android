@@ -39,7 +39,7 @@
             app:key="font_size"
             app:dialogTitle="@string/font_dialog"
             app:entries="@array/fonts"
-            app:defaultValue="Medium"
+            app:defaultValue="2"
             app:useSimpleSummaryProvider="true"
             app:allowDividerBelow="true"/>
 
