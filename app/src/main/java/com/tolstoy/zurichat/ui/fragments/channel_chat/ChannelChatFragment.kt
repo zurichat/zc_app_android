@@ -2,13 +2,16 @@ package com.tolstoy.zurichat.ui.fragments.channel_chat
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.InputType
 import android.view.*
+import android.view.inputmethod.EditorInfo
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.preference.PreferenceManager
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentChannelChatBinding
 import com.tolstoy.zurichat.models.ChannelModel
@@ -24,6 +27,8 @@ class ChannelChatFragment : Fragment() {
     private lateinit var channel: ChannelModel
     private var channelJoined = false
 
+    private var isEnterSend: Boolean = false
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelChatBinding.inflate(inflater, container, false)
         val bundle = arguments
@@ -32,11 +37,20 @@ class ChannelChatFragment : Fragment() {
             channel = bundle.getParcelable("Channel")!!
             channelJoined = bundle.getBoolean("Channel Joined")
         }
+
+        isEnterSend = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            .getBoolean("enter_to_send", false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        // code to control the dimming of background
+        val dimmerBox:View? = view?.findViewById<View>(R.id.dm_chat_dimmer)
+        val prefMngr = PreferenceManager.getDefaultSharedPreferences(context)
+        val dimVal = prefMngr.getInt("bar",50).toFloat().div(100f)
+        dimmerBox?.alpha = dimVal
+        setupKeyboard()
 
         /**
         Temporary location to make network call to join channel. To be associated with the joinChannel button
@@ -120,6 +134,26 @@ class ChannelChatFragment : Fragment() {
             popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 600)
         }
 
+    }
+
+    private fun setupKeyboard() {
+        // set keyboard to send if "enter is send" is set to true in settings
+        binding.channelChatEditText.apply {
+            if(isEnterSend) {
+                this.inputType = InputType.TYPE_CLASS_TEXT
+                this.imeOptions = EditorInfo.IME_ACTION_SEND
+            }
+        }
+
+        binding.channelChatEditText.setOnEditorActionListener { v, actionId, event ->
+            if(actionId == EditorInfo.IME_ACTION_SEND) {
+                // send message
+
+                true
+            } else {
+                false
+            }
+        }
     }
 
 }

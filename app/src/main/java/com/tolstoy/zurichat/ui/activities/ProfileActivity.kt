@@ -10,6 +10,7 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -17,10 +18,14 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.preference.PreferenceManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.profile.data.ProfilePayload
 import com.tolstoy.zurichat.ui.profile.data.ProfileResponse
 import com.tolstoy.zurichat.ui.profile.network.Constants
 import com.tolstoy.zurichat.ui.profile.network.ProfileService
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,11 +35,22 @@ import timber.log.Timber
 
 class ProfileActivity: AppCompatActivity() {
 
+    private lateinit var savedName : TextView
+    private lateinit var savedAbout : TextView
+
     //token id
     private var token: String? = null
 
+    private var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
+        val newRequest: Request = chain.request().newBuilder()
+            .addHeader("Authorization", "Bearer $token")
+            .build()
+        chain.proceed(newRequest)
+    }).build()
+
     //prepare retrofit service
     private val retrofit: Retrofit = Retrofit.Builder()
+        .client(client)
         .baseUrl(Constants.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
@@ -44,14 +60,35 @@ class ProfileActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val extras: Bundle? = intent.extras
+
+        val user: User? = extras?.getParcelable("USER")
+
         setContentView(R.layout.activity_profile)
+
+        savedName = findViewById(R.id.saved_name)
+        savedAbout = findViewById(R.id.saved_about)
+
+
+        token = user?.token
 
         val about = findViewById<ImageView>(R.id.edit_about)
         val camera = findViewById<ImageView>(R.id.img_camera)
         val phoneEdit = findViewById<ImageView>(R.id.imgPhone_editBT)
+        val userName = findViewById<ImageView>(R.id.edit_name)
+
+        val dialog = CreateDialog(layoutInflater,this)
+
+        val editNameDialog = dialog.createEditNameDialog(savedName)
+        val editAboutDialog = dialog.createEditAboutDialog(savedAbout)
+
+        userName.setOnClickListener {
+            editNameDialog.show()
+        }
 
         about.setOnClickListener {
-            startActivity(Intent(this, ProfileAboutActivity::class.java))
+            editAboutDialog.show()
         }
 
         camera.setOnClickListener {
@@ -74,6 +111,7 @@ class ProfileActivity: AppCompatActivity() {
                 )
 
             }
+
 
             val cam = view.findViewById<ImageView>(R.id.imageView_cam)
             //launch camera
@@ -104,8 +142,15 @@ class ProfileActivity: AppCompatActivity() {
             with(builder){
                 setTitle("Edit Phone Number")
                 setPositiveButton("Save"){ _, _ ->
+                    updateProfile()
                     phoneTextView.text = editText.text.toString() // populates the value of the
-                                                                    // EditText on the TextView
+                    Timber.d("Update Successful") // EditText on the TextView
+
+                    val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+                    val editor = preferences.edit()
+                    editor.putString("phone", java.lang.String.valueOf(editText.text.toString()))
+                    editor.apply()
+
                 }
                 setNegativeButton("Cancel") { _, _ ->
                     Timber.d("This button clicked successfully!!") //just for log purposes
@@ -134,6 +179,7 @@ class ProfileActivity: AppCompatActivity() {
             //set profile photo to image uri
             profilePhoto.setImageURI(uri)
             profilePhoto.invalidate()
+            Toast.makeText(this, "Update Successful", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -147,6 +193,19 @@ class ProfileActivity: AppCompatActivity() {
         if(mImageUri != null){
             profilePhoto.setImageURI(Uri.parse(mImageUri))
         }
+
+        val phoneTextView = findViewById<TextView>(R.id.tv_phoneno)
+        val phoneText = preferences.getString("phone", null)
+        phoneTextView.text = phoneText
+
+        val nameTextView = findViewById<TextView>(R.id.saved_name)
+        val aboutTextView = findViewById<TextView>(R.id.saved_about)
+
+        val nameText = preferences.getString("name", null)
+        nameTextView.text = nameText
+
+        val aboutText = preferences.getString("about", null)
+        aboutTextView.text = aboutText
     }
 
 
@@ -158,9 +217,7 @@ class ProfileActivity: AppCompatActivity() {
             "PorayMan",
             "09876543212")
 
-        val authToken: String? = token
-
-        val call: Call<ProfileResponse> = retrofitService.updateProfile(authToken, Constants.ORG_ID, Constants.MEM_ID, profileData)
+        val call: Call<ProfileResponse> = retrofitService.updateProfile(Constants.ORG_ID, Constants.MEM_ID, profileData)
 
         call.enqueue(object : Callback<ProfileResponse> {
             override fun onResponse(
