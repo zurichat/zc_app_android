@@ -43,5 +43,7 @@ data class Message(
 
     @SerializedName("threads")
     @Expose
-    val threads: List<Thread>? = null
+    val threads: List<Thread>? = null,
+
+    var fontSize: Float? = 0f
 )
