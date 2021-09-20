@@ -1,14 +1,12 @@
 package com.tolstoy.zurichat.ui.settings
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import com.tolstoy.zurichat.R
-import com.tolstoy.zurichat.ui.fragment.DataAndStorageFragment
-
 
 
 class LargerItemsActivity : AppCompatActivity() {
@@ -17,12 +15,12 @@ class LargerItemsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_larger_items)
 
 
-        // Begin the transaction
-        val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
-        // Replace the contents of the container with the new fragment
-        ft.replace(R.id.fragment_data_and_storage_container, DataAndStorageFragment())
-        // Complete the changes added above
-        ft.commit()
+//        // Begin the transaction
+//        val ft: FragmentTransaction = supportFragmentManager.beginTransaction()
+//        // Replace the contents of the container with the new fragment
+//        ft.replace(R.id.fragment_data_and_storage_container, DataAndStorageFragment())
+//        // Complete the changes added above
+//        ft.commit()
     }
 
 
@@ -32,14 +30,14 @@ class LargerItemsActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId){
+        return when (item.itemId) {
 
             R.id.action_save -> {
-                Toast.makeText(applicationContext, "click on save", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "click to save", Toast.LENGTH_SHORT).show()
                 true
             }
             R.id.action_delete -> {
-                Toast.makeText(applicationContext, "click on delete", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "click to delete", Toast.LENGTH_SHORT).show()
                 true
             }
             else ->

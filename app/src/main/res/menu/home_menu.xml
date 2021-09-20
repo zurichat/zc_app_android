@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.activities.HomePageActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/search"
@@ -22,9 +20,6 @@
         android:title="@string/settings"
         android:visible="true"
         />
-    <item android:id="@+id/channel_info"
-        android:title="@string/Channel_info"
-        android:visible="true"
-        />
+
 
 </menu>

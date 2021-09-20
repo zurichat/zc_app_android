@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="Unlock with fingerprint"
+        android:layout="@layout/my_pref_item">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="switch_preference_1"
+            android:layout="@layout/layout_fingerprint_pref"
+            android:title="When enabled, you will need to use fingerprint to open Zuri Chat." />
+    </PreferenceCategory>
+    <ListPreference
+        android:defaultValue="true"
+        android:entries="@array/fingerprint_unlock_list"
+        android:entryValues="@array/fingerprint_unlock_list"
+        android:key="Automatically lock"
+        android:layout="@layout/layout_radio_lock"
+        android:title="Automatically lock"
+        />
+    <PreferenceCategory
+        android:title="Show Content in Notification"
+        android:layout="@layout/my_pref_item">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="switch_preference_1"
+            android:layout="@layout/layout_fingerprint_pref"
+            android:title="Preview contact name and message inside new message notifications." />
+    </PreferenceCategory>
+
+</PreferenceScreen>

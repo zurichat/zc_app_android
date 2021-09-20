@@ -1,19 +1,21 @@
 package com.tolstoy.zurichat.ui.settings
 
 import android.content.Intent
-import android.os.Bundle
+import android.content.SharedPreferences
+import android.media.AudioAttributes
+import android.media.AudioManager
+import android.media.SoundPool
+import android.os.Build
+import android.os.Bundle 
+import android.util.Log
+import android.widget.Switch
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.preference.ListPreference
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
-import androidx.preference.SwitchPreference
+import androidx.preference.*
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.ui.activities.ProfileActivity
 import com.tolstoy.zurichat.util.THEME_KEY
@@ -22,11 +24,16 @@ import com.tolstoy.zurichat.util.setUpApplicationTheme
 private const val TITLE_TAG = "settingsActivityTitle"
 
 class SettingsActivity : AppCompatActivity(),
-    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback {
+    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback,
+    SharedPreferences.OnSharedPreferenceChangeListener {
+
+    var soundPool: SoundPool? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
+
+        initializePool()
 
         val profileContainer = findViewById<ConstraintLayout>(R.id.profile_container)
         val manageStorageContainer = findViewById<ConstraintLayout>(R.id.manage_storage_container)
@@ -34,7 +41,8 @@ class SettingsActivity : AppCompatActivity(),
         val divider = findViewById<View>(R.id.divider)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().replace(R.id.settings, SettingsFragment()).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.settings, SettingsFragment())
+                .commit()
         } else {
             title = savedInstanceState.getCharSequence(TITLE_TAG)
         }
@@ -60,18 +68,21 @@ class SettingsActivity : AppCompatActivity(),
         if (supportFragmentManager.popBackStackImmediate()) {
             return true
         }
-        return super.onSupportNavigateUp()
+        super.onBackPressed()
+        return false
     }
 
     override fun onPreferenceStartFragment(caller: PreferenceFragmentCompat, pref: Preference): Boolean {
         // Instantiate the new Fragment
         val args = pref.extras
-        val fragment = supportFragmentManager.fragmentFactory.instantiate(classLoader, pref.fragment).apply {
-            arguments = args
-            setTargetFragment(caller, 0)
-        }
+        val fragment =
+            supportFragmentManager.fragmentFactory.instantiate(classLoader, pref.fragment).apply {
+                arguments = args
+                setTargetFragment(caller, 0)
+            }
         // Replace the existing Fragment with the new Fragment
-        supportFragmentManager.beginTransaction().replace(R.id.settings, fragment).addToBackStack(null).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.settings, fragment)
+            .addToBackStack(null).commit()
         title = pref.title
         return true
     }
@@ -86,6 +97,8 @@ class SettingsActivity : AppCompatActivity(),
             val notificationSettings = findPreference<Preference>("notification_header")
 
             val profileContainer = activity?.findViewById<ConstraintLayout>(R.id.profile_container)
+
+
             val manageStorageContainer = activity?.findViewById<ConstraintLayout>(R.id.manage_storage_container)
             val networkUsageContainer = activity?.findViewById<ConstraintLayout>(R.id.network_usage_container)
             val divider = activity?.findViewById<View>(R.id.divider)
@@ -110,7 +123,7 @@ class SettingsActivity : AppCompatActivity(),
                 if (networkUsageContainer != null) {
                     networkUsageContainer.visibility = View.GONE
                 }
-                if (divider!=null){
+                if (divider != null) {
                     divider.visibility = View.GONE
                 }
                 false
@@ -126,7 +139,7 @@ class SettingsActivity : AppCompatActivity(),
                 if (networkUsageContainer != null) {
                     networkUsageContainer.visibility = View.GONE
                 }
-                if (divider!=null){
+                if (divider != null) {
                     divider.visibility = View.GONE
                 }
                 false
@@ -155,42 +168,11 @@ class SettingsActivity : AppCompatActivity(),
                 if (networkUsageContainer != null) {
                     networkUsageContainer.visibility = View.GONE
                 }
-                if (divider!=null){
+                if (divider != null) {
                     divider.visibility = View.GONE
                 }
                 false
             }
-        }
-    }
-
-    class ChatFragment : PreferenceFragmentCompat() {
-        private  var listPref : ListPreference? = null
-        override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
-        ): View? {
-
-            val profileContainer = activity?.findViewById<ConstraintLayout>(R.id.profile_container)
-            val divider = activity?.findViewById<View>(R.id.divider)
-            profileContainer?.visibility = View.GONE
-            divider?.visibility = View.GONE
-
-            // Gets the listPreference object using its key
-            listPref = preferenceManager.findPreference(THEME_KEY)
-
-            /*
-            checks for the value selected after making a choice from the listPreference and set up
-            the application theme
-             */
-            listPref?.setOnPreferenceChangeListener { _, newValue ->
-               setUpApplicationTheme(newValue as String)
-                return@setOnPreferenceChangeListener true
-            }
-            return super.onCreateView(inflater, container, savedInstanceState)
-        }
-        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-            setPreferencesFromResource(R.xml.chat_preferences, rootKey)
         }
     }
 
@@ -225,4 +207,58 @@ class SettingsActivity : AppCompatActivity(),
 
         }
     }
+
+    class ChannelsPrefFragment : PreferenceFragmentCompat() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.channels_pref, rootKey)
+        }
+    }
+
+    class LiveLocationPrefFragment : PreferenceFragmentCompat() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.live_location_pref, rootKey)
+        }
+    }
+
+    class BlockedContactsPrefFragment : PreferenceFragmentCompat() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.blocked_contacts_pref, rootKey)
+        }
+    }
+
+    class FingerPrintPrefFragment : PreferenceFragmentCompat() {
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.fingerprint_pref, rootKey)
+        }
+    }
+
+
+
+    //    listening to changes on the sharedPreference
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+     val  sound:Int = soundPool?.load(this,R.raw.swit,1)!!
+            if (key.equals("channel_tones")){
+                soundPool?.autoPause()
+                soundPool?.play(sound, 1F, 1F,0,0, 1F)
+            }
+        Toast.makeText(this, key, Toast.LENGTH_LONG).show()
+//        TODO("Not yet implemented")
+    }
+
+    fun initializePool() {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val audioAttributes: AudioAttributes = AudioAttributes.Builder().build()
+            soundPool =
+                SoundPool.Builder()
+                    .setMaxStreams(6)
+                    .setAudioAttributes(audioAttributes)
+                    .build()
+        }else{
+            soundPool = SoundPool(6,AudioManager.STREAM_NOTIFICATION,0)
+        }
+
+
+    }
+
 }

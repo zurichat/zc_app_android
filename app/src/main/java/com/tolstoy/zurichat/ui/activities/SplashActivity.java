@@ -34,7 +34,7 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
         Thread thread = new Thread() {
             public void run() {
                 try {
-                    sleep(6000);
+                    sleep(3000);
                     Intent i = new Intent(getBaseContext(), LoginActivity.class);
                     startActivity(i);
                     finish();
@@ -45,8 +45,6 @@ public class SplashActivity extends AppCompatActivity implements Animation.Anima
         thread.start();
 
         crossFade();
-
-
     }
 
     private void crossFade() {

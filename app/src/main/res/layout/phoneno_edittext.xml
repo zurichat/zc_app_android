@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/et_phoneno"
+        android:layout_width="match_parent"
+        android:hint="@string/changephoneno_hint_txt"
+        android:fontFamily="@font/lato"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="16sp"
+        android:maxLength="14"
+        android:minHeight="48dp"
+        android:inputType="phone"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

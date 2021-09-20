@@ -26,9 +26,18 @@
     <string name="title_activity_settings">Settings</string>
     <string name="welcome_title">Welcome to Zuri Chat</string>
     <string name="welcome_text">Send DMs to your contacts and channels with \n ease, start conversations with just a click</string>
-    <string name="register_mail">Enter registered email</string>
+    <string name="register_mail">Email Address</string>
     <string name="welcome_image">Welcome Image</string>
 
+    <!-- Attachments -->
+    <string name="send_to">Send to %1$s</string>
+    <string name="x_selected">%1$d selected</string>
+    <string name="all_view">All %1$s</string>
+    <string name="tap_to_select">Tap to select</string>
+
+    <!-- Menu: DM -->
+    <string name="action_video_call">Video Call</string>
+    <string name="action_voice_call">Voice Call</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
@@ -54,7 +63,6 @@
     <string name="zuri">ZURI</string>
     <string name="profile_image">Profile image</string>
     <string name="chats">CHATS</string>
-    <string name="calls">CALLS</string>
 
     <!-- Chat Settings -->
     <string name="display_header">Display</string>
@@ -78,6 +86,27 @@
     <string name="delete_txt">delete</string>
     <string name="save_txt">save</string>
     <string name="larger_items_or_no_items_string">No Item here</string>
+
+    <!-- Wallpaper Settings -->
+    <string name="wallpaper_dimming_header">Wallpaper Dimming</string>
+    <string name="change_wallpaper">Change</string>
+
+    <!-- Privacy Settings -->
+    <string name="who_can_see_header">Who can see my personal info</string>
+    <string name="who_can_see_summary">If you don’t share your Last seen,
+         you won’t be able to see other people’s Last seen</string>
+    <string name="last_seen_header">Last seen</string>
+    <string name="profile_photo_header">Profile photo</string>
+    <string name="about_header">About</string>
+    <string name="status_header">Status</string>
+    <string name="read_receipt_header">Read receipt</string>
+    <string name="read_receipt_summary">If turned off, you won’t send or receive Read receipts.
+        Read receipts are always sent for channels</string>
+    <string name="channels_header">Channels</string>
+    <string name="live_locations_header">Live location</string>
+    <string name="blocked_contacts_header">Blocked contacts</string>
+    <string name="fingerprint_lock_header">Fingerprint lock</string>
+
     <!-- Theme Selection -->
     <string name="prefsThemesList_default">none</string>
     <string name="username_">Username</string>
@@ -101,5 +130,87 @@
     <string name="_22">22</string>
     <string name="channels">CHANNELS</string>
     <string name="Channel_info">Channel Info</string>
+    <string name="tab_title_media">MEDIA</string>
+    <string name="tab_title_docs">DOCS</string>
+    <string name="tab_title_links">LINKS</string>
+    <string name="mute_notifications">Mute notifications</string>
+    <string name="chanel_search">Search</string>
+    <string name="channel_media">Channel media</string>
+    <string name="select_contact">Select Contact</string>
+    <string name="changephoneno_hint_txt">Enter your new phone number</string>
+    <string name="search_for_channels">Search for channels</string>
+
+
+    <!--    Notifications & Sounds-->
+    <string name="channel_tones_header">Channel tones</string>
+    <string name="channel_tones_summary">Play sound for incoming and outgoing message in channels</string>
+    <string name="messages_cat_header">Messages</string>
+    <string name="message_tones_header">Message tones</string>
+    <string name="message_tones_summary">Play sound on new messages</string>
+    <string name="vibrate_header">Vibrate</string>
+    <string name="vibrate_summary">Vibrate on new messages</string>
+    <string name="high_priority_header">High priority Notification</string>
+    <string name="high_priority_summary">Display Preview of notification at the top of the screen</string>
+
+
+    <string name="unread_messages">Unread messages</string>
+    <string name="channels_">Channels</string>
+    <string name="lbl_terms_and_conditions"><u>terms and conditions</u></string>
+    <string name="online">online</string>
+    <string name="android_devs">Android Devs</string>
+    <string name="channel_group_members">Lux, Hamid, Joe, +234707…</string>
+    <string name="search_hint">Search</string>
+    <string name="item_action_phone">Item_action_phone</string>
+    <string name="hi_there_this_is_the_beginning_of_n_the_conversation_in_this_channel">Hi there, this is the beginning of \n the conversation in this channel</string>
+    <string name="john_felix_doe">John Felix Doe</string>
+    <string name="last_seen_">last seen at 5:50am</string>
+
+
+    <string name="welcome_desc">Send DMs to your contacts and channels with\n ease, start conversations with just a click</string>
+    <string name="register_string">Register</string>
+    <string name="sign_in_txt">Sign in to your Zuri account</string>
+    <string name="welcome_zc_txt">Welcome to Zuri Chat</string>
+    <string name="welcome_rect">welcome top rectangle</string>
+
+
+    <!--                      Forgot Password-->
+    <string name="please_ente">
+        Please enter the email used in registering this account</string>
+    <string name="email_addre">Email Address</string>
+    <string name="back_to_sig">Back to Sign In </string>
+    <string name="didn_t_rece">Didn\u00E2\u0080\u0099t receive any code?</string>
+    <string name="label">Sign in to your Zuri account</string>
+    <string name="forgotten_password">Forgot Password</string>
+    <string name="new_password">Your new password must be different from previously used password</string>
+    <string name="new_pass">New Password</string>
+    <string name="channels_who_add">Who can Add me to channels</string>
+    <string name="everyone">Everyone</string>
+    <string name="my_contacts">My Contacts</string>
+    <string name="my_contacts_except">My Contacts Except</string>
+    <string name="nobody">Nobody</string>
+    <string name="live_location_manage__device_settings">Live location requires background location. You can manage this in your device settings.</string>
+    <string name="immediately">Immediately</string>
+    <string name="one_minute">After 1 minute</string>
+    <string name="thirty_minutes">After 30 minutes</string>
+    <string name="you_aren_t_sharing_live_location">You aren’t sharing live location in any chats</string>
+    <string name="contacts_who_can_t_add_you">Contacts who can’t add you to a channel will have the option of inviting you privately instead.</string>
+    <string name="click_button_to_join_a_channel">Click button to join a channel</string>
+    <string name="button_to_join_channel">Button to join a channel</string>
+    <string name="you_are_viewing">You are viewing</string>
+    <string name="join_channel">Join Channel</string>
+    <string name="mute_channel">Mute Channel</string>
+    <string name="leave_channel">Leave Channel</string>
+    <string name="_add_channel">Add Channel</string>
+    <string name="provide_basic_information">Provide basic information</string>
+    <string name="enter_channel_name">Enter channel name</string>
+    <string name="set_your_channel_privacy_here">Set your channel privacy here</string>
+    <string name="make_my_channel_public">Make my channel public</string>
+    <string name="make_my_channel_private">Make my channel private</string>
+    <string name="select_members_">Select Members</string>
+    <string name="choose_channel_members">Choose Channel Members</string>
+    <string name="select_contact_">Select Contact</string>
+    <string name="leave_channel_warning_message">Are you sure you want to leave this channel? You will no longer receive messages from this channel once you leave</string>
+    <string name="leave_channel_warning_cancel_option">CANCEL</string>
+    <string name="leave_channel_warning_leave_option">LEAVE</string>
 
 </resources>

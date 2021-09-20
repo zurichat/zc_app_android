@@ -3,18 +3,86 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/login_graph"
-    app:startDestination="@id/enterEmailFragment">
+    app:startDestination="@id/welcomeFragment">
 
     <fragment
-        android:id="@+id/enterEmailFragment"
-        android:name="com.tolstoy.zurichat.ui.login.screens.EnterEmailFragment"
-        android:label="EnterEmailFragment" />
+        android:id="@+id/loginFragment"
+        android:name="com.tolstoy.zurichat.ui.login.screens.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerUserFragment"
+            app:destination="@id/registerUserFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_main_nav"
+            app:destination="@id/main_nav">
+            <argument
+                android:name="user"
+                app:argType="com.tolstoy.zurichat.models.User" />
+        </action>
+        <action
+            android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/OTPFragment"
-        android:name="com.tolstoy.zurichat.ui.login.screens.OTPFragment"
-        android:label="OTPFragment" />
+        android:id="@+id/registerUserFragment"
+        android:name="com.tolstoy.zurichat.ui.login.screens.RegisterUserFragment"
+        android:label="fragment_register_user"
+        tools:layout="@layout/fragment_register_user" >
+        <action
+            android:id="@+id/action_registerUserFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_registerUserFragment_to_emailVerificationFragment"
+            app:destination="@id/emailVerificationFragment" />
+    </fragment>
+    <include app:graph="@navigation/main_nav" />
     <fragment
-        android:id="@+id/verifiedFragment"
-        android:name="com.tolstoy.zurichat.ui.login.screens.VerifiedFragment"
-        android:label="VerifiedFragment" />
+        android:id="@+id/confirmPasswordFragment"
+        android:name="com.tolstoy.zurichat.ui.login.screens.ConfirmPasswordFragment"
+        android:label="fragment_confirm_password"
+        tools:layout="@layout/fragment_confirm_password" >
+        <action
+            android:id="@+id/action_confirmPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.tolstoy.zurichat.ui.login.screens.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_enterOtpFragment"
+            app:destination="@id/enterOtpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.tolstoy.zurichat.ui.login.screens.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_registerUserFragment"
+            app:destination="@id/registerUserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterOtpFragment"
+        android:name="com.tolstoy.zurichat.ui.login.screens.EnterOtpFragment"
+        android:label="fragment_enter_otp"
+        tools:layout="@layout/fragment_enter_otp" >
+        <action
+            android:id="@+id/action_enterOtpFragment_to_confirmPasswordFragment"
+            app:destination="@id/confirmPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailVerificationFragment"
+        android:name="com.tolstoy.zurichat.ui.login.screens.EmailVerificationFragment"
+        android:label="fragment_email_verification"
+        tools:layout="@layout/fragment_email_verification" >
+        <action
+            android:id="@+id/action_emailVerificationFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>
