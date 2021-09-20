@@ -122,7 +122,8 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                     }
                     is CreateChannelViewState.Failure -> {
                         progressLoader.hide()
-                        Toast.makeText(context, getString(it.message), Toast.LENGTH_LONG).show()
+                        val errorMessage = String.format(getString(it.message),binding.channelName.text.toString())
+                        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
                     }
                 }
             }
