@@ -1,5 +1,6 @@
 package com.tolstoy.zurichat.ui.activities;
 
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -14,3 +15,4 @@ public class DocumentsSelectedActivity extends AppCompatActivity {
         setContentView(R.layout.activity_documents_selected);
     }
 }
+  
