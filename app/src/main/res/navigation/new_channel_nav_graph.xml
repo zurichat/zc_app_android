@@ -41,20 +41,10 @@
         <action
             android:id="@+id/action_selectMemberFragment_to_newChannelDataFragment"
             app:destination="@id/newChannelDataFragment">
-            <argument
-                android:name="member_data"
-                app:argType="com.tolstoy.zurichat.models.MembersData[]"
-                app:nullable="true" />
         </action>
         <action
             android:id="@+id/action_selectMemberFragment_to_selectNewChannelFragment"
             app:destination="@id/selectNewChannelFragment" />
-
-        <argument
-            android:name="member_data"
-            app:argType="com.tolstoy.zurichat.models.MembersData[]"
-            app:nullable="true" />
-
     </fragment>
     <!-- 4. NewChannelDataFragment:
             Third fragment to move to after selecting members from 3 above-->

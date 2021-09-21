@@ -13,6 +13,8 @@ import com.tolstoy.zurichat.models.DmMessages
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.dm.DMFragment
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChatsRVAdapter
+import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
+
 //import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 
 class ChatsFragment : Fragment() {

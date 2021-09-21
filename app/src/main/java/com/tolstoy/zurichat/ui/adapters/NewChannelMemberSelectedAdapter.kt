@@ -7,10 +7,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.models.MembersData
 
 import com.tolstoy.zurichat.databinding.ItemSelectedMembersBinding
+import com.tolstoy.zurichat.models.User
 
 
 class NewChannelMemberSelectedAdapter(
-    private val memberDataList: List<MembersData>,
+    private val memberDataList: List<User>,
 ) : RecyclerView.Adapter<NewChannelMemberSelectedAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,9 +31,8 @@ class NewChannelMemberSelectedAdapter(
     override fun getItemCount(): Int = memberDataList.size
 
     inner class ViewHolder(private var binding: ItemSelectedMembersBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(memberData: MembersData) {
-            binding.imageView7.setImageResource(memberData.image)
-            binding.textView16.text = memberData.name
+        fun bind(memberData: User) {
+            binding.textView16.text = memberData.first_name
 
         }
     }

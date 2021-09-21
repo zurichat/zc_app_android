@@ -45,6 +45,7 @@
                 android:padding="8dp"
                 android:maxLines="2"
                 android:singleLine="true"
+                android:textColor="@color/text_black"
                 android:text="@string/username_"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

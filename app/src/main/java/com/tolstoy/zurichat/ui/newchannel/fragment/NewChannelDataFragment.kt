@@ -3,6 +3,7 @@ package com.tolstoy.zurichat.ui.newchannel.fragment
 //import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 import android.content.Intent
 import android.os.Bundle
+import android.text.Spanned
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -34,7 +35,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     lateinit var progressLoader: ProgressLoader
     private val binding by viewBinding(FragmentNewChannelDataBinding::bind)
     private val viewModel: CreateChannelViewModel by viewModels()
-    private val args: SelectMemberFragmentArgs by navArgs()
+    private lateinit var userList: List<User>
     private var private = false
     private var channelId = ""
     private var user:User?= null
@@ -45,6 +46,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
         super.onViewCreated(view, savedInstanceState)
         val activity = requireActivity() as NewChannelActivity
         user = activity.user
+        userList = arguments?.get("Selected_user") as List<User>
 
         setupViewsAndListeners()
         observerData()
@@ -95,12 +97,12 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                 }
             }
             recycler.apply {
-                if (args.memberData != null) {
-                    val memberDataList: List<MembersData> = args.memberData!!.toList()
+                if (userList != null) {
+                    val memberDataList = userList
                     memberDataList.forEach {
-                        channelsMember.add(it.name!!)
+                        channelsMember.add(it.display_name)
                     }
-                    val memberAdapter = NewChannelMemberSelectedAdapter(memberDataList)
+                    val memberAdapter = NewChannelMemberSelectedAdapter(userList)
                     layoutManager =
                         LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
                     adapter = memberAdapter
