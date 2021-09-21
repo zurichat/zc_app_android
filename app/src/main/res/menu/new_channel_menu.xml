@@ -11,8 +11,8 @@
         android:title="@string/search"
         app:showAsAction="ifRoom"
          />
-    <item android:id="@+id/settings"
+    <!--<item android:id="@+id/settings"
         android:title="@string/settings"
         android:visible="true"
-        />
+        />-->
 </menu>

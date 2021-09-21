@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -17,6 +17,7 @@
     <color name="pref_txt">#1D1C1D</color>
     <color name="category_contact_pref">#EBEBEB</color>
 
+    <color name="bg_color">#FFFFFF</color>
 
     <!-- App Colors -->
     <color name="primary_color">#024E35</color>
@@ -27,6 +28,8 @@
     <color name="secondary_dark_color">#024E35</color>
     <color name="primary_text_color">#ffffff</color>
     <color name="secondary_text_color">#ffffff</color>
+    <color name="green_color">#09B133</color>
+
     <color name="navigation_bar_color">#E5E5E5</color>
 
     <!-- Message Item Colors -->
@@ -36,6 +39,9 @@
     <color name="message_background_this_user">#A8E1FF</color>
     <color name="message_background_another_user">@android:color/white</color>
 
+    <!-- Attachment Colors -->
+    <color name="attachment_image_selected">#6F000000</color>
+
     <color name="primaryColor">#024E35</color>
     <color name="primaryLightColor">#00B87C</color>
     <color name="primaryDarkColor">#024E35</color>
@@ -44,6 +50,8 @@
     <color name="secondaryDarkColor">#024E35</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
+
+    <color name="selected">#C7CAC4</color>
 
     <color name="grey">#43DBDBDB</color>
     <color name="blueish_grey">#B8CCEA</color>
@@ -61,6 +69,7 @@
     <color name="whitesmoke">#f6f6f6</color>
     <color name="royalblue">#2266dc</color>
     <color name="text_black">#454545</color>
+    <color name="top_color">#008B5E</color>
 
     <color name="lightGray">#A6A6A6</color>
     <color name="fadeBlack">#454545</color>
@@ -68,5 +77,9 @@
     <color name="deepBlack">#FF333333</color>
     <color name="txt_black">#1D1C1D</color>
     <color name="txt_light_gray">#616061</color>
+
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#00B87C</color>
+    <color name="toobar_color">#008B5E</color>
+    <color name="new_channel_divider_color">#E7E7E7</color>
 
 </resources>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/constraint_cl"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint_cl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -13,8 +13,10 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/lato"
-        android:text="Profile photos"
-        android:textSize="12sp"
+        android:text="Profile photo"
+        android:textColor="#000000"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,7 +29,7 @@
         android:layout_marginTop="36dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/member_label"
-        app:srcCompat="@drawable/circle_camera" />
+        app:srcCompat="@drawable/ic_profile_remove" />
 
     <ImageView
         android:id="@+id/imageView_gallery"
@@ -37,7 +39,7 @@
         app:layout_constraintEnd_toStartOf="@+id/imageView_cam"
         app:layout_constraintStart_toEndOf="@+id/imageView_delete"
         app:layout_constraintTop_toTopOf="@+id/imageView_delete"
-        app:srcCompat="@drawable/circle_camera" />
+        app:srcCompat="@drawable/ic_profile_gallery" />
 
     <ImageView
         android:id="@+id/imageView_cam"
@@ -47,40 +49,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/imageView_gallery"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView_gallery"
-        app:srcCompat="@drawable/circle_camera" />
-
-    <ImageView
-        android:id="@+id/img_delete_photo"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView_delete"
-        app:layout_constraintEnd_toEndOf="@+id/imageView_delete"
-        app:layout_constraintStart_toStartOf="@+id/imageView_delete"
-        app:layout_constraintTop_toTopOf="@+id/imageView_delete"
-        app:srcCompat="@drawable/delete_photos"
-        app:tint="@color/primary_light_color" />
-
-    <ImageView
-        android:id="@+id/img_gallery"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView_gallery"
-        app:layout_constraintEnd_toEndOf="@+id/imageView_gallery"
-        app:layout_constraintStart_toStartOf="@+id/imageView_gallery"
-        app:layout_constraintTop_toTopOf="@+id/imageView_gallery"
-        app:srcCompat="@drawable/gallery"
-        app:tint="@color/primary_light_color" />
-
-    <ImageView
-        android:id="@+id/img_camera_profile"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView_cam"
-        app:layout_constraintEnd_toEndOf="@id/imageView_cam"
-        app:layout_constraintStart_toStartOf="@+id/imageView_cam"
-        app:layout_constraintTop_toTopOf="@+id/imageView_cam"
-        app:srcCompat="@drawable/photo_camera"
-        app:tint="@color/primary_light_color" />
+        app:srcCompat="@drawable/ic_profile_camera" />
 
     <TextView
         android:id="@+id/textView_del_photo"
@@ -100,9 +69,9 @@
         android:id="@+id/textView_gallery"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/lato"
         android:gravity="center"
         android:text="Gallery"
-        android:fontFamily="@font/lato"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@id/imageView_gallery"
         app:layout_constraintStart_toStartOf="@id/imageView_gallery"
@@ -112,8 +81,8 @@
         android:id="@+id/textView_camera"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:fontFamily="@font/lato"
+        android:gravity="center"
         android:text="Camera"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="@+id/imageView_cam"

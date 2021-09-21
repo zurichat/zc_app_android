@@ -29,8 +29,11 @@
     <string name="register_mail">Email Address</string>
     <string name="welcome_image">Welcome Image</string>
 
-    <!-- Toolbar -->
+    <!-- Attachments -->
     <string name="send_to">Send to %1$s</string>
+    <string name="x_selected">%1$d selected</string>
+    <string name="all_view">All %1$s</string>
+    <string name="tap_to_select">Tap to select</string>
 
     <!-- Menu: DM -->
     <string name="action_video_call">Video Call</string>
@@ -84,6 +87,10 @@
     <string name="save_txt">save</string>
     <string name="larger_items_or_no_items_string">No Item here</string>
 
+    <!-- Wallpaper Settings -->
+    <string name="wallpaper_dimming_header">Wallpaper Dimming</string>
+    <string name="change_wallpaper">Change</string>
+
     <!-- Privacy Settings -->
     <string name="who_can_see_header">Who can see my personal info</string>
     <string name="who_can_see_summary">If you don’t share your Last seen,
@@ -133,7 +140,7 @@
     <string name="changephoneno_hint_txt">Enter your new phone number</string>
     <string name="search_for_channels">Search for channels</string>
 
-  
+
     <!--    Notifications & Sounds-->
     <string name="channel_tones_header">Channel tones</string>
     <string name="channel_tones_summary">Play sound for incoming and outgoing message in channels</string>
@@ -149,6 +156,14 @@
     <string name="unread_messages">Unread messages</string>
     <string name="channels_">Channels</string>
     <string name="lbl_terms_and_conditions"><u>terms and conditions</u></string>
+    <string name="online">online</string>
+    <string name="android_devs">Android Devs</string>
+    <string name="channel_group_members">Lux, Hamid, Joe, +234707…</string>
+    <string name="search_hint">Search</string>
+    <string name="item_action_phone">Item_action_phone</string>
+    <string name="hi_there_this_is_the_beginning_of_n_the_conversation_in_this_channel">Hi there, this is the beginning of \n the conversation in this channel</string>
+    <string name="john_felix_doe">John Felix Doe</string>
+    <string name="last_seen_">last seen at 5:50am</string>
 
 
     <string name="welcome_desc">Send DMs to your contacts and channels with\n ease, start conversations with just a click</string>
@@ -179,7 +194,39 @@
     <string name="thirty_minutes">After 30 minutes</string>
     <string name="you_aren_t_sharing_live_location">You aren’t sharing live location in any chats</string>
     <string name="contacts_who_can_t_add_you">Contacts who can’t add you to a channel will have the option of inviting you privately instead.</string>
+    <string name="click_button_to_join_a_channel">Click button to join a channel</string>
+    <string name="button_to_join_channel">Button to join a channel</string>
     <string name="you_are_viewing">You are viewing</string>
     <string name="join_channel">Join Channel</string>
+    <string name="mute_channel">Mute Channel</string>
+    <string name="leave_channel">Leave Channel</string>
+    <string name="_add_channel">Add Channel</string>
+    <string name="provide_basic_information">Provide basic information</string>
+    <string name="enter_channel_name">Enter channel name</string>
+    <string name="set_your_channel_privacy_here">Set your channel privacy here</string>
+    <string name="make_my_channel_public">Make my channel public</string>
+    <string name="make_my_channel_private">Make my channel private</string>
+    <string name="select_members_">Select Members</string>
+    <string name="choose_channel_members">Choose Channel Members</string>
+    <string name="select_contact_">Select Contact</string>
+    <string name="leave_channel_warning_message">Are you sure you want to leave this channel? You will no longer receive messages from this channel once you leave</string>
+    <string name="leave_channel_warning_cancel_option">CANCEL</string>
+    <string name="leave_channel_warning_leave_option">LEAVE</string>
+    <string name="unable_to_create_new_channel">Unable to create a new channel</string>
+    <string name="invalid_information">Channel with <b>\"%1$s\"</b> already exist.</string>
+    <string name="user_not_found">User not found</string>
+    <string name="successful_new_channel_creation">Successful create new channel</string>
+    <string name="creating_new_channel">creating new channel.......</string>
+    <string name="gif">GIF</string>
+    <string name="an_error_occured">An Error Occurred</string>
+
+    <string name="image1">All images</string>
+    <string name="image2">All videos</string>
+    <string name="image3">Camera</string>
+    <string name="image4">Dev App images</string>
+    <string name="image5">Xender images</string>
+    <string name="image6">Xender images</string>
+    <string name="image7">WhatsApp images</string>
+    <string name="image8">WhatsApp videos</string>
 
 </resources>

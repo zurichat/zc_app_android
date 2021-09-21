@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F8F8">
+    >
 
     <include
         android:id="@+id/toolbar"
@@ -12,30 +12,44 @@
 
     <TextView
         android:id="@+id/intro_group_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Hi there, this is the beginning of \n the conversation in this channel"
+        android:text="Hi there, this is the beginning of the conversation \nin this channel"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
         tools:ignore="HardcodedText" />
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/dm_chat_dimmer"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="#000000"
+        android:alpha="0.0"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/channel_typing_bar"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent">
         <!-- region Emoji Message Pictures & Attachments-->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardView"
             android:layout_width="match_parent"
-            android:layout_height="54dp"
+            android:layout_height="48dp"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="70dp"
             app:cardCornerRadius="27dp"
             app:cardElevation="0dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -46,10 +60,11 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/icon_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:scaleType="fitXY"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:scaleX=".7"
+                    android:scaleY=".7"
+                    android:layout_marginStart="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -69,11 +84,13 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/channel_link"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="15dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:scaleX=".7"
+                    android:scaleY=".7"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="10dp"
                     android:rotation="-45"
-                    android:scaleType="fitXY"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/camera_channel_btn"
                     app:layout_constraintTop_toTopOf="parent"
@@ -81,10 +98,12 @@
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/camera_channel_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="10dp"
-                    android:scaleType="fitXY"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:scaleX=".7"
+                    android:scaleY=".7"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -97,12 +116,11 @@
         <!-- region Voice Note-->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/send_voice_btn"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@drawable/ic_voice"
             app:backgroundTint="@color/primary_light_color"
-            app:fabSize="normal"
-            android:scaleType="fitXY"
+            app:fabCustomSize="48dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cardView"
@@ -114,12 +132,11 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/send_message_btn"
-            android:layout_width="54dp"
-            android:layout_height="54dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:src="@drawable/ic_send"
+            app:fabCustomSize="48dp"
             app:backgroundTint="@color/primary_light_color"
-            app:fabSize="normal"
-            android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cardView"
@@ -145,13 +162,16 @@
         app:layout_constraintTop_toBottomOf="@+id/intro_group_text"
         />
 
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/channel_join_bar"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="#FFFFFF"
-        android:clickable="true">
+        android:background="@color/bg_color"
+        android:clickable="true"
+        android:visibility="gone">
 
         <View
             android:id="@+id/view"
@@ -177,7 +197,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="4dp"
-                android:text="@string/you_are_viewing"/>
+                android:text="@string/you_are_viewing"
+                android:textColor="@color/text_color"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
             <TextView
                 android:id="@+id/channel_name"
@@ -187,10 +209,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:text="chat-funny"
+                android:textColor="@color/text_color"
                 android:textStyle="bold"
                 app:drawableTint="@color/primaryColor"
                 app:drawableStartCompat="@drawable/ic_new_lock"
-                android:drawablePadding="5dp"/>
+                android:drawablePadding="1dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
 
         </LinearLayout>
 

@@ -19,15 +19,32 @@
         app:layout_constraintTop_toTopOf="parent"
         app:logo="@drawable/dmuser"
         app:menu="@menu/dm_chat"
+        app:navigationIcon="@drawable/ic_back"
+        app:navigationIconTint="@android:color/white"
         app:subtitle="online"
-        app:title="John Doe Felix" />
+        app:subtitleTextColor="@android:color/white"
+        app:title="John Doe Felix"
+        app:titleMarginStart="25dp"
+        app:titleTextColor="@android:color/white" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/dimmer_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_dm"
+        android:background="#000000"
+        android:alpha="0.0"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_dm"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/include_attachment_popup"
+        app:layout_constraintBottom_toTopOf="@id/messageinput_dm"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_dm"
@@ -36,28 +53,13 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <include
-        android:id="@+id/include_attachment_popup"
-        layout="@layout/partial_attachment_popup"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/messageinput_dm"
-        app:layout_constraintEnd_toEndOf="@+id/messageinput_dm"
-        app:layout_constraintStart_toStartOf="@+id/messageinput_dm"
-        tools:visibility="visible" />
-
-    <com.tolstoy.zurichat.ui.custom_views.MessageInput
         android:id="@+id/messageinput_dm"
+        layout="@layout/partial_message_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_margin="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" >
-
-    </com.tolstoy.zurichat.ui.custom_views.MessageInput>
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

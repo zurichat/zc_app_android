@@ -6,7 +6,6 @@
     <!--Permissions for Media attachments-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
 
 
     <application
@@ -18,19 +17,36 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZuriChat">
         <activity
+            android:name=".ui.activities.DocumentOtions"
+            android:exported="true"
+            android:theme="@style/Theme.MaterialComponents.Light">
+
+
+        </activity>
+        <activity
+            android:name=".ui.activities.DocumentsSelectedActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MaterialComponents.Light"/>
+        <activity
+            android:name=".ui.activities.DocumentSentActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MaterialComponents.Light"/>
+
+        <activity
+            android:name=".ui.newchannel.NewChannelActivity"
+            android:exported="true"
+            android:theme="@style/Theme.ZuriChat"/>
+
+        <activity
             android:name=".ui.settings.ChatBackupActivity"
             android:theme="@style/Theme.ZuriChat.Settings"
             android:exported="true" />
-        <activity
-            android:name=".ui.newchannel.NewChannelPersonsActivity"
-            android:exported="true" />
+
         <activity
             android:name=".ui.channel_info.ChannelInfoActivity"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
-        <activity
-            android:name=".ui.newchannel.NewChannelActivity"
-            android:exported="true" />
+
         <activity
             android:name=".ui.settings.LargerItemsActivity"
             android:exported="true"
@@ -77,10 +93,8 @@
             android:theme="@style/Theme.ZuriChat.Settings" />
 
         <activity android:name=".ui.activities.MainActivity" >
-            
+
         </activity>
-
-
 
 
         <meta-data

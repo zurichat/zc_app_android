@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="4dp"
@@ -14,114 +14,179 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <!-- Ellipse 317 -->
+
         <View
-            android:id="@+id/ellipse_317"
+            android:id="@+id/ellipse_gallery"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="24dp"
             android:layout_marginTop="18dp"
-            android:background="@drawable/ellipse_319"
+            android:background="@drawable/blue_circle"
+            app:layout_constraintEnd_toStartOf="@+id/ellipse_audio"
+            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:id="@+id/attachment_gallery"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:background="@drawable/wallpaper_icon"
-            app:layout_constraintBottom_toBottomOf="@id/ellipse_317"
-            app:layout_constraintEnd_toEndOf="@id/ellipse_317"
-            app:layout_constraintStart_toStartOf="@id/ellipse_317"
-            app:layout_constraintTop_toTopOf="@id/ellipse_317" />
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/gallery"
+            android:backgroundTint="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/ellipse_gallery"
+            app:layout_constraintEnd_toEndOf="@id/ellipse_gallery"
+            app:layout_constraintStart_toStartOf="@id/ellipse_gallery"
+            app:layout_constraintTop_toTopOf="@id/ellipse_gallery" />
 
-
-        <!-- Gallery -->
         <TextView
-            android:id="@+id/galleryAttachmentIconTextView"
-            android:layout_width="38dp"
-            android:layout_height="14dp"
+            android:id="@+id/text_gallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginTop="14dp"
             android:layout_marginBottom="19dp"
             android:text="@string/gallery"
-            android:textAppearance="@style/gallery"
+            android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/ellipse_317"
-            app:layout_constraintStart_toStartOf="@+id/ellipse_317"
-            app:layout_constraintTop_toBottomOf="@id/ellipse_317" />
+            app:layout_constraintEnd_toEndOf="@+id/ellipse_gallery"
+            app:layout_constraintStart_toStartOf="@+id/ellipse_gallery"
+            app:layout_constraintTop_toBottomOf="@id/ellipse_gallery" />
+
+
+        <!-- Gallery -->
 
         <!-- Audio -->
-        <TextView
-            android:id="@+id/audioAttachmentIconTextView"
-            android:layout_width="32dp"
-            android:layout_height="14dp"
-            android:text="@string/audio"
-            android:textAppearance="@style/audio"
-            app:layout_constraintBottom_toBottomOf="@+id/galleryAttachmentIconTextView"
-            app:layout_constraintEnd_toEndOf="@+id/ellipse_319"
-            app:layout_constraintStart_toEndOf="@id/galleryAttachmentIconTextView"
-            app:layout_constraintStart_toStartOf="@+id/ellipse_319"
-            app:layout_constraintTop_toTopOf="@+id/galleryAttachmentIconTextView" />
 
-        <!-- Document -->
-        <TextView
-            android:id="@+id/document"
-            android:layout_width="56dp"
-            android:layout_height="14dp"
-            android:text="@string/document"
-            android:textAppearance="@style/document"
-            app:layout_constraintBottom_toBottomOf="@+id/audioAttachmentIconTextView"
-            app:layout_constraintEnd_toEndOf="@+id/ellipse_320"
-            app:layout_constraintStart_toEndOf="@id/audioAttachmentIconTextView"
-            app:layout_constraintStart_toStartOf="@+id/ellipse_320"
-            app:layout_constraintTop_toTopOf="@+id/audioAttachmentIconTextView" />
-
-
-        <!-- Ellipse 319 -->
         <View
-            android:id="@+id/ellipse_319"
+            android:id="@+id/ellipse_audio"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="@drawable/ellipse_319"
-            app:layout_constraintBottom_toBottomOf="@id/ellipse_317"
-            app:layout_constraintEnd_toStartOf="@+id/ellipse_320"
-            app:layout_constraintStart_toEndOf="@+id/ellipse_317"
-            app:layout_constraintTop_toTopOf="@id/ellipse_317" />
+            android:background="@drawable/blue_circle"
+            app:layout_constraintBottom_toBottomOf="@id/ellipse_gallery"
+            app:layout_constraintEnd_toStartOf="@+id/ellipse_document"
+            app:layout_constraintStart_toEndOf="@+id/ellipse_gallery"
+            app:layout_constraintTop_toTopOf="@id/ellipse_gallery" />
 
         <View
             android:id="@+id/attachment_audio"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:background="@drawable/ic_baseline_headset_24"
-            app:layout_constraintBottom_toBottomOf="@id/ellipse_319"
-            app:layout_constraintEnd_toEndOf="@id/ellipse_319"
-            app:layout_constraintStart_toStartOf="@id/ellipse_319"
-            app:layout_constraintTop_toTopOf="@id/ellipse_319" />
+            android:backgroundTint="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/ellipse_audio"
+            app:layout_constraintEnd_toEndOf="@id/ellipse_audio"
+            app:layout_constraintStart_toStartOf="@id/ellipse_audio"
+            app:layout_constraintTop_toTopOf="@id/ellipse_audio" />
 
-        <!-- Ellipse 320 -->
+        <TextView
+            android:id="@+id/text_audio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/audio"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_gallery"
+            app:layout_constraintEnd_toEndOf="@+id/ellipse_audio"
+            app:layout_constraintStart_toEndOf="@id/text_gallery"
+            app:layout_constraintStart_toStartOf="@+id/ellipse_audio"
+            app:layout_constraintTop_toTopOf="@+id/text_gallery" />
+
+        <!-- Document -->
+
         <View
-            android:id="@+id/ellipse_320"
+            android:id="@+id/ellipse_document"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginEnd="24dp"
-            android:background="@drawable/ellipse_320"
-            app:layout_constraintBottom_toBottomOf="@id/ellipse_319"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/ellipse_319" />
+            android:background="@drawable/blue_circle"
+            app:layout_constraintBottom_toBottomOf="@id/ellipse_audio"
+            app:layout_constraintEnd_toStartOf="@+id/ellipse_gif"
+            app:layout_constraintStart_toEndOf="@+id/ellipse_audio"
+            app:layout_constraintTop_toTopOf="@id/ellipse_audio"
+            app:layout_constraintVertical_bias="0.0" />
 
         <View
             android:id="@+id/attachment_document"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:background="@drawable/document_image"
-            android:backgroundTint="@color/primary_light_color"
-            app:layout_constraintBottom_toBottomOf="@id/ellipse_320"
-            app:layout_constraintEnd_toEndOf="@id/ellipse_320"
-            app:layout_constraintStart_toStartOf="@id/ellipse_320"
-            app:layout_constraintTop_toTopOf="@id/ellipse_320" />
+            app:layout_constraintBottom_toBottomOf="@id/ellipse_document"
+            app:layout_constraintEnd_toEndOf="@id/ellipse_document"
+            app:layout_constraintStart_toStartOf="@id/ellipse_document"
+            app:layout_constraintTop_toTopOf="@id/ellipse_document" />
+
+        <TextView
+            android:id="@+id/text_document"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/document"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_audio"
+            app:layout_constraintEnd_toEndOf="@+id/ellipse_document"
+            app:layout_constraintStart_toEndOf="@id/text_audio"
+            app:layout_constraintStart_toStartOf="@+id/ellipse_document"
+            app:layout_constraintTop_toTopOf="@+id/text_audio" />
+
+        <View
+            android:id="@+id/ellipse_gif"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/blue_circle"
+            app:layout_constraintBottom_toBottomOf="@id/ellipse_audio"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ellipse_document"
+            app:layout_constraintTop_toTopOf="@id/ellipse_audio" />
+
+        <View
+            android:id="@+id/attachment_gif"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_baseline_gif_24"
+            android:backgroundTint="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/ellipse_gif"
+            app:layout_constraintEnd_toEndOf="@+id/ellipse_gif"
+            app:layout_constraintStart_toStartOf="@+id/ellipse_gif"
+            app:layout_constraintTop_toTopOf="@+id/ellipse_gif" />
+
+        <TextView
+            android:id="@+id/text_gif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/gif"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/text_document"
+            app:layout_constraintEnd_toEndOf="@+id/ellipse_gif"
+            app:layout_constraintStart_toStartOf="@+id/ellipse_gif"
+            app:layout_constraintTop_toTopOf="@+id/text_audio" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_gallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="ellipse_gallery,attachment_gallery,text_gallery" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_audio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="ellipse_audio,attachment_audio,text_audio" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_document"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="ellipse_document,attachment_document,text_document" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/group_gif"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="ellipse_gif,attachment_gif,text_gif" />
+
+
+        <!-- Ellipse 319 -->
+
+        <!-- Ellipse 320 -->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
