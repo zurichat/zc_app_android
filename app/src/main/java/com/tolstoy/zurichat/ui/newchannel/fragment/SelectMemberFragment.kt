@@ -1,6 +1,7 @@
-package com.tolstoy.zurichat.ui.newchannel.fragment
+package com.tolstoy.zurichat.ui.newchannel
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
@@ -10,131 +11,87 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentSelectMemberBinding
 import com.tolstoy.zurichat.models.MembersData
-import com.tolstoy.zurichat.ui.adapters.MemberSelectedAdapter
+import com.tolstoy.zurichat.models.User
+import com.tolstoy.zurichat.ui.adapters.NewChannelAdapter
 import com.tolstoy.zurichat.ui.adapters.SelectMemberAdapter
+import com.tolstoy.zurichat.ui.adapters.SelectedMemberAdapter
 import com.tolstoy.zurichat.util.viewBinding
 import timber.log.Timber
 
 class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
 
 
-    private val memberSelectedAdapter = MemberSelectedAdapter { member ->
-        removeMember(member)
-    }
-
-    private val selectMemberAdapter = SelectMemberAdapter { member ->
-        addMember(member)
-    }
-
-    private lateinit var selectedList: MutableList<MembersData>
-    private lateinit var fab: FloatingActionButton
-    private var selectedListOfMembers = MutableLiveData<List<MembersData>>()
-    private var selectedMembers = mutableListOf<MembersData>()
-
     private val binding by viewBinding(FragmentSelectMemberBinding::bind)
+    private lateinit var userList: List<User>
+    private val selectedUserLiveData = MutableLiveData<List<User>>()
+    private val selectedUsers = mutableListOf<User>()
+    private val selectMemberAdapter = SelectMemberAdapter { user -> addUser(user) }
+    private val selectedMemberAdapter = SelectedMemberAdapter { user -> removeUser(user) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        fab = binding.floatingActionButton2
 
-
+        userList = arguments?.get("USER_LIST") as List<User>
 
         with(binding) {
-            textView6.text = "${selectMember().size} Members"
+            //textView6.text = "${selectMember().size} Members"
             toolbar.setNavigationOnClickListener {
                 try {
-                    val action =
-                        SelectMemberFragmentDirections.actionSelectMemberFragmentToSelectNewChannelFragment()
+                    val action = SelectMemberFragmentDirections
+                        .actionSelectMemberFragmentToSelectNewChannelFragment()
                     findNavController().navigate(action)
                 } catch (exc: Exception) {
                     Timber.e(SelectNewChannelFragment.TAG, exc.toString())
                 }
             }
-            recyclerView.apply {
-                adapter = selectMemberAdapter
-                selectMemberAdapter.loadMembers(selectMember())
-                layoutManager = LinearLayoutManager(requireContext())
+            fabAddChannel.setOnClickListener {
+                val action = SelectMemberFragmentDirections
+                    .actionSelectMemberFragmentToNewChannelDataFragment()
+                findNavController().navigate(action)
             }
-            rcvSelected.apply {
-                adapter = memberSelectedAdapter
-
-            }
-            selectedListOfMembers.observe(requireActivity()) {
-                if (it.isEmpty()) {
-                    rcvSelected.visibility = View.GONE
-                    fab.visibility = View.GONE
-                } else {
-                    rcvSelected.visibility = View.VISIBLE
-
-                    memberSelectedAdapter.addMembers(selectedMembers)
-                    textView4.text = "New Channel"
-                    textView6.text =
-                        "${selectedMembers.size} out of ${selectMember().size} Selected"
-                    fab.visibility = View.VISIBLE
-                    rcvSelected.smoothScrollToPosition(selectedMembers.size - 1)
-                }
-                memberSelectedAdapter.addMembers(selectedMembers)
-            }
-            fab.setOnClickListener {
-                try {
-                    val action =
-                        SelectMemberFragmentDirections.actionSelectMemberFragmentToNewChannelDataFragment(
-                            channelName = "",
-                            memberData = selectedMembers.toTypedArray(),
-                            members = null,
-                            user = null,
-                            channelStatus = false,
-                            channelId = null
-                        )
-                    findNavController().navigate(action)
-                } catch (err: Exception) {
-                    Timber.e(SelectNewChannelFragment.TAG, err.printStackTrace())
-                }
-            }
-
         }
 
+        initAdapter()
+        selectedUserLiveData.observe(viewLifecycleOwner) {
+
+            if (it.isEmpty()) {
+                binding.topRecyclerView.visibility = View.GONE
+                binding.fabAddChannel.visibility = View.GONE
+                binding.numberOfContactsTxt.text = "Choose Channel Members"
+            } else {
+                binding.topRecyclerView.visibility = View.VISIBLE
+                binding.fabAddChannel.visibility = View.VISIBLE
+                selectedMemberAdapter.selectedUserList = it
+                selectedMemberAdapter.notifyDataSetChanged()
+                binding.numberOfContactsTxt.text =
+                    "${selectedUsers.size} out of ${userList.size} selected"
+                binding.topRecyclerView.smoothScrollToPosition(selectedUsers.size - 1)
+
+            }
+        }
     }
 
-    fun addMember(member: MembersData) {
-        binding.newChannelLayout.visibility = View.GONE
-        if (!selectedMembers.contains(member)) {
-            selectedMembers.add(member)
-            selectedListOfMembers.value = selectedMembers
+    private fun initAdapter() {
+        binding.recyclerView.also {
+            it.adapter = selectMemberAdapter.apply { list = userList }
+            it.layoutManager = LinearLayoutManager(context)
+        }
+        binding.topRecyclerView.also {
+            it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            it.adapter = selectedMemberAdapter
+        }
+    }
+    private fun addUser(user: User) {
+        if (!selectedUsers.contains(user)) {
+            selectedUsers.add(user)
+            selectedUserLiveData.value = selectedUsers
         } else {
-            removeMember(member)
+            removeUser(user)
         }
 
     }
 
-    //Remove Contact from Selected List
-    fun removeMember(member: MembersData) {
-        selectedMembers.remove(member)
-        selectedListOfMembers.value = selectedMembers
-    }
-
-    private fun selectMember(): List<MembersData> {
-        return listOf(MembersData(R.drawable.dmuser, "Peculiar Umeh", "God is great"),
-            MembersData(R.drawable.dmuser, "Joseph Kalu", "I am having fun"),
-            MembersData(R.drawable.dmuser, "Ahmed Johnson", "God is great"),
-            MembersData(R.drawable.dmuser, "Chuks Fire", "I am happy"),
-            MembersData(R.drawable.dmuser, "Lukanne Godness", "Eat, code and sleep"),
-            MembersData(R.drawable.dmuser, "Sammy Bloomy", "Seeing all of you"),
-            MembersData(R.drawable.dmuser, "Uche Mentessa", "I will get to level ten"),
-            MembersData(R.drawable.dmuser, "Oluwaseyi Oga", "God is great"),
-            MembersData(R.drawable.dmuser, "John Chumme", "God is great"))
-    }
-
-    companion object {
-        const val TAG = "SelectContactFragment"
-
-        fun newInstance(memberSelectedList: ArrayList<MembersData>): SelectMemberFragment {
-
-            val args = Bundle()
-            args.putParcelableArrayList("Selected Members", memberSelectedList)
-            val frag = SelectMemberFragment()
-            frag.arguments = args
-            return frag
-        }
+    private fun removeUser(user: User) {
+        selectedUsers.remove(user)
+        selectedUserLiveData.value = selectedUsers
     }
 }

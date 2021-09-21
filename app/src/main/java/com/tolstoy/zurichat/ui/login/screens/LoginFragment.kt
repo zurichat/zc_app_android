@@ -1,7 +1,9 @@
 package com.tolstoy.zurichat.ui.login.screens
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -26,10 +28,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private val binding by viewBinding(FragmentLoginBinding::bind)
     private val viewModel by viewModels<LoginViewModel>()
     private lateinit var progressDialog : ProgressDialog
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sharedPreferences = requireContext().getSharedPreferences("LOGIN_TOKEN", Context.MODE_PRIVATE)
         val textView = binding.textViewRegister
         val materialTextView = binding.materialTextView
         progressDialog = ProgressDialog(context)
@@ -85,14 +89,15 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         intent.putExtras(bundle)
         startActivity(intent)
         requireActivity().finish()
-        Toast.makeText(context, "You have successfully login", Toast.LENGTH_LONG).show()
+        sharedPreferences.edit().putString("TOKEN",response.data.user.token).apply()
+        Toast.makeText(context, "You have successfully logged in", Toast.LENGTH_LONG).show()
     }
 
     private fun handleError(throwable: Throwable) {
-
         Toast.makeText(context, "Invalid email or password, please sign up", Toast.LENGTH_LONG).show()
         Timber.e(throwable)
         progressDialog.dismiss()
     }
+
 }
 
