@@ -1,24 +1,19 @@
 package com.tolstoy.zurichat.ui.newchannel.fragment
 
 //import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
-import android.content.Intent
 import android.os.Bundle
-import android.text.Spanned
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentNewChannelDataBinding
 import com.tolstoy.zurichat.models.CreateChannelBodyModel
-import com.tolstoy.zurichat.models.MembersData
 import com.tolstoy.zurichat.models.User
-import com.tolstoy.zurichat.ui.activities.MainActivity
 import com.tolstoy.zurichat.ui.adapters.NewChannelMemberSelectedAdapter
 import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 import com.tolstoy.zurichat.ui.newchannel.states.CreateChannelViewState
@@ -63,8 +58,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     private fun setupViewsAndListeners() {
         with(binding) {
             newChannelToolbar.setNavigationOnClickListener {
-                startActivity(Intent(requireContext(),MainActivity::class.java))
-                requireActivity().finish()
+                findNavController().popBackStack()
             }
 
             floatingActionButton.setOnClickListener {
