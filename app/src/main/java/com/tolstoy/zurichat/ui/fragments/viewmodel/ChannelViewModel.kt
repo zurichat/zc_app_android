@@ -12,6 +12,7 @@ import com.tolstoy.zurichat.ui.fragments.model.JoinChannelUser
 import com.tolstoy.zurichat.ui.fragments.networking.ChannelsList
 import com.tolstoy.zurichat.ui.fragments.networking.JoinNewChannel
 import com.tolstoy.zurichat.ui.fragments.networking.RetrofitClientInstance
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
@@ -21,6 +22,7 @@ import retrofit2.create
 /**
  * Viewmodel to handle updates to the list when a network call is made and result is retrieved
  */
+@HiltViewModel
 class ChannelViewModel : ViewModel() {
     private var _channelsList = MutableLiveData<List<ChannelModel>>()
     val channelsList : LiveData<List<ChannelModel>> get() = _channelsList

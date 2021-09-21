@@ -20,7 +20,7 @@
         android:visibility="gone"
         tools:ignore="ContentDescription" />
 
-       <ImageView
+    <ImageView
         android:id="@+id/imageView4"
         android:layout_width="250dp"
         android:layout_height="250dp"

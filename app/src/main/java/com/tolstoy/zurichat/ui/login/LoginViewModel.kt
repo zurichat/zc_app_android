@@ -45,13 +45,13 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun setLoggedIn(value: Boolean) = repository.setLoggedIn(value)
+ //   fun setLoggedIn(value: Boolean) = repository.setLoggedIn(value)
 
     fun isLoggedIn() = repository.getLoggedIn()
 
     fun saveUser(userEntity: UserEntity) = viewModelScope.launch {
-        repository.saveUser(userEntity)
-            .flowOn(dispatcher)
-            .collect { _saveUserResponse.postValue(it) }
+  //      repository.saveUser(userEntity)
+   //         .flowOn(dispatcher)
+   //         .collect { _saveUserResponse.postValue(it) }
     }
 }

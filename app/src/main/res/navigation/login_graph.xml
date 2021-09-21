@@ -85,4 +85,10 @@
             android:id="@+id/action_emailVerificationFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
+    <action
+        android:id="@+id/action_global_loginFragment"
+        app:destination="@id/loginFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:popUpTo="@id/main_nav"
+        app:popUpToInclusive="true" />
 </navigation>
