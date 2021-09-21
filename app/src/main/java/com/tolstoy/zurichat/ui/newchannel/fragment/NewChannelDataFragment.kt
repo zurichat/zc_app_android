@@ -63,8 +63,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     private fun setupViewsAndListeners() {
         with(binding) {
             newChannelToolbar.setNavigationOnClickListener {
-                startActivity(Intent(requireContext(),MainActivity::class.java))
-                requireActivity().finish()
+                findNavController().popBackStack()
             }
 
             floatingActionButton.setOnClickListener {
