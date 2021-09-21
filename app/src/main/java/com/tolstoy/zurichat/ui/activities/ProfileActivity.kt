@@ -19,10 +19,7 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.models.User
-import com.tolstoy.zurichat.ui.profile.data.ProfilePayload
-import com.tolstoy.zurichat.ui.profile.data.ProfileResponse
-import com.tolstoy.zurichat.ui.profile.data.UserMemberResponse
-import com.tolstoy.zurichat.ui.profile.data.UserOrganizationResponse
+import com.tolstoy.zurichat.ui.profile.data.*
 import com.tolstoy.zurichat.ui.profile.network.Constants
 import com.tolstoy.zurichat.ui.profile.network.ProfileService
 import okhttp3.Interceptor
@@ -43,6 +40,8 @@ class ProfileActivity: AppCompatActivity() {
 
     //token id
     private var token: String? = null
+    private lateinit var orgMemId: String
+    private lateinit var memId: String
 
     private var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
         val newRequest: Request = chain.request().newBuilder()
@@ -70,6 +69,8 @@ class ProfileActivity: AppCompatActivity() {
         setContentView(R.layout.activity_profile)
 
         token = user?.token
+
+        getUserOrganization()
 
         savedName = findViewById(R.id.saved_name)
         savedAbout = findViewById(R.id.saved_about)
@@ -146,8 +147,11 @@ class ProfileActivity: AppCompatActivity() {
             with(builder){
                 setTitle("Edit Phone Number")
                 setPositiveButton("Save"){ _, _ ->
-                    getUserOrganization()
+
                     phoneTextView.text = editText.text.toString() // populates the value of the
+
+                    val phone: String = editText.text.toString()
+                    updatePhone(phone)
                     Timber.d("Update Successful") // EditText on the TextView
 
                     val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(applicationContext)
@@ -214,14 +218,85 @@ class ProfileActivity: AppCompatActivity() {
 
 
     //update profile details
-    private fun updateProfile() {
+    private fun updateProfilePhone(orgMemId: String, memId: String, update: PhoneUpdate) {
 
-        //demo data
-        val profileData = ProfilePayload("Zuri chat member",
-            "PorayMan",
-            "09876543212")
+        val call: Call<ProfileResponse> = retrofitService.updateProfilePhone(orgMemId, memId, update)
 
-        val call: Call<ProfileResponse> = retrofitService.updateProfile(Constants.ORG_ID, Constants.MEM_ID, profileData)
+        call.enqueue(object : Callback<ProfileResponse> {
+            override fun onResponse(
+                call: Call<ProfileResponse>,
+                response: Response<ProfileResponse>?
+            ) {
+
+                if(response!!.isSuccessful) {
+                    Log.i("Login Response Result", response.body()!!.message)
+
+                } else {
+                    when(response.code()){
+                        400 -> {
+                            Log.e("Error 400", "invalid authorization")
+                        }
+                        404 -> {
+                            Log.e("Error 404", "Not Found")
+                        }
+                        401 -> {
+                            Log.e("Error 401", "No authorization or session expired")
+                        }
+                        else -> {
+                            Log.e("Error", "Generic Error")
+                        }
+                    }
+                }
+
+            }
+
+            override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
+                Timber.e(t.message.toString())
+            }
+
+        })
+    }
+    private fun updateProfileName(orgMemId: String, memId: String, update: NameUpdate) {
+
+        val call: Call<ProfileResponse> = retrofitService.updateProfileName(orgMemId, memId, update)
+
+        call.enqueue(object : Callback<ProfileResponse> {
+            override fun onResponse(
+                call: Call<ProfileResponse>,
+                response: Response<ProfileResponse>?
+            ) {
+
+                if(response!!.isSuccessful) {
+                    Log.i("Login Response Result", response.body()!!.message)
+
+                } else {
+                    when(response.code()){
+                        400 -> {
+                            Log.e("Error 400", "invalid authorization")
+                        }
+                        404 -> {
+                            Log.e("Error 404", "Not Found")
+                        }
+                        401 -> {
+                            Log.e("Error 401", "No authorization or session expired")
+                        }
+                        else -> {
+                            Log.e("Error", "Generic Error")
+                        }
+                    }
+                }
+
+            }
+
+            override fun onFailure(call: Call<ProfileResponse>, t: Throwable) {
+                Timber.e(t.message.toString())
+            }
+
+        })
+    }
+    private fun updateProfileBio(orgMemId: String, memId: String, update: AboutUpdate) {
+
+        val call: Call<ProfileResponse> = retrofitService.updateProfileBio(orgMemId, memId, update)
 
         call.enqueue(object : Callback<ProfileResponse> {
             override fun onResponse(
@@ -309,6 +384,8 @@ class ProfileActivity: AppCompatActivity() {
                 if(response!!.isSuccessful) {
                     Log.i("Login Response Result", response.body()!!.message)
 
+                    memId = response.body()!!.data[1]._id
+                    orgMemId = response.body()!!.data[1].org_id
                 } else {
                     when(response.code()){
                         400 -> {
@@ -333,6 +410,22 @@ class ProfileActivity: AppCompatActivity() {
 
         })
     }
+
+    private fun updatePhone(phone: String) {
+        val phoneData = PhoneUpdate(phone)
+        updateProfilePhone(orgMemId, memId, phoneData)
+    }
+
+    private fun updateName(name: String) {
+        val nameData = NameUpdate(name)
+        updateProfileName(orgMemId, memId, nameData)
+    }
+
+    private fun updateAbout(bio: String) {
+        val bioData = AboutUpdate(bio)
+        updateProfileBio(orgMemId, memId, bioData)
+    }
+
 
 }
 
