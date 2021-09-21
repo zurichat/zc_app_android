@@ -82,7 +82,16 @@
         android:label="fragment_email_verification"
         tools:layout="@layout/fragment_email_verification" >
         <action
-            android:id="@+id/action_emailVerificationFragment_to_loginFragment"
+            android:id="@+id/action_emailVerificationFragment_to_emailVerifiedFragment"
+            app:destination="@id/emailVerifiedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailVerifiedFragment"
+        android:name="com.tolstoy.zurichat.ui.login.screens.EmailVerifiedFragment"
+        android:label="fragment_email_verified"
+        tools:layout="@layout/fragment_email_verified" >
+        <action
+            android:id="@+id/action_emailVerifiedFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
     </fragment>
 </navigation>

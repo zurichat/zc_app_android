@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.data.localSource.Cache
@@ -38,6 +39,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val materialTextView = binding.materialTextView
         progressDialog = ProgressDialog(context)
 
+        val prevDest = Navigation.findNavController(view).previousBackStackEntry!!
+            .destination.label.toString()
+
+        if (prevDest == "fragment_email_verified"){
+            binding.email.setText(arguments?.getString("email"))
+        }
+
+
         textView.setOnClickListener(fun(it: View) {
             findNavController().navigate(R.id.action_loginFragment_to_registerUserFragment)
         })
@@ -53,7 +62,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun handleSignIn() = with(binding) {
         buttonSignIn.setOnClickListener {
-            val loginBody = LoginBody(email = email.text.toString().trim(), password = password.text.toString(),)
+            val loginBody = LoginBody(
+                email = email.text.toString().trim(),
+                password = password.text.toString()
+            )
             viewModel.login(loginBody)
         }
     }

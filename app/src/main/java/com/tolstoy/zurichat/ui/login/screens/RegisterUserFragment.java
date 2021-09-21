@@ -100,6 +100,7 @@ public class RegisterUserFragment extends Fragment {
 
                     password.setError(null);
                     password2.setError(null);
+                    checkBox.setError(null);
                     bundle.putString("email", userEmail);
                     registerUser("", "", "", userEmail, userPassword, "");
                 }
