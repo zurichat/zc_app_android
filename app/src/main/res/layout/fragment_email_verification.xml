@@ -6,31 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".ui.login.screens.EmailVerificationFragment">
 
-    <ImageView
-        android:id="@+id/imageView12"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo1" />
-
     <TextView
         android:id="@+id/verify_email"
-        android:layout_width="136dp"
-        android:layout_height="23dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="16dp"
-        android:gravity="center_horizontal|center_vertical"
+        android:layout_marginTop="64dp"
+        android:fontFamily="@font/lato_regular"
+        android:gravity="center"
+        android:lineHeight="24dp"
         android:lineSpacingExtra="2sp"
-        android:text="Verify Email"
+        android:text="Verify your Email"
+        android:textSize="20dp"
         android:textStyle="bold"
-        android:textAppearance="@style/forgot_text_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView12" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView_enter_code"
@@ -55,7 +47,7 @@
         android:layout_marginEnd="24dp"
         android:backgroundTint="@color/primary_light_color"
         android:fontFamily="@font/lato"
-        android:text="@string/verify_email"
+        android:text="Confirm"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
