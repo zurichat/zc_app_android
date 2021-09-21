@@ -3,15 +3,19 @@ package com.tolstoy.zurichat.ui.adapters
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ListItemSelectMemberBinding
 import com.tolstoy.zurichat.models.MembersData
-import com.tolstoy.zurichat.ui.createchannel.Contact
+
+import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 
-class SelectMemberAdapter(private val memberList:(MembersData)->Unit):
+class SelectMemberAdapter(private val user: (User) -> Unit):
+
     RecyclerView.Adapter<SelectMemberAdapter.SelectMemberViewModel>() {
     private var members = listOf<MembersData>()
 
@@ -21,6 +25,8 @@ class SelectMemberAdapter(private val memberList:(MembersData)->Unit):
         notifyDataSetChanged()
     }
 
+    lateinit var list: List<User>
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectMemberViewModel {
         val binding = ListItemSelectMemberBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
@@ -29,37 +35,27 @@ class SelectMemberAdapter(private val memberList:(MembersData)->Unit):
     }
 
     override fun onBindViewHolder(holder: SelectMemberViewModel, position: Int) {
-       val membersData = members[position]
-        with(holder){
-            with(members[position]) {
-                binding.imgSelectMember.setImageResource(this.image)
-                binding.txtMemberName.text = this.name
-                binding.txtMemberDescription.text = this.description
-
-                with(holder.binding){
-                    holder.binding.selectMemberLayout.setOnClickListener {
-                        memberList(membersData)
-                        when (adapterPosition){
-
-                            0 -> {
-
-//                                val intent = Intent(context, NewChannelActivity::class.java)
-//                                intent.putExtra("Image", image)
-//                                intent.putExtra("Name", name)
-//                                intent.putExtra("Description", description)
-//                                context.startActivity(intent)
-                            }
-                        }
-                    }
-                }
+        holder.apply{
+            bind(list[position])
+            itemView.setOnClickListener {
+                user(list[position])
 
             }
         }
     }
 
-    override fun getItemCount(): Int = members.size
+
+    override fun getItemCount(): Int = list.size
+
 
     inner class SelectMemberViewModel(val binding: ListItemSelectMemberBinding): RecyclerView.ViewHolder(binding.root){
 
+        fun bind(user: User) {
+            binding.channelItemPersonNameTxt.text = if(user.first_name.isEmpty() && user.last_name.isEmpty())
+                "No name"
+            else "${user.first_name} ${user.last_name}"
+            binding.channelItemPersonIcon.setImageResource(R.drawable.ic_kolade_icon)
+            binding.channelItemMessageTxt.text = user.email
+        }
     }
 }

@@ -20,7 +20,7 @@
         <activity
             android:name=".ui.newchannel.NewChannelActivity"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light"/>
+            android:theme="@style/Theme.ZuriChat"/>
 
         <activity
             android:name=".ui.settings.ChatBackupActivity"
