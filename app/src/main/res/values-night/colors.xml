@@ -11,6 +11,8 @@
     <color name="background_color">#2D2D2D</color>
     <color name="text_color">#FFFFFF</color>
 
+    <color name="bg_color">#000000</color>
+
     <color name="primary_color">#00B87C</color>
     <color name="primary_light_color">#00B87C</color>
     <color name="primary_dark_color">#00B87C</color>

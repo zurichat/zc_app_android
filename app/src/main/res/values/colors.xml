@@ -17,6 +17,7 @@
     <color name="pref_txt">#1D1C1D</color>
     <color name="category_contact_pref">#EBEBEB</color>
 
+    <color name="bg_color">#FFFFFF</color>
 
     <!-- App Colors -->
     <color name="primary_color">#024E35</color>
