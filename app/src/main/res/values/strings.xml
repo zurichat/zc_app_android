@@ -160,4 +160,13 @@
     <string name="didn_t_rece">Didn\u00E2\u0080\u0099t receive any code?</string>
     <string name="label">Sign in to your Zuri account</string>
 
+    <String name="image1">All images</String>
+    <String name="image2">All videos</String>
+    <String name="image3">Camera</String>
+    <String name="image4">Dev App images</String>
+    <String name="image5">Xender images</String>
+    <String name="image6">Xender images</String>
+    <String name="image7">WhatsApp images</String>
+    <String name="image8">WhatsApp videos</String>
+
 </resources>
