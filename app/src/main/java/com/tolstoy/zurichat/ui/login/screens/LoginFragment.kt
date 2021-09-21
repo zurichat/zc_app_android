@@ -25,7 +25,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private val binding by viewBinding(FragmentLoginBinding::bind)
     private val viewModel by viewModels<LoginViewModel>()
-    private lateinit var progressDialog : ProgressDialog
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,7 +49,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun handleSignIn() = with(binding) {
         buttonSignIn.setOnClickListener {
-            val loginBody = LoginBody(email = email.text.toString().trim(), password = password.text.toString(),)
+            val loginBody = LoginBody(
+                email = email.text.toString().trim(),
+                password = password.text.toString(),
+            )
             viewModel.login(loginBody)
         }
     }
@@ -72,15 +75,22 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun handleSuccess(response: LoginResponse) {
         //val action = LoginFragmentDirections.actionLoginFragmentToMainNav(response.data.user)
-       // findNavController().navigate(action)
+        // findNavController().navigate(action)
         //findNavController().navigate(R.id.action_loginFragment_to_main_nav,bundle)
 
         //Starting A Activity With A Navigation Component Causes Issues With The Activity Theme.
         //Better To Sse An Intent
+
+        // add user auth state to shared preference
+        viewModel.saveUserAuthState(true)
+
+        // add user object to room database
+        viewModel.saveUser(response.data.user)
+
         progressDialog.dismiss()
         val bundle = Bundle()
-        bundle.putParcelable("USER",response.data.user)
-        val intent = Intent(requireContext(),MainActivity::class.java)
+        bundle.putParcelable("USER", response.data.user)
+        val intent = Intent(requireContext(), MainActivity::class.java)
         Cache.map.putIfAbsent("user", response.data.user)
         intent.putExtras(bundle)
         startActivity(intent)
@@ -89,7 +99,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun handleError(throwable: Throwable) {
-        Toast.makeText(context, "Invalid email or password, please sign up", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Invalid email or password, please sign up", Toast.LENGTH_LONG)
+            .show()
         Timber.e(throwable)
         progressDialog.dismiss()
     }

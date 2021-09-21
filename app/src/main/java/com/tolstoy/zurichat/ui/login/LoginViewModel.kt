@@ -7,18 +7,33 @@ import androidx.lifecycle.viewModelScope
 import com.tolstoy.zurichat.data.repository.UserRepository
 import com.tolstoy.zurichat.models.LoginBody
 import com.tolstoy.zurichat.models.LoginResponse
+import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.util.Result
+import com.tolstoy.zurichat.util.mapToApp
+import com.tolstoy.zurichat.util.mapToEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val repository: UserRepository) : ViewModel() {
 
     private val _loginResponse = MutableLiveData<Result<LoginResponse>>()
     val loginResponse: LiveData<Result<LoginResponse>> = _loginResponse
+
+    private val _user = MutableLiveData<User>()
+    val user: LiveData<User> get() = _user
+
+    init {
+        getUser()
+    }
 
     private val exceptionHandler: CoroutineExceptionHandler =
         CoroutineExceptionHandler { _, throwable ->
@@ -32,5 +47,24 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
             val loginResponse = repository.login(loginBody)
             _loginResponse.postValue(Result.Success(loginResponse))
         }
+    }
+
+    fun saveUserAuthState(value: Boolean) {
+        repository.saveUserAuthState(value)
+    }
+
+    fun getUserAuthState(): Boolean {
+        return repository.getUserAuthState()
+    }
+
+    private fun getUser() = viewModelScope.launch {
+        repository.getUser().flowOn(Dispatchers.IO)
+            .map { it.mapToApp() }
+            .catch { Timber.e(it) }
+            .collect { _user.postValue(it) }
+    }
+
+    fun saveUser(user: User) = viewModelScope.launch {
+        repository.saveUser(user.mapToEntity())
     }
 }
