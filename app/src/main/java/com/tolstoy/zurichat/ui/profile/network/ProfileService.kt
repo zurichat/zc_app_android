@@ -1,23 +1,40 @@
 package com.tolstoy.zurichat.ui.profile.network
 
-import com.tolstoy.zurichat.ui.profile.data.ProfilePayload
-import com.tolstoy.zurichat.ui.profile.data.ProfileResponse
-import com.tolstoy.zurichat.ui.profile.data.UserMemberResponse
-import com.tolstoy.zurichat.ui.profile.data.UserOrganizationResponse
+import com.tolstoy.zurichat.ui.profile.data.*
 import retrofit2.Call
 import retrofit2.http.*
 
 interface ProfileService {
 
 
+    //phone number update service
     @Headers("Content-Type: application/json;charset=UTF-8")
     @PATCH("organizations/{id}/members/{mem_id}/profile")
-    fun updateProfile(
+    fun updateProfilePhone(
         @Path("id") id: String,
         @Path("mem_id") mem_id: String,
-        @Body profilePayload: ProfilePayload
+        @Body profilePayload: PhoneUpdate
     ): Call<ProfileResponse>
 
+    // name update service
+    @Headers("Content-Type: application/json;charset=UTF-8")
+    @PATCH("organizations/{id}/members/{mem_id}/profile")
+    fun updateProfileName(
+        @Path("id") id: String,
+        @Path("mem_id") mem_id: String,
+        @Body profilePayload: NameUpdate
+    ): Call<ProfileResponse>
+
+    //about or description update service
+    @Headers("Content-Type: application/json;charset=UTF-8")
+    @PATCH("organizations/{id}/members/{mem_id}/profile")
+    fun updateProfileBio(
+        @Path("id") id: String,
+        @Path("mem_id") mem_id: String,
+        @Body profilePayload: AboutUpdate
+    ): Call<ProfileResponse>
+
+    //update profile photo service
     @Headers("Content-Type: application/json;charset=UTF-8")
     @PATCH("organizations/{id}/members/{mem_id}/photo")
     fun updatePhoto(
@@ -26,12 +43,14 @@ interface ProfileService {
         @Body profilePayload: ProfilePayload
     ): Call<ProfileResponse>
 
+    //get organization Id from list of organizations
     @Headers("Content-Type: application/json;charset=UTF-8")
     @GET("users/{email}/organizations")
     fun getUserOrg(
         @Path("email") email: String?
     ): Call<UserOrganizationResponse>
 
+    //get member id from list of members in an organization
     @Headers("Content-Type: application/json;charset=UTF-8")
     @GET("organizations/{orgId}/members")
     fun getUserMemberId(
