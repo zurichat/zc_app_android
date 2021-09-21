@@ -1,18 +1,15 @@
-package com.tolstoy.zurichat.ui.newchannel
+package com.tolstoy.zurichat.ui.newchannel.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentSelectMemberBinding
-import com.tolstoy.zurichat.models.MembersData
 import com.tolstoy.zurichat.models.User
-import com.tolstoy.zurichat.ui.adapters.NewChannelAdapter
 import com.tolstoy.zurichat.ui.adapters.SelectMemberAdapter
 import com.tolstoy.zurichat.ui.adapters.SelectedMemberAdapter
 import com.tolstoy.zurichat.util.viewBinding
@@ -36,17 +33,16 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
             //textView6.text = "${selectMember().size} Members"
             toolbar.setNavigationOnClickListener {
                 try {
-                    val action = SelectMemberFragmentDirections
-                        .actionSelectMemberFragmentToSelectNewChannelFragment()
+                    val action =
+                        SelectMemberFragmentDirections.actionSelectMemberFragmentToSelectNewChannelFragment()
                     findNavController().navigate(action)
                 } catch (exc: Exception) {
                     Timber.e(SelectNewChannelFragment.TAG, exc.toString())
                 }
             }
             fabAddChannel.setOnClickListener {
-                val action = SelectMemberFragmentDirections
-                    .actionSelectMemberFragmentToNewChannelDataFragment()
-                findNavController().navigate(action)
+                findNavController().navigate(R.id.action_selectMemberFragment_to_newChannelDataFragment,
+                    bundleOf(Pair("Selected_user", selectedUsers)))
             }
         }
 
@@ -80,6 +76,7 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
             it.adapter = selectedMemberAdapter
         }
     }
+
     private fun addUser(user: User) {
         if (!selectedUsers.contains(user)) {
             selectedUsers.add(user)

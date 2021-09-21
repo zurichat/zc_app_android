@@ -15,6 +15,8 @@ import com.tolstoy.zurichat.ui.dm.DMFragment
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChatsRVAdapter
 import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 
+//import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
+
 class ChatsFragment : Fragment() {
     private lateinit var binding: FragmentChatsBinding
     private var user : User? = null
