@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentNewChannelDataBinding
+import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.CreateChannelBodyModel
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.adapters.NewChannelMemberSelectedAdapter
@@ -35,7 +36,6 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     private var channelId = ""
     private var user:User?= null
     private var channelsMember = ArrayList<String>()
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -127,9 +127,21 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     }
 
     private fun navigateToDetails() {
-        val members = channelsMember
-        val channelName = binding.channelName.text.toString()
-        val action =
+        //val members = channelsMember
+        //val channelName = binding.channelName.text.toString()
+
+        val channel  = ChannelModel()
+        channel.name = binding.channelName.text.toString()
+        channel._id = channelId
+        channel.isPrivate = private
+        channel.members = channelsMember.size.toLong()
+
+        val bundle = Bundle()
+        bundle.putParcelable("USER",user)
+        bundle.putParcelable("Channel",channel)
+        bundle.putBoolean("Channel Joined",true)
+        findNavController().navigate(R.id.channelChatFragment,bundle)
+       /* val action =
             NewChannelDataFragmentDirections.actionNewChannelDataFragmentToChannelChatFragment(
                 members = members.toTypedArray(),
                 channelName = channelName,
@@ -137,6 +149,6 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                 channelStatus = private,
                 channelId = channelId
             )
-        findNavController().navigate(action)
+        findNavController().navigate(action)*/
     }
 }

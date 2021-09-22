@@ -162,8 +162,6 @@
         app:layout_constraintTop_toBottomOf="@+id/intro_group_text"
         />
 
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/channel_join_bar"
         android:layout_width="match_parent"
