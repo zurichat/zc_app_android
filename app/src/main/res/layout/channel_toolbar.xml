@@ -14,7 +14,7 @@
             android:id="@+id/channel_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:logo="@drawable/ic_group"
+            app:logo="@drawable/ic_group_white"
             app:navigationIcon="@drawable/ic_arrow_back"
             app:menu="@menu/channel_chat_menu"
             app:popupTheme="@style/Theme.MaterialComponents.Light.NoActionBar"

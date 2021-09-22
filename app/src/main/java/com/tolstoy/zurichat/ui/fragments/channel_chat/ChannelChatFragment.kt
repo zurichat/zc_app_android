@@ -7,6 +7,7 @@ import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.PopupWindow
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
@@ -29,6 +30,22 @@ class ChannelChatFragment : Fragment() {
     private var channelJoined = false
 
     private var isEnterSend: Boolean = false
+
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    activity?.finish()
+                }
+            }
+        )
+
+    }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelChatBinding.inflate(inflater, container, false)
@@ -109,7 +126,7 @@ class ChannelChatFragment : Fragment() {
             toolbar.subtitle = channel.members.toString().plus(" Member")
         }
         toolbar.setNavigationOnClickListener {
-            requireActivity().onBackPressed()
+            activity?.finish()
         }
 
         channelChatEdit.doOnTextChanged { text, start, before, count ->
@@ -131,6 +148,7 @@ class ChannelChatFragment : Fragment() {
 
             }
         }
+
 
         //Launch Attachment Popup
         popupWindow.setBackgroundDrawable(ColorDrawable())

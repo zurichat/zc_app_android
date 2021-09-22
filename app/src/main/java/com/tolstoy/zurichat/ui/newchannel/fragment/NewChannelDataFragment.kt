@@ -2,8 +2,10 @@ package com.tolstoy.zurichat.ui.newchannel.fragment
 
 //import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -23,6 +25,7 @@ import com.tolstoy.zurichat.util.ProgressLoader
 import com.tolstoy.zurichat.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -34,37 +37,38 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     private lateinit var userList: List<User>
     private var private = false
     private var channelId = ""
-    private var user:User?= null
+
     private var channelsMember = ArrayList<String>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val activity = requireActivity() as NewChannelActivity
-        user = activity.user
+        val user = activity.user
         userList = arguments?.get("Selected_user") as List<User>
 
-        setupViewsAndListeners()
-        observerData()
+        if (user != null){
+            setupViewsAndListeners(user = user)
+            observerData(user)
+        }else{
+            Toast.makeText(requireContext(), "user is null", Toast.LENGTH_SHORT).show()
+        }
 
     }
 
-    private fun retrieveChannelOwner(): String {
-       if (user != null){
-           return user!!.id
-       }
-        return ""
+    private fun retrieveChannelOwner(user: User): String {
+       return user.id
     }
 
-    private fun setupViewsAndListeners() {
+    private fun setupViewsAndListeners(user: User) {
         with(binding) {
             newChannelToolbar.setNavigationOnClickListener {
-                findNavController().popBackStack()
+                findNavController().navigateUp()
             }
 
             floatingActionButton.setOnClickListener {
                 val name = binding.channelName.text.toString()
                 val description = "$name description"
-                val owner = retrieveChannelOwner()
+                val owner = retrieveChannelOwner(user)
                 val privateValue = private
                 val createChannelBodyModel = CreateChannelBodyModel(
                     description = description,
@@ -77,6 +81,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                 } else {
                     viewModel.createNewChannel(createChannelBodyModel = createChannelBodyModel)
                     progressLoader.show(getString(R.string.creating_new_channel))
+
                 }
             }
 
@@ -105,7 +110,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
         }
     }
 
-    private fun observerData() {
+    private fun observerData(user: User) {
         lifecycleScope.launchWhenCreated {
             viewModel.createChannelViewFlow.collect {
                 when (it) {
@@ -114,11 +119,12 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                         channelId = channelResponseModel!!._id
                         progressLoader.hide()
                         Toast.makeText(context, getString(it.message), Toast.LENGTH_LONG).show()
-                        navigateToDetails()
+                        navigateToDetails(user)
                     }
                     is CreateChannelViewState.Failure -> {
                         progressLoader.hide()
-                        val errorMessage = String.format(getString(it.message),binding.channelName.text.toString())
+                        val errorMessage = String.format(getString(it.message),
+                            binding.channelName.text.toString())
                         Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
                     }
                 }
@@ -126,29 +132,23 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
         }
     }
 
-    private fun navigateToDetails() {
-        //val members = channelsMember
-        //val channelName = binding.channelName.text.toString()
+    private fun navigateToDetails(user:User) {
 
-        val channel  = ChannelModel()
-        channel.name = binding.channelName.text.toString()
-        channel._id = channelId
-        channel.isPrivate = private
-        channel.members = channelsMember.size.toLong()
+        try {
+            val channel = ChannelModel()
+            channel.name = binding.channelName.text.toString()
+            channel._id = channelId
+            channel.isPrivate = private
+            channel.members = channelsMember.size.toLong()
 
-        val bundle = Bundle()
-        bundle.putParcelable("USER",user)
-        bundle.putParcelable("Channel",channel)
-        bundle.putBoolean("Channel Joined",true)
-        findNavController().navigate(R.id.channelChatFragment,bundle)
-       /* val action =
-            NewChannelDataFragmentDirections.actionNewChannelDataFragmentToChannelChatFragment(
-                members = members.toTypedArray(),
-                channelName = channelName,
-                user = user,
-                channelStatus = private,
-                channelId = channelId
-            )
-        findNavController().navigate(action)*/
+            val bundle = Bundle()
+            bundle.putParcelable("USER", user)
+            bundle.putParcelable("Channel", channel)
+            bundle.putBoolean("Channel Joined", true)
+            findNavController().navigate(R.id.channelChatFragment, bundle)
+        } catch (exc: Exception) {
+            exc.printStackTrace()
+        }
+
     }
 }
