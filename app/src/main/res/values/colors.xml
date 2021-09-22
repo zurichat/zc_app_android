@@ -17,6 +17,7 @@
     <color name="pref_txt">#1D1C1D</color>
     <color name="category_contact_pref">#EBEBEB</color>
 
+    <color name="bg_color">#FFFFFF</color>
 
     <!-- App Colors -->
     <color name="primary_color">#024E35</color>
@@ -27,6 +28,8 @@
     <color name="secondary_dark_color">#024E35</color>
     <color name="primary_text_color">#ffffff</color>
     <color name="secondary_text_color">#ffffff</color>
+    <color name="green_color">#09B133</color>
+
     <color name="navigation_bar_color">#E5E5E5</color>
 
     <!-- Message Item Colors -->
@@ -47,6 +50,8 @@
     <color name="secondaryDarkColor">#024E35</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#ffffff</color>
+
+    <color name="selected">#C7CAC4</color>
 
     <color name="grey">#43DBDBDB</color>
     <color name="blueish_grey">#B8CCEA</color>

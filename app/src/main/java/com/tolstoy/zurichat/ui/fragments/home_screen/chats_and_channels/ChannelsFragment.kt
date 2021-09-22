@@ -52,7 +52,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         val newList: ArrayList<ChannelModel> = ArrayList()
 
         val unreadList: ArrayList<ChannelModel> = ArrayList()
-        val unreadChannelHeader = ChannelModel(getString(R.string.unread_messages), false, false, "channel_header_unread", generateRandomLong().toString(), 0)
+        val unreadChannelHeader = ChannelModel(getString(R.string.channels_), false, false, "channel_header_unread", generateRandomLong().toString(), 0)
 
         val readList: ArrayList<ChannelModel> = ArrayList()
         val addChannelHeader = ChannelModel(getString(R.string._add_channel), false, false, "channel_header_add", generateRandomLong().toString(), 0)
@@ -110,6 +110,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
             val bundle = Bundle()
             bundle.putParcelable("USER",user)
             bundle.putParcelableArrayList("Channels List",originalChannelsArrayList)
+            bundle.putParcelableArrayList("Joined Channels List",channelsArrayList)
             findNavController().navigate(R.id.addChannelFragment,bundle)
         }
         binding.channelRecycleView.adapter = adapt
@@ -121,6 +122,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
                 val bundle = Bundle()
                 bundle.putParcelable("USER",user)
                 bundle.putParcelableArrayList("Channels List",originalChannelsArrayList)
+                bundle.putParcelableArrayList("Joined Channels List",channelsArrayList)
                 findNavController().navigate(R.id.addChannelFragment,bundle)
             }
         }else{

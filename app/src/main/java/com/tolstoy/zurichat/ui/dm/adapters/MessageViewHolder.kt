@@ -1,7 +1,9 @@
 package com.tolstoy.zurichat.ui.dm.adapters
 
+import android.util.TypedValue
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.TypedArrayUtils
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.bumptech.glide.Glide
@@ -38,6 +40,7 @@ sealed class MessageViewHolder(binding: ViewBinding, val isDm: Boolean = true): 
         override fun bind(message: Message) {
             binding.also {
                 loadHyperlink(message)
+                it.textIMessageContent.setTextSize(TypedValue.COMPLEX_UNIT_SP, message.fontSize ?: 0f)
                 it.textIMessageSender.text = "John Felix Doe"
                 it.textIMessageContent.text = message.message
 //                textIMessageTime.text = message.time.format(DateTimeFormatter.ofPattern("hh:mm a"))

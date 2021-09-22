@@ -32,6 +32,9 @@
         <action
             android:id="@+id/action_registerUserFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_registerUserFragment_to_emailVerificationFragment"
+            app:destination="@id/emailVerificationFragment" />
     </fragment>
     <include app:graph="@navigation/main_nav" />
     <fragment
@@ -72,5 +75,23 @@
         <action
             android:id="@+id/action_enterOtpFragment_to_confirmPasswordFragment"
             app:destination="@id/confirmPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailVerificationFragment"
+        android:name="com.tolstoy.zurichat.ui.login.screens.EmailVerificationFragment"
+        android:label="fragment_email_verification"
+        tools:layout="@layout/fragment_email_verification" >
+        <action
+            android:id="@+id/action_emailVerificationFragment_to_emailVerifiedFragment"
+            app:destination="@id/emailVerifiedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/emailVerifiedFragment"
+        android:name="com.tolstoy.zurichat.ui.login.screens.EmailVerifiedFragment"
+        android:label="fragment_email_verified"
+        tools:layout="@layout/fragment_email_verified" >
+        <action
+            android:id="@+id/action_emailVerifiedFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 </navigation>
