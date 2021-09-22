@@ -15,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.net.toFile
 import androidx.preference.PreferenceManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.tolstoy.zurichat.R
@@ -22,17 +23,18 @@ import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.profile.data.*
 import com.tolstoy.zurichat.ui.profile.network.Constants
 import com.tolstoy.zurichat.ui.profile.network.ProfileService
-import okhttp3.Interceptor
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
+import java.io.File
 
-class ProfileActivity: AppCompatActivity() {
+open class ProfileActivity: AppCompatActivity() {
 
     private lateinit var savedName : TextView
     private lateinit var savedAbout : TextView
@@ -90,6 +92,7 @@ class ProfileActivity: AppCompatActivity() {
 
         userName.setOnClickListener {
             editNameDialog.show()
+
         }
 
         about.setOnClickListener {
@@ -188,6 +191,7 @@ class ProfileActivity: AppCompatActivity() {
             profilePhoto.setImageURI(uri)
             profilePhoto.invalidate()
             Toast.makeText(this, "Update Successful", Toast.LENGTH_SHORT).show()
+            updateProfilePhoto(uri)
         }
     }
 
@@ -416,16 +420,63 @@ class ProfileActivity: AppCompatActivity() {
         updateProfilePhone(orgMemId, memId, phoneData)
     }
 
-    private fun updateName(name: String) {
+    fun updateName(name: String) {
         val nameData = NameUpdate(name)
         updateProfileName(orgMemId, memId, nameData)
     }
 
-    private fun updateAbout(bio: String) {
+    fun updateAbout(bio: String) {
         val bioData = AboutUpdate(bio)
         updateProfileBio(orgMemId, memId, bioData)
     }
 
+    private fun updateProfilePhoto(uri: Uri) {
+
+        // use the FileUtils to get the actual file by uri
+        val file: File = uri.toFile()
+
+        // create RequestBody instance from file
+        val requestFile: RequestBody =
+            file.asRequestBody((contentResolver.getType(uri))?.toMediaType())
+
+        // MultipartBody.Part is used to send also the actual file name
+        val body: MultipartBody.Part =
+            MultipartBody.Part.createFormData("picture", file.name, requestFile)
+
+        val call: Call<ProfilePhotoResponse> = retrofitService.updatePhoto(orgMemId, memId, body)
+
+        call.enqueue(object : Callback<ProfilePhotoResponse> {
+            override fun onResponse(
+                call: Call<ProfilePhotoResponse>,
+                response: Response<ProfilePhotoResponse>?
+            ) {
+                if(response!!.isSuccessful) {
+                    Log.i("Login Response Result", response.body()!!.message)
+
+                } else {
+                    when(response.code()){
+                        400 -> {
+                            Log.e("Error 400", "invalid authorization")
+                        }
+                        404 -> {
+                            Log.e("Error 404", "Not Found")
+                        }
+                        401 -> {
+                            Log.e("Error 401", "No authorization or session expired")
+                        }
+                        else -> {
+                            Log.e("Error", "Generic Error")
+                        }
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ProfilePhotoResponse>, t: Throwable) {
+                Timber.e(t.message.toString())
+            }
+
+        })
+    }
 
 }
 
