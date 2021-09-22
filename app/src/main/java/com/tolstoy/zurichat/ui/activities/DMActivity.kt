@@ -56,7 +56,7 @@ class DMActivity : AppCompatActivity() {
         val sendMessage = findViewById<FloatingActionButton>(R.id.fab_send_text)
         val takePicture = findViewById<ImageView>(R.id.imageView_photo)
         var text: String? = null
-
+        
 
         //Change Icon on editText Click
         val currentMessage = dmEditText.text.toString()
