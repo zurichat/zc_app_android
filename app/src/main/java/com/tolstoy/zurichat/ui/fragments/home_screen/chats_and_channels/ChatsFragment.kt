@@ -52,7 +52,6 @@ class ChatsFragment : Fragment() {
         binding.recycler.adapter = chatsRVAdapter
 
         binding.fabAddChat.setOnClickListener {
-            //findNavController().navigate(R.id.dmFragment)
             val intent = Intent(activity, NewChannelActivity::class.java)
             startActivity(intent)
         }
