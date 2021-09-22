@@ -3,7 +3,9 @@ package com.tolstoy.zurichat.util
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
+import com.google.gson.Gson
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.models.User
 
 // Sets theme according to the string passed
 fun setUpApplicationTheme(themeName : String){
@@ -27,3 +29,15 @@ val String.isValidEmail: Boolean
         val emailPattern = """[a-zA-Z0-9._-]+@[a-z]+\.+[a-z]+"""
         return matches(emailPattern.toRegex())
     }
+
+fun Context.tempSaveUser(user: User?){
+    val gson = Gson()
+    val json = gson.toJson(user)
+    ZuriSharedPreferences(this).setString("User",json)
+}
+
+fun Context.getTempUser():User?{
+    val gson = Gson()
+    val json: String = ZuriSharedPreferences(this).getString("User", "")
+    return gson.fromJson(json, User::class.java)
+}

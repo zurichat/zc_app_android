@@ -36,9 +36,6 @@ class SelectNewChannelViewModel(val app: Application): AndroidViewModel(app) {
 
         }
 
-
-
-
     private fun getRetrofitService(url: String): RetrofitService {
         return RetrofitChannelClient.getRetrofit(url)
             .create(RetrofitService::class.java)

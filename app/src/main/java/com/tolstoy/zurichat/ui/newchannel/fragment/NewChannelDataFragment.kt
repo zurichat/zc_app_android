@@ -22,6 +22,8 @@ import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 import com.tolstoy.zurichat.ui.newchannel.states.CreateChannelViewState
 import com.tolstoy.zurichat.ui.newchannel.viewmodel.CreateChannelViewModel
 import com.tolstoy.zurichat.util.ProgressLoader
+import com.tolstoy.zurichat.util.ZuriSharedPreferences
+import com.tolstoy.zurichat.util.getTempUser
 import com.tolstoy.zurichat.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -50,7 +52,11 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
             setupViewsAndListeners(user = user)
             observerData(user)
         }else{
-            Toast.makeText(requireContext(), "user is null", Toast.LENGTH_SHORT).show()
+            val user = requireContext().getTempUser()
+            if (user!= null){
+                setupViewsAndListeners(user = user)
+                observerData(user)
+            }
         }
 
     }

@@ -18,7 +18,6 @@ import timber.log.Timber
 class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) {
     private val binding by viewBinding(FragmentSelectNewChannelBinding::bind)
     lateinit var userList: List<User>
-    var user:User?= null
     private val adapter = NewChannelAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,7 +28,6 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
         val viewModel = ViewModelProvider.
         AndroidViewModelFactory(requireActivity().application)
             .create(SelectNewChannelViewModel::class.java)
-
 
         val toolbar = binding.toolbar
         toolbar.setNavigationOnClickListener {

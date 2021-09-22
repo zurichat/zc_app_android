@@ -13,8 +13,12 @@ import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.ActivityMainBinding
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.login.screens.LoginFragmentDirections
+import com.tolstoy.zurichat.util.ZuriSharedPreferences
 import com.tolstoy.zurichat.util.setUpApplicationTheme
+import com.tolstoy.zurichat.util.tempSaveUser
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     var user: User? = null
 
@@ -26,16 +30,19 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        if (intent.hasExtra("USER")){
+        if (intent.hasExtra("USER")) {
             user = intent.getParcelableExtra("USER")
 
-        }   else{
+        } else {
             user = intent.getParcelableExtra("user")
-
 
         }
 
-        println("User $user")
+        //temp save auth user:: remove later
+        if (user != null) {
+            tempSaveUser(user = user)
+        }
+
         // This setups application theme to value stored in sharedPref
         setUpApplicationTheme(this)
 
