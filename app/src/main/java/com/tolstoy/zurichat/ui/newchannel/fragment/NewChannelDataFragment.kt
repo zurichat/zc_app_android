@@ -46,6 +46,9 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
         setupViewsAndListeners()
         observerData()
 
+        binding.newChannelToolbar.setOnClickListener{
+            activity.finish()
+        }
     }
 
     private fun retrieveChannelOwner(): String {
