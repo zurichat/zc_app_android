@@ -1,6 +1,7 @@
 package com.tolstoy.zurichat.ui.profile.network
 
 import com.tolstoy.zurichat.ui.profile.data.*
+import okhttp3.MultipartBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -35,13 +36,15 @@ interface ProfileService {
     ): Call<ProfileResponse>
 
     //update profile photo service
+
     @Headers("Content-Type: application/json;charset=UTF-8")
+    @Multipart
     @PATCH("organizations/{id}/members/{mem_id}/photo")
     fun updatePhoto(
         @Path("id") id: String,
         @Path("mem_id") mem_id: String,
-        @Body profilePayload: ProfilePayload
-    ): Call<ProfileResponse>
+        @Part file: MultipartBody.Part
+    ): Call<ProfilePhotoResponse>
 
     //get organization Id from list of organizations
     @Headers("Content-Type: application/json;charset=UTF-8")
