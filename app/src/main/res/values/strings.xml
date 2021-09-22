@@ -228,5 +228,7 @@
     <string name="image6">Xender images</string>
     <string name="image7">WhatsApp images</string>
     <string name="image8">WhatsApp videos</string>
+    <string name="you_are_already_a_member_of_this_channel">You are already a member of this channel</string>
+    <string name="joined">Joined</string>
 
 </resources>

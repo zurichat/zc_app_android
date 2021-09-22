@@ -67,8 +67,10 @@ class ChannelChatFragment : Fragment() {
         dimmerBox.alpha = dimVal
 
         if (channelJoined){
+            dimmerBox.visibility = View.GONE
             binding.channelJoinBar.visibility = View.GONE
         }else{
+            dimmerBox.visibility = View.VISIBLE
             binding.channelName.text = channel.name
 
             if (channel.isPrivate){
@@ -89,6 +91,7 @@ class ChannelChatFragment : Fragment() {
 
             viewModel.joinedUser.observe(viewLifecycleOwner,{joinedUser->
                 if (joinedUser != null){
+                    dimmerBox.visibility = View.GONE
                     toolbar.subtitle = channel.members.plus(1).toString().plus(" Members")
                     Toast.makeText(requireContext(), "Joined Channel Successfully", Toast.LENGTH_SHORT).show()
                     binding.channelJoinBar.visibility = View.GONE
