@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.preference.*
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.models.User
+import com.tolstoy.zurichat.ui.activities.MainActivity
 import com.tolstoy.zurichat.ui.activities.ProfileActivity
 import com.tolstoy.zurichat.util.THEME_KEY
 import com.tolstoy.zurichat.util.setUpApplicationTheme
@@ -28,6 +30,7 @@ class SettingsActivity : AppCompatActivity(),
     SharedPreferences.OnSharedPreferenceChangeListener {
 
     var soundPool: SoundPool? = null
+    private lateinit var user : User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,8 +91,13 @@ class SettingsActivity : AppCompatActivity(),
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
+        private lateinit var user : User
+
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.settings_preferences, rootKey)
+
+            user = requireActivity().intent.extras?.getParcelable("USER")!!
+
 
             val chatSettings = findPreference<Preference>("chat_header")
             val securitySettings = findPreference<Preference>("security_header")
@@ -110,7 +118,11 @@ class SettingsActivity : AppCompatActivity(),
 
             //make profile container clickable
             profileContainer?.setOnClickListener {
-                startActivity(Intent(activity, ProfileActivity::class.java))
+                val bundle = Bundle()
+                bundle.putParcelable("USER",user)
+                val intent = Intent(requireContext(), ProfileActivity::class.java)
+                intent.putExtras(bundle)
+                startActivity(intent)
             }
 
             chatSettings!!.setOnPreferenceClickListener {
