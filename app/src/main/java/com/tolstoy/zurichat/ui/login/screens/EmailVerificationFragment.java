@@ -97,9 +97,8 @@ public class EmailVerificationFragment extends Fragment {
                     Toast.makeText(getContext(), "Account confirmation code used or expired, confirm and try again", Toast.LENGTH_LONG).show();
 
                 }else if(response.code() == 200){
-                    Toast.makeText(getContext(), "Verification Successful", Toast.LENGTH_LONG).show();
                     bundle.putString("email", getArguments().getString("email"));
-                    navController.navigate(R.id.action_emailVerificationFragment_to_loginFragment, bundle);
+                    navController.navigate(R.id.action_emailVerificationFragment_to_emailVerifiedFragment, bundle);
                 }
                 progressDialog.dismiss();
             }

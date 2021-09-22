@@ -98,4 +98,9 @@
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/black</item>
     </style>
+    <style name="customDialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="android:textColor">@color/background_color</item>
+        <item name="android:background">@color/white</item>
+        <item name="colorAccent">@color/background_color</item>
+    </style>
 </resources>

@@ -4,6 +4,8 @@ package com.tolstoy.zurichat.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.squareup.moshi.Json;
 
 import java.util.List;
@@ -21,23 +23,29 @@ import java.util.Objects;
  */
 
 public class ChannelModel implements Parcelable {
-    @Json(name = "_id")
+    @SerializedName("_id")
+    @Expose
     private String _id;
-    @Json(name = "created_on")
+    @SerializedName("created_on")
+    @Expose
     private String createdOn;
-    @Json(name = "description")
+    @SerializedName("description")
+    @Expose
     private String description;
-    @Json(name = "name")
+    @SerializedName("name")
+    @Expose
     private String name;
-    @Json(name = "private")
+    @SerializedName("private")
+    @Expose
     private boolean _private;
-    @Json(name = "roles")
+    @SerializedName("roles")
+    @Expose
     private List<Object> roles = null;
-    @Json(name = "slug")
+    @SerializedName("slug")
+    @Expose
     private String slug;
-    //@Json(name = "users")
-    //private String users;
-    @Json(name = "members")
+    @SerializedName("members")
+    @Expose
     private long members;
 
     private transient String type;
@@ -46,9 +54,9 @@ public class ChannelModel implements Parcelable {
 
     /***
      * Do Not Remove Constructor
-     * Removing constructor will make moshi ignore the transient variables
+     * Removing constructor will make json ignore the transient variables
      */
-    ChannelModel(){
+    public ChannelModel(){
         type = "channel";
         viewType = 1;
     }
@@ -127,14 +135,6 @@ public class ChannelModel implements Parcelable {
     public void setSlug(String slug) {
         this.slug = slug;
     }
-
-    /*public JSONObject getUsers() {
-        return users;
-    }
-
-    public void setUsers(JSONObject users) {
-        this.users = users;
-    }*/
 
     public long getMembers() {
         return members;

@@ -3,12 +3,9 @@ package com.tolstoy.zurichat.ui.dm
 import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.*
-import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.data.repository.DmRepository
 import com.tolstoy.zurichat.data.repository.ImagesRepository
 import com.tolstoy.zurichat.models.Message
-import com.tolstoy.zurichat.models.Room
-import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.models.network_response.ImageUploadResponse
 import com.tolstoy.zurichat.models.network_response.MessageResponse
 import com.tolstoy.zurichat.models.network_response.RoomInfoResponse
@@ -33,6 +30,7 @@ class DMViewModel(
     val imageUploadResonse: LiveData<ImageUploadResponse>
         get() = _imageUploadResonse
     private val _imageUploadResonse = MutableLiveData<ImageUploadResponse>()
+
     fun uploadImage(context: Context, uri: Uri){
         viewModelScope.launch(Dispatchers.IO) {
             try{

@@ -1,22 +1,27 @@
 package com.tolstoy.zurichat.ui.dm
 
+import android.content.ContentResolver
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.*
-import androidx.appcompat.app.AppCompatActivity
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentAttachmentsBinding
 import com.tolstoy.zurichat.ui.dm.adapters.AttachmentAdapter
+import com.tolstoy.zurichat.ui.dm.audio.AudioInfo
 
 /**
  * @author Jeffrey Orazulike [https://github.com/jeffreyorazulike]
  * Created 14-Sep-21
  */
-class AttachmentsFragment: Fragment(R.layout.fragment_attachments) {
+class AttachmentsFragment : Fragment(R.layout.fragment_attachments) {
 
     private lateinit var binding: FragmentAttachmentsBinding
     private lateinit var media: MEDIA
@@ -46,14 +51,31 @@ class AttachmentsFragment: Fragment(R.layout.fragment_attachments) {
 
         // TODO: Uses the data gotten from the previous screen to determine what sort of files to show
         // TODO: but for now, for testing purposes, only images will be shown
-
-        viewModel.getImages(requireContext()).observe(viewLifecycleOwner){ files ->
+        viewModel.getImages(requireContext()).observe(viewLifecycleOwner) { files ->
             binding.listStorageItems.let { list ->
                 list.layoutManager = GridLayoutManager(requireContext(), 3)
                 adapter = AttachmentAdapter(files, media)
                 list.adapter = adapter
             }
         }
+
+        viewModel.getAudio(requireContext()).observe(viewLifecycleOwner) { files ->
+            binding.listStorageItems.let { list ->
+                list.layoutManager = LinearLayoutManager(requireContext())
+                adapter = AttachmentAdapter(files, media)
+                list.adapter = adapter
+            }
+        }
+
+        viewModel.getDoc(requireContext()).observe(viewLifecycleOwner) { files ->
+            binding.listStorageItems.let { list ->
+                list.layoutManager = LinearLayoutManager(requireContext())
+                adapter = AttachmentAdapter(files, media)
+                list.adapter = adapter
+            }
+        }
+
+
     }
 
     private fun handleToolbarMenuClick(item: MenuItem): Boolean{

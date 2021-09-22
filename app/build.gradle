@@ -17,6 +17,7 @@ android {
         versionCode 1
         versionName "1.0"
 
+        flavorDimensions "default"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
