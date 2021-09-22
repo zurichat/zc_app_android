@@ -1,16 +1,22 @@
 package com.tolstoy.zurichat.ui.dm
 
 import android.content.Context
+import android.content.UriMatcher
+import android.content.UriPermission
 import android.net.Uri
 import android.os.Environment
 import android.provider.BaseColumns
+import android.provider.DocumentsContract
+import android.provider.DocumentsProvider
 import android.provider.MediaStore
+import androidx.documentfile.provider.DocumentFile
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.http.Url
 
 
 /**
@@ -26,25 +32,40 @@ class AttachmentsViewModel: ViewModel() {
 
     fun getImages(context: Context) =
         get(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-            MediaStore.Images.Media.INTERNAL_CONTENT_URI, images)
+            MediaStore.Images.Media.INTERNAL_CONTENT_URI, images
+        )
 
     fun getVideos(context: Context) =
-        get(context, MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
-            MediaStore.Video.Media.INTERNAL_CONTENT_URI, videos)
+        get(
+            context, MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+            MediaStore.Video.Media.INTERNAL_CONTENT_URI, videos
+        )
 
     fun getAudio(context: Context) =
-        get(context, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-            MediaStore.Audio.Media.INTERNAL_CONTENT_URI, audio)
+        get(
+            context, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+            MediaStore.Audio.Media.INTERNAL_CONTENT_URI, audio
+        )
 
-    private fun get(context: Context, fromExternal: Uri, fromInternal: Uri,
-                    liveData: MutableLiveData<List<Uri>>): LiveData<List<Uri>>{
+    fun getDoc(context: Context) =
+        get(
+            context, DocumentsContract.buildChildDocumentsUri(null, null),
+            DocumentsContract.buildSearchDocumentsUri(null, null, null), documents
+        )
+
+
+    private fun get(
+        context: Context, fromExternal: Uri, fromInternal: Uri,
+        liveData: MutableLiveData<List<Uri>>
+    ): LiveData<List<Uri>> {
 
         viewModelScope.launch(Dispatchers.IO) {
             // checks if external storage is available on the users device
             liveData.postValue(
                 if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED)
                     load(context, fromExternal)
-                else load(context, fromInternal))
+                else load(context, fromInternal)
+            )
         }
         return liveData
     }

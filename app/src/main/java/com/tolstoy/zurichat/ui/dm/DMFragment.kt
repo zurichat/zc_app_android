@@ -1,13 +1,12 @@
 package com.tolstoy.zurichat.ui.dm
 
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.Gravity
-import android.view.View
-import android.view.WindowManager
+import android.view.*
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
@@ -21,9 +20,7 @@ import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.FragmentDmBinding
 import com.tolstoy.zurichat.databinding.PartialAttachmentPopupBinding
 import com.tolstoy.zurichat.models.Message
-import com.tolstoy.zurichat.models.Room
 import com.tolstoy.zurichat.models.User
-import com.tolstoy.zurichat.models.network_response.RoomInfoResponse
 import com.tolstoy.zurichat.ui.base.ViewModelFactory
 import com.tolstoy.zurichat.ui.dm.adapters.MessageAdapter
 import com.tolstoy.zurichat.util.setClickListener
@@ -57,6 +54,7 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
         binding = FragmentDmBinding.bind(view)
         setupUI()
         setupObservers()
+
         // code to control the dimming of background
         val dimmerBox:View? = view?.findViewById<View>(R.id.dimmer_background)
         val prefMngr = PreferenceManager.getDefaultSharedPreferences(context)
@@ -64,6 +62,7 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
         dimmerBox?.alpha = dimVal
 
     }
+
 
     override fun onPause() {
         attachmentPopup.dismiss()
@@ -173,8 +172,11 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
     }
 
     private fun receiveAttachment(attachment: AttachmentsFragment.Attachment){
-        when(attachment.media){
+        when (attachment.media) {
             MEDIA.IMAGE -> handleImageUpload(attachment.selected)
+            MEDIA.AUDIO -> handleAudioUpload(attachment.selected)
+            MEDIA.DOCUMENT -> handleDocumentUpload(attachment.selected)
+            else -> handleImageUpload(attachment.selected)
         }
     }
 
@@ -188,5 +190,27 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
             )
         )
         viewModel.uploadImage(requireContext().applicationContext, it)
+    }
+
+    private fun handleAudioUpload(audioList: List<Uri>) = audioList.forEach {
+        adapter.addMessage(
+            Message(
+                message = "",
+                senderId = user!!.id,
+                roomId = user!!.id,
+                media = listOf(it.toString())
+            )
+        )
+    }
+
+    private fun handleDocumentUpload(audioList: List<Uri>) = audioList.forEach {
+        adapter.addMessage(
+            Message(
+                message = "",
+                senderId = user!!.id,
+                roomId = user!!.id,
+                media = listOf(it.toString())
+            )
+        )
     }
 }
