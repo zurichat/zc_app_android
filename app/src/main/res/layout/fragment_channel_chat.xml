@@ -134,7 +134,7 @@
             android:id="@+id/send_message_btn"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_send"
+            android:src="@drawable/ic_send_"
             app:fabCustomSize="48dp"
             app:backgroundTint="@color/primary_light_color"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -151,17 +151,29 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
     <!--endregion-->
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/group_recycler"
+    <com.stfalcon.chatkit.messages.MessagesList
+        android:id="@+id/messagesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constrainedHeight="true"
-        android:layout_margin="6dp"
         app:layout_constraintBottom_toTopOf="@+id/channel_typing_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/intro_group_text"
-        />
+        app:textAutoLink="all"
+        app:incomingTextColor="@color/text_color"
+        app:outcomingTextColor="@color/text_color"
+        app:incomingTextSize="14sp"
+        app:incomingTextLinkColor="@color/primaryColor"
+        app:outcomingDefaultBubbleColor="#A8E1FF"
+        app:incomingDefaultBubbleSelectedColor="@color/gray"
+        app:outcomingDefaultBubbleSelectedColor="@color/gray"
+        app:incomingDefaultBubbleColor="@color/bg_color"
+        app:outcomingTextLinkColor="@color/primaryColor"
+        app:outcomingTextSize="14sp"
+        app:outcomingImageTimeTextStyle="normal"
+        app:incomingImageTimeTextStyle="normal"
+         />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/channel_join_bar"
