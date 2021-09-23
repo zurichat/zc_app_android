@@ -1,9 +1,11 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -15,6 +17,7 @@ import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChannelAdapter
 import com.tolstoy.zurichat.ui.fragments.home_screen.diff_utils.ChannelDiffUtil
 import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
+import timber.log.Timber
 import kotlin.random.Random
 
 class ChannelsFragment : Fragment(R.layout.fragment_channels) {
@@ -137,20 +140,9 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private fun getListOfChannels() {
         viewModel.getChannelsList()
         viewModel.channelsList.observe(viewLifecycleOwner,{
-            // channelsArrayList.addAll(it)
-
             originalChannelsArrayList.clear()
             originalChannelsArrayList.addAll(it)
-            addHeaders()
 
-            /***
-             * Replaced This With The Above so as to avoid holding unwanted references.
-             * Those References also caused unwanted values to display in the Add Channel Fragment
-             */
-            // channelsArrayList = it as ArrayList<ChannelModel>
-            //originalChannelsArrayList = it
-
-            //Get List Of Joined Channels
             viewModel.getJoinedChannelsList("1",user.id)
             //reload if can't get list
 
@@ -169,6 +161,18 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
                 }
             }
             addHeaders()
+        })
+
+        viewModel.error.observe(viewLifecycleOwner,{
+            if (it!=null){
+                if (channelsArrayList.isEmpty()){
+                    //Show Snackbar Here
+                    Toast.makeText(requireContext(),"An Error Occured",Toast.LENGTH_SHORT).show()
+                }else {
+                    //Recycle View isn't empty but calls to get the channels list fails. Log the error without compromising user experience
+                    Timber.i(it)
+                }
+            }
         })
     }
 

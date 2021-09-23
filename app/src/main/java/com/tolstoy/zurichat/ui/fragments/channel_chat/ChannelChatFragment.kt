@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.InputType
 import android.view.*
 import android.view.inputmethod.EditorInfo
+import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
@@ -13,6 +14,8 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.preference.PreferenceManager
+import com.bumptech.glide.Glide
+import com.stfalcon.chatkit.commons.ImageLoader
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentChannelChatBinding
 import com.tolstoy.zurichat.models.ChannelModel
@@ -20,6 +23,13 @@ import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.fragments.model.JoinChannelUser
 import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
 import dev.ronnie.github.imagepicker.ImagePicker
+import com.stfalcon.chatkit.messages.MessagesListAdapter
+import com.tolstoy.zurichat.ui.fragments.channel_chat.data.model.ChannelChatMessage
+import com.tolstoy.zurichat.ui.fragments.channel_chat.data.model.ChannelUser
+import dev.ronnie.github.imagepicker.ImageResult
+import java.util.*
+import kotlin.random.Random
+
 
 class ChannelChatFragment : Fragment() {
     private val viewModel : ChannelViewModel by viewModels()
@@ -125,15 +135,7 @@ class ChannelChatFragment : Fragment() {
             }
         }
 
-        sendMessage.setOnClickListener{
-//  TODO(check if channelChatEdit is null or empty, and do nothing else, get the _id of the user that sent the message from user variable, get the string message from the edit text, send the to show up as one of the list items on the recyclerview in that)
-        }
 
-        binding.cameraChannelBtn.setOnClickListener {
-            imagePicker.pickFromStorage {
-
-            }
-        }
 
         //Launch Attachment Popup
         popupWindow.setBackgroundDrawable(ColorDrawable())
@@ -145,6 +147,47 @@ class ChannelChatFragment : Fragment() {
         }
 
         setupKeyboard()
+
+        val imageLoader: ImageLoader = object : ImageLoader {
+            override fun loadImage(imageView: ImageView?, url: String?, p2: Any?) {
+                if (imageView != null) {
+                    Glide.with(requireActivity()).load(url).into(imageView)
+                }
+            }
+        }
+
+        val adapter: MessagesListAdapter<ChannelChatMessage> = MessagesListAdapter(user?.id, imageLoader)
+
+        binding.messagesList.setAdapter(adapter)
+
+        sendMessage.setOnClickListener{
+            if (channelChatEdit.text.toString().isNotEmpty()){
+                val channelUser = ChannelUser(user?.id.toString(), user?.display_name.toString(),"",true)
+                val channelChatMessage = ChannelChatMessage(generateID().toString(),channelUser,channelChatEdit.text.toString(), Date())
+                adapter.addToStart(channelChatMessage, true)
+            }
+        }
+
+        binding.cameraChannelBtn.setOnClickListener {
+            imagePicker.pickFromStorage { imageResult ->
+                when (imageResult) {
+                    is ImageResult.Success -> {
+                        val uri = imageResult.value
+                        val channelUser = ChannelUser(user?.id.toString(), user?.display_name.toString(),"",true)
+                        val channelChatMessageImage = ChannelChatMessage.Image(uri.toString())
+                        val channelChatMessage = ChannelChatMessage(generateID().toString(),channelUser,channelChatEdit.text.toString(), Date())
+                        channelChatMessage.setImage(channelChatMessageImage)
+                        adapter.addToStart(channelChatMessage, true)
+                    }
+                    is ImageResult.Failure -> {
+                        val errorString = imageResult.errorString
+                        Toast.makeText(requireContext(), errorString, Toast.LENGTH_LONG).show()
+                    }
+                }
+
+            }
+
+        }
     }
 
     private fun setupKeyboard() {
@@ -165,6 +208,10 @@ class ChannelChatFragment : Fragment() {
                 false
             }
         }
+    }
+
+    private fun generateID():Int{
+        return Random(6000000).nextInt()
     }
 
 }
