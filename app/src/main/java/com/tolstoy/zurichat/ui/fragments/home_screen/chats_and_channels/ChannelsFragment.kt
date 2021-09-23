@@ -152,6 +152,8 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
 
             //Get List Of Joined Channels
             viewModel.getJoinedChannelsList("1",user.id)
+            //reload if can't get list
+
         })
 
         viewModel.joinedChannelsList.observe(viewLifecycleOwner,{
