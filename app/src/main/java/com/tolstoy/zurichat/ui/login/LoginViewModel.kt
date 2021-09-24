@@ -1,13 +1,8 @@
 package com.tolstoy.zurichat.ui.login
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.tolstoy.zurichat.data.repository.UserRepository
-import com.tolstoy.zurichat.models.LoginBody
-import com.tolstoy.zurichat.models.LoginResponse
-import com.tolstoy.zurichat.models.User
+import com.tolstoy.zurichat.models.*
 import com.tolstoy.zurichat.util.Result
 import com.tolstoy.zurichat.util.mapToApp
 import com.tolstoy.zurichat.util.mapToEntity
@@ -30,6 +25,9 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
 
     private val _user = MutableLiveData<User>()
     val user: LiveData<User> get() = _user
+
+    private val _passwordReset = MutableLiveData<Result<PassswordRestReponse>>()
+              val pssswordreset: LiveData<Result<PassswordRestReponse>> get() = _passwordReset
 
     init {
         getUser()
@@ -66,5 +64,17 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
 
     fun saveUser(user: User) = viewModelScope.launch {
         repository.saveUser(user.mapToEntity())
+    }
+
+    fun passwordReset(passwordReset: PasswordReset) {
+        try {
+            viewModelScope.launch {
+                _passwordReset.postValue(Result.Success(repository.passwordReset(passwordReset)))
+            }
+        }catch (e:Exception){
+            _passwordReset.postValue(Result.Error(e))
+        }
+
+
     }
 }

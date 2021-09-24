@@ -6,6 +6,8 @@ import com.tolstoy.zurichat.data.localSource.entities.UserEntity
 import com.tolstoy.zurichat.data.remoteSource.RetrofitService
 import com.tolstoy.zurichat.models.LoginBody
 import com.tolstoy.zurichat.models.LoginResponse
+import com.tolstoy.zurichat.models.PassswordRestReponse
+import com.tolstoy.zurichat.models.PasswordReset
 import com.tolstoy.zurichat.util.AUTH_PREF_KEY
 import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +23,11 @@ class UserRepository @Inject constructor(
 
     suspend fun login(loginBody: LoginBody): LoginResponse {
         return retrofitService.login(loginBody)
+    }
+
+     suspend fun passwordReset(passwordReset: PasswordReset): PassswordRestReponse {
+        return retrofitService.passwordreset(passwordReset)
+
     }
 
     fun saveUserAuthState(value: Boolean) {

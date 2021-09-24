@@ -37,7 +37,7 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
                         SelectMemberFragmentDirections.actionSelectMemberFragmentToSelectNewChannelFragment()
                     findNavController().navigate(action)
                 } catch (exc: Exception) {
-                    Timber.e(SelectNewChannelFragment.TAG, exc.toString())
+
                 }
             }
             fabAddChannel.setOnClickListener {

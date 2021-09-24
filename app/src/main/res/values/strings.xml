@@ -143,6 +143,8 @@
     <string name="chanel_search">Search</string>
     <string name="channel_media">Channel media</string>
     <string name="select_contact">Select Contact</string>
+    <string name="select_members">Select Members</string>
+    <string name="members">Members</string>
     <string name="changephoneno_hint_txt">Enter your new phone number</string>
     <string name="search_for_channels">Search for channels</string>
 
