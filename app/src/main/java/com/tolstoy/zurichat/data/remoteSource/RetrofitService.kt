@@ -2,6 +2,7 @@ package com.tolstoy.zurichat.data.remoteSource
 
 import com.tolstoy.zurichat.models.*
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -22,7 +23,7 @@ interface RetrofitService {
     fun verifyEmail(@Body verifyEmail : VerifyEmail?): Call<VerifyEmail?>?
 
     @GET("users")
-    suspend fun getUsers(@Header("Authorization")token: String): UserList
+    suspend fun getUsers(@Header("Authorization")token: String): Response<UserList>
 
 }
 
