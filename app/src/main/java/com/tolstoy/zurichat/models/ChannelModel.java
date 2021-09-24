@@ -56,7 +56,7 @@ public class ChannelModel implements Parcelable {
      * Do Not Remove Constructor
      * Removing constructor will make json ignore the transient variables
      */
-    ChannelModel(){
+    public ChannelModel(){
         type = "channel";
         viewType = 1;
     }

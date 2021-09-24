@@ -18,6 +18,7 @@
         android:layout_marginBottom="10dp"
         android:gravity="center_vertical"
         android:text="Channels"
+        android:textColor="@color/text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
