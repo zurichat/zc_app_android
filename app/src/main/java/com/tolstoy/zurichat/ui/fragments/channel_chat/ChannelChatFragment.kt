@@ -3,6 +3,7 @@ package com.tolstoy.zurichat.ui.fragments.channel_chat
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.InputType
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.ImageView
@@ -26,7 +27,9 @@ import dev.ronnie.github.imagepicker.ImagePicker
 import com.stfalcon.chatkit.messages.MessagesListAdapter
 import com.tolstoy.zurichat.ui.fragments.channel_chat.data.model.ChannelChatMessage
 import com.tolstoy.zurichat.ui.fragments.channel_chat.data.model.ChannelUser
+import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelMessagesViewModel
 import dev.ronnie.github.imagepicker.ImageResult
+import timber.log.Timber
 import java.util.*
 import kotlin.random.Random
 
@@ -40,6 +43,7 @@ class ChannelChatFragment : Fragment() {
 
     private var isEnterSend: Boolean = false
 
+    private val channelMsgViewModel : ChannelMessagesViewModel by viewModels()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelChatBinding.inflate(inflater, container, false)
         val bundle = arguments
@@ -56,6 +60,21 @@ class ChannelChatFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        /**
+         * Retrieves the channel Id from the channelModel class to get all messages from the endpoint
+         * Makes the network call from the ChannelMessagesViewModel
+         */
+        channelMsgViewModel.retrieveAllMessages("1", channel._id)
+
+        Timber.d("onViewCreated: Entered channel screen")
+
+        // Observes result from the viewModel to be passed to an adapter to display the messages
+        channelMsgViewModel.allMessages.observe(viewLifecycleOwner, {
+            if (it != null) {
+                Timber.d("onViewCreated: " + it.data.size)
+            }
+        })
+
         // code to control the dimming of background
         val prefMngr = PreferenceManager.getDefaultSharedPreferences(context)
         val dimVal = prefMngr.getInt("bar",50).toFloat().div(100f)
