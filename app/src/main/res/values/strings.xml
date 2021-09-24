@@ -90,6 +90,13 @@
     <!-- Wallpaper Settings -->
     <string name="wallpaper_dimming_header">Wallpaper Dimming</string>
     <string name="change_wallpaper">Change</string>
+    <string name="bright_cat">Bright</string>
+    <string name="dark_cat">Dark</string>
+    <string name="solid_cat">Solid Colors</string>
+    <string name="my_photos_cat">My Photos</string>
+    <string name="default_wallpaper">Default Wallpaper</string>
+
+
 
     <!-- Privacy Settings -->
     <string name="who_can_see_header">Who can see my personal info</string>
@@ -228,5 +235,7 @@
     <string name="image6">Xender images</string>
     <string name="image7">WhatsApp images</string>
     <string name="image8">WhatsApp videos</string>
+    <string name="you_are_already_a_member_of_this_channel">You are already a member of this channel</string>
+    <string name="joined">Joined</string>
 
 </resources>

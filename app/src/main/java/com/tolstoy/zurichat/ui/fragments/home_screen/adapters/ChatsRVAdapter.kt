@@ -5,6 +5,8 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ListItemBinding
@@ -12,16 +14,25 @@ import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.DmMessages
 import com.tolstoy.zurichat.ui.dm.DMFragment
 
-class ChatsRVAdapter(val context: Activity, private val characters: List<DmMessages>):
-    RecyclerView.Adapter<ChatsRVAdapter.ChatViewHolder>() {
+class ChatsRVAdapter: RecyclerView.Adapter<ChatsRVAdapter.ChatViewHolder>() {
 
-    private var displayedList: List<DmMessages?>? = null
     private var onItemClickListener: ((dmMessages: DmMessages) -> Unit)? = null
 
     fun setItemClickListener(listener: (dmMessages:DmMessages) -> Unit) {
         onItemClickListener = listener
     }
 
+    private val differCallback = object: DiffUtil.ItemCallback<DmMessages>(){
+        override fun areItemsTheSame(oldItem: DmMessages, newItem: DmMessages): Boolean {
+            return oldItem.sender == newItem.sender
+        }
+
+        override fun areContentsTheSame(oldItem: DmMessages, newItem: DmMessages): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    val differ = AsyncListDiffer(this, differCallback)
     inner class ChatViewHolder(private val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root){
             fun bindItem(character: DmMessages){
                 binding.textViewName.text = character.sender
@@ -42,31 +53,12 @@ class ChatsRVAdapter(val context: Activity, private val characters: List<DmMessa
         }
 
         override fun getItemCount(): Int {
-            return characters.size
+            return differ.currentList.size
         }
 
         override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
-            val cat = characters[position]
+            val cat = differ.currentList[position]
             return holder.bindItem(cat)
         }
-    fun updateList(list: List<DmMessages?>) {
-        displayedList = list
-        notifyDataSetChanged()
-    }
-
-    fun filter(text: CharSequence) {
-        val temp: MutableList<DmMessages> = ArrayList()
-        for (d in displayedList!!) {
-            //or use .equal(text) with you want equal match
-            //use .toLowerCase() for better matches
-            if (d != null) {
-                if (d.sender.contains(text)) {
-                    temp.add(d)
-                }
-            }
-        }
-        //update recyclerview
-      updateList(temp)
-    }
 
 }

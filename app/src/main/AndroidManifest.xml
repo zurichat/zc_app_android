@@ -53,6 +53,10 @@
             android:name=".ui.settings.ChatBackupActivity"
             android:theme="@style/Theme.ZuriChat.Settings"
             android:exported="true" />
+        <activity
+            android:name=".ui.settings.fragments.ChooseWallpaperCategory"
+            android:theme="@style/Theme.ZuriChat.Settings"
+            android:exported="true" />
 
         <activity
             android:name=".ui.channel_info.ChannelInfoActivity"

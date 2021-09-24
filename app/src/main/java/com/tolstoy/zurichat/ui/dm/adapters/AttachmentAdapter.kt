@@ -9,6 +9,7 @@ import com.tolstoy.zurichat.databinding.ItemAttachmentDocBinding
 import com.tolstoy.zurichat.databinding.ItemAttachmentImageBinding
 import com.tolstoy.zurichat.ui.dm.MEDIA
 import com.tolstoy.zurichat.ui.dm.audio.AudioInfo
+import java.io.File
 
 /**
  * @author Jeffrey Orazulike [https://github.com/jeffreyorazulike]
@@ -21,7 +22,6 @@ class AttachmentAdapter(
 
     private val _selected = mutableListOf<Uri>()
     val selected: List<Uri> get() = _selected
-
 
     override fun getItemViewType(position: Int) = media.ordinal
 
@@ -40,7 +40,6 @@ class AttachmentAdapter(
             _selected
         )
         return when (viewType) {
-            MEDIA.AUDIO.ordinal -> audio
             MEDIA.VIDEO.ordinal,
             MEDIA.DOCUMENT.ordinal -> doc
             MEDIA.IMAGE.ordinal -> image
@@ -50,8 +49,6 @@ class AttachmentAdapter(
 
     override fun onBindViewHolder(holder: AttachmentViewHolder, position: Int) {
         holder.bind(items[position])
-
-
     }
 
     override fun getItemCount() = items.size

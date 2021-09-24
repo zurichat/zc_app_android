@@ -22,6 +22,7 @@ class AddChannelFragment : Fragment() {
 
     private var user : User? = null
     private lateinit var channelsArrayList: ArrayList<ChannelModel>
+    private lateinit var joinedChannelsArrayList: ArrayList<ChannelModel>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentAddChannelBinding.inflate(inflater, container, false)
@@ -29,6 +30,7 @@ class AddChannelFragment : Fragment() {
         if (bundle != null) {
             user = bundle.getParcelable("USER")
             channelsArrayList = bundle.getParcelableArrayList("Channels List")!!
+            joinedChannelsArrayList = bundle.getParcelableArrayList("Joined Channels List")!!
 
             binding.channelToolbar.subtitle = channelsArrayList.size.toString().plus(" channels")
 
@@ -38,6 +40,9 @@ class AddChannelFragment : Fragment() {
                 val bundle1 = Bundle()
                 bundle1.putParcelable("USER",user)
                 bundle1.putParcelable("Channel",(channelItem as ListItem).channel)
+                if (joinedChannelsArrayList.contains(channelItem.channel)){
+                    bundle1.putBoolean("Channel Joined",true)
+                }
                 findNavController().navigate(R.id.channelChatFragment,bundle1)
             }
 
@@ -69,7 +74,7 @@ class AddChannelFragment : Fragment() {
     private fun createAlphabetizedChannelsList(channels: List<ChannelModel>): MutableList<BaseItem<*>> {
         // Wrap data in list items
         val channelsItems = channels.map {
-            ListItem(it,requireActivity())
+            ListItem(it,requireActivity(),joinedChannelsArrayList)
         }.sortedBy {
             it.channel.name.lowercase()
         }
@@ -93,7 +98,7 @@ class AddChannelFragment : Fragment() {
     private fun filterAlphabetizedChannelsList(channels: List<ChannelModel>, search: String): MutableList<BaseItem<*>> {
         // Wrap data in list items
         val channelsItems = channels.map {
-            ListItem(it,requireActivity())
+            ListItem(it,requireActivity(),joinedChannelsArrayList)
         }.sortedBy {
             it.channel.name.lowercase()
         }

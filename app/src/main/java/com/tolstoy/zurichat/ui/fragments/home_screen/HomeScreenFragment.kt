@@ -5,21 +5,29 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentHomeScreenBinding
+import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.activities.MainActivity
-import com.tolstoy.zurichat.ui.createchannel.CreateChannelActivity
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
 import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
+
 //import com.tolstoy.zurichat.ui.newchannel.fragment.SelectMemberFragmentArgs
 
 //import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 
 class HomeScreenFragment : Fragment() {
+
+    val viewModel: HomeScreenViewModel by viewModels()
+
+
+    private lateinit var user : User
 
     private lateinit var binding: FragmentHomeScreenBinding
 
@@ -32,6 +40,7 @@ class HomeScreenFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
+        user = requireActivity().intent.extras?.getParcelable("USER")!!
         return binding.root
     }
 
@@ -55,18 +64,21 @@ class HomeScreenFragment : Fragment() {
                 tabTitles[position]
             )
         }.attach()
-
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.settings -> {
-                    findNavController().navigate(R.id.settingsActivity)
+                    val bundle = Bundle()
+                    bundle.putParcelable("USER",user)
+                    findNavController().navigate(R.id.settingsActivity, bundle)
                 }
                 R.id.search -> {
+                    binding.searchContainer.root.isVisible = true
+                    binding.searchContainer.searchTextInputLayout.editText?.requestFocus()
                 }
                 R.id.new_channel -> {
-                    val intent = Intent(requireContext(),NewChannelActivity::class.java)
+                    val intent = Intent(requireContext(), NewChannelActivity::class.java)
                     intent.apply {
-                        putExtra("user",user)
+                        putExtra("user", user)
                     }
                     startActivity(intent)
                 }
@@ -75,6 +87,16 @@ class HomeScreenFragment : Fragment() {
             }
             true
         }
+
+        binding.searchContainer.searchTextInputLayout.setStartIconOnClickListener {
+            binding.searchContainer.root.isVisible = false
+        }
+
+        binding.searchContainer.searchTextInputLayout.editText?.doOnTextChanged { text, start, before, count ->
+            viewModel.searchQuery.postValue(text.toString())
+        }
+
+
     }
 
     /**private fun processSearch(item: MenuItem?) {
