@@ -7,8 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.tolstoy.zurichat.R
 
-
-class CreateOrganizationsFragment : Fragment() {
+class CreateOrganizationsFragment : Fragment(R.layout.fragment_create_organizations) {
 
 
     override fun onCreateView(
@@ -19,5 +18,7 @@ class CreateOrganizationsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_create_organizations, container, false)
     }
 
-
+//    textView.setOnClickListener {
+//        findNavController().navigate(R.id.action_loginFragment_to_registerUserFragment)
+//    }
 }

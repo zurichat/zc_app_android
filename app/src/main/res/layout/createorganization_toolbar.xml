@@ -17,17 +17,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/teal_200"
-            android:elevation="4dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constrainBottom_toBottomOf="app"
-            tools:layout_editor_absoluteY="100dp" >
+            android:elevation="4dp">
 
             <TextView
                 android:id="@+id/workspace"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:text="Add Workspace"
+                android:textSize="18sp"
                 android:textColor="@color/white"
                 android:gravity="center"/>
         </com.google.android.material.appbar.MaterialToolbar>
