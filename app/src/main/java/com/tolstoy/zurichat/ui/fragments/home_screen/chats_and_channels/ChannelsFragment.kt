@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
+import com.google.android.material.snackbar.Snackbar
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentChannelsBinding
 import com.tolstoy.zurichat.models.ChannelModel
@@ -164,14 +166,22 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         viewModel.error.observe(viewLifecycleOwner,{
             if (it!=null){
                 if (channelsArrayList.isEmpty()){
-                    //Show Snackbar Here
-                    Toast.makeText(requireContext(),"An Error Occured",Toast.LENGTH_SHORT).show()
+                    //Show Snack bar
+                    showSnackBar()
                 }else {
                     //Recycle View isn't empty but calls to get the channels list fails. Log the error without compromising user experience
                     Timber.i(it)
                 }
             }
         })
+    }
+    private fun showSnackBar() {
+        val view: View = CoordinatorLayout(requireContext())
+        val snack = Snackbar.make(view, "An Error Occurred!", Snackbar.LENGTH_LONG)
+        snack.setAction("Retry") {
+            viewModel.getChannelsList()
+        }
+        snack.show()
     }
 
 }
