@@ -13,6 +13,7 @@ import com.tolstoy.zurichat.ui.fragments.networking.ChannelsList
 import com.tolstoy.zurichat.ui.fragments.networking.JoinNewChannel
 import com.tolstoy.zurichat.ui.fragments.networking.RetrofitClientInstance
 import kotlinx.coroutines.launch
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,7 +25,6 @@ import retrofit2.create
 class ChannelViewModel : ViewModel() {
     private var _channelsList = MutableLiveData<List<ChannelModel>>()
     val channelsList : LiveData<List<ChannelModel>> get() = _channelsList
-    var user = MutableLiveData<User>()
 
     private var _joinedChannelsList = MutableLiveData<List<JoinedChannelModel>>()
     val joinedChannelsList : LiveData<List<JoinedChannelModel>> get() = _joinedChannelsList
@@ -32,19 +32,27 @@ class ChannelViewModel : ViewModel() {
     private var _joinedUser = MutableLiveData<JoinChannelUser?>()
     val joinedUser : LiveData<JoinChannelUser?> get() = _joinedUser
 
+    private var _error = MutableLiveData<String?>()
+    val error : LiveData<String?> get() = _error
+
     fun getChannelsList() {
         val service = RetrofitClientInstance.retrofitInstance!!.create(ChannelsList::class.java)
         val call = service.channelList
 
         call!!.enqueue(object : Callback<List<ChannelModel>> {
             override fun onResponse(call: Call<List<ChannelModel>>, response: Response<List<ChannelModel>>) {
-                val res : List<ChannelModel>? = response.body()
-                res?.let {
-                    _channelsList.value = it
+                if (response.isSuccessful){
+                    val res : List<ChannelModel>? = response.body()
+                    res?.let {
+                        _channelsList.value = it
+                    }
+                }else{
+                    _error.value = response.errorBody().toString()
                 }
             }
 
             override fun onFailure(call: Call<List<ChannelModel>>, t: Throwable) {
+                _error.value = "Unknown Error"
                 t.printStackTrace()
             }
         })
@@ -77,13 +85,8 @@ class ChannelViewModel : ViewModel() {
                     _joinedUser.value = it
                 }
             }catch (e : Exception){
-
+                e.printStackTrace()
             }
-
         }
-    }
-
-    fun setUser(user: User){
-        this.user.value = user
     }
 }

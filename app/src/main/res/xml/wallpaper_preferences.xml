@@ -7,6 +7,7 @@
 
         <Preference
             app:layout="@layout/wallpaper_select_button"
+            app:key="change_wallpaper"
             app:selectable="true"
             app:allowDividerBelow="true"
             />

@@ -90,6 +90,13 @@
     <!-- Wallpaper Settings -->
     <string name="wallpaper_dimming_header">Wallpaper Dimming</string>
     <string name="change_wallpaper">Change</string>
+    <string name="bright_cat">Bright</string>
+    <string name="dark_cat">Dark</string>
+    <string name="solid_cat">Solid Colors</string>
+    <string name="my_photos_cat">My Photos</string>
+    <string name="default_wallpaper">Default Wallpaper</string>
+
+
 
     <!-- Privacy Settings -->
     <string name="who_can_see_header">Who can see my personal info</string>
@@ -137,6 +144,8 @@
     <string name="chanel_search">Search</string>
     <string name="channel_media">Channel media</string>
     <string name="select_contact">Select Contact</string>
+    <string name="select_members">Select Members</string>
+    <string name="members">Members</string>
     <string name="changephoneno_hint_txt">Enter your new phone number</string>
     <string name="search_for_channels">Search for channels</string>
 

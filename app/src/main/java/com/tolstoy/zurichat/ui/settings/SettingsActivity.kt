@@ -25,9 +25,7 @@ import com.tolstoy.zurichat.util.setUpApplicationTheme
 
 private const val TITLE_TAG = "settingsActivityTitle"
 
-class SettingsActivity : AppCompatActivity(),
-    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback,
-    SharedPreferences.OnSharedPreferenceChangeListener {
+class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback, SharedPreferences.OnSharedPreferenceChangeListener {
 
     var soundPool: SoundPool? = null
     private lateinit var user : User
@@ -243,8 +241,6 @@ class SettingsActivity : AppCompatActivity(),
             setPreferencesFromResource(R.xml.fingerprint_pref, rootKey)
         }
     }
-
-
 
     //    listening to changes on the sharedPreference
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
