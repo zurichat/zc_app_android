@@ -2,8 +2,10 @@ package com.tolstoy.zurichat.ui.newchannel.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -66,7 +68,26 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
             toolbar.setNavigationOnClickListener {
                 requireActivity().finish()
             }
+
             userListProgressBar.visibility = View.VISIBLE
+
+            val search = toolbar.menu[0]
+            val searchView = search.actionView as SearchView
+
+            searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    val filter = adapter.filter
+                    filter.filter(query)
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    val filter = adapter.filter
+                    filter.filter(newText)
+                    return true
+                }
+
+            })
         }
     }
 
