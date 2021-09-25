@@ -52,7 +52,7 @@ class HomeScreenFragment : Fragment() {
         val tabs = binding.tabs
         val toolbar = binding.toolbarContainer.toolbar
         val activity = requireActivity() as MainActivity
-        val user = activity.user
+        //val user = activity.user
 
         // setup for viewpager2 and tab layout
         viewPager.adapter = viewPagerAdapter
