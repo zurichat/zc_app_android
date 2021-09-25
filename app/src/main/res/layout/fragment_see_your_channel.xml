@@ -35,7 +35,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_teamChannel" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_see_your_channel"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
