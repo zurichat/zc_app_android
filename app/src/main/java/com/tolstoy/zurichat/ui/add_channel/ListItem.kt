@@ -38,4 +38,5 @@ data class ListItem(val channel: ChannelModel, val context: Activity, val joined
             binding.fab.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_new_lock))
         }
     }
+
 }

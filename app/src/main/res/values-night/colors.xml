@@ -12,6 +12,7 @@
     <color name="text_color">#FFFFFF</color>
 
     <color name="bg_color">#000000</color>
+    <color name="channel_bg_color">#212121</color>
     <color name="bg_color_1">#1D1C1D</color>
 
     <color name="primary_color">#00B87C</color>

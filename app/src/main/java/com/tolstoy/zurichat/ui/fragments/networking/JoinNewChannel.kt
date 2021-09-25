@@ -1,7 +1,9 @@
 package com.tolstoy.zurichat.ui.fragments.networking
 
 import com.tolstoy.zurichat.ui.fragments.model.AllChannelMessages
+import com.tolstoy.zurichat.ui.fragments.model.Data
 import com.tolstoy.zurichat.ui.fragments.model.JoinChannelUser
+import com.tolstoy.zurichat.ui.fragments.model.Message
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -17,4 +19,6 @@ interface JoinNewChannel {
     @GET("v1/{org_id}/channels/{channel_id}/messages/")
     suspend fun retrieveAllMessages(@Path("org_id") organizationId : String, @Path("channel_id") channelId : String): AllChannelMessages
 
+    @POST("v1/{org_id}/channels/{channel_id}/messages/")
+    suspend fun sendMessage(@Path("org_id") organizationId : String, @Path("channel_id") channelId : String,@Body message : Message): Data
 }
