@@ -86,7 +86,8 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
             }
 
             newChannelNameInput.setEndIconOnClickListener {
-                channelName.visibility = View.GONE
+                emojiBtn.visibility = View.VISIBLE
+
                 emoji?.setKeyboardListener(object : EmojIconActions.KeyboardListener {
                     override fun onKeyboardOpen() {
                         Log.e("Keyboard", "open")
@@ -109,7 +110,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                     owner = owner,
                     private = privateValue
                 )
-                if (channelName.text!!.isEmpty()) {
+                if (channelName.text!!.isEmpty() || channelName.text.equals("")) {
                     channelName.error = "Channel name can't be empty."
                 }
                 if (user?.token == null || user!!.id == ""){
