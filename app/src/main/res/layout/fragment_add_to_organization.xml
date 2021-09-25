@@ -16,6 +16,7 @@
         android:background="#008B5E">
 
         <Toolbar
+            android:id="@+id/toolbar_add_to"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:navigationIcon="@drawable/ic_arrow_back">

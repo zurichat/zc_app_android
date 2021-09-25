@@ -21,7 +21,6 @@ class SeeYourChannelFragment : Fragment(R.layout.fragment_see_your_channel) {
         binding.btnSeeYourChannel.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_seeYourChannelFragment_to_homeScreenFragment)
         }
-
     }
 
 }

@@ -21,8 +21,8 @@ interface RetrofitService {
     @POST("account/request-password-reset-code")
     suspend fun passwordreset(@Body passwordReset: PasswordReset): PassswordRestReponse
 
-    @GET("organizations")
-    suspend fun getOrganization(@Body organizationCreator: OrganizationCreator): OrganizationCreatorResponse
+    @POST("organizations")
+    suspend fun createOrganization(@Body organizationCreator: OrganizationCreator): OrganizationCreatorResponse
 
     @POST("users")
     fun register(@Body registerUser: RegisterUser?): Call<RegisterUser?>?

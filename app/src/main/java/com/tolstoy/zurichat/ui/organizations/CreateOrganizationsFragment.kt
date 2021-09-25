@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentCreateOrganizationsBinding
+import com.tolstoy.zurichat.models.LoginBody
 import com.tolstoy.zurichat.util.viewBinding
 
 

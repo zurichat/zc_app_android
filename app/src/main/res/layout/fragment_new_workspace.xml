@@ -50,7 +50,7 @@
 
         <!--this is the actual edit text which takes the input-->
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edit_text"
+            android:id="@+id/edit_text_company"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

@@ -20,10 +20,23 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.toolbarAddTo.setNavigationOnClickListener({ requireActivity().onBackPressed() })
         binding.apply {
            addByEmailButton
             addFromContactsButton
             addToOrganizationAppbar
+
+            shareALinkButton.setOnClickListener {
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.putExtra(
+                    Intent.EXTRA_TEXT,
+                    "https://api.zuri.chat/organizations/6145d3ff285e4a1840207454"
+                )
+                intent.type = "text/plain"
+
+                val shareIntent = Intent.createChooser(intent, null)
+                startActivity(shareIntent)
+            }
         }
 
         binding.nextTextView.setOnClickListener {
