@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/homeScreenFragment">
+    app:startDestination="@id/createOrganizationsFragment">
 
     <fragment
         android:id="@+id/dmFragment"
@@ -69,5 +69,53 @@
             android:name="media"
             app:argType="com.tolstoy.zurichat.ui.dm.MEDIA"
             android:defaultValue="IMAGE" />
+    </fragment>
+    <fragment
+        android:id="@+id/createOrganizationsFragment"
+        android:name="com.tolstoy.zurichat.ui.organizations.CreateOrganizationsFragment"
+        android:label="fragment_create_organizations"
+        tools:layout="@layout/fragment_create_organizations" >
+        <action
+            android:id="@+id/action_createOrganizationsFragment_to_newWorkspaceFragment"
+            app:destination="@id/newWorkspaceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addByEmailFragment"
+        android:name="com.tolstoy.zurichat.ui.organizations.AddByEmailFragment"
+        android:label="fragment_add_by_email"
+        tools:layout="@layout/fragment_add_by_email" >
+        <action
+            android:id="@+id/action_addByEmailFragment_to_seeYourChannelFragment"
+            app:destination="@id/seeYourChannelFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newWorkspaceFragment"
+        android:name="com.tolstoy.zurichat.ui.organizations.NewWorkspaceFragment"
+        android:label="fragment_new_workspace"
+        tools:layout="@layout/fragment_new_workspace" >
+        <action
+            android:id="@+id/action_newWorkspaceFragment_to_nextFragment"
+            app:destination="@id/nextFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nextFragment"
+        android:name="com.tolstoy.zurichat.ui.organizations.NextFragment"
+        android:label="fragment_next"
+        tools:layout="@layout/fragment_next" >
+        <action
+            android:id="@+id/action_nextFragment_to_addByEmailFragment"
+            app:destination="@id/addByEmailFragment" />
+        <action
+            android:id="@+id/action_nextFragment_to_seeYourChannelFragment"
+            app:destination="@id/seeYourChannelFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/seeYourChannelFragment"
+        android:name="com.tolstoy.zurichat.ui.organizations.SeeYourChannelFragment"
+        android:label="fragment_see_your_channel"
+        tools:layout="@layout/fragment_see_your_channel" >
+        <action
+            android:id="@+id/action_seeYourChannelFragment_to_homeScreenFragment"
+            app:destination="@id/homeScreenFragment" />
     </fragment>
 </navigation>
