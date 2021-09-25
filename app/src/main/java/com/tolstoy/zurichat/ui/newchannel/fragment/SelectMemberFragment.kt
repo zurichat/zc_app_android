@@ -2,7 +2,9 @@ package com.tolstoy.zurichat.ui.newchannel.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.widget.SearchView
 import androidx.core.os.bundleOf
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
@@ -29,6 +31,13 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
 
         userList = arguments?.get("USER_LIST") as List<User>
 
+
+        setUpViews()
+        initAdapter()
+        observeData()
+
+    }
+    private fun setUpViews() {
         with(binding) {
             //textView6.text = "${selectMember().size} Members"
             toolbar.setNavigationOnClickListener {
@@ -44,9 +53,39 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
                 findNavController().navigate(R.id.action_selectMemberFragment_to_newChannelDataFragment,
                     bundleOf(Pair("Selected_user", selectedUsers)))
             }
-        }
 
-        initAdapter()
+            val search = toolbar.menu[0]
+            val searchView = search.actionView as SearchView
+
+            searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    val filter = selectMemberAdapter.filter
+                    filter.filter(query)
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    val filter = selectMemberAdapter.filter
+                    filter.filter(newText)
+                    return true
+                }
+
+            })
+        }
+    }
+
+    private fun initAdapter() {
+        binding.recyclerView.also {
+            it.adapter = selectMemberAdapter.apply { list = userList }
+            it.layoutManager = LinearLayoutManager(context)
+        }
+        binding.topRecyclerView.also {
+            it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+            it.adapter = selectedMemberAdapter
+        }
+    }
+
+    private fun observeData() {
         selectedUserLiveData.observe(viewLifecycleOwner) {
 
             if (it.isEmpty()) {
@@ -63,17 +102,6 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
                 binding.topRecyclerView.smoothScrollToPosition(selectedUsers.size - 1)
 
             }
-        }
-    }
-
-    private fun initAdapter() {
-        binding.recyclerView.also {
-            it.adapter = selectMemberAdapter.apply { list = userList }
-            it.layoutManager = LinearLayoutManager(context)
-        }
-        binding.topRecyclerView.also {
-            it.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            it.adapter = selectedMemberAdapter
         }
     }
 
