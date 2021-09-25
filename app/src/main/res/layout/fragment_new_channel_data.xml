@@ -28,7 +28,6 @@
             app:subtitle="@string/provide_basic_information"
             app:titleTextColor="@color/white"
             app:subtitleTextColor="@color/white"
-            app:menu="@menu/new_channel_menu"
             />
 
     </com.google.android.material.appbar.AppBarLayout>
