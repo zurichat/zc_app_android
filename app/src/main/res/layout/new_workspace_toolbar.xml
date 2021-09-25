@@ -2,7 +2,7 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/orgization_toolbar"
+    android:id="@+id/new_workspace_toolbar"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -16,14 +16,15 @@
         <com.google.android.material.appbar.MaterialToolbar
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#00B87C"
-            android:elevation="4dp">
+            android:background=" #00B87C"
+
+        android:elevation="4dp">
 
             <TextView
                 android:id="@+id/workspace"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:text="Add Workspace"
+                android:text="Create a new Workspace"
                 android:textSize="18sp"
                 android:textColor="@color/white"
                 android:gravity="center"/>

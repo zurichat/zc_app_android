@@ -29,7 +29,7 @@
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/members"
+                android:text="@string/select_members_"
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
 
