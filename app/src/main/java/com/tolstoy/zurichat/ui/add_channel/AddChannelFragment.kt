@@ -120,5 +120,4 @@ class AddChannelFragment : Fragment() {
         }
         return channelsWithAlphabetHeaders
     }
-
 }

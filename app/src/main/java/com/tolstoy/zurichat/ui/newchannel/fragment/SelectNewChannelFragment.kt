@@ -2,9 +2,12 @@ package com.tolstoy.zurichat.ui.newchannel.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tolstoy.zurichat.R
@@ -12,35 +15,42 @@ import com.tolstoy.zurichat.databinding.FragmentSelectNewChannelBinding
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.adapters.NewChannelAdapter
 import com.tolstoy.zurichat.ui.newchannel.SelectNewChannelViewModel
+import com.tolstoy.zurichat.ui.newchannel.states.SelectNewChannelViewState
 import com.tolstoy.zurichat.util.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import timber.log.Timber
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) {
+
     private val binding by viewBinding(FragmentSelectNewChannelBinding::bind)
+    var user:User?= null
     lateinit var userList: List<User>
     private val adapter = NewChannelAdapter()
+    private  val viewModel: SelectNewChannelViewModel by viewModels()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
+        viewModel.getListOfUsers()
 
-        val viewModel = ViewModelProvider.
-        AndroidViewModelFactory(requireActivity().application)
-            .create(SelectNewChannelViewModel::class.java)
+        setUpViews()
+        initAdapter()
+        observeUsersList()
 
-        val toolbar = binding.toolbar
-        toolbar.setNavigationOnClickListener {
-            requireActivity().finish()
-        }
-
+    }
+    private fun setUpViews() {
         with(binding) {
             memberButton.setOnClickListener {
                 try {
                     findNavController().navigate(R.id.action_selectNewChannelFragment_to_selectMemberFragment,
                         bundleOf(Pair("USER_LIST",userList)))
                 } catch (exc: Exception) {
-                    Timber.e(TAG, exc.toString())
+
                 }
             }
 
@@ -49,18 +59,17 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
                     findNavController().navigate(R.id.action_selectNewChannelFragment_to_selectMemberFragment,
                         bundleOf(Pair("USER_LIST",userList)))
                 } catch (exc: Exception) {
-                    Timber.e(TAG, exc.toString())
+
                 }
             }
-        }
-        initAdapter()
-        viewModel.getListOfUsers().observe(viewLifecycleOwner) {
-            userList = it
-            adapter.list = it
-            adapter.notifyDataSetChanged()
-            binding.numberOfContactsTxt.text = "${it.size} Users"
+
+            toolbar.setNavigationOnClickListener {
+                requireActivity().finish()
+            }
+            userListProgressBar.visibility = View.VISIBLE
         }
     }
+
     private fun initAdapter() {
         binding.recyclerView.also {
             it.adapter = adapter
@@ -68,7 +77,29 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
         }
     }
 
-    companion object {
-        const val TAG = "SelectContactFragment"
+    private fun observeUsersList () {
+        lifecycleScope.launchWhenStarted {
+
+            viewModel._users.collect {
+                when(it) {
+                    is SelectNewChannelViewState.Success -> {
+                        adapter.list = it.data.data
+                        adapter.notifyDataSetChanged()
+                        userList = it.data.data
+                        binding.userListProgressBar.visibility = View.GONE
+                        binding.numberOfContactsTxt.text =
+                            "${it.data.data.size} ${getString(R.string.members)}"
+                    }
+                    is SelectNewChannelViewState.Error -> {
+                        binding.userListProgressBar.visibility = View.GONE
+                        Toast.makeText(requireContext(),"${it.error}", Toast.LENGTH_LONG).show(
+
+
+                        )
+                    }
+                }
+            }
+        }
+
     }
 }
