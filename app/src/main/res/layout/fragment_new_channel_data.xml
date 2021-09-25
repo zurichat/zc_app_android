@@ -74,6 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:imeOptions="actionDone"
+                android:padding="16dp"
                 android:singleLine="true"
                 app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
                 />
