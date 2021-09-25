@@ -238,5 +238,17 @@
     <string name="image8">WhatsApp videos</string>
     <string name="you_are_already_a_member_of_this_channel">You are already a member of this channel</string>
     <string name="joined">Joined</string>
+    <string name="mute_channel_notifications_for">Mute notifications for...</string>
+    <string name="mute_for_8_hours">8 hours</string>
+    <string name="mute_for_1_week">1 week</string>
+    <string name="mute_for_always">Always</string>
+    <string name="show_notifi">Show notifications</string>
+    <string name="cancel_mute_channel_settings">Cancel</string>
+    <string name="ok_mute_channel">Ok</string>
+    <string name="who_else_is">Who else is working on this project?</string>
+    <string name="to_add_team">To add teammates, you can either send a link or invite from your contacts.</string>
+    <string name="share_a_link">Share a link</string>
+    <string name="add_from_contacts">Add from contacts</string>
+    <string name="add_by_email">Add by email</string>
 
 </resources>
