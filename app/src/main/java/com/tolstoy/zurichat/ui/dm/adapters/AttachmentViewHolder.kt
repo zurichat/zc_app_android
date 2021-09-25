@@ -22,7 +22,6 @@ sealed class AttachmentViewHolder(open val binding: ViewBinding, val selected: M
     var isSelected = false
     abstract fun bind(uri: Uri)
 
-
     class Image(override val binding: ItemAttachmentImageBinding, selected: MutableList<Uri>) :
         AttachmentViewHolder(binding, selected) {
 
@@ -61,15 +60,13 @@ sealed class AttachmentViewHolder(open val binding: ViewBinding, val selected: M
                     }
                     isSelected = !isSelected
                 }
-                it.root.context.applicationContext.let {
-
-                }
             }
         }
     }
 
     class Document(override val binding: ItemAttachmentDocBinding, selected: MutableList<Uri>) :
         AttachmentViewHolder(binding, selected) {
+
 
         override fun bind(uri: Uri) {
             binding.also {

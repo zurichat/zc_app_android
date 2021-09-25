@@ -3,6 +3,7 @@ package com.tolstoy.zurichat.ui.fragments.channel_chat
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.InputType
+import android.text.format.DateUtils
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.PopupWindow
@@ -17,30 +18,44 @@ import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentChannelChatBinding
 import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.User
+import com.tolstoy.zurichat.ui.add_channel.BaseItem
+import com.tolstoy.zurichat.ui.add_channel.BaseListAdapter
+import com.tolstoy.zurichat.ui.fragments.model.Data
 import com.tolstoy.zurichat.ui.fragments.model.JoinChannelUser
+import com.tolstoy.zurichat.ui.fragments.model.Message
+import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelMessagesViewModel
 import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
 import dev.ronnie.github.imagepicker.ImagePicker
+import dev.ronnie.github.imagepicker.ImageResult
+import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.random.Random
+
 
 class ChannelChatFragment : Fragment() {
     private val viewModel : ChannelViewModel by viewModels()
     private lateinit var binding: FragmentChannelChatBinding
-    private var user : User? = null
+    private lateinit var user : User
     private lateinit var channel: ChannelModel
     private var channelJoined = false
 
     private var isEnterSend: Boolean = false
 
+    private val channelMsgViewModel : ChannelMessagesViewModel by viewModels()
+    private lateinit var channelListAdapter : BaseListAdapter
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelChatBinding.inflate(inflater, container, false)
         val bundle = arguments
         if (bundle != null) {
-            user = bundle.getParcelable("USER")
+            user = bundle.getParcelable("USER")!!
             channel = bundle.getParcelable("Channel")!!
             channelJoined = bundle.getBoolean("Channel Joined")
         }
 
-        isEnterSend = PreferenceManager.getDefaultSharedPreferences(requireContext())
-            .getBoolean("enter_to_send", false)
+        isEnterSend = PreferenceManager.getDefaultSharedPreferences(requireContext()).getBoolean("enter_to_send", false)
         return binding.root
     }
 
@@ -125,16 +140,6 @@ class ChannelChatFragment : Fragment() {
             }
         }
 
-        sendMessage.setOnClickListener{
-//  TODO(check if channelChatEdit is null or empty, and do nothing else, get the _id of the user that sent the message from user variable, get the string message from the edit text, send the to show up as one of the list items on the recyclerview in that)
-        }
-
-        binding.cameraChannelBtn.setOnClickListener {
-            imagePicker.pickFromStorage {
-
-            }
-        }
-
         //Launch Attachment Popup
         popupWindow.setBackgroundDrawable(ColorDrawable())
         popupWindow.isOutsideTouchable = true
@@ -145,6 +150,65 @@ class ChannelChatFragment : Fragment() {
         }
 
         setupKeyboard()
+
+        channelListAdapter = BaseListAdapter { channelItem ->
+
+        }
+        binding.recyclerMessagesList.adapter = channelListAdapter
+
+        binding.cameraChannelBtn.setOnClickListener {
+            imagePicker.pickFromStorage { imageResult ->
+                when (imageResult) {
+                    is ImageResult.Success -> {
+                        /*val uri = imageResult.value
+                       */
+                    }
+                    is ImageResult.Failure -> {
+                        val errorString = imageResult.errorString
+                        Toast.makeText(requireContext(), errorString, Toast.LENGTH_LONG).show()
+                    }
+                }
+
+            }
+
+        }
+
+        /**
+         * Retrieves the channel Id from the channelModel class to get all messages from the endpoint
+         * Makes the network call from the ChannelMessagesViewModel
+         */
+        if (channelMsgViewModel.allMessages.value == null) {
+            channelMsgViewModel.retrieveAllMessages("1", channel._id)
+        }
+
+        Timber.d("onViewCreated: Entered channel screen")
+
+        // Observes result from the viewModel to be passed to an adapter to display the messages
+        channelMsgViewModel.allMessages.observe(viewLifecycleOwner, {
+            if (it != null) {
+                if (!messagesArrayList.containsAll(it.data)){
+                    messagesArrayList.clear()
+                    messagesArrayList.addAll(it.data)
+                    val channelsWithDateHeaders = createMessagesList(messagesArrayList)
+                    channelListAdapter.submitList(channelsWithDateHeaders)
+                    binding.recyclerMessagesList.scrollToPosition(channelsWithDateHeaders.size-1)
+                }
+            }
+        })
+
+        sendMessage.setOnClickListener{
+            if (channelChatEdit.text.toString().isNotEmpty()){
+                val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                val time = s.format(Date(System.currentTimeMillis()))
+                val data = Data(generateID().toString(),false,channel._id,channelChatEdit.text.toString(),false,null,null,null,false,false,0,time,"",user.id)
+                messagesArrayList.add(data)
+                channelMsgViewModel.sendMessages(data,"1",channel._id,messagesArrayList)
+                val channelsWithDateHeaders = createMessagesList(messagesArrayList)
+                channelListAdapter.submitList(channelsWithDateHeaders)
+                binding.recyclerMessagesList.scrollToPosition(channelsWithDateHeaders.size-1)
+            }
+        }
+
     }
 
     private fun setupKeyboard() {
@@ -165,6 +229,41 @@ class ChannelChatFragment : Fragment() {
                 false
             }
         }
+    }
+
+    private fun generateID():Int{
+        return Random(6000000).nextInt()
+    }
+
+    private var messagesArrayList: ArrayList<Data> = ArrayList()
+    private fun createMessagesList(channels: List<Data>): MutableList<BaseItem<*>> {
+        // Wrap data in list items
+        val channelsItems = channels.map {
+            ChannelListItem(it, user,requireActivity())
+        }
+
+        val channelsWithDateHeaders = mutableListOf<BaseItem<*>>()
+        // Loop through the channels list and add headers where we need them
+        var currentHeader: String? = null
+
+        channelsItems.forEach{ c->
+            val dateString = DateUtils.getRelativeTimeSpanString(convertStringDateToLong(c.data.timestamp.toString()),Calendar.getInstance().timeInMillis,DateUtils.DAY_IN_MILLIS)
+            dateString.toString().let {
+                if (it != currentHeader){
+                    channelsWithDateHeaders.add(ChannelHeaderItem(it))
+                    currentHeader = it
+                }
+            }
+            channelsWithDateHeaders.add(c)
+        }
+
+        return channelsWithDateHeaders
+    }
+
+    private fun convertStringDateToLong(date: String) : Long {
+        val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        var d = s.parse(date)
+        return d.time
     }
 
 }

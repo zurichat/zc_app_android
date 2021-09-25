@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -97,32 +98,45 @@ public class ChannelInfoFragment extends Fragment {
         popupWindow.setFocusable(true);
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
 
-        moreMenuIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                popupWindow.showAtLocation(moreOptions, Gravity.RIGHT, 0,-450);
-            }
-        });
+        moreMenuIcon.setOnClickListener(v -> popupWindow.showAtLocation(moreOptions, Gravity.RIGHT, 0,-450));
 
         View thePopUpWindow = popupWindow.getContentView();
         TextView muteChannel = (TextView)thePopUpWindow.findViewById(R.id.muteChannelOption);
         TextView leaveChannel = (TextView)thePopUpWindow.findViewById(R.id.leaveChannelOption);
 
+        //leave channel Dialog
         View leaveChannelView = LayoutInflater.from(requireContext()).inflate(R.layout.leave_channel_confirmation, null);
         TextView cancel = leaveChannelView.findViewById(R.id.leaveChannelWarningCancelTextView);
         TextView leave = leaveChannelView.findViewById(R.id.leaveChannelWarningLeaveTextView);
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-        builder.setCancelable(true)
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(requireActivity());
+        builder1.setCancelable(true)
                 .setView(leaveChannelView);
-        AlertDialog dialog = builder.create();
-        cancel.setOnClickListener(view1 -> dialog.dismiss());
+        AlertDialog leaveChannelWarningDialog = builder1.create();
+        cancel.setOnClickListener(view1 -> leaveChannelWarningDialog.dismiss());
         leave.setOnClickListener(view2 -> {
-            dialog.dismiss();
+            leaveChannelWarningDialog.dismiss();
             Toast.makeText(requireContext(), "You successfully left the channel", Toast.LENGTH_SHORT).show();
         });
 
         //when leave channel is clicked
-        leaveChannel.setOnClickListener(v -> dialog.show());
+        leaveChannel.setOnClickListener(v -> leaveChannelWarningDialog.show());
+
+        //Mute Channel Dialog
+//        View muteChanelView = LayoutInflater.from(requireContext()).inflate(R.layout.mute_channel_notifications, null);
+//        TextView cancelMuting = muteChanelView.findViewById(R.id.muteChannelCancelOption);
+//        TextView oKMuting = muteChanelView.findViewById(R.id.muteChannelOkOption);
+//        RadioGroup mutingOptionsGroup = muteChanelView.findViewById(R.id.muteChannelNotificationsRadioGroup);
+//        mutingOptionsGroup.clearCheck();
+//        AlertDialog.Builder builder2 = new AlertDialog.Builder(requireActivity());
+//        builder2.setCancelable(true)
+//                .setView(muteChanelView);
+//        AlertDialog muteChannelNotificationsDialog = builder2.create();
+//        cancelMuting.setOnClickListener(v -> muteChannelNotificationsDialog.dismiss());
+//
+//
+//
+//        //When mute channel is clicked
+//        muteChannel.setOnClickListener(v -> muteChannelNotificationsDialog.show());
 
     }
 
