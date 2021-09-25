@@ -6,18 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.databinding.FragmentAddByEmailBinding
+import com.tolstoy.zurichat.util.viewBinding
 
 
-class AddByEmailFragment : Fragment() {
+class AddByEmailFragment : Fragment(R.layout.fragment_add_by_email) {
 
+    private val binding by viewBinding(FragmentAddByEmailBinding::bind)
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_by_email, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
-
 
 }
