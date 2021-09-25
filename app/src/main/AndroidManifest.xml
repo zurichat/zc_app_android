@@ -5,7 +5,9 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <!--Permissions for Media attachments-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
 
     <application
@@ -57,11 +59,13 @@
             android:name=".ui.settings.fragments.ChooseWallpaperCategory"
             android:theme="@style/Theme.ZuriChat.Settings"
             android:exported="true" />
-
+        <!--<activity
+            android:name=".ui.newchannel.NewChannelPersonsActivity"
+            android:exported="true" />
         <activity
             android:name=".ui.channel_info.ChannelInfoActivity"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>-->
 
         <activity
             android:name=".ui.settings.LargerItemsActivity"
@@ -80,7 +84,8 @@
             android:exported="true"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".ui.activities.MainActivity"
-            android:theme="@style/Theme.ZuriChat.Settings" />
+            android:theme="@style/Theme.ZuriChat.Settings" >
+        </activity>
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="true"

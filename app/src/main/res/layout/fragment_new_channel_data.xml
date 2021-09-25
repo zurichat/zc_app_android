@@ -3,8 +3,7 @@
  especially for toolbar, camera image, edittext and I also created recyclerview
  for channel members to make it dynamic instead of the static imageview
  and textview that was implemented-->
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -18,17 +17,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         >
-        <com.google.android.material.appbar.MaterialToolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/new_channel_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/toobar_color"
             app:navigationIcon="@drawable/ic_arrow_back"
-            app:title="@string/new_channel"
-            app:subtitle="@string/provide_basic_information"
             app:titleTextColor="@color/white"
             app:subtitleTextColor="@color/white"
-            />
+            app:menu="@menu/new_channel_menu"
+            app:theme="@style/ToolbarTheme"
+            >
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/new_channel"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/number_of_contacts_txt"
+                    android:layout_width="wrap_content"
+                    android:textSize="14dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/provide_basic_information"
+                    android:textColor="@color/white" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -45,10 +67,14 @@
 
         <ImageView
             android:id="@+id/new_channel_camera"
-            android:layout_width="56dp"
+            android:layout_width="48dp"
             android:layout_height="56dp"
             android:src="@drawable/camera_image"
             android:layout_margin="8dp"/>
+        <LinearLayout
+            android:layout_width="256dp"
+            android:layout_height="wrap_content">
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/new_channel_nameInput"
@@ -63,16 +89,27 @@
             app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-            <com.google.android.material.textfield.TextInputEditText
+
+            <hani.momanii.supernova_emoji_library.Helper.EmojiconEditText
                 android:id="@+id/channel_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:imeOptions="actionDone"
+                android:padding="16dp"
                 android:singleLine="true"
+                app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
                 />
-
         </com.google.android.material.textfield.TextInputLayout>
-
+        </LinearLayout>
+            <ImageView
+            android:id="@+id/emoji_btn"
+            android:layout_width="48dp"
+            android:layout_height="40dp"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_insert_emoticon"
+            android:visibility="gone"
+            android:layout_weight="1"
+            />
     </LinearLayout>
 
     <View
@@ -95,7 +132,7 @@
         app:layout_constraintTop_toBottomOf="@id/divider"
         android:layout_margin="16dp"
         android:text="@string/set_your_channel_privacy_here"
-        android:textSize="15sp"
+        android:textSize="14sp"
         android:textColor="@color/text_black"
         android:fontFamily="@font/lato"
         />
@@ -141,7 +178,7 @@
         app:layout_constraintTop_toBottomOf="@id/radioGroup1"
         android:layout_margin="16dp"
         android:text="@string/channel_members"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textColor="@color/text_black"
         android:fontFamily="@font/lato"
         />
