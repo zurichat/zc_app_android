@@ -1,34 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/new_workspace_toolbar"
+<com.google.android.material.appbar.MaterialToolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:id="@+id/new_workspace_toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background=" #00B87C"
+    app:navigationIcon="@drawable/ic_arrow_back"
+    android:elevation="4dp">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
+    <TextView
+        android:id="@+id/workspace"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/primary_color"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:text="Create a new Workspace"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background=" #00B87C"
-
-        android:elevation="4dp">
-
-            <TextView
-                android:id="@+id/workspace"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="Create a new Workspace"
-                android:textSize="18sp"
-                android:textColor="@color/white"
-                android:gravity="center"/>
-        </com.google.android.material.appbar.MaterialToolbar>
-    </com.google.android.material.appbar.AppBarLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</com.google.android.material.appbar.MaterialToolbar>

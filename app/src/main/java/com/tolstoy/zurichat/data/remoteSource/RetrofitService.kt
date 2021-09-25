@@ -1,7 +1,8 @@
 package com.tolstoy.zurichat.data.remoteSource
 
 import com.tolstoy.zurichat.models.*
-import kotlinx.coroutines.flow.Flow
+import com.tolstoy.zurichat.models.OrganizationModel.OrganizationCreator
+import com.tolstoy.zurichat.models.OrganizationModel.OrganizationCreatorResponse
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
@@ -20,6 +21,8 @@ interface RetrofitService {
     @POST("account/request-password-reset-code")
     suspend fun passwordreset(@Body passwordReset: PasswordReset): PassswordRestReponse
 
+    @POST("organizations")
+    suspend fun createOrganization(@Body organizationCreator: OrganizationCreator): OrganizationCreatorResponse
 
     @POST("users")
     fun register(@Body registerUser: RegisterUser?): Call<RegisterUser?>?
