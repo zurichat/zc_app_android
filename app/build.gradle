@@ -8,7 +8,7 @@ plugins {
 }
 
 android {
-    compileSdk 30
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.tolstoy.zurichat"
@@ -134,6 +134,9 @@ dependencies {
     //library for picking images and taking using camera
     implementation 'com.github.ronnieotieno:Ronnie-Image-Picker:0.8.0'
     implementation 'com.github.Drjacky:ImagePicker:2.1.13'
+
+    //EmojiCompat for displaying emoji's in edittext
+    implementation 'com.github.hani-momanii:SuperNova-Emoji:1.1'
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
