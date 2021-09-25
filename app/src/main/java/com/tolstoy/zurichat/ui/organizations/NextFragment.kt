@@ -16,7 +16,7 @@ class NextFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_next, container, false)
+        return inflater.inflate(R.layout.fragment_add_to_organization, container, false)
     }
 
 
