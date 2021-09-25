@@ -49,7 +49,8 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     private lateinit var userList: List<User>
     private var private = false
     private var channelId = ""
-    private var user:User?= null
+
+    // private var user:User?= null
     private var selectedImageUri: Uri? = null
     private val contentResolver: ContentResolver? = null
     private var channelsMember = ArrayList<String>()
@@ -58,22 +59,33 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val activity = requireActivity() as NewChannelActivity
-        user = activity.user
+        // user = activity.user
         userList = arguments?.get("Selected_user") as List<User>
-       emoji = EmojIconActions( requireContext(), binding.root,
+        emoji = EmojIconActions(requireContext(), binding.root,
             binding.channelName, binding.emojiBtn)
         emoji!!.ShowEmojIcon()
 
-        setupViewsAndListeners()
-        observerData()
+        val user = activity.user
+        userList = arguments?.get("Selected_user") as List<User>
 
-        binding.newChannelToolbar.setOnClickListener{
+        if (user != null) {
+            setupViewsAndListeners(user = user)
+            observerData(user)
+        } else {
+            val defaultUser = requireContext().getTempUser()
+            if (defaultUser != null) {
+                setupViewsAndListeners(user = defaultUser)
+                observerData(defaultUser)
+            }
+        }
+
+        binding.newChannelToolbar.setOnClickListener {
             activity.finish()
         }
     }
 
     private fun retrieveChannelOwner(user: User): String {
-       return user.id
+        return user.id
     }
 
     private fun setupViewsAndListeners(user: User) {
@@ -112,12 +124,11 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                     private = privateValue
                 )
                 if (channelName.text!!.isEmpty() || channelName.text.equals("")) {
-                    channelName.error = "Channel name can't be empty."
+                    Toast.makeText(requireContext(), "Channel name can't be empty.", Toast.LENGTH_SHORT).show()
                 }
-                if (user?.token == null || user!!.id == ""){
+                else if (user?.token == null || user!!.id == "") {
                     channelName.error = "User must be logged in"
-                }
-                else{
+                } else {
                     saveImage()
                     viewModel.createNewChannel(createChannelBodyModel = createChannelBodyModel)
                     progressLoader.show(getString(R.string.creating_new_channel))
@@ -175,7 +186,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
 
     private fun selectImage() {
         Intent(Intent.ACTION_PICK).also {
-            it.type ="image/*"
+            it.type = "image/*"
             val mimeTypes = arrayOf("image/jpeg", "image/png")
             it.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
             startActivityForResult(it, REQUEST_IMAGE_CODE)
@@ -217,7 +228,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
         }
     }
 
-    private fun navigateToDetails(user:User) {
+    private fun navigateToDetails(user: User) {
 
         try {
             val channel = ChannelModel()
@@ -226,27 +237,27 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
             channel.isPrivate = private
             channel.members = channelsMember.size.toLong()
 
-        val bundle = Bundle()
-        bundle.putParcelable("USER",user)
-        bundle.putParcelable("Channel",channel)
-        bundle.putBoolean("Channel Joined",true)
+            val bundle = Bundle()
+            bundle.putParcelable("USER", user)
+            bundle.putParcelable("Channel", channel)
+            bundle.putParcelableArrayList("selected_members", ArrayList(userList))
+            bundle.putBoolean("Channel Joined", true)
 
-        if (binding.channelName.text!!.isEmpty()) {
-            binding.channelName.error = "Channel name can't be empty."
-        }
-        else{
-            findNavController().navigate(R.id.channelChatFragment,bundle)
-        }
+            if (binding.channelName.text!!.isEmpty()) {
+                binding.channelName.error = "Channel name can't be empty."
+            } else {
+                findNavController().navigate(R.id.channelChatFragment, bundle)
+            }
 
-       /* val action =
-            NewChannelDataFragmentDirections.actionNewChannelDataFragmentToChannelChatFragment(
-                members = members.toTypedArray(),
-                channelName = channelName,
-                user = user,
-                channelStatus = private,
-                channelId = channelId
-            )
-        findNavController().navigate(action)*/
+            /* val action =
+                 NewChannelDataFragmentDirections.actionNewChannelDataFragmentToChannelChatFragment(
+                     members = members.toTypedArray(),
+                     channelName = channelName,
+                     user = user,
+                     channelStatus = private,
+                     channelId = channelId
+                 )
+             findNavController().navigate(action)*/
 //            val bundle = Bundle()
 //            bundle.putParcelable("USER", user)
 //            bundle.putParcelable("Channel", channel)

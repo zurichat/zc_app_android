@@ -1,5 +1,6 @@
 package com.tolstoy.zurichat.ui.fragments.channel_chat
 
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.InputType
@@ -20,6 +21,7 @@ import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.add_channel.BaseItem
 import com.tolstoy.zurichat.ui.add_channel.BaseListAdapter
+import com.tolstoy.zurichat.ui.channel_info.ChannelInfoActivity
 import com.tolstoy.zurichat.ui.fragments.model.Data
 import com.tolstoy.zurichat.ui.fragments.model.JoinChannelUser
 import com.tolstoy.zurichat.ui.fragments.model.Message
@@ -35,27 +37,33 @@ import kotlin.random.Random
 
 
 class ChannelChatFragment : Fragment() {
-    private val viewModel : ChannelViewModel by viewModels()
+    private val viewModel: ChannelViewModel by viewModels()
     private lateinit var binding: FragmentChannelChatBinding
-    private lateinit var user : User
+    private lateinit var user: User
     private lateinit var channel: ChannelModel
     private var channelJoined = false
-
+    private var members: ArrayList<User>? = null
     private var isEnterSend: Boolean = false
 
-    private val channelMsgViewModel : ChannelMessagesViewModel by viewModels()
-    private lateinit var channelListAdapter : BaseListAdapter
+    private val channelMsgViewModel: ChannelMessagesViewModel by viewModels()
+    private lateinit var channelListAdapter: BaseListAdapter
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
         binding = FragmentChannelChatBinding.inflate(inflater, container, false)
         val bundle = arguments
         if (bundle != null) {
+            members = bundle.getParcelableArrayList("selected_members")!!
             user = bundle.getParcelable("USER")!!
             channel = bundle.getParcelable("Channel")!!
             channelJoined = bundle.getBoolean("Channel Joined")
         }
 
-        isEnterSend = PreferenceManager.getDefaultSharedPreferences(requireContext()).getBoolean("enter_to_send", false)
+        isEnterSend = PreferenceManager.getDefaultSharedPreferences(requireContext())
+            .getBoolean("enter_to_send", false)
         return binding.root
     }
 
@@ -63,12 +71,14 @@ class ChannelChatFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // code to control the dimming of background
         val prefMngr = PreferenceManager.getDefaultSharedPreferences(context)
-        val dimVal = prefMngr.getInt("bar",50).toFloat().div(100f)
+        val dimVal = prefMngr.getInt("bar", 50).toFloat().div(100f)
 
         val dimmerBox = binding.dmChatDimmer
-        val channelChatEdit = binding.channelChatEditText           //get message from this edit text
+        val channelChatEdit =
+            binding.channelChatEditText           //get message from this edit text
         val sendVoiceNote = binding.sendVoiceBtn
-        val sendMessage = binding.sendMessageBtn                    //use this button to send the message
+        val sendMessage =
+            binding.sendMessageBtn                    //use this button to send the message
         val typingBar = binding.channelTypingBar
         val toolbar = view.findViewById<Toolbar>(R.id.channel_toolbar)
 
@@ -77,21 +87,27 @@ class ChannelChatFragment : Fragment() {
         //val includeAttach = binding.attachment
         val attachment = binding.channelLink
         val popupView: View = layoutInflater.inflate(R.layout.partial_attachment_popup, null)
-        val popupWindow = PopupWindow(popupView, WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
+        val popupWindow = PopupWindow(popupView,
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT)
 
         dimmerBox.alpha = dimVal
 
-        if (channelJoined){
+        if (channelJoined) {
             dimmerBox.visibility = View.GONE
             binding.channelJoinBar.visibility = View.GONE
-        }else{
+        } else {
             dimmerBox.visibility = View.VISIBLE
             binding.channelName.text = channel.name
 
-            if (channel.isPrivate){
-                binding.channelName.setCompoundDrawablesRelativeWithIntrinsicBounds(ContextCompat.getDrawable(requireActivity(),R.drawable.ic_new_lock),null,null,null)
-            }else {
-                binding.channelName.setCompoundDrawablesRelativeWithIntrinsicBounds(ContextCompat.getDrawable(requireActivity(),R.drawable.ic_hash),null,null,null)
+            if (channel.isPrivate) {
+                binding.channelName.setCompoundDrawablesRelativeWithIntrinsicBounds(ContextCompat.getDrawable(
+                    requireActivity(),
+                    R.drawable.ic_new_lock), null, null, null)
+            } else {
+                binding.channelName.setCompoundDrawablesRelativeWithIntrinsicBounds(ContextCompat.getDrawable(
+                    requireActivity(),
+                    R.drawable.ic_hash), null, null, null)
             }
 
             binding.channelJoinBar.visibility = View.VISIBLE
@@ -101,33 +117,46 @@ class ChannelChatFragment : Fragment() {
                 binding.text2.visibility = View.GONE
                 binding.channelName.visibility = View.GONE
                 binding.progressBar2.visibility = View.VISIBLE
-                user?.let { JoinChannelUser(it.id,"manager") }?.let { viewModel.joinChannel("1",channel._id, it) }
+                user?.let { JoinChannelUser(it.id, "manager") }
+                    ?.let { viewModel.joinChannel("1", channel._id, it) }
             }
 
-            viewModel.joinedUser.observe(viewLifecycleOwner,{joinedUser->
-                if (joinedUser != null){
+            viewModel.joinedUser.observe(viewLifecycleOwner, { joinedUser ->
+                if (joinedUser != null) {
                     dimmerBox.visibility = View.GONE
                     toolbar.subtitle = channel.members.plus(1).toString().plus(" Members")
-                    Toast.makeText(requireContext(), "Joined Channel Successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(),
+                        "Joined Channel Successfully",
+                        Toast.LENGTH_SHORT).show()
                     binding.channelJoinBar.visibility = View.GONE
-                }else{
+                } else {
                     binding.joinChannel.visibility = View.VISIBLE
                     binding.text2.visibility = View.VISIBLE
                     binding.channelName.visibility = View.VISIBLE
                     binding.progressBar2.visibility = View.GONE
-                    Toast.makeText(requireContext(),getString(R.string.an_error_occured),Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(),
+                        getString(R.string.an_error_occured),
+                        Toast.LENGTH_SHORT).show()
                 }
             })
         }
 
         toolbar.title = channel.name
-        if (channel.members>1){
+        if (channel.members > 1) {
             toolbar.subtitle = channel.members.toString().plus(" Members")
-        }else{
+        } else {
             toolbar.subtitle = channel.members.toString().plus(" Member")
         }
         toolbar.setNavigationOnClickListener {
             requireActivity().onBackPressed()
+        }
+        toolbar.setOnClickListener {
+
+            val intent = Intent(requireActivity(), ChannelInfoActivity::class.java)
+            intent.putExtra("channel_name", channel.name)
+            intent.putExtra("number_of_document", 0)
+            intent.putParcelableArrayListExtra("members", members)
+            startActivity(intent)
         }
 
         channelChatEdit.doOnTextChanged { text, start, before, count ->
@@ -146,7 +175,7 @@ class ChannelChatFragment : Fragment() {
 
         attachment.setOnClickListener {
             //popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 600)
-            popupWindow.showAsDropDown(typingBar,0,-(typingBar.height*4),Gravity.TOP)
+            popupWindow.showAsDropDown(typingBar, 0, -(typingBar.height * 4), Gravity.TOP)
         }
 
         setupKeyboard()
@@ -186,26 +215,39 @@ class ChannelChatFragment : Fragment() {
         // Observes result from the viewModel to be passed to an adapter to display the messages
         channelMsgViewModel.allMessages.observe(viewLifecycleOwner, {
             if (it != null) {
-                if (!messagesArrayList.containsAll(it.data)){
+                if (!messagesArrayList.containsAll(it.data)) {
                     messagesArrayList.clear()
                     messagesArrayList.addAll(it.data)
                     val channelsWithDateHeaders = createMessagesList(messagesArrayList)
                     channelListAdapter.submitList(channelsWithDateHeaders)
-                    binding.recyclerMessagesList.scrollToPosition(channelsWithDateHeaders.size-1)
+                    binding.recyclerMessagesList.scrollToPosition(channelsWithDateHeaders.size - 1)
                 }
             }
         })
 
-        sendMessage.setOnClickListener{
-            if (channelChatEdit.text.toString().isNotEmpty()){
+        sendMessage.setOnClickListener {
+            if (channelChatEdit.text.toString().isNotEmpty()) {
                 val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                 val time = s.format(Date(System.currentTimeMillis()))
-                val data = Data(generateID().toString(),false,channel._id,channelChatEdit.text.toString(),false,null,null,null,false,false,0,time,"",user.id)
+                val data = Data(generateID().toString(),
+                    false,
+                    channel._id,
+                    channelChatEdit.text.toString(),
+                    false,
+                    null,
+                    null,
+                    null,
+                    false,
+                    false,
+                    0,
+                    time,
+                    "",
+                    user.id)
                 messagesArrayList.add(data)
-                channelMsgViewModel.sendMessages(data,"1",channel._id,messagesArrayList)
+                channelMsgViewModel.sendMessages(data, "1", channel._id, messagesArrayList)
                 val channelsWithDateHeaders = createMessagesList(messagesArrayList)
                 channelListAdapter.submitList(channelsWithDateHeaders)
-                binding.recyclerMessagesList.scrollToPosition(channelsWithDateHeaders.size-1)
+                binding.recyclerMessagesList.scrollToPosition(channelsWithDateHeaders.size - 1)
             }
         }
 
@@ -214,14 +256,14 @@ class ChannelChatFragment : Fragment() {
     private fun setupKeyboard() {
         // set keyboard to send if "enter is send" is set to true in settings
         binding.channelChatEditText.apply {
-            if(isEnterSend) {
+            if (isEnterSend) {
                 this.inputType = InputType.TYPE_CLASS_TEXT
                 this.imeOptions = EditorInfo.IME_ACTION_SEND
             }
         }
 
         binding.channelChatEditText.setOnEditorActionListener { v, actionId, event ->
-            if(actionId == EditorInfo.IME_ACTION_SEND) {
+            if (actionId == EditorInfo.IME_ACTION_SEND) {
                 // send message
 
                 true
@@ -231,7 +273,7 @@ class ChannelChatFragment : Fragment() {
         }
     }
 
-    private fun generateID():Int{
+    private fun generateID(): Int {
         return Random(6000000).nextInt()
     }
 
@@ -239,17 +281,20 @@ class ChannelChatFragment : Fragment() {
     private fun createMessagesList(channels: List<Data>): MutableList<BaseItem<*>> {
         // Wrap data in list items
         val channelsItems = channels.map {
-            ChannelListItem(it, user,requireActivity())
+            ChannelListItem(it, user, requireActivity())
         }
 
         val channelsWithDateHeaders = mutableListOf<BaseItem<*>>()
         // Loop through the channels list and add headers where we need them
         var currentHeader: String? = null
 
-        channelsItems.forEach{ c->
-            val dateString = DateUtils.getRelativeTimeSpanString(convertStringDateToLong(c.data.timestamp.toString()),Calendar.getInstance().timeInMillis,DateUtils.DAY_IN_MILLIS)
+        channelsItems.forEach { c ->
+            val dateString =
+                DateUtils.getRelativeTimeSpanString(convertStringDateToLong(c.data.timestamp.toString()),
+                    Calendar.getInstance().timeInMillis,
+                    DateUtils.DAY_IN_MILLIS)
             dateString.toString().let {
-                if (it != currentHeader){
+                if (it != currentHeader) {
                     channelsWithDateHeaders.add(ChannelHeaderItem(it))
                     currentHeader = it
                 }
@@ -260,7 +305,7 @@ class ChannelChatFragment : Fragment() {
         return channelsWithDateHeaders
     }
 
-    private fun convertStringDateToLong(date: String) : Long {
+    private fun convertStringDateToLong(date: String): Long {
         val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         var d = s.parse(date)
         return d.time
