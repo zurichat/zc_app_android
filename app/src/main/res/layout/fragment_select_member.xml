@@ -27,7 +27,7 @@
                 android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/select_members"
+                android:text="@string/select_contact_"
                 android:textColor="@android:color/white"
                 android:textSize="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
