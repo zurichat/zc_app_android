@@ -5,11 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.FragmentHomeScreenBinding
+import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.activities.MainActivity
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
 
@@ -42,7 +47,7 @@ class HomeScreenFragment : Fragment() {
         val tabs = binding.tabs
         val toolbar = binding.toolbarContainer.toolbar
         val activity = requireActivity() as MainActivity
-        val user = activity.user
+        val user = Cache.map["user"] as User
 
         // setup for viewpager2 and tab layout
         viewPager.adapter = viewPagerAdapter

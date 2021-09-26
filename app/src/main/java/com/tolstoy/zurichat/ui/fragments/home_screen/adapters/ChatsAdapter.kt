@@ -2,8 +2,11 @@ package com.tolstoy.zurichat.ui.fragments.home_screen.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.databinding.ItemChatBinding
+import com.tolstoy.zurichat.models.DmMessages
 import com.tolstoy.zurichat.models.Message
 
 class ChatsAdapter(private val chats: List<Chat>): RecyclerView.Adapter<ChatsAdapter.ChatViewHolder>() {
@@ -14,14 +17,31 @@ class ChatsAdapter(private val chats: List<Chat>): RecyclerView.Adapter<ChatsAda
         onItemClickListener = listener
     }
 
+    private val differCallback = object: DiffUtil.ItemCallback<Chat>(){
+        override fun areItemsTheSame(oldItem: Chat, newItem: Chat): Boolean {
+            return oldItem.sender == newItem.sender
+        }
+
+        override fun areContentsTheSame(oldItem: Chat, newItem: Chat): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    val differ = AsyncListDiffer(this, differCallback)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
         return ChatViewHolder(ItemChatBinding
             .inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    override fun getItemCount() = chats.size
+    override fun getItemCount(): Int {
+        return differ.currentList.size
+    }
 
-    override fun onBindViewHolder(holder: ChatViewHolder, position: Int) = holder.bind(chats[position])
+    override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
+        val cat = differ.currentList[position]
+        return holder.bind(cat)
+    }
 
     inner class ChatViewHolder(private val binding: ItemChatBinding):
         RecyclerView.ViewHolder(binding.root){
