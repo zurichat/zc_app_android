@@ -31,13 +31,9 @@ import retrofit2.Response;
 
 public class RegisterUserFragment extends Fragment {
 
-    private TextView textView_login;
     private NavController navController;
-    private Button btnRegister;
-    private TextInputLayout email, password, password2;
     private ProgressDialog progressDialog;
     private RetrofitService retrofitService;
-    private CheckBox checkBox;
     private Bundle bundle;
 
     private FragmentRegisterUserBinding binding;
@@ -50,49 +46,42 @@ public class RegisterUserFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register_user, container, false);
+        binding = FragmentRegisterUserBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        textView_login = view.findViewById(R.id.textView_signin);
         navController = Navigation.findNavController(view);
         bundle = new Bundle();
-        checkBox = view.findViewById(R.id.checkBox);
-
         retrofitService = RetrofitClient.getClient("https://api.zuri.chat/").create(RetrofitService.class);
-
-        email = view.findViewById(R.id.user_email);
-        password = view.findViewById(R.id.user_password);
-        password2 = view.findViewById(R.id.confirm_user_password);
         progressDialog = new ProgressDialog(getContext());
 
-        btnRegister = view.findViewById(R.id.button_signUp);
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+
+        binding.buttonSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String userEmail = email.getEditText().getText().toString();
-                String userPassword = password.getEditText().getText().toString();
+                String userEmail = binding.userEmail.getEditText().getText().toString();
+                String userPassword = binding.userPassword.getEditText().getText().toString();
 
                 if (userEmail.isEmpty()) {
-                    email.setError("Email is required");
+                    binding.userEmail.setError("Email is required");
                 } else if (userPassword.isEmpty()) {
-                    email.setError(null);
-                    password.setError("Password cannot be empty");
+                    binding.userEmail.setError(null);
+                    binding.userPassword.setError("Password cannot be empty");
                 } else if (!isValidPassword(userPassword.trim())) {
-                    password.setError("Invalid password pattern");
-                } else if (!password.getEditText().getText().toString().equals(password2.getEditText().getText().toString())) {
-                    password2.setError("Password does not match");
-                } else if (!checkBox.isChecked()) {
-                    checkBox.setError("Terms and conditions must be accepted!");
+                    binding.userPassword.setError("Invalid password pattern");
+                } else if (!binding.userPassword.getEditText().getText().toString().equals(binding.confirmUserPassword.getEditText().getText().toString())) {
+                    binding.confirmUserPassword.setError("Password does not match");
+                } else if (!binding.checkBox.isChecked()) {
+                    binding.checkBox.setError("Terms and conditions must be accepted!");
                 } else {
-
-                    password.setError(null);
-                    password2.setError(null);
-                    checkBox.setError(null);
+                    binding.userPassword.setError(null);
+                    binding.confirmUserPassword.setError(null);
+                    binding.checkBox.setError(null);
                     bundle.putString("email", userEmail);
                     registerUser("", "", "", userEmail, userPassword, "");
                 }
@@ -100,7 +89,7 @@ public class RegisterUserFragment extends Fragment {
             }
         });
 
-        textView_login.setOnClickListener(new View.OnClickListener() {
+       binding.textViewSignin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 navController.navigate(R.id.action_registerUserFragment_to_loginFragment, bundle);
