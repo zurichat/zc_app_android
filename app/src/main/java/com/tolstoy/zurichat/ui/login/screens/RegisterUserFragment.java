@@ -2,6 +2,13 @@ package com.tolstoy.zurichat.ui.login.screens;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,35 +16,18 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tolstoy.zurichat.R;
 import com.tolstoy.zurichat.data.remoteSource.RetrofitClient;
 import com.tolstoy.zurichat.data.remoteSource.RetrofitService;
-import com.tolstoy.zurichat.di.RetrofitModule;
+import com.tolstoy.zurichat.databinding.FragmentRegisterUserBinding;
 import com.tolstoy.zurichat.models.RegisterUser;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 
 public class RegisterUserFragment extends Fragment {
 
@@ -49,6 +39,8 @@ public class RegisterUserFragment extends Fragment {
     private RetrofitService retrofitService;
     private CheckBox checkBox;
     private Bundle bundle;
+
+    private FragmentRegisterUserBinding binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -85,18 +77,18 @@ public class RegisterUserFragment extends Fragment {
                 String userEmail = email.getEditText().getText().toString();
                 String userPassword = password.getEditText().getText().toString();
 
-                if (userEmail.isEmpty()){
+                if (userEmail.isEmpty()) {
                     email.setError("Email is required");
-                }else if(userPassword.isEmpty()){
+                } else if (userPassword.isEmpty()) {
                     email.setError(null);
                     password.setError("Password cannot be empty");
-                }else if(!isValidPassword(userPassword.trim())){
+                } else if (!isValidPassword(userPassword.trim())) {
                     password.setError("Invalid password pattern");
-                }else if(!password.getEditText().getText().toString().equals(password2.getEditText().getText().toString())){
+                } else if (!password.getEditText().getText().toString().equals(password2.getEditText().getText().toString())) {
                     password2.setError("Password does not match");
-                }else if(!checkBox.isChecked()){
+                } else if (!checkBox.isChecked()) {
                     checkBox.setError("Terms and conditions must be accepted!");
-                } else{
+                } else {
 
                     password.setError(null);
                     password2.setError(null);
@@ -123,11 +115,11 @@ public class RegisterUserFragment extends Fragment {
         call.enqueue(new Callback<RegisterUser>() {
             @Override
             public void onResponse(Call<RegisterUser> call, Response<RegisterUser> response) {
-                if (response.code() == 400){
+                if (response.code() == 400) {
                     Toast.makeText(getContext(), "User Already Exists!", Toast.LENGTH_LONG).show();
 
-                }else {
-                    if (response.body().getMessage().matches("user created")){
+                } else {
+                    if (response.body().getMessage().matches("user created")) {
                         Toast.makeText(getContext(), "Registration Successful", Toast.LENGTH_LONG).show();
                         navController.navigate(R.id.action_registerUserFragment_to_emailVerificationFragment, bundle);
                     }
@@ -146,12 +138,11 @@ public class RegisterUserFragment extends Fragment {
     public boolean isValidPassword(final String password) {
 
         Pattern pattern;
-        Matcher matcher;
 
         final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$";
 
         pattern = Pattern.compile(PASSWORD_PATTERN);
-        matcher = pattern.matcher(password);
+        pattern.matcher(password);
 
         //return matcher.matches();
         return true;
