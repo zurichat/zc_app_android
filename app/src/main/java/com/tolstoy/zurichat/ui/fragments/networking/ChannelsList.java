@@ -17,8 +17,8 @@ import retrofit2.http.Path;
  * All subsequent APIs concerning channels will be added here
  */
 public interface ChannelsList {
-    @GET("v1/1/channels/")
-    Call<List<ChannelModel>> getChannelList();
+    @GET("v1/{org_id}/channels/")
+    Call<List<ChannelModel>> getChannelList(@Path("org_id") String organizationId);
 
     // Post endpoint to join a new channel
     @GET("v1/{org_id}/channels/users/{user_id}/")

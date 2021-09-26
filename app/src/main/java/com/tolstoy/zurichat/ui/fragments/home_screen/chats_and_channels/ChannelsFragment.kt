@@ -28,11 +28,13 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private lateinit var channelsArrayList: ArrayList<ChannelModel>
     private lateinit var originalChannelsArrayList: ArrayList<ChannelModel>
     private lateinit var user : User
+    private lateinit var organizationID: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelsBinding.inflate(inflater, container, false)
 
         user = requireActivity().intent.extras?.getParcelable("USER")!!
+        organizationID = "614679ee1a5607b13c00bcb7"
         return binding.root
     }
 
@@ -140,12 +142,12 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
      * Adding A Progressbar will be next
      */
     private fun getListOfChannels() {
-        viewModel.getChannelsList()
+        viewModel.getChannelsList(organizationID)
         viewModel.channelsList.observe(viewLifecycleOwner,{
             originalChannelsArrayList.clear()
             originalChannelsArrayList.addAll(it)
 
-            viewModel.getJoinedChannelsList("1",user.id)
+            viewModel.getJoinedChannelsList(organizationID,user.id)
         })
 
         viewModel.joinedChannelsList.observe(viewLifecycleOwner,{
@@ -175,11 +177,12 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
             }
         })
     }
+
     private fun showSnackBar() {
         val view: View = CoordinatorLayout(requireContext())
-        val snack = Snackbar.make(view, "An Error Occurred!", Snackbar.LENGTH_LONG)
+        val snack = Snackbar.make(view, "An Error Occurred!", Snackbar.LENGTH_INDEFINITE)
         snack.setAction("Retry") {
-            viewModel.getChannelsList()
+            viewModel.getChannelsList(organizationID)
         }
         snack.show()
     }
