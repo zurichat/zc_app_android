@@ -98,7 +98,12 @@ public class ChannelInfoFragment extends Fragment {
         popupWindow.setFocusable(true);
         popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
 
-        moreMenuIcon.setOnClickListener(v -> popupWindow.showAtLocation(moreOptions, Gravity.RIGHT, 0,-450));
+//        moreMenuIcon.setOnClickListener(v -> popupWindow.showAtLocation(moreOptions, Gravity.RIGHT, 0,-450));
+
+        //Navigate to the add to channel Fragment on-click
+        moreMenuIcon.setOnClickListener(v -> {
+            navController.navigate(R.id.action_channelInfoFragment_to_addToChannel);
+        });
 
         View thePopUpWindow = popupWindow.getContentView();
         TextView muteChannel = (TextView)thePopUpWindow.findViewById(R.id.muteChannelOption);

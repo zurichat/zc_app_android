@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_channelInfoFragment_to_mediaDocsFragment"
             app:destination="@id/mediaDocsFragment" />
+        <action
+            android:id="@+id/action_channelInfoFragment_to_addToChannel"
+            app:destination="@id/addToChannel" />
     </fragment>
     <fragment
         android:id="@+id/mediaDocsFragment"
@@ -23,4 +26,8 @@
             android:name="title"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/addToChannel"
+        android:name="com.tolstoy.zurichat.ui.channel_info.fragments.AddToChannel"
+        android:label="AddToChannel" />
 </navigation>
