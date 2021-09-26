@@ -10,10 +10,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.text.method.PasswordTransformationMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +21,7 @@ import android.widget.Toast;
 import com.chaos.view.PinView;
 import com.tolstoy.zurichat.R;
 import com.tolstoy.zurichat.data.remoteSource.RetrofitClient;
-import com.tolstoy.zurichat.data.remoteSource.RetrofitService;
+import com.tolstoy.zurichat.data.remoteSource.UsersService;
 import com.tolstoy.zurichat.models.VerifyEmail;
 
 import retrofit2.Call;
@@ -35,7 +31,7 @@ import retrofit2.Response;
 
 public class EmailVerificationFragment extends Fragment {
 
-    private RetrofitService retrofitService;
+    private UsersService usersService;
     private NavController navController;
     private Bundle bundle;
     private TextView txt_enter_code;
@@ -67,7 +63,7 @@ public class EmailVerificationFragment extends Fragment {
         txt_enter_code.setText("Please enter the code sent to\n"+getArguments().getString("email"));
         progressDialog = new ProgressDialog(getContext());
 
-        retrofitService = RetrofitClient.getClient("https://api.zuri.chat/").create(RetrofitService.class);
+        usersService = RetrofitClient.getClient("https://api.zuri.chat/").create(UsersService.class);
         pinView.requestFocus();
         InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
@@ -89,7 +85,7 @@ public class EmailVerificationFragment extends Fragment {
         progressDialog.setMessage("Verifying...");
         progressDialog.show();
         final VerifyEmail verifyEmail = new VerifyEmail(code);
-        Call<VerifyEmail> call = retrofitService.verifyEmail(verifyEmail);
+        Call<VerifyEmail> call = usersService.verifyEmail(verifyEmail);
         call.enqueue(new Callback<VerifyEmail>() {
             @Override
             public void onResponse(Call<VerifyEmail> call, Response<VerifyEmail> response) {

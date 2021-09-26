@@ -3,7 +3,6 @@ package com.tolstoy.zurichat.models
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-
 @Parcelize
 data class User(
     val created_at: String,

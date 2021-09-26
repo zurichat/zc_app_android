@@ -7,14 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentHomeScreenBinding
 import com.tolstoy.zurichat.ui.activities.MainActivity
-import com.tolstoy.zurichat.ui.createchannel.CreateChannelActivity
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
-import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
+
 //import com.tolstoy.zurichat.ui.newchannel.fragment.SelectMemberFragmentArgs
 
 //import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
@@ -64,11 +62,7 @@ class HomeScreenFragment : Fragment() {
                 R.id.search -> {
                 }
                 R.id.new_channel -> {
-                    val intent = Intent(requireContext(),NewChannelActivity::class.java)
-                    intent.apply {
-                        putExtra("user",user)
-                    }
-                    startActivity(intent)
+                    findNavController().navigate(R.id.selectMemberFragment)
                 }
                 R.id.saved_messages -> {
                 }

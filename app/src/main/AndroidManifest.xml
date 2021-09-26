@@ -33,11 +33,6 @@
             android:theme="@style/Theme.MaterialComponents.Light"/>
 
         <activity
-            android:name=".ui.newchannel.NewChannelActivity"
-            android:exported="true"
-            android:theme="@style/Theme.ZuriChat"/>
-
-        <activity
             android:name=".ui.settings.ChatBackupActivity"
             android:theme="@style/Theme.ZuriChat.Settings"
             android:exported="true" />

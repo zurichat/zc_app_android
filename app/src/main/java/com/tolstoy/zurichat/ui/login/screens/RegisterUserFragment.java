@@ -14,23 +14,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tolstoy.zurichat.R;
 import com.tolstoy.zurichat.data.remoteSource.RetrofitClient;
-import com.tolstoy.zurichat.data.remoteSource.RetrofitService;
-import com.tolstoy.zurichat.di.RetrofitModule;
+import com.tolstoy.zurichat.data.remoteSource.UsersService;
 import com.tolstoy.zurichat.models.RegisterUser;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,7 +38,7 @@ public class RegisterUserFragment extends Fragment {
     private Button btnRegister;
     private TextInputLayout email, password, password2;
     private ProgressDialog progressDialog;
-    private RetrofitService retrofitService;
+    private UsersService usersService;
     private CheckBox checkBox;
     private Bundle bundle;
 
@@ -71,7 +63,7 @@ public class RegisterUserFragment extends Fragment {
         bundle = new Bundle();
         checkBox = view.findViewById(R.id.checkBox);
 
-        retrofitService = RetrofitClient.getClient("https://api.zuri.chat/").create(RetrofitService.class);
+        usersService = RetrofitClient.getClient("https://api.zuri.chat/").create(UsersService.class);
 
         email = view.findViewById(R.id.user_email);
         password = view.findViewById(R.id.user_password);
@@ -119,7 +111,7 @@ public class RegisterUserFragment extends Fragment {
     public void registerUser(String first_name, String last_name, String display_name, String email, String password, String phone) {
         progressDialog.show();
         final RegisterUser registerUser = new RegisterUser(first_name, last_name, display_name, email, password, phone);
-        Call<RegisterUser> call = retrofitService.register(registerUser);
+        Call<RegisterUser> call = usersService.register(registerUser);
         call.enqueue(new Callback<RegisterUser>() {
             @Override
             public void onResponse(Call<RegisterUser> call, Response<RegisterUser> response) {

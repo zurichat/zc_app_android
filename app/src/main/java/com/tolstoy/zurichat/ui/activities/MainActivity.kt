@@ -14,7 +14,9 @@ import com.tolstoy.zurichat.databinding.ActivityMainBinding
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.login.screens.LoginFragmentDirections
 import com.tolstoy.zurichat.util.setUpApplicationTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     var user: User? = null
 

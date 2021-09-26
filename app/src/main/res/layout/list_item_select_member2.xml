@@ -5,7 +5,7 @@
     android:layout_margin="5dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <androidx.appcompat.widget.AppCompatImageView
-    android:id="@+id/image"
+    android:id="@+id/image_chat_user"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:srcCompat="@drawable/ic_mary_icon"
@@ -19,8 +19,8 @@
         android:maxLength="7"
         android:ellipsize="end"
         android:text="kolawole"
-        app:layout_constraintTop_toBottomOf="@id/image"
-        app:layout_constraintStart_toStartOf="@id/image"
-        app:layout_constraintEnd_toEndOf="@id/image"
+        app:layout_constraintTop_toBottomOf="@id/image_chat_user"
+        app:layout_constraintStart_toStartOf="@id/image_chat_user"
+        app:layout_constraintEnd_toEndOf="@id/image_chat_user"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>

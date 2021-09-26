@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.FragmentSelectNewChannelBinding
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.adapters.NewChannelAdapter
@@ -18,8 +19,15 @@ import timber.log.Timber
 class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) {
     private val binding by viewBinding(FragmentSelectNewChannelBinding::bind)
     lateinit var userList: List<User>
-    var user:User?= null
-    private val adapter = NewChannelAdapter()
+    val user by lazy { Cache.map["user"] as? User }
+
+    private val adapter = NewChannelAdapter().also {
+        it.setItemClickListener{
+            val action = SelectNewChannelFragmentDirections
+                .actionGlobalDmFragment(null, user!!.id, "6146464b1a5607b13c00bc25")
+            findNavController().navigate(action)
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

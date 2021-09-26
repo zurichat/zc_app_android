@@ -10,7 +10,7 @@ import retrofit2.http.POST
 
  //'https://api.zuri.chat/v1/auth/login'
 
-interface RetrofitService {
+interface UsersService {
 
     @POST("auth/login")
     suspend fun login(@Body loginBody: LoginBody): LoginResponse
@@ -22,7 +22,7 @@ interface RetrofitService {
     fun verifyEmail(@Body verifyEmail : VerifyEmail?): Call<VerifyEmail?>?
 
     @GET("users")
-    suspend fun getUsers(@Header("Authorization")token: String): UserList
+    suspend fun getUsers(@Header("Authorization") auth: String): UserList
 
 }
 

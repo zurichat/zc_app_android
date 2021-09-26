@@ -11,11 +11,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.FragmentNewChannelDataBinding
 import com.tolstoy.zurichat.models.CreateChannelBodyModel
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.adapters.NewChannelMemberSelectedAdapter
-import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 import com.tolstoy.zurichat.ui.newchannel.states.CreateChannelViewState
 import com.tolstoy.zurichat.ui.newchannel.viewmodel.CreateChannelViewModel
 import com.tolstoy.zurichat.util.ProgressLoader
@@ -39,8 +39,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val activity = requireActivity() as NewChannelActivity
-        user = activity.user
+        user = Cache.map["user"] as? User
         userList = arguments?.get("Selected_user") as List<User>
 
         setupViewsAndListeners()
@@ -90,7 +89,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                     }
                 }
             }
-            recycler.apply {
+            listChats.apply {
                 if (userList != null) {
                     val memberDataList = userList
                     memberDataList.forEach {
