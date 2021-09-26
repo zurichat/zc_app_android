@@ -50,9 +50,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        notificationSettings = SettingsActivity.NotificationAndSounds()
-        createNotificationChannel()
-        notificationSetting(messager_name,notification_message,pattern,message_sound)
+//        notificationSettings = SettingsActivity.NotificationAndSounds()
+//        createNotificationChannel()
+//        notificationSetting(messager_name,notification_message,pattern,message_sound)
         // This setups application theme to value stored in sharedPref
         setUpApplicationTheme(this)
 
