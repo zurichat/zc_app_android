@@ -1,22 +1,52 @@
 package com.tolstoy.zurichat.data.repository
 
-import com.tolstoy.zurichat.data.remoteSource.UsersService
+import android.content.SharedPreferences
+import com.tolstoy.zurichat.data.localSource.dao.UserDao
+import com.tolstoy.zurichat.data.localSource.entities.UserEntity
+import com.tolstoy.zurichat.data.remoteSource.RetrofitService
 import com.tolstoy.zurichat.models.LoginBody
 import com.tolstoy.zurichat.models.LoginResponse
-import com.tolstoy.zurichat.models.UserList
+import com.tolstoy.zurichat.models.PassswordRestReponse
+import com.tolstoy.zurichat.models.PasswordReset
+import com.tolstoy.zurichat.util.AUTH_PREF_KEY
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.withContext
 
-class UserRepository @Inject constructor(private val usersService: UsersService) {
-
-    private lateinit var userList: UserList
+class UserRepository @Inject constructor(
+    private val retrofitService: RetrofitService,
+    private val preferences: SharedPreferences,
+    private val dao: UserDao
+) {
 
     suspend fun login(loginBody: LoginBody): LoginResponse {
-       return usersService.login(loginBody)
+        return retrofitService.login(loginBody)
     }
 
-    suspend fun getUsers(): UserList {
-        if(!this::userList.isInitialized)
-            userList = usersService.getUsers(auth)
-        return userList
+     suspend fun passwordReset(passwordReset: PasswordReset): PassswordRestReponse {
+        return retrofitService.passwordreset(passwordReset)
+
+    }
+
+    fun saveUserAuthState(value: Boolean) {
+        preferences.edit().putBoolean(AUTH_PREF_KEY, value).apply()
+    }
+
+    fun getUserAuthState(): Boolean {
+        return preferences.getBoolean(AUTH_PREF_KEY, false)
+    }
+
+    suspend fun saveUser(user: UserEntity) {
+        withContext(Dispatchers.IO) {
+            dao.saveUser(user)
+        }
+    }
+
+    suspend fun getUser(): Flow<UserEntity> {
+        return withContext(Dispatchers.IO) {
+            flow { emit(dao.getUser()) }
+        }
     }
 }

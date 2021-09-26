@@ -51,6 +51,14 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         fabAddChat.setOnClickListener {
             findNavController().navigate(R.id.action_homeScreenFragment_to_new_channel_nav_graph)
         }
+
+        viewModel.searchQuery.observe(viewLifecycleOwner){ query ->
+            Log.d("", "query: $query")
+            chatsRVAdapter.differ.submitList(messages.filter {
+                query.lowercase() in it.sender.lowercase()
+            }
+            )
+        }
     }
 
     private fun setupObservers() = with(viewModel){

@@ -8,8 +8,7 @@
         android:enabled="true"
         android:icon="@drawable/ic_search"
         android:title="@string/search"
-        app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always|collapseActionView" />
     <item android:id="@+id/new_channel"
         android:title="@string/new_channel"
         android:visible="true"/>
@@ -20,6 +19,4 @@
         android:title="@string/settings"
         android:visible="true"
         />
-
-
 </menu>

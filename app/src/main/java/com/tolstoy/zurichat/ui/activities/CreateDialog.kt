@@ -8,15 +8,16 @@ import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.PreferenceManager
 import com.tolstoy.zurichat.R
 
-class CreateDialog(private val layoutInflater: LayoutInflater,
-                private val context:Context) {
+class CreateDialog(private val layoutInflaterr: LayoutInflater,
+                private val context:Context) : ProfileActivity() {
 
     fun createEditNameDialog(savedName: TextView): AlertDialog {
-        val view = layoutInflater.inflate(R.layout.edit_dialog,null)
+        val view = layoutInflaterr.inflate(R.layout.edit_dialog,null)
         val name = view.findViewById<EditText>(R.id.editName)
         val cancelBtn = view.findViewById<Button>(R.id.cancelBtn)
         val saveBtn = view.findViewById<Button>(R.id.saveBtn)
@@ -52,8 +53,9 @@ class CreateDialog(private val layoutInflater: LayoutInflater,
         saveBtn.setOnClickListener {
             if(name.text.isNotEmpty()){
                 savedName.text = name.text.toString()
-                dialog.dismiss()
 
+                dialog.dismiss()
+                //save to shared preferences
                 val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
                 val editor = preferences.edit()
                 editor.putString("name", java.lang.String.valueOf(name.text.toString()))
@@ -66,7 +68,7 @@ class CreateDialog(private val layoutInflater: LayoutInflater,
 
     // Create an edit about dialog
     fun createEditAboutDialog(savedAbout: TextView): AlertDialog {
-        val aboutView = layoutInflater.inflate(R.layout.edit_about_dialog,null)
+        val aboutView = layoutInflaterr.inflate(R.layout.edit_about_dialog,null)
         val about = aboutView.findViewById<EditText>(R.id.editAbout)
         val cancelAbtBtn = aboutView.findViewById<Button>(R.id.cancelAbtBtn)
         val saveAbtBtn = aboutView.findViewById<Button>(R.id.saveAbtBtn)

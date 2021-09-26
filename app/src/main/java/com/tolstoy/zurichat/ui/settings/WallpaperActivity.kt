@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.preference.*
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.ui.settings.fragments.ChooseWallpaperCategory
 import com.tolstoy.zurichat.util.THEME_KEY
 import com.tolstoy.zurichat.util.setUpApplicationTheme
 
@@ -73,34 +74,36 @@ class WallpaperActivity : AppCompatActivity(),
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.wallpaper_preferences, rootKey)
 
-            val wallpaperContainer = activity?.findViewById<LinearLayout>(R.id.wallpaper_container)
+//            val wallpaperContainer = activity?.findViewById<LinearLayout>(R.id.wallpaper_container)
+//
+//            //make manage wallpaper container clickable
+//            wallpaperContainer?.setOnClickListener {
+//                startActivity(Intent(activity, ManageWallpaperActivity::class.java))
+//            }
 
-            //make manage wallpaper container clickable
-            wallpaperContainer?.setOnClickListener {
-                startActivity(Intent(activity, ManageWallpaperActivity::class.java))
+            val change = findPreference<Preference>("change_wallpaper")
+            change?.setOnPreferenceClickListener {
+                startActivity(Intent(activity,ChooseWallpaperCategory::class.java))
+                true
             }
 
+            //background dimming code
             val barPref = findPreference<SeekBarPreference>("bar")
             barPref?.updatesContinuously = true
 
             PreferenceManager.getDefaultSharedPreferences(context).registerOnSharedPreferenceChangeListener(this)
 
-                }
+        }
 
-            override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-                    val dimmer:View? = view?.findViewById<View>(R.id.dimmer_view)
-                    if (key == "bar"){
-                        val barIncr = sharedPreferences?.getInt("bar",50)?.toFloat()
-                        val flt = barIncr?.div(100.0f)
-                        if (flt != null) {
-                            dimmer?.alpha=flt
-                        }
-                    }
+        override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+            val dimmer:View? = view?.findViewById<View>(R.id.dimmer_view)
+            if (key == "bar"){
+                val barIncr = sharedPreferences?.getInt("bar",50)?.toFloat()
+                val flt = barIncr?.div(100.0f)
+                if (flt != null) {
+                    dimmer?.alpha=flt
                 }
+            }
         }
     }
-
-
-
-
-
+}

@@ -3,6 +3,8 @@ package com.tolstoy.zurichat.ui.adapters
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ListItemSelectMemberBinding
@@ -12,7 +14,7 @@ import com.tolstoy.zurichat.models.User
 
 class SelectMemberAdapter(private val user: (User) -> Unit):
 
-    RecyclerView.Adapter<SelectMemberAdapter.SelectMemberViewModel>() {
+    RecyclerView.Adapter<SelectMemberAdapter.SelectMemberViewModel>(), Filterable {
     private var members = listOf<MembersData>()
 
     @SuppressLint("NotifyDataSetChanged")
@@ -22,6 +24,7 @@ class SelectMemberAdapter(private val user: (User) -> Unit):
     }
 
     lateinit var list: List<User>
+    private val _list: List<User> by lazy { list }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectMemberViewModel {
         val binding = ListItemSelectMemberBinding.inflate(
@@ -53,5 +56,46 @@ class SelectMemberAdapter(private val user: (User) -> Unit):
             binding.channelItemPersonIcon.setImageResource(R.drawable.ic_kolade_icon)
             binding.channelItemMessageTxt.text = user.email
         }
+    }
+
+    override fun getFilter(): Filter {
+        return _filter
+    }
+
+    val _filter = object : Filter(){
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
+            val filterList = mutableListOf<User>()
+
+            for(i in _list) {
+                if("${i.first_name}${i.last_name}".contains(constraint?:"",true)) {
+                    filterList.add(i)
+                }
+            }
+
+            if(filterList.isEmpty()) {
+                for(i in _list) {
+                    if(i.email.contains(constraint?:"",true)) {
+                        filterList.add(i)
+                    }
+                }
+            }
+            return FilterResults().apply {
+                values = filterList
+            }
+        }
+
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+            val resultList = results?.values as MutableList<User>
+
+            if (resultList.isEmpty()) {
+                list = _list
+                notifyDataSetChanged()
+            } else {
+                list = results.values as MutableList<User>
+                notifyDataSetChanged()
+            }
+
+        }
+
     }
 }

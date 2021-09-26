@@ -8,7 +8,8 @@
     android:clickable="true"
     android:background="?attr/selectableItemBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:focusable="true">
+    android:focusable="true"
+    >
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -17,6 +18,7 @@
         android:layout_marginStart="15dp"
         android:scaleType="center"
         app:fabCustomSize="30dp"
+        android:enabled="false"
         app:maxImageSize="15dp"
         app:background="@color/primary_light_color"
         app:backgroundTint="@color/light_blue"
@@ -35,6 +37,7 @@
         app:layout_constraintStart_toEndOf="@id/fab"
         app:layout_constraintTop_toTopOf="@id/fab"
         app:layout_constraintBottom_toBottomOf="@id/fab"
+        android:textColor="@color/text_color"
         tools:ignore="HardcodedText" />
 
     <TextView
@@ -53,6 +56,26 @@
         android:textColor="@android:color/white"
         tools:ignore="HardcodedText"
         android:visibility="gone"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/joinedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@id/channelTitle"
+        app:layout_constraintTop_toTopOf="@id/channelTitle"
+        app:layout_constraintBottom_toBottomOf="@id/channelTitle"
+        android:textColor="@color/text_color"
+        android:text="@string/joined"
+        app:cornerRadius="100dp"
+        android:textSize="11sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:backgroundTint="@color/bg_color"
+        app:strokeColor="@color/primary_color"
+        app:strokeWidth="1dp"
+        android:visibility="gone"
+        android:enabled="false"
+        />
 
     <ImageView
         android:id="@+id/img"

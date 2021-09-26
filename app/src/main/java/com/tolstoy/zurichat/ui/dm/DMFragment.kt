@@ -135,7 +135,7 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
         // observe values from the attachment fragment
         findNavController().currentBackStackEntry?.savedStateHandle
             ?.getLiveData<AttachmentsFragment.Attachment>(AttachmentsFragment.Attachment.TAG)?.observe(
-            viewLifecycleOwner){ receiveAttachment(it) }
+                viewLifecycleOwner){ receiveAttachment(it) }
     }
 
     private fun setupObservers() = with(viewModel){
@@ -179,8 +179,11 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
     }
 
     private fun receiveAttachment(attachment: AttachmentsFragment.Attachment){
-        when(attachment.media){
+        when (attachment.media) {
             MEDIA.IMAGE -> handleImageUpload(attachment.selected)
+            MEDIA.AUDIO -> handleAudioUpload(attachment.selected)
+            MEDIA.DOCUMENT -> handleDocumentUpload(attachment.selected)
+            else -> handleImageUpload(attachment.selected)
         }
     }
 
@@ -189,11 +192,33 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
         displayMessage("", it)
     }
 
+    private fun handleAudioUpload(audioList: List<Uri>) = audioList.forEach {
+        adapter.addMessage(
+            Message(
+                message = "",
+                senderId = user!!.id,
+                roomId = user!!.id,
+                media = listOf(it.toString())
+            )
+        )
+    }
+
+    private fun handleDocumentUpload(audioList: List<Uri>) = audioList.forEach {
+        adapter.addMessage(
+            Message(
+                message = "",
+                senderId = user!!.id,
+                roomId = user!!.id,
+                media = listOf(it.toString())
+            )
+        )
+    }
+
     private fun displayMessage(text: String, vararg media: Uri) =
         Message(message = text, senderId = userId, roomId = roomId ?: "").also{
             it.attachments.addAll(media)
             adapter.addMessage(it)
-    }
+        }
 
     private fun sendMessage(text: String, vararg media: String) = with(viewModel) {
         viewModelScope.launch {

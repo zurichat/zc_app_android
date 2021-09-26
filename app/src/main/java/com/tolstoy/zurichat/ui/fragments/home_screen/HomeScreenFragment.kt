@@ -20,7 +20,8 @@ import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.HomeFragmentPagerA
 class HomeScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeScreenBinding
-
+    private lateinit var user : User
+    val viewModel: HomeScreenViewModel by viewModels()
 
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
 
@@ -57,9 +58,13 @@ class HomeScreenFragment : Fragment() {
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.settings -> {
-                    findNavController().navigate(R.id.settingsActivity)
+                    val bundle = Bundle()
+                    bundle.putParcelable("USER",user)
+                    findNavController().navigate(R.id.settingsActivity, bundle)
                 }
                 R.id.search -> {
+                    binding.searchContainer.root.isVisible = true
+                    binding.searchContainer.searchTextInputLayout.editText?.requestFocus()
                 }
                 R.id.new_channel -> {
                     findNavController().navigate(R.id.selectMemberFragment)
@@ -68,6 +73,13 @@ class HomeScreenFragment : Fragment() {
                 }
             }
             true
+        }
+        binding.searchContainer.searchTextInputLayout.setStartIconOnClickListener {
+            binding.searchContainer.root.isVisible = false
+        }
+
+        binding.searchContainer.searchTextInputLayout.editText?.doOnTextChanged { text, start, before, count ->
+            viewModel.searchQuery.postValue(text.toString())
         }
     }
 

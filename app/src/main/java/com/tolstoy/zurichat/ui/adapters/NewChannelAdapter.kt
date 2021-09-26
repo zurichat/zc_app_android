@@ -1,22 +1,22 @@
 package com.tolstoy.zurichat.ui.adapters
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.NewChannelItemBinding
-import com.tolstoy.zurichat.models.NewChannel
 import com.tolstoy.zurichat.models.User
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.ui.dm.DMFragment
 
 
-class NewChannelAdapter: RecyclerView.Adapter<NewChannelAdapter.ViewHolder>() {
+class NewChannelAdapter(val fragment: Fragment): RecyclerView.Adapter<NewChannelAdapter.ViewHolder>(), Filterable {
     var list = emptyList<User>()
-    var listener: ((Int) -> Unit)? = null
-
-    fun setItemClickListener(listener: (Int) -> Unit){
-        this.listener = listener
-    }
+    val _list: List<User> by lazy { list }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -28,13 +28,14 @@ class NewChannelAdapter: RecyclerView.Adapter<NewChannelAdapter.ViewHolder>() {
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(position)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(list[position])
+    }
 
     override fun getItemCount(): Int = list.size
 
     inner class ViewHolder(private var item: NewChannelItemBinding) : RecyclerView.ViewHolder(item.root) {
-        fun bind(position: Int) {
-            val chat = list[position]
+        fun bind(chat: User) {
             item.channelItemPersonNameTxt.text =
                 if(chat.first_name.isEmpty() && chat.last_name.isEmpty()) "No name"
                 else "${chat.first_name} ${chat.last_name}"
@@ -43,8 +44,56 @@ class NewChannelAdapter: RecyclerView.Adapter<NewChannelAdapter.ViewHolder>() {
             item.channelItemPersonIcon.setBackgroundResource(R.drawable.ic_kolade_icon)
             item.channelItemMessageTxt.text = chat.email
             item.root.setOnClickListener {
-                listener?.invoke(position)
+                val frag: Fragment = DMFragment()
+                val fragmentManager: FragmentManager = fragment.requireActivity().supportFragmentManager
+                val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.fragmentContainerView3, frag)
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
+
+            }
+
+        }
+    }
+
+    override fun getFilter(): Filter {
+        return _filter
+    }
+
+    val _filter = object : Filter(){
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
+            val filterList = mutableListOf<User>()
+
+            for(i in _list) {
+                if("${i.first_name}${i.last_name}".contains(constraint?:"",true)) {
+                    filterList.add(i)
+                }
+            }
+
+            if(filterList.isEmpty()) {
+                for(i in _list) {
+                    if(i.email.contains(constraint?:"",true)) {
+                        filterList.add(i)
+                    }
+                }
+            }
+            return FilterResults().apply {
+                values = filterList
             }
         }
+
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+            val resultList = results?.values as MutableList<User>
+
+            if (resultList.isEmpty()) {
+                list = _list
+                notifyDataSetChanged()
+            } else {
+                list = results.values as MutableList<User>
+                notifyDataSetChanged()
+            }
+
+        }
+
     }
 }

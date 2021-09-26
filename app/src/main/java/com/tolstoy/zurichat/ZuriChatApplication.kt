@@ -1,8 +1,9 @@
-package com.tolstoy.zurichat.di
+package com.tolstoy.zurichat
 
 import android.app.Application
-import androidx.databinding.ktx.BuildConfig
+import android.os.StrictMode
 import dagger.hilt.android.HiltAndroidApp
+import androidx.databinding.ktx.BuildConfig
 import timber.log.Timber
 
 @HiltAndroidApp
