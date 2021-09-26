@@ -30,7 +30,7 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
     private val binding by viewBinding(FragmentSelectNewChannelBinding::bind)
     var user:User?= null
     lateinit var userList: List<User>
-    private val adapter = NewChannelAdapter()
+    private val adapter = NewChannelAdapter(this)
     private  val viewModel: SelectNewChannelViewModel by viewModels()
 
 
@@ -96,6 +96,7 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
             it.adapter = adapter
             it.layoutManager = LinearLayoutManager(context)
         }
+
     }
 
     private fun observeUsersList () {
