@@ -35,9 +35,9 @@ class ChannelViewModel : ViewModel() {
     private var _error = MutableLiveData<String?>()
     val error : LiveData<String?> get() = _error
 
-    fun getChannelsList() {
+    fun getChannelsList(organizationId : String) {
         val service = RetrofitClientInstance.retrofitInstance!!.create(ChannelsList::class.java)
-        val call = service.channelList
+        val call = service.getChannelList(organizationId)
 
         call!!.enqueue(object : Callback<List<ChannelModel>> {
             override fun onResponse(call: Call<List<ChannelModel>>, response: Response<List<ChannelModel>>) {

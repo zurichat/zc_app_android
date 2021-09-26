@@ -20,6 +20,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.navArgs
+import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ActivityMainBinding
 import com.tolstoy.zurichat.models.DmMessages
 import com.tolstoy.zurichat.models.User
@@ -66,6 +67,9 @@ class MainActivity : AppCompatActivity() {
         notificationSettings = SettingsActivity.NotificationAndSounds()
         createNotificationChannel()
         //notificationSetting(messager_name, notification_message, pattern, message_sound)
+//        notificationSettings = SettingsActivity.NotificationAndSounds()
+//        createNotificationChannel()
+//        notificationSetting(messager_name,notification_message,pattern,message_sound)
         // This setups application theme to value stored in sharedPref
         setUpApplicationTheme(this)
 
@@ -92,7 +96,6 @@ class MainActivity : AppCompatActivity() {
             requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
         }
     }
-
     // creation of notification bar
     fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -121,6 +124,7 @@ class MainActivity : AppCompatActivity() {
             .setContentText(message)
             .setVibrate(pattern)
             .setSound(sound)
+            .setSmallIcon(R.drawable.ic_smile)
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
         with(NotificationManagerCompat.from(this)) {

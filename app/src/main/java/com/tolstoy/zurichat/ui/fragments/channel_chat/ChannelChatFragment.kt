@@ -3,6 +3,8 @@ package com.tolstoy.zurichat.ui.fragments.channel_chat
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.InputType
 import android.text.format.DateUtils
 import android.view.*
@@ -14,7 +16,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentChannelChatBinding
 import com.tolstoy.zurichat.models.ChannelModel
@@ -34,6 +38,18 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.random.Random
+import centrifuge.Centrifuge
+import centrifuge.Client
+import com.tolstoy.zurichat.ui.fragments.networking.AppDisconnectHandler
+
+import centrifuge.DisconnectHandler
+
+import com.tolstoy.zurichat.ui.fragments.networking.AppConnectHandler
+
+import centrifuge.ConnectHandler
+import kotlinx.coroutines.*
+import okhttp3.Dispatcher
+import java.lang.Exception
 
 
 class ChannelChatFragment : Fragment() {
@@ -41,6 +57,8 @@ class ChannelChatFragment : Fragment() {
     private lateinit var binding: FragmentChannelChatBinding
     private lateinit var user: User
     private lateinit var channel: ChannelModel
+    private lateinit var organizationID: String
+    private lateinit var roomData: RoomData
     private var channelJoined = false
     private var members: ArrayList<User>? = null
     private var isEnterSend: Boolean = false
@@ -60,6 +78,7 @@ class ChannelChatFragment : Fragment() {
             user = bundle.getParcelable("USER")!!
             channel = bundle.getParcelable("Channel")!!
             channelJoined = bundle.getBoolean("Channel Joined")
+            organizationID = "614679ee1a5607b13c00bcb7"
         }
 
         isEnterSend = PreferenceManager.getDefaultSharedPreferences(requireContext())
@@ -184,6 +203,7 @@ class ChannelChatFragment : Fragment() {
 
         }
         binding.recyclerMessagesList.adapter = channelListAdapter
+        binding.recyclerMessagesList.itemAnimator = null
 
         binding.cameraChannelBtn.setOnClickListener {
             imagePicker.pickFromStorage { imageResult ->
@@ -207,14 +227,26 @@ class ChannelChatFragment : Fragment() {
          * Makes the network call from the ChannelMessagesViewModel
          */
         if (channelMsgViewModel.allMessages.value == null) {
-            channelMsgViewModel.retrieveAllMessages("1", channel._id)
+            channelMsgViewModel.retrieveAllMessages(organizationID, channel._id)
         }
 
-        Timber.d("onViewCreated: Entered channel screen")
+        if (channelMsgViewModel.roomData.value == null){
+            channelMsgViewModel.retrieveRoomData(organizationID,channel._id)
+        }
 
         // Observes result from the viewModel to be passed to an adapter to display the messages
         channelMsgViewModel.allMessages.observe(viewLifecycleOwner, {
             if (it != null) {
+                messagesArrayList.clear()
+                messagesArrayList.addAll(it.data)
+                val channelsWithDateHeaders = createMessagesList(messagesArrayList)
+                channelListAdapter.submitList(channelsWithDateHeaders)
+
+                //Waiting For Adapter To Update Before Scrolling To End Of Message
+                //TODO: Look For A Better Way To Do This
+                lifecycleScope.launch {
+                    delay(100)
+                    binding.recyclerMessagesList.scrollToPosition(channelsWithDateHeaders.size-1)
                 if (!messagesArrayList.containsAll(it.data)) {
                     messagesArrayList.clear()
                     messagesArrayList.addAll(it.data)
@@ -225,9 +257,17 @@ class ChannelChatFragment : Fragment() {
             }
         })
 
+        channelMsgViewModel.roomData.observe(viewLifecycleOwner,{
+            roomData = it
+            connectToSocket()
+        })
+
+        sendMessage.setOnClickListener{
+            if (channelChatEdit.text.toString().isNotEmpty()){
         sendMessage.setOnClickListener {
             if (channelChatEdit.text.toString().isNotEmpty()) {
                 val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                s.timeZone = TimeZone.getTimeZone("UTC")
                 val time = s.format(Date(System.currentTimeMillis()))
                 val data = Data(generateID().toString(),
                     false,
@@ -251,6 +291,42 @@ class ChannelChatFragment : Fragment() {
             }
         }
 
+        /**
+         * This is a bad idea but is crucial to making Sunday demo work.
+         * But Centrifugo Channel Subscription isn't working yet so i am stuck with this.
+         */
+        //Todo: Remove This After Centrifugo RealTime is working
+        val handler = Handler(Looper.getMainLooper())
+        val runnable = object:Runnable{
+            override fun run() {
+                channelMsgViewModel.retrieveAllMessages(organizationID, channel._id)
+                handler.postDelayed(this,2000)
+            }
+        }
+        handler.postDelayed(runnable,5000)
+    }
+
+    private fun connectToSocket(){
+        val job = Job()
+        val uiScope = CoroutineScope(Dispatchers.Main + job)
+
+        val connectHandler: ConnectHandler = AppConnectHandler(requireActivity(),roomData)
+        val disconnectHandler: DisconnectHandler = AppDisconnectHandler(requireActivity())
+
+        val client: Client = Centrifuge.new_("wss://realtime.zuri.chat/connection/websocket", Centrifuge.defaultConfig())
+        client.onConnect(connectHandler)
+        client.onDisconnect(disconnectHandler)
+
+        uiScope.launch(Dispatchers.IO){
+            try {
+                client.connect()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                withContext(Dispatchers.Main){
+                    Toast.makeText(requireContext(),"Connection Failed",Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     private fun setupKeyboard() {
@@ -307,6 +383,7 @@ class ChannelChatFragment : Fragment() {
 
     private fun convertStringDateToLong(date: String): Long {
         val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        s.timeZone = TimeZone.getTimeZone("UTC")
         var d = s.parse(date)
         return d.time
     }

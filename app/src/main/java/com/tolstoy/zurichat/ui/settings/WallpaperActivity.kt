@@ -93,22 +93,17 @@ class WallpaperActivity : AppCompatActivity(),
 
             PreferenceManager.getDefaultSharedPreferences(context).registerOnSharedPreferenceChangeListener(this)
 
-                }
+        }
 
-            override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-                    val dimmer:View? = view?.findViewById<View>(R.id.dimmer_view)
-                    if (key == "bar"){
-                        val barIncr = sharedPreferences?.getInt("bar",50)?.toFloat()
-                        val flt = barIncr?.div(100.0f)
-                        if (flt != null) {
-                            dimmer?.alpha=flt
-                        }
-                    }
+        override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+            val dimmer:View? = view?.findViewById<View>(R.id.dimmer_view)
+            if (key == "bar"){
+                val barIncr = sharedPreferences?.getInt("bar",50)?.toFloat()
+                val flt = barIncr?.div(100.0f)
+                if (flt != null) {
+                    dimmer?.alpha=flt
                 }
+            }
         }
     }
-
-
-
-
-
+}
