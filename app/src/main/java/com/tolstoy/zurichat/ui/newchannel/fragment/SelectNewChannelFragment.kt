@@ -109,7 +109,7 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
                         userList = it.data.data
                         binding.userListProgressBar.visibility = View.GONE
                         binding.numberOfContactsTxt.text =
-                            "${it.data.data.size} ${getString(R.string.members)}"
+                            "${it.data.data.size} ${getString(R.string.select_members_)}"
                     }
                     is SelectNewChannelViewState.Error -> {
                         binding.userListProgressBar.visibility = View.GONE

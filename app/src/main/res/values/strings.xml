@@ -143,8 +143,6 @@
     <string name="chanel_search">Search</string>
     <string name="channel_media">Channel media</string>
     <string name="select_contact">Select Contact</string>
-    <string name="select_members">Select Members</string>
-    <string name="members">Members</string>
     <string name="changephoneno_hint_txt">Enter your new phone number</string>
     <string name="search_for_channels">Search for channels</string>
 
@@ -250,5 +248,6 @@
     <string name="share_a_link">Share a link</string>
     <string name="add_from_contacts">Add from contacts</string>
     <string name="add_by_email">Add by email</string>
+    <string name="signout">Logout</string>
 
 </resources>

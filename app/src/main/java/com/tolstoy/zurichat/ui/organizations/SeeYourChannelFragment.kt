@@ -5,18 +5,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.databinding.FragmentSeeYourChannelBinding
+import com.tolstoy.zurichat.util.viewBinding
 
 
-class SeeYourChannelFragment : Fragment() {
+class SeeYourChannelFragment : Fragment(R.layout.fragment_see_your_channel) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_see_your_channel, container, false)
+    private val binding by viewBinding(FragmentSeeYourChannelBinding::bind)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnSeeYourChannel.setOnClickListener {
+            Navigation.findNavController(it).navigate(R.id.action_seeYourChannelFragment_to_homeScreenFragment)
+        }
     }
-
 
 }
