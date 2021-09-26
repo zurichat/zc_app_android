@@ -96,12 +96,6 @@
             android:label="@string/profile_activity"
             android:parentActivityName=".ui.settings.ManageStorageActivity"
             android:theme="@style/Theme.ZuriChat.Settings" />
-        <activity
-            android:name=".ui.activities.ProfileAboutActivity"
-            android:exported="true"
-            android:label="@string/profile_about"
-            android:parentActivityName=".ui.settings.ManageStorageActivity"
-            android:theme="@style/Theme.ZuriChat.Settings" />
 
         <activity android:name=".ui.activities.MainActivity" >
 

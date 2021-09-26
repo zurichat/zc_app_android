@@ -26,6 +26,7 @@ import com.tolstoy.zurichat.ui.profile.network.ProfileService
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -78,8 +79,6 @@ open class ProfileActivity: AppCompatActivity() {
         savedAbout = findViewById(R.id.saved_about)
 
 
-
-
         val about = findViewById<ImageView>(R.id.edit_about)
         val camera = findViewById<ImageView>(R.id.img_camera)
         val phoneEdit = findViewById<ImageView>(R.id.imgPhone_editBT)
@@ -93,10 +92,16 @@ open class ProfileActivity: AppCompatActivity() {
         userName.setOnClickListener {
             editNameDialog.show()
 
+            val name: String = savedName.text.toString()
+            updateName(name)
+
         }
 
         about.setOnClickListener {
             editAboutDialog.show()
+
+            val aboutSaved = savedAbout.text.toString()
+            updateAbout(aboutSaved)
         }
 
         camera.setOnClickListener {
@@ -350,7 +355,7 @@ open class ProfileActivity: AppCompatActivity() {
                 if(response!!.isSuccessful) {
                     Log.i("Login Response Result", response.body()!!.message)
 
-                    val orgId: String = response.body()!!.data[1].id
+                    val orgId: String = response.body()!!.data[0].id
 
                     getMemberId(orgId)
                 } else {
@@ -388,8 +393,8 @@ open class ProfileActivity: AppCompatActivity() {
                 if(response!!.isSuccessful) {
                     Log.i("Login Response Result", response.body()!!.message)
 
-                    memId = response.body()!!.data[1]._id
-                    orgMemId = response.body()!!.data[1].org_id
+                    memId = response.body()!!.data[0]._id
+                    orgMemId = response.body()!!.data[0].org_id
                 } else {
                     when(response.code()){
                         400 -> {
@@ -420,12 +425,12 @@ open class ProfileActivity: AppCompatActivity() {
         updateProfilePhone(orgMemId, memId, phoneData)
     }
 
-    fun updateName(name: String) {
+    private fun updateName(name: String) {
         val nameData = NameUpdate(name)
         updateProfileName(orgMemId, memId, nameData)
     }
 
-    fun updateAbout(bio: String) {
+    private fun updateAbout(bio: String) {
         val bioData = AboutUpdate(bio)
         updateProfileBio(orgMemId, memId, bioData)
     }
@@ -443,7 +448,11 @@ open class ProfileActivity: AppCompatActivity() {
         val body: MultipartBody.Part =
             MultipartBody.Part.createFormData("picture", file.name, requestFile)
 
-        val call: Call<ProfilePhotoResponse> = retrofitService.updatePhoto(orgMemId, memId, body)
+        val descriptionString = "Photo"
+        val description = descriptionString
+            .toRequestBody(MultipartBody.FORM)
+
+        val call: Call<ProfilePhotoResponse> = retrofitService.updatePhoto(orgMemId, memId, description, body)
 
         call.enqueue(object : Callback<ProfilePhotoResponse> {
             override fun onResponse(

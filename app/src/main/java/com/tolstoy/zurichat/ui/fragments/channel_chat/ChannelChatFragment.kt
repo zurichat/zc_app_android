@@ -241,6 +241,8 @@ class ChannelChatFragment : Fragment() {
                 //val channelsWithDateHeaders = createMessagesList(messagesArrayList)
                 //channelListAdapter.submitList(channelsWithDateHeaders)
                 //binding.recyclerMessagesList.scrollToPosition(channelsWithDateHeaders.size-1)
+                channelChatEdit.text?.clear()
+
             }
         }
 
