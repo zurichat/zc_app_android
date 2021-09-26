@@ -30,10 +30,8 @@ class MainActivity : AppCompatActivity() {
 
         if (intent.hasExtra("USER")){
             user = intent.getParcelableExtra("USER")
-
         }   else{
             user = intent.getParcelableExtra("user")
-
 
         }
 

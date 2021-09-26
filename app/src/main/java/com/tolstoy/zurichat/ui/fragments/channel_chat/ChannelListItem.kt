@@ -43,6 +43,7 @@ data class ChannelListItem (val data: Data,val user:User, val context: Activity)
 
     private fun convertStringDateToLong(date: String): Date {
         val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+        s.timeZone = TimeZone.getTimeZone("UTC")
         return s.parse(date)
     }
 }

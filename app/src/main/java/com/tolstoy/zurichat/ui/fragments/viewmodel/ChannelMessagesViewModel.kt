@@ -1,23 +1,23 @@
 package com.tolstoy.zurichat.ui.fragments.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.ui.fragments.model.AllChannelMessages
 import com.tolstoy.zurichat.ui.fragments.model.Data
-import com.tolstoy.zurichat.ui.fragments.model.JoinChannelUser
 import com.tolstoy.zurichat.ui.fragments.model.Message
+import com.tolstoy.zurichat.ui.fragments.model.RoomData
 import com.tolstoy.zurichat.ui.fragments.networking.JoinNewChannel
 import com.tolstoy.zurichat.ui.fragments.networking.RetrofitClientInstance
 import kotlinx.coroutines.launch
 
 class ChannelMessagesViewModel : ViewModel(){
-
     private var _allMessages = MutableLiveData<AllChannelMessages>()
     val allMessages : LiveData<AllChannelMessages> get() = _allMessages
+
+    private var _roomData = MutableLiveData<RoomData>()
+    val roomData : LiveData<RoomData> get() = _roomData
 
     // This function gets called after entering a channel to retrieve all messages
     fun retrieveAllMessages(organizationId : String, channelId : String){
@@ -37,11 +37,40 @@ class ChannelMessagesViewModel : ViewModel(){
     fun sendMessages(data : Data,organizationId : String, channelId : String, dataList: List<Data>){
         viewModelScope.launch {
             try {
+                var allMessagesNew = AllChannelMessages(dataList,"",200)
+                if (_allMessages.value != null){
+                    allMessagesNew = _allMessages.value!!
+                }
+
+                val mutableDataList = dataList.toMutableList()
+                mutableDataList.add(data)
+                val position = mutableDataList.indexOf(data)
+
+                //Add Message With Temporary ID To List And Notifies The ViewModel
+                allMessagesNew.data = mutableDataList
+                _allMessages.value = allMessagesNew
+
                 val message = Message(data.user_id.toString(),data.content.toString(),data.files,data.event)
-                _allMessages.value!!.data = dataList
                 val joinedUser = RetrofitClientInstance.retrofitInstance?.create(JoinNewChannel::class.java)?.sendMessage(organizationId,channelId,message)
                 joinedUser?.let {
-                    Log.i("List",it.user_id.toString())
+                    //Replaces The Message Item with Message Item with Permanent ID gotten from server After Sending THe Message
+                    mutableDataList[position] = it
+                    allMessagesNew.data = mutableDataList
+                    _allMessages.value = allMessagesNew
+                }
+            }catch (e : Exception){
+                e.printStackTrace()
+            }
+        }
+    }
+
+    // This function gets called after entering a channel to get the Centrifugo socket is
+    fun retrieveRoomData(organizationId : String, channelId : String){
+        viewModelScope.launch {
+            try {
+                val room = RetrofitClientInstance.retrofitInstance?.create(JoinNewChannel::class.java)?.getRoom(organizationId,channelId)
+                room?.let {
+                    _roomData.value = it
                 }
             }catch (e : Exception){
                 e.printStackTrace()

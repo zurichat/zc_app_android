@@ -53,7 +53,8 @@
         android:layout_marginStart="84dp"
         android:gravity="center_horizontal|top"
         android:text="@string/who_else_is"
-        android:textAppearance="@style/who_else_is"/>
+        android:textColor = "@color/text_color"
+        android:textSize = "20sp"/>
 
     <TextView
         android:id="@+id/to_add_team"
@@ -64,7 +65,7 @@
         app:layout_constraintRight_toRightOf="@id/who_else_is"
         android:layout_marginTop="16dp"
         android:text="@string/to_add_team"
-        android:textAppearance="@style/to_add_team"
+        android:textSize = "14sp"
         android:lineSpacingExtra="1sp"
         android:translationY="-0.7sp"
         android:gravity="center_horizontal|top"/>
