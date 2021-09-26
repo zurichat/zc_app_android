@@ -4,15 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.NewChannelItemBinding
-import com.tolstoy.zurichat.models.NewChannel
 import com.tolstoy.zurichat.models.User
-import com.tolstoy.zurichat.models.UserList
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.ui.dm.DMFragment
 
 
-class NewChannelAdapter: RecyclerView.Adapter<NewChannelAdapter.ViewHolder>(), Filterable {
+class NewChannelAdapter(val fragment: Fragment): RecyclerView.Adapter<NewChannelAdapter.ViewHolder>(), Filterable {
     var list = emptyList<User>()
     val _list: List<User> by lazy { list }
 
@@ -41,6 +43,15 @@ class NewChannelAdapter: RecyclerView.Adapter<NewChannelAdapter.ViewHolder>(), F
 
             item.channelItemPersonIcon.setBackgroundResource(R.drawable.ic_kolade_icon)
             item.channelItemMessageTxt.text = chat.email
+            item.root.setOnClickListener {
+                val frag: Fragment = DMFragment()
+                val fragmentManager: FragmentManager = fragment.requireActivity().supportFragmentManager
+                val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
+                fragmentTransaction.replace(R.id.fragmentContainerView3, frag)
+                fragmentTransaction.addToBackStack(null)
+                fragmentTransaction.commit()
+
+            }
 
         }
     }
