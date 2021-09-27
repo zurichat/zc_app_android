@@ -1,6 +1,7 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -10,14 +11,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentChatsBinding
 import com.tolstoy.zurichat.models.Message
+import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragment
 import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragmentDirections
+import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenViewModel
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChatsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ChatsFragment : Fragment(R.layout.fragment_chats) {
     private lateinit var binding: FragmentChatsBinding
-    private val viewModel by viewModels<ChatsViewModel>()
+    val viewModel: HomeScreenViewModel by lazy {
+        (parentFragment as HomeScreenFragment).viewModel
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,15 +58,19 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         }
 
         viewModel.searchQuery.observe(viewLifecycleOwner){ query ->
-            Log.d("", "query: $query")
-            chatsRVAdapter.differ.submitList(messages.filter {
+            Log.d(TAG, "query: $query")
+            val adapter = listChats.adapter as ChatsAdapter
+            adapter.differ.submitList(adapter.chats.filter {
                 query.lowercase() in it.sender.lowercase()
-            }
-            )
+            })
         }
     }
 
     private fun setupObservers() = with(viewModel){
         getRooms()
+    }
+
+    companion object{
+        val TAG = ChatsFragment::class.simpleName
     }
 }

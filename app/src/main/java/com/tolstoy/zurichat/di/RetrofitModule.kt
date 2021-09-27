@@ -52,7 +52,7 @@ object RetrofitModule {
             .build()
 
     @Provides
-    fun provideRetrofitService(retrofit: Retrofit): UsersService =
+    fun provideUserService(retrofit: Retrofit): UsersService =
         retrofit.create(UsersService::class.java)
 
     @Provides

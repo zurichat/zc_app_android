@@ -6,10 +6,9 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.databinding.ItemChatBinding
-import com.tolstoy.zurichat.models.DmMessages
 import com.tolstoy.zurichat.models.Message
 
-class ChatsAdapter(private val chats: List<Chat>): RecyclerView.Adapter<ChatsAdapter.ChatViewHolder>() {
+class ChatsAdapter(val chats: List<Chat>): RecyclerView.Adapter<ChatsAdapter.ChatViewHolder>() {
 
     private var onItemClickListener: ((Chat) -> Unit)? = null
 

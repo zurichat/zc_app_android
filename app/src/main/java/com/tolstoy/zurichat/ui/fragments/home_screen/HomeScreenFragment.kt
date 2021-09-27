@@ -1,6 +1,5 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -17,11 +16,9 @@ import com.tolstoy.zurichat.databinding.FragmentHomeScreenBinding
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.activities.MainActivity
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
-//import com.tolstoy.zurichat.ui.newchannel.fragment.SelectMemberFragmentArgs
-
-//import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
-
+@AndroidEntryPoint
 class HomeScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeScreenBinding

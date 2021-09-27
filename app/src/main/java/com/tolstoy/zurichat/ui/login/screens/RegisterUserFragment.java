@@ -5,9 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,10 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.google.android.material.textfield.TextInputLayout;
 import com.tolstoy.zurichat.R;
 import com.tolstoy.zurichat.data.remoteSource.RetrofitClient;
-import com.tolstoy.zurichat.data.remoteSource.RetrofitService;
+import com.tolstoy.zurichat.data.remoteSource.UsersService;
 import com.tolstoy.zurichat.databinding.FragmentRegisterUserBinding;
 import com.tolstoy.zurichat.models.RegisterUser;
 
@@ -33,7 +29,7 @@ public class RegisterUserFragment extends Fragment {
 
     private NavController navController;
     private ProgressDialog progressDialog;
-    private RetrofitService retrofitService;
+    private UsersService usersService;
     private Bundle bundle;
 
     private FragmentRegisterUserBinding binding;
@@ -57,7 +53,7 @@ public class RegisterUserFragment extends Fragment {
 
         navController = Navigation.findNavController(view);
         bundle = new Bundle();
-        retrofitService = RetrofitClient.getClient("https://api.zuri.chat/").create(RetrofitService.class);
+        usersService = RetrofitClient.getClient("https://api.zuri.chat/").create(UsersService.class);
         progressDialog = new ProgressDialog(getContext());
 
 
@@ -100,7 +96,7 @@ public class RegisterUserFragment extends Fragment {
     public void registerUser(String first_name, String last_name, String display_name, String email, String password, String phone) {
         progressDialog.show();
         final RegisterUser registerUser = new RegisterUser(first_name, last_name, display_name, email, password, phone);
-        Call<RegisterUser> call = retrofitService.register(registerUser);
+        Call<RegisterUser> call = usersService.register(registerUser);
         call.enqueue(new Callback<RegisterUser>() {
             @Override
             public void onResponse(Call<RegisterUser> call, Response<RegisterUser> response) {

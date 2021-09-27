@@ -63,7 +63,8 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
         observerData()
 
         binding.newChannelToolbar.setOnClickListener{
-            activity.finish()
+            //TODO: This will close the app, require attention
+//            activity.finish()
         }
     }
 

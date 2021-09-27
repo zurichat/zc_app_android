@@ -171,7 +171,7 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
      */
     private fun takePictureCamera() = imagePicker.takeFromCamera { imageResult ->
         when (imageResult) {
-            is ImageResult.Success -> handleImageUpload(listOf(imageResult.value))
+            is ImageResult.Success -> handleAttachmentUpload(listOf(imageResult.value))
             is ImageResult.Failure -> {
                 Toast.makeText(requireContext(), "Picture not taken", Toast.LENGTH_LONG).show()
             }
@@ -179,40 +179,14 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
     }
 
     private fun receiveAttachment(attachment: AttachmentsFragment.Attachment){
-        when (attachment.media) {
-            MEDIA.IMAGE -> handleImageUpload(attachment.selected)
-            MEDIA.AUDIO -> handleAudioUpload(attachment.selected)
-            MEDIA.DOCUMENT -> handleDocumentUpload(attachment.selected)
-            else -> handleImageUpload(attachment.selected)
-        }
+        handleAttachmentUpload(attachment.selected)
     }
 
-    private fun handleImageUpload(imageList: List<Uri>) = imageList.forEach{
+    private fun handleAttachmentUpload(fileList: List<Uri>) = fileList.forEach{
         viewModel.uploadAttachment(it)
         displayMessage("", it)
     }
 
-    private fun handleAudioUpload(audioList: List<Uri>) = audioList.forEach {
-        adapter.addMessage(
-            Message(
-                message = "",
-                senderId = user!!.id,
-                roomId = user!!.id,
-                media = listOf(it.toString())
-            )
-        )
-    }
-
-    private fun handleDocumentUpload(audioList: List<Uri>) = audioList.forEach {
-        adapter.addMessage(
-            Message(
-                message = "",
-                senderId = user!!.id,
-                roomId = user!!.id,
-                media = listOf(it.toString())
-            )
-        )
-    }
 
     private fun displayMessage(text: String, vararg media: Uri) =
         Message(message = text, senderId = userId, roomId = roomId ?: "").also{
