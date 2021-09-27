@@ -33,6 +33,12 @@ class HomeScreenFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
+
+        val bundle = arguments
+        if (bundle != null) {
+            user = bundle.getParcelable("USER")!!
+        }
+
         return binding.root
     }
 

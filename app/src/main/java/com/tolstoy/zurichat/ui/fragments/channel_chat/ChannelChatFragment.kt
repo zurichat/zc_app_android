@@ -43,7 +43,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.random.Random
 
-
 class ChannelChatFragment : Fragment() {
     private val viewModel : ChannelViewModel by viewModels()
     private lateinit var binding: FragmentChannelChatBinding
