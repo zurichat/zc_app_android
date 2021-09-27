@@ -2,6 +2,7 @@ package com.tolstoy.zurichat.ui.profile.network
 
 import com.tolstoy.zurichat.ui.profile.data.*
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -43,6 +44,7 @@ interface ProfileService {
     fun updatePhoto(
         @Path("id") id: String,
         @Path("mem_id") mem_id: String,
+        @Part("description") description: RequestBody,
         @Part file: MultipartBody.Part
     ): Call<ProfilePhotoResponse>
 

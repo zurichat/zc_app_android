@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.tolstoy.zurichat.R
 
-class ChooseWallpaperCategory: AppCompatActivity(){
+class ChooseWallpaperCategory: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

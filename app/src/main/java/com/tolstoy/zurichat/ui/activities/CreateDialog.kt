@@ -16,7 +16,6 @@ import com.tolstoy.zurichat.R
 class CreateDialog(private val layoutInflaterr: LayoutInflater,
                 private val context:Context) : ProfileActivity() {
 
-
     fun createEditNameDialog(savedName: TextView): AlertDialog {
         val view = layoutInflaterr.inflate(R.layout.edit_dialog,null)
         val name = view.findViewById<EditText>(R.id.editName)
@@ -56,8 +55,6 @@ class CreateDialog(private val layoutInflaterr: LayoutInflater,
                 savedName.text = name.text.toString()
 
                 dialog.dismiss()
-                val profileName = name.text.toString()
-                //ProfileActivity().updateName(profileName)
                 //save to shared preferences
                 val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
                 val editor = preferences.edit()
@@ -90,9 +87,6 @@ class CreateDialog(private val layoutInflaterr: LayoutInflater,
             if(about.text.isNotEmpty()){
                 savedAbout.text = about.text.toString()
                 dialog1.dismiss()
-
-                val profileBio = about.text.toString()
-               // ProfileActivity().updateAbout(profileBio)
 
                 val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
                 val editor = preferences.edit()
