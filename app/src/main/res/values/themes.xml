@@ -67,7 +67,7 @@
     </style>
     <style name="MessageItem.Checkmark">
         <item name="tint">@color/message_checkmark_unread</item>
-        <item name="android:layout_height">7sp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">12sp</item>
     </style>
 

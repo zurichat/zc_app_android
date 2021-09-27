@@ -3,7 +3,7 @@ package com.tolstoy.zurichat.data.repository
 import android.content.SharedPreferences
 import com.tolstoy.zurichat.data.localSource.dao.UserDao
 import com.tolstoy.zurichat.data.localSource.entities.UserEntity
-import com.tolstoy.zurichat.data.remoteSource.RetrofitService
+import com.tolstoy.zurichat.data.remoteSource.UsersService
 import com.tolstoy.zurichat.models.LoginBody
 import com.tolstoy.zurichat.models.LoginResponse
 import com.tolstoy.zurichat.models.PassswordRestReponse
@@ -16,17 +16,17 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
 
 class UserRepository @Inject constructor(
-    private val retrofitService: RetrofitService,
+    private val usersService: UsersService,
     private val preferences: SharedPreferences,
     private val dao: UserDao
 ) {
 
     suspend fun login(loginBody: LoginBody): LoginResponse {
-        return retrofitService.login(loginBody)
+        return usersService.login(loginBody)
     }
 
      suspend fun passwordReset(passwordReset: PasswordReset): PassswordRestReponse {
-        return retrofitService.passwordreset(passwordReset)
+        return usersService.passwordreset(passwordReset)
 
     }
 

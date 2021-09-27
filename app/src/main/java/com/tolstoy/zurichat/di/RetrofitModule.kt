@@ -1,7 +1,11 @@
 package com.tolstoy.zurichat.di
 
 import com.google.gson.Gson
-import com.tolstoy.zurichat.data.remoteSource.RetrofitService
+import com.tolstoy.zurichat.data.remoteSource.ChatsService
+import com.tolstoy.zurichat.data.remoteSource.FilesService
+import com.tolstoy.zurichat.data.remoteSource.Retrofit as RetrofitBuilder
+import com.tolstoy.zurichat.data.remoteSource.UsersService
+import com.tolstoy.zurichat.data.remoteSource.RoomService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -48,7 +52,18 @@ object RetrofitModule {
             .build()
 
     @Provides
-    fun provideRetrofitService(retrofit: Retrofit): RetrofitService =
-        retrofit.create(RetrofitService::class.java)
+    fun provideUserService(retrofit: Retrofit): UsersService =
+        retrofit.create(UsersService::class.java)
 
+    @Provides
+    fun provideChatService() =
+        RetrofitBuilder.retrofit(ChatsService.BASE_URL).create(ChatsService::class.java)
+
+    @Provides
+    fun provideRoomService() =
+        RetrofitBuilder.retrofit(RoomService.BASE_URL).create(RoomService::class.java)
+
+    @Provides
+    fun provideFileService() =
+        RetrofitBuilder.retrofit(FilesService.BASE_URL).create(FilesService::class.java)
 }

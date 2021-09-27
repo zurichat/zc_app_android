@@ -1,40 +1,45 @@
 package com.tolstoy.zurichat.ui.dm
 
-import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.*
+import android.view.Gravity
+import android.view.View
+import android.view.WindowManager
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tolstoy.zurichat.R
-import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.FragmentDmBinding
 import com.tolstoy.zurichat.databinding.PartialAttachmentPopupBinding
 import com.tolstoy.zurichat.models.Message
-import com.tolstoy.zurichat.models.User
-import com.tolstoy.zurichat.ui.base.ViewModelFactory
 import com.tolstoy.zurichat.ui.dm.adapters.MessageAdapter
 import com.tolstoy.zurichat.util.setClickListener
+import dagger.hilt.android.AndroidEntryPoint
 import dev.ronnie.github.imagepicker.ImagePicker
 import dev.ronnie.github.imagepicker.ImageResult
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class DMFragment : Fragment(R.layout.fragment_dm) {
 
     private lateinit var imagePicker: ImagePicker
-    private val adapter by lazy { MessageAdapter(requireContext(), 0) }
-    private lateinit var binding: FragmentDmBinding
+    private lateinit var adapter: MessageAdapter
     private val attachmentPopup by lazy { PopupWindow(requireContext()) }
-    private val user by lazy { Cache.map["user"] as? User }
-    private val viewModel by viewModels<DMViewModel> { ViewModelFactory.INSTANCE }
+    private val viewModel by viewModels<DMViewModel>()
+
+    private lateinit var binding: FragmentDmBinding
+    private var roomId: String? = null
+    private lateinit var userId: String
+    private lateinit var senderId: String
 
     private val sendDrawable by lazy {
         ResourcesCompat.getDrawable(requireContext().resources, R.drawable.ic_send, null)
@@ -52,46 +57,43 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentDmBinding.bind(view)
-        setupUI()
+
+        arguments?.let { bundle ->
+            val args = DMFragmentArgs.fromBundle(bundle)
+            roomId = args.roomId
+            userId = args.userId
+            senderId = args.senderId
+        }
+
         setupObservers()
-
-        // code to control the dimming of background
-        val dimmerBox:View? = view?.findViewById<View>(R.id.dimmer_background)
-        val prefMngr = PreferenceManager.getDefaultSharedPreferences(context)
-        val dimVal = prefMngr.getInt("bar",50).toFloat().div(100f)
-        dimmerBox?.alpha = dimVal
-
+        setupUI()
     }
-
 
     override fun onPause() {
         attachmentPopup.dismiss()
         super.onPause()
     }
 
-    private fun setupUI() {
+    private fun setupUI() = with(binding) {
+        dimmerBackground.alpha = PreferenceManager.getDefaultSharedPreferences(context)
+            .getInt("bar",50).toFloat().div(100f)
 
         // set up the message input view
-        binding.messageinputDm.also {
+        messageinputDm.also {
             it.fabMIRecordAudio.setOnClickListener { _->
                 it.textinputMIMessage.text.also { editable ->
                     if(editable.isNotBlank()) {
-                        val message = Message(
-                            message = editable.toString(),
-                            senderId = user!!.id,
-                            roomId = user!!.id
-                        )
-                        adapter.addMessage(message)
-                        viewModel.sendMessage(message.roomId,message)
+                        val text = editable.toString()
+                        displayMessage(text)
+                        sendMessage(text)
                         editable.clear()
                     }
                 }
             }
             it.imageMIAttachImage.setOnClickListener { takePictureCamera() }
-            it.imageMIAttachFile.setOnClickListener { _ ->
-                val anchor = binding.messageinputDm.root
+            it.imageMIAttachFile.setOnClickListener {
+                val anchor = messageinputDm.root
 //                val location = IntArray(2).apply { anchor.getLocationOnScreen(this) }
-//                val size = Size(attachmentPopup.contentView.measuredWidth, attachmentPopup.contentView.measuredHeight)
                 attachmentPopup.showAtLocation(anchor,Gravity.BOTTOM or Gravity.START, 0, anchor.height)
             }
             it.textinputMIMessage.addTextChangedListener(object : TextWatcher {
@@ -108,12 +110,16 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
             })
         }
         // set up the message recycler view
-        binding.listDm.also {
+        listDm.also {
+            // only initialize the adapter if it is not already initialized
+            if(!this@DMFragment::adapter.isInitialized)
+                adapter = MessageAdapter(requireContext(), userId)
+
             it.adapter = adapter
             it.layoutManager = LinearLayoutManager(requireContext())
         }
         // set up the attachment popup
-        PartialAttachmentPopupBinding.inflate(layoutInflater, binding.root, false).also {
+        PartialAttachmentPopupBinding.inflate(layoutInflater, root, false).also {
             it.groupGallery.setClickListener { navigateToAttachmentScreen() }
             it.groupAudio.setClickListener { navigateToAttachmentScreen(MEDIA.AUDIO) }
             it.groupDocument.setClickListener { navigateToAttachmentScreen(MEDIA.DOCUMENT) }
@@ -129,88 +135,72 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
         // observe values from the attachment fragment
         findNavController().currentBackStackEntry?.savedStateHandle
             ?.getLiveData<AttachmentsFragment.Attachment>(AttachmentsFragment.Attachment.TAG)?.observe(
-            viewLifecycleOwner){ receiveAttachment(it) }
+                viewLifecycleOwner){ receiveAttachment(it) }
     }
 
-    private fun setupObservers(){
-        viewModel.imageUploadResonse.observe(viewLifecycleOwner){
-            if (it.success){
-                Toast.makeText(requireContext(), "Image Uploaded", Toast.LENGTH_LONG).show()
-            } }
-        viewModel.sendMessageResponse.observe(viewLifecycleOwner){
-            Toast.makeText(requireContext(), "Message sent", Toast.LENGTH_LONG).show()
+    private fun setupObservers() = with(viewModel){
+        // retrieve messages if the room id is not null
+        roomId?.let {
+            viewModelScope.launch {
+                val newAdapter = MessageAdapter(requireContext(), userId, getMessages(it).messages.toMutableList())
+                if(this@DMFragment::adapter.isInitialized){
+                    adapter.messages.forEach{ message ->
+                        newAdapter.addMessage(message)
+                    }
+                }
+                adapter = newAdapter
+                binding.listDm.adapter = adapter
+            }
         }
+        attachmentUploadResponse.observe(viewLifecycleOwner){
+            // image was uploaded successfully
+            if (it.status == 200){
+                // send the image message to the server
+                sendMessage("", it.data.fileUrl)
+            }
+        }
+        sendMessageResponse.observe(viewLifecycleOwner){}
     }
 
     private fun navigateToAttachmentScreen(media: MEDIA = MEDIA.IMAGE){
         findNavController().navigate(DMFragmentDirections.actionDmFragmentToAttachmentsFragment(media))
     }
 
-    /**function to take image using camera
-    we are using a library to easen the work
+    /**
+     * Launches the camera activity to take pictures
      */
-    private fun takePictureCamera() {
-        //take image
-        imagePicker.takeFromCamera { imageResult ->
-            /**
-             * when we take an image successfully,we take the uri and load using glide
-             * we also set the view to visible
-             */
-
-            when (imageResult) {
-                is ImageResult.Success -> handleImageUpload(listOf(imageResult.value))
-
-                /**
-                 * incase it's unsuccessful we toast the message and hide the image view
-                 */
-                is ImageResult.Failure -> {
-//                    imageView.visibility = View.GONE
-                    Toast.makeText(requireContext(), "Picture not taken", Toast.LENGTH_LONG).show()
-                }
+    private fun takePictureCamera() = imagePicker.takeFromCamera { imageResult ->
+        when (imageResult) {
+            is ImageResult.Success -> handleAttachmentUpload(listOf(imageResult.value))
+            is ImageResult.Failure -> {
+                Toast.makeText(requireContext(), "Picture not taken", Toast.LENGTH_LONG).show()
             }
         }
     }
 
     private fun receiveAttachment(attachment: AttachmentsFragment.Attachment){
-        when (attachment.media) {
-            MEDIA.IMAGE -> handleImageUpload(attachment.selected)
-            MEDIA.AUDIO -> handleAudioUpload(attachment.selected)
-            MEDIA.DOCUMENT -> handleDocumentUpload(attachment.selected)
-            else -> handleImageUpload(attachment.selected)
+        handleAttachmentUpload(attachment.selected)
+    }
+
+    private fun handleAttachmentUpload(fileList: List<Uri>) = fileList.forEach{
+        viewModel.uploadAttachment(it)
+        displayMessage("", it)
+    }
+
+
+    private fun displayMessage(text: String, vararg media: Uri) =
+        Message(message = text, senderId = userId, roomId = roomId ?: "").also{
+            it.attachments.addAll(media)
+            adapter.addMessage(it)
         }
-    }
 
-    private fun handleImageUpload(imageList: List<Uri>) = imageList.forEach{
-        adapter.addMessage(
-            Message(
-                message = "",
-                senderId = user!!.id,
-                roomId = user!!.id,
-                media = listOf(it.toString())
-            )
-        )
-        viewModel.uploadImage(requireContext().applicationContext, it)
-    }
-
-    private fun handleAudioUpload(audioList: List<Uri>) = audioList.forEach {
-        adapter.addMessage(
-            Message(
-                message = "",
-                senderId = user!!.id,
-                roomId = user!!.id,
-                media = listOf(it.toString())
-            )
-        )
-    }
-
-    private fun handleDocumentUpload(audioList: List<Uri>) = audioList.forEach {
-        adapter.addMessage(
-            Message(
-                message = "",
-                senderId = user!!.id,
-                roomId = user!!.id,
-                media = listOf(it.toString())
-            )
-        )
+    private fun sendMessage(text: String, vararg media: String) = with(viewModel) {
+        viewModelScope.launch {
+            if(roomId == null){
+                roomId = createRoom(userId, senderId).roomId
+            }
+            sendMessage(roomId!!, Message(message = text, senderId = userId,
+                roomId = roomId!!, media = media.toList()))
+        }
     }
 }
