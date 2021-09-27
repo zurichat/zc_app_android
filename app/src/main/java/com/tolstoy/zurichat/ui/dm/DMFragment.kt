@@ -1,12 +1,13 @@
 package com.tolstoy.zurichat.ui.dm
 
-import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.*
+import android.view.Gravity
+import android.view.View
+import android.view.WindowManager
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
@@ -63,14 +64,12 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
 
     }
 
-
     override fun onPause() {
         attachmentPopup.dismiss()
         super.onPause()
     }
 
     private fun setupUI() {
-
         // set up the message input view
         binding.messageinputDm.also {
             it.fabMIRecordAudio.setOnClickListener { _->

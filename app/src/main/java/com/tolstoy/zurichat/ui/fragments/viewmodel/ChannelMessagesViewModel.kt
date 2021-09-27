@@ -19,6 +19,12 @@ class ChannelMessagesViewModel : ViewModel(){
     private var _roomData = MutableLiveData<RoomData>()
     val roomData : LiveData<RoomData> get() = _roomData
 
+    private var _newMessage = MutableLiveData<Data>()
+    val newMessage : LiveData<Data> get() = _newMessage
+
+    private var _connected = MutableLiveData<Boolean>()
+    val connected : LiveData<Boolean> get() = _connected
+
     // This function gets called after entering a channel to retrieve all messages
     fun retrieveAllMessages(organizationId : String, channelId : String){
         viewModelScope.launch {
@@ -50,9 +56,12 @@ class ChannelMessagesViewModel : ViewModel(){
                 allMessagesNew.data = mutableDataList
                 _allMessages.value = allMessagesNew
 
+                //_newMessage.value = data
                 val message = Message(data.user_id.toString(),data.content.toString(),data.files,data.event)
                 val joinedUser = RetrofitClientInstance.retrofitInstance?.create(JoinNewChannel::class.java)?.sendMessage(organizationId,channelId,message)
                 joinedUser?.let {
+                    //_newMessage.value = data
+
                     //Replaces The Message Item with Message Item with Permanent ID gotten from server After Sending THe Message
                     mutableDataList[position] = it
                     allMessagesNew.data = mutableDataList
@@ -61,6 +70,13 @@ class ChannelMessagesViewModel : ViewModel(){
             }catch (e : Exception){
                 e.printStackTrace()
             }
+        }
+    }
+
+    // This function gets called after a new message enters
+    fun receiveMessage(data : Data){
+        viewModelScope.launch {
+            _newMessage.value = data
         }
     }
 
@@ -76,5 +92,9 @@ class ChannelMessagesViewModel : ViewModel(){
                 e.printStackTrace()
             }
         }
+    }
+
+    fun isConnected(isConnected : Boolean){
+        _connected.value = isConnected
     }
 }

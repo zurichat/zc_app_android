@@ -2,8 +2,6 @@ package com.tolstoy.zurichat.ui.fragments.channel_chat
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.InputType
 import android.text.format.DateUtils
 import android.view.*
@@ -15,9 +13,15 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
-import androidx.recyclerview.widget.SimpleItemAnimator
+import centrifuge.Centrifuge
+import centrifuge.Client
+import centrifuge.ConnectHandler
+import centrifuge.DisconnectHandler
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentChannelChatBinding
 import com.tolstoy.zurichat.models.ChannelModel
@@ -26,29 +30,18 @@ import com.tolstoy.zurichat.ui.add_channel.BaseItem
 import com.tolstoy.zurichat.ui.add_channel.BaseListAdapter
 import com.tolstoy.zurichat.ui.fragments.model.Data
 import com.tolstoy.zurichat.ui.fragments.model.JoinChannelUser
-import com.tolstoy.zurichat.ui.fragments.model.Message
 import com.tolstoy.zurichat.ui.fragments.model.RoomData
+import com.tolstoy.zurichat.ui.fragments.networking.AppConnectHandler
+import com.tolstoy.zurichat.ui.fragments.networking.AppDisconnectHandler
 import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelMessagesViewModel
 import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
 import dev.ronnie.github.imagepicker.ImagePicker
 import dev.ronnie.github.imagepicker.ImageResult
-import timber.log.Timber
+import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.random.Random
-import centrifuge.Centrifuge
-import centrifuge.Client
-import com.tolstoy.zurichat.ui.fragments.networking.AppDisconnectHandler
-
-import centrifuge.DisconnectHandler
-
-import com.tolstoy.zurichat.ui.fragments.networking.AppConnectHandler
-
-import centrifuge.ConnectHandler
-import kotlinx.coroutines.*
-import okhttp3.Dispatcher
-import java.lang.Exception
 
 
 class ChannelChatFragment : Fragment() {
@@ -208,21 +201,38 @@ class ChannelChatFragment : Fragment() {
             channelMsgViewModel.retrieveRoomData(organizationID,channel._id)
         }
 
+        val listLiveData = channelMsgViewModel.allMessages
         // Observes result from the viewModel to be passed to an adapter to display the messages
-        channelMsgViewModel.allMessages.observe(viewLifecycleOwner, {
-            if (it != null) {
-                messagesArrayList.clear()
-                messagesArrayList.addAll(it.data)
+        listLiveData.observeOnce(viewLifecycleOwner,{
+            messagesArrayList.clear()
+            messagesArrayList.addAll(it.data)
+            if (messagesArrayList.isNotEmpty()){
                 val channelsWithDateHeaders = createMessagesList(messagesArrayList)
                 channelListAdapter.submitList(channelsWithDateHeaders)
+                binding.introGroupText.visibility = View.GONE
+                binding.recyclerMessagesList.scrollToPosition(channelsWithDateHeaders.size-1)
+            }
+        })
 
-                //Waiting For Adapter To Update Before Scrolling To End Of Message
-                //TODO: Look For A Better Way To Do This
-                lifecycleScope.launch {
-                    delay(100)
-                    binding.recyclerMessagesList.scrollToPosition(channelsWithDateHeaders.size-1)
+        channelMsgViewModel.newMessage.observe(viewLifecycleOwner, {
+            if (messagesArrayList.contains(it)){
+                val pos = messagesArrayList.indexOf(it)
+                messagesArrayList[pos] = it
+                val channelsWithDateHeaders = createMessagesList(messagesArrayList)
+                channelListAdapter.submitList(channelsWithDateHeaders)
+            }else{
+                messagesArrayList.add(it)
+                val channelsWithDateHeaders = createMessagesList(messagesArrayList)
+                channelListAdapter.submitList(channelsWithDateHeaders)
+                if (scrollDown){
+                    lifecycleScope.launch {
+                        delay(100)
+                        //binding.recyclerMessagesList.scrollToPosition(channelsWithDateHeaders.size-1)
+                        binding.recyclerMessagesList.smoothScrollToPosition(channelsWithDateHeaders.size-1)
+                    }
                 }
             }
+            channelChatEdit.setText("")
         })
 
         channelMsgViewModel.roomData.observe(viewLifecycleOwner,{
@@ -243,28 +253,15 @@ class ChannelChatFragment : Fragment() {
                 //binding.recyclerMessagesList.scrollToPosition(channelsWithDateHeaders.size-1)
             }
         }
-
-        /**
-         * This is a bad idea but is crucial to making Sunday demo work.
-         * But Centrifugo Channel Subscription isn't working yet so i am stuck with this.
-         */
-        //Todo: Remove This After Centrifugo RealTime is working
-        val handler = Handler(Looper.getMainLooper())
-        val runnable = object:Runnable{
-            override fun run() {
-                channelMsgViewModel.retrieveAllMessages(organizationID, channel._id)
-                handler.postDelayed(this,2000)
-            }
-        }
-        handler.postDelayed(runnable,5000)
     }
 
+    val scrollDown = true
     private fun connectToSocket(){
         val job = Job()
         val uiScope = CoroutineScope(Dispatchers.Main + job)
 
-        val connectHandler: ConnectHandler = AppConnectHandler(requireActivity(),roomData)
-        val disconnectHandler: DisconnectHandler = AppDisconnectHandler(requireActivity())
+        val connectHandler: ConnectHandler = AppConnectHandler(requireActivity(),user,roomData,channelMsgViewModel)
+        val disconnectHandler: DisconnectHandler = AppDisconnectHandler(requireActivity(),user,roomData,channelMsgViewModel)
 
         val client: Client = Centrifuge.new_("wss://realtime.zuri.chat/connection/websocket", Centrifuge.defaultConfig())
         client.onConnect(connectHandler)
@@ -274,12 +271,23 @@ class ChannelChatFragment : Fragment() {
             try {
                 client.connect()
             } catch (e: Exception) {
+                client.connect()
                 e.printStackTrace()
-                withContext(Dispatchers.Main){
-                    Toast.makeText(requireContext(),"Connection Failed",Toast.LENGTH_SHORT).show()
-                }
             }
         }
+
+        channelMsgViewModel.connected.observe(viewLifecycleOwner,{
+            if (!it){
+                uiScope.launch(Dispatchers.IO){
+                    try {
+                        client.connect()
+                    } catch (e: Exception) {
+                        client.connect()
+                        e.printStackTrace()
+                    }
+                }
+            }
+        })
     }
 
     private fun setupKeyboard() {
@@ -336,6 +344,15 @@ class ChannelChatFragment : Fragment() {
         s.timeZone = TimeZone.getTimeZone("UTC")
         var d = s.parse(date)
         return d.time
+    }
+
+    private fun <T> LiveData<T>.observeOnce(owner: LifecycleOwner,observer: (T) -> Unit){
+        observe(owner,object: Observer<T>{
+            override fun onChanged(value: T){
+                removeObserver(this)
+                observer(value)
+            }
+        })
     }
 
 }
