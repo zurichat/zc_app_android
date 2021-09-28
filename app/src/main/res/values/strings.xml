@@ -249,5 +249,6 @@
     <string name="add_from_contacts">Add from contacts</string>
     <string name="add_by_email">Add by email</string>
     <string name="signout">Logout</string>
+    <string name="switch_workspace">Switch Workspace</string>
 
 </resources>
