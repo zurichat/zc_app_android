@@ -18,7 +18,7 @@
         app:srcCompat="@tools:sample/avatars" />
 
     <Button
-        android:id="@+id/Enter"
+        android:id="@+id/join_signIn_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -28,6 +28,8 @@
         android:fontFamily="@font/lato"
         android:text="@string/join"
         android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:cornerRadius="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +44,7 @@
         android:textColor="@android:color/black"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/description_label"
-        app:layout_constraintEnd_toStartOf="@+id/Enter"
+        app:layout_constraintEnd_toStartOf="@+id/join_signIn_button"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView15"
         app:layout_constraintTop_toTopOf="parent" />
@@ -53,8 +55,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:text="Loerem ipsum vis  vas"
-        app:layout_constraintEnd_toStartOf="@+id/Enter"
+        android:text="Admin Invited you"
+        app:layout_constraintEnd_toStartOf="@+id/join_signIn_button"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/imageView15"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
