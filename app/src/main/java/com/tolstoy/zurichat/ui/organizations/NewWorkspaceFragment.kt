@@ -15,8 +15,8 @@ import androidx.navigation.fragment.findNavController
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentNewWorkspaceBinding
 import com.tolstoy.zurichat.models.LoginBody
-import com.tolstoy.zurichat.models.OrganizationModel.OrganizationCreator
-import com.tolstoy.zurichat.models.OrganizationModel.OrganizationCreatorResponse
+import com.tolstoy.zurichat.models.organization_model.OrganizationCreator
+import com.tolstoy.zurichat.models.organization_model.OrganizationCreatorResponse
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.util.Result
 import com.tolstoy.zurichat.util.createProgressDialog
