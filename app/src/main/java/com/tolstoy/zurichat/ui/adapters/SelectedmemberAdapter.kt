@@ -37,7 +37,7 @@ RecyclerView.Adapter<SelectedMemberAdapter.SelectedViewHolder>(){
         RecyclerView.ViewHolder(binding.root) {
 
          fun bind(user: User) {
-             binding.image.setImageResource(R.drawable.ic_kolade_icon)
+             binding.imageChatUser.setImageResource(R.drawable.ic_kolade_icon)
              binding.nameOfContact.text = if(user.first_name.isEmpty() && user.last_name.isEmpty())
                  "No name"
              else "${user.first_name} ${user.last_name}"
