@@ -73,6 +73,9 @@ class HomeScreenFragment : Fragment() {
                 }
                 R.id.saved_messages -> {
                 }
+                R.id.switch_workspace -> {
+                    findNavController().navigate(R.id.action_homeScreenFragment_to_createOrganizationsFragment)
+                }
             }
             true
         }
