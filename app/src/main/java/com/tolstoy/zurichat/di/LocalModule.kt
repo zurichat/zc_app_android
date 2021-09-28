@@ -23,11 +23,11 @@ class LocalModule {
 
     @Provides
     fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, "user.db").build()
+        return Room.databaseBuilder(context, AppDatabase::class.java, "zuri_chat").build()
     }
 
     @Provides
-    fun provideDao(database: AppDatabase): UserDao {
+    fun provideUserDao(database: AppDatabase): UserDao {
         return database.userDao()
     }
 }
