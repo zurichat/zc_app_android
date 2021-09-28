@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.models.OrganizationModel
+package com.tolstoy.zurichat.models.organization_model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

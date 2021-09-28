@@ -170,6 +170,9 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_dmFragment"
             app:destination="@id/dmFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_createOrganizationsFragment"
+            app:destination="@id/createOrganizationsFragment" />
     </fragment>
 
     <activity

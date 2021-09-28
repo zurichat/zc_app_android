@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.models.OrganizationModel
+package com.tolstoy.zurichat.models.organization_model
 
 data class OrganizationData(
     val _id: String,
