@@ -22,6 +22,7 @@ import com.tolstoy.zurichat.util.Result
 import com.tolstoy.zurichat.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
@@ -30,13 +31,13 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private val viewModel by viewModels<LoginViewModel>()
 
     private lateinit var progressDialog: ProgressDialog
-    private lateinit var sharedPreferences: SharedPreferences
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sharedPreferences = requireContext().getSharedPreferences("LOGIN_TOKEN", Context.MODE_PRIVATE)
         val textView = binding.textViewRegister
         val materialTextView = binding.materialTextView
         progressDialog = ProgressDialog(context)
