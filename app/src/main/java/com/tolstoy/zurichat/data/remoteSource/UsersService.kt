@@ -1,8 +1,8 @@
 package com.tolstoy.zurichat.data.remoteSource
 
 import com.tolstoy.zurichat.models.*
-import com.tolstoy.zurichat.models.OrganizationModel.OrganizationCreator
-import com.tolstoy.zurichat.models.OrganizationModel.OrganizationCreatorResponse
+import com.tolstoy.zurichat.models.organization_model.OrganizationCreator
+import com.tolstoy.zurichat.models.organization_model.OrganizationCreatorResponse
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body

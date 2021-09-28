@@ -6,15 +6,16 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/org_img"
+        android:id="@+id/orgImg"
         android:layout_width="90dp"
         android:layout_height="80dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@tools:sample/avatars" />
 
     <Button
@@ -24,11 +25,12 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
-        android:background="#00B87C"
+        android:background="@color/white"
         android:fontFamily="@font/lato"
-        android:text="@string/join"
+        android:text="@string/sign_in"
         android:textAllCaps="false"
-        android:textColor="@color/white"
+        android:textColor="@android:color/black"
+        android:textColorLink="@color/white"
         app:cornerRadius="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -46,7 +48,7 @@
         app:layout_constraintBottom_toTopOf="@+id/org_description"
         app:layout_constraintEnd_toStartOf="@+id/join_signIn_button"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imageView15"
+        app:layout_constraintStart_toEndOf="@+id/orgImg"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -58,6 +60,6 @@
         android:text="Admin Invited you"
         app:layout_constraintEnd_toStartOf="@+id/join_signIn_button"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imageView15"
+        app:layout_constraintStart_toEndOf="@+id/orgImg"
         app:layout_constraintTop_toBottomOf="@+id/org_name" />
 </androidx.constraintlayout.widget.ConstraintLayout>

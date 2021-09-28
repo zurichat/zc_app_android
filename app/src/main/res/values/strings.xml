@@ -236,7 +236,7 @@
     <string name="image8">WhatsApp videos</string>
     <string name="you_are_already_a_member_of_this_channel">You are already a member of this channel</string>
     <string name="joined">Joined</string>
-    <string name="mute_channel_notifications_for">Mute notifications for...</string>
+    <string name="mute_channel_notifications_for">Mute notifications for…</string>
     <string name="mute_for_8_hours">8 hours</string>
     <string name="mute_for_1_week">1 week</string>
     <string name="mute_for_always">Always</string>
@@ -250,6 +250,6 @@
     <string name="add_by_email">Add by email</string>
     <string name="signout">Logout</string>
     <string name="switch_workspace">Switch Workspace</string>
-    <string name="join">Join</string>
+    <string name="sign_in">Sign In</string>
 
 </resources>

@@ -3,16 +3,12 @@ package com.tolstoy.zurichat.ui.organizations
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentNewWorkspaceBinding
-import com.tolstoy.zurichat.models.LoginBody
-import com.tolstoy.zurichat.models.OrganizationModel.OrganizationCreator
-import com.tolstoy.zurichat.util.Result
+import com.tolstoy.zurichat.models.organization_model.OrganizationCreator
 import com.tolstoy.zurichat.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
