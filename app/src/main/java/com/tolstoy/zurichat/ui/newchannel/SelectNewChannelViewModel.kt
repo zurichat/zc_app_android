@@ -20,7 +20,8 @@ class SelectNewChannelViewModel @Inject constructor
 
     private val users = MutableStateFlow<SelectNewChannelViewState<UserList>>(SelectNewChannelViewState.Empty)
     val _users:StateFlow<SelectNewChannelViewState<UserList>> = users
-    private val token = app.applicationContext.getSharedPreferences("LOGIN_TOKEN", Context.MODE_PRIVATE)
+    private val token = app.applicationContext
+        .getSharedPreferences("com.tolstoy.zurichat_shared_pref_key", Context.MODE_PRIVATE)
 
     fun getListOfUsers() {
         viewModelScope.launch {
