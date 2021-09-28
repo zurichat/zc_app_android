@@ -16,8 +16,11 @@ import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentNewWorkspaceBinding
 import com.tolstoy.zurichat.models.LoginBody
 import com.tolstoy.zurichat.models.OrganizationModel.OrganizationCreator
+import com.tolstoy.zurichat.models.OrganizationModel.OrganizationCreatorResponse
+import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.util.Result
 import com.tolstoy.zurichat.util.createProgressDialog
+import com.tolstoy.zurichat.util.showSnackBar
 import com.tolstoy.zurichat.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
@@ -27,10 +30,20 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
 
     private val binding by viewBinding(FragmentNewWorkspaceBinding::bind)
     private val viewModel: OrganizationViewModel by viewModels()
+    private lateinit var user : User
     private lateinit var progressDialog : ProgressDialog
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        /**
+         * Retrieves logged in user details
+         */
+        val bundle = requireActivity().intent.getParcelableExtra<User>("USER")
+        bundle?.let {
+            user = it
+        }
+
         progressDialog = createProgressDialog(requireContext())
 
 
@@ -41,22 +54,25 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
             val projectNameValidation = validateOrganizationDetails(binding.projectEditText)
 
             if (!companyValidationResult || !projectNameValidation) {
-
+                binding.editTextCompany.showSnackBar("Kindly Fill in Required Fields")
             }
             else
             {
+                /**
+                 * Generates organizationCreator with logged in user's email
+                 */
                     val organizationCreator = OrganizationCreator(
-                        creator_email = "${binding.editTextCompany.text}"
+                        creator_email = user.email
                     )
-                    viewModel.createOrganization(organizationCreator)
-                    Log.d("NewWorkspaceFragment", "onViewCreated: ${organizationCreator.creator_email}")
+                   viewModel.createOrganization(organizationCreator)
             }
         }
 
+        // Observes result and acts accordingly
         viewModel.organizationCreator.observe(viewLifecycleOwner,{
             when(it){
                 is Result.Loading -> handleLoadingState()
-                is Result.Success -> handleSuccess()
+                is Result.Success -> handleSuccess(binding.editTextCompany.text.toString(),it.data.data.InsertedID)
                 is Result.Error -> handleError(it.error)
             }
         })
@@ -64,20 +80,24 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
     }
 
     private fun handleError(throwable: Throwable) {
-        Toast.makeText(context, "An error occured, please try again", Toast.LENGTH_LONG)
+        Toast.makeText(context, "An error occurred, please try again", Toast.LENGTH_LONG)
             .show()
         Timber.e(throwable)
 
         progressDialog.dismiss()
     }
 
-    private fun handleSuccess() {
-        findNavController().navigate(R.id.action_newWorkspaceFragment_to_nextFragment)
+    private fun handleSuccess(organizationName : String, organizationId : String) {
+        // navigates to the next fragment on success with organization name and Id
+        val action = NewWorkspaceFragmentDirections.actionNewWorkspaceFragmentToNextFragment(organizationName,organizationId)
+        findNavController().navigate(action)
+
         progressDialog.dismiss()
     }
 
     private fun handleLoadingState() {
        progressDialog.show()
+       binding.editTextCompany.showSnackBar("Please Wait...")
     }
 
     private fun validateOrganizationDetails(edtText: EditText): Boolean {
