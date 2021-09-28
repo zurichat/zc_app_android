@@ -20,7 +20,7 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toolbarAddTo.setNavigationOnClickListener({ requireActivity().onBackPressed() })
+        binding.toolbarAddTo.setNavigationOnClickListener { requireActivity().onBackPressed() }
         binding.apply {
            addByEmailButton
             addFromContactsButton

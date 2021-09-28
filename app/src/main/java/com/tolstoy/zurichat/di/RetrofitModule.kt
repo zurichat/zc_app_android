@@ -1,16 +1,23 @@
 package com.tolstoy.zurichat.di
 
+import android.content.Context
+import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.tolstoy.zurichat.data.remoteSource.RetrofitService
+import com.tolstoy.zurichat.ui.organizations.utils.TOKEN_NAME
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
+import javax.inject.Singleton
 
 
 @Module
@@ -29,9 +36,20 @@ object RetrofitModule {
         }
     }
 
+
+
     @Provides
-    fun provideClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideClient(interceptor: HttpLoggingInterceptor, sharedPreferences : SharedPreferences): OkHttpClient {
+        // Add authorization token to the header interceptor
+        val headerAuthorization = Interceptor { chain ->
+            val request = chain.request().newBuilder()
+            sharedPreferences.getString(TOKEN_NAME, null)?.let {
+                request.addHeader("Authorization", "Bearer $it")
+            }
+            chain.proceed(request.build())
+        }
         return OkHttpClient.Builder().
+        addInterceptor(headerAuthorization).
         addInterceptor(interceptor)
             .connectTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)

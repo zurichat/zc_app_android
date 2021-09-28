@@ -1,5 +1,6 @@
 package com.tolstoy.zurichat.util
 
+import android.app.ProgressDialog
 import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
@@ -19,6 +20,10 @@ fun setUpApplicationTheme(context: Context){
     val themeName = PreferenceManager.getDefaultSharedPreferences(context).getString(
         THEME_KEY,context.getString(R.string.prefsThemesList_default))
     themeName?.let { setUpApplicationTheme(it) }
+}
+
+fun createProgressDialog(context: Context) : ProgressDialog{
+    return ProgressDialog(context)
 }
 
 
