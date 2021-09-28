@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.appbar.MaterialToolbar xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/orgization_toolbar"
+    android:id="@+id/switch_organization_toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#00B87C">
@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
-        android:text="Add Workspace"
+        android:text="Switch Workspace"
         android:textColor="@color/white"
         android:textSize="18sp" />
 

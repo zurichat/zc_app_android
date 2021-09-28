@@ -1,8 +1,17 @@
 package com.tolstoy.zurichat.util
 
+import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Context
+import android.view.View
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.preference.PreferenceManager
+import com.google.android.material.snackbar.Snackbar
+import com.shreyaspatil.MaterialDialog.MaterialDialog
 import com.tolstoy.zurichat.R
 
 // Sets theme according to the string passed
@@ -21,9 +30,49 @@ fun setUpApplicationTheme(context: Context){
     themeName?.let { setUpApplicationTheme(it) }
 }
 
+fun createProgressDialog(context: Context) : ProgressDialog{
+    return ProgressDialog(context)
+}
+
+fun generateMaterialDialog(
+    context: Activity, title: String, message: String
+    , positiveBtnTitle: String,
+    positiveAction: (() -> Unit)?
+){
+    MaterialDialog.Builder(context)
+        .setTitle(title)
+        .setMessage(message)
+        .setPositiveButton(positiveBtnTitle) { dialogInterface, _ ->
+            dialogInterface.dismiss()
+            positiveAction?.invoke()
+        }.setCancelable(true)
+        .build()
+        .show()
+}
+
+fun View.showSnackBar(message: String){
+    Snackbar.make(this, message, Snackbar.LENGTH_SHORT)
+        .setBackgroundTint(resources.getColor(R.color.background_color))
+        .show()
+}
+
+
 
 val String.isValidEmail: Boolean
     get() {
         val emailPattern = """[a-zA-Z0-9._-]+@[a-z]+\.+[a-z]+"""
         return matches(emailPattern.toRegex())
     }
+
+// Vibrates the device for 100 milliseconds.
+fun vibrateDevice(context: Context) {
+    val vibrator = getSystemService(context, Vibrator::class.java)
+    vibrator?.let {
+        if (Build.VERSION.SDK_INT >= 26) {
+            it.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            @Suppress("DEPRECATION")
+            it.vibrate(100)
+        }
+    }
+}

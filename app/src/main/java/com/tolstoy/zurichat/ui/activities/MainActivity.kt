@@ -103,7 +103,7 @@ class MainActivity : AppCompatActivity() {
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
         with(NotificationManagerCompat.from(this)){
-            notify(notificationId,builder.build())
+//            notify(notificationId,builder.build())
         }
     }
 

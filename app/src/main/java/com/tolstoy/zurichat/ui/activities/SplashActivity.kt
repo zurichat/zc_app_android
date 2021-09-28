@@ -9,6 +9,7 @@ import android.view.animation.AnticipateInterpolator
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.ActivitySplashBinding
 import com.tolstoy.zurichat.ui.login.LoginActivity
 import com.tolstoy.zurichat.ui.login.LoginViewModel
@@ -44,6 +45,7 @@ class SplashActivity : AppCompatActivity(), Animation.AnimationListener {
                         this@SplashActivity,
                         MainActivity::class.java
                     )
+                    Cache.map.putIfAbsent("user", user)
                     intent.putExtra("USER", user)
                     startActivity(intent)
                 }

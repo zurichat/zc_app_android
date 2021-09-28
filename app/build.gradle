@@ -151,6 +151,9 @@ dependencies {
     //gson
     implementation 'com.google.code.gson:gson:2.8.8'
 
+    //alternate dialog
+    implementation "com.shreyaspatil:MaterialDialog:2.1"
+
     //Activity and Fragment Dependency for request Permission
     implementation("androidx.activity:activity-ktx:1.3.1")
     implementation("androidx.fragment:fragment-ktx:1.3.6")

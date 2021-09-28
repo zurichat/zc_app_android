@@ -33,6 +33,12 @@ class HomeScreenFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
+
+        val bundle = arguments
+        if (bundle != null) {
+            user = bundle.getParcelable("USER")!!
+        }
+
         return binding.root
     }
 
@@ -72,6 +78,9 @@ class HomeScreenFragment : Fragment() {
                     findNavController().navigate(R.id.selectMemberFragment)
                 }
                 R.id.saved_messages -> {
+                }
+                R.id.switch_workspace -> {
+                    findNavController().navigate(R.id.action_homeScreenFragment_to_switchOrganizationFragment)
                 }
             }
             true
