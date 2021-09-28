@@ -102,18 +102,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         // add user auth state to shared preference
         viewModel.saveUserAuthState(true)
 
+        val user = response.data.user.copy(currentUser = true)
+
         // add user object to room database
-        viewModel.saveUser(response.data.user)
+        viewModel.saveUser(user)
 
         progressDialog.dismiss()
         val bundle = Bundle()
-        bundle.putParcelable("USER", response.data.user)
+        bundle.putParcelable("USER", user)
         val intent = Intent(requireContext(), MainActivity::class.java)
-        Cache.map.putIfAbsent("user", response.data.user)
+        Cache.map.putIfAbsent("user", user)
         intent.putExtras(bundle)
         startActivity(intent)
         requireActivity().finish()
-        sharedPreferences.edit().putString("TOKEN",response.data.user.token).apply()
+        sharedPreferences.edit().putString("TOKEN",user.token).apply()
         Toast.makeText(context, "You have successfully logged in", Toast.LENGTH_LONG).show()
     }
 

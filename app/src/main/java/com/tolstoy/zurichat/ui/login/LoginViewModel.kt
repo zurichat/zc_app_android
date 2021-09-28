@@ -4,8 +4,6 @@ import androidx.lifecycle.*
 import com.tolstoy.zurichat.data.repository.UserRepository
 import com.tolstoy.zurichat.models.*
 import com.tolstoy.zurichat.util.Result
-import com.tolstoy.zurichat.util.mapToApp
-import com.tolstoy.zurichat.util.mapToEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
@@ -15,7 +13,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.flow.map
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val repository: UserRepository) : ViewModel() {
@@ -55,15 +52,14 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
         return repository.getUserAuthState()
     }
 
-    private fun getUser() = viewModelScope.launch {
+    private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
         repository.getUser().flowOn(Dispatchers.IO)
-            .map { it.mapToApp() }
             .catch { Timber.e(it) }
             .collect { _user.postValue(it) }
     }
 
     fun saveUser(user: User) = viewModelScope.launch {
-        repository.saveUser(user.mapToEntity())
+        repository.saveUser(user)
     }
 
     fun passwordReset(passwordReset: PasswordReset) {
