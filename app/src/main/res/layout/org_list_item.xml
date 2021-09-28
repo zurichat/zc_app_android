@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/choose_wallpaper_2" />
+        app:srcCompat="@tools:sample/avatars" />
 
     <Button
         android:id="@+id/join_signIn_button"

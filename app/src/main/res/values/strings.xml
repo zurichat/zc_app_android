@@ -251,5 +251,6 @@
     <string name="signout">Logout</string>
     <string name="switch_workspace">Switch Workspace</string>
     <string name="sign_in">Sign In</string>
+    <string name="invite_user">Invite User</string>
 
 </resources>
