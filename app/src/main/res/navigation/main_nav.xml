@@ -3,9 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/homeScreenFragment">
-    <!--Add this in when done with the flow-->
-    <!-- app:startDestination="@id/createOrganizationsFragment"-->
+    app:startDestination="@id/createOrganizationsFragment"
+    >
+
+  <!--Add this to  start from homeScreen app:startDestination="@id/homeScreenFragment"-->
+
 
     <fragment
         android:id="@+id/dmFragment"
@@ -224,7 +226,9 @@
         tools:layout="@layout/fragment_new_workspace" >
         <action
             android:id="@+id/action_newWorkspaceFragment_to_nextFragment"
-            app:destination="@id/nextFragment" />
+            app:destination="@id/nextFragment"
+            app:popUpTo="@id/main_nav"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/nextFragment"
@@ -236,7 +240,15 @@
             app:destination="@id/addByEmailFragment" />
         <action
             android:id="@+id/action_nextFragment_to_seeYourChannelFragment"
-            app:destination="@id/seeYourChannelFragment" />
+            app:destination="@id/seeYourChannelFragment"
+            app:popUpTo="@id/main_nav"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="organizationName"
+            app:argType="string" />
+        <argument
+            android:name="organizationId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/seeYourChannelFragment"
@@ -245,6 +257,8 @@
         tools:layout="@layout/fragment_see_your_channel" >
         <action
             android:id="@+id/action_seeYourChannelFragment_to_homeScreenFragment"
-            app:destination="@id/homeScreenFragment" />
+            app:destination="@id/homeScreenFragment"
+            app:popUpTo="@id/main_nav"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
