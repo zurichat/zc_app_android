@@ -17,6 +17,7 @@ import androidx.preference.SwitchPreference
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.activities.ProfileActivity
+import com.tolstoy.zurichat.util.vibrateDevice
 
 private const val TITLE_TAG = "settingsActivityTitle"
 
@@ -223,30 +224,31 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
             messageTone?.setOnPreferenceChangeListener { preference, newValue ->
                 if (messageTone.isChecked){
                     isMessageToneChecked = true
-                    Toast.makeText(activity, "Channel tones off", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Message tones off", Toast.LENGTH_SHORT).show()
                 }else{
                     isMessageToneChecked = false
-                    Toast.makeText(activity, "Channel tones on", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Message tones on", Toast.LENGTH_SHORT).show()
                 }
                 return@setOnPreferenceChangeListener true
             }
             vibrate?.setOnPreferenceChangeListener { preference, newValue ->
                 if (vibrate.isChecked){
                     isVibrateChecked = true
-                    Toast.makeText(activity, "Channel tones off", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Vibrate off", Toast.LENGTH_SHORT).show()
                 }else{
                     isVibrateChecked = false
-                    Toast.makeText(activity, "Channel tones on", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Vibrates on", Toast.LENGTH_SHORT).show()
+                    vibrateDevice(requireContext())
                 }
                 return@setOnPreferenceChangeListener true
             }
             highPriority?.setOnPreferenceChangeListener { preference, newValue ->
                 if (highPriority.isChecked){
                     isHighPriorityChecked = true
-                    Toast.makeText(activity, "Channel tones off", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "High priority tones off", Toast.LENGTH_LONG).show()
                 }else{
                     isHighPriorityChecked = false
-                    Toast.makeText(activity, "Channel tones on", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "High priority tones on", Toast.LENGTH_LONG).show()
                 }
                 return@setOnPreferenceChangeListener true
             }
