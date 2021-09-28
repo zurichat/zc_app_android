@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/toolbar_container"
-        layout="@layout/createorganization_toolbar"
+        layout="@layout/create_organization_toolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,19 +52,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/org_recycler_view"
-        android:layout_width="409dp"
-        android:layout_height="569dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/organization_card_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_container" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

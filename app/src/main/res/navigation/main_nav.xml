@@ -173,6 +173,9 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_createOrganizationsFragment"
             app:destination="@id/createOrganizationsFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_switchOrganizationFragment"
+            app:destination="@id/switchOrganizationFragment" />
     </fragment>
 
     <activity
@@ -261,4 +264,7 @@
             app:popUpTo="@id/main_nav"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment android:id="@+id/switchOrganizationFragment"
+        tools:layout="@layout/fragment_switch_organizations"
+        android:label="switch_organization"/>
 </navigation>
