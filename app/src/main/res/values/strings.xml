@@ -250,5 +250,6 @@
     <string name="add_by_email">Add by email</string>
     <string name="signout">Logout</string>
     <string name="switch_workspace">Switch Workspace</string>
+    <string name="join">Join</string>
 
 </resources>
