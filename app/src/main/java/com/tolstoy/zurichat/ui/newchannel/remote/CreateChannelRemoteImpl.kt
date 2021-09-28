@@ -4,7 +4,6 @@ import com.tolstoy.zurichat.data.functional.Failure
 import com.tolstoy.zurichat.data.functional.Result
 import com.tolstoy.zurichat.data.remoteSource.NewChannelApiService
 import com.tolstoy.zurichat.data.remoteSource.ResponseCode
-import com.tolstoy.zurichat.data.remoteSource.RetrofitService
 import com.tolstoy.zurichat.models.CreateChannelBodyModel
 import com.tolstoy.zurichat.models.CreateChannelResponseModel
 import com.tolstoy.zurichat.ui.newchannel.CreateChannelRemote

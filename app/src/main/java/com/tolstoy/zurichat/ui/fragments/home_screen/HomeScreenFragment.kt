@@ -1,6 +1,5 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,26 +11,19 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.FragmentHomeScreenBinding
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.activities.MainActivity
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
-import com.tolstoy.zurichat.ui.login.LoginActivity
-import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
+import dagger.hilt.android.AndroidEntryPoint
 
-//import com.tolstoy.zurichat.ui.newchannel.fragment.SelectMemberFragmentArgs
-
-//import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
-
+@AndroidEntryPoint
 class HomeScreenFragment : Fragment() {
 
-    val viewModel: HomeScreenViewModel by viewModels()
-
-
-    private lateinit var user : User
-
     private lateinit var binding: FragmentHomeScreenBinding
-
+    private lateinit var user : User
+    val viewModel: HomeScreenViewModel by viewModels()
 
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
 
@@ -41,7 +33,12 @@ class HomeScreenFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
-        user = requireActivity().intent.extras?.getParcelable("USER")!!
+
+        val bundle = arguments
+        if (bundle != null) {
+            user = bundle.getParcelable("USER")!!
+        }
+
         return binding.root
     }
 
@@ -53,7 +50,7 @@ class HomeScreenFragment : Fragment() {
         val tabs = binding.tabs
         val toolbar = binding.toolbarContainer.toolbar
         val activity = requireActivity() as MainActivity
-        //val user = activity.user
+        val user = Cache.map["user"] as User
 
         // setup for viewpager2 and tab layout
         viewPager.adapter = viewPagerAdapter
@@ -65,6 +62,7 @@ class HomeScreenFragment : Fragment() {
                 tabTitles[position]
             )
         }.attach()
+
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.settings -> {
@@ -77,18 +75,13 @@ class HomeScreenFragment : Fragment() {
                     binding.searchContainer.searchTextInputLayout.editText?.requestFocus()
                 }
                 R.id.new_channel -> {
-                    val intent = Intent(requireContext(), NewChannelActivity::class.java)
-                    intent.apply {
-                        putExtra("user", user)
-                    }
-                    startActivity(intent)
+                    findNavController().navigate(R.id.selectMemberFragment)
                 }
                 R.id.saved_messages -> {
                 }
             }
             true
         }
-
         binding.searchContainer.searchTextInputLayout.setStartIconOnClickListener {
             binding.searchContainer.root.isVisible = false
         }
@@ -96,8 +89,6 @@ class HomeScreenFragment : Fragment() {
         binding.searchContainer.searchTextInputLayout.editText?.doOnTextChanged { text, start, before, count ->
             viewModel.searchQuery.postValue(text.toString())
         }
-
-
     }
 
     /**private fun processSearch(item: MenuItem?) {

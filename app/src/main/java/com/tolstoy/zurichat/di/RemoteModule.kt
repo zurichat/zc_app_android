@@ -2,7 +2,7 @@ package com.tolstoy.zurichat.di
 
 import com.tolstoy.zurichat.data.remoteSource.ApiServiceFactory
 import com.tolstoy.zurichat.data.remoteSource.NewChannelApiService
-import com.tolstoy.zurichat.data.remoteSource.RetrofitService
+import com.tolstoy.zurichat.data.remoteSource.UsersService
 import com.tolstoy.zurichat.ui.newchannel.CreateChannelRemote
 import com.tolstoy.zurichat.ui.newchannel.RetrofitChannelClient
 import com.tolstoy.zurichat.ui.newchannel.remote.CreateChannelRemoteImpl
@@ -11,7 +11,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import retrofit2.Retrofit
 import javax.inject.Qualifier
 import javax.inject.Singleton
 
@@ -28,7 +27,7 @@ interface RemoteModule {
 
         @ChannelRetrofitService
         @[Provides Singleton]
-        fun provideRetrofitChannel(): RetrofitService =
+        fun provideRetrofitChannel(): UsersService =
             RetrofitChannelClient.getRetrofitService()
     }
 }

@@ -10,6 +10,7 @@ import com.tolstoy.zurichat.databinding.NewChannelItemBinding
 import com.tolstoy.zurichat.models.User
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
+import androidx.navigation.findNavController
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.ui.dm.DMFragment
 
@@ -44,13 +45,8 @@ class NewChannelAdapter(val fragment: Fragment): RecyclerView.Adapter<NewChannel
             item.channelItemPersonIcon.setBackgroundResource(R.drawable.ic_kolade_icon)
             item.channelItemMessageTxt.text = chat.email
             item.root.setOnClickListener {
-                val frag: Fragment = DMFragment()
-                val fragmentManager: FragmentManager = fragment.requireActivity().supportFragmentManager
-                val fragmentTransaction: FragmentTransaction = fragmentManager.beginTransaction()
-                fragmentTransaction.replace(R.id.fragmentContainerView3, frag)
-                fragmentTransaction.addToBackStack(null)
-                fragmentTransaction.commit()
-
+                // will crash the app because no value is being passed
+                it.findNavController().navigate(R.id.dmFragment)
             }
 
         }

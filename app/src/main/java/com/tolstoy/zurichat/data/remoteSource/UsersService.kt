@@ -13,7 +13,7 @@ import retrofit2.http.POST
 
  //'https://api.zuri.chat/v1/auth/login'
 
-interface RetrofitService {
+interface UsersService {
 
     @POST("auth/login")
     suspend fun login(@Body loginBody: LoginBody): LoginResponse

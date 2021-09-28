@@ -1,6 +1,6 @@
 package com.tolstoy.zurichat.ui.newchannel
 
-import com.tolstoy.zurichat.data.remoteSource.RetrofitService
+import com.tolstoy.zurichat.data.remoteSource.UsersService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,12 +18,12 @@ object RetrofitChannelClient {
         .addInterceptor(interceptor)
         .build()
 
-    fun getRetrofitService(): RetrofitService {
+    fun getRetrofitService(): UsersService {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
-            .build().create(RetrofitService::class.java)
+            .build().create(UsersService::class.java)
     }
 
 }

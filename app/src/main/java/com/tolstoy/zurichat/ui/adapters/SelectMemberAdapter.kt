@@ -1,9 +1,6 @@
 package com.tolstoy.zurichat.ui.adapters
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -14,7 +11,6 @@ import com.tolstoy.zurichat.databinding.ListItemSelectMemberBinding
 import com.tolstoy.zurichat.models.MembersData
 
 import com.tolstoy.zurichat.models.User
-import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 
 class SelectMemberAdapter(private val user: (User) -> Unit):
 

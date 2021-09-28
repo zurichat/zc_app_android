@@ -12,20 +12,15 @@ import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import androidx.navigation.navArgs
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ActivityMainBinding
-import com.tolstoy.zurichat.models.DmMessages
-import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragment
-import com.tolstoy.zurichat.ui.login.screens.LoginFragmentDirections
 import com.tolstoy.zurichat.ui.settings.SettingsActivity
 import com.tolstoy.zurichat.util.setUpApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -108,7 +103,7 @@ class MainActivity : AppCompatActivity() {
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
         with(NotificationManagerCompat.from(this)){
-            notify(notificationId,builder.build())
+//            notify(notificationId,builder.build())
         }
     }
 
