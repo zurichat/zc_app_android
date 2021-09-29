@@ -237,7 +237,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
                     Toast.makeText(activity, "Vibrate off", Toast.LENGTH_SHORT).show()
                 }else{
                     isVibrateChecked = false
-                    Toast.makeText(activity, "Vibrates on", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Vibrate on", Toast.LENGTH_SHORT).show()
                     vibrateDevice(requireContext())
                 }
                 return@setOnPreferenceChangeListener true
@@ -245,10 +245,10 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
             highPriority?.setOnPreferenceChangeListener { preference, newValue ->
                 if (highPriority.isChecked){
                     isHighPriorityChecked = true
-                    Toast.makeText(activity, "High priority tones off", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity, "High priority Notifications off", Toast.LENGTH_LONG).show()
                 }else{
                     isHighPriorityChecked = false
-                    Toast.makeText(activity, "High priority tones on", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity, "High priority Notifications on", Toast.LENGTH_LONG).show()
                 }
                 return@setOnPreferenceChangeListener true
             }
