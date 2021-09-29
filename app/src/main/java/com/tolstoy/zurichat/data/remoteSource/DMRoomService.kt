@@ -10,7 +10,7 @@ import retrofit2.http.*
  * @author Jeffrey Orazulike [https://github.com/jeffreyorazulike]
  * Created 25-Sep-21
  */
-interface RoomService {
+interface DMRoomService {
     @GET("rooms/{user_id}")
     suspend fun getRooms(@Header("Authorization") authToken: String?,
                          @Path("user_id") userId: String): List<Room>

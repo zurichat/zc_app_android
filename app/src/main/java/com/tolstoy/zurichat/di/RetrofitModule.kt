@@ -7,7 +7,7 @@ import com.tolstoy.zurichat.data.remoteSource.ChatsService
 import com.tolstoy.zurichat.data.remoteSource.FilesService
 import com.tolstoy.zurichat.data.remoteSource.Retrofit as RetrofitBuilder
 import com.tolstoy.zurichat.data.remoteSource.UsersService
-import com.tolstoy.zurichat.data.remoteSource.RoomService
+import com.tolstoy.zurichat.data.remoteSource.DMRoomService
 import com.tolstoy.zurichat.util.USER_TOKEN
 import dagger.Module
 import dagger.Provides
@@ -76,7 +76,7 @@ object RetrofitModule {
 
     @Provides
     fun provideRoomService() =
-        RetrofitBuilder.retrofit(RoomService.BASE_URL).create(RoomService::class.java)
+        RetrofitBuilder.retrofit(DMRoomService.BASE_URL).create(DMRoomService::class.java)
 
     @Provides
     fun provideFileService() =

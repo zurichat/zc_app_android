@@ -30,5 +30,5 @@ class LocalModule {
     fun provideUserDao(database: AppDatabase) = database.userDao()
 
     @Provides
-    fun provideMembersDao(database: AppDatabase) = database.membersDao()
+    fun provideRoomsDao(database: AppDatabase) = database.roomDao()
 }

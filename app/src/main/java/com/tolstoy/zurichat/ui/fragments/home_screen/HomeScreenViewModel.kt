@@ -3,14 +3,12 @@ package com.tolstoy.zurichat.ui.fragments.home_screen
 import androidx.lifecycle.*
 import com.tolstoy.zurichat.util.Result
 import com.tolstoy.zurichat.data.repository.OrganizationRepository
-import com.tolstoy.zurichat.data.repository.RoomRepository
+import com.tolstoy.zurichat.data.repository.DMRoomRepository
 import com.tolstoy.zurichat.data.repository.UserRepository
 import com.tolstoy.zurichat.models.Room
-import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.models.network_response.OrganizationMembers
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 /**
@@ -21,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeScreenViewModel
 @Inject constructor(
-    private val roomsRepository: RoomRepository,
+    private val dmRoomsRepository: DMRoomRepository,
     userRepository: UserRepository,
     private val organizationRepository: OrganizationRepository
 ): ViewModel() {
@@ -38,7 +36,7 @@ class HomeScreenViewModel
     init {
         viewModelScope.launch {
             launch {
-                _userRooms.value = roomsRepository.getRooms(userId)
+                _userRooms.value = dmRoomsRepository.getRooms(userId)
             }
             launch {
                 _members = organizationRepository.getMembers().asLiveData()
