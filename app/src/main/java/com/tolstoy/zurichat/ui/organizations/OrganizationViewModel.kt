@@ -5,8 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tolstoy.zurichat.data.repository.OrganizationRepository
-import com.tolstoy.zurichat.models.OrganizationModel.OrganizationCreator
-import com.tolstoy.zurichat.models.OrganizationModel.OrganizationCreatorResponse
+import com.tolstoy.zurichat.models.organization_model.OrganizationCreator
+import com.tolstoy.zurichat.models.organization_model.OrganizationCreatorResponse
 import com.tolstoy.zurichat.util.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler

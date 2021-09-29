@@ -151,7 +151,8 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         })
 
         viewModel.joinedChannelsList.observe(viewLifecycleOwner,{
-            binding.progressBar2.visibility = View.GONE
+            //please the commented codes is not needed anymore.If needed in future please remember to uncomment also in the fragment_channels.xml file
+//            binding.progressBar2.visibility = View.GONE
             channelsArrayList.clear()
             if (it.isNotEmpty()){
                 it.forEach{ joinedChannel ->
