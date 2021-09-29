@@ -8,16 +8,15 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.OrgListItemBinding
-import com.tolstoy.zurichat.models.organization_model.OrganizationData
 import com.tolstoy.zurichat.models.organization_model.UserOrganizationData
 
 
-class CreateOrganizationAdapter(val fragment: Fragment): RecyclerView.Adapter<CreateOrganizationAdapter.ViewHolder>() {
+class SwitchOrganizationAdapter(val fragment: Fragment): RecyclerView.Adapter<SwitchOrganizationAdapter.ViewHolder>() {
     var list = emptyList<UserOrganizationData>()
     val _list: List<UserOrganizationData> by lazy { list }
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CreateOrganizationAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SwitchOrganizationAdapter.ViewHolder {
         return ViewHolder(
             OrgListItemBinding.inflate(
                 LayoutInflater.from(parent.context),
