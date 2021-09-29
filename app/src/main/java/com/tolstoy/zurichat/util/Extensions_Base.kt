@@ -3,6 +3,8 @@ package com.tolstoy.zurichat.util
 import android.util.Log
 import android.util.Patterns
 import org.jsoup.Jsoup
+import retrofit2.Call
+import timber.log.Timber
 
 /**
  * @author Jeffrey Orazulike [chukwudumebiorazulike@gmail.com]
@@ -18,9 +20,9 @@ fun String.extractUrl(): String? {
 
 suspend fun String.getWebsiteMetadata() = try {
     val TAG = "Jsoup"
-    val url = if(startsWith("http://") || startsWith("https://")) this else "http://$this"
-    Log.d(TAG, "getWebsiteMetadata: before get $url")
+    val url = if (startsWith("http://") || startsWith("https://")) this else "http://$this"
+    Timber.d("getWebsiteMetadata: before get $url")
     val result = Jsoup.connect(url).timeout(0).get()
-    Log.d(TAG, "getWebsiteMetadata: after get $result")
+    Timber.d("getWebsiteMetadata: after get $result")
     result
 } catch (exception: Exception) { null }

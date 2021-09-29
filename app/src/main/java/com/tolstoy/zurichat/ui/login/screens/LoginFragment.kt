@@ -1,7 +1,6 @@
 package com.tolstoy.zurichat.ui.login.screens
 
 import android.app.ProgressDialog
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -80,7 +79,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             when (result) {
                 is Result.Loading -> handleLoading()
                 is Result.Success -> handleSuccess(result.data)
-                is Result.Error -> handleError(result.error)
+                is Result.Failure -> handleError(result.error)
             }
         }
     }
@@ -102,7 +101,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         // add user auth state to shared preference
         viewModel.saveUserAuthState(true)
 
-        val user = response.data.user.copy(currentUser = true)
+        val user = response.data.user
 
         // add user object to room database
         viewModel.saveUser(user)

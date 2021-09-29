@@ -24,7 +24,7 @@ class OrganizationViewModel @Inject constructor(
 
     private val exceptionHandler: CoroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         Timber.e(throwable)
-        _organizationCreator.postValue(Result.Error(throwable))
+        _organizationCreator.postValue(Result.Failure(throwable))
     }
 
 

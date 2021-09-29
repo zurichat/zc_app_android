@@ -2,21 +2,15 @@ package com.tolstoy.zurichat.ui.organizations
 
 import android.app.ProgressDialog
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentNewWorkspaceBinding
-import com.tolstoy.zurichat.models.LoginBody
-import com.tolstoy.zurichat.models.organization_model.OrganizationCreator
-import com.tolstoy.zurichat.models.organization_model.OrganizationCreatorResponse
+import com.tolstoy.zurichat.models.network_response.OrganizationCreator
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.util.Result
 import com.tolstoy.zurichat.util.createProgressDialog
@@ -73,7 +67,7 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
             when(it){
                 is Result.Loading -> handleLoadingState()
                 is Result.Success -> handleSuccess(binding.editTextCompany.text.toString(),it.data.data.InsertedID)
-                is Result.Error -> handleError(it.error)
+                is Result.Failure -> handleError(it.error)
             }
         })
 

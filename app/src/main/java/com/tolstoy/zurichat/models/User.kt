@@ -19,6 +19,5 @@ data class User(
     val status: Int,
     val time_zone: String,
     val updated_at: String,
-    val token: String,
-    val currentUser: Boolean = false
+    val token: String
 ): Parcelable

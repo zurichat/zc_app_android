@@ -1,9 +1,6 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.tolstoy.zurichat.util.Result
 import com.tolstoy.zurichat.data.repository.OrganizationRepository
 import com.tolstoy.zurichat.data.repository.RoomRepository
@@ -12,6 +9,7 @@ import com.tolstoy.zurichat.models.Room
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.models.network_response.OrganizationMembers
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,6 +17,7 @@ import javax.inject.Inject
  * @author Jeffrey Orazulike [https://github.com/jeffreyorazulike]
  * Created on 25-Sep-21 at 4:41 AM
  */
+@ExperimentalCoroutinesApi
 @HiltViewModel
 class HomeScreenViewModel
 @Inject constructor(
@@ -42,7 +41,7 @@ class HomeScreenViewModel
                 _userRooms.value = roomsRepository.getRooms(userId)
             }
             launch {
-                _members = organizationRepository.getMembers()
+                _members = organizationRepository.getMembers().asLiveData()
             }
         }
     }

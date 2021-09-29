@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.tolstoy.zurichat.models.OrganizationMember
 import com.tolstoy.zurichat.models.User
 import kotlinx.coroutines.flow.Flow
 
@@ -14,25 +15,21 @@ import kotlinx.coroutines.flow.Flow
  * */
 @Dao
 interface UserDao {
-
     @Query("SELECT * FROM users")
     suspend fun getUsers(): List<User>
 
-    // if you don't understand this query, sqlite stores booleans as integers [false = 0, true = 1]
-    // so this query returns the current user as the currentUser boolean field is updated to
-    // true in the login fragment
-    /**
-     * @return the current user
-     */
-    @Query("SELECT * FROM users WHERE currentUser = 1")
-    suspend fun getUser(): User
-
-    @Query("SELECT * FROM users WHERE email LIKE:email")
-    suspend fun getUser(email: String): User
-
     @Query("SELECT * FROM users WHERE id LIKE:id")
-    suspend fun getUserById(id: String): User
+    suspend fun getUser(id: String): User
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveUser(user: User)
+    suspend fun saveUser(vararg user: User)
+
+    @Query("SELECT * FROM members WHERE orgId LIKE:orgId")
+    suspend fun getMembers(orgId: String): List<OrganizationMember>
+
+    @Query("SELECT * FROM members WHERE orgId LIKE:orgId AND id LIKE:memberId")
+    suspend fun getMember(orgId: String, memberId: String): OrganizationMember
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun saveMember(vararg member: OrganizationMember)
 }

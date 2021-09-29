@@ -5,11 +5,10 @@ import com.tolstoy.zurichat.data.localSource.dao.UserDao
 import com.tolstoy.zurichat.data.remoteSource.UsersService
 import com.tolstoy.zurichat.models.*
 import com.tolstoy.zurichat.util.AUTH_PREF_KEY
+import com.tolstoy.zurichat.util.USER_ID
+import com.tolstoy.zurichat.util.USER_TOKEN
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.withContext
 
 class UserRepository @Inject constructor(
     private val usersService: UsersService,
@@ -22,7 +21,7 @@ class UserRepository @Inject constructor(
     }
 
      suspend fun passwordReset(passwordReset: PasswordReset): PassswordRestReponse {
-        return usersService.passwordreset(passwordReset)
+        return usersService.passwordReset(passwordReset)
 
     }
 
@@ -34,13 +33,29 @@ class UserRepository @Inject constructor(
         return preferences.getBoolean(AUTH_PREF_KEY, false)
     }
 
-    suspend fun saveUser(user: User) = dao.saveUser(user)
+    suspend fun saveUser(user: User) {
+        // save the user in the db
+        dao.saveUser(user)
+        // save some important details from the user that are going to be used throughout the app
+        preferences.edit()
+            .putString(USER_TOKEN, user.token).putString(USER_ID, user.id).apply()
+    }
 
-    suspend fun getUser() = flow { emit(dao.getUser()) }
+    fun getUserId() = preferences.getString(USER_ID, "")!!
+
+    fun getUserToken() = preferences.getString(USER_TOKEN, "")!!
+
+    suspend fun getUser() = flow { emit(dao.getUser(getUserId())) }
 
     suspend fun getUsers() = flow {
         // retrieve the users from the db first before making a remote call
         emit(dao.getUsers())
-        emit(usersService.getUsers(dao.getUser().token))
+        usersService.getUsers(getUserToken()).also {
+
+            if(it.isSuccessful) it.body()?.let { body ->
+                dao.saveUser(*body.data.toTypedArray())
+                emit(body.data)
+            }
+        }
     }
 }

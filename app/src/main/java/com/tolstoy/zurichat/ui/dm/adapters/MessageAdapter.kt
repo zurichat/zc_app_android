@@ -1,7 +1,6 @@
 package com.tolstoy.zurichat.ui.dm.adapters
 
 import android.content.Context
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,23 +45,16 @@ class MessageAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val message = messages[position]
         // get chat font size
         val fontSizeText =
             PreferenceManager.getDefaultSharedPreferences(context).getString(FONT_KEY, "")
-        var fontSizeSP = 0f
-        when (fontSizeText) {
-            "1" -> {
-                fontSizeSP = 14f
-            }
-            "2" -> {
-                fontSizeSP = 16f
-            }
-            "3" -> {
-                fontSizeSP = 18f
-            }
-        }
 
-        messages[position].fontSize = fontSizeSP
+        message.fontSize = when (fontSizeText) {
+            "2" -> 16f
+            "3" -> 18f
+            else -> 14f
+        }
         holder.bind(if (position - 1 >= 0) messages[position - 1] else null, messages[position])
     }
 
