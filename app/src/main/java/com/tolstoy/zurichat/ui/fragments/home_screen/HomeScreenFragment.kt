@@ -22,25 +22,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeScreenBinding
-    private lateinit var user : User
     val viewModel: HomeScreenViewModel by viewModels()
 
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
-        binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
-
-        val bundle = arguments
-        if (bundle != null) {
-            user = bundle.getParcelable("USER")!!
-        }
-
-        return binding.root
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,8 +33,6 @@ class HomeScreenFragment : Fragment() {
         val viewPager = binding.pager
         val tabs = binding.tabs
         val toolbar = binding.toolbarContainer.toolbar
-        val activity = requireActivity() as MainActivity
-        val user = Cache.map["user"] as User
 
         // setup for viewpager2 and tab layout
         viewPager.adapter = viewPagerAdapter
@@ -66,9 +48,7 @@ class HomeScreenFragment : Fragment() {
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.settings -> {
-                    val bundle = Bundle()
-                    bundle.putParcelable("USER",user)
-                    findNavController().navigate(R.id.settingsActivity, bundle)
+                    findNavController().navigate(R.id.settingsActivity)
                 }
                 R.id.search -> {
                     binding.searchContainer.root.isVisible = true
@@ -92,6 +72,10 @@ class HomeScreenFragment : Fragment() {
         binding.searchContainer.searchTextInputLayout.editText?.doOnTextChanged { text, start, before, count ->
             viewModel.searchQuery.postValue(text.toString())
         }
+    }
+
+    private fun setupUI() = with(binding){
+
     }
 
     /**private fun processSearch(item: MenuItem?) {

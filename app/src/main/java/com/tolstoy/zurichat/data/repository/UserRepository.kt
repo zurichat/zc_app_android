@@ -5,6 +5,7 @@ import com.tolstoy.zurichat.data.localSource.dao.UserDao
 import com.tolstoy.zurichat.data.remoteSource.UsersService
 import com.tolstoy.zurichat.models.*
 import com.tolstoy.zurichat.util.AUTH_PREF_KEY
+import com.tolstoy.zurichat.util.USER_EMAIL
 import com.tolstoy.zurichat.util.USER_ID
 import com.tolstoy.zurichat.util.USER_TOKEN
 import javax.inject.Inject
@@ -38,7 +39,10 @@ class UserRepository @Inject constructor(
         dao.saveUser(user)
         // save some important details from the user that are going to be used throughout the app
         preferences.edit()
-            .putString(USER_TOKEN, user.token).putString(USER_ID, user.id).apply()
+            .putString(USER_TOKEN, user.token)
+            .putString(USER_ID, user.id)
+            .putString(USER_EMAIL, user.email)
+            .apply()
     }
 
     fun getUserId() = preferences.getString(USER_ID, "")!!
