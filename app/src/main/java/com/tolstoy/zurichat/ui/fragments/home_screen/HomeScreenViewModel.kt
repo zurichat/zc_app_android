@@ -4,11 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.tolstoy.zurichat.data.localSource.Cache
+import com.tolstoy.zurichat.util.Result
+import com.tolstoy.zurichat.data.repository.OrganizationRepository
 import com.tolstoy.zurichat.data.repository.RoomRepository
+import com.tolstoy.zurichat.data.repository.UserRepository
 import com.tolstoy.zurichat.models.Room
 import com.tolstoy.zurichat.models.User
+import com.tolstoy.zurichat.models.network_response.OrganizationMembers
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 /**
@@ -17,20 +21,28 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class HomeScreenViewModel
-@Inject constructor(private val roomsRepository: RoomRepository): ViewModel() {
+@Inject constructor(
+    private val roomsRepository: RoomRepository,
+    userRepository: UserRepository,
+    private val organizationRepository: OrganizationRepository
+): ViewModel() {
     val searchQuery = MutableLiveData<String>()
+    val members: LiveData<Result<OrganizationMembers>> get() = _members
+    private lateinit var _members: LiveData<Result<OrganizationMembers>>
 
-    val user by lazy { Cache.map["user"] as? User }
+    val userId = userRepository.getUserId()
 
     val userRooms: LiveData<List<Room>>
         get() = _userRooms
     private val _userRooms = MutableLiveData<List<Room>>()
-    fun getRooms(){
+
+    init {
         viewModelScope.launch {
-            try {
-                _userRooms.value = roomsRepository.getRooms(userId = user!!.id)
-            }catch (exception: Exception){
-                exception.printStackTrace()
+            launch {
+                _userRooms.value = roomsRepository.getRooms(userId)
+            }
+            launch {
+                _members = organizationRepository.getMembers()
             }
         }
     }

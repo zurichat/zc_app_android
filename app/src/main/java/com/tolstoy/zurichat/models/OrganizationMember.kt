@@ -1,11 +1,13 @@
 package com.tolstoy.zurichat.models
 
 
+import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 import com.google.gson.annotations.Expose
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
+@Entity(tableName = "members", primaryKeys = ["id", "orgId"])
 data class OrganizationMember(
     @SerializedName("_id")
     @Expose

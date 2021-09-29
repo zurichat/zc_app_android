@@ -14,7 +14,7 @@ import androidx.navigation.fragment.navArgs
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentAddToOrganizationBinding
 import com.tolstoy.zurichat.databinding.FragmentNextBinding
-import com.tolstoy.zurichat.models.organization_model.OrganizationCreatorResponse
+import com.tolstoy.zurichat.models.network_response.OrganizationCreatorResponse
 import com.tolstoy.zurichat.util.Result
 import com.tolstoy.zurichat.util.generateMaterialDialog
 import com.tolstoy.zurichat.util.viewBinding

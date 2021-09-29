@@ -16,6 +16,7 @@ import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragmentDirection
 import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenViewModel
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChatsAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import timber.log.Timber
 
 @AndroidEntryPoint
 class ChatsFragment : Fragment(R.layout.fragment_chats) {
@@ -28,14 +29,13 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentChatsBinding.bind(view)
-        setupObservers()
         setupUI()
     }
 
     private fun setupUI() = with(binding){
         viewModel.userRooms.observe(viewLifecycleOwner){ rooms ->
             val chats = rooms.map { room ->
-                val otherId = room.roomUserIds.first { it != viewModel.user!!.id }
+                val otherId = room.roomUserIds.first { it != viewModel.userId }
                 // TODO: Resolve the name of each chat by getting the name of the user that holds this id
                 ChatsAdapter.Chat("Mark", Message(senderId = otherId,
                     roomId = room.id, message = "Hey what's good"), (Math.random() * 10).toInt())
@@ -46,7 +46,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
                     setItemClickListener { chat ->
                         val action = HomeScreenFragmentDirections
                             .actionHomeScreenFragmentToDmFragment(chat.message.roomId,
-                                viewModel.user!!.id, chat.message.senderId)
+                                viewModel.userId, chat.message.senderId)
                         requireView().findNavController().navigate(action)
                     }
                 }
@@ -58,16 +58,12 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         }
 
         viewModel.searchQuery.observe(viewLifecycleOwner){ query ->
-            Log.d(TAG, "query: $query")
+            Timber.d("query: $query")
             val adapter = listChats.adapter as ChatsAdapter
             adapter.differ.submitList(adapter.chats.filter {
                 query.lowercase() in it.sender.lowercase()
             })
         }
-    }
-
-    private fun setupObservers() = with(viewModel){
-        getRooms()
     }
 
     companion object{

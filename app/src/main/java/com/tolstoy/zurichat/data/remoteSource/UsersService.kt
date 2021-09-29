@@ -1,17 +1,15 @@
 package com.tolstoy.zurichat.data.remoteSource
 
 import com.tolstoy.zurichat.models.*
-import com.tolstoy.zurichat.models.organization_model.OrganizationCreator
-import com.tolstoy.zurichat.models.organization_model.OrganizationCreatorResponse
+import com.tolstoy.zurichat.models.network_response.OrganizationCreator
+import com.tolstoy.zurichat.models.network_response.OrganizationCreatorResponse
+import com.tolstoy.zurichat.models.network_response.OrganizationMembers
 import retrofit2.Call
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 
- //'https://api.zuri.chat/v1/auth/login'
+//'https://api.zuri.chat/v1/auth/login'
 
 interface UsersService {
 
@@ -19,7 +17,7 @@ interface UsersService {
     suspend fun login(@Body loginBody: LoginBody): LoginResponse
 
     @POST("account/request-password-reset-code")
-    suspend fun passwordreset(@Body passwordReset: PasswordReset): PassswordRestReponse
+    suspend fun passwordReset(@Body passwordReset: PasswordReset): PassswordRestReponse
 
     @POST("organizations")
     suspend fun createOrganization(@Body organizationCreator: OrganizationCreator): OrganizationCreatorResponse
@@ -33,6 +31,12 @@ interface UsersService {
     @GET("users")
     suspend fun getUsers(@Header("Authorization")token: String): Response<UserList>
 
+    @GET("organization/{organization_id}/members")
+    suspend fun getMembers(@Path("organization_id") org_id: String): Call<OrganizationMembers>
+
+    @GET("organization/{organization_id}/members/{member_id}")
+    suspend fun getMember(@Path("organization_id") org_id: String,
+                          @Path("member_id") member_id: String): Call<OrganizationMember>
 }
 
 

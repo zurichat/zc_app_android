@@ -8,8 +8,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.OrgListItemBinding
-import com.tolstoy.zurichat.models.organization_model.OrganizationData
-import com.tolstoy.zurichat.models.organization_model.UserOrganizationData
+import com.tolstoy.zurichat.models.network_response.UserOrganizationData
 
 
 class CreateOrganizationAdapter(val fragment: Fragment): RecyclerView.Adapter<CreateOrganizationAdapter.ViewHolder>() {
