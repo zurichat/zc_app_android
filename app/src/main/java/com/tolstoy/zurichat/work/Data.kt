@@ -12,7 +12,7 @@ data class User(
 )
  private val message = arrayListOf("Welcome to Zuri Chat", "R.drawable.notifications_icon")
 object UserData {
-    fun getWorkUsers(): User{
+    fun getUsers(): User{
         return User(
          message.random(),
             "https://randomuser.me/api/portraits/lego${0.5}.random()}.jpg"

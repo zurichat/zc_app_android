@@ -14,7 +14,7 @@ class Work (context: Context, params: WorkerParameters): Worker(context, params)
 
     override fun doWork(): Result {
         return try {
-            composite.add(dao.addUser(UserData.getWorkUsers()).subscribeOn(Schedulers.io()).subscribe())
+            composite.add(dao.addUser(UserData.getUsers()).subscribeOn(Schedulers.io()).subscribe())
             Result.success()
         }
         catch (e: Exception){
