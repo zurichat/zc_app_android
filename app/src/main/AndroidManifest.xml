@@ -34,11 +34,7 @@
             android:name=".ui.activities.DocumentSentActivity"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.Light" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ui.newchannel.NewChannelActivity"
@@ -78,7 +74,11 @@
             android:name=".ui.activities.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.ZuriChat.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.activities.ProfileActivity"

@@ -159,4 +159,7 @@ dependencies {
     //for recording audio
     implementation 'com.devlomi.record-view:record-view:2.0.1'
 
+    //Centrifugo Libary. DO NOT REMOVE
+    implementation files('libs/centrifuge.aar')
+
 }
