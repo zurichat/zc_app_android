@@ -39,12 +39,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
-                android:textColor="#80454545"
+                android:textColor="#757575"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="5:40 AM" />
+                tools:text="5:41 AM" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -59,6 +59,7 @@
         android:layout_marginBottom="4dp"
         android:clickable="true"
         android:focusable="true"
+        android:minHeight="48dp"
         app:cardBackgroundColor="#A8E1FF"
         app:cardCornerRadius="10dp">
 
@@ -84,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:drawablePadding="4dp"
-                android:textColor="#80454545"
+                android:textColor="#455A64"
                 android:textSize="12sp"
                 app:drawableEndCompat="@drawable/ic_message_delivered"
                 app:layout_constraintBottom_toBottomOf="parent"
