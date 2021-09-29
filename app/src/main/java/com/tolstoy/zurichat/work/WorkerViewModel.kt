@@ -36,7 +36,7 @@ class WorkerViewModel (application: Application): AndroidViewModel(application){
     fun getWorkUsers(){
         composite.add(
             dao.getWorkUser()
-               // .observeOn(AndroidScheduer.mainThread())
+             //   .observeOn(AndroidScheduler.mainThread())
                 .subscribeOn(Schedulers.computation())
                 .subscribe(
                     {users.value },

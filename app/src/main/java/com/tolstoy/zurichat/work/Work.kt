@@ -9,7 +9,7 @@ import io.reactivex.schedulers.Schedulers
 
 class Work (context: Context, params: WorkerParameters): Worker(context, params) {
 
-    private val dao = WorkDb.AppDatabase.getDatabase(context).dao()
+    private val dao = WorkDb.getDatabase(context).dao()
     private val composite = CompositeDisposable()
 
     override fun doWork(): Result {
