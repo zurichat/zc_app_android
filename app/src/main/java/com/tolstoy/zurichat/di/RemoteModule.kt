@@ -1,7 +1,6 @@
 package com.tolstoy.zurichat.di
 
 import com.tolstoy.zurichat.data.remoteSource.*
-import com.tolstoy.zurichat.data.repository.UserOrganizationRepositoryImpl
 import com.tolstoy.zurichat.ui.newchannel.CreateChannelRemote
 import com.tolstoy.zurichat.ui.newchannel.RetrofitChannelClient
 import com.tolstoy.zurichat.ui.newchannel.remote.CreateChannelRemoteImpl
