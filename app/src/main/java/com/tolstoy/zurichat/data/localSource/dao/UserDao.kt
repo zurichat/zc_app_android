@@ -37,12 +37,4 @@ interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveUser(user: User)
 
-    @Query("SELECT * FROM user")
-    fun getWorkUser():Flowable<List<User>>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addUser(users: com.tolstoy.zurichat.work.User): Completable
-
-    @Query("DELETE FROM user")
-    fun deleteUsers(): Completable
 }

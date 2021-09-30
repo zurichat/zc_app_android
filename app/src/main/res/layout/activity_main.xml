@@ -18,17 +18,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/main_nav" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
-        android:layout_width="40dp"
-        android:layout_height="154dp"
-        android:layout_margin="10dp"
-        android:layout_marginStart="9dp"
-        android:layout_marginEnd="9dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintEnd_toStartOf="@+id/fragmentContainerView2"
-        app:layout_constraintStart_toEndOf="@+id/fragmentContainerView2"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/list_work_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>
