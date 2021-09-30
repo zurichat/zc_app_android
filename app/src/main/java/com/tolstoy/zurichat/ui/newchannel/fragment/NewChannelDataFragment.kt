@@ -6,6 +6,7 @@ import android.content.ContentResolver
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Parcelable
 import android.provider.OpenableColumns
 import android.util.Log
 import android.view.View
@@ -21,6 +22,7 @@ import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.FragmentNewChannelDataBinding
 import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.CreateChannelBodyModel
+import com.tolstoy.zurichat.models.OrganizationMember
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.adapters.NewChannelMemberSelectedAdapter
 import com.tolstoy.zurichat.ui.newchannel.states.CreateChannelViewState
@@ -34,6 +36,7 @@ import kotlinx.coroutines.flow.collect
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
+import java.util.ArrayList
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -42,43 +45,37 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     lateinit var progressLoader: ProgressLoader
     private val binding by viewBinding(FragmentNewChannelDataBinding::bind)
     private val viewModel: CreateChannelViewModel by viewModels()
-    private lateinit var userList: List<User>
+    private lateinit var userList: List<OrganizationMember>
     private var private = false
     private var channelId = ""
-    private var user:User?= null
+    private var user: User? = null
     private var selectedImageUri: Uri? = null
     private val contentResolver: ContentResolver? = null
-    private var channelsMember = ArrayList<String>()
     private var emoji: EmojIconActions? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         user = Cache.map["user"] as? User
-        userList = arguments?.get("Selected_user") as List<User>
-       emoji = EmojIconActions( requireContext(), binding.root,
+        userList = arguments?.get("Selected_user") as List<OrganizationMember>
+        emoji = EmojIconActions(requireContext(), binding.root,
             binding.channelName, binding.emojiBtn)
         emoji!!.ShowEmojIcon()
 
         setupViewsAndListeners()
-        observerData()
 
-        binding.newChannelToolbar.setOnClickListener{
-            //TODO: This will close the app, require attention
-//            activity.finish()
-        }
     }
 
     private fun retrieveChannelOwner(): String {
-       if (user != null){
-           return user!!.id
-       }
+        if (user != null) {
+            return user!!.id
+        }
         return ""
     }
 
     private fun setupViewsAndListeners() {
         with(binding) {
             newChannelToolbar.setNavigationOnClickListener {
-                findNavController().popBackStack()
+                findNavController().navigateUp()
             }
 
             newChannelCamera.setOnClickListener {
@@ -100,27 +97,28 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
             }
 
             floatingActionButton.setOnClickListener {
-                val name = binding.channelName.text.toString()
-                val description = "$name description"
-                val owner = retrieveChannelOwner()
-                val privateValue = private
-                val createChannelBodyModel = CreateChannelBodyModel(
-                    description = description,
-                    name = name,
-                    owner = owner,
-                    private = privateValue
-                )
+
                 if (channelName.text!!.isEmpty() || channelName.text.equals("")) {
-                    channelName.error = "Channel name can't be empty."
+                    Toast.makeText(requireContext(), "Channel name can't be empty.", Toast.LENGTH_SHORT).show()
                 }
-                if (user?.token == null || user!!.id == ""){
+                else if (user?.token == null || user!!.id == "") {
                     channelName.error = "User must be logged in"
-                }
-                else{
+                } else {
                     saveImage()
+                    val name = binding.channelName.text.toString()
+                    val description = "$name description"
+                    val owner = retrieveChannelOwner()
+                    val privateValue = private
+                    val createChannelBodyModel = CreateChannelBodyModel(
+                        description = description,
+                        name = name,
+                        owner = owner,
+                        private = privateValue
+                    )
                     viewModel.createNewChannel(createChannelBodyModel = createChannelBodyModel)
                     progressLoader.show(getString(R.string.creating_new_channel))
                 }
+                observerData()
             }
 
             radioGroup1.setOnCheckedChangeListener { _, checkedId ->
@@ -133,12 +131,9 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                     }
                 }
             }
+
             listChats.apply {
                 if (userList != null) {
-                    val memberDataList = userList
-                    memberDataList.forEach {
-                        channelsMember.add(it.display_name)
-                    }
                     val memberAdapter = NewChannelMemberSelectedAdapter(userList)
                     layoutManager =
                         LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
@@ -174,7 +169,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
 
     private fun selectImage() {
         Intent(Intent.ACTION_PICK).also {
-            it.type ="image/*"
+            it.type = "image/*"
             val mimeTypes = arrayOf("image/jpeg", "image/png")
             it.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
             startActivityForResult(it, REQUEST_IMAGE_CODE)
@@ -206,7 +201,8 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                     }
                     is CreateChannelViewState.Failure -> {
                         progressLoader.hide()
-                        val errorMessage = String.format(getString(it.message),binding.channelName.text.toString())
+                        val errorMessage = String.format(getString(it.message),
+                            binding.channelName.text.toString())
                         Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
                     }
                 }
@@ -215,36 +211,28 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     }
 
     private fun navigateToDetails() {
-        //val members = channelsMember
-        //val channelName = binding.channelName.text.toString()
-
-        val channel  = ChannelModel()
+        val channel = ChannelModel()
         channel.name = binding.channelName.text.toString()
         channel._id = channelId
         channel.isPrivate = private
-        channel.members = channelsMember.size.toLong()
+        //channel.members = channelsMember.size.toLong()
+        channel.members = userList.size.toLong()
 
         val bundle = Bundle()
-        bundle.putParcelable("USER",user)
-        bundle.putParcelable("Channel",channel)
-        bundle.putBoolean("Channel Joined",true)
+        bundle.putParcelable("USER", user)
+        bundle.putParcelable("Channel", channel)
+//        bundle.putParcelableArrayList("members",userList as ArrayList<out Parcelable>)
+        bundle.putBoolean("Channel Joined", true)
 
         if (binding.channelName.text!!.isEmpty()) {
             binding.channelName.error = "Channel name can't be empty."
+        } else {
+            try {
+                findNavController().navigate(R.id.channelChatFragment, bundle)
+            } catch (exc: Exception) {
+                exc.printStackTrace()
+            }
         }
-        else{
-            findNavController().navigate(R.id.channelChatFragment,bundle)
-        }
-
-       /* val action =
-            NewChannelDataFragmentDirections.actionNewChannelDataFragmentToChannelChatFragment(
-                members = members.toTypedArray(),
-                channelName = channelName,
-                user = user,
-                channelStatus = private,
-                channelId = channelId
-            )
-        findNavController().navigate(action)*/
     }
 
     companion object {
