@@ -1,6 +1,7 @@
 package com.tolstoy.zurichat.ui.organizations
 
 import android.app.ProgressDialog
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -24,6 +25,7 @@ import com.tolstoy.zurichat.util.showSnackBar
 import com.tolstoy.zurichat.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
@@ -32,6 +34,8 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
     private val viewModel: OrganizationViewModel by viewModels()
     private lateinit var user : User
     private lateinit var progressDialog : ProgressDialog
+    @Inject
+    lateinit var preference : SharedPreferences
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -72,7 +76,10 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
         viewModel.organizationCreator.observe(viewLifecycleOwner,{
             when(it){
                 is Result.Loading -> handleLoadingState()
-                is Result.Success -> handleSuccess(binding.editTextCompany.text.toString(),it.data.data.InsertedID)
+                is Result.Success -> {
+                    handleSuccess(binding.editTextCompany.text.toString(),it.data.data.InsertedID)
+                    preference.edit().putString("ORG_ID", it.data.data.InsertedID).apply()
+                }
                 is Result.Error -> handleError(it.error)
             }
         })
