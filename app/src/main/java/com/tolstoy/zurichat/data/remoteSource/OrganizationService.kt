@@ -1,10 +1,10 @@
 package com.tolstoy.zurichat.data.remoteSource
 
-import com.tolstoy.zurichat.models.Message
-import com.tolstoy.zurichat.models.network_response.*
 import com.tolstoy.zurichat.models.organization_model.UserOrganizationModel
 import retrofit2.Response
-import retrofit2.http.*
+import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Path
 
 /**
  * @author Richard Ebo [https://github.com/solidtm]

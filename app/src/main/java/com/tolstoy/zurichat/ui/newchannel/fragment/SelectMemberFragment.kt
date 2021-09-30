@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentSelectMemberBinding
+import com.tolstoy.zurichat.models.OrganizationMember
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.adapters.SelectMemberAdapter
 import com.tolstoy.zurichat.ui.adapters.SelectedMemberAdapter
@@ -21,15 +22,15 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
 
 
     private val binding by viewBinding(FragmentSelectMemberBinding::bind)
-    private lateinit var userList: List<User>
-    private val selectedUserLiveData = MutableLiveData<List<User>>()
-    private val selectedUsers = mutableListOf<User>()
+    private lateinit var userList: List<OrganizationMember>
+    private val selectedUserLiveData = MutableLiveData<List<OrganizationMember>>()
+    private val selectedUsers = mutableListOf<OrganizationMember>()
     private val selectMemberAdapter = SelectMemberAdapter { user -> addUser(user) }
     private val selectedMemberAdapter = SelectedMemberAdapter { user -> removeUser(user) }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        userList = arguments?.get("USER_LIST") as List<User>
+        userList = arguments?.get("USER_LIST") as List<OrganizationMember>
 
 
         setUpViews()
@@ -105,7 +106,7 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
         }
     }
 
-    private fun addUser(user: User) {
+    private fun addUser(user: OrganizationMember) {
         if (!selectedUsers.contains(user)) {
             selectedUsers.add(user)
             selectedUserLiveData.value = selectedUsers
@@ -115,7 +116,7 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
 
     }
 
-    private fun removeUser(user: User) {
+    private fun removeUser(user: OrganizationMember) {
         selectedUsers.remove(user)
         selectedUserLiveData.value = selectedUsers
     }
