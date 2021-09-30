@@ -197,7 +197,7 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
     private fun sendMessage(text: String, vararg media: String) = with(viewModel) {
         viewModelScope.launch {
             if(roomId == null){
-                roomId = createRoom(userId, senderId).roomId
+                roomId = createRoom("61467ee61a5607b13c00bcf2", "614f088ee35bb73a77bc2b70").roomId
             }
             sendMessage(roomId!!, Message(message = text, senderId = userId,
                 roomId = roomId!!, media = media.toList()))

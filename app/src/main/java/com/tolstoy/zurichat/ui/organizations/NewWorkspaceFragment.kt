@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.FragmentNewWorkspaceBinding
 import com.tolstoy.zurichat.models.LoginBody
 import com.tolstoy.zurichat.models.organization_model.OrganizationCreator
@@ -89,6 +90,7 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
 
     private fun handleSuccess(organizationName : String, organizationId : String) {
         // navigates to the next fragment on success with organization name and Id
+        Cache.map.putIfAbsent("orgId", organizationId)
         val action = NewWorkspaceFragmentDirections.actionNewWorkspaceFragmentToNextFragment(organizationName,organizationId)
         findNavController().navigate(action)
 
