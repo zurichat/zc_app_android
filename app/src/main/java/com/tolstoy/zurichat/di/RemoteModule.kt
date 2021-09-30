@@ -1,11 +1,10 @@
 package com.tolstoy.zurichat.di
 
 import com.tolstoy.zurichat.data.remoteSource.*
-import com.tolstoy.zurichat.data.repository.UserOrganizationRepositoryImpl
 import com.tolstoy.zurichat.ui.newchannel.CreateChannelRemote
 import com.tolstoy.zurichat.ui.newchannel.RetrofitChannelClient
 import com.tolstoy.zurichat.ui.newchannel.remote.CreateChannelRemoteImpl
-import com.tolstoy.zurichat.ui.organizations.UserOrganizationRemote
+import com.tolstoy.zurichat.ui.organizations.remote.UserOrganizationRemote
 import com.tolstoy.zurichat.ui.organizations.remote.UserOrganizationRemoteImpl
 import dagger.Binds
 import dagger.Module
@@ -26,8 +25,8 @@ interface RemoteModule {
 
     companion object {
         @[Provides Singleton]
-        fun provideApiService(): NewChannelApiService =
-            ApiServiceFactory.createApiService()
+        fun provideApiService(tokenInterceptor: TokenInterceptor): NewChannelApiService =
+            ApiServiceFactory.createApiService(isDebug = true,tokenInterceptor = tokenInterceptor)
 
         @ChannelRetrofitService
         @[Provides Singleton]
@@ -36,8 +35,8 @@ interface RemoteModule {
 
 
         @[Provides Singleton]
-        fun provideRetrofitOrganization(): OrganizationService =
-            OrganizationRetrofitClient.createOrganizationApiService()
+        fun provideRetrofitOrganization(tokenInterceptor: TokenInterceptor): OrganizationService =
+            OrganizationRetrofitClient.createOrganizationApiService(isDebug = true,tokenInterceptor =tokenInterceptor )
 
     }
 }

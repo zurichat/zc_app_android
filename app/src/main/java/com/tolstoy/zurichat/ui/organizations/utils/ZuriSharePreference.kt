@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.ui.organizations
+package com.tolstoy.zurichat.ui.organizations.utils
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -7,7 +7,7 @@ import androidx.preference.PreferenceManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class TestFile @Inject constructor(@ApplicationContext context: Context) {
+class ZuriSharePreference @Inject constructor(@ApplicationContext context: Context) {
 
         private var sharedPreferences: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(context)

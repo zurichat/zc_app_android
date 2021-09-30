@@ -1,7 +1,6 @@
 package com.tolstoy.zurichat.ui.login.screens
 
 import android.app.ProgressDialog
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -18,7 +17,7 @@ import com.tolstoy.zurichat.models.LoginBody
 import com.tolstoy.zurichat.models.LoginResponse
 import com.tolstoy.zurichat.ui.activities.MainActivity
 import com.tolstoy.zurichat.ui.login.LoginViewModel
-import com.tolstoy.zurichat.ui.organizations.TestFile
+import com.tolstoy.zurichat.ui.organizations.utils.ZuriSharePreference
 import com.tolstoy.zurichat.util.Result
 import com.tolstoy.zurichat.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -119,7 +118,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         sharedPreferences.edit().putString("TOKEN",user.token).apply()
         Toast.makeText(context, "You have successfully logged in", Toast.LENGTH_LONG).show()
 
-        TestFile(requireContext()).setString("TOKEN", user.token)
+        ZuriSharePreference(requireContext()).setString("TOKEN", user.token)
     }
 
     private fun handleError(throwable: Throwable) {

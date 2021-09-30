@@ -1,15 +1,13 @@
 package com.tolstoy.zurichat.data.repository
 
 import android.content.SharedPreferences
+import com.tolstoy.zurichat.data.remoteSource.TokenInterceptor
 import com.tolstoy.zurichat.data.localSource.dao.UserDao
 import com.tolstoy.zurichat.data.remoteSource.UsersService
 import com.tolstoy.zurichat.models.*
 import com.tolstoy.zurichat.util.AUTH_PREF_KEY
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.withContext
 
 class UserRepository @Inject constructor(
     private val usersService: UsersService,

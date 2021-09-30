@@ -13,9 +13,9 @@
     <application
         android:name=".ZuriChatApplication"
         android:allowBackup="true"
-        android:icon="@drawable/splash_logo"
+        android:icon="@mipmap/zuri_app"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/splash_logo"
+        android:roundIcon="@mipmap/zuri_app_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ZuriChat">
         <activity

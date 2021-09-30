@@ -75,7 +75,11 @@ class HomeScreenFragment : Fragment() {
                     binding.searchContainer.searchTextInputLayout.editText?.requestFocus()
                 }
                 R.id.new_channel -> {
-                    findNavController().navigate(R.id.selectMemberFragment)
+                    try {
+                        findNavController().navigate(HomeScreenFragmentDirections.actionHomeScreenFragmentToNewChannelNavGraph())
+                    }catch (exc:Exception){
+                        exc.printStackTrace()
+                    }
                 }
                 R.id.saved_messages -> {
                 }

@@ -265,11 +265,14 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment android:id="@+id/switchOrganizationFragment"
-        android:name="com.tolstoy.zurichat.ui.organizations.SwitchOrganizationsFragment"
+        android:name="com.tolstoy.zurichat.ui.organizations.ui.SwitchOrganizationsFragment"
         tools:layout="@layout/fragment_switch_organizations"
         android:label="switch_organization">
         <action
             android:id="@+id/action_switchOrganizationFragment_to_homeScreenFragment"
             app:destination="@id/homeScreenFragment" />
+        <action
+            android:id="@+id/action_switchOrganizationFragment_to_dmFragment"
+            app:destination="@id/dmFragment" />
     </fragment>
 </navigation>

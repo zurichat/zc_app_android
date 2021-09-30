@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.ui.organizations
+package com.tolstoy.zurichat.ui.organizations.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
