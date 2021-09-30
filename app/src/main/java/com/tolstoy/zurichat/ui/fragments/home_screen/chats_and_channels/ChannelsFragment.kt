@@ -9,8 +9,11 @@ import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
+import centrifuge.*
 import com.google.android.material.snackbar.Snackbar
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentChannelsBinding
@@ -18,20 +21,31 @@ import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChannelAdapter
 import com.tolstoy.zurichat.ui.fragments.home_screen.diff_utils.ChannelDiffUtil
+import com.tolstoy.zurichat.ui.fragments.networking.*
+import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelMessagesViewModel
 import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
+import com.tolstoy.zurichat.ui.fragments.viewmodel.SharedChannelViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import kotlin.random.Random
 
 class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private val viewModel : ChannelViewModel by viewModels()
+    private lateinit var sharedViewModel : SharedChannelViewModel
+
     private lateinit var binding: FragmentChannelsBinding
     private lateinit var channelsArrayList: ArrayList<ChannelModel>
+    private lateinit var joinedArrayList: ArrayList<ChannelModel>
     private lateinit var originalChannelsArrayList: ArrayList<ChannelModel>
     private lateinit var user : User
     private lateinit var organizationID: String
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelsBinding.inflate(inflater, container, false)
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedChannelViewModel::class.java)
 
         user = requireActivity().intent.extras?.getParcelable("USER")!!
         organizationID = "614679ee1a5607b13c00bcb7"
@@ -41,6 +55,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private lateinit var adapt:ChannelAdapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         channelsArrayList = ArrayList()
+        joinedArrayList = ArrayList()
         originalChannelsArrayList = ArrayList()
         //addHeaders()
         getListOfChannels()
@@ -59,7 +74,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         val newList: ArrayList<ChannelModel> = ArrayList()
 
         val unreadList: ArrayList<ChannelModel> = ArrayList()
-        val unreadChannelHeader = ChannelModel(getString(R.string.channels_), false, false, "channel_header_unread", generateRandomLong().toString(), 0)
+        val unreadChannelHeader = ChannelModel(getString(R.string.unread_messages), false, false, "channel_header_unread", generateRandomLong().toString(), 0)
 
         val readList: ArrayList<ChannelModel> = ArrayList()
         val addChannelHeader = ChannelModel(getString(R.string._add_channel), false, false, "channel_header_add", generateRandomLong().toString(), 0)
@@ -80,7 +95,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
             newList.add(unreadChannelHeader)
             for (channel in unreadList){
                 //This makes sure there are no duplicate headers
-                if (!(channel.name == getString(R.string.unread_messages) || channel.name == getString(R.string.channels_))){
+                if (!(channel.type == "channel_header_unread" || channel.type == "channel_header_add")){
                     newList.add(channel)
                 }
             }
@@ -93,7 +108,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         newList.add(addChannelHeader)
         for (channel in readList){
             //This makes sure there are no duplicate headers
-            if (!(channel.name == getString(R.string.unread_messages) || channel.name == getString(R.string.channels_))){
+            if (!(channel.type == "channel_header_unread" || channel.type == "channel_header_add")){
                 newList.add(channel)
             }
         }
@@ -137,11 +152,8 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         }
     }
 
-    /**
-     * Getting The Channels List Is Ready Now.
-     * Adding A Progressbar will be next
-     */
     private fun getListOfChannels() {
+        viewModel.isConnected(false)
         viewModel.getChannelsList(organizationID)
         viewModel.channelsList.observe(viewLifecycleOwner,{
             originalChannelsArrayList.clear()
@@ -150,12 +162,12 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
             viewModel.getJoinedChannelsList(organizationID,user.id)
         })
 
-        viewModel.joinedChannelsList.observe(viewLifecycleOwner,{
+        viewModel.joinedChannelsList.observe(viewLifecycleOwner,{ joinedList ->
             //please the commented codes is not needed anymore.If needed in future please remember to uncomment also in the fragment_channels.xml file
 //            binding.progressBar2.visibility = View.GONE
             channelsArrayList.clear()
-            if (it.isNotEmpty()){
-                it.forEach{ joinedChannel ->
+            if (joinedList.isNotEmpty()){
+                joinedList.forEach{ joinedChannel ->
                     originalChannelsArrayList.forEach{ channel ->
                         if (joinedChannel.id == channel._id){
                             channelsArrayList.add(channel)
@@ -174,6 +186,14 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
                 }else {
                     //Recycle View isn't empty but calls to get the channels list fails. Log the error without compromising user experience
                     Timber.i(it)
+                }
+            }
+        })
+
+        viewModel.newMessage.observe(viewLifecycleOwner,{
+            for (channel in channelsArrayList){
+                if (channel._id == it.channel_id){
+                    channel.isRead = false
                 }
             }
         })
