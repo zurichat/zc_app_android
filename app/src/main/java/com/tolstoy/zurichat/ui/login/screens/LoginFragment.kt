@@ -18,6 +18,7 @@ import com.tolstoy.zurichat.models.LoginBody
 import com.tolstoy.zurichat.models.LoginResponse
 import com.tolstoy.zurichat.ui.activities.MainActivity
 import com.tolstoy.zurichat.ui.login.LoginViewModel
+import com.tolstoy.zurichat.ui.organizations.TestFile
 import com.tolstoy.zurichat.util.Result
 import com.tolstoy.zurichat.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -117,6 +118,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         requireActivity().finish()
         sharedPreferences.edit().putString("TOKEN",user.token).apply()
         Toast.makeText(context, "You have successfully logged in", Toast.LENGTH_LONG).show()
+
+        TestFile(requireContext()).setString("TOKEN", user.token)
     }
 
     private fun handleError(throwable: Throwable) {
