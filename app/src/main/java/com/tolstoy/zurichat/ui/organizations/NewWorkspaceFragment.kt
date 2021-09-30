@@ -1,30 +1,26 @@
 package com.tolstoy.zurichat.ui.organizations
 
 import android.app.ProgressDialog
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.FragmentNewWorkspaceBinding
-import com.tolstoy.zurichat.models.LoginBody
-import com.tolstoy.zurichat.models.organization_model.OrganizationCreator
-import com.tolstoy.zurichat.models.organization_model.OrganizationCreatorResponse
 import com.tolstoy.zurichat.models.User
+import com.tolstoy.zurichat.models.organization_model.OrganizationCreator
 import com.tolstoy.zurichat.util.Result
 import com.tolstoy.zurichat.util.createProgressDialog
 import com.tolstoy.zurichat.util.showSnackBar
 import com.tolstoy.zurichat.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
@@ -33,6 +29,8 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
     private val viewModel: OrganizationViewModel by viewModels()
     private lateinit var user : User
     private lateinit var progressDialog : ProgressDialog
+    @Inject
+    lateinit var preference : SharedPreferences
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -73,7 +71,10 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
         viewModel.organizationCreator.observe(viewLifecycleOwner,{
             when(it){
                 is Result.Loading -> handleLoadingState()
-                is Result.Success -> handleSuccess(binding.editTextCompany.text.toString(),it.data.data.InsertedID)
+                is Result.Success -> {
+                    handleSuccess(binding.editTextCompany.text.toString(),it.data.data.InsertedID)
+                    preference.edit().putString("ORG_ID", it.data.data.InsertedID).apply()
+                }
                 is Result.Error -> handleError(it.error)
             }
         })

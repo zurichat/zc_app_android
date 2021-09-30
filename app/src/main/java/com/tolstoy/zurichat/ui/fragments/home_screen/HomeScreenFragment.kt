@@ -50,7 +50,7 @@ class HomeScreenFragment : Fragment() {
         val tabs = binding.tabs
         val toolbar = binding.toolbarContainer.toolbar
         val activity = requireActivity() as MainActivity
-        val user = Cache.map["user"] as User
+       // val user = Cache.map["user"] as User
 
         // setup for viewpager2 and tab layout
         viewPager.adapter = viewPagerAdapter
@@ -80,7 +80,7 @@ class HomeScreenFragment : Fragment() {
                 R.id.saved_messages -> {
                 }
                 R.id.switch_workspace -> {
-                    findNavController().navigate(R.id.action_homeScreenFragment_to_createOrganizationsFragment)
+                    findNavController().navigate(R.id.switchOrganizationFragment)
                 }
             }
             true

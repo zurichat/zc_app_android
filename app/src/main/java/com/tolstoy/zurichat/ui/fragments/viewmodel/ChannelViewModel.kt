@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.JoinedChannelModel
 import com.tolstoy.zurichat.models.User
-import com.tolstoy.zurichat.ui.fragments.model.JoinChannelUser
+import com.tolstoy.zurichat.ui.fragments.model.*
 import com.tolstoy.zurichat.ui.fragments.networking.ChannelsList
 import com.tolstoy.zurichat.ui.fragments.networking.JoinNewChannel
 import com.tolstoy.zurichat.ui.fragments.networking.RetrofitClientInstance
@@ -34,6 +34,18 @@ class ChannelViewModel : ViewModel() {
 
     private var _error = MutableLiveData<String?>()
     val error : LiveData<String?> get() = _error
+
+    private var _newMessage = MutableLiveData<Data>()
+    val newMessage : LiveData<Data> get() = _newMessage
+
+    private var _connected = MutableLiveData<Boolean>()
+    val connected : LiveData<Boolean> get() = _connected
+
+    private var _joinedRoomData = MutableLiveData<List<RoomData>>()
+    val joinedRoomData : LiveData<List<RoomData>> get() = _joinedRoomData
+
+    private var _roomData = MutableLiveData<RoomData>()
+    val roomData : LiveData<RoomData> get() = _roomData
 
     fun getChannelsList(organizationId : String) {
         val service = RetrofitClientInstance.retrofitInstance!!.create(ChannelsList::class.java)
@@ -77,12 +89,49 @@ class ChannelViewModel : ViewModel() {
     }
 
     // This function gets called from the join channel button and retrieves organizationId, channelId and user
-    fun joinChannel(organizationId : String, channelId : String,user : JoinChannelUser, ){
+    fun joinChannel(organizationId: String, channelId: String, user: JoinChannelUser){
         viewModelScope.launch {
             try {
                 val joinedUser = RetrofitClientInstance.retrofitInstance?.create(JoinNewChannel::class.java)?.joinChannel(organizationId,channelId,user)
                 joinedUser?.let {
                     _joinedUser.value = it
+                }
+            }catch (e : Exception){
+                e.printStackTrace()
+            }
+        }
+    }
+
+    //Notifies List Of New Unread Messages
+    fun notifyList(data : Data){
+        viewModelScope.launch {
+            _newMessage.value = data
+        }
+    }
+
+    fun isConnected(isConnected : Boolean){
+        _connected.value = isConnected
+    }
+
+    fun addToRoomData(roomData: RoomData){
+        if (_joinedRoomData.value == null){
+            _joinedRoomData.value = ArrayList()
+        }
+
+        val mutableDataList = _joinedRoomData.value!!.toMutableList()
+        if (!mutableDataList.contains(roomData)){
+            mutableDataList.add(roomData)
+        }
+        _joinedRoomData.value =  mutableDataList
+    }
+
+    // This function gets called after entering a channel to get the Centrifugo socket is
+    fun retrieveRoomData(organizationId : String, channelId : String){
+        viewModelScope.launch {
+            try {
+                val room = RetrofitClientInstance.retrofitInstance?.create(JoinNewChannel::class.java)?.getRoom(organizationId,channelId)
+                room?.let {
+                    _roomData.value = it
                 }
             }catch (e : Exception){
                 e.printStackTrace()

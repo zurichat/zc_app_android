@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import com.tolstoy.zurichat.data.localSource.AppDatabase
+import com.tolstoy.zurichat.data.localSource.dao.OrganizationMembersDao
 import com.tolstoy.zurichat.data.localSource.dao.UserDao
 import com.tolstoy.zurichat.util.SHARED_PREF_KEY
 import dagger.Module
@@ -23,11 +24,16 @@ class LocalModule {
 
     @Provides
     fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, "user.db").build()
+        return Room.databaseBuilder(context, AppDatabase::class.java, "zuri_chat").build()
     }
 
     @Provides
-    fun provideDao(database: AppDatabase): UserDao {
+    fun provideUserDao(database: AppDatabase): UserDao {
         return database.userDao()
+    }
+
+    @Provides
+    fun provideOrganizationMembersDao(database: AppDatabase): OrganizationMembersDao {
+        return database.organizationMembersDao()
     }
 }

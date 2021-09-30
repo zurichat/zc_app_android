@@ -73,6 +73,12 @@ class ChannelMessagesViewModel : ViewModel(){
         }
     }
 
+    fun sendMessages(data : Data){
+        viewModelScope.launch {
+
+        }
+    }
+
     // This function gets called after a new message enters
     fun receiveMessage(data : Data){
         viewModelScope.launch {
@@ -97,4 +103,5 @@ class ChannelMessagesViewModel : ViewModel(){
     fun isConnected(isConnected : Boolean){
         _connected.value = isConnected
     }
+
 }
