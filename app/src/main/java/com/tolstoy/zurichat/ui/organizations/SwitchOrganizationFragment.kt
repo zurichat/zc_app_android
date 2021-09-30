@@ -1,7 +1,5 @@
 package com.tolstoy.zurichat.ui.organizations
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,11 +7,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentSwitchOrganizationsBinding
-import com.tolstoy.zurichat.models.organization_model.Data
 import com.tolstoy.zurichat.models.organization_model.OrgRequestBody
 import com.tolstoy.zurichat.ui.adapters.SwitchOrganizationAdapter
 import com.tolstoy.zurichat.ui.organizations.states.UserOrganizationViewState
@@ -24,6 +20,7 @@ import com.tolstoy.zurichat.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
+
 @AndroidEntryPoint
 class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizations) {
 

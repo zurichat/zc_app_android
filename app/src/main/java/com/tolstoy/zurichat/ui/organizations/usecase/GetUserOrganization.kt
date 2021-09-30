@@ -2,10 +2,7 @@ package com.tolstoy.zurichat.ui.organizations.usecase
 
 import com.chamsmobile.android.core.functional.base.FlowUseCase
 import com.tolstoy.zurichat.data.functional.Result
-import com.tolstoy.zurichat.data.repository.ChannelRepository
 import com.tolstoy.zurichat.data.repository.UserOrganizationRepository
-import com.tolstoy.zurichat.models.CreateChannelBodyModel
-import com.tolstoy.zurichat.models.CreateChannelResponseModel
 import com.tolstoy.zurichat.models.organization_model.OrgRequestBody
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
