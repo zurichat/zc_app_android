@@ -164,6 +164,14 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.3.6")
     debugImplementation("androidx.fragment:fragment-testing:1.3.6")
 
+    //to get files from storage
+    implementation 'com.karumi:dexter:6.2.2'
+
+    //for recording audio
+    implementation 'com.devlomi.record-view:record-view:2.0.1'
+
     //Centrifugo Libary. DO NOT REMOVE
     implementation files('libs/centrifuge.aar')
+
+
 }

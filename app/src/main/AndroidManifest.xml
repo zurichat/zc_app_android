@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".ZuriChatApplication"
@@ -19,12 +21,9 @@
         <activity
             android:name=".ui.activities.DocumentOtions"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light">
+            android:theme="@style/Theme.MaterialComponents.Light" />
 
-
-        </activity>
-        <activity
-            android:name=".ui.activities.SplashActivity"
+            <activity android:name=".ui.activities.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.ZuriChat.Splash">
             <intent-filter>
@@ -37,17 +36,24 @@
         <activity
             android:name=".ui.activities.DocumentsSelectedActivity"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light"/>
+            android:theme="@style/Theme.MaterialComponents.Light" />
         <activity
             android:name=".ui.activities.DocumentSentActivity"
-
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light"/>
+            android:theme="@style/Theme.MaterialComponents.Light" >
+
+        </activity>
 
         <activity
             android:name=".ui.settings.ChatBackupActivity"
-            android:theme="@style/Theme.ZuriChat.Settings"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.ZuriChat.Settings" />
+        <activity
+            android:name=".ui.channel_info.ChannelInfoActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+
+
         <activity
             android:name=".ui.settings.fragments.ChooseWallpaperCategory"
             android:theme="@style/Theme.ZuriChat.Settings"
@@ -57,10 +63,10 @@
             android:name=".ui.newchannel.NewChannelPersonsActivity"
             android:exported="true" />
             -->
-        <activity
-            android:name=".ui.channel_info.ChannelInfoActivity"
-            android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
+<!--        <activity-->
+<!--            android:name=".ui.channel_info.ChannelInfoActivity"-->
+<!--            android:exported="true"-->
+<!--            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>-->
 
         <activity
             android:name=".ui.settings.LargerItemsActivity"
@@ -92,9 +98,8 @@
             android:parentActivityName=".ui.settings.ManageStorageActivity"
             android:theme="@style/Theme.ZuriChat.Settings" />
 
-        <activity android:name=".ui.activities.MainActivity" >
+        <activity android:name=".ui.activities.MainActivity" />
 
-        </activity>
 
         <meta-data
             android:name="preloaded_fonts"
