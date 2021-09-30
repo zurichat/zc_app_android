@@ -1,23 +1,20 @@
 package com.tolstoy.zurichat.ui.adapters
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.OrgListItemBinding
-import com.tolstoy.zurichat.models.organization_model.OrganizationData
-import com.tolstoy.zurichat.models.organization_model.UserOrganizationData
+import com.tolstoy.zurichat.models.organization_model.Data
 
 
-class CreateOrganizationAdapter(val fragment: Fragment): RecyclerView.Adapter<CreateOrganizationAdapter.ViewHolder>() {
-    var list = emptyList<UserOrganizationData>()
-    val _list: List<UserOrganizationData> by lazy { list }
+class SwitchOrganizationAdapter(val list: List<Data>, val context: Context): RecyclerView.Adapter<SwitchOrganizationAdapter.ViewHolder>() {
 
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CreateOrganizationAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SwitchOrganizationAdapter.ViewHolder {
         return ViewHolder(
             OrgListItemBinding.inflate(
                 LayoutInflater.from(parent.context),
@@ -28,31 +25,20 @@ class CreateOrganizationAdapter(val fragment: Fragment): RecyclerView.Adapter<Cr
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(list[position], context = context)
     }
 
     override fun getItemCount(): Int  = list.size
 
-//     Return response for user organization:
-//    "id": "6151e85375689e8df18f7bbf",
-//    "imgs": [
-//    ""
-//    ],
-//    "isOwner": true,
-//    "logo_url": "",
-//    "name": "Zuri Chat",
-//    "no_of_members": 1,
-//    "workspace_url": "zurichat-uzd5370.zurichat.com"
-
    inner class ViewHolder(private var item: OrgListItemBinding): RecyclerView.ViewHolder(item.root){
        @SuppressLint("SetTextI18n")
-       fun bind(org: UserOrganizationData) {
+       fun bind(org: Data, context: Context) {
            item.orgName.text =
                if(org.name.isEmpty()) "No name"
                else org.name
 
            item.orgDescription.text = org.no_of_members.toString() + " Members"
-           item.orgImg.setBackgroundResource(R.drawable.choose_wallpaper_4)
+           Glide.with(context).load(org.logo_url).into(item.orgImg)
 
            item.joinSignInButton.setOnClickListener {
                // will crash the app because no value is being passed

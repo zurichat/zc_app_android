@@ -16,18 +16,18 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_marginStart="15dp"
-        android:scaleType="center"
-        app:fabCustomSize="30dp"
         android:enabled="false"
-        app:maxImageSize="15dp"
+        android:outlineProvider="none"
+        android:scaleType="center"
         app:background="@color/primary_light_color"
         app:backgroundTint="@color/light_blue"
-        app:tint="@color/primary_light_color"
-        app:srcCompat="@drawable/ic_new_lock"
-        app:layout_constraintStart_toStartOf="parent"
+        app:fabCustomSize="30dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:outlineProvider="none"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:maxImageSize="15dp"
+        app:srcCompat="@drawable/ic_new_lock"
+        app:tint="@color/primary_light_color"
+        tools:ignore="ContentDescription,SpeakableTextPresentCheck" />
 
     <TextView
         android:id="@+id/channelTitle"
