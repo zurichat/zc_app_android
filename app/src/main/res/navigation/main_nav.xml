@@ -6,7 +6,7 @@
     app:startDestination="@id/createOrganizationsFragment"
     >
     <!--app:startDestination="@id/createOrganizationsFragment"-->
-  <!--Add this to  start from homeScreen app:startDestination="@id/homeScreenFragment"-->
+    <!--app:startDestination="@id/createOrganizationsFragment"-->
 
 
     <fragment
