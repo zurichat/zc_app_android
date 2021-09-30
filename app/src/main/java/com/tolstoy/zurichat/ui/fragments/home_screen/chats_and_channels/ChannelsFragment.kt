@@ -13,14 +13,19 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
+import androidx.room.Room
 import centrifuge.*
 import com.google.android.material.snackbar.Snackbar
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.data.localSource.AppDatabase
 import com.tolstoy.zurichat.databinding.FragmentChannelsBinding
 import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.User
+import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDao
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChannelAdapter
 import com.tolstoy.zurichat.ui.fragments.home_screen.diff_utils.ChannelDiffUtil
+import com.tolstoy.zurichat.ui.fragments.model.Data
+import com.tolstoy.zurichat.ui.fragments.model.RoomData
 import com.tolstoy.zurichat.ui.fragments.networking.*
 import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelMessagesViewModel
 import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
@@ -30,6 +35,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.random.Random
 
 class ChannelsFragment : Fragment(R.layout.fragment_channels) {
@@ -43,12 +51,26 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private lateinit var user : User
     private lateinit var organizationID: String
 
+    private lateinit var job:Job
+    private lateinit var uiScope: CoroutineScope
+    private lateinit var client: Client
+
+    private lateinit var database: AppDatabase
+    private lateinit var roomDao: RoomDao
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelsBinding.inflate(inflater, container, false)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedChannelViewModel::class.java)
 
+        database = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "zuri_chat").build()
+        roomDao = database.roomDao()
+
         user = requireActivity().intent.extras?.getParcelable("USER")!!
         organizationID = "614679ee1a5607b13c00bcb7"
+
+        job = Job()
+        uiScope = CoroutineScope(Dispatchers.Main + job)
+
         return binding.root
     }
 
@@ -71,6 +93,18 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
      * Headers Are Added Here. This will also be called after every update on the list to properly update the header positions
      */
     private fun addHeaders(){
+        client = Centrifuge.new_("wss://realtime.zuri.chat/connection/websocket", Centrifuge.defaultConfig())
+        client.onConnect { client, connectEvent ->
+           Log.i("Connect","Connected")
+        }
+        uiScope.launch(Dispatchers.IO){
+            try {
+                client.connect()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
         val newList: ArrayList<ChannelModel> = ArrayList()
 
         val unreadList: ArrayList<ChannelModel> = ArrayList()
@@ -120,8 +154,9 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         /**
          * Sets up adapter after channelList has been computed
          */
-        adapt = ChannelAdapter(requireActivity(), channelsArrayList)
+        adapt = ChannelAdapter(requireActivity(), channelsArrayList,client,uiScope, roomDao)
         adapt.setItemClickListener {
+            client.disconnect()
             val bundle1 = Bundle()
             bundle1.putParcelable("USER",user)
             bundle1.putParcelable("Channel",it)

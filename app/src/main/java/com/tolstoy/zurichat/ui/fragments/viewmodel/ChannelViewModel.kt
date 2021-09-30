@@ -44,6 +44,9 @@ class ChannelViewModel : ViewModel() {
     private var _joinedRoomData = MutableLiveData<List<RoomData>>()
     val joinedRoomData : LiveData<List<RoomData>> get() = _joinedRoomData
 
+    private var _roomData = MutableLiveData<RoomData>()
+    val roomData : LiveData<RoomData> get() = _roomData
+
     fun getChannelsList(organizationId : String) {
         val service = RetrofitClientInstance.retrofitInstance!!.create(ChannelsList::class.java)
         val call = service.getChannelList(organizationId)
@@ -120,5 +123,19 @@ class ChannelViewModel : ViewModel() {
             mutableDataList.add(roomData)
         }
         _joinedRoomData.value =  mutableDataList
+    }
+
+    // This function gets called after entering a channel to get the Centrifugo socket is
+    fun retrieveRoomData(organizationId : String, channelId : String){
+        viewModelScope.launch {
+            try {
+                val room = RetrofitClientInstance.retrofitInstance?.create(JoinNewChannel::class.java)?.getRoom(organizationId,channelId)
+                room?.let {
+                    _roomData.value = it
+                }
+            }catch (e : Exception){
+                e.printStackTrace()
+            }
+        }
     }
 }
