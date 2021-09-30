@@ -1,6 +1,5 @@
 package com.tolstoy.zurichat.ui.fragments.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,9 +13,10 @@ import com.tolstoy.zurichat.ui.fragments.model.RoomData
 import com.tolstoy.zurichat.ui.fragments.networking.JoinNewChannel
 import com.tolstoy.zurichat.ui.fragments.networking.RetrofitClientInstance
 import kotlinx.coroutines.launch
+
 class ChannelMessagesViewModel : ViewModel(){
     private var _allMessages = MutableLiveData<AllChannelMessages>()
-    val allMessages: LiveData<AllChannelMessages> get() = _allMessages
+    val allMessages : LiveData<AllChannelMessages> get() = _allMessages
 
 
     private var _channelData = MutableLiveData<ChannelData>()
@@ -90,6 +90,12 @@ class ChannelMessagesViewModel : ViewModel(){
         }
     }
 
+    fun sendMessages(data : Data){
+        viewModelScope.launch {
+
+        }
+    }
+
     // This function gets called after a new message enters
     fun receiveMessage(data : Data){
         viewModelScope.launch {
@@ -104,9 +110,8 @@ class ChannelMessagesViewModel : ViewModel(){
                 val room = RetrofitClientInstance.retrofitInstance?.create(JoinNewChannel::class.java)?.getRoom(organizationId,channelId)
                 room?.let {
                     _roomData.value = it
-                   // Log.i("List", it.user_id.toString())
                 }
-            } catch (e: Exception) {
+            }catch (e : Exception){
                 e.printStackTrace()
             }
         }

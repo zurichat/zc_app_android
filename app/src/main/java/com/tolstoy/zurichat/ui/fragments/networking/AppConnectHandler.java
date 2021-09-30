@@ -9,6 +9,8 @@ import com.tolstoy.zurichat.models.ChannelModel;
 import com.tolstoy.zurichat.models.User;
 import com.tolstoy.zurichat.ui.fragments.model.RoomData;
 import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelMessagesViewModel;
+import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel;
+import com.tolstoy.zurichat.ui.fragments.viewmodel.SharedChannelViewModel;
 
 import centrifuge.Client;
 import centrifuge.ConnectEvent;
@@ -31,9 +33,12 @@ import centrifuge.Subscription;
 
 public class AppConnectHandler implements ConnectHandler {
     protected Activity context;
-    private final RoomData roomData;
-    private final ChannelMessagesViewModel channelMessagesViewModel;
+    private RoomData roomData;
+    private ChannelMessagesViewModel channelMessagesViewModel;
+    private ChannelViewModel channelViewModel;
+    private SharedChannelViewModel sharedChannelViewModel;
     private final User user;
+    private Subscription sub;
 
     public AppConnectHandler(Context context, User user, RoomData room, ChannelMessagesViewModel channelMessagesViewModel) {
         this.context = (Activity) context;
@@ -42,20 +47,50 @@ public class AppConnectHandler implements ConnectHandler {
         this.user = user;
     }
 
+    public AppConnectHandler(Context context, User user, ChannelViewModel channelViewModel) {
+        this.context = (Activity) context;
+        this.channelViewModel = channelViewModel;
+        this.user = user;
+    }
+
+    public AppConnectHandler(Context context, User user, SharedChannelViewModel sharedChannelViewModel) {
+        this.context = (Activity) context;
+        this.sharedChannelViewModel = sharedChannelViewModel;
+        this.user = user;
+    }
+
     @Override
     public void onConnect(Client client, final ConnectEvent event) {
         context.runOnUiThread(() -> {
-            channelMessagesViewModel.isConnected(true);
-            AppPublishHandler publishHandler = new AppPublishHandler(context,user,channelMessagesViewModel);
-            Subscription sub;
-            try {
-                sub = client.newSubscription(roomData.getSocket_name());
+            if (channelMessagesViewModel!=null){
+                /*channelMessagesViewModel.isConnected(true);
+                AppPublishHandler publishHandler = new AppPublishHandler(context,user,channelMessagesViewModel);
+                try {
+                    sub = client.newSubscription(roomData.getSocket_name());
 
-                sub.onPublish(publishHandler);
-                sub.subscribe();
+                    sub.onPublish(publishHandler);
+                    sub.subscribe();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }*/
+            }
+
+            if (channelViewModel!=null && sendConnectionUpdates){
+                sendConnectionUpdates = false;
+                channelViewModel.isConnected(true);
+            }
+        });
+    }
+
+    boolean sendConnectionUpdates = true;
+    public void disconnect(Client client){
+        if (sub!=null){
+            try {
+                sub.unsubscribe();
+                client.disconnect();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        });
+        }
     }
 }

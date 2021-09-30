@@ -44,7 +44,7 @@ class NewChannelAdapter(val fragment: Fragment): RecyclerView.Adapter<NewChannel
             item.channelItemMessageTxt.text = chat.email
             item.root.setOnClickListener {
                 // will crash the app because no value is being passed
-                it.findNavController().navigate(R.id.dmFragment)
+                //it.findNavController().navigate(R.id.dmFragment)
             }
 
         }

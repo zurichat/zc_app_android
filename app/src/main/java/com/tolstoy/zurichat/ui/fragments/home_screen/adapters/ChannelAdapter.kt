@@ -1,7 +1,6 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen.adapters
 
 import android.app.Activity
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -9,13 +8,18 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import centrifuge.Client
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.models.Channel
 import com.tolstoy.zurichat.models.ChannelModel
+import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDao
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>, val client: Client,val uiScope: CoroutineScope,val roomDao: RoomDao) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var onItemClickListener: ((channel:ChannelModel) -> Unit)? = null
     private var onAddChannelClickListener: (() -> Unit)? = null
 
@@ -30,6 +34,8 @@ class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>
     inner class ChannelViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(channel: ChannelModel) {
             val fab = view.findViewById<FloatingActionButton>(R.id.fab)
+            val badge = view.findViewById<TextView>(R.id.badge)
+            badge.visibility = View.GONE
 
             if (!channel.isPrivate){
                 fab.setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_hash))

@@ -7,8 +7,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
 
     <application
         android:name=".ZuriChatApplication"
@@ -54,6 +52,7 @@
             android:name=".ui.settings.fragments.ChooseWallpaperCategory"
             android:theme="@style/Theme.ZuriChat.Settings"
             android:exported="true" />
+
         <!--<activity
             android:name=".ui.newchannel.NewChannelPersonsActivity"
             android:exported="true" />
@@ -97,10 +96,10 @@
 
         </activity>
 
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>
