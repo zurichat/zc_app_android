@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/createOrganizationsFragment"
+    app:startDestination="@id/homeScreenFragment"
     >
-
+    <!--app:startDestination="@id/createOrganizationsFragment"-->
   <!--Add this to  start from homeScreen app:startDestination="@id/homeScreenFragment"-->
 
 
