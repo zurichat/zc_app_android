@@ -6,6 +6,7 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/primary_color">
@@ -14,18 +15,18 @@
             android:id="@+id/channel_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:logo="@drawable/ic_group"
-            app:navigationIcon="@drawable/ic_arrow_back"
+            app:logo="@drawable/ic_channel_icon"
             app:menu="@menu/channel_chat_menu"
+            app:navigationIcon="@drawable/ic_arrow_back"
             app:popupTheme="@style/Theme.MaterialComponents.Light.NoActionBar"
+            app:subtitle="vicksoson"
+            app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
             app:subtitleTextColor="@color/white"
             app:theme="@style/ToolbarTheme"
             app:title="Android Devs"
             app:titleMarginStart="32dp"
-            app:subtitle="vicksoson"
-            app:titleTextColor="@color/white"
-            app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"/>
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
+            app:titleTextColor="@color/white" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

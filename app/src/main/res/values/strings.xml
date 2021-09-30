@@ -90,6 +90,12 @@
     <!-- Wallpaper Settings -->
     <string name="wallpaper_dimming_header">Wallpaper Dimming</string>
     <string name="change_wallpaper">Change</string>
+    <string name="bright_cat">Bright</string>
+    <string name="dark_cat">Dark</string>
+    <string name="solid_cat">Solid Colors</string>
+    <string name="my_photos_cat">My Photos</string>
+    <string name="default_wallpaper">Default Wallpaper</string>
+
 
     <!-- Privacy Settings -->
     <string name="who_can_see_header">Who can see my personal info</string>
@@ -137,6 +143,7 @@
     <string name="chanel_search">Search</string>
     <string name="channel_media">Channel media</string>
     <string name="select_contact">Select Contact</string>
+    <string name="members">Members</string>
     <string name="changephoneno_hint_txt">Enter your new phone number</string>
     <string name="search_for_channels">Search for channels</string>
 
@@ -210,8 +217,13 @@
     <string name="choose_channel_members">Choose Channel Members</string>
     <string name="select_contact_">Select Contact</string>
     <string name="leave_channel_warning_message">Are you sure you want to leave this channel? You will no longer receive messages from this channel once you leave</string>
-    <string name="leave_channel_warning_cancel_option">CANCEL</string>
+    <string name="leave_channel_warning_cancel_option">Cancel</string>
     <string name="leave_channel_warning_leave_option">LEAVE</string>
+    <string name="unable_to_create_new_channel">Unable to create a new channel</string>
+    <string name="invalid_information">Channel with <b>\"%1$s\"</b> already exist.</string>
+    <string name="user_not_found">User not found</string>
+    <string name="successful_new_channel_creation">Successful create new channel</string>
+    <string name="creating_new_channel">creating new channel.......</string>
     <string name="gif">GIF</string>
     <string name="an_error_occured">An Error Occurred</string>
 
@@ -223,5 +235,24 @@
     <string name="image6">Xender images</string>
     <string name="image7">WhatsApp images</string>
     <string name="image8">WhatsApp videos</string>
+    <string name="you_are_already_a_member_of_this_channel">You are already a member of this channel</string>
+    <string name="joined">Joined</string>
+    <string name="mute_channel_notifications_for">Mute notifications for…</string>
+    <string name="mute_for_8_hours">8 hours</string>
+    <string name="mute_for_1_week">1 week</string>
+    <string name="mute_for_always">Always</string>
+    <string name="show_notifi">Show notifications</string>
+    <string name="cancel_mute_channel_settings">Cancel</string>
+    <string name="ok_mute_channel">OK</string>
+    <string name="who_else_is">Who else is working on this project?</string>
+    <string name="to_add_team">To add teammates, you can either send a link or invite from your contacts.</string>
+    <string name="share_a_link">Share a link</string>
+    <string name="add_from_contacts">Add from contacts</string>
+    <string name="add_by_email">Add by email</string>
+    <string name="signout">Logout</string>
+    <string name="switch_workspace">Switch Workspace</string>
+    <string name="sign_in">Sign In</string>
+    <string name="invite_user">Invite User</string>
+    <string name="successful_get_user_org">user organizations retrieved successfully</string>
 
 </resources>

@@ -67,7 +67,7 @@
     </style>
     <style name="MessageItem.Checkmark">
         <item name="tint">@color/message_checkmark_unread</item>
-        <item name="android:layout_height">7sp</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">12sp</item>
     </style>
 
@@ -97,5 +97,10 @@
         <item name="android:navigationBarColor" tools:targetApi="l">#FFFFFF</item>
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/black</item>
+    </style>
+    <style name="customDialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert">
+        <item name="android:textColor">@color/background_color</item>
+        <item name="android:background">@color/white</item>
+        <item name="colorAccent">@color/background_color</item>
     </style>
 </resources>

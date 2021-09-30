@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/channel_bg_color"
+    android:animateLayoutChanges="true"
     >
 
     <include
@@ -49,7 +51,7 @@
             app:cardCornerRadius="27dp"
             app:cardElevation="0dp"
             app:strokeWidth="1dp"
-            app:strokeColor="@color/grey"
+            app:strokeColor="@color/bg_color_1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -134,7 +136,7 @@
             android:id="@+id/send_message_btn"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_send"
+            android:src="@drawable/ic_send_"
             app:fabCustomSize="48dp"
             app:backgroundTint="@color/primary_light_color"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -144,6 +146,7 @@
             app:tint="@color/white"
             android:contentDescription="send button"
             android:outlineProvider="none"
+            android:enabled="false"
             tools:ignore="HardcodedText" />
         <!--endregion-->
 
@@ -151,18 +154,17 @@
     <!--endregion-->
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/group_recycler"
+        android:id="@+id/recyclerMessagesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constrainedHeight="true"
-        android:layout_margin="6dp"
         app:layout_constraintBottom_toTopOf="@+id/channel_typing_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layoutManager="LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@+id/intro_group_text"
+        android:requiresFadingEdge="vertical"
         />
-
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/channel_join_bar"

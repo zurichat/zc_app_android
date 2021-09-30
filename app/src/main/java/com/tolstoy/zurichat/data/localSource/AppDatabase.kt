@@ -1,29 +1,29 @@
 package com.tolstoy.zurichat.data.localSource
 
-import android.content.Context
-import android.service.autofill.UserData
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.tolstoy.zurichat.data.localSource.dao.OrganizationMembersDao
 import com.tolstoy.zurichat.data.localSource.dao.UserDao
-import com.tolstoy.zurichat.data.localSource.entities.UserEntity
+import com.tolstoy.zurichat.models.User
+import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.ChannelMessagesDao
+import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDao
+import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDataObject
+import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.TypeConverters.DataTypeConverter
+import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.TypeConverters.EmojiTypeConverter
+import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.TypeConverters.EventTypeConverter
+import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.TypeConverters.FileTypeConverter
+import com.tolstoy.zurichat.ui.fragments.model.AllChannelMessages
 
-@Database(entities = [UserEntity::class], version = 1)
- abstract class AppDatabase: RoomDatabase() {
+@Database(entities = [User::class, OrganizationMemberEntity::class, RoomDataObject::class, AllChannelMessages::class], version = 3, exportSchema = false)
+@TypeConverters(DataTypeConverter::class,EmojiTypeConverter::class,EventTypeConverter::class,FileTypeConverter::class)
+abstract class AppDatabase: RoomDatabase() {
 
-     abstract fun userDao(): UserDao
+    abstract fun userDao(): UserDao
 
-     companion object {
-         @Volatile
-         private var instance: AppDatabase? = null
-         private val LOCK = Any()
+    abstract fun organizationMembersDao(): OrganizationMembersDao
 
-         operator fun invoke(context: Context) = instance?: synchronized(LOCK) {
-             instance ?: buildDatabase(context)
-         }
-         private fun buildDatabase(context: Context) = Room.databaseBuilder(
-             context, AppDatabase::class.java, "user.db").allowMainThreadQueries().build()
-     }
+    abstract fun roomDao(): RoomDao
 
-
+    abstract fun channelMessagesDao(): ChannelMessagesDao
 }

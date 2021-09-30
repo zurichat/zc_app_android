@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/view4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#F2F4F0"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/view5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearYellow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/audio_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/bindAudio"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ear"
+        app:layout_constraintBottom_toBottomOf="@+id/linearYellow"
+        app:layout_constraintEnd_toEndOf="@+id/linearYellow"
+        app:layout_constraintStart_toStartOf="@+id/linearYellow"
+        app:layout_constraintTop_toTopOf="@+id/linearYellow" />
+
+
+    <TextView
+        android:id="@+id/audio_title"
+        android:layout_width="200dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:text="Teach Us To Pray"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/bindAudio"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/author_txt"
+        android:layout_width="200dp"
+        android:layout_height="18dp"
+        android:text="John Felix"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/audio_title"
+        app:layout_constraintTop_toBottomOf="@+id/audio_title" />
+
+    <TextView
+        android:id="@+id/date_txt"
+        android:layout_width="50dp"
+        android:layout_height="18dp"
+        android:text="2:11:12"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/author_txt"
+        app:layout_constraintTop_toBottomOf="@+id/author_txt" />
+
+
+    <TextView
+        android:id="@+id/size_txt_audio"
+        android:layout_width="50dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="24dp"
+        android:text="36.6MB"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/date_txt"
+        app:layout_constraintStart_toEndOf="@+id/date_txt"
+        app:layout_constraintTop_toBottomOf="@+id/author_txt" />
+
+    <ImageView
+        android:id="@+id/play"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/playbtn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/dot"
+        app:layout_constraintBottom_toBottomOf="@+id/size_txt_audio"
+        app:layout_constraintEnd_toStartOf="@+id/size_txt_audio"
+        app:layout_constraintStart_toEndOf="@+id/date_txt"
+        app:layout_constraintTop_toBottomOf="@+id/author_txt" />
+
+    <View
+        android:id="@+id/view5"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/txt_light_gray"
+        android:backgroundTint="@color/txt_light_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView14" />
+
+    <ImageView
+        android:id="@+id/tick"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/tick"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/date_txt"
+        app:layout_constraintStart_toEndOf="@+id/linearYellow" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,28 +6,25 @@ import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.SoundPool
 import android.os.Build
-import android.os.Bundle 
-import android.util.Log
-import android.widget.Switch
-import android.view.LayoutInflater
+import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.preference.*
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreference
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.activities.ProfileActivity
-import com.tolstoy.zurichat.util.THEME_KEY
-import com.tolstoy.zurichat.util.setUpApplicationTheme
+import com.tolstoy.zurichat.util.vibrateDevice
 
 private const val TITLE_TAG = "settingsActivityTitle"
 
-class SettingsActivity : AppCompatActivity(),
-    PreferenceFragmentCompat.OnPreferenceStartFragmentCallback,
-    SharedPreferences.OnSharedPreferenceChangeListener {
+class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback, SharedPreferences.OnSharedPreferenceChangeListener {
 
     var soundPool: SoundPool? = null
+    private lateinit var user : User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,8 +85,13 @@ class SettingsActivity : AppCompatActivity(),
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
+        private lateinit var user : User
+
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.settings_preferences, rootKey)
+
+            user = requireActivity().intent.extras?.getParcelable("USER")!!
+
 
             val chatSettings = findPreference<Preference>("chat_header")
             val securitySettings = findPreference<Preference>("security_header")
@@ -110,7 +112,11 @@ class SettingsActivity : AppCompatActivity(),
 
             //make profile container clickable
             profileContainer?.setOnClickListener {
-                startActivity(Intent(activity, ProfileActivity::class.java))
+                val bundle = Bundle()
+                bundle.putParcelable("USER",user)
+                val intent = Intent(requireContext(), ProfileActivity::class.java)
+                intent.putExtras(bundle)
+                startActivity(intent)
             }
 
             chatSettings!!.setOnPreferenceClickListener {
@@ -191,15 +197,58 @@ class SettingsActivity : AppCompatActivity(),
     }
 
     class NotificationAndSounds : PreferenceFragmentCompat() {
+        var isChannelToneChecked: Boolean = false
+        var isMessageToneChecked: Boolean = false
+        var isVibrateChecked: Boolean = false
+        var isHighPriorityChecked: Boolean = false
+
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 
             setPreferencesFromResource(R.xml.notifications_and_sound, rootKey)
             val channelTones = findPreference<SwitchPreference>("channel_tones")
+            val messageTone = findPreference<SwitchPreference>("message_tone")
+            val vibrate = findPreference<SwitchPreference>("vibrate")
+            val highPriority = findPreference<SwitchPreference>("high_priority")
+
+
             channelTones?.setOnPreferenceChangeListener { preference, newValue ->
                 if (channelTones.isChecked){
+                    isChannelToneChecked = true
                     Toast.makeText(activity, "Channel tones off", Toast.LENGTH_SHORT).show()
                 }else{
+                    isChannelToneChecked = false
                     Toast.makeText(activity, "Channel tones on", Toast.LENGTH_SHORT).show()
+                }
+                return@setOnPreferenceChangeListener true
+            }
+            messageTone?.setOnPreferenceChangeListener { preference, newValue ->
+                if (messageTone.isChecked){
+                    isMessageToneChecked = true
+                    Toast.makeText(activity, "Message tones off", Toast.LENGTH_SHORT).show()
+                }else{
+                    isMessageToneChecked = false
+                    Toast.makeText(activity, "Message tones on", Toast.LENGTH_SHORT).show()
+                }
+                return@setOnPreferenceChangeListener true
+            }
+            vibrate?.setOnPreferenceChangeListener { preference, newValue ->
+                if (vibrate.isChecked){
+                    isVibrateChecked = true
+                    Toast.makeText(activity, "Vibrate off", Toast.LENGTH_SHORT).show()
+                }else{
+                    isVibrateChecked = false
+                    Toast.makeText(activity, "Vibrate on", Toast.LENGTH_SHORT).show()
+                    vibrateDevice(requireContext())
+                }
+                return@setOnPreferenceChangeListener true
+            }
+            highPriority?.setOnPreferenceChangeListener { preference, newValue ->
+                if (highPriority.isChecked){
+                    isHighPriorityChecked = true
+                    Toast.makeText(activity, "High priority Notifications off", Toast.LENGTH_LONG).show()
+                }else{
+                    isHighPriorityChecked = false
+                    Toast.makeText(activity, "High priority Notifications on", Toast.LENGTH_LONG).show()
                 }
                 return@setOnPreferenceChangeListener true
             }
@@ -231,8 +280,6 @@ class SettingsActivity : AppCompatActivity(),
             setPreferencesFromResource(R.xml.fingerprint_pref, rootKey)
         }
     }
-
-
 
     //    listening to changes on the sharedPreference
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {

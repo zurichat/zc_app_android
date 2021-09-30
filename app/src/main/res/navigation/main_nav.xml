@@ -3,16 +3,156 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/homeScreenFragment">
+    app:startDestination="@id/homeScreenFragment"
+    >
+    <!--app:startDestination="@id/createOrganizationsFragment"-->
+    <!--app:startDestination="@id/createOrganizationsFragment"-->
+
 
     <fragment
         android:id="@+id/dmFragment"
         android:name="com.tolstoy.zurichat.ui.dm.DMFragment"
-        tools:layout="@layout/fragment_dm" >
+        tools:layout="@layout/fragment_dm">
         <action
             android:id="@+id/action_dmFragment_to_attachmentsFragment"
             app:destination="@id/attachmentsFragment" />
+        <argument
+            android:name="roomId"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="userId"
+            app:argType="string" />
+        <argument
+            android:name="senderId"
+            app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/attachmentsFragment"
+        android:name="com.tolstoy.zurichat.ui.dm.AttachmentsFragment"
+        tools:layout="@layout/fragment_attachments">
+        <argument
+            android:name="media"
+            android:defaultValue="IMAGE"
+            app:argType="com.tolstoy.zurichat.ui.dm.MEDIA" />
+    </fragment>
+    <navigation
+        android:id="@+id/new_channel_nav_graph"
+        app:startDestination="@id/selectNewChannelFragment">
+
+        <!--    Hi guys, this is what is expected of everyone!. I decided to comment here because this file controls the workflow in it's entirety-->
+        <!--    Please do not delete the comments here while you work, I will do it myself once our workflow is complete. thanks-->
+        <!--    Remember to make a PR to the members of the team depending on ur work, to view your work first before getting to make PR on the main repo
+                for each tasks assigned, i will be using the member's github username in the comments-->
+
+        <!-- 1. There is first an expected navigation from HomePage through a fab button, to get us to the first screen(SelectNewChannelFragment)on this nav-graph-->
+        <!--    @EbubeCode is expected to implement this feature. (This feature doesn't require any API consumption)-->
+
+
+        <!-- 2. SelectNewChannelFragment:
+                First fragment to move to after clicking the fab button from homepage-->
+        <!--    Here we are interested in moving to the next screen (SelectMemberFragment)when the user clicks on New Channel and nothing else->
+        <!-    @somebody is expected to implement this feature, below is the navigation details. (This feature doesn't require any API consumption)-->
+        <fragment
+            android:id="@+id/selectNewChannelFragment"
+            android:name="com.tolstoy.zurichat.ui.newchannel.fragment.SelectNewChannelFragment"
+            android:label="SelectContactFragment">
+            <action
+                android:id="@+id/action_selectNewChannelFragment_to_selectMemberFragment"
+                app:destination="@id/selectMemberFragment" />
+        </fragment>
+
+        <!-- 3. SelectMemberFragment:
+                Second fragment to move to after selecting New Channel option from 2 above-->
+        <!--    Here we are interested in selecting members, and displaying those members as they are selected
+                afterwards, parse the selected members information unto the next screen (newChannelDataFragment)
+                when the forward fab button is clicked->
+        <!-    @somebody is expected to implement this feature, below is the navigation details.(This feature requires API consumption for storing new channel members)-->
+        <fragment
+            android:id="@+id/selectMemberFragment"
+            android:name="com.tolstoy.zurichat.ui.newchannel.fragment.SelectMemberFragment"
+            android:label="fragment_select_member"
+            tools:layout="@layout/fragment_select_member">
+            <action
+                android:id="@+id/action_selectMemberFragment_to_newChannelDataFragment"
+                app:destination="@id/newChannelDataFragment"/>
+            <action
+                android:id="@+id/action_selectMemberFragment_to_selectNewChannelFragment"
+                app:destination="@id/selectNewChannelFragment" />
+        </fragment>
+        <!-- 4. NewChannelDataFragment:
+                Third fragment to move to after selecting members from 3 above-->
+        <!--    Here we are interested in imputing the name, and privacy status of the new channel we are creating,
+                while still able to see selected contacts.
+                Afterwards, the channel name, privacy status and selected members details is parsed on for use
+                to the next screen (ChannelChatFragment)->
+        <!-     @kolinton is expected to implement this feature, below is the navigation details. (This feature requires API consumption for creating new channel)-->
+        <fragment
+            android:id="@+id/newChannelDataFragment"
+            android:name="com.tolstoy.zurichat.ui.newchannel.fragment.NewChannelDataFragment"
+            android:label="NewChannelDataFragment">
+            <action
+                android:id="@+id/action_newChannelDataFragment_to_channelChatFragment"
+                app:destination="@id/channelChatFragment">
+                <argument
+                    android:name="members"
+                    app:nullable="true"
+                    app:argType="string[]" />
+                <argument
+                    android:name="channel_name"
+                    app:nullable="true"
+                    app:argType="string" />
+                <argument
+                    android:name="user"
+                    app:nullable="true"
+                    app:argType="com.tolstoy.zurichat.models.User"/>
+
+                <argument
+                    android:name="channel_status"
+                    app:argType="boolean" />
+                <argument
+                    android:name="channel_id"
+                    app:argType="string"
+                    app:nullable="true" />
+
+            </action>
+
+            <argument
+                android:name="members"
+                app:argType="string[]"
+                app:nullable="true" />
+            <argument
+                android:name="channel_name"
+                app:argType="string"
+                app:nullable="true" />
+            <argument
+                android:name="user"
+                app:argType="com.tolstoy.zurichat.models.User"
+                app:nullable="true"/>
+
+            <argument
+                android:name="channel_status"
+                app:argType="boolean" />
+
+            <argument
+                android:name="channel_id"
+                app:argType="string"
+                app:nullable="true" />
+        </fragment>
+
+        <!-- 5. ChannelChatFragment:
+                Fourth fragment to move to after imputing the new channel data from 4 above-->
+        <!--    Here we are interested in making sure we can send and retrieve messages to/from the channel.->
+        <!-     @solidtm is expected to implement this feature, below is the navigation details. (This feature requires API consumption for channel messaging)-->
+        <fragment
+            android:id="@+id/channelChatFragment"
+            android:name="com.tolstoy.zurichat.ui.fragments.channel_chat.ChannelChatFragment"
+            android:label="ChannelChatFragment" />
+        <action
+            android:id="@+id/action_global_dmFragment"
+            app:destination="@id/dmFragment" />
+    </navigation>
+
     <fragment
         android:id="@+id/homeScreenFragment"
         android:name="com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragment"
@@ -22,25 +162,26 @@
             android:id="@+id/action_homeScreenFragment_to_settingsActivity"
             app:destination="@id/settingsActivity" />
         <action
-            android:id="@+id/action_homeScreenFragment_to_dmFragment"
-            app:destination="@id/dmFragment" />
-        <action
             android:id="@+id/action_homeScreenFragment_to_channelChatFragment"
             app:destination="@id/channelChatFragment" />
         <action
-            android:id="@+id/action_homeScreenFragment_to_newChannelActivity"
-            app:destination="@id/newChannelActivity" />
+            android:id="@+id/action_homeScreenFragment_to_new_channel_nav_graph"
+            app:destination="@id/new_channel_nav_graph" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_dmFragment"
+            app:destination="@id/dmFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_createOrganizationsFragment"
+            app:destination="@id/createOrganizationsFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_switchOrganizationFragment"
+            app:destination="@id/switchOrganizationFragment" />
     </fragment>
 
     <activity
         android:id="@+id/settingsActivity"
         android:name="com.tolstoy.zurichat.ui.settings.SettingsActivity"
         android:label="SettingsActivity" />
-
-    <activity
-        android:id="@+id/newChannelActivity"
-        android:name="com.tolstoy.zurichat.ui.newchannel.NewChannelActivity"
-        android:label="NewChannelActivity" />
 
     <fragment
         android:id="@+id/channelChatFragment"
@@ -55,19 +196,80 @@
     <fragment
         android:id="@+id/chatsFragment"
         android:name="com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.ChatsFragment"
-        android:label="ChatsFragment" />
+        android:label="ChatsFragment"
+        tools:layout="@layout/fragment_chats"/>
     <fragment
         android:id="@+id/channelsFragment"
         android:name="com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.ChannelsFragment"
         android:label="fragment_channels"
         tools:layout="@layout/fragment_channels" />
+
     <fragment
-        android:id="@+id/attachmentsFragment"
-        android:name="com.tolstoy.zurichat.ui.dm.AttachmentsFragment"
-        tools:layout="@layout/fragment_attachments">
+        android:id="@+id/createOrganizationsFragment"
+        android:name="com.tolstoy.zurichat.ui.organizations.CreateOrganizationsFragment"
+        android:label="fragment_create_organizations"
+        tools:layout="@layout/fragment_create_organizations" >
+        <action
+            android:id="@+id/action_createOrganizationsFragment_to_newWorkspaceFragment"
+            app:destination="@id/newWorkspaceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addByEmailFragment"
+        android:name="com.tolstoy.zurichat.ui.organizations.AddByEmailFragment"
+        android:label="fragment_add_by_email"
+        tools:layout="@layout/fragment_add_by_email" >
+        <action
+            android:id="@+id/action_addByEmailFragment_to_seeYourChannelFragment"
+            app:destination="@id/seeYourChannelFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newWorkspaceFragment"
+        android:name="com.tolstoy.zurichat.ui.organizations.NewWorkspaceFragment"
+        android:label="fragment_new_workspace"
+        tools:layout="@layout/fragment_new_workspace" >
+        <action
+            android:id="@+id/action_newWorkspaceFragment_to_nextFragment"
+            app:destination="@id/nextFragment"
+            app:popUpTo="@id/main_nav"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/nextFragment"
+        android:name="com.tolstoy.zurichat.ui.organizations.NextFragment"
+        android:label="fragment_next"
+        tools:layout="@layout/fragment_next" >
+        <action
+            android:id="@+id/action_nextFragment_to_addByEmailFragment"
+            app:destination="@id/addByEmailFragment" />
+        <action
+            android:id="@+id/action_nextFragment_to_seeYourChannelFragment"
+            app:destination="@id/seeYourChannelFragment"
+            app:popUpTo="@id/main_nav"
+            app:popUpToInclusive="true" />
         <argument
-            android:name="media"
-            app:argType="com.tolstoy.zurichat.ui.dm.MEDIA"
-            android:defaultValue="IMAGE" />
+            android:name="organizationName"
+            app:argType="string" />
+        <argument
+            android:name="organizationId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/seeYourChannelFragment"
+        android:name="com.tolstoy.zurichat.ui.organizations.SeeYourChannelFragment"
+        android:label="fragment_see_your_channel"
+        tools:layout="@layout/fragment_see_your_channel" >
+        <action
+            android:id="@+id/action_seeYourChannelFragment_to_homeScreenFragment"
+            app:destination="@id/homeScreenFragment"
+            app:popUpTo="@id/main_nav"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment android:id="@+id/switchOrganizationFragment"
+        android:name="com.tolstoy.zurichat.ui.organizations.SwitchOrganizationsFragment"
+        tools:layout="@layout/fragment_switch_organizations"
+        android:label="switch_organization">
+        <action
+            android:id="@+id/action_switchOrganizationFragment_to_homeScreenFragment"
+            app:destination="@id/homeScreenFragment" />
     </fragment>
 </navigation>

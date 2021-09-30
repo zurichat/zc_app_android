@@ -18,6 +18,8 @@
     <color name="category_contact_pref">#EBEBEB</color>
 
     <color name="bg_color">#FFFFFF</color>
+    <color name="channel_bg_color">#F5F5F5</color>
+    <color name="bg_color_1">#43DBDBDB</color>
 
     <!-- App Colors -->
     <color name="primary_color">#024E35</color>
