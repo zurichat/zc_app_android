@@ -45,7 +45,21 @@ class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>
 
             view.findViewById<TextView>(R.id.channelTitle).text = channel.name
             view.findViewById<ConstraintLayout>(R.id.root_layout).setOnClickListener {
-                onItemClickListener?.invoke(channel)
+                var count = 0
+                uiScope.launch(Dispatchers.IO){
+                    roomDao.getRoomDataWithChannelID(channel._id).let {
+                        val sub = client.newSubscription(it.socketName)
+                        sub.onPublish{
+                            subscription, publishEvent ->
+                            uiScope.launch(Dispatchers.Main){
+                                count++
+                                badge.text = count.toString()
+                                badge.visibility = View.VISIBLE
+                            }
+                        }
+                        sub.subscribe()
+                    }
+                }
             }
         }
     }
