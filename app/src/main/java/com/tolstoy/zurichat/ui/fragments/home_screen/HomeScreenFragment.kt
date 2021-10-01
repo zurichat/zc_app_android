@@ -20,7 +20,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeScreenFragment : Fragment() {
-
     private lateinit var binding: FragmentHomeScreenBinding
     private lateinit var user : User
     val viewModel: HomeScreenViewModel by viewModels()
