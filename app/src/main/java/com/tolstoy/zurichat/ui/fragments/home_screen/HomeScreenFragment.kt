@@ -1,5 +1,6 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -69,7 +70,7 @@ class HomeScreenFragment : Fragment() {
                 R.id.new_channel -> {
                     try {
                         findNavController().navigate(HomeScreenFragmentDirections.actionHomeScreenFragmentToNewChannelNavGraph())
-                    }catch (exc:Exception){
+                    } catch (exc: Exception) {
                         exc.printStackTrace()
                     }
                 }
@@ -78,6 +79,17 @@ class HomeScreenFragment : Fragment() {
                 }
                 R.id.switch_workspace -> {
                     findNavController().navigate(R.id.switchOrganizationFragment)
+                }
+                R.id.invite_link -> {
+                    val intent = Intent(Intent.ACTION_SEND)
+                    intent.putExtra(
+                        Intent.EXTRA_TEXT,
+                        "https://api.zuri.chat/organizations/"
+                    )
+                    intent.type = "text/plain"
+
+                    val shareIntent = Intent.createChooser(intent, null)
+                    startActivity(shareIntent)
                 }
             }
             true
