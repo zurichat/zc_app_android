@@ -5,9 +5,11 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.data.remoteSource.RoomService
 import com.tolstoy.zurichat.databinding.FragmentChatsBinding
@@ -15,6 +17,12 @@ import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.Message
 import com.tolstoy.zurichat.models.Room
 import com.tolstoy.zurichat.models.User
+import com.tolstoy.zurichat.ui.dm_chat.adapter.RoomAdapter
+import com.tolstoy.zurichat.ui.dm_chat.model.response.room.RoomsListResponse
+import com.tolstoy.zurichat.ui.dm_chat.model.response.room.RoomsListResponseItem
+import com.tolstoy.zurichat.ui.dm_chat.repository.Repository
+import com.tolstoy.zurichat.ui.dm_chat.viewmodel.RoomViewModel
+import com.tolstoy.zurichat.ui.dm_chat.viewmodel.RoomViewModelFactory
 import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragment
 import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragmentDirections
 import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenViewModel
@@ -41,23 +49,21 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
     private lateinit var originalRoomsArrayList: ArrayList<Room>
 
 
-    private var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
-        val newRequest: Request = chain.request().newBuilder()
-            .addHeader("Authorization", "Bearer $token")
-            .build()
-        chain.proceed(newRequest)
-    }).build()
+    //variables initialization for new setup
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var viewModelRoom: RoomViewModel
 
-    //prepare retrofit service
-    private val retrofit: Retrofit = Retrofit.Builder()
-        .client(client)
-        .baseUrl(Constants.BASE_URL1)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-    val retrofitService: RoomService = retrofit
-        .create(RoomService::class.java)
+    private lateinit var roomList: RoomsListResponse
+    private lateinit var roomsArrayList: ArrayList<RoomsListResponseItem>
+
+    private lateinit var roomUserId: List<String>
+    private lateinit var memId: String
+    private lateinit var userName: String
 
 
+    private val roomAdapter by lazy { RoomAdapter(requireActivity(), roomsArrayList) }
+
+    private lateinit var adapt: RoomAdapter
 
     private lateinit var binding: FragmentChatsBinding
     val viewModel: HomeScreenViewModel by lazy {
@@ -66,18 +72,73 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        user = requireActivity().intent.extras?.getParcelable("USER")!!
         binding = FragmentChatsBinding.bind(view)
+        recyclerView = binding.listChats
+        user = requireActivity().intent.extras?.getParcelable("USER")!!
+        roomsArrayList = ArrayList()
 
-        token = user.token
+        setupRecyclerView()
+
+        val repository = Repository()
+        val viewModelFactory = RoomViewModelFactory(repository)
+        viewModelRoom = ViewModelProvider(this, viewModelFactory).get(RoomViewModel::class.java)
+        //call retrofit service function
+        viewModelRoom.getRooms()
+        viewModelRoom.myResponse.observe(viewLifecycleOwner,  { response ->
+            if (response.isSuccessful) {
+
+                roomList = response.body()!!
+
+              //  roomsArrayList.addAll(roomList)
+                roomAdapter.setData(roomList)
+
+                for (room in roomList) {
+                    roomsArrayList.add(room)
+                }
+                addHeaders()
+
+                Log.i("Rooms List", "$roomsArrayList")
+
+            } else {
+
+                when(response.code()){
+                    400 -> {
+                        Log.e("Error 400", "invalid authorization")
+                    }
+                    404 -> {
+                        Log.e("Error 404", "Not Found")
+                    }
+                    401 -> {
+                        Log.e("Error 401", "No authorization or session expired")
+                    }
+                    else -> {
+                        Log.e("Error", "Generic Error")
+                    }
+                }
+
+            }
+        })
+
 
         userID = "61467ee61a5607b13c00bcf2"
-        originalRoomsArrayList = ArrayList()
+        //setupObservers()
+        //setupUI()
+    }
 
-        getRooms(userID)
-        setupObservers()
-        setupUI()
+    //setup recyclerView
+    private fun setupRecyclerView() {
+        //recyclerView.adapter = roomAdapter
+        adapt = RoomAdapter(requireActivity(), roomsArrayList)
+        recyclerView.adapter = adapt
+    }
+
+    fun addHeaders() {
+        //roomsArrayList.addAll(roomList)
+        adapt = RoomAdapter(requireActivity(), roomsArrayList)
+        recyclerView.adapter = adapt
+        adapt.setItemClickListener {
+            findNavController().navigate(R.id.dmFragment)
+        }
     }
 
     private fun setupUI() = with(binding){
@@ -116,46 +177,6 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
 
     private fun setupObservers() = with(viewModel){
         getRooms()
-    }
-
-    private fun getRooms(userId: String) {
-        val call: Call<ArrayList<Room>> = retrofitService.getRooms(userId)
-
-        call.enqueue(object : Callback<ArrayList<Room>> {
-            override fun onResponse(call: Call<ArrayList<Room>>, response: Response<ArrayList<Room>>?) {
-                if(response!!.isSuccessful) {
-                    Log.i("Login Response Result", response.body()!![0].roomUserIds[0])
-                    Log.i("Login Response Result", response.body()!![1].roomUserIds[1])
-                    Log.i("Login Response Result", response.body().toString())
-
-                    val roomsList = response.body()
-                    if (roomsList != null) {
-                        originalRoomsArrayList.addAll(roomsList)
-                    }
-
-                } else {
-                    when(response.code()){
-                        400 -> {
-                            Log.e("Error 400", "invalid authorization")
-                        }
-                        404 -> {
-                            Log.e("Error 404", "Not Found")
-                        }
-                        401 -> {
-                            Log.e("Error 401", "No authorization or session expired")
-                        }
-                        else -> {
-                            Log.e("Error", "Generic Error")
-                        }
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<ArrayList<Room>>, t: Throwable) {
-                Timber.e(t.message.toString())
-            }
-
-        })
     }
 
     companion object{
