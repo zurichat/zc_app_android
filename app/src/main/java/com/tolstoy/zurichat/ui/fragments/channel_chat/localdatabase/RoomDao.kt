@@ -14,5 +14,5 @@ interface RoomDao {
     fun insertAll(vararg roomDataObject: RoomDataObject)
 
     @Delete
-    fun delete(roomDataObject: RoomDataObject)
+    fun delete(vararg roomDataObject: RoomDataObject)
 }

@@ -152,6 +152,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
          * Sets up adapter after channelList has been computed
          */
         adapt = ChannelAdapter(requireActivity(), channelsArrayList,uiScope, roomDao)
+        adapt.organizationId = organizationID
         adapt.setItemClickListener {
             client.disconnect()
             val bundle1 = Bundle()
