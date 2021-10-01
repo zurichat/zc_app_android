@@ -46,11 +46,14 @@ import kotlin.random.Random
 import com.google.gson.Gson
 import com.tolstoy.zurichat.data.localSource.AppDatabase
 import com.tolstoy.zurichat.models.OrganizationMember
+import com.tolstoy.zurichat.models.organization_model.OrganizationData
+import com.tolstoy.zurichat.models.organization_model.UserOrganizationModel
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.ChannelMessagesDao
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDao
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDataObject
 import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragmentDirections
 import com.tolstoy.zurichat.ui.fragments.networking.AppPublishHandler
+import com.tolstoy.zurichat.ui.profile.data.DataX
 
 
 class ChannelChatFragment : Fragment() {
@@ -353,11 +356,11 @@ class ChannelChatFragment : Fragment() {
 
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.channel_link -> {
+                R.id.channel_invite -> {
                     val intent = Intent(Intent.ACTION_SEND)
                     intent.putExtra(
                         Intent.EXTRA_TEXT,
-                        "https://api.zuri.chat/organizations/${organizationID}/${channel._id}"
+                        "https://api.zuri.chat/channels/${channel._id}"
                     )
                     intent.type = "text/plain"
 
