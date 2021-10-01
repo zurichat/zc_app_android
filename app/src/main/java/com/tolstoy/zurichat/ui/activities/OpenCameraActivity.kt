@@ -24,18 +24,20 @@ class OpenCameraActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_open_camera)
+        val cameraButton = findViewById<ImageView>(R.id.camera_btn)
 
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this,
-                arrayOf(android.Manifest.permission.CAMERA),
-                111
-            )
-            Toast.makeText(applicationContext, "Unable to start camera", Toast.LENGTH_SHORT).show()
-        } else
-            Toast.makeText(applicationContext, "Success!", Toast.LENGTH_SHORT).show()
+        cameraButton.setOnClickListener{
+            if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(android.Manifest.permission.CAMERA),
+                    111
+                )
+                Toast.makeText(applicationContext, "Unable to start camera", Toast.LENGTH_SHORT).show()
+            } else
+                Toast.makeText(applicationContext, "Success!", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     override fun onRequestPermissionsResult(
