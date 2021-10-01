@@ -103,8 +103,6 @@ class ChannelChatFragment : Fragment() {
             }
         }
 
-
-
         return binding.root
     }
 
@@ -114,8 +112,6 @@ class ChannelChatFragment : Fragment() {
         // code to control the dimming of background
         val prefMngr = PreferenceManager.getDefaultSharedPreferences(context)
         val dimVal = prefMngr.getInt("bar",50).toFloat().div(100f)
-
-
 
         binding.toolbar.channelToolbar.setOnMenuItemClickListener {
             when (it.itemId) {

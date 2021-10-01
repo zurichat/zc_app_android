@@ -40,23 +40,6 @@
         android:textColor="@color/text_color"
         tools:ignore="HardcodedText" />
 
-    <TextView
-        android:id="@+id/badge"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginStart="10dp"
-        android:padding="3dp"
-        android:gravity="center"
-        android:background="@drawable/channels_badge"
-        app:layout_constraintStart_toEndOf="@id/channelTitle"
-        app:layout_constraintTop_toTopOf="@id/channelTitle"
-        app:layout_constraintBottom_toBottomOf="@id/channelTitle"
-        android:text="1"
-        android:textSize="11sp"
-        android:textColor="@android:color/white"
-        tools:ignore="HardcodedText"
-        android:visibility="gone"/>
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/joinedButton"
         android:layout_width="wrap_content"
@@ -75,6 +58,27 @@
         app:strokeWidth="1dp"
         android:visibility="gone"
         android:enabled="false"
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/badge"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:minWidth="30dp"
+        android:maxWidth="60dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toEndOf="@id/channelTitle"
+        app:layout_constraintTop_toTopOf="@id/channelTitle"
+        app:layout_constraintBottom_toBottomOf="@id/channelTitle"
+        android:textColor="#FFFFFF"
+        android:text="1"
+        android:ellipsize="end"
+        app:cornerRadius="100dp"
+        android:textSize="11sp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:backgroundTint="@color/primaryColor"
+        android:enabled="false"
+        android:visibility="gone"
         />
 
     <ImageView

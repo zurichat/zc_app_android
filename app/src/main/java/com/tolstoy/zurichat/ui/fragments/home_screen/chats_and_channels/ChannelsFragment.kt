@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -22,6 +23,7 @@ import com.tolstoy.zurichat.databinding.FragmentChannelsBinding
 import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDao
+import com.tolstoy.zurichat.ui.fragments.home_screen.CentrifugeClient
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChannelAdapter
 import com.tolstoy.zurichat.ui.fragments.home_screen.diff_utils.ChannelDiffUtil
 import com.tolstoy.zurichat.ui.fragments.model.Data
@@ -82,6 +84,13 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         //addHeaders()
         getListOfChannels()
 
+        view.findViewById<LinearLayoutCompat>(R.id.mentionLayout_).setOnClickListener {
+            if (channelsArrayList.isNotEmpty()){
+                val bundle = Bundle()
+                bundle.putParcelable("USER",user)
+                findNavController().navigate(R.id.mentionFragment,bundle)
+            }
+        }
     }
 
     private fun generateRandomLong(): Long {
@@ -93,14 +102,10 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
      * Headers Are Added Here. This will also be called after every update on the list to properly update the header positions
      */
     private fun addHeaders(){
-        client = Centrifuge.new_("wss://realtime.zuri.chat/connection/websocket", Centrifuge.defaultConfig())
-        client.onConnect { client, connectEvent ->
-           Log.i("Connect","Connected")
-        }
         uiScope.launch(Dispatchers.IO){
-            try {
-                client.connect()
-            } catch (e: Exception) {
+            try{
+                client = CentrifugeClient.getClient(requireActivity())
+            }catch (e : Exception){
                 e.printStackTrace()
             }
         }
@@ -154,7 +159,8 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         /**
          * Sets up adapter after channelList has been computed
          */
-        adapt = ChannelAdapter(requireActivity(), channelsArrayList,client,uiScope, roomDao)
+        adapt = ChannelAdapter(requireActivity(), channelsArrayList,uiScope, roomDao)
+        adapt.organizationId = organizationID
         adapt.setItemClickListener {
             client.disconnect()
             val bundle1 = Bundle()
