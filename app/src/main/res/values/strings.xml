@@ -158,6 +158,7 @@
     <string name="vibrate_summary">Vibrate on new messages</string>
     <string name="high_priority_header">High priority Notification</string>
     <string name="high_priority_summary">Display Preview of notification at the top of the screen</string>
+    <string name="dm_notification_channel_name">DM Notification</string>
 
 
     <string name="unread_messages">Unread messages</string>
