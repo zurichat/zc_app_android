@@ -83,11 +83,13 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         originalChannelsArrayList = ArrayList()
         //addHeaders()
         getListOfChannels()
-        
+
         view.findViewById<LinearLayoutCompat>(R.id.mentionLayout_).setOnClickListener {
-            val bundle = Bundle()
-            bundle.putParcelable("USER",user)
-            findNavController().navigate(R.id.mentionFragment,bundle)
+            if (channelsArrayList.isNotEmpty()){
+                val bundle = Bundle()
+                bundle.putParcelable("USER",user)
+                findNavController().navigate(R.id.mentionFragment,bundle)
+            }
         }
     }
 
