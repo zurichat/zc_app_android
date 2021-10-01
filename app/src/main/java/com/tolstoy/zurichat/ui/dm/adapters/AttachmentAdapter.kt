@@ -27,17 +27,13 @@ class AttachmentAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AttachmentViewHolder {
         val inflater = LayoutInflater.from(parent.context)
+
         val image = AttachmentViewHolder.Image(
             ItemAttachmentImageBinding.inflate(inflater, parent, false),
             _selected
         )
-        val audio = AttachmentViewHolder.Audio(
-            ItemAttachmentAudioBinding.inflate(inflater, parent, false),
-            _selected
-        )
         val doc = AttachmentViewHolder.Document(
-            ItemAttachmentDocBinding.inflate(inflater, parent, false),
-            _selected
+            ItemAttachmentDocBinding.inflate(inflater, parent, false), _selected
         )
         return when (viewType) {
             MEDIA.VIDEO.ordinal,

@@ -10,13 +10,12 @@ import android.provider.DocumentsContract
 import android.provider.DocumentsProvider
 import android.provider.MediaStore
 import androidx.documentfile.provider.DocumentFile
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.tolstoy.zurichat.ui.dm.audio.AudioInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.http.Url
+import java.lang.Exception
 
 
 /**
@@ -41,11 +40,6 @@ class AttachmentsViewModel: ViewModel() {
             MediaStore.Video.Media.INTERNAL_CONTENT_URI, videos
         )
 
-    fun getAudio(context: Context) =
-        get(
-            context, MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-            MediaStore.Audio.Media.INTERNAL_CONTENT_URI, audio
-        )
 
     fun getDoc(context: Context) =
         get(
