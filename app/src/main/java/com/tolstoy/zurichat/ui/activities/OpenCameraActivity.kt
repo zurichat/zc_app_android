@@ -36,6 +36,9 @@ class OpenCameraActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Unable to start camera", Toast.LENGTH_SHORT).show()
             } else
                 Toast.makeText(applicationContext, "Success!", Toast.LENGTH_SHORT).show()
+
+            var i = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+            startActivityForResult(i,101)
         }
 
     }
