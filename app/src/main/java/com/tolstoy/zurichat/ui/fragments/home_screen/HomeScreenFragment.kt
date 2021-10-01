@@ -81,7 +81,8 @@ class HomeScreenFragment : Fragment() {
                         exc.printStackTrace()
                     }
                 }
-                R.id.saved_messages -> {
+                R.id.starred_messages -> {
+                    findNavController().navigate(R.id.action_homeScreenFragment_to_starredMessagesFragment)
                 }
                 R.id.switch_workspace -> {
                     findNavController().navigate(R.id.switchOrganizationFragment)

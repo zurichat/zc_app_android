@@ -185,6 +185,9 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_switchOrganizationFragment"
             app:destination="@id/switchOrganizationFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_starredMessagesFragment"
+            app:destination="@id/starredMessagesFragment" />
     </fragment>
 
     <activity
@@ -286,4 +289,9 @@
     </fragment>
 
     <include app:graph="@navigation/channel_info_nav_graph" />
+    <fragment
+        android:id="@+id/starredMessagesFragment"
+        android:name="com.tolstoy.zurichat.ui.fragments.starred_messages.StarredMessagesFragment"
+        android:label="fragment_starred_messages"
+        tools:layout="@layout/fragment_starred_messages" />
 </navigation>
