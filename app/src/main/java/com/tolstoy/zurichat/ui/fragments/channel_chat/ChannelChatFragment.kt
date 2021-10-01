@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.room.Room
 import centrifuge.*
@@ -42,6 +43,7 @@ import kotlin.collections.ArrayList
 import kotlin.random.Random
 import com.google.gson.Gson
 import com.tolstoy.zurichat.data.localSource.AppDatabase
+import com.tolstoy.zurichat.models.OrganizationMember
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.ChannelMessagesDao
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDao
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDataObject
@@ -60,6 +62,7 @@ class ChannelChatFragment : Fragment() {
     private lateinit var database: AppDatabase
     private lateinit var roomDao: RoomDao
     private lateinit var channelMessagesDao: ChannelMessagesDao
+    private val members = ArrayList<OrganizationMember>()
 
     private var channelJoined = false
 
@@ -100,6 +103,8 @@ class ChannelChatFragment : Fragment() {
             }
         }
 
+
+
         return binding.root
     }
 
@@ -109,6 +114,19 @@ class ChannelChatFragment : Fragment() {
         // code to control the dimming of background
         val prefMngr = PreferenceManager.getDefaultSharedPreferences(context)
         val dimVal = prefMngr.getInt("bar",50).toFloat().div(100f)
+
+
+
+        binding.toolbar.channelToolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.channel_info-> {
+                    val bundle = Bundle()
+                    bundle.putString("channel_name",channel.name)
+                  findNavController().navigate(R.id.channel_info_nav_graph,bundle)
+                }
+            }
+            true
+        }
 
         val dimmerBox = binding.dmChatDimmer
         val channelChatEdit = binding.channelChatEditText           //get message from this edit text

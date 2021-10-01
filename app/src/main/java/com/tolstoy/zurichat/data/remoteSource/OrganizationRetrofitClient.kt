@@ -4,14 +4,15 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
 object OrganizationRetrofitClient {
 
     private const val BASE_URL: String = "https://api.zuri.chat/"
-    fun createOrganizationApiService(isDebug: Boolean = true): OrganizationService {
+    fun createOrganizationApiService(isDebug: Boolean, tokenInterceptor: TokenInterceptor): OrganizationService {
         val okHttpClient: OkHttpClient = makeOkHttpClient(
-            makeLoggingInterceptor((isDebug))
+            makeLoggingInterceptor((isDebug)), tokenInterceptor
         )
         return makeApiService(okHttpClient)
     }
@@ -26,9 +27,11 @@ object OrganizationRetrofitClient {
     }
 
     private fun makeOkHttpClient(
-        httpLoggingInterceptor: HttpLoggingInterceptor
+        httpLoggingInterceptor: HttpLoggingInterceptor,
+        tokenInterceptor: TokenInterceptor
     ): OkHttpClient {
         return OkHttpClient.Builder()
+            .addInterceptor(tokenInterceptor)
             .addInterceptor(httpLoggingInterceptor)
             .connectTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)

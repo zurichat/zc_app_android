@@ -14,8 +14,5 @@ import retrofit2.http.Path
 interface OrganizationService {
     @GET("users/{email_address}/organizations")
     suspend fun getUserOrganizations(
-        @Header("Authorization") authToken: String?,
         @Path("email_address") emailAddress: String): Response<UserOrganizationModel>
 }
-
-//.addHeader("Authorization", "Bearer $token")

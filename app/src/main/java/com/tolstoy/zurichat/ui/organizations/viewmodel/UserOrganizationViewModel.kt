@@ -4,7 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.data.functional.Result
-import com.tolstoy.zurichat.models.organization_model.OrgRequestBody
+import com.tolstoy.zurichat.data.remoteSource.TokenInterceptor
+import com.tolstoy.zurichat.models.organization_model.UserOrganizationModel
 import com.tolstoy.zurichat.ui.organizations.states.UserOrganizationViewState
 import com.tolstoy.zurichat.ui.organizations.usecase.GetUserOrganization
 import com.tolstoy.zurichat.ui.profile.data.UserOrganizationResponse
@@ -18,24 +19,27 @@ import javax.inject.Inject
 @HiltViewModel
 class UserOrganizationViewModel @Inject constructor(
     private val getUserOrganization: GetUserOrganization,
+    private val interceptor: TokenInterceptor,
 ) : ViewModel() {
 
     private val _userOrganizationFlow =
         MutableStateFlow<UserOrganizationViewState>(UserOrganizationViewState.Empty)
     val userOrganizationFlow: StateFlow<UserOrganizationViewState> = _userOrganizationFlow
 
-    fun getUserOrganizations(orgRequestBody: OrgRequestBody) {
+    fun getUserOrganizations(emailAddress: String) {
         viewModelScope.launch {
-            getUserOrganization(orgRequestBody).collect {
+            _userOrganizationFlow.value = UserOrganizationViewState.Loading(R.string.retrieving_user_org)
+            getUserOrganization(emailAddress).collect {
                 when (it) {
                     is Result.Success -> {
-                        if(it.data is UserOrganizationResponse){
+                        if (it.data is UserOrganizationModel) {
                             _userOrganizationFlow.value =
-                                UserOrganizationViewState.Success(R.string.successful_get_user_org, it.data)
+                                UserOrganizationViewState.Success(R.string.successful_get_user_org,
+                                    it.data)
                         }
                     }
                     is Result.Failed -> {
-                        if (it.errorMessage is String){
+                        if (it.errorMessage is String) {
                             _userOrganizationFlow.value =
                                 UserOrganizationViewState.Failure(it.errorMessage)
                         }
@@ -43,6 +47,10 @@ class UserOrganizationViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun setToken(token: String) {
+        interceptor.setToken(token)
 
     }
 }

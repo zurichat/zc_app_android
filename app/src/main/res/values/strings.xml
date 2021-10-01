@@ -254,5 +254,6 @@
     <string name="sign_in">Sign In</string>
     <string name="invite_user">Invite User</string>
     <string name="successful_get_user_org">user organizations retrieved successfully</string>
+    <string name="retrieving_user_org">Retrieving user organization....</string>
 
 </resources>

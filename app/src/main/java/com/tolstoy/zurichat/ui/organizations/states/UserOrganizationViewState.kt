@@ -1,11 +1,12 @@
 package com.tolstoy.zurichat.ui.organizations.states
 
+import com.tolstoy.zurichat.models.organization_model.UserOrganizationModel
 import com.tolstoy.zurichat.ui.profile.data.UserOrganizationResponse
 
 sealed class UserOrganizationViewState {
     class Success(
         val message: Int,
-        val userOrganizationResponseModel: UserOrganizationResponse? = null,
+        val userOrganizationResponseModel: UserOrganizationModel? = null,
     ) : UserOrganizationViewState()
 
     class Failure(val message: String) : UserOrganizationViewState()
