@@ -27,17 +27,10 @@ class HomeScreenFragment : Fragment() {
 
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
 
-        val bundle = arguments
-        if (bundle != null) {
-            user = bundle.getParcelable("USER")!!
-        }
+        user = requireActivity().intent.extras?.getParcelable("USER")!!
 
         return binding.root
     }

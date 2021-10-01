@@ -1,6 +1,7 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen.adapters
 
 import android.app.Activity
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -9,17 +10,20 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import centrifuge.Client
+import centrifuge.PublishEvent
+import centrifuge.Subscription
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.models.Channel
 import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDao
+import com.tolstoy.zurichat.ui.fragments.home_screen.CentrifugeClient
+import com.tolstoy.zurichat.ui.fragments.home_screen.CentrifugeClient.CustomListener
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
-class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>, val client: Client,val uiScope: CoroutineScope,val roomDao: RoomDao) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>,val uiScope: CoroutineScope,val roomDao: RoomDao) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var onItemClickListener: ((channel:ChannelModel) -> Unit)? = null
     private var onAddChannelClickListener: (() -> Unit)? = null
 
@@ -45,19 +49,26 @@ class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>
 
             view.findViewById<TextView>(R.id.channelTitle).text = channel.name
             view.findViewById<ConstraintLayout>(R.id.root_layout).setOnClickListener {
-                var count = 0
-                uiScope.launch(Dispatchers.IO){
-                    roomDao.getRoomDataWithChannelID(channel._id).let {
-                        val sub = client.newSubscription(it.socketName)
-                        sub.onPublish{
-                            subscription, publishEvent ->
-                            uiScope.launch(Dispatchers.Main){
-                                count++
-                                badge.text = count.toString()
-                                badge.visibility = View.VISIBLE
-                            }
+                onItemClickListener?.invoke(channel)
+            }
+
+            var count = 0
+            uiScope.launch(Dispatchers.IO){
+                roomDao.getRoomDataWithChannelID(channel._id).let {
+                    if (it!=null){
+                        try{
+                            CentrifugeClient.setCustomListener(object : CustomListener {
+                                override fun onConnected(connected: Boolean) {
+                                    CentrifugeClient.subscribeToChannel(it.socketName)
+                                    Log.i("Connected",CentrifugeClient.isConnected().toString())
+                                }
+                                override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
+                                    Log.i("Published","Yes")
+                                }
+                            })
+                        }catch(e : Exception){
+                            e.printStackTrace()
                         }
-                        sub.subscribe()
                     }
                 }
             }

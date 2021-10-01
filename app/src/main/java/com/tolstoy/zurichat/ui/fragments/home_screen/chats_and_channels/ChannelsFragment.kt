@@ -22,6 +22,7 @@ import com.tolstoy.zurichat.databinding.FragmentChannelsBinding
 import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDao
+import com.tolstoy.zurichat.ui.fragments.home_screen.CentrifugeClient
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChannelAdapter
 import com.tolstoy.zurichat.ui.fragments.home_screen.diff_utils.ChannelDiffUtil
 import com.tolstoy.zurichat.ui.fragments.model.Data
@@ -93,14 +94,10 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
      * Headers Are Added Here. This will also be called after every update on the list to properly update the header positions
      */
     private fun addHeaders(){
-        client = Centrifuge.new_("wss://realtime.zuri.chat/connection/websocket", Centrifuge.defaultConfig())
-        client.onConnect { client, connectEvent ->
-           Log.i("Connect","Connected")
-        }
         uiScope.launch(Dispatchers.IO){
-            try {
-                client.connect()
-            } catch (e: Exception) {
+            try{
+                client = CentrifugeClient.getClient(requireActivity())
+            }catch (e : Exception){
                 e.printStackTrace()
             }
         }
@@ -154,7 +151,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         /**
          * Sets up adapter after channelList has been computed
          */
-        adapt = ChannelAdapter(requireActivity(), channelsArrayList,client,uiScope, roomDao)
+        adapt = ChannelAdapter(requireActivity(), channelsArrayList,uiScope, roomDao)
         adapt.setItemClickListener {
             client.disconnect()
             val bundle1 = Bundle()
