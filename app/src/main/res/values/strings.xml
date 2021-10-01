@@ -256,7 +256,5 @@
     <string name="invite_user">Invite User</string>
     <string name="successful_get_user_org">user organizations retrieved successfully</string>
     <string name="retrieving_user_org">Retrieving user organization....</string>
-    <string name="invite_link">Invite Link</string>
-    <string name="channel_invite_link">Channel Invite Link</string>
 
 </resources>

@@ -51,11 +51,7 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
         }
 
         binding.nextTextView.setOnClickListener {
-            val action = NextFragmentDirections.actionNextFragmentToSeeYourChannelFragment(
-                organizationName,
-                organizationId
-            )
-            Navigation.findNavController(it).navigate(action)
+           Navigation.findNavController(it).navigate(R.id.action_nextFragment_to_seeYourChannelFragment)
         }
     }
 

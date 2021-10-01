@@ -11,24 +11,20 @@
         android:title="Add Call"
         app:showAsAction="ifRoom"
         tools:ignore="HardcodedText" />
-    <item
-        android:id="@+id/channel_info"
+    <item android:id="@+id/channel_info"
         android:title="@string/Channel_info"
-        android:visible="true" />
-    <item
-        android:id="@+id/channel_media"
+        android:visible="true"
+        />
+    <item android:id="@+id/channel_media"
         android:title="@string/channel_media"
-        android:visible="true" />
-    <item
-        android:id="@+id/channel_invite_link"
-        android:title="@string/channel_invite_link"
-        android:visible="true" />
-    <!-- <item android:id="@+id/channel_search"
-         android:title="@string/chanel_search"
-         android:visible="true"
-         />
-     <item android:id="@+id/mute_notifications"
-         android:title="@string/mute_notifications"
-         android:visible="true"
-         />-->
+        android:visible="true"
+        />
+   <!-- <item android:id="@+id/channel_search"
+        android:title="@string/chanel_search"
+        android:visible="true"
+        />
+    <item android:id="@+id/mute_notifications"
+        android:title="@string/mute_notifications"
+        android:visible="true"
+        />-->
 </menu>

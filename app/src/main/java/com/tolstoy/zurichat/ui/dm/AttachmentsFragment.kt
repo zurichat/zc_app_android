@@ -1,19 +1,15 @@
 package com.tolstoy.zurichat.ui.dm
 
 import android.content.pm.PackageManager
-import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.*
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -39,7 +35,6 @@ class AttachmentsFragment : Fragment(R.layout.fragment_attachments) {
     private var recyclerView: RecyclerView? = null
     private var progressBar: ProgressBar? = null
     private var allAudios: ArrayList<AudioInfo>? = null
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,7 +64,6 @@ class AttachmentsFragment : Fragment(R.layout.fragment_attachments) {
         allAudios = ArrayList()
         if (allAudios!!.isEmpty()) {
             progressBar?.visibility = View.VISIBLE
-
             allAudios = getAllAudios()
             when (media) {
                 MEDIA.AUDIO -> {
@@ -95,7 +89,6 @@ class AttachmentsFragment : Fragment(R.layout.fragment_attachments) {
                         }
                     }
                 }
-                else -> Toast.makeText(context, "Unable to loadView", Toast.LENGTH_LONG).show()
             }
 
 

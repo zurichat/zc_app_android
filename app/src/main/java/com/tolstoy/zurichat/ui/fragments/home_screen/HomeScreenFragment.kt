@@ -1,6 +1,5 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,19 +11,20 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.FragmentHomeScreenBinding
 import com.tolstoy.zurichat.models.User
-import com.tolstoy.zurichat.models.organization_model.Organization
 import com.tolstoy.zurichat.ui.activities.MainActivity
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeScreenFragment : Fragment(R.layout.fragment_home_screen) {
+class HomeScreenFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeScreenBinding
-    private lateinit var user: User
+    private lateinit var user : User
     val viewModel: HomeScreenViewModel by viewModels()
+
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
 
     override fun onCreateView(
@@ -38,8 +38,8 @@ class HomeScreenFragment : Fragment(R.layout.fragment_home_screen) {
         if (bundle != null) {
             user = bundle.getParcelable("USER")!!
         }
-        return binding.root
 
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,7 +63,6 @@ class HomeScreenFragment : Fragment(R.layout.fragment_home_screen) {
             )
         }.attach()
 
-
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.settings -> {
@@ -78,7 +77,7 @@ class HomeScreenFragment : Fragment(R.layout.fragment_home_screen) {
                 R.id.new_channel -> {
                     try {
                         findNavController().navigate(HomeScreenFragmentDirections.actionHomeScreenFragmentToNewChannelNavGraph())
-                    } catch (exc: Exception) {
+                    }catch (exc:Exception){
                         exc.printStackTrace()
                     }
                 }
@@ -86,17 +85,6 @@ class HomeScreenFragment : Fragment(R.layout.fragment_home_screen) {
                 }
                 R.id.switch_workspace -> {
                     findNavController().navigate(R.id.switchOrganizationFragment)
-                }
-                R.id.invite_link -> {
-                    val intent = Intent(Intent.ACTION_SEND)
-                    intent.putExtra(
-                        Intent.EXTRA_TEXT,
-                        "https://api.zuri.chat/organizations/"
-                    )
-                    intent.type = "text/plain"
-
-                    val shareIntent = Intent.createChooser(intent, null)
-                    startActivity(shareIntent)
                 }
             }
             true
