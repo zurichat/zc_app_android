@@ -25,7 +25,6 @@ class AudioInfo {
         this.Size = Size
         this.Date = Date
         this.selected = selected
-        this.choose = choose
     }
 
 
