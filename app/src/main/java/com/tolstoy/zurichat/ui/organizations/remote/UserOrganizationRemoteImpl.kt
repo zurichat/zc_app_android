@@ -2,14 +2,7 @@ package com.tolstoy.zurichat.ui.organizations.remote
 
 import com.tolstoy.zurichat.data.functional.Failure
 import com.tolstoy.zurichat.data.functional.Result
-import com.tolstoy.zurichat.data.remoteSource.NewChannelApiService
 import com.tolstoy.zurichat.data.remoteSource.OrganizationService
-import com.tolstoy.zurichat.data.remoteSource.ResponseCode
-import com.tolstoy.zurichat.models.CreateChannelBodyModel
-import com.tolstoy.zurichat.models.CreateChannelResponseModel
-import com.tolstoy.zurichat.models.organization_model.OrgRequestBody
-import com.tolstoy.zurichat.ui.newchannel.CreateChannelRemote
-import com.tolstoy.zurichat.ui.organizations.UserOrganizationRemote
 import com.tolstoy.zurichat.util.handleErrorMessage
 import javax.inject.Inject
 
@@ -17,11 +10,9 @@ class UserOrganizationRemoteImpl @Inject constructor(
     private val apiService: OrganizationService
 ) : UserOrganizationRemote {
 
-    override suspend fun getUserOrganization( orgRequestBody: OrgRequestBody): Result<Any> {
+    override suspend fun getUserOrganization(emailAddress:String): Result<Any> {
         return try {
-            println("Request: $orgRequestBody")
-            val res = apiService.getUserOrganizations( authToken = orgRequestBody.authToken, emailAddress = orgRequestBody.emailAddress)
-            println("Res $res")
+            val res = apiService.getUserOrganizations(emailAddress = emailAddress)
             when (res.isSuccessful) {
                 true -> {
                     res.body()?.let {

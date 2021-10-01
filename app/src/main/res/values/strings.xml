@@ -158,6 +158,7 @@
     <string name="vibrate_summary">Vibrate on new messages</string>
     <string name="high_priority_header">High priority Notification</string>
     <string name="high_priority_summary">Display Preview of notification at the top of the screen</string>
+    <string name="dm_notification_channel_name">DM Notification</string>
 
 
     <string name="unread_messages">Unread messages</string>
@@ -254,5 +255,8 @@
     <string name="sign_in">Sign In</string>
     <string name="invite_user">Invite User</string>
     <string name="successful_get_user_org">user organizations retrieved successfully</string>
+    <string name="retrieving_user_org">Retrieving user organization....</string>
+    <string name="starred_messages">Starred Messages</string>
+    <string name="empty_starrred_message_info">Tap and hold on any message \nin any chat to star it, \nso you can easily \nfind it later</string>
 
 </resources>

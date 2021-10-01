@@ -20,24 +20,16 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeScreenFragment : Fragment() {
-
     private lateinit var binding: FragmentHomeScreenBinding
     private lateinit var user : User
     val viewModel: HomeScreenViewModel by viewModels()
 
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
 
-        val bundle = arguments
-        if (bundle != null) {
-            user = bundle.getParcelable("USER")!!
-        }
+        user = requireActivity().intent.extras?.getParcelable("USER")!!
 
         return binding.root
     }
@@ -50,7 +42,7 @@ class HomeScreenFragment : Fragment() {
         val tabs = binding.tabs
         val toolbar = binding.toolbarContainer.toolbar
         val activity = requireActivity() as MainActivity
-        val user = Cache.map["user"] as User
+       // val user = Cache.map["user"] as User
 
         // setup for viewpager2 and tab layout
         viewPager.adapter = viewPagerAdapter
@@ -75,9 +67,14 @@ class HomeScreenFragment : Fragment() {
                     binding.searchContainer.searchTextInputLayout.editText?.requestFocus()
                 }
                 R.id.new_channel -> {
-                    findNavController().navigate(R.id.selectMemberFragment)
+                    try {
+                        findNavController().navigate(HomeScreenFragmentDirections.actionHomeScreenFragmentToNewChannelNavGraph())
+                    }catch (exc:Exception){
+                        exc.printStackTrace()
+                    }
                 }
-                R.id.saved_messages -> {
+                R.id.starred_messages -> {
+                    findNavController().navigate(R.id.action_homeScreenFragment_to_starredMessagesFragment)
                 }
                 R.id.switch_workspace -> {
                     findNavController().navigate(R.id.switchOrganizationFragment)
