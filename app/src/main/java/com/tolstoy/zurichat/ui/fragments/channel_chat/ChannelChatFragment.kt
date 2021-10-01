@@ -1,5 +1,6 @@
 package com.tolstoy.zurichat.ui.fragments.channel_chat
 
+import android.content.Intent
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.InputType
@@ -10,6 +11,7 @@ import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -47,6 +49,7 @@ import com.tolstoy.zurichat.models.OrganizationMember
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.ChannelMessagesDao
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDao
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDataObject
+import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragmentDirections
 import com.tolstoy.zurichat.ui.fragments.networking.AppPublishHandler
 
 
@@ -316,15 +319,53 @@ class ChannelChatFragment : Fragment() {
                 val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                 s.timeZone = TimeZone.getTimeZone("UTC")
                 val time = s.format(Date(System.currentTimeMillis()))
-                val data = Data(generateID().toString(),false,channel._id,channelChatEdit.text.toString(),false,null,null,null,false,false,0,time,"message",user.id)
+                val data = Data(
+                    generateID().toString(),
+                    false,
+                    channel._id,
+                    channelChatEdit.text.toString(),
+                    false,
+                    null,
+                    null,
+                    null,
+                    false,
+                    false,
+                    0,
+                    time,
+                    "message",
+                    user.id
+                )
 
-                channelMsgViewModel.sendMessages(data,organizationID,channel._id,messagesArrayList)
+                channelMsgViewModel.sendMessages(
+                    data,
+                    organizationID,
+                    channel._id,
+                    messagesArrayList
+                )
                 channelChatEdit.text?.clear()
             }
         }
 
         toolbar.setNavigationOnClickListener {
             requireActivity().onBackPressed()
+        }
+
+
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.channel_link -> {
+                    val intent = Intent(Intent.ACTION_SEND)
+                    intent.putExtra(
+                        Intent.EXTRA_TEXT,
+                        "https://api.zuri.chat/organizations/${organizationID}/${channel._id}"
+                    )
+                    intent.type = "text/plain"
+
+                    val shareIntent = Intent.createChooser(intent, null)
+                    startActivity(shareIntent)
+                }
+            }
+            true
         }
     }
 

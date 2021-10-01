@@ -12,14 +12,20 @@
     <item android:id="@+id/new_channel"
         android:title="@string/new_channel"
         android:visible="true"/>
-    <item android:id="@+id/starred_messages"
+    <item
+        android:id="@+id/starred_messages"
         android:title="@string/starred_messages"
-        android:visible="true"/>
-    <item android:id="@+id/switch_workspace"
+        android:visible="true" />
+    <item
+        android:id="@+id/switch_workspace"
         android:title="@string/switch_workspace"
-        android:visible="true"/>
-    <item android:id="@+id/settings"
+        android:visible="true" />
+    <item
+        android:id="@+id/settings"
         android:title="@string/settings"
-        android:visible="true"
-        />
+        android:visible="true" />
+    <item
+        android:id="@+id/invite_link"
+        android:title="@string/invite_link"
+        android:visible="true" />
 </menu>
