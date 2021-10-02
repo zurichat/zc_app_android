@@ -117,7 +117,7 @@ class ChannelChatFragment : Fragment() {
             channel = bundle.getParcelable("Channel")!!
             channelJoined = bundle.getBoolean("Channel Joined")
 //            organizationID = "614679ee1a5607b13c00bcb7"
-            organizationID = preference.getString("ORG_ID", "") ?: ""
+            organizationID = preference.getString("ORG_ID", "614679ee1a5607b13c00bcb7") ?: ""
             uiScope.launch(Dispatchers.IO) {
                 roomDao.getRoomDataWithChannelID(channel._id).let {
                     uiScope.launch(Dispatchers.Main) {
