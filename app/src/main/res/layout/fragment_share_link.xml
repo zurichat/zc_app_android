@@ -1,0 +1,113 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ShareLinkFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/addToOrganizationAppbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="#008B5E">
+
+        <Toolbar
+            android:id="@+id/toolbar_add_to_SL"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:navigationIcon="@drawable/ic_arrow_back">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/next_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:lineSpacingExtra="2sp"
+                    android:text="@string/create_link"
+                    android:textAppearance="@style/next"
+                    android:translationY="-0.8sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/who_else_is"
+        android:layout_width="243dp"
+        android:layout_height="48dp"
+        app:layout_constraintTop_toBottomOf="@id/addToOrganizationAppbar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginStart="84dp"
+        android:gravity="center_horizontal|top"
+        android:text="@string/who_else_is"
+        android:textColor="@color/text_color"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/to_add_team"
+        android:layout_width="249dp"
+        android:layout_height="36dp"
+        app:layout_constraintTop_toBottomOf="@id/who_else_is"
+        app:layout_constraintLeft_toLeftOf="@id/who_else_is"
+        app:layout_constraintRight_toRightOf="@id/who_else_is"
+        android:layout_marginTop="16dp"
+        android:text="@string/generated_link"
+        android:textSize="14sp"
+        android:lineSpacingExtra="1sp"
+        android:translationY="-0.7sp"
+        android:gravity="center_horizontal|top" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/shareALinkButtonSL"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="62dp"
+        android:layout_marginRight="24dp"
+        android:backgroundTint="#008B5E"
+        android:drawableLeft="@drawable/ic_baseline_share_24"
+        android:paddingLeft="110dp"
+        android:text="@string/share_a_link"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/to_add_team" />
+
+    <TextView
+        android:id="@+id/link_generated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/onboarding_black"
+        android:text="https://api.zuri.chat/organizations/${organizationID}"
+        app:layout_constraintEnd_toEndOf="@+id/to_add_team"
+        app:layout_constraintStart_toStartOf="@+id/to_add_team"
+        app:layout_constraintTop_toBottomOf="@+id/to_add_team" />
+
+    <ImageView
+        android:id="@+id/copy_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/ic_copy"
+        app:layout_constraintEnd_toEndOf="@+id/link_generated"
+        app:layout_constraintStart_toStartOf="@+id/link_generated"
+        app:layout_constraintTop_toBottomOf="@+id/link_generated" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
