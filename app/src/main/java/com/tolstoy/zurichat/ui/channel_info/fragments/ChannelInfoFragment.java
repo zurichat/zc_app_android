@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.tolstoy.zurichat.R;
 import com.tolstoy.zurichat.models.Media;
+import com.tolstoy.zurichat.models.OrganizationMember;
 import com.tolstoy.zurichat.models.Participant;
 import com.tolstoy.zurichat.ui.activities.MainActivity;
 import com.tolstoy.zurichat.ui.adapters.MediaAdapter;
@@ -72,7 +73,9 @@ public class ChannelInfoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        bundle = new Bundle();
+        Bundle bundle = getArguments();
+        String channelName = Objects.requireNonNull(bundle).getString("channel_name");
+
         navController = Navigation.findNavController(view);
         media_recyclerView = view.findViewById(R.id.recyclerView);
         participants_recyclerView = view.findViewById(R.id.p_recyclerView);
@@ -80,12 +83,15 @@ public class ChannelInfoFragment extends Fragment {
         channel_name = view.findViewById(R.id.textView_channel_name);
         moreMenuIcon = view.findViewById(R.id.moreMenuIconView);
 
+        channel_name.setText(channelName);
+
         mediaDocs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bundle.putString("title", channel_name.getText().toString());
-                navController.navigate(R.id.action_channelInfoFragment_to_mediaDocsFragment, bundle);
+                //bundle.putString("title", channel_name.getText().toString());
+                //navController.navigate(R.id.action_channelInfoFragment_to_mediaDocsFragment, bundle);
             }
+
         });
 
         initMedia();
@@ -186,7 +192,7 @@ public class ChannelInfoFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+       // ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
     }
 
 }

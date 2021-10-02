@@ -17,6 +17,18 @@ buildscript {
         // in the individual module build.gradle files
     }
 }
+ext {
+    flavors = [
+            staging : [
+                    channelBaseEndpoint : "https://channels.zuri.chat/api/v1/"
+            ],
+
+            production : [
+                    channelBaseEndpoint : "https://channels.zuri.chat/api/v1/"
+
+            ]
+    ]
+}
 
 task clean(type: Delete) {
     delete rootProject.buildDir

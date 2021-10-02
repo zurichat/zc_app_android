@@ -6,10 +6,13 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.tolstoy.zurichat.R;
 import com.tolstoy.zurichat.models.User;
 import com.tolstoy.zurichat.ui.fragments.model.Data;
 import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelMessagesViewModel;
+import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel;
+import com.tolstoy.zurichat.ui.fragments.viewmodel.SharedChannelViewModel;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,7 +25,9 @@ import centrifuge.Subscription;
 
 public class AppPublishHandler implements PublishHandler {
     protected Activity context;
-    private final ChannelMessagesViewModel channelMessagesViewModel;
+    private ChannelMessagesViewModel channelMessagesViewModel;
+    private ChannelViewModel channelViewModel;
+    private SharedChannelViewModel sharedChannelViewModel;
     private final User user;
 
     public AppPublishHandler(Context context, User user, ChannelMessagesViewModel channelMessagesViewModel) {
@@ -31,31 +36,34 @@ public class AppPublishHandler implements PublishHandler {
         this.user = user;
     }
 
+    public AppPublishHandler(Context context, User user, ChannelViewModel channelViewModel) {
+        this.context = (Activity) context;
+        this.channelViewModel = channelViewModel;
+        this.user = user;
+    }
+
+    public AppPublishHandler(Context context, User user, SharedChannelViewModel sharedChannelViewModel) {
+        this.context = (Activity) context;
+        this.sharedChannelViewModel = sharedChannelViewModel;
+        this.user = user;
+    }
+
     @Override
     public void onPublish(final Subscription sub, final PublishEvent event) {
         String dataString = new String(event.getData(), StandardCharsets.UTF_8);
-        try {
-            //TODO: Use Gson for this
-            JSONObject jsonObject = new JSONObject(dataString);
-            String _id = jsonObject.getString("_id");
-            String user_id = jsonObject.getString("user_id");
-            String channel_id = jsonObject.getString("channel_id");
-            String content = jsonObject.getString("content");
-            String type = jsonObject.getString("type");
-            String timestamp = jsonObject.getString("timestamp");
-            //String action = jsonObject.getJSONObject("event").getString("create:message");
+        Data data = new Gson().fromJson(dataString,Data.class);
 
-            boolean has_files = jsonObject.optBoolean("has_files");
-            boolean pinned = jsonObject.optBoolean("has_files");
-            boolean edited = jsonObject.optBoolean("has_files");
-            boolean can_reply = jsonObject.optBoolean("has_files");
-
-            int replies = jsonObject.getInt("replies");
-
-            Data data = new Data(_id,can_reply,channel_id,content,edited,null,null,null,has_files,pinned,replies,timestamp,type,user_id);
+        if (channelMessagesViewModel!=null){
             channelMessagesViewModel.receiveMessage(data);
-        } catch (JSONException e) {
-            e.printStackTrace();
+        }
+
+        if (channelViewModel!=null){
+            channelViewModel.notifyList(data);
+        }
+
+        if (sharedChannelViewModel!=null){
+            sharedChannelViewModel.receiveNewMessage(data);
         }
     }
+
 }

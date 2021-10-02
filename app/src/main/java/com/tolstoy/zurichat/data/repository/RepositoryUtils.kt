@@ -1,6 +1,9 @@
 package com.tolstoy.zurichat.data.repository
 
 import com.tolstoy.zurichat.data.localSource.Cache
+import com.tolstoy.zurichat.models.User
+import com.tolstoy.zurichat.models.organization_model.OrganizationCreator
+import com.tolstoy.zurichat.models.organization_model.OrganizationCreatorIdData
 
 /**
  * @author Jeffrey Orazulike [https://github.com/jeffreyorazulike]
@@ -8,5 +11,9 @@ import com.tolstoy.zurichat.data.localSource.Cache
  */
 
 val auth by lazy {
-    Cache.map.getOrDefault("USER", "").toString()
+    (Cache.map.get("user") as User).token
+}
+
+val orgId by lazy {
+    (Cache.map.get("orgId") as OrganizationCreatorIdData).InsertedID
 }

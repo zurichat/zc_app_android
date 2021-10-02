@@ -2,6 +2,7 @@ package com.tolstoy.zurichat.data.remoteSource
 
 import com.tolstoy.zurichat.models.Message
 import com.tolstoy.zurichat.models.network_response.*
+import com.tolstoy.zurichat.ui.dm_chat.model.response.message.GetMessageResponse
 import retrofit2.http.*
 
 /**
@@ -10,9 +11,8 @@ import retrofit2.http.*
  */
 interface ChatsService {
 
-    @GET("${DM_API}{room_id}/messages")
-    suspend fun getMessages(@Header("Authorization") authToken: String?,
-                            @Path("room_id") roomId: String): GetMessagesResponse
+    @GET("rooms{room_id}/messages")
+    suspend fun getMessages(@Path("room_id") roomId: String): GetMessagesResponse
 
 
     @GET("dmgetmessage/{room_id}/{message_id}")
@@ -20,7 +20,7 @@ interface ChatsService {
                            @Path("room_id") roomId: String,
                            @Path("message_id") messageId: String): Message
 
-    @POST("dmapi/v1/org/6145eee9285e4a18402074cd/rooms/{room_id}/messages")
+    @POST("rooms/{room_id}/messages")
     suspend fun sendMessage(@Header("Authorization") authToken: String?,
                             @Path("room_id") roomId: String,
                             @Body message: Message): SendMessageResponse
@@ -28,7 +28,7 @@ interface ChatsService {
 
 
     companion object {
-        const val BASE_URL = "https://dm.zuri.chat/"
+        const val BASE_URL = "https://dm.zuri.chat/dmapi/v1/org/614679ee1a5607b13c00bcb7/"
         const val DM_API = "dmapi/v1/6145eee9285e4a18402074cd/"
     }
 }
