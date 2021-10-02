@@ -15,7 +15,7 @@ class RoomRepository @Inject constructor(private val service: RoomService) {
     private val roomInfoCache = mutableListOf<RoomInfoResponse>()
 
     suspend fun getRooms(userId: String) = roomsCache.apply {
-        if(isEmpty()) addAll(service.getRooms(auth, userId))
+       // if(isEmpty()) addAll(service.getRooms(userId))
     }
 
     suspend fun getRoomInfo(roomId: String):  RoomInfoResponse {
@@ -25,5 +25,5 @@ class RoomRepository @Inject constructor(private val service: RoomService) {
         }
     }
 
-    suspend fun createRoom(room: CreateRoom) = service.createRoom(auth, room)
+    suspend fun createRoom(room: CreateRoom) = service.createRoom(room)
 }

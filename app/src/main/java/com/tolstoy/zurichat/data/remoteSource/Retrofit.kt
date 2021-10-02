@@ -1,6 +1,9 @@
 package com.tolstoy.zurichat.data.remoteSource
 
+import com.tolstoy.zurichat.data.repository.auth
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -14,7 +17,12 @@ object Retrofit {
     private val interceptor = HttpLoggingInterceptor().also {
         it.level = HttpLoggingInterceptor.Level.BODY
     }
-    private val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
+    private var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
+        val newRequest: Request = chain.request().newBuilder()
+            .addHeader("Authorization", "Bearer $auth")
+            .build()
+        chain.proceed(newRequest)
+    }).build()
 
     fun retrofit(baseUrl: String): Retrofit =
         Retrofit.Builder().baseUrl(baseUrl).client(client)

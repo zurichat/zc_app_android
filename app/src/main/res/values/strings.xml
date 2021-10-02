@@ -258,6 +258,8 @@
     <string name="retrieving_user_org">Retrieving user organization....</string>
     <string name="starred_messages">Starred Messages</string>
     <string name="empty_starrred_message_info">Tap and hold on any message \nin any chat to star it, \nso you can easily \nfind it later</string>
+    <string name="invite_link">Invite Link</string>
+    <string name="channel_invite">Channel Invite</string>
 
     <string name="notification">New Notification</string>
     <string name="notification_channel_description">This is a sample notification channel for demonstration purpose.</string>

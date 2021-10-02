@@ -10,7 +10,7 @@ import javax.inject.Inject
  */
 class ChatsRepository @Inject constructor(private val service: ChatsService) {
 
-    suspend fun getMessages(roomId: String) = service.getMessages(auth,roomId)
+    suspend fun getMessages(roomId: String) = service.getMessages(roomId)
 
     suspend fun getMessage(roomId: String, messageId: String) =
         service.getMessage(auth, roomId, messageId)
