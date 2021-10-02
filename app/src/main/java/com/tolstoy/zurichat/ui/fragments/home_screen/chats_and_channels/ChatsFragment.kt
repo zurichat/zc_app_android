@@ -24,7 +24,21 @@ import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragment
 import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragmentDirections
 import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenViewModel
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChatsAdapter
+import com.tolstoy.zurichat.ui.notification.NotificationUtils
+import com.tolstoy.zurichat.ui.profile.network.Constants
+import com.tolstoy.zurichat.ui.profile.network.ProfileService
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
+import java.util.*
+import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class ChatsFragment : Fragment(R.layout.fragment_chats) {
@@ -33,6 +47,8 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
     private var token: String? = null
     private lateinit var userID: String
 
+    private val mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
+    private var mNotified = false
 
     //variables initialization for new setup
     private lateinit var recyclerView: RecyclerView
@@ -65,6 +81,10 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
 
         ModelPreferencesManager.with(requireContext())
         roomsArrayList = ArrayList()
+
+        if (!mNotified) {
+            NotificationUtils().setNotification(mNotificationTime, requireActivity())
+        }
 
         setupRecyclerView()
 
