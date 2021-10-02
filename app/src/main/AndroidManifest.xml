@@ -18,10 +18,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ZuriChat" >
         <activity
-            android:name=".ui.activities.DocumentSentActivity"
-            android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light" />
-        <activity
             android:name=".ui.activities.DocumentOtions"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.Light" />
@@ -41,6 +37,11 @@
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
         <activity
             android:name=".ui.activities.DocumentsSelectedActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MaterialComponents.Light" />
+        <activity
+            android:name=".ui.activities.DocumentSentActivity"
+
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.Light" />
         <activity
