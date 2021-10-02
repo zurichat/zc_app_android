@@ -1,27 +1,23 @@
 package com.tolstoy.zurichat.di
 
-import DMService
 import android.app.Application
-import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
-import com.tolstoy.zurichat.data.remoteSource.*
-import com.tolstoy.zurichat.ui.organizations.utils.TOKEN_NAME
+import com.tolstoy.zurichat.data.remoteSource.DMService
+import com.tolstoy.zurichat.data.remoteSource.FilesService
+import com.tolstoy.zurichat.data.remoteSource.UsersService
+import com.tolstoy.zurichat.data.remoteSource.hasNetwork
 import com.tolstoy.zurichat.util.RETROFIT_CACHE_SIZE
 import com.tolstoy.zurichat.util.USER_TOKEN
-import com.tolstoy.zurichat.data.remoteSource.Retrofit as RetrofitBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Named
-import javax.inject.Singleton
 
 
 @Module
