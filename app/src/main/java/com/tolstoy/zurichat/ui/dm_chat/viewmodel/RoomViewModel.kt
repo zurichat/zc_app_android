@@ -1,5 +1,6 @@
 package com.tolstoy.zurichat.ui.dm_chat.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -28,8 +29,11 @@ class RoomViewModel(private val repository: Repository) : ViewModel() {
         viewModelScope.launch {
             try {
                 val response = repository.getRooms()
+                Log.d("ViewModel", "$response")
                 myResponse.value = response
             }catch (e : Exception){
+                Log.d("ViewModel", "${e.message}")
+
                 e.printStackTrace()
             }
         }

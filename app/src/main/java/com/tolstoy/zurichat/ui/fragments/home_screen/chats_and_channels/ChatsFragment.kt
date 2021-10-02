@@ -91,17 +91,18 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         viewModelRoom = ViewModelProvider(this, viewModelFactory).get(RoomViewModel::class.java)
         //call retrofit service function
         viewModelRoom.getRooms()
-        viewModelRoom.myResponse.observe(viewLifecycleOwner,  { response ->
+
+        viewModelRoom.myResponse.observe(viewLifecycleOwner) { response ->
             if (response.isSuccessful) {
 
                 roomList = response.body()!!
 
                 Log.i("RoomList response", "$roomList")
 
-              // ModelPreferencesManager.put(roomList, "rooms")
+                // ModelPreferencesManager.put(roomList, "rooms")
 
                 room = roomList[0]
-              //  roomsArrayList.addAll(roomList)
+                //  roomsArrayList.addAll(roomList)
                 roomAdapter.setData(roomList)
 
                 for (room in roomList) {
@@ -113,7 +114,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
 
             } else {
 
-                when(response.code()){
+                when (response.code()) {
                     400 -> {
                         Log.e("Error 400", "invalid authorization")
                     }
@@ -129,7 +130,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
                 }
 
             }
-        })
+        }
 
 
         userID = "61467ee61a5607b13c00bcf2"
