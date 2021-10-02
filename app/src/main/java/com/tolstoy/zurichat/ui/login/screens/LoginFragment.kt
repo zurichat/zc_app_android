@@ -111,6 +111,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         progressDialog.dismiss()
         val bundle = Bundle()
         bundle.putParcelable("USER", user)
+
+        /*
+            if the user is just signed up and logged in and redirect him to an activity
+            where he will create new organization.
+            if the user is not logging in for the first time redirect him to home activity
+        */
         if(prevDest == "fragment_email_verified"){
             val intent = Intent(requireContext(), CreateOrganizationActivity::class.java)
             Cache.map.putIfAbsent("user", user)
@@ -126,7 +132,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         }
         sharedPreferences.edit().putString("TOKEN",user.token).apply()
         Toast.makeText(context, "You have successfully logged in", Toast.LENGTH_LONG).show()
-        //Toast.makeText(context, prevDest, Toast.LENGTH_LONG).show()
         ZuriSharePreference(requireContext()).setString("TOKEN", user.token)
     }
 
