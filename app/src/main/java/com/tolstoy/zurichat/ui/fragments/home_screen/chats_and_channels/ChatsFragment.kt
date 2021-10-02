@@ -1,27 +1,18 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
-import com.tolstoy.zurichat.data.remoteSource.RoomService
 import com.tolstoy.zurichat.databinding.FragmentChatsBinding
-import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.Message
-import com.tolstoy.zurichat.models.Room
 import com.tolstoy.zurichat.models.User
-import com.tolstoy.zurichat.ui.dm.response.RoomListResponse
 import com.tolstoy.zurichat.ui.dm_chat.adapter.RoomAdapter
 import com.tolstoy.zurichat.ui.dm_chat.model.response.room.RoomsListResponse
 import com.tolstoy.zurichat.ui.dm_chat.model.response.room.RoomsListResponseItem
@@ -48,6 +39,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import java.util.*
 import kotlin.collections.ArrayList
+import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ChatsFragment : Fragment(R.layout.fragment_chats) {
@@ -87,6 +79,8 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         recyclerView = binding.listChats
         val recyclerView2 = view.findViewById<RecyclerView>(R.id.list_chats)
         user = requireActivity().intent.extras?.getParcelable("USER")!!
+
+        ModelPreferencesManager.with(requireContext())
         roomsArrayList = ArrayList()
 
         if (!mNotified) {
@@ -107,7 +101,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
 
                 Log.i("RoomList response", "$roomList")
 
-              // ModelPreferencesManager.put(roomList, "rooms")
+                ModelPreferencesManager.put(roomList, "rooms")
 
                 room = roomList[0]
               //  roomsArrayList.addAll(roomList)
@@ -167,7 +161,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
 
     override fun onResume() {
         super.onResume()
-       // ModelPreferencesManager.get<RoomsListResponse>("room")
+        ModelPreferencesManager.get<RoomsListResponse>("room")
 
     }
 
