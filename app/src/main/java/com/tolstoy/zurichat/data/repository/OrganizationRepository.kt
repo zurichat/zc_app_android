@@ -4,6 +4,7 @@ import android.content.SharedPreferences
 import com.tolstoy.zurichat.data.remoteSource.UsersService
 import com.tolstoy.zurichat.models.organization_model.OrganizationCreator
 import com.tolstoy.zurichat.models.organization_model.OrganizationCreatorResponse
+import com.tolstoy.zurichat.util.ORG_ID
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
