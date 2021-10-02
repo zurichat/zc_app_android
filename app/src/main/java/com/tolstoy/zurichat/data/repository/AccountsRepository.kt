@@ -16,5 +16,9 @@ class AccountsRepository (private val accountsDao: AccountsDao){
         accountsDao.updateUser(user)
     }
 
+     fun getCurUser():LiveData<User?>{
+        return accountsDao.getUser()
+    }
+
 
 }

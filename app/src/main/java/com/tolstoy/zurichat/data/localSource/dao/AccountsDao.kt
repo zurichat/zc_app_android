@@ -15,4 +15,7 @@ interface AccountsDao {
 
     @Query("SELECT * FROM users WHERE currentUser = 0 ")
     fun readAllData(): LiveData<List<User>>
+
+    @Query("SELECT * FROM users WHERE currentUser = 1")
+    fun getUser(): LiveData<User?>
 }
