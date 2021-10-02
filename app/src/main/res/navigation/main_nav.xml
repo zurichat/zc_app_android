@@ -9,6 +9,7 @@
     because the flow is register, login, create or access workspace, before going to the chat section,
    -->
     <!--app:startDestination="@id/homeScreenFragment""-->
+    <!--app:startDestination="@id/createOrganizationsFragment"-->
 
     <fragment
         android:id="@+id/dmFragment"
