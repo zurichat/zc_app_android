@@ -14,7 +14,8 @@ data class Data(
     val replies: Int?,
     val timestamp: String?,
     val type: String?,
-    val user_id: String?
+    val user_id: String?,
+    var profile_url: String? = null
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
