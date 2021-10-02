@@ -3,8 +3,13 @@ package com.tolstoy.zurichat.ui.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.OrgListItemBinding
 import com.tolstoy.zurichat.models.network_response.UserOrganizationModel
 
@@ -46,7 +51,8 @@ class SwitchUserOrganizationAdapter(
             item.orgDescription.text = org.no_of_members.toString() + " Members"
             Glide.with(context).load(org.logo_url).into(item.orgImg)
             item.joinSignInButton.setOnClickListener {
-                onClickListener?.invoke(org)
+                val bundle = bundleOf("org_name" to org.name)
+                Navigation.findNavController(item.root).navigate(R.id.homeScreenFragment, bundle)
             }
         }
     }

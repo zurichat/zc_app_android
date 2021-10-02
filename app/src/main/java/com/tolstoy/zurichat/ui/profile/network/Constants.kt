@@ -8,6 +8,7 @@ import android.os.Build
 object Constants {
 
     const val BASE_URL: String = "https://api.zuri.chat/"
+    const val BASE_URL1: String = "https://dm.zuri.chat/api/v1/org/614679ee1a5607b13c00bcb7/"
 
     //Ensure the phone has internet connectivity. Make sure internet is turn on.
     fun isNetworkAvailable(context: Context) : Boolean {

@@ -46,20 +46,21 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
             addFromContactsButton
             addToOrganizationAppbar
             shareALinkButton.setOnClickListener {
-                        val intent = Intent(Intent.ACTION_SEND)
-                        intent.putExtra(
-                            Intent.EXTRA_TEXT,
-                            "https://api.zuri.chat/organizations/${organizationId}"
-                        )
-                        intent.type = "text/plain"
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.putExtra(
+                    Intent.EXTRA_TEXT,
+                    "https://api.zuri.chat/organizations/${organizationId}"
+                )
+                intent.type = "text/plain"
 
-                        val shareIntent = Intent.createChooser(intent, null)
-                        startActivity(shareIntent)
-                    }
+                val shareIntent = Intent.createChooser(intent, null)
+                startActivity(shareIntent)
+            }
         }
 
         binding.nextTextView.setOnClickListener {
-           Navigation.findNavController(it).navigate(R.id.action_nextFragment_to_seeYourChannelFragment)
+            val bundle = bundleOf("org_name" to organizationName)
+            Navigation.findNavController(it).navigate(R.id.action_nextFragment_to_seeYourChannelFragment, bundle)
         }
     }
 
