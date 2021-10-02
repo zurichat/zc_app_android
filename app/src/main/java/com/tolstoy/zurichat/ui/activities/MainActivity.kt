@@ -22,9 +22,9 @@ import androidx.core.content.ContextCompat
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ActivityMainBinding
 import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragment
+import com.tolstoy.zurichat.ui.notification.NotificationService
 import com.tolstoy.zurichat.ui.notification.NotificationUtils
 import com.tolstoy.zurichat.ui.settings.SettingsActivity
-import com.tolstoy.zurichat.ui.settings.notification.NotificationService
 import com.tolstoy.zurichat.util.setUpApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     var notification_message: String = "Notification"
 
     private val mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
-    private var mNotified = true
+    private var mNotified = false
 
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
