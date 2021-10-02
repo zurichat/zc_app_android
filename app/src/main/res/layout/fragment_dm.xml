@@ -17,14 +17,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:logo="@drawable/dmuser"
+        app:logo="@drawable/image_channel"
         app:menu="@menu/dm_chat"
         app:navigationIcon="@drawable/ic_back"
         app:navigationIconTint="@android:color/white"
         app:subtitle="online"
-        app:subtitleTextColor="@android:color/white"
+        app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
+        app:subtitleTextColor="@color/white"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
         app:title="John Doe Felix"
-        app:titleMarginStart="25dp"
+        app:titleMarginStart="32dp"
         app:titleTextColor="@android:color/white" />
 
     <View
