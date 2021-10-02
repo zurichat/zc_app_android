@@ -5,7 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tolstoy.zurichat.data.localSource.Cache
-import com.tolstoy.zurichat.data.repository.RoomRepository
+import com.tolstoy.zurichat.data.remoteSource.retrieve
+import com.tolstoy.zurichat.data.repository.DMRepository
 import com.tolstoy.zurichat.models.Room
 import com.tolstoy.zurichat.models.User
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +18,7 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class HomeScreenViewModel
-@Inject constructor(private val roomsRepository: RoomRepository): ViewModel() {
+@Inject constructor(private val dmRepository: DMRepository): ViewModel() {
     val searchQuery = MutableLiveData<String>()
 
     val user by lazy { Cache.map["user"] as? User }
@@ -27,13 +28,9 @@ class HomeScreenViewModel
     private val _userRooms = MutableLiveData<List<Room>>()
 
 
-    fun getRooms(){
-        viewModelScope.launch {
-            try {
-                _userRooms.value = roomsRepository.getRooms(userId = "61467ee61a5607b13c00bcf2") //userId = user!!.id
-            }catch (exception: Exception){
-                exception.printStackTrace()
-            }
-        }
+    fun getRooms() = viewModelScope.launch {
+        val result = dmRepository.getRooms(userId = "61467ee61a5607b13c00bcf2").retrieve(null)?.let{
+            _userRooms.value = it
+        } //userId = user!!.id
     }
 }

@@ -1,22 +1,14 @@
 package com.tolstoy.zurichat.ui.dm
 
 import android.app.Application
-import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.*
-import com.tolstoy.zurichat.data.localSource.Cache
-import com.tolstoy.zurichat.data.repository.ChatsRepository
 import com.tolstoy.zurichat.data.repository.FilesRepository
-import com.tolstoy.zurichat.data.repository.RoomRepository
 import com.tolstoy.zurichat.models.Message
-import com.tolstoy.zurichat.models.Room
-import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.models.network_response.CreateRoom
-import com.tolstoy.zurichat.models.network_response.CreateRoomResponse
 import com.tolstoy.zurichat.models.network_response.FileUploadResponse
 import com.tolstoy.zurichat.models.network_response.SendMessageResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
