@@ -28,10 +28,13 @@ class LoginActivity : AppCompatActivity() {
         setUpApplicationTheme(this)
 
         //internet connection
-        internetConnection()
         internetConnectionChecking()
     }
 
+    override fun onStart() {
+        internetConnection()
+        super.onStart()
+    }
 
     //Internet Connectivity checking on starting the app
     private fun internetConnection()
