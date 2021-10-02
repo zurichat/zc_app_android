@@ -7,8 +7,9 @@ import androidx.navigation.Navigation
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentCreateOrganizationsBinding
 import com.tolstoy.zurichat.util.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class CreateOrganizationsFragment : Fragment(R.layout.fragment_create_organizations) {
 
     private val binding by viewBinding(FragmentCreateOrganizationsBinding::bind)
