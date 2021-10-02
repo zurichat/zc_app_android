@@ -1,10 +1,12 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
@@ -18,6 +20,7 @@ import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.activities.MainActivity
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeScreenFragment : Fragment() {
@@ -27,6 +30,8 @@ class HomeScreenFragment : Fragment() {
     private lateinit var organizationID: String
 
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
+    @Inject
+    lateinit var preference : SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
@@ -46,6 +51,15 @@ class HomeScreenFragment : Fragment() {
         val toolbar = binding.toolbarContainer.toolbar
         val activity = requireActivity() as MainActivity
        // val user = Cache.map["user"] as User
+
+        val prevDest = findNavController().previousBackStackEntry
+            ?.destination?.label.toString()
+
+        if (prevDest == "switch_organization" || prevDest == "fragment_see_your_channel"){
+            binding.toolbarContainer.toolbar.setTitle(arguments?.getString("org_name"))
+        }
+
+        //Toast.makeText(context, preference.getString("ORG_ID", null).toString(), Toast.LENGTH_SHORT).show()
 
         // setup for viewpager2 and tab layout
         viewPager.adapter = viewPagerAdapter
