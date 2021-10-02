@@ -1,9 +1,11 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -11,7 +13,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tolstoy.zurichat.R
-import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.FragmentHomeScreenBinding
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.activities.MainActivity
@@ -20,24 +21,18 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeScreenFragment : Fragment() {
-
     private lateinit var binding: FragmentHomeScreenBinding
     private lateinit var user : User
     val viewModel: HomeScreenViewModel by viewModels()
+    private lateinit var organizationID: String
 
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
 
-        val bundle = arguments
-        if (bundle != null) {
-            user = bundle.getParcelable("USER")!!
-        }
+        user = requireActivity().intent.extras?.getParcelable("USER")!!
+        organizationID = "614679ee1a5607b13c00bcb7"
 
         return binding.root
     }
@@ -50,7 +45,7 @@ class HomeScreenFragment : Fragment() {
         val tabs = binding.tabs
         val toolbar = binding.toolbarContainer.toolbar
         val activity = requireActivity() as MainActivity
-        val user = Cache.map["user"] as User
+       // val user = Cache.map["user"] as User
 
         // setup for viewpager2 and tab layout
         viewPager.adapter = viewPagerAdapter
@@ -75,12 +70,29 @@ class HomeScreenFragment : Fragment() {
                     binding.searchContainer.searchTextInputLayout.editText?.requestFocus()
                 }
                 R.id.new_channel -> {
-                    findNavController().navigate(R.id.selectMemberFragment)
+                    try {
+                        findNavController().navigate(HomeScreenFragmentDirections.actionHomeScreenFragmentToNewChannelNavGraph())
+                    } catch (exc: Exception) {
+                        exc.printStackTrace()
+                    }
                 }
-                R.id.saved_messages -> {
+                R.id.starred_messages -> {
+                    findNavController().navigate(R.id.action_homeScreenFragment_to_starredMessagesFragment)
                 }
                 R.id.switch_workspace -> {
-                    findNavController().navigate(R.id.action_homeScreenFragment_to_switchOrganizationFragment)
+                    val bundle = bundleOf("email" to user.email)
+                    findNavController().navigate(R.id.switchOrganizationFragment, bundle)
+                }
+                R.id.invite_link -> {
+                    val intent = Intent(Intent.ACTION_SEND)
+                    intent.putExtra(
+                        Intent.EXTRA_TEXT,
+                        "https://api.zuri.chat/organizations/${organizationID}"
+                    )
+                    intent.type = "text/plain"
+
+                    val shareIntent = Intent.createChooser(intent, null)
+                    startActivity(shareIntent)
                 }
             }
             true

@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/createOrganizationsFragment"
+    app:startDestination="@id/homeScreenFragment"
     >
-
-  <!--Add this to  start from homeScreen app:startDestination="@id/homeScreenFragment"-->
+    <!--app:startDestination="@id/createOrganizationsFragment"-->
+    <!--app:startDestination="@id/createOrganizationsFragment"-->
 
 
     <fragment
@@ -151,6 +151,15 @@
         <action
             android:id="@+id/action_global_dmFragment"
             app:destination="@id/dmFragment" />
+
+        <action
+            android:id="@+id/action_channelChatFragment_to_channel_info_nav_graph"
+            app:destination="@id/channel_info_nav_graph">
+            <argument
+                android:name="channel_name"
+                app:argType="string" />
+        </action>
+
     </navigation>
 
     <fragment
@@ -176,6 +185,9 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_switchOrganizationFragment"
             app:destination="@id/switchOrganizationFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_starredMessagesFragment"
+            app:destination="@id/starredMessagesFragment" />
     </fragment>
 
     <activity
@@ -192,6 +204,11 @@
         android:id="@+id/addChannelFragment"
         android:name="com.tolstoy.zurichat.ui.add_channel.AddChannelFragment"
         android:label="AddChannelFragment" />
+
+    <fragment
+        android:id="@+id/mentionFragment"
+        android:name="com.tolstoy.zurichat.ui.fragments.mentions.MentionsFragment"
+        android:label="MentionFragment" />
 
     <fragment
         android:id="@+id/chatsFragment"
@@ -265,6 +282,21 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment android:id="@+id/switchOrganizationFragment"
+        android:name="com.tolstoy.zurichat.ui.organizations.ui.SwitchOrganizationsFragment"
         tools:layout="@layout/fragment_switch_organizations"
-        android:label="switch_organization"/>
+        android:label="switch_organization">
+        <action
+            android:id="@+id/action_switchOrganizationFragment_to_homeScreenFragment"
+            app:destination="@id/homeScreenFragment" />
+        <action
+            android:id="@+id/action_switchOrganizationFragment_to_dmFragment"
+            app:destination="@id/dmFragment" />
+    </fragment>
+
+    <include app:graph="@navigation/channel_info_nav_graph" />
+    <fragment
+        android:id="@+id/starredMessagesFragment"
+        android:name="com.tolstoy.zurichat.ui.fragments.starred_messages.StarredMessagesFragment"
+        android:label="fragment_starred_messages"
+        tools:layout="@layout/fragment_starred_messages" />
 </navigation>

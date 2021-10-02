@@ -1,6 +1,7 @@
 package com.tolstoy.zurichat.ui.newchannel.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
@@ -8,41 +9,38 @@ import androidx.core.os.bundleOf
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentSelectNewChannelBinding
-import com.tolstoy.zurichat.models.User
+import com.tolstoy.zurichat.models.OrganizationMember
 import com.tolstoy.zurichat.ui.adapters.NewChannelAdapter
 import com.tolstoy.zurichat.ui.newchannel.SelectNewChannelViewModel
 import com.tolstoy.zurichat.ui.newchannel.states.SelectNewChannelViewState
 import com.tolstoy.zurichat.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) {
 
     private val binding by viewBinding(FragmentSelectNewChannelBinding::bind)
-    var user:User?= null
-    lateinit var userList: List<User>
+    var user: OrganizationMember?= null
+    lateinit var userList: List<OrganizationMember>
     private val adapter = NewChannelAdapter(this)
     private  val viewModel: SelectNewChannelViewModel by viewModels()
-
+    private var endPointLoadingState: SelectNewChannelViewState<String> = SelectNewChannelViewState.Empty
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
 
-        viewModel.getListOfUsers()
-
         setUpViews()
         initAdapter()
         observeUsersList()
+        viewModel.getListOfUsers()
+        observeEndPointLoading()
 
     }
     private fun setUpViews() {
@@ -66,7 +64,7 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
             }
 
             toolbar.setNavigationOnClickListener {
-                requireActivity().finish()
+               findNavController().navigateUp()
             }
 
             userListProgressBar.visibility = View.VISIBLE
@@ -96,29 +94,41 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
             it.adapter = adapter
             it.layoutManager = LinearLayoutManager(context)
         }
-
     }
 
-    private fun observeUsersList () {
+    private fun observeUsersList() {
         lifecycleScope.launchWhenStarted {
 
             viewModel._users.collect {
                 when(it) {
                     is SelectNewChannelViewState.Success -> {
-                        adapter.list = it.data.data
+
+                        adapter.list = it.data
                         adapter.notifyDataSetChanged()
-                        userList = it.data.data
+                        userList = it.data
                         binding.userListProgressBar.visibility = View.GONE
                         binding.numberOfContactsTxt.text =
-                            "${it.data.data.size} ${getString(R.string.select_members_)}"
+                            "${it.data.size} ${getString(R.string.members)}"
                     }
                     is SelectNewChannelViewState.Error -> {
                         binding.userListProgressBar.visibility = View.GONE
-                        Toast.makeText(requireContext(),"${it.error}", Toast.LENGTH_LONG).show(
-
-
-                        )
+                        Toast.makeText(requireContext(),"${it.error}", Toast.LENGTH_LONG).show()
                     }
+                    is SelectNewChannelViewState.Empty -> {
+                        binding.userListProgressBar.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
+
+    }
+    private fun observeEndPointLoading() {
+        lifecycleScope.launchWhenStarted {
+            viewModel._endPointResult.collect {
+                endPointLoadingState = it
+                if ( it is SelectNewChannelViewState.Error) {
+                    Toast.makeText(requireContext(),"Error in Loading data from server", Toast.LENGTH_LONG)
+                        .show()
                 }
             }
         }

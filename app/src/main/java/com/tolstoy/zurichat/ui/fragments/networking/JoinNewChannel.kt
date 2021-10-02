@@ -23,4 +23,7 @@ interface JoinNewChannel {
     //Endpoint to get centrifugo room
     @GET("v1/{org_id}/channels/{channel_id}/socket/")
     suspend fun getRoom(@Path("org_id") organizationId : String, @Path("channel_id") channelId : String): RoomData
+
+    @GET("v1/{org_id}/channels/{channel_id}/socket/")
+    fun getRoomData(@Path("org_id") organizationId : String, @Path("channel_id") channelId : String): RoomData
 }
