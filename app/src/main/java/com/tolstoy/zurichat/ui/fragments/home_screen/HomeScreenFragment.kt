@@ -1,12 +1,13 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
@@ -16,66 +17,73 @@ import com.tolstoy.zurichat.databinding.FragmentHomeScreenBinding
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.activities.MainActivity
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
+import com.tolstoy.zurichat.util.changeVisibility
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeScreenFragment : Fragment() {
+class HomeScreenFragment : Fragment(R.layout.fragment_home_screen) {
 
-    private lateinit var binding: FragmentHomeScreenBinding
-    val viewModel: HomeScreenViewModel by viewModels()
+    lateinit var binding: FragmentHomeScreenBinding
+    val viewModel: HomeScreenViewModel by activityViewModels()
 
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewPagerAdapter = HomeFragmentPagerAdapter(childFragmentManager, lifecycle)
-        val viewPager = binding.pager
-        val tabs = binding.tabs
-        val toolbar = binding.toolbarContainer.toolbar
+        binding = FragmentHomeScreenBinding.bind(view)
+        setupUI()
+        setupObservers()
+    }
 
+    private fun setupUI() = with(binding){
         // setup for viewpager2 and tab layout
-        viewPager.adapter = viewPagerAdapter
-        viewPager.offscreenPageLimit = 2
+        pager.also{
+            it.adapter = HomeFragmentPagerAdapter(childFragmentManager, lifecycle)
+            it.offscreenPageLimit = tabTitles.size
+        }
+
+        searchContainer.searchTextInputLayout.also {
+            it.setStartIconOnClickListener {
+                changeVisibility(View.GONE, searchContainer.root)
+            }
+            it.editText?.doOnTextChanged { text, _, _, _ ->
+                viewModel.searchQuery.postValue(text.toString())
+            }
+        }
+
+        toolbarContainer.toolbar.setOnMenuItemClickListener { menuItem ->
+            when(menuItem.itemId){
+                R.id.settings -> findNavController().navigate(R.id.settingsActivity)
+                R.id.search -> searchContainer.also {
+                    it.root.isVisible = true
+                    it.searchTextInputLayout.editText?.requestFocus()
+                }
+                R.id.new_channel -> findNavController().navigate(R.id.action_homeScreenFragment_to_new_channel_nav_graph)
+                R.id.saved_messages -> {
+                }
+                R.id.switch_workspace ->
+                    findNavController().navigate(R.id.action_homeScreenFragment_to_switchOrganizationFragment)
+            }
+            true
+        }
 
         // attaches the viewpager to the tabs layout
-        TabLayoutMediator(tabs, viewPager) { tab, position ->
+        TabLayoutMediator(tabs, pager) { tab, position ->
             tab.text = resources.getString(
                 tabTitles[position]
             )
         }.attach()
-
-        toolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.settings -> {
-                    findNavController().navigate(R.id.settingsActivity)
-                }
-                R.id.search -> {
-                    binding.searchContainer.root.isVisible = true
-                    binding.searchContainer.searchTextInputLayout.editText?.requestFocus()
-                }
-                R.id.new_channel -> {
-                    findNavController().navigate(R.id.selectMemberFragment)
-                }
-                R.id.saved_messages -> {
-                }
-                R.id.switch_workspace -> {
-                    findNavController().navigate(R.id.action_homeScreenFragment_to_switchOrganizationFragment)
-                }
-            }
-            true
-        }
-        binding.searchContainer.searchTextInputLayout.setStartIconOnClickListener {
-            binding.searchContainer.root.isVisible = false
-        }
-
-        binding.searchContainer.searchTextInputLayout.editText?.doOnTextChanged { text, start, before, count ->
-            viewModel.searchQuery.postValue(text.toString())
-        }
     }
 
-    private fun setupUI() = with(binding){
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 
+    private fun setupObservers() = with(viewModel){
+        error.observe(viewLifecycleOwner){
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }
     }
 
     /**private fun processSearch(item: MenuItem?) {
@@ -108,4 +116,7 @@ class HomeScreenFragment : Fragment() {
     }
      */
 
+    companion object{
+        val TAG = HomeScreenFragment::class.simpleName
+    }
 }

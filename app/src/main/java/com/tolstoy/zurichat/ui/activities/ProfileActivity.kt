@@ -46,7 +46,7 @@ open class ProfileActivity: AppCompatActivity() {
     private lateinit var savedAbout : TextView
 
     @Inject
-    private lateinit var preferences: SharedPreferences
+    lateinit var preferences: SharedPreferences
 
     private lateinit var orgMemId: String
     private lateinit var memId: String

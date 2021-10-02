@@ -6,11 +6,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.databinding.ListItemSelectMember2Binding
+import com.tolstoy.zurichat.models.OrganizationMember
 
-class SelectedMemberAdapter(private val user:(User) -> Unit) :
+class SelectedMemberAdapter(private val user:(OrganizationMember) -> Unit) :
 RecyclerView.Adapter<SelectedMemberAdapter.SelectedViewHolder>(){
 
-    var selectedUserList = listOf<User>()
+    var selectedUserList = listOf<OrganizationMember>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectedViewHolder {
 
@@ -36,11 +37,11 @@ RecyclerView.Adapter<SelectedMemberAdapter.SelectedViewHolder>(){
     inner class SelectedViewHolder(val binding: ListItemSelectMember2Binding):
         RecyclerView.ViewHolder(binding.root) {
 
-         fun bind(user: User) {
+         fun bind(member: OrganizationMember) {
              binding.imageChatUser.setImageResource(R.drawable.ic_kolade_icon)
-             binding.nameOfContact.text = if(user.first_name.isEmpty() && user.last_name.isEmpty())
+             binding.nameOfContact.text = if(member.firstName.isEmpty() && member.lastName.isEmpty())
                  "No name"
-             else "${user.first_name} ${user.last_name}"
+             else "${member.firstName} ${member.lastName}"
          }
         }
 

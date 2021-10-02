@@ -16,6 +16,7 @@ import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentChannelsBinding
 import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.User
+import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragment
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChannelAdapter
 import com.tolstoy.zurichat.ui.fragments.home_screen.diff_utils.ChannelDiffUtil
 import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
@@ -186,6 +187,18 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
             viewModel.getChannelsList(organizationID)
         }
         snack.show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (parentFragment as HomeScreenFragment).binding.toolbarContainer
+            .toolbar.menu.findItem(R.id.new_channel).isVisible = true
+    }
+
+    override fun onPause() {
+        (parentFragment as HomeScreenFragment).binding.toolbarContainer
+            .toolbar.menu.findItem(R.id.new_channel).isVisible = false
+        super.onPause()
     }
 
 }

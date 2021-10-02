@@ -8,3 +8,5 @@ const val USER_TOKEN: String = "com.tolstoy.zurichat.values.auth_token"
 const val USER_ID: String = "com.tolstoy.zurichat.values.user_id"
 const val USER_EMAIL: String = "com.tolstoy.zurichat.values.user_email"
 const val ORG_ID: String = "com.tolstoy.zurichat.values.organization_id"
+
+const val RETROFIT_CACHE_SIZE = 10L * 1024 * 1024

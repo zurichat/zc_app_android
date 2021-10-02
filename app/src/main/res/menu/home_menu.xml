@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
@@ -9,9 +10,10 @@
         android:icon="@drawable/ic_search"
         android:title="@string/search"
         app:showAsAction="always|collapseActionView" />
-    <item android:id="@+id/new_channel"
+    <item
+        android:id="@+id/new_channel"
         android:title="@string/new_channel"
-        android:visible="true"/>
+        android:visible="false" />
     <item android:id="@+id/saved_messages"
         android:title="@string/saved_messages"
         android:visible="true"/>

@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/member_label"
+        android:id="@+id/text_add_member_f_a_c"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
@@ -28,7 +28,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="36dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/member_label"
+        app:layout_constraintTop_toBottomOf="@+id/text_add_member_f_a_c"
         app:srcCompat="@drawable/ic_profile_remove" />
 
     <ImageView

@@ -9,10 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ListItemSelectMemberBinding
 import com.tolstoy.zurichat.models.MembersData
+import com.tolstoy.zurichat.models.OrganizationMember
 
 import com.tolstoy.zurichat.models.User
 
-class SelectMemberAdapter(private val user: (User) -> Unit):
+class SelectMemberAdapter(private val member: (OrganizationMember) -> Unit):
 
     RecyclerView.Adapter<SelectMemberAdapter.SelectMemberViewModel>(), Filterable {
     private var members = listOf<MembersData>()
@@ -23,8 +24,8 @@ class SelectMemberAdapter(private val user: (User) -> Unit):
         notifyDataSetChanged()
     }
 
-    lateinit var list: List<User>
-    private val _list: List<User> by lazy { list }
+    lateinit var list: List<OrganizationMember>
+    private val _list: List<OrganizationMember> by lazy { list }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectMemberViewModel {
         val binding = ListItemSelectMemberBinding.inflate(
@@ -37,8 +38,7 @@ class SelectMemberAdapter(private val user: (User) -> Unit):
         holder.apply{
             bind(list[position])
             itemView.setOnClickListener {
-                user(list[position])
-
+                member(list[position])
             }
         }
     }
@@ -49,12 +49,12 @@ class SelectMemberAdapter(private val user: (User) -> Unit):
 
     inner class SelectMemberViewModel(val binding: ListItemSelectMemberBinding): RecyclerView.ViewHolder(binding.root){
 
-        fun bind(user: User) {
-            binding.channelItemPersonNameTxt.text = if(user.first_name.isEmpty() && user.last_name.isEmpty())
+        fun bind(member: OrganizationMember) {
+            binding.channelItemPersonNameTxt.text = if(member.displayName.isBlank())
                 "No name"
-            else "${user.first_name} ${user.last_name}"
+            else "${member.displayName}"
             binding.channelItemPersonIcon.setImageResource(R.drawable.ic_kolade_icon)
-            binding.channelItemMessageTxt.text = user.email
+            binding.channelItemMessageTxt.text = member.email
         }
     }
 
@@ -64,10 +64,10 @@ class SelectMemberAdapter(private val user: (User) -> Unit):
 
     val _filter = object : Filter(){
         override fun performFiltering(constraint: CharSequence?): FilterResults {
-            val filterList = mutableListOf<User>()
+            val filterList = mutableListOf<OrganizationMember>()
 
             for(i in _list) {
-                if("${i.first_name}${i.last_name}".contains(constraint?:"",true)) {
+                if("${i.firstName}${i.lastName}".contains(constraint?:"",true)) {
                     filterList.add(i)
                 }
             }
@@ -85,13 +85,13 @@ class SelectMemberAdapter(private val user: (User) -> Unit):
         }
 
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-            val resultList = results?.values as MutableList<User>
+            val resultList = results?.values as MutableList<OrganizationMember>
 
             if (resultList.isEmpty()) {
                 list = _list
                 notifyDataSetChanged()
             } else {
-                list = results.values as MutableList<User>
+                list = results.values as MutableList<OrganizationMember>
                 notifyDataSetChanged()
             }
 

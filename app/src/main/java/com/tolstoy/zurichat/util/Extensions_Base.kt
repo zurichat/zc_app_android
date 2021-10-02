@@ -1,12 +1,14 @@
 package com.tolstoy.zurichat.util
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.util.Log
 import android.util.Patterns
 import org.jsoup.Jsoup
 import retrofit2.Call
 import timber.log.Timber
 
-/**
+/*
  * @author Jeffrey Orazulike [chukwudumebiorazulike@gmail.com]
  * Created 02-Sep-21 at 7:56 PM
  */
@@ -26,3 +28,12 @@ suspend fun String.getWebsiteMetadata() = try {
     Timber.d("getWebsiteMetadata: after get $result")
     result
 } catch (exception: Exception) { null }
+
+fun Context.hasNetwork(): Boolean{
+    var isConnected = false
+    val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val activeNetwork = connectivityManager.activeNetworkInfo
+    if(activeNetwork != null && activeNetwork.isConnected)
+        isConnected = true
+    return isConnected
+}
