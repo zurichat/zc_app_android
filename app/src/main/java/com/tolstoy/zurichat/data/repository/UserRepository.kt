@@ -8,6 +8,7 @@ import com.tolstoy.zurichat.models.*
 import com.tolstoy.zurichat.util.AUTH_PREF_KEY
 import javax.inject.Inject
 import kotlinx.coroutines.flow.flow
+import retrofit2.Response
 
 class UserRepository @Inject constructor(
     private val usersService: UsersService,
@@ -24,12 +25,20 @@ class UserRepository @Inject constructor(
 
     }
 
+    suspend fun logout(): Response<LogoutResponse> {
+        return usersService.logout()
+    }
+
     fun saveUserAuthState(value: Boolean) {
         preferences.edit().putBoolean(AUTH_PREF_KEY, value).apply()
     }
 
     fun getUserAuthState(): Boolean {
         return preferences.getBoolean(AUTH_PREF_KEY, false)
+    }
+
+    fun clearUserAuthState() {
+        preferences.edit().putBoolean(AUTH_PREF_KEY, false).apply()
     }
 
     suspend fun saveUser(user: User) = dao.saveUser(user)
