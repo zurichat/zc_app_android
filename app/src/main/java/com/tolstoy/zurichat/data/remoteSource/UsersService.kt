@@ -41,6 +41,9 @@ interface UsersService {
     @GET("organizations/{organization_id}/members/{member_id}")
     fun getMember(@Path("organization_id") org_id: String,
                   @Path("member_id") member_id: String): Call<OrganizationMember>
+
+    @POST("auth/logout")
+    suspend fun logout(): Response<LogoutResponse>
 }
 
 

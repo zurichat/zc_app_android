@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
@@ -15,10 +16,14 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.FragmentHomeScreenBinding
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.activities.MainActivity
+import com.tolstoy.zurichat.ui.fragments.UserViewModel
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
+import com.tolstoy.zurichat.ui.login.LoginViewModel
+import com.tolstoy.zurichat.util.Result
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -27,6 +32,8 @@ class HomeScreenFragment : Fragment() {
     lateinit var binding: FragmentHomeScreenBinding
     private lateinit var user: User
     val viewModel: HomeScreenViewModel by viewModels()
+    val userViewModel: LoginViewModel by viewModels()
+    private val ViewModel by viewModels<UserViewModel>()
     private lateinit var organizationID: String
     private lateinit var organizationName: String
 
@@ -34,6 +41,7 @@ class HomeScreenFragment : Fragment() {
     private val ORG_NAME = "org_name"
     private val ORG_ID = "org_id"
     private lateinit var sharedPref: SharedPreferences
+
 
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
 
@@ -128,11 +136,19 @@ class HomeScreenFragment : Fragment() {
                     findNavController().navigate(R.id.action_homeScreenFragment_to_starredMessagesFragment)
                 }
                 R.id.switch_workspace -> {
-                    val bundle = bundleOf("email" to user.email)
+                    val bundle = bundleOf("email" to user?.email)
                     findNavController().navigate(R.id.switchOrganizationFragment, bundle)
                 }
                 R.id.invite_link -> {
                     findNavController().navigate(R.id.action_homeScreenFragment_to_shareLinkFragment)
+                }
+                R.id.logout -> {
+                    logout()
+                }
+                R.id.switch_acc -> {
+                    val bundle = Bundle()
+                    bundle.putParcelable("USER", user)
+                    findNavController().navigate((R.id.action_homeScreenFragment_to_accountsFragment),bundle)
                 }
             }
             true
@@ -144,6 +160,38 @@ class HomeScreenFragment : Fragment() {
         binding.searchContainer.searchTextInputLayout.editText?.doOnTextChanged { text, start, before, count ->
             viewModel.searchQuery.postValue(text.toString())
         }
+
+        observeData()
+    }
+
+    private fun observeData() {
+
+        userViewModel.logoutResponse.observe(viewLifecycleOwner, {
+            when (it) {
+                is Result.Success -> {
+                    Toast.makeText(context, "You have been successfully logged out", Toast.LENGTH_SHORT).show()
+                    updateUser()
+                    findNavController().navigate(R.id.action_homeScreenFragment_to_loginActivity)
+                    requireActivity().finish()
+                }
+                is Result.Error -> {
+                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                }
+                is Result.Loading -> {
+                    Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+    }
+
+
+    private fun logout() {
+        userViewModel.logout()
+        userViewModel.clearUserAuthState()
+    }
+    private fun updateUser(){
+        val user = user?.copy(currentUser = false)
+        ViewModel.updateUser(user!!)
     }
 
     /**private fun processSearch(item: MenuItem?) {
