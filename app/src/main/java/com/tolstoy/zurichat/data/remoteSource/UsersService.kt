@@ -28,14 +28,11 @@ interface UsersService {
     @POST ("account/verify-account")
     fun verifyEmail(@Body verifyEmail : VerifyEmail?): Call<VerifyEmail?>?
 
-    @GET("users")
-    suspend fun getUsers(@Header("Authorization")token: String): Response<UserList>
+    @GET("organizations/{organization_id}/members")
+    fun getMembers(@Path("organization_id") org_id: String): Call<OrganizationMembers>
 
-    @GET("organization/{organization_id}/members")
-    suspend fun getMembers(@Path("organization_id") org_id: String): Call<OrganizationMembers>
-
-    @GET("organization/{organization_id}/members/{member_id}")
-    suspend fun getMember(@Path("organization_id") org_id: String,
+    @GET("organizations/{organization_id}/members/{member_id}")
+    fun getMember(@Path("organization_id") org_id: String,
                           @Path("member_id") member_id: String): Call<OrganizationMember>
 }
 

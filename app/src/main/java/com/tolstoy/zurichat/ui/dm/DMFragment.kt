@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
@@ -26,8 +27,10 @@ import com.tolstoy.zurichat.util.setClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ronnie.github.imagepicker.ImagePicker
 import dev.ronnie.github.imagepicker.ImageResult
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
 
+@ExperimentalCoroutinesApi
 @AndroidEntryPoint
 class DMFragment : Fragment(R.layout.fragment_dm) {
 
@@ -38,7 +41,6 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
 
     private lateinit var binding: FragmentDmBinding
     private var roomId: String? = null
-    private lateinit var userId: String
     private lateinit var senderId: String
 
     private val sendDrawable by lazy {
@@ -61,7 +63,6 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
         arguments?.let { bundle ->
             val args = DMFragmentArgs.fromBundle(bundle)
             roomId = args.roomId
-            userId = args.userId
             senderId = args.senderId
         }
 
@@ -113,7 +114,7 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
         listDm.also {
             // only initialize the adapter if it is not already initialized
             if(!this@DMFragment::adapter.isInitialized)
-                adapter = MessageAdapter(requireContext(), userId)
+                adapter = MessageAdapter(requireContext(), viewModel.userId)
 
             it.adapter = adapter
             it.layoutManager = LinearLayoutManager(requireContext())
@@ -141,16 +142,19 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
     private fun setupObservers() = with(viewModel){
         // retrieve messages if the room id is not null
         roomId?.let {
-            viewModelScope.launch {
-                val newAdapter = MessageAdapter(requireContext(), userId, getMessages(it).messages.toMutableList())
-                if(this@DMFragment::adapter.isInitialized){
-                    adapter.messages.forEach{ message ->
-                        newAdapter.addMessage(message)
-                    }
-                }
-                adapter = newAdapter
-                binding.listDm.adapter = adapter
+            lifecycleScope.launch {
+                getMessages(it)
             }
+        }
+        messagesResponse.observe(viewLifecycleOwner){
+            val newAdapter = MessageAdapter(requireContext(), userId, it.messages.toMutableList())
+            if(this@DMFragment::adapter.isInitialized){
+                adapter.messages.forEach{ message ->
+                    newAdapter.addMessage(message)
+                }
+            }
+            adapter = newAdapter
+            binding.listDm.adapter = adapter
         }
         attachmentUploadResponse.observe(viewLifecycleOwner){
             // image was uploaded successfully
@@ -189,15 +193,15 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
 
 
     private fun displayMessage(text: String, vararg media: Uri) =
-        Message(message = text, senderId = userId, roomId = roomId ?: "").also{
+        Message(message = text, senderId = viewModel.userId, roomId = roomId ?: "").also{
             it.attachments.addAll(media)
             adapter.addMessage(it)
         }
 
     private fun sendMessage(text: String, vararg media: String) = with(viewModel) {
-        viewModelScope.launch {
+        lifecycleScope.launch {
             if(roomId == null){
-                roomId = createRoom(userId, senderId).roomId
+                roomId = createRoom(userId, senderId)!!.roomId
             }
             sendMessage(roomId!!, Message(message = text, senderId = userId,
                 roomId = roomId!!, media = media.toList()))
