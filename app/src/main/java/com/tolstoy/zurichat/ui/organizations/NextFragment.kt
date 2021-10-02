@@ -3,6 +3,7 @@ package com.tolstoy.zurichat.ui.organizations
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
@@ -51,7 +52,8 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
         }
 
         binding.nextTextView.setOnClickListener {
-           Navigation.findNavController(it).navigate(R.id.action_nextFragment_to_seeYourChannelFragment)
+            val bundle = bundleOf("org_name" to organizationName)
+           Navigation.findNavController(it).navigate(R.id.action_nextFragment_to_seeYourChannelFragment, bundle)
         }
     }
 

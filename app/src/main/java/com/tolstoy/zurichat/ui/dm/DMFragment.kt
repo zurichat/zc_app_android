@@ -17,6 +17,8 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkRequest
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentDmBinding
 import com.tolstoy.zurichat.databinding.PartialAttachmentPopupBinding
@@ -26,6 +28,7 @@ import com.tolstoy.zurichat.ui.dm.adapters.MessageAdapter
 import com.tolstoy.zurichat.ui.dm.response.RoomListResponseItem
 import com.tolstoy.zurichat.ui.dm_chat.model.response.room.RoomsListResponse
 import com.tolstoy.zurichat.ui.dm_chat.model.response.room.RoomsListResponseItem
+import com.tolstoy.zurichat.ui.dm.dm_notification.DMNotificationWorker
 import com.tolstoy.zurichat.util.setClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ronnie.github.imagepicker.ImagePicker
@@ -218,5 +221,15 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
             sendMessage(roomId!!, Message(message = text, senderId = userId,
                 roomId = roomId!!, media = media.toList()))
         }
+    }
+
+    /**
+     * This function creates a workRequest to notify the receiver of a message
+     * when a message is sent. It will be implemented fully when DM workflow
+     * becomes functional.
+     */
+    private fun getWorkRequest(): WorkRequest {
+
+        return OneTimeWorkRequestBuilder<DMNotificationWorker>().build()
     }
 }

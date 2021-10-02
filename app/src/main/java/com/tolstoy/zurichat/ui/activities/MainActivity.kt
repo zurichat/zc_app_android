@@ -12,6 +12,7 @@ import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +23,7 @@ import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ActivityMainBinding
 import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragment
 import com.tolstoy.zurichat.ui.settings.SettingsActivity
+import com.tolstoy.zurichat.ui.settings.notification.NotificationService
 import com.tolstoy.zurichat.util.setUpApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -135,6 +137,17 @@ class MainActivity : AppCompatActivity() {
         }else{
             showNotification(null,null,null,null)
         }
+    }
+
+    fun startService(view: View) {
+        val notificationAndSounds: String = "NotificationandSounds"
+        val serviceIntent = Intent(this, NotificationService::class.java)
+        serviceIntent.putExtra("channel_tones, message_tone,vibrate,high_priority", notificationAndSounds)
+        ContextCompat.startForegroundService(this, serviceIntent)
+    }
+    fun stopService(view: View) {
+        val serviceIntent = Intent(this, NotificationService::class.java)
+        stopService(serviceIntent)
     }
 
 }
