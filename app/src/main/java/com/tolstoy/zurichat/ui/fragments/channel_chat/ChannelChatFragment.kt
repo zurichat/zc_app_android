@@ -416,7 +416,7 @@ class ChannelChatFragment : Fragment() {
                     val intent = Intent(Intent.ACTION_SEND)
                     intent.putExtra(
                         Intent.EXTRA_TEXT,
-                        "https://api.zuri.chat/channels/${channel._id}"
+                        "https://api.zuri.chat/channels/${organizationID}/${channel._id}"
                     )
                     intent.type = "text/plain"
 

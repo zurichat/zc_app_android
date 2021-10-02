@@ -12,29 +12,28 @@ import androidx.navigation.fragment.findNavController
 import com.tolstoy.zurichat.databinding.FragmentShareLinkBinding
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.util.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class ShareLinkFragment : Fragment() {
 
 
     private val binding by viewBinding(FragmentShareLinkBinding::bind)
     private lateinit var organizationID: String
-    private lateinit var organizationName: String
 
     private lateinit var user: User
     private val PREFS_NAME = "ORG_INFO"
-    private lateinit var sharedPref: SharedPreferences
-    private lateinit var currentOrgName: String
 
+    @Inject
+    lateinit var preference: SharedPreferences
 
-    private val ORG_NAME = "org_name"
-    private val ORG_ID = "org_id"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         user = requireActivity().intent.extras?.getParcelable("USER")!!
-        sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        preference = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
     }
 
@@ -50,15 +49,19 @@ class ShareLinkFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
+//        currentOrgName = arguments?.getString(ORG_NAME).toString()
+//        organizationID = arguments?.getString(ORG_ID).toString()
 
-        currentOrgName = arguments?.getString(ORG_NAME).toString()
-        organizationID = arguments?.getString(ORG_ID).toString()
-        sharedPref.getString(ORG_ID, organizationID).toString()
+        organizationID = preference.getString("ORG_ID", "") ?: ""
+
+
+
 
 
         binding.linkGenerated.text = "https://api.zuri.chat/organizations/${organizationID}"
-        binding.copyBtn.setOnClickListener {
 
+
+        binding.copyBtn.setOnClickListener {
             val clipboard = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("TextView", binding.linkGenerated.text.toString())
             clipboard.setPrimaryClip(clip)
