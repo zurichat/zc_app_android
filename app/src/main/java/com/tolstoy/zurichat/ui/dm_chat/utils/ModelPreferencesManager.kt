@@ -1,9 +1,9 @@
 package com.tolstoy.zurichat.ui.dm_chat.utils
 
-import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.GsonBuilder
+import com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.ChatsFragment
 
 object ModelPreferencesManager {
 
@@ -18,7 +18,7 @@ object ModelPreferencesManager {
      *
      * @param application Instance of application class
      */
-    fun with(application: Application) {
+    fun with(application: Context) {
         preferences = application.getSharedPreferences(
             PREFERENCES_FILE_NAME, Context.MODE_PRIVATE)
     }
