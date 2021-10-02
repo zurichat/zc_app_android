@@ -17,7 +17,7 @@ data class Room(
 
     @SerializedName("bookmarks")
     @Expose
-    val bookmarks: List<Any> = emptyList(),
+    val bookmarks: List<Message> = emptyList(),
 
     @SerializedName("created_at")
     @Expose
@@ -29,7 +29,7 @@ data class Room(
 
     @SerializedName("pinned")
     @Expose
-    val pinned: List<Any> = emptyList(),
+    val pinned: List<Message> = emptyList(),
 
     @SerializedName("room_user_ids")
     @Expose

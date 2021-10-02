@@ -23,7 +23,6 @@ class UserRepository @Inject constructor(
 
      suspend fun passwordReset(passwordReset: PasswordReset): PassswordRestReponse {
         return usersService.passwordReset(passwordReset)
-
     }
 
     fun saveUserAuthState(value: Boolean) {
@@ -50,16 +49,4 @@ class UserRepository @Inject constructor(
     fun getUserToken() = preferences.getString(USER_TOKEN, "")!!
 
     suspend fun getUser() = flow { emit(dao.getUser(getUserId())) }
-
-    suspend fun getUsers() = flow {
-        // retrieve the users from the db first before making a remote call
-        emit(dao.getUsers())
-        usersService.getUsers(getUserToken()).also {
-
-            if(it.isSuccessful) it.body()?.let { body ->
-                dao.saveUser(*body.data.toTypedArray())
-                emit(body.data)
-            }
-        }
-    }
 }
