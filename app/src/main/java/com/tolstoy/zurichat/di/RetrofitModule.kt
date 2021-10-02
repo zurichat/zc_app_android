@@ -1,6 +1,6 @@
 package com.tolstoy.zurichat.di
 
-import DMService
+import com.tolstoy.zurichat.data.remoteSource.DMService
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
