@@ -134,7 +134,7 @@
         app:layout_constraintTop_toBottomOf="@+id/confirm_user_password" />
 
     <Button
-        android:id="@+id/button_member"
+        android:id="@+id/google_sign_up_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

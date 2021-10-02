@@ -16,7 +16,6 @@
         android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
         android:textAlignment="viewStart"
         android:textColor="@color/pref_txt"
-        android:textStyle="bold"
         android:paddingBottom="8dp"
         android:textSize="16sp"
         tools:ignore="RtlSymmetry"/>

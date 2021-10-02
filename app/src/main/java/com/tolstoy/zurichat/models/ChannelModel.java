@@ -4,9 +4,16 @@ package com.tolstoy.zurichat.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.squareup.moshi.Json;
+import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.TypeConverters.DataTypeConverter;
+import com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.localdatabase.TypeConverter.ChannelConverter;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,10 +28,12 @@ import java.util.Objects;
  * id: To be used with the Diff Util to identify each item. Might be changed later
  * viewType: Only contains three values. 0 for the header, 1 for the channel body, 2 for divider
  */
-
+@Entity(tableName = "ChannelList")
 public class ChannelModel implements Parcelable {
     @SerializedName("_id")
     @Expose
+    @PrimaryKey
+    @NonNull
     private String _id;
     @SerializedName("created_on")
     @Expose
@@ -40,6 +49,7 @@ public class ChannelModel implements Parcelable {
     private boolean _private;
     @SerializedName("roles")
     @Expose
+    @TypeConverters(ChannelConverter.class)
     private List<Object> roles = null;
     @SerializedName("slug")
     @Expose

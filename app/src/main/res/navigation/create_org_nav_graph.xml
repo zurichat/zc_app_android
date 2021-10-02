@@ -34,6 +34,12 @@
         <action
             android:id="@+id/action_nextFragment_to_addByEmailFragment"
             app:destination="@id/addByEmailFragment" />
+        <argument
+            android:name="organizationName"
+            app:argType="string" />
+        <argument
+            android:name="organizationId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/addByEmailFragment"
@@ -54,5 +60,13 @@
             app:destination="@id/homeScreenFragment"
             app:popUpTo="@id/main_nav"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_seeYourChannelFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
     </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.tolstoy.zurichat.ui.activities.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
 </navigation>

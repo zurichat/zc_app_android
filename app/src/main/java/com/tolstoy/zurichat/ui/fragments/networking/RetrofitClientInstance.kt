@@ -7,6 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
  object RetrofitClientInstance {
     private var retrofit: Retrofit? = null
+     private var retrofitUser: Retrofit? = null
 
     // Gets a reference to the client holding the logging interceptor to view network interactions
     private val interceptor = HttpLoggingInterceptor().also {
@@ -14,8 +15,8 @@ import retrofit2.converter.gson.GsonConverterFactory
      }
     private val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
     private const val BASE_URL = "https://channels.zuri.chat/api/"
+     private const val BASE_URL_USER = "https://api.zuri.chat/"
 
-     // Changed moshiToGsonConverter cos of @Body param issues
     val retrofitInstance: Retrofit? get() {
             if (retrofit == null) {
                 retrofit = Retrofit.Builder()
@@ -26,4 +27,15 @@ import retrofit2.converter.gson.GsonConverterFactory
             }
             return retrofit
         }
+
+     val retrofitInstanceForUser: Retrofit? get() {
+         if (retrofitUser == null) {
+             retrofitUser = Retrofit.Builder()
+                 .baseUrl(BASE_URL_USER)
+                 .client(client)
+                 .addConverterFactory(GsonConverterFactory.create())
+                 .build()
+         }
+         return retrofitUser
+     }
 }

@@ -5,11 +5,6 @@
     android:id="@+id/main_nav"
     app:startDestination="@id/homeScreenFragment"
     >
-    <!--If you are changing back to homeScreen endeavour to return it to createOrganizationsFragment
-    because the flow is register, login, create or access workspace, before going to the chat section,
-   -->
-    <!--app:startDestination="@id/homeScreenFragment""-->
-    <!--app:startDestination="@id/createOrganizationsFragment"-->
 
     <fragment
         android:id="@+id/dmFragment"
@@ -190,6 +185,9 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_starredMessagesFragment"
             app:destination="@id/starredMessagesFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_shareLinkFragment"
+            app:destination="@id/shareLinkFragment" />
     </fragment>
 
     <activity
@@ -301,4 +299,11 @@
         android:name="com.tolstoy.zurichat.ui.fragments.starred_messages.StarredMessagesFragment"
         android:label="fragment_starred_messages"
         tools:layout="@layout/fragment_starred_messages" />
+    <fragment
+        android:id="@+id/shareLinkFragment"
+        android:name="com.tolstoy.zurichat.ShareLinkFragment"
+        android:label="fragment_share_link"
+        tools:layout="@layout/fragment_share_link" />
+
+
 </navigation>

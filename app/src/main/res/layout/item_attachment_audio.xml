@@ -14,7 +14,8 @@
         app:layout_constraintBottom_toBottomOf="@+id/view5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal" />
 
     <LinearLayout
         android:id="@+id/linearYellow"
@@ -24,7 +25,8 @@
         android:background="@drawable/audio_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:orientation="horizontal" />
 
     <ImageView
         android:id="@+id/bindAudio"
@@ -125,6 +127,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/date_txt"
         app:layout_constraintStart_toEndOf="@+id/linearYellow" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

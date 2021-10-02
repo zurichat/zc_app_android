@@ -2,15 +2,26 @@ package com.tolstoy.zurichat.ui.fragments.channel_chat
 
 import android.app.Activity
 import android.view.View
+import centrifuge.PublishEvent
+import centrifuge.Subscription
+import com.google.gson.Gson
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ChannelIncomingMessageModelBinding
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.add_channel.BaseItem
+import com.tolstoy.zurichat.ui.fragments.home_screen.CentrifugeClient
 import com.tolstoy.zurichat.ui.fragments.model.Data
+import com.tolstoy.zurichat.ui.fragments.networking.JoinNewChannel
+import com.tolstoy.zurichat.ui.fragments.networking.RetrofitClientInstance
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlinx.coroutines.*
 
-data class ChannelListItem (val data: Data,val user:User, val context: Activity) : BaseItem<ChannelIncomingMessageModelBinding> {
+data class ChannelListItem (val data: Data,val user:User, val context: Activity,val uiScope: CoroutineScope) : BaseItem<ChannelIncomingMessageModelBinding> {
     override val layoutId = R.layout.channel_incoming_message_model
     override val uniqueId: String = data._id.toString()
 
@@ -37,6 +48,27 @@ data class ChannelListItem (val data: Data,val user:User, val context: Activity)
             binding.messageText.text = data.content
             binding.messageTime.text = time
             binding.messageAuthor.text = data.user_id
+
+            uiScope.launch(Dispatchers.IO){
+                try {
+                    val user = RetrofitClientInstance.retrofitInstanceForUser?.create(JoinNewChannel::class.java)?.getUserInfo(data.user_id.toString(),user.token)
+                    user?.let {
+                        uiScope.launch(Dispatchers.Main){
+                            if (!(it.data.first_name.isEmpty() && it.data.last_name.isEmpty())){
+                                binding.messageAuthor.text = it.data.first_name.plus(" "+it.data.last_name)
+                            }else if (it.data.first_name.isNotEmpty()){
+                                binding.messageAuthor.text = it.data.first_name
+                            }else if (it.data.last_name.isNotEmpty()){
+                                binding.messageAuthor.text = it.data.last_name
+                            }else{
+                                binding.messageAuthor.text = it.data.email
+                            }
+                        }
+                    }
+                }catch (e : Exception){
+                    e.printStackTrace()
+                }
+            }
         }
 
     }
@@ -46,4 +78,5 @@ data class ChannelListItem (val data: Data,val user:User, val context: Activity)
         s.timeZone = TimeZone.getTimeZone("UTC")
         return s.parse(date)
     }
+
 }
