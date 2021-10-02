@@ -46,7 +46,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         app:layout_constrainedHeight="true"
-        app:layout_constraintBottom_toTopOf="@id/messageinput_dm"
+        app:layout_constraintBottom_toTopOf="@id/channel_typing_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

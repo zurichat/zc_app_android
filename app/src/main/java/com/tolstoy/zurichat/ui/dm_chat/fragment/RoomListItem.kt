@@ -52,8 +52,9 @@ data class RoomListItem(val data: BaseRoomData, val user: User, val context: Act
             binding.bubble1.visibility = View.GONE
             binding.bubble.visibility = View.VISIBLE
 
-            binding.messageText1.text = data.getMessageResponse.message
-            binding.messageTime1.text = time
+            binding.messageText.text = data.getMessageResponse.message
+            binding.messageAuthor.text = data.getMessageResponse.sender_id
+            binding.messageTime.text = time
         } else {
             val time = s.format(convertStringDateToLong(data.sendMessageResponse!!.data.created_at))
 
@@ -61,6 +62,7 @@ data class RoomListItem(val data: BaseRoomData, val user: User, val context: Act
             binding.bubble.visibility = View.GONE
 
             binding.messageText1.text = data.sendMessageResponse.data.message
+            binding.messageAuthor.text = data.sendMessageResponse.data.sender_id
             binding.messageTime1.text = time
         }
 
@@ -70,7 +72,7 @@ data class RoomListItem(val data: BaseRoomData, val user: User, val context: Act
     }
 
     private fun convertStringDateToLong(date: String): Date {
-        val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+        val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         s.timeZone = TimeZone.getTimeZone("UTC")
         return s.parse(date)
     }
