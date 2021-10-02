@@ -1,24 +1,23 @@
 package com.tolstoy.zurichat.di
 
 import android.app.Application
-import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
-import com.tolstoy.zurichat.data.remoteSource.*
-import com.tolstoy.zurichat.ui.organizations.utils.TOKEN_NAME
-import com.tolstoy.zurichat.data.remoteSource.Retrofit as RetrofitBuilder
+import com.tolstoy.zurichat.data.remoteSource.DMService
+import com.tolstoy.zurichat.data.remoteSource.FilesService
+import com.tolstoy.zurichat.data.remoteSource.UsersService
+import com.tolstoy.zurichat.data.remoteSource.hasNetwork
+import com.tolstoy.zurichat.util.RETROFIT_CACHE_SIZE
+import com.tolstoy.zurichat.util.USER_TOKEN
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Named
-import javax.inject.Singleton
 
 
 @Module
@@ -40,7 +39,7 @@ object RetrofitModule {
     @Provides
     fun provideRetrofitCache(application: Application) =
         // creates a cache with a max size of 10mb
-        Cache(application.applicationContext.cacheDir, 10)
+        Cache(application.applicationContext.cacheDir, RETROFIT_CACHE_SIZE)
 
 
     @Provides
@@ -50,7 +49,7 @@ object RetrofitModule {
         // Add authorization token to the header interceptor
         val headerAuthorization = Interceptor { chain ->
             val request = chain.request().newBuilder()
-            sharedPreferences.getString(TOKEN_NAME, null)?.let {
+            sharedPreferences.getString(USER_TOKEN, null)?.let {
                 request.addHeader("Authorization", "Bearer $it")
             }
             chain.proceed(request.build())
@@ -91,12 +90,8 @@ object RetrofitModule {
         builder.baseUrl("https://api.zuri.chat/").build().create(UsersService::class.java)
 
     @Provides
-    fun provideChatService(builder: Retrofit.Builder) =
-        builder.baseUrl(ChatsService.BASE_URL).build().create(ChatsService::class.java)
-
-    @Provides
-    fun provideRoomService(builder: Retrofit.Builder) =
-        builder.baseUrl(RoomService.BASE_URL).build().create(RoomService::class.java)
+    fun provideDMService(builder: Retrofit.Builder) =
+        builder.baseUrl(DMService.BASE_URL).build().create(DMService::class.java)
 
     @Provides
     fun provideFileService(builder: Retrofit.Builder) =
