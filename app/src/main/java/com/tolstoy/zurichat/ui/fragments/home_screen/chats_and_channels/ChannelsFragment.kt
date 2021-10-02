@@ -1,5 +1,7 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -39,13 +41,14 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 import kotlin.random.Random
 
 class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private val viewModel : ChannelViewModel by viewModels()
     private lateinit var sharedViewModel : SharedChannelViewModel
-
+    private val PREFS_NAME = "ORG_INFO"
     private lateinit var binding: FragmentChannelsBinding
     private lateinit var channelsArrayList: ArrayList<ChannelModel>
     private lateinit var joinedArrayList: ArrayList<ChannelModel>
@@ -59,6 +62,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
 
     private lateinit var database: AppDatabase
     private lateinit var roomDao: RoomDao
+    private lateinit var sharedPref: SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelsBinding.inflate(inflater, container, false)
@@ -68,7 +72,9 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         roomDao = database.roomDao()
 
         user = requireActivity().intent.extras?.getParcelable("USER")!!
-        organizationID = "614679ee1a5607b13c00bcb7"
+        //organizationID = "614679ee1a5607b13c00bcb7"
+        sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        organizationID = sharedPref.getString("org_id", null).toString()
 
         job = Job()
         uiScope = CoroutineScope(Dispatchers.Main + job)
@@ -162,7 +168,6 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         adapt = ChannelAdapter(requireActivity(), channelsArrayList,uiScope, roomDao)
         adapt.organizationId = organizationID
         adapt.setItemClickListener {
-            client.disconnect()
             val bundle1 = Bundle()
             bundle1.putParcelable("USER",user)
             bundle1.putParcelable("Channel",it)

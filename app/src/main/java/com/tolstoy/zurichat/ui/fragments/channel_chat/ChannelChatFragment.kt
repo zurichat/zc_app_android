@@ -51,9 +51,11 @@ import com.tolstoy.zurichat.models.organization_model.UserOrganizationModel
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.ChannelMessagesDao
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDao
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDataObject
+import com.tolstoy.zurichat.ui.fragments.home_screen.CentrifugeClient
 import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragmentDirections
 import com.tolstoy.zurichat.ui.fragments.networking.AppPublishHandler
 import com.tolstoy.zurichat.ui.profile.data.DataX
+import java.nio.charset.StandardCharsets
 
 
 class ChannelChatFragment : Fragment() {
@@ -118,17 +120,6 @@ class ChannelChatFragment : Fragment() {
         // code to control the dimming of background
         val prefMngr = PreferenceManager.getDefaultSharedPreferences(context)
         val dimVal = prefMngr.getInt("bar",50).toFloat().div(100f)
-
-        binding.toolbar.channelToolbar.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.channel_info-> {
-                    val bundle = Bundle()
-                    bundle.putString("channel_name",channel.name)
-                  findNavController().navigate(R.id.channel_info_nav_graph,bundle)
-                }
-            }
-            true
-        }
 
         val dimmerBox = binding.dmChatDimmer
         val channelChatEdit = binding.channelChatEditText           //get message from this edit text
@@ -353,7 +344,6 @@ class ChannelChatFragment : Fragment() {
             requireActivity().onBackPressed()
         }
 
-
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.channel_invite -> {
@@ -367,6 +357,11 @@ class ChannelChatFragment : Fragment() {
                     val shareIntent = Intent.createChooser(intent, null)
                     startActivity(shareIntent)
                 }
+                R.id.channel_info-> {
+                    val bundle = Bundle()
+                    bundle.putString("channel_name",channel.name)
+                    findNavController().navigate(R.id.channel_info_nav_graph,bundle)
+                }
             }
             true
         }
@@ -376,51 +371,31 @@ class ChannelChatFragment : Fragment() {
     private lateinit var job:Job
     private lateinit var uiScope: CoroutineScope
 
+    private lateinit var client: Client
     private fun connectToSocket(){
         val channelChatEdit = binding.channelChatEditText
 
-        val connectHandler = AppConnectHandler(requireActivity(),user,roomData,channelMsgViewModel)
-        val disconnectHandler = AppDisconnectHandler(requireActivity(),user,roomData,channelMsgViewModel)
-        val publishHandler = AppPublishHandler(context, user, channelMsgViewModel)
-        var sub: Subscription?
-
-        val client: Client = Centrifuge.new_("wss://realtime.zuri.chat/connection/websocket", Centrifuge.defaultConfig())
-        client.onConnect(connectHandler)
-        client.onDisconnect(disconnectHandler)
-
         uiScope.launch(Dispatchers.IO){
             try {
+                client = CentrifugeClient.getClient(requireActivity())
                 client.connect()
 
-                uiScope.launch(Dispatchers.Main){
-                    sub = client.newSubscription(roomData!!.socket_name)
-
-                    sub!!.onPublish(publishHandler)
-                    sub!!.subscribe()
-                }
+                CentrifugeClient.setCustomListener(object : CentrifugeClient.CustomListener {
+                    override fun onConnected(connected: Boolean) {
+                        CentrifugeClient.subscribeToChannel(roomData!!.socket_name)
+                    }
+                    override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
+                        val dataString = String(publishEvent!!.data, StandardCharsets.UTF_8)
+                        val data = Gson().fromJson(dataString, Data::class.java)
+                        if (data.channel_id == channel._id){
+                            channelMsgViewModel.receiveMessage(data)
+                        }
+                    }
+                })
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
-
-        channelMsgViewModel.connected.observe(viewLifecycleOwner,{
-            if (!it){
-                uiScope.launch(Dispatchers.IO){
-                    try {
-                        client.connect()
-
-                        uiScope.launch(Dispatchers.Main){
-                            sub = client.newSubscription(roomData!!.socket_name)
-
-                            sub!!.onPublish(publishHandler)
-                            sub!!.subscribe()
-                        }
-                    } catch (e: Exception) {
-                        e.printStackTrace()
-                    }
-                }
-            }
-        })
 
         binding.sendMessageBtn.setOnClickListener {
             if (channelChatEdit.text.toString().isNotEmpty()){
@@ -446,9 +421,9 @@ class ChannelChatFragment : Fragment() {
                 channelMsgViewModel.sendMessages(data,organizationID,channel._id,messagesArrayList)
                 channelChatEdit.text?.clear()
 
-               /* val gson = Gson()
-                val dataString = gson.toJson(data).toString().toByteArray(Charsets.UTF_8)
-                sub!!.publish(dataString)*/
+                /* val gson = Gson()
+                 val dataString = gson.toJson(data).toString().toByteArray(Charsets.UTF_8)
+                 sub!!.publish(dataString)*/
             }
         }
     }

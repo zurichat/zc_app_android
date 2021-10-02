@@ -5,9 +5,11 @@
     android:id="@+id/main_nav"
     app:startDestination="@id/homeScreenFragment"
     >
+    <!--If you are changing back to homeScreen endeavour to return it to createOrganizationsFragment
+    because the flow is register, login, create or access workspace, before going to the chat section,
+   -->
+    <!--app:startDestination="@id/homeScreenFragment""-->
     <!--app:startDestination="@id/createOrganizationsFragment"-->
-    <!--app:startDestination="@id/createOrganizationsFragment"-->
-
 
     <fragment
         android:id="@+id/dmFragment"

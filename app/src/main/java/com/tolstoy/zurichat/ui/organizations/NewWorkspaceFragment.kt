@@ -73,8 +73,8 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
             when(it){
                 is Result.Loading -> handleLoadingState()
                 is Result.Success -> {
-                    handleSuccess(binding.editTextCompany.text.toString(),it.data.data.InsertedID)
-                    preference.edit().putString("ORG_ID", it.data.data.InsertedID).apply()
+                    handleSuccess(binding.editTextCompany.text.toString(),it.data.data.organization_id)
+                    preference.edit().putString("ORG_ID", it.data.data.organization_id).apply()
                 }
                 is Result.Error -> handleError(it.error)
             }

@@ -14,7 +14,7 @@ interface JoinNewChannel {
 
     // Endpoint to retrieve all messages in a channel
     @GET("v1/{org_id}/channels/{channel_id}/messages/")
-    suspend fun retrieveAllMessages(@Path("org_id") organizationId : String, @Path("channel_id") channelId : String): AllChannelMessages
+    suspend fun retrieveAllMessages(@Path("org_id") organizationId : String, @Path("channel_id") channelId : String): List<Data>
 
     //Endpoint to send message
     @POST("v1/{org_id}/channels/{channel_id}/messages/")

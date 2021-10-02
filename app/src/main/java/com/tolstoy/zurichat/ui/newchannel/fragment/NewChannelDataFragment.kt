@@ -17,6 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.work.WorkManager
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.FragmentNewChannelDataBinding
@@ -197,6 +198,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                         channelId = channelResponseModel!!._id
                         progressLoader.hide()
                         Toast.makeText(context, getString(it.message), Toast.LENGTH_LONG).show()
+                        sendNotification()
                         navigateToDetails()
                     }
                     is CreateChannelViewState.Failure -> {
@@ -208,6 +210,13 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                 }
             }
         }
+    }
+
+    /**
+     * Send notification to users added to a channel
+     */
+    private fun sendNotification() {
+        val workManager = WorkManager.getInstance(requireContext())
     }
 
     private fun navigateToDetails() {
