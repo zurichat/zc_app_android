@@ -5,5 +5,5 @@ import kotlinx.parcelize.Parcelize
 
 
 data class OrganizationCreatorIdData(
-    val InsertedID: String
+    val organization_id: String
 )
