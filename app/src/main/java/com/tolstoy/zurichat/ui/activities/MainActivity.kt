@@ -9,7 +9,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.media.RingtoneManager
-import android.net.Uri
+import android.net.*
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ActivityMainBinding
 import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragment
+import com.tolstoy.zurichat.ui.login.screens.InternetFragment
 import com.tolstoy.zurichat.ui.settings.SettingsActivity
 import com.tolstoy.zurichat.ui.settings.notification.NotificationService
 import com.tolstoy.zurichat.util.setUpApplicationTheme
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity() {
 //        notificationSettings = SettingsActivity.NotificationAndSounds()
 //        createNotificationChannel()
 //        notificationSetting(messager_name,notification_message,pattern,message_sound)
+
         // This setups application theme to value stored in sharedPref
         setUpApplicationTheme(this)
 
@@ -73,6 +75,24 @@ class MainActivity : AppCompatActivity() {
             requestPermissionLauncher.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
         }
     }
+
+    override fun onResume() {
+        internetConnection()
+        super.onResume()
+    }
+
+    // Internet Connectivity checking
+    private fun internetConnection()
+    {
+        val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+
+        if(!isConnected){
+            Toast.makeText(applicationContext,"No Internet Connection!",Toast.LENGTH_LONG).show()
+        }
+    }
+
     // creation of notification bar
     fun createNotificationChannel() {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
