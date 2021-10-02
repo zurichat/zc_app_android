@@ -10,7 +10,7 @@ import com.tolstoy.zurichat.ui.fragments.model.Data
 import java.text.SimpleDateFormat
 import java.util.*
 
-data class ChannelListItem (val data: Data,val user:User, val context: Activity) : BaseItem<ChannelIncomingMessageModelBinding> {
+data class ChannelListItem (val data: Data,val user:User, val context: Activity, val uiScope: CoroutineScope) : BaseItem<ChannelIncomingMessageModelBinding> {
     override val layoutId = R.layout.channel_incoming_message_model
     override val uniqueId: String = data._id.toString()
 
