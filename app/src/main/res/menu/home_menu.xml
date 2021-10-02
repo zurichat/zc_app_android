@@ -28,4 +28,12 @@
         android:id="@+id/invite_link"
         android:title="@string/invite_link"
         android:visible="true" />
+    <item
+        android:id="@+id/switch_acc"
+        android:title="@string/switch_acc"
+        android:visible="true" />
+    <item
+        android:id="@+id/logout"
+        android:title="@string/logout"
+        android:visible="true" />
 </menu>

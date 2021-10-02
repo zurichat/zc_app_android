@@ -27,6 +27,9 @@ interface UsersService {
     @POST ("account/verify-account")
     fun verifyEmail(@Body verifyEmail : VerifyEmail?): Call<VerifyEmail?>?
 
+    @POST("auth/logout")
+    suspend fun logout(): Response<LogoutResponse>
+
     /**
      * The endpoint for fetching users has been blocked by the backend guys
      */

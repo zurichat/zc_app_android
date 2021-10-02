@@ -17,6 +17,7 @@ import com.tolstoy.zurichat.models.LoginBody
 import com.tolstoy.zurichat.models.LoginResponse
 import com.tolstoy.zurichat.ui.activities.CreateOrganizationActivity
 import com.tolstoy.zurichat.ui.activities.MainActivity
+import com.tolstoy.zurichat.ui.fragments.UserViewModel
 import com.tolstoy.zurichat.ui.login.LoginViewModel
 import com.tolstoy.zurichat.ui.organizations.utils.ZuriSharePreference
 import com.tolstoy.zurichat.util.Result
@@ -30,8 +31,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private val binding by viewBinding(FragmentLoginBinding::bind)
     private val viewModel by viewModels<LoginViewModel>()
+    private val accModel by viewModels<UserViewModel>()
     private lateinit var prevDest: String
-
     private lateinit var progressDialog: ProgressDialog
     @Inject
     lateinit var sharedPreferences: SharedPreferences
@@ -104,19 +105,33 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         // add user auth state to shared preference
         viewModel.saveUserAuthState(true)
 
-        val user = response.data.user.copy(currentUser = true)
+        val user = response.data.user.copy(currentUser = true, password = binding.password.text.toString() )
+
+
 
         // add user object to room database
         viewModel.saveUser(user)
+        accModel.addUser(user)
+
         progressDialog.dismiss()
         val bundle = Bundle()
         bundle.putParcelable("USER", user)
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        Cache.map.putIfAbsent("user", user)
+        intent.putExtras(bundle)
+        startActivity(intent)
+        requireActivity().finish()
+        sharedPreferences.edit().putString("TOKEN",user.token).apply()
+        Toast.makeText(context, "You have successfully logged in", Toast.LENGTH_LONG).show()
+
+        ZuriSharePreference(requireContext()).setString("TOKEN", user.token)
 
         /*
             if the user is just signed up and logged in and redirect him to an activity
             where he will create new organization.
             if the user is not logging in for the first time redirect him to home activity
         */
+
         if(prevDest == "fragment_email_verified"){
             val intent = Intent(requireContext(), CreateOrganizationActivity::class.java)
             Cache.map.putIfAbsent("user", user)
@@ -130,9 +145,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             startActivity(intent)
             requireActivity().finish()
         }
-        sharedPreferences.edit().putString("TOKEN",user.token).apply()
-        Toast.makeText(context, "You have successfully logged in", Toast.LENGTH_LONG).show()
-        ZuriSharePreference(requireContext()).setString("TOKEN", user.token)
     }
 
     private fun handleError(throwable: Throwable) {

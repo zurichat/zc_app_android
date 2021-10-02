@@ -180,6 +180,15 @@
     <string name="welcome_zc_txt">Welcome to Zuri Chat</string>
     <string name="welcome_rect">welcome top rectangle</string>
 
+    <!-- Confirm Password-->
+    <string name="confirm_pass_hdr">Confirm Password</string>
+    <string name="confirm_pass">Confirm password to sign in with account</string>
+
+    <!--Home screen Menu-->
+    <string name="switch_acc">Switch Account</string>
+    <string name="logout">Logout</string>
+
+
 
     <!--                      Forgot Password-->
     <string name="please_ente">
