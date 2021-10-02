@@ -27,12 +27,7 @@ class SeeYourChannelFragment : Fragment(R.layout.fragment_see_your_channel) {
             /**
              * Retrieves logged in user details
              */
-            val bundle = Bundle()
-            val bundle1 = requireActivity().intent.getParcelableExtra<User>("USER")
-            bundle1?.let {
-                user = it
-            }
-            bundle.putParcelable("USER", user)
+            val bundle = bundleOf("org_name" to arguments?.getString("org_name"))
 
             val intent = Intent(requireContext(), MainActivity::class.java)
             Cache.map.putIfAbsent("user", user)
