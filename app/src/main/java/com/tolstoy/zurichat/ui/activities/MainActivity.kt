@@ -22,7 +22,6 @@ import androidx.core.content.ContextCompat
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ActivityMainBinding
 import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragment
-import com.tolstoy.zurichat.ui.login.screens.InternetFragment
 import com.tolstoy.zurichat.ui.settings.SettingsActivity
 import com.tolstoy.zurichat.ui.settings.notification.NotificationService
 import com.tolstoy.zurichat.util.setUpApplicationTheme
