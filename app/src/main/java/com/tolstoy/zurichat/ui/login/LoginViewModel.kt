@@ -52,7 +52,7 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
         return repository.getUserAuthState()
     }
 
-    private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
+    private fun getUser() = viewModelScope.launch {
         _user.value = repository.getUser()
     }
 
