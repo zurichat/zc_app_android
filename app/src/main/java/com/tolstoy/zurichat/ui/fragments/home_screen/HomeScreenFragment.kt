@@ -46,9 +46,39 @@ class HomeScreenFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
-
         user = requireActivity().intent.extras?.getParcelable("USER")!!
         sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+
+        //get the label of the previous destination
+        val prevDestLabel = findNavController().previousBackStackEntry
+            ?.destination?.label.toString()
+
+        //Check if user just signed up and created organization or switched organization
+        when (prevDestLabel) {
+            "switch_organization", "fragment_see_your_channel" -> {
+                //get the organization name passed from the previous destinations above
+                organizationName = arguments?.getString(ORG_NAME).toString()
+                organizationID = arguments?.getString(ORG_ID).toString()
+                //save the organization name and id to a sharedPreference to persist it
+                with(sharedPref) {
+                    edit().putString(ORG_NAME, organizationName).apply()
+                    edit().putString(ORG_ID, organizationID).apply()
+                }
+            }
+            else -> {
+                /**
+                 * if the user is just logging in check if there is existing organization name
+                 * saved in the sharedPreference and retrieve it or set the organization name to
+                 * default if the sharedPreference does not contain it.
+                 */
+                if(sharedPref.contains(ORG_NAME)){
+                    organizationName = sharedPref.getString(ORG_NAME, null).toString()
+                }else{
+                    organizationName = "Zuri Chat Default"
+                }
+                organizationID = sharedPref.getString(ORG_ID, null).toString()
+            }
+        }
         //organizationID = "614679ee1a5607b13c00bcb7"
         return binding.root
     }
@@ -61,31 +91,6 @@ class HomeScreenFragment : Fragment() {
         val tabs = binding.tabs
         val toolbar = binding.toolbarContainer.toolbar
         val activity = requireActivity() as MainActivity
-
-        //get the label of the previous destination
-        val prevDestLabel = findNavController().previousBackStackEntry
-            ?.destination?.label.toString()
-
-        when (prevDestLabel) {
-            "switch_organization", "fragment_see_your_channel" -> {
-                organizationName = arguments?.getString(ORG_NAME).toString()
-                organizationID = arguments?.getString(ORG_ID).toString()
-                with(sharedPref) {
-                    edit().putString(ORG_NAME, organizationName).apply()
-                    edit().putString(ORG_ID, organizationID).apply()
-                }
-            }
-            else -> {
-                organizationName = sharedPref.getString(ORG_NAME, null).toString()
-                organizationID = sharedPref.getString(ORG_ID, null).toString()
-                when {
-                    organizationName.equals(null) -> {
-                        organizationName = "Zuri Chat Default"
-                        organizationID = "614679ee1a5607b13c00bcb7"
-                    }
-                }
-            }
-        }
 
         //set the toolbar title to the current logged in organization
         toolbar.title = organizationName
