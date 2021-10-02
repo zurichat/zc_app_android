@@ -17,6 +17,7 @@ import androidx.preference.SwitchPreference
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.activities.ProfileActivity
+import com.tolstoy.zurichat.ui.notification.NotificationActivity
 import com.tolstoy.zurichat.util.vibrateDevice
 
 private const val TITLE_TAG = "settingsActivityTitle"
@@ -210,9 +211,14 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
             val vibrate = findPreference<SwitchPreference>("vibrate")
             val highPriority = findPreference<SwitchPreference>("high_priority")
 
+//            val bundle = Bundle()
+//            val intent =  Intent(this, NotificationActivity::class.java)
+//            startActivity(intent)
+//                .and(intent.getBooleanExtra("notification", false))
 
             channelTones?.setOnPreferenceChangeListener { preference, newValue ->
                 if (channelTones.isChecked){
+
                     isChannelToneChecked = true
                     Toast.makeText(activity, "Channel tones off", Toast.LENGTH_SHORT).show()
                 }else{
@@ -304,7 +310,6 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         }else{
             soundPool = SoundPool(6,AudioManager.STREAM_NOTIFICATION,0)
         }
-
 
     }
 
