@@ -47,6 +47,13 @@ class HomeScreenFragment : Fragment() {
         val activity = requireActivity() as MainActivity
        // val user = Cache.map["user"] as User
 
+        val prevDest = findNavController().previousBackStackEntry
+            ?.destination?.label.toString()
+
+        if (prevDest == "switch_organization"){
+            binding.toolbarContainer.toolbar.setTitle(arguments?.getString("org_name"))
+        }
+
         // setup for viewpager2 and tab layout
         viewPager.adapter = viewPagerAdapter
         viewPager.offscreenPageLimit = 2
