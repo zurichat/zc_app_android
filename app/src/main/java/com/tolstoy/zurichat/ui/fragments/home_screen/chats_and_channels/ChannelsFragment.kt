@@ -207,6 +207,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
             channelListDao.getAllChannels().let {
                 uiScope.launch(Dispatchers.Main){
                     if (it!=null){
+                        channelsArrayList.clear()
                         channelsArrayList.addAll(it)
                         addHeaders()
                     }
