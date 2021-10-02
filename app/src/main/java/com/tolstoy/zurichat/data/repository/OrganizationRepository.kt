@@ -2,6 +2,7 @@ package com.tolstoy.zurichat.data.repository
 
 import android.content.SharedPreferences
 import com.tolstoy.zurichat.data.remoteSource.UsersService
+import com.tolstoy.zurichat.data.remoteSource.enqueue
 import com.tolstoy.zurichat.models.organization_model.OrganizationCreator
 import com.tolstoy.zurichat.models.organization_model.OrganizationCreatorResponse
 import com.tolstoy.zurichat.util.ORG_ID
@@ -27,7 +28,7 @@ class OrganizationRepository @Inject constructor(
     fun saveId(id: String) = preferences.edit().putString(ORG_ID, id).apply()
 
     fun getId(): String{
-        preferences.getString(ORG_ID, "")!!
+        preferences.getString(ORG_ID, "")
         return TEST_ID
     }
 

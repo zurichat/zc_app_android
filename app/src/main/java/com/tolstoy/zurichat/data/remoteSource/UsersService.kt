@@ -1,6 +1,7 @@
 package com.tolstoy.zurichat.data.remoteSource
 
 import com.tolstoy.zurichat.models.*
+import com.tolstoy.zurichat.models.network_response.OrganizationMembers
 import com.tolstoy.zurichat.models.organization_model.OrganizationCreator
 import com.tolstoy.zurichat.models.organization_model.OrganizationCreatorResponse
 import retrofit2.Call
