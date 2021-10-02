@@ -1,5 +1,6 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,24 +21,16 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class HomeScreenFragment : Fragment() {
-
     private lateinit var binding: FragmentHomeScreenBinding
     private lateinit var user : User
     val viewModel: HomeScreenViewModel by viewModels()
 
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
 
-        val bundle = arguments
-        if (bundle != null) {
-            user = bundle.getParcelable("USER")!!
-        }
+        user = requireActivity().intent.extras?.getParcelable("USER")!!
 
         return binding.root
     }
@@ -77,7 +70,7 @@ class HomeScreenFragment : Fragment() {
                 R.id.new_channel -> {
                     try {
                         findNavController().navigate(HomeScreenFragmentDirections.actionHomeScreenFragmentToNewChannelNavGraph())
-                    }catch (exc:Exception){
+                    } catch (exc: Exception) {
                         exc.printStackTrace()
                     }
                 }
@@ -87,6 +80,17 @@ class HomeScreenFragment : Fragment() {
                 R.id.switch_workspace -> {
                     val bundle = bundleOf("email" to user.email)
                     findNavController().navigate(R.id.switchOrganizationFragment, bundle)
+                }
+                R.id.invite_link -> {
+                    val intent = Intent(Intent.ACTION_SEND)
+                    intent.putExtra(
+                        Intent.EXTRA_TEXT,
+                        "https://api.zuri.chat/organizations/"
+                    )
+                    intent.type = "text/plain"
+
+                    val shareIntent = Intent.createChooser(intent, null)
+                    startActivity(shareIntent)
                 }
             }
             true

@@ -206,6 +206,11 @@
         android:label="AddChannelFragment" />
 
     <fragment
+        android:id="@+id/mentionFragment"
+        android:name="com.tolstoy.zurichat.ui.fragments.mentions.MentionsFragment"
+        android:label="MentionFragment" />
+
+    <fragment
         android:id="@+id/chatsFragment"
         android:name="com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.ChatsFragment"
         android:label="ChatsFragment"
