@@ -21,6 +21,11 @@ class AudioAdapter(
     private val media: MEDIA
 ) : RecyclerView.Adapter<AudioViewHolder>() {
 
+    companion object {
+        val MUSICITEMPOS = "MUSICTEMPOS"
+        val MUSICLIST = "MUSICLIST"
+    }
+
     override fun getItemViewType(position: Int) = media.ordinal
 
     class AudioViewHolder(itemView: View) :
