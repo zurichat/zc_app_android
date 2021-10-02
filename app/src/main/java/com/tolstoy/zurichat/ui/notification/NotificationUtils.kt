@@ -17,6 +17,10 @@ class NotificationUtils {
             val alarmIntent = Intent(activity.applicationContext, AlarmReceiver::class.java) // AlarmReceiver1 = broadcast receiver
 
             alarmIntent.putExtra("reason", "notification")
+            alarmIntent.putExtra("channel_tones", "notification")
+            alarmIntent.putExtra("message_tone", "notification")
+            alarmIntent.putExtra("vibrate", "notification")
+            alarmIntent.putExtra("high_priority", "notification")
             alarmIntent.putExtra("timestamp", timeInMilliSeconds)
 
 
