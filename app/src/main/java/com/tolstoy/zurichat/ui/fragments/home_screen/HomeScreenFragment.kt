@@ -1,5 +1,6 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -28,6 +29,10 @@ class HomeScreenFragment : Fragment() {
     private lateinit var user : User
     val viewModel: HomeScreenViewModel by viewModels()
     private lateinit var organizationID: String
+    private lateinit var currentOrgName: String
+
+    private val PREFS_NAME = "ORG_INFO"
+    private lateinit var sharedPref: SharedPreferences
 
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
     @Inject
@@ -37,8 +42,8 @@ class HomeScreenFragment : Fragment() {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
 
         user = requireActivity().intent.extras?.getParcelable("USER")!!
-        organizationID = "614679ee1a5607b13c00bcb7"
-
+        sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+       //organizationID = "614679ee1a5607b13c00bcb7"
         return binding.root
     }
 
@@ -50,16 +55,26 @@ class HomeScreenFragment : Fragment() {
         val tabs = binding.tabs
         val toolbar = binding.toolbarContainer.toolbar
         val activity = requireActivity() as MainActivity
-       // val user = Cache.map["user"] as User
 
         val prevDest = findNavController().previousBackStackEntry
             ?.destination?.label.toString()
 
         if (prevDest == "switch_organization" || prevDest == "fragment_see_your_channel"){
-            binding.toolbarContainer.toolbar.setTitle(arguments?.getString("org_name"))
+            currentOrgName = arguments?.getString("org_name").toString()
+            organizationID = arguments?.getString("org_id").toString()
+            sharedPref.edit().putString("org_name", currentOrgName).apply()
+            sharedPref.edit().putString("org_id", organizationID).apply()
+        }else{
+            currentOrgName = sharedPref.getString("org_name", null).toString()
+            organizationID = sharedPref.getString("org_id", null).toString()
+            if (currentOrgName.equals(null)){
+                currentOrgName = "Zuri Chat Default"
+                organizationID = "614679ee1a5607b13c00bcb7"
+                Toast.makeText(context, "User Has No Org", Toast.LENGTH_SHORT).show()
+            }
         }
 
-        //Toast.makeText(context, preference.getString("ORG_ID", null).toString(), Toast.LENGTH_SHORT).show()
+        binding.toolbarContainer.toolbar.setTitle(currentOrgName)
 
         // setup for viewpager2 and tab layout
         viewPager.adapter = viewPagerAdapter
