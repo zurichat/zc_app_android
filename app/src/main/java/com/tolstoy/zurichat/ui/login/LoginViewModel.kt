@@ -13,18 +13,23 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.withContext
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(private val repository: UserRepository) : ViewModel() {
 
+
     private val _loginResponse = MutableLiveData<Result<LoginResponse>>()
     val loginResponse: LiveData<Result<LoginResponse>> = _loginResponse
+
+    private val _logoutResponse = MutableLiveData<Result<LogoutResponse>>()
+    val logoutResponse: LiveData<Result<LogoutResponse>> = _logoutResponse
 
     private val _user = MutableLiveData<User>()
     val user: LiveData<User> get() = _user
 
     private val _passwordReset = MutableLiveData<Result<PassswordRestReponse>>()
-              val pssswordreset: LiveData<Result<PassswordRestReponse>> get() = _passwordReset
+    val pssswordreset: LiveData<Result<PassswordRestReponse>> get() = _passwordReset
 
     init {
         getUser()
@@ -44,12 +49,31 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
         }
     }
 
+    fun logout() {
+        _logoutResponse.postValue(Result.Loading)
+        viewModelScope.launch(exceptionHandler) {
+            val logoutResponse = repository.logout()
+            if (logoutResponse.code() == 200 && logoutResponse.isSuccessful) {
+                val body = logoutResponse.body()
+                body?.let {
+                    _logoutResponse.postValue(Result.Success(it))
+                }
+            }
+        }
+
+
+    }
+
     fun saveUserAuthState(value: Boolean) {
         repository.saveUserAuthState(value)
     }
 
     fun getUserAuthState(): Boolean {
         return repository.getUserAuthState()
+    }
+
+    fun clearUserAuthState() {
+         repository.clearUserAuthState()
     }
 
     private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
@@ -67,7 +91,7 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
             viewModelScope.launch {
                 _passwordReset.postValue(Result.Success(repository.passwordReset(passwordReset)))
             }
-        }catch (e:Exception){
+        } catch (e: Exception) {
             _passwordReset.postValue(Result.Error(e))
         }
 

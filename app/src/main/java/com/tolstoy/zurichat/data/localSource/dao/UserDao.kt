@@ -1,5 +1,6 @@
 package com.tolstoy.zurichat.data.localSource.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -24,6 +25,9 @@ interface UserDao {
      */
     @Query("SELECT * FROM users WHERE currentUser = 1")
     suspend fun getUser(): User
+
+    @Query("SELECT * FROM users")
+    fun readAllData():LiveData<List<User>>
 
     @Query("SELECT * FROM users WHERE email LIKE:email")
     suspend fun getUser(email: String): User

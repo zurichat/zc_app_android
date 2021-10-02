@@ -36,6 +36,7 @@ import com.tolstoy.zurichat.ui.fragments.networking.*
 import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelMessagesViewModel
 import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
 import com.tolstoy.zurichat.ui.fragments.viewmodel.SharedChannelViewModel
+import com.tolstoy.zurichat.ui.notification.NotificationUtils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -68,6 +69,9 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private lateinit var channelListDao: ChannelListDao
     private lateinit var sharedPref: SharedPreferences
 
+    private val mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
+    private var mNotified = false
+
     private val newChannelMenu by lazy {
         (parentFragment as HomeScreenFragment).binding.toolbarContainer.toolbar.menu.findItem(R.id.new_channel)
     }
@@ -87,6 +91,10 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
 
         job = Job()
         uiScope = CoroutineScope(Dispatchers.Main + job)
+
+        if (!mNotified) {
+            NotificationUtils().setNotification(mNotificationTime, requireActivity())
+        }
 
         return binding.root
     }

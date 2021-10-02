@@ -55,6 +55,7 @@ import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDataObje
 import com.tolstoy.zurichat.ui.fragments.home_screen.CentrifugeClient
 import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragmentDirections
 import com.tolstoy.zurichat.ui.fragments.networking.AppPublishHandler
+import com.tolstoy.zurichat.ui.notification.NotificationUtils
 import com.tolstoy.zurichat.ui.profile.data.DataX
 import dagger.hilt.android.AndroidEntryPoint
 import java.nio.charset.StandardCharsets
@@ -78,6 +79,9 @@ class ChannelChatFragment : Fragment() {
     private var channelJoined = false
 
     private var isEnterSend: Boolean = false
+
+    private val mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
+    private var mNotified = false
 
     private val channelMsgViewModel: ChannelMessagesViewModel by viewModels()
     private lateinit var channelListAdapter: BaseListAdapter
@@ -295,6 +299,10 @@ class ChannelChatFragment : Fragment() {
          */
         if (channelMsgViewModel.allMessages.value == null) {
             channelMsgViewModel.retrieveAllMessages(organizationID, channel._id)
+
+            if (!mNotified) {
+                NotificationUtils().setNotification(mNotificationTime, requireActivity())
+            }
         }
 
         val listLiveData = channelMsgViewModel.allMessages
