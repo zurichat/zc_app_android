@@ -173,5 +173,7 @@ dependencies {
     //Centrifugo Libary. DO NOT REMOVE
     implementation files('libs/centrifuge.aar')
 
+    //Google Sign Up
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
 
 }
