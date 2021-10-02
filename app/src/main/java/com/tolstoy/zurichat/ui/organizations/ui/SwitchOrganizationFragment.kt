@@ -74,17 +74,24 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
     }
 
     private fun setUpViews(orgs: List<Data>) {
-        userOrgAdapter = SwitchUserOrganizationAdapter(orgs, requireContext()).apply {
-            doOnOrgItemSelected {
-                findNavController().navigateUp()
-                onOrgItemActionClicked?.invoke(it)
 
+        try {
+            userOrgAdapter = SwitchUserOrganizationAdapter(orgs, requireContext()).apply {
+                doOnOrgItemSelected {
+                    findNavController().navigateUp()
+                    onOrgItemActionClicked?.invoke(it)
+
+                }
             }
+            binding.orgRecyclerView.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = userOrgAdapter
+            }
+            Toast.makeText(context, "user organizations retrieved successfully", Toast.LENGTH_LONG).show()
+        } catch (e: NullPointerException){
+            Toast.makeText(context, "User has no organization", Toast.LENGTH_LONG).show()
         }
-      binding.orgRecyclerView.apply {
-          layoutManager = LinearLayoutManager(requireContext())
-          adapter = userOrgAdapter
-      }
+
     }
 }
 
