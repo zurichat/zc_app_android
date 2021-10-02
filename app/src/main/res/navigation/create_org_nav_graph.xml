@@ -34,6 +34,12 @@
         <action
             android:id="@+id/action_nextFragment_to_addByEmailFragment"
             app:destination="@id/addByEmailFragment" />
+        <argument
+            android:name="organizationName"
+            app:argType="string" />
+        <argument
+            android:name="organizationId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/addByEmailFragment"

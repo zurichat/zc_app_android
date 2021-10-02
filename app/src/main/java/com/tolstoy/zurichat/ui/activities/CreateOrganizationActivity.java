@@ -6,6 +6,9 @@ import android.os.Bundle;
 
 import com.tolstoy.zurichat.R;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class CreateOrganizationActivity extends AppCompatActivity {
 
     @Override
