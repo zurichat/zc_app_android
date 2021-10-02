@@ -1,6 +1,6 @@
 package com.tolstoy.zurichat.ui.organizations.states
 
-import com.tolstoy.zurichat.models.organization_model.UserOrganizationModel
+import com.tolstoy.zurichat.models.network_response.UserOrganizationModel
 import com.tolstoy.zurichat.ui.profile.data.UserOrganizationResponse
 
 sealed class UserOrganizationViewState {

@@ -46,8 +46,6 @@ import kotlin.random.Random
 import com.google.gson.Gson
 import com.tolstoy.zurichat.data.localSource.AppDatabase
 import com.tolstoy.zurichat.models.OrganizationMember
-import com.tolstoy.zurichat.models.organization_model.OrganizationData
-import com.tolstoy.zurichat.models.organization_model.UserOrganizationModel
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.ChannelMessagesDao
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDao
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDataObject

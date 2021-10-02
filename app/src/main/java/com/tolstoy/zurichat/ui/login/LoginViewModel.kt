@@ -33,7 +33,7 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
     private val exceptionHandler: CoroutineExceptionHandler =
         CoroutineExceptionHandler { _, throwable ->
             Timber.e(throwable)
-            _loginResponse.postValue(Result.Error(throwable))
+            _loginResponse.postValue(Result.Failure(throwable))
         }
 
     fun login(loginBody: LoginBody) {
@@ -52,10 +52,8 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
         return repository.getUserAuthState()
     }
 
-    private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
-        repository.getUser().flowOn(Dispatchers.IO)
-            .catch { Timber.e(it) }
-            .collect { _user.postValue(it) }
+    private fun getUser() = viewModelScope.launch {
+        _user.value = repository.getUser()
     }
 
     fun saveUser(user: User) = viewModelScope.launch {
@@ -68,7 +66,7 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
                 _passwordReset.postValue(Result.Success(repository.passwordReset(passwordReset)))
             }
         }catch (e:Exception){
-            _passwordReset.postValue(Result.Error(e))
+            _passwordReset.postValue(Result.Failure(e))
         }
 
 

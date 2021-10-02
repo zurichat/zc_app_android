@@ -2,13 +2,21 @@ package com.tolstoy.zurichat.ui.organizations
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import androidx.core.os.bundleOf
+import android.util.Log
 import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentAddToOrganizationBinding
+import com.tolstoy.zurichat.databinding.FragmentNextBinding
+import com.tolstoy.zurichat.models.network_response.OrganizationCreatorResponse
+import com.tolstoy.zurichat.util.Result
 import com.tolstoy.zurichat.util.generateMaterialDialog
 import com.tolstoy.zurichat.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,21 +47,21 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
             addFromContactsButton
             addToOrganizationAppbar
             shareALinkButton.setOnClickListener {
-                        val intent = Intent(Intent.ACTION_SEND)
-                        intent.putExtra(
-                            Intent.EXTRA_TEXT,
-                            "https://api.zuri.chat/organizations/${organizationId}"
-                        )
-                        intent.type = "text/plain"
+                val intent = Intent(Intent.ACTION_SEND)
+                intent.putExtra(
+                    Intent.EXTRA_TEXT,
+                    "https://api.zuri.chat/organizations/${organizationId}"
+                )
+                intent.type = "text/plain"
 
-                        val shareIntent = Intent.createChooser(intent, null)
-                        startActivity(shareIntent)
-                    }
+                val shareIntent = Intent.createChooser(intent, null)
+                startActivity(shareIntent)
+            }
         }
 
         binding.nextTextView.setOnClickListener {
             val bundle = bundleOf("org_name" to organizationName)
-           Navigation.findNavController(it).navigate(R.id.action_nextFragment_to_seeYourChannelFragment, bundle)
+            Navigation.findNavController(it).navigate(R.id.action_nextFragment_to_seeYourChannelFragment, bundle)
         }
     }
 

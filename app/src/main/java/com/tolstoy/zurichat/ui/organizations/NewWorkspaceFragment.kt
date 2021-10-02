@@ -12,8 +12,8 @@ import androidx.navigation.fragment.findNavController
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.FragmentNewWorkspaceBinding
-import com.tolstoy.zurichat.models.organization_model.OrganizationCreator
 import com.tolstoy.zurichat.models.User
+import com.tolstoy.zurichat.models.network_response.OrganizationCreator
 import com.tolstoy.zurichat.ui.organizations.viewmodel.OrganizationViewModel
 import com.tolstoy.zurichat.util.Result
 import com.tolstoy.zurichat.util.createProgressDialog
@@ -76,7 +76,7 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
                     handleSuccess(binding.editTextCompany.text.toString(),it.data.data.InsertedID)
                     preference.edit().putString("ORG_ID", it.data.data.InsertedID).apply()
                 }
-                is Result.Error -> handleError(it.error)
+                is Result.Failure -> handleError(it.error)
             }
         })
 

@@ -13,7 +13,7 @@ import com.tolstoy.zurichat.models.OrganizationMember
 
 import com.tolstoy.zurichat.models.User
 
-class SelectMemberAdapter(private val user: (OrganizationMember) -> Unit):
+class SelectMemberAdapter(private val member: (OrganizationMember) -> Unit):
 
     RecyclerView.Adapter<SelectMemberAdapter.SelectMemberViewModel>(), Filterable {
     private var members = listOf<MembersData>()
@@ -38,8 +38,7 @@ class SelectMemberAdapter(private val user: (OrganizationMember) -> Unit):
         holder.apply{
             bind(list[position])
             itemView.setOnClickListener {
-                user(list[position])
-
+                member(list[position])
             }
         }
     }
@@ -50,12 +49,12 @@ class SelectMemberAdapter(private val user: (OrganizationMember) -> Unit):
 
     inner class SelectMemberViewModel(val binding: ListItemSelectMemberBinding): RecyclerView.ViewHolder(binding.root){
 
-        fun bind(user: OrganizationMember) {
-            binding.channelItemPersonNameTxt.text = if(user.firstName.isEmpty() && user.lastName.isEmpty())
+        fun bind(member: OrganizationMember) {
+            binding.channelItemPersonNameTxt.text = if(member.displayName.isBlank())
                 "No name"
-            else "${user.firstName} ${user.lastName}"
+            else "${member.displayName}"
             binding.channelItemPersonIcon.setImageResource(R.drawable.ic_kolade_icon)
-            binding.channelItemMessageTxt.text = user.email
+            binding.channelItemMessageTxt.text = member.email
         }
     }
 

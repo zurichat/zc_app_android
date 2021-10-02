@@ -15,10 +15,18 @@ import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.TypeConverte
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.TypeConverters.FileTypeConverter
 import com.tolstoy.zurichat.ui.fragments.model.AllChannelMessages
 
-@Database(entities = [User::class, OrganizationMemberEntity::class, RoomDataObject::class, AllChannelMessages::class], version = 3, exportSchema = false)
-@TypeConverters(DataTypeConverter::class,EmojiTypeConverter::class,EventTypeConverter::class,FileTypeConverter::class)
+@Database(
+    entities = [User::class, OrganizationMemberEntity::class, RoomDataObject::class, AllChannelMessages::class],
+    version = 3,
+    exportSchema = false
+)
+@TypeConverters(
+    DataTypeConverter::class,
+    EmojiTypeConverter::class,
+    EventTypeConverter::class,
+    FileTypeConverter::class
+)
 abstract class AppDatabase: RoomDatabase() {
-
     abstract fun userDao(): UserDao
 
     abstract fun organizationMembersDao(): OrganizationMembersDao

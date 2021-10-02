@@ -1,12 +1,15 @@
 package com.tolstoy.zurichat.models
 
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import com.google.gson.annotations.Expose
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 import java.util.*
 
+@Entity(tableName = "rooms", primaryKeys = ["id", "orgId"])
 data class Room(
     @SerializedName("_id")
     @Expose
@@ -14,7 +17,7 @@ data class Room(
 
     @SerializedName("bookmarks")
     @Expose
-    val bookmarks: List<Any> = emptyList(),
+    val bookmarks: List<Message> = emptyList(),
 
     @SerializedName("created_at")
     @Expose
@@ -26,11 +29,13 @@ data class Room(
 
     @SerializedName("pinned")
     @Expose
-    val pinned: List<Any> = emptyList(),
+    val pinned: List<Message> = emptyList(),
 
     @SerializedName("room_user_ids")
     @Expose
-    val roomUserIds: List<String> = emptyList()
+    val roomUserIds: List<String> = emptyList(),
+
+    val isDmRoom: Boolean = true
 ){
     override fun equals(other: Any?) = ((other is Room ) && other.orgId == orgId && other.id == id)
     override fun hashCode() = Objects.hash(orgId, id)
