@@ -24,6 +24,7 @@ class HomeScreenFragment : Fragment() {
     private lateinit var binding: FragmentHomeScreenBinding
     private lateinit var user : User
     val viewModel: HomeScreenViewModel by viewModels()
+    private lateinit var organizationID: String
 
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
 
@@ -31,6 +32,7 @@ class HomeScreenFragment : Fragment() {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
 
         user = requireActivity().intent.extras?.getParcelable("USER")!!
+        organizationID = "614679ee1a5607b13c00bcb7"
 
         return binding.root
     }
@@ -85,7 +87,7 @@ class HomeScreenFragment : Fragment() {
                     val intent = Intent(Intent.ACTION_SEND)
                     intent.putExtra(
                         Intent.EXTRA_TEXT,
-                        "https://api.zuri.chat/organizations/"
+                        "https://api.zuri.chat/organizations/${organizationID}"
                     )
                     intent.type = "text/plain"
 
