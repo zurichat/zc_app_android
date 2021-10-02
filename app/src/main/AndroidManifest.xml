@@ -92,9 +92,25 @@
             android:theme="@style/Theme.ZuriChat.Settings" />
         <activity android:name=".ui.activities.MainActivity"></activity>
 
+        <receiver
+            android:name=".ui.notification.AlarmReceiver"
+            android:enabled="true" />
+
+        <service
+            android:name=".ui.notification.NotificationService"
+            android:enabled="true" />
+
+        <activity
+            android:name=".ui.notification.NotificationActivity"
+            android:excludeFromRecents="true"
+            android:label="@string/notification"
+            android:launchMode="singleTask"
+            android:taskAffinity="" />
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <service android:name=".ui.dm.audio.PlayService" />
     </application>
 
 </manifest>
