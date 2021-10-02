@@ -28,7 +28,4 @@ class LocalModule {
 
     @Provides
     fun provideUserDao(database: AppDatabase) = database.userDao()
-
-    @Provides
-    fun provideRoomsDao(database: AppDatabase) = database.roomDao()
 }
