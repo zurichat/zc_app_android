@@ -13,7 +13,8 @@ data class GetMessagesResponse(
     @SerializedName("count")
     @Expose
     val count: Int,
-
+    val next: Any,
+    val previous: Any,
     @SerializedName("results")
     @Expose
     val messages: List<Message>,

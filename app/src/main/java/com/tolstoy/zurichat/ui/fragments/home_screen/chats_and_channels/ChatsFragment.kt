@@ -46,13 +46,13 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
     private lateinit var user : User
     private var token: String? = null
     private lateinit var userID: String
-    private lateinit var originalRoomsArrayList: ArrayList<Room>
 
 
     //variables initialization for new setup
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewModelRoom: RoomViewModel
 
+    private lateinit var room: RoomsListResponseItem
     private lateinit var roomList: RoomsListResponse
     private lateinit var roomsArrayList: ArrayList<RoomsListResponseItem>
 
@@ -89,6 +89,9 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
 
                 roomList = response.body()!!
 
+                Log.i("RoomList response", "$roomList")
+
+                room = roomList[0]
               //  roomsArrayList.addAll(roomList)
                 roomAdapter.setData(roomList)
 
@@ -137,7 +140,10 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         adapt = RoomAdapter(requireActivity(), roomsArrayList)
         recyclerView.adapter = adapt
         adapt.setItemClickListener {
-            findNavController().navigate(R.id.dmFragment)
+            val bundle1 = Bundle()
+            bundle1.putParcelable("USER",user)
+            bundle1.putParcelable("room", room)
+            findNavController().navigate(R.id.dmFragment, bundle1)
         }
     }
 
