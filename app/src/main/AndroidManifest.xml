@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tolstoy.zurichat">
 
-    <uses-permission android:name="android.permission.CAMERA" />
-    <!-- Permissions for Media attachments -->
     <application
         android:name=".ZuriChatApplication"
         android:allowBackup="true"
@@ -12,10 +10,11 @@
         android:roundIcon="@drawable/splash_logo"
         android:supportsRtl="true"
         android:theme="@style/Theme.ZuriChat">
+
         <activity
             android:name=".ui.activities.DocumentSentActivity"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light"/>
+            android:theme="@style/Theme.MaterialComponents.Light" />
         <activity
             android:name=".ui.activities.DocumentOtions"
             android:exported="true"
@@ -23,7 +22,11 @@
         <activity
             android:name=".ui.activities.OpenCameraActivity"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light">
+            android:theme="@style/Theme.MaterialComponents.Light"/>
+        <activity
+                android:name=".ui.activities.SplashActivity"
+                android:exported="true"
+                android:theme="@style/Theme.ZuriChat.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,10 +37,7 @@
             android:name=".ui.activities.DocumentsSelectedActivity"
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.Light" />
-        <activity
-            android:name=".ui.activities.SplashActivity"
-            android:exported="true"
-            android:theme="@style/Theme.ZuriChat.Splash" />
+
         <activity
             android:name=".ui.settings.ChatBackupActivity"
             android:exported="true"
@@ -93,7 +93,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
 
 </manifest>
