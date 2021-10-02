@@ -43,6 +43,7 @@ class ChannelMessagesViewModel : ViewModel(){
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
+
             }
         }
     }

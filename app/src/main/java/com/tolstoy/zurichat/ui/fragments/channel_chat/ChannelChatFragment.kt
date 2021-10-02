@@ -461,7 +461,7 @@ class ChannelChatFragment : Fragment() {
     private fun createMessagesList(channels: List<Data>): MutableList<BaseItem<*>> {
         // Wrap data in list items
         val channelsItems = channels.map {
-            ChannelListItem(it, user,requireActivity())
+            ChannelListItem(it, user,requireActivity(),uiScope)
         }
 
         val channelsWithDateHeaders = mutableListOf<BaseItem<*>>()

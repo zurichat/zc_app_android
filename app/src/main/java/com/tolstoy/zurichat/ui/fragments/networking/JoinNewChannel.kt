@@ -1,10 +1,7 @@
 package com.tolstoy.zurichat.ui.fragments.networking
 
 import com.tolstoy.zurichat.ui.fragments.model.*
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface JoinNewChannel {
 
@@ -26,4 +23,7 @@ interface JoinNewChannel {
 
     @GET("v1/{org_id}/channels/{channel_id}/socket/")
     fun getRoomData(@Path("org_id") organizationId : String, @Path("channel_id") channelId : String): RoomData
+
+    @GET("users/{user_id}/")
+    suspend fun getUserInfo(@Path("user_id") userId : String, @Header("Authorization") authHeader:String): UserInfo
 }
