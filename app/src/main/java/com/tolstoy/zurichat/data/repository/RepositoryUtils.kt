@@ -15,5 +15,5 @@ val auth by lazy {
 }
 
 val orgId by lazy {
-    (Cache.map.get("orgId") as OrganizationCreatorIdData).InsertedID
+    (Cache.map.get("orgId") as OrganizationCreatorIdData).organization_id
 }
