@@ -127,15 +127,7 @@ class HomeScreenFragment : Fragment() {
                     findNavController().navigate(R.id.switchOrganizationFragment, bundle)
                 }
                 R.id.invite_link -> {
-                    val intent = Intent(Intent.ACTION_SEND)
-                    intent.putExtra(
-                        Intent.EXTRA_TEXT,
-                        "https://api.zuri.chat/organizations/${organizationID}"
-                    )
-                    intent.type = "text/plain"
-
-                    val shareIntent = Intent.createChooser(intent, null)
-                    startActivity(shareIntent)
+                    findNavController().navigate(R.id.action_homeScreenFragment_to_shareLinkFragment)
                 }
             }
             true
