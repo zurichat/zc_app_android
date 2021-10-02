@@ -37,11 +37,11 @@ RecyclerView.Adapter<SelectedMemberAdapter.SelectedViewHolder>(){
     inner class SelectedViewHolder(val binding: ListItemSelectMember2Binding):
         RecyclerView.ViewHolder(binding.root) {
 
-         fun bind(member: OrganizationMember) {
+         fun bind(user: OrganizationMember) {
              binding.imageChatUser.setImageResource(R.drawable.ic_kolade_icon)
-             binding.nameOfContact.text = if(member.firstName.isEmpty() && member.lastName.isEmpty())
+             binding.nameOfContact.text = if(user.firstName.isEmpty() && user.lastName.isEmpty())
                  "No name"
-             else "${member.firstName} ${member.lastName}"
+             else "${user.firstName} ${user.lastName}"
          }
         }
 

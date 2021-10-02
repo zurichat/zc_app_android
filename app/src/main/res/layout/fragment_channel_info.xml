@@ -145,7 +145,7 @@
         app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
 
     <TextView
-        android:id="@+id/text_add_member_f_a_c"
+        android:id="@+id/member_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -174,8 +174,8 @@
         android:text="Media visibility"
         android:textColor="@color/text_black"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/text_add_member_f_a_c"
-        app:layout_constraintTop_toBottomOf="@+id/text_add_member_f_a_c" />
+        app:layout_constraintStart_toStartOf="@+id/member_label"
+        app:layout_constraintTop_toBottomOf="@+id/member_label" />
 
     <TextView
         android:id="@+id/textView8"

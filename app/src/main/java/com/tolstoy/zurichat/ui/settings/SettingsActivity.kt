@@ -15,6 +15,7 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.activities.ProfileActivity
 import com.tolstoy.zurichat.util.vibrateDevice
 
@@ -23,6 +24,7 @@ private const val TITLE_TAG = "settingsActivityTitle"
 class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback, SharedPreferences.OnSharedPreferenceChangeListener {
 
     var soundPool: SoundPool? = null
+    private lateinit var user : User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,9 +85,12 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
     }
 
     class SettingsFragment : PreferenceFragmentCompat() {
+        private lateinit var user : User
 
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.settings_preferences, rootKey)
+
+            user = requireActivity().intent.extras?.getParcelable("USER")!!
 
 
             val chatSettings = findPreference<Preference>("chat_header")
@@ -107,7 +112,11 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
 
             //make profile container clickable
             profileContainer?.setOnClickListener {
-                startActivity(Intent(requireContext(), ProfileActivity::class.java))
+                val bundle = Bundle()
+                bundle.putParcelable("USER",user)
+                val intent = Intent(requireContext(), ProfileActivity::class.java)
+                intent.putExtras(bundle)
+                startActivity(intent)
             }
 
             chatSettings!!.setOnPreferenceClickListener {
@@ -284,10 +293,19 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
     }
 
     fun initializePool() {
-        soundPool = SoundPool.Builder()
-            .setMaxStreams(6)
-            .setAudioAttributes(AudioAttributes.Builder().build())
-            .build()
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val audioAttributes: AudioAttributes = AudioAttributes.Builder().build()
+            soundPool =
+                SoundPool.Builder()
+                    .setMaxStreams(6)
+                    .setAudioAttributes(audioAttributes)
+                    .build()
+        }else{
+            soundPool = SoundPool(6,AudioManager.STREAM_NOTIFICATION,0)
+        }
+
+
     }
 
 }

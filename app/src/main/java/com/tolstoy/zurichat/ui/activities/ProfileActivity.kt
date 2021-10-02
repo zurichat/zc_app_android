@@ -23,9 +23,6 @@ import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.profile.data.*
 import com.tolstoy.zurichat.ui.profile.network.Constants
 import com.tolstoy.zurichat.ui.profile.network.ProfileService
-import com.tolstoy.zurichat.util.USER_EMAIL
-import com.tolstoy.zurichat.util.USER_TOKEN
-import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -37,23 +34,21 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import java.io.File
-import javax.inject.Inject
 
-@AndroidEntryPoint
 open class ProfileActivity: AppCompatActivity() {
 
     private lateinit var savedName : TextView
     private lateinit var savedAbout : TextView
+    private var user : User? = null
 
-    @Inject
-    lateinit var preferences: SharedPreferences
-
+    //token id
+    private var token: String? = null
     private lateinit var orgMemId: String
     private lateinit var memId: String
 
     private var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
         val newRequest: Request = chain.request().newBuilder()
-            .addHeader("Authorization", "Bearer ${preferences.getString(USER_TOKEN, "")}")
+            .addHeader("Authorization", "Bearer $token")
             .build()
         chain.proceed(newRequest)
     }).build()
@@ -71,7 +66,12 @@ open class ProfileActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //user = intent.extras?.getParcelable("USER")!!
+
+        user = intent.getParcelableExtra<User>("USER") as User
         setContentView(R.layout.activity_profile)
+
+        token = user?.token
 
         getUserOrganization()
 
@@ -344,8 +344,9 @@ open class ProfileActivity: AppCompatActivity() {
 
     //Get user organization
     private fun getUserOrganization() {
+        val email: String? = user?.email
 
-        val call = retrofitService.getUserOrg(preferences.getString(USER_EMAIL, ""))
+        val call: Call<UserOrganizationResponse> = retrofitService.getUserOrg(email)
         call.enqueue(object : Callback<UserOrganizationResponse> {
             override fun onResponse(
                 call: Call<UserOrganizationResponse>,

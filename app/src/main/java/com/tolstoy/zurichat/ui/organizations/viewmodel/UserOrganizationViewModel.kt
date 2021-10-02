@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.data.functional.Result
 import com.tolstoy.zurichat.data.remoteSource.TokenInterceptor
-import com.tolstoy.zurichat.models.network_response.UserOrganizationModel
+import com.tolstoy.zurichat.models.organization_model.UserOrganizationModel
 import com.tolstoy.zurichat.ui.organizations.states.UserOrganizationViewState
 import com.tolstoy.zurichat.ui.organizations.usecase.GetUserOrganization
 import com.tolstoy.zurichat.ui.profile.data.UserOrganizationResponse
