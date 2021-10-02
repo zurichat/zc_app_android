@@ -3,8 +3,12 @@ package com.tolstoy.zurichat.ui.login.screens
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentForgotPasswordBinding
 import com.tolstoy.zurichat.models.PasswordReset
@@ -38,7 +42,7 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
                 //  findNavController().navigate(R.id.enterOtpFragment)
 
               }
-                is Result.Failure -> {
+                is Result.Error -> {
                     Log.d("reset","${it.error}")
                 }
             }

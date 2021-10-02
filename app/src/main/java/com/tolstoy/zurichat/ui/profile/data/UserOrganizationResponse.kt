@@ -1,10 +1,9 @@
 package com.tolstoy.zurichat.ui.profile.data
 
-import com.tolstoy.zurichat.models.network_response.UserOrganizationModel
-
+import com.tolstoy.zurichat.models.organization_model.Data
 
 data class UserOrganizationResponse(
-    val `data`: List<UserOrganizationModel.Data>,
+    val `data`: List<Data>,
     val message: String,
     val status: Int
 )

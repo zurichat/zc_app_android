@@ -1,88 +1,122 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tolstoy.zurichat.R
-import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.FragmentHomeScreenBinding
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.activities.MainActivity
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
-import com.tolstoy.zurichat.util.changeVisibility
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeScreenFragment : Fragment(R.layout.fragment_home_screen) {
-
-    lateinit var binding: FragmentHomeScreenBinding
-    val viewModel: HomeScreenViewModel by activityViewModels()
+class HomeScreenFragment : Fragment() {
+    private lateinit var binding: FragmentHomeScreenBinding
+    private lateinit var user : User
+    val viewModel: HomeScreenViewModel by viewModels()
+    private lateinit var organizationID: String
 
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
+    @Inject
+    lateinit var preference : SharedPreferences
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
+        binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
+
+        user = requireActivity().intent.extras?.getParcelable("USER")!!
+        organizationID = "614679ee1a5607b13c00bcb7"
+
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentHomeScreenBinding.bind(view)
-        setupUI()
-        setupObservers()
-    }
+        val viewPagerAdapter = HomeFragmentPagerAdapter(childFragmentManager, lifecycle)
+        val viewPager = binding.pager
+        val tabs = binding.tabs
+        val toolbar = binding.toolbarContainer.toolbar
+        val activity = requireActivity() as MainActivity
+       // val user = Cache.map["user"] as User
 
-    private fun setupUI() = with(binding){
+        val prevDest = findNavController().previousBackStackEntry
+            ?.destination?.label.toString()
+
+        if (prevDest == "switch_organization" || prevDest == "fragment_see_your_channel"){
+            binding.toolbarContainer.toolbar.setTitle(arguments?.getString("org_name"))
+        }
+
+        //Toast.makeText(context, preference.getString("ORG_ID", null).toString(), Toast.LENGTH_SHORT).show()
+
         // setup for viewpager2 and tab layout
-        pager.also{
-            it.adapter = HomeFragmentPagerAdapter(childFragmentManager, lifecycle)
-            it.offscreenPageLimit = tabTitles.size
-        }
-
-        searchContainer.searchTextInputLayout.also {
-            it.setStartIconOnClickListener {
-                changeVisibility(View.GONE, searchContainer.root)
-            }
-            it.editText?.doOnTextChanged { text, _, _, _ ->
-                viewModel.searchQuery.postValue(text.toString())
-            }
-        }
-
-        toolbarContainer.toolbar.setOnMenuItemClickListener { menuItem ->
-            when(menuItem.itemId){
-                R.id.settings -> findNavController().navigate(R.id.settingsActivity)
-                R.id.search -> searchContainer.also {
-                    it.root.isVisible = true
-                    it.searchTextInputLayout.editText?.requestFocus()
-                }
-                R.id.new_channel -> findNavController().navigate(R.id.action_homeScreenFragment_to_new_channel_nav_graph)
-                R.id.starred_messages -> {
-                }
-                R.id.switch_workspace ->
-                    findNavController().navigate(R.id.action_homeScreenFragment_to_switchOrganizationFragment)
-            }
-            true
-        }
+        viewPager.adapter = viewPagerAdapter
+        viewPager.offscreenPageLimit = 2
 
         // attaches the viewpager to the tabs layout
-        TabLayoutMediator(tabs, pager) { tab, position ->
+        TabLayoutMediator(tabs, viewPager) { tab, position ->
             tab.text = resources.getString(
                 tabTitles[position]
             )
         }.attach()
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-    }
+        toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.settings -> {
+                    val bundle = Bundle()
+                    bundle.putParcelable("USER",user)
+                    findNavController().navigate(R.id.settingsActivity, bundle)
+                }
+                R.id.search -> {
+                    binding.searchContainer.root.isVisible = true
+                    binding.searchContainer.searchTextInputLayout.editText?.requestFocus()
+                }
+                R.id.new_channel -> {
+                    try {
+                        findNavController().navigate(HomeScreenFragmentDirections.actionHomeScreenFragmentToNewChannelNavGraph())
+                    } catch (exc: Exception) {
+                        exc.printStackTrace()
+                    }
+                }
+                R.id.starred_messages -> {
+                    findNavController().navigate(R.id.action_homeScreenFragment_to_starredMessagesFragment)
+                }
+                R.id.switch_workspace -> {
+                    val bundle = bundleOf("email" to user.email)
+                    findNavController().navigate(R.id.switchOrganizationFragment, bundle)
+                }
+                R.id.invite_link -> {
+                    val intent = Intent(Intent.ACTION_SEND)
+                    intent.putExtra(
+                        Intent.EXTRA_TEXT,
+                        "https://api.zuri.chat/organizations/${organizationID}"
+                    )
+                    intent.type = "text/plain"
 
-    private fun setupObservers() = with(viewModel){
-        error.observe(viewLifecycleOwner){
-            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+                    val shareIntent = Intent.createChooser(intent, null)
+                    startActivity(shareIntent)
+                }
+            }
+            true
+        }
+        binding.searchContainer.searchTextInputLayout.setStartIconOnClickListener {
+            binding.searchContainer.root.isVisible = false
+        }
+
+        binding.searchContainer.searchTextInputLayout.editText?.doOnTextChanged { text, start, before, count ->
+            viewModel.searchQuery.postValue(text.toString())
         }
     }
 
@@ -116,7 +150,4 @@ class HomeScreenFragment : Fragment(R.layout.fragment_home_screen) {
     }
      */
 
-    companion object{
-        val TAG = HomeScreenFragment::class.simpleName
-    }
 }

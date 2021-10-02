@@ -2,7 +2,8 @@ package com.tolstoy.zurichat.data.repository
 
 import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.models.User
-import com.tolstoy.zurichat.models.network_response.OrganizationCreatorIdData
+import com.tolstoy.zurichat.models.organization_model.OrganizationCreator
+import com.tolstoy.zurichat.models.organization_model.OrganizationCreatorIdData
 
 /**
  * @author Jeffrey Orazulike [https://github.com/jeffreyorazulike]

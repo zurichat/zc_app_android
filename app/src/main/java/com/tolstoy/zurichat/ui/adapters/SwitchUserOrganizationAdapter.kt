@@ -11,14 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.OrgListItemBinding
-import com.tolstoy.zurichat.models.network_response.UserOrganizationModel
+import com.tolstoy.zurichat.models.organization_model.Data
 
 class SwitchUserOrganizationAdapter(
-    private val organizations: List<UserOrganizationModel.Data>,
+    private val organizations: List<Data>,
     val context: Context
 ) : RecyclerView.Adapter<SwitchUserOrganizationAdapter.ViewHolder>() {
 
-    var onClickListener: ((data: UserOrganizationModel.Data) -> Unit)? = null
+    var onClickListener: ((data:Data) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -35,7 +35,7 @@ class SwitchUserOrganizationAdapter(
         holder.bind(organizations[position])
     }
 
-    fun doOnOrgItemSelected(listener: ((UserOrganizationModel.Data) -> Unit)) {
+    fun doOnOrgItemSelected(listener: ((Data) -> Unit)) {
         this.onClickListener = listener
     }
 
@@ -43,7 +43,7 @@ class SwitchUserOrganizationAdapter(
 
     inner class ViewHolder(private var item: OrgListItemBinding) :
         RecyclerView.ViewHolder(item.root) {
-        fun bind(org: UserOrganizationModel.Data) {
+        fun bind(org:Data) {
             item.orgName.text =
                 if (org.name.isEmpty()) "No name"
                 else org.name

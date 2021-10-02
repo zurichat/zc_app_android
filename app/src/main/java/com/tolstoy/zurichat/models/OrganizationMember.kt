@@ -1,13 +1,11 @@
 package com.tolstoy.zurichat.models
 
 
-import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 import com.google.gson.annotations.Expose
 import java.time.LocalDateTime
 import java.time.ZoneOffset
 
-@Entity(tableName = "members", primaryKeys = ["id", "orgId"])
 data class OrganizationMember(
     @SerializedName("_id")
     @Expose
@@ -29,7 +27,7 @@ data class OrganizationMember(
     val email: String = "", // mukhtar.b017@gmail.com
     @SerializedName("files")
     @Expose
-    val files: Files = Files(), // null
+    val files: Any? = null, // null
     @SerializedName("first_name")
     @Expose
     val firstName: String = "",
@@ -59,10 +57,10 @@ data class OrganizationMember(
     val role: String = "", // owner
     @SerializedName("settings")
     @Expose
-    val settings: Settings = Settings(), // null
+    val settings: Any? = null, // null
     @SerializedName("socials")
     @Expose
-    val socials: Socials = Socials(), // null
+    val socials: Any? = null, // null
     @SerializedName("status")
     @Expose
     val status: String = "",
@@ -72,8 +70,4 @@ data class OrganizationMember(
     @SerializedName("user_name")
     @Expose
     val userName: String = "" // mukhtar.b017
-) {
-    class Files {}
-    class Settings {}
-    class Socials {}
-}
+)

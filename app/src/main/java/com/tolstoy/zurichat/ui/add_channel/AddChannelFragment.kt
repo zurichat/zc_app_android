@@ -3,16 +3,18 @@ package com.tolstoy.zurichat.ui.add_channel
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentAddChannelBinding
+import com.tolstoy.zurichat.databinding.FragmentChannelChatBinding
 import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.User
-import java.util.*
+import java.util.ArrayList
 
 class AddChannelFragment : Fragment() {
     private lateinit var binding: FragmentAddChannelBinding

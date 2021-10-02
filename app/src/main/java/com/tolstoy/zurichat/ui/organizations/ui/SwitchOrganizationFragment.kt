@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.FragmentSwitchOrganizationsBinding
-import com.tolstoy.zurichat.models.network_response.UserOrganizationModel
+import com.tolstoy.zurichat.models.organization_model.Data
 import com.tolstoy.zurichat.ui.adapters.SwitchUserOrganizationAdapter
 import com.tolstoy.zurichat.ui.organizations.states.UserOrganizationViewState
 import com.tolstoy.zurichat.ui.organizations.utils.ZuriSharePreference
@@ -28,7 +28,7 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
     lateinit var progressLoader: ProgressLoader
     private val viewModel: UserOrganizationViewModel by viewModels()
     private val binding by viewBinding(FragmentSwitchOrganizationsBinding::bind)
-    private var onOrgItemActionClicked: ((UserOrganizationModel.Data) -> Unit)? = null
+    private var onOrgItemActionClicked: ((Data) -> Unit)? = null
     private lateinit var userOrgAdapter: SwitchUserOrganizationAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,7 +73,7 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
         }
     }
 
-    private fun setUpViews(orgs: List<UserOrganizationModel.Data>) {
+    private fun setUpViews(orgs: List<Data>) {
 
         try {
             userOrgAdapter = SwitchUserOrganizationAdapter(orgs, requireContext()).apply {

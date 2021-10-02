@@ -22,6 +22,9 @@
             app:argType="string"
             app:nullable="true" />
         <argument
+            android:name="userId"
+            app:argType="string" />
+        <argument
             android:name="senderId"
             app:argType="string" />
     </fragment>
@@ -34,22 +37,9 @@
             android:defaultValue="IMAGE"
             app:argType="com.tolstoy.zurichat.ui.dm.MEDIA" />
     </fragment>
-
-    <fragment
-        android:id="@+id/selectContactFragment"
-        android:name="com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.SelectContactFragment"
-        android:label="SelectContactFragment">
-        <action
-            android:id="@+id/action_selectContactFragment_to_new_channel_nav_graph"
-            app:destination="@id/new_channel_nav_graph" />
-        <action
-            android:id="@+id/action_selectContactFragment_to_dmFragment"
-            app:destination="@id/dmFragment" />
-    </fragment>
-
     <navigation
         android:id="@+id/new_channel_nav_graph"
-        app:startDestination="@id/selectMemberFragment">
+        app:startDestination="@id/selectNewChannelFragment">
 
         <!--    Hi guys, this is what is expected of everyone!. I decided to comment here because this file controls the workflow in it's entirety-->
         <!--    Please do not delete the comments here while you work, I will do it myself once our workflow is complete. thanks-->
@@ -64,6 +54,14 @@
                 First fragment to move to after clicking the fab button from homepage-->
         <!--    Here we are interested in moving to the next screen (SelectMemberFragment)when the user clicks on New Channel and nothing else->
         <!-    @somebody is expected to implement this feature, below is the navigation details. (This feature doesn't require any API consumption)-->
+        <fragment
+            android:id="@+id/selectNewChannelFragment"
+            android:name="com.tolstoy.zurichat.ui.newchannel.fragment.SelectNewChannelFragment"
+            android:label="SelectContactFragment">
+            <action
+                android:id="@+id/action_selectNewChannelFragment_to_selectMemberFragment"
+                app:destination="@id/selectMemberFragment" />
+        </fragment>
 
         <!-- 3. SelectMemberFragment:
                 Second fragment to move to after selecting New Channel option from 2 above-->
@@ -79,6 +77,9 @@
             <action
                 android:id="@+id/action_selectMemberFragment_to_newChannelDataFragment"
                 app:destination="@id/newChannelDataFragment"/>
+            <action
+                android:id="@+id/action_selectMemberFragment_to_selectNewChannelFragment"
+                app:destination="@id/selectNewChannelFragment" />
         </fragment>
         <!-- 4. NewChannelDataFragment:
                 Third fragment to move to after selecting members from 3 above-->
@@ -170,9 +171,6 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_settingsActivity"
             app:destination="@id/settingsActivity" />
-        <action
-            android:id="@+id/action_homeScreenFragment_to_selectContactFragment"
-            app:destination="@id/selectContactFragment" />
         <action
             android:id="@+id/action_homeScreenFragment_to_channelChatFragment"
             app:destination="@id/channelChatFragment" />

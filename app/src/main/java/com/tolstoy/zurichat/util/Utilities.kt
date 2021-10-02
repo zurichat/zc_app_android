@@ -15,7 +15,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.shreyaspatil.MaterialDialog.MaterialDialog
 import com.tolstoy.zurichat.R
-import com.tolstoy.zurichat.models.network_response.UserOrganizationModel
+import com.tolstoy.zurichat.models.organization_model.UserOrganizationModel
 import okhttp3.ResponseBody
 
 // Sets theme according to the string passed
