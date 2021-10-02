@@ -25,10 +25,12 @@ class HomeScreenViewModel
     val userRooms: LiveData<List<Room>>
         get() = _userRooms
     private val _userRooms = MutableLiveData<List<Room>>()
+
+
     fun getRooms(){
         viewModelScope.launch {
             try {
-                _userRooms.value = roomsRepository.getRooms(userId = user!!.id)
+                _userRooms.value = roomsRepository.getRooms(userId = "61467ee61a5607b13c00bcf2") //userId = user!!.id
             }catch (exception: Exception){
                 exception.printStackTrace()
             }
