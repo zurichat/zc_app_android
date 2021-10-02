@@ -42,6 +42,10 @@
             android:exported="true"
             android:theme="@style/Theme.MaterialComponents.Light"/>
         <activity
+            android:name=".ui.activities.OpenCameraActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
+        <activity
             android:name=".ui.activities.DocumentSentActivity"
 
             android:exported="true"
