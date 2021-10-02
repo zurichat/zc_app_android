@@ -1,5 +1,6 @@
 package com.tolstoy.zurichat.di
 
+import DMService
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
@@ -91,12 +92,8 @@ object RetrofitModule {
         builder.baseUrl("https://api.zuri.chat/").build().create(UsersService::class.java)
 
     @Provides
-    fun provideChatService(builder: Retrofit.Builder) =
-        builder.baseUrl(ChatsService.BASE_URL).build().create(ChatsService::class.java)
-
-    @Provides
-    fun provideRoomService(builder: Retrofit.Builder) =
-        builder.baseUrl(RoomService.BASE_URL).build().create(RoomService::class.java)
+    fun provideDMService(builder: Retrofit.Builder) =
+        builder.baseUrl(DMService.BASE_URL).build().create(DMService::class.java)
 
     @Provides
     fun provideFileService(builder: Retrofit.Builder) =
