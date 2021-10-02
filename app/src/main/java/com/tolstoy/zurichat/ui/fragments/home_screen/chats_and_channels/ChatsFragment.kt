@@ -39,7 +39,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import java.util.*
 import kotlin.collections.ArrayList
-import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ChatsFragment : Fragment(R.layout.fragment_chats) {
