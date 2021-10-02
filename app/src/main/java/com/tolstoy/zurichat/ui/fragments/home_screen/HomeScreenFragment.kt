@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
@@ -26,24 +25,31 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class HomeScreenFragment : Fragment() {
     private lateinit var binding: FragmentHomeScreenBinding
-    private lateinit var user : User
+    private lateinit var user: User
     val viewModel: HomeScreenViewModel by viewModels()
     private lateinit var organizationID: String
-    private lateinit var currentOrgName: String
+    private lateinit var organizationName: String
 
     private val PREFS_NAME = "ORG_INFO"
+    private val ORG_NAME = "org_name"
+    private val ORG_ID = "org_id"
     private lateinit var sharedPref: SharedPreferences
 
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
-    @Inject
-    lateinit var preference : SharedPreferences
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
+    @Inject
+    lateinit var preference: SharedPreferences
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
 
         user = requireActivity().intent.extras?.getParcelable("USER")!!
         sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-       //organizationID = "614679ee1a5607b13c00bcb7"
+        //organizationID = "614679ee1a5607b13c00bcb7"
         return binding.root
     }
 
@@ -56,25 +62,33 @@ class HomeScreenFragment : Fragment() {
         val toolbar = binding.toolbarContainer.toolbar
         val activity = requireActivity() as MainActivity
 
-        val prevDest = findNavController().previousBackStackEntry
+        //get the label of the previous destination
+        val prevDestLabel = findNavController().previousBackStackEntry
             ?.destination?.label.toString()
 
-        if (prevDest == "switch_organization" || prevDest == "fragment_see_your_channel"){
-            currentOrgName = arguments?.getString("org_name").toString()
-            organizationID = arguments?.getString("org_id").toString()
-            sharedPref.edit().putString("org_name", currentOrgName).apply()
-            sharedPref.edit().putString("org_id", organizationID).apply()
-        }else{
-            currentOrgName = sharedPref.getString("org_name", null).toString()
-            organizationID = sharedPref.getString("org_id", null).toString()
-            if (currentOrgName.equals(null)){
-                currentOrgName = "Zuri Chat Default"
-                organizationID = "614679ee1a5607b13c00bcb7"
-                Toast.makeText(context, "User Has No Org", Toast.LENGTH_SHORT).show()
+        when (prevDestLabel) {
+            "switch_organization", "fragment_see_your_channel" -> {
+                organizationName = arguments?.getString(ORG_NAME).toString()
+                organizationID = arguments?.getString(ORG_ID).toString()
+                with(sharedPref) {
+                    edit().putString(ORG_NAME, organizationName).apply()
+                    edit().putString(ORG_ID, organizationID).apply()
+                }
+            }
+            else -> {
+                organizationName = sharedPref.getString(ORG_NAME, null).toString()
+                organizationID = sharedPref.getString(ORG_ID, null).toString()
+                when {
+                    organizationName.equals(null) -> {
+                        organizationName = "Zuri Chat Default"
+                        organizationID = "614679ee1a5607b13c00bcb7"
+                    }
+                }
             }
         }
 
-        binding.toolbarContainer.toolbar.setTitle(currentOrgName)
+        //set the toolbar title to the current logged in organization
+        toolbar.title = organizationName
 
         // setup for viewpager2 and tab layout
         viewPager.adapter = viewPagerAdapter
@@ -91,7 +105,7 @@ class HomeScreenFragment : Fragment() {
             when (it.itemId) {
                 R.id.settings -> {
                     val bundle = Bundle()
-                    bundle.putParcelable("USER",user)
+                    bundle.putParcelable("USER", user)
                     findNavController().navigate(R.id.settingsActivity, bundle)
                 }
                 R.id.search -> {
