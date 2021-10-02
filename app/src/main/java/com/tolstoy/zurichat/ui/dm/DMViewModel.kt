@@ -63,7 +63,7 @@ class DMViewModel @Inject constructor(
     }.await()
 
     suspend fun createRoom(userId: String, otherUserId: String,
-                           orgId: String = "6145eee9285e4a18402074cd") = viewModelScope.async {
+                           orgId: String = "614679ee1a5607b13c00bcb7") = viewModelScope.async {
         return@async roomsRepository.createRoom(CreateRoom(orgId, listOf(userId, otherUserId)))
     }.await()
 }
