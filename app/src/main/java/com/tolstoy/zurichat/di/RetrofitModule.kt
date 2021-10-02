@@ -7,6 +7,8 @@ import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.tolstoy.zurichat.data.remoteSource.*
 import com.tolstoy.zurichat.ui.organizations.utils.TOKEN_NAME
+import com.tolstoy.zurichat.util.RETROFIT_CACHE_SIZE
+import com.tolstoy.zurichat.util.USER_TOKEN
 import com.tolstoy.zurichat.data.remoteSource.Retrofit as RetrofitBuilder
 import dagger.Module
 import dagger.Provides
@@ -41,7 +43,7 @@ object RetrofitModule {
     @Provides
     fun provideRetrofitCache(application: Application) =
         // creates a cache with a max size of 10mb
-        Cache(application.applicationContext.cacheDir, 10)
+        Cache(application.applicationContext.cacheDir, RETROFIT_CACHE_SIZE)
 
 
     @Provides
@@ -51,7 +53,7 @@ object RetrofitModule {
         // Add authorization token to the header interceptor
         val headerAuthorization = Interceptor { chain ->
             val request = chain.request().newBuilder()
-            sharedPreferences.getString(TOKEN_NAME, null)?.let {
+            sharedPreferences.getString(USER_TOKEN, null)?.let {
                 request.addHeader("Authorization", "Bearer $it")
             }
             chain.proceed(request.build())
