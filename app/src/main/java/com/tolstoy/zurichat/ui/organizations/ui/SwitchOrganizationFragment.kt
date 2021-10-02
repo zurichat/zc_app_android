@@ -33,14 +33,15 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel.setToken(getToken())
-        viewModel.getUserOrganizations(emailAddress = getUserEmailAddress())
+        viewModel.getUserOrganizations(emailAddress = getUserEmailAddress()!!)
 
         observerData()
     }
 
-    private fun getUserEmailAddress(): String {
-        return "glagoandrew2001@gmail.com"
+    private fun getUserEmailAddress(): String? { //"glagoandrew2001@gmail.com"
+        return arguments?.getString("email")
     }
 
     private fun getToken(): String {
@@ -73,17 +74,24 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
     }
 
     private fun setUpViews(orgs: List<Data>) {
-        userOrgAdapter = SwitchUserOrganizationAdapter(orgs, requireContext()).apply {
-            doOnOrgItemSelected {
-                findNavController().navigateUp()
-                onOrgItemActionClicked?.invoke(it)
 
+        try {
+            userOrgAdapter = SwitchUserOrganizationAdapter(orgs, requireContext()).apply {
+                doOnOrgItemSelected {
+                    findNavController().navigateUp()
+                    onOrgItemActionClicked?.invoke(it)
+
+                }
             }
+            binding.orgRecyclerView.apply {
+                layoutManager = LinearLayoutManager(requireContext())
+                adapter = userOrgAdapter
+            }
+            Toast.makeText(context, "user organizations retrieved successfully", Toast.LENGTH_LONG).show()
+        } catch (e: NullPointerException){
+            Toast.makeText(context, "User has no organization", Toast.LENGTH_LONG).show()
         }
-      binding.orgRecyclerView.apply {
-          layoutManager = LinearLayoutManager(requireContext())
-          adapter = userOrgAdapter
-      }
+
     }
 }
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -12,7 +13,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tolstoy.zurichat.R
-import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.FragmentHomeScreenBinding
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.activities.MainActivity
@@ -80,7 +80,8 @@ class HomeScreenFragment : Fragment() {
                     findNavController().navigate(R.id.action_homeScreenFragment_to_starredMessagesFragment)
                 }
                 R.id.switch_workspace -> {
-                    findNavController().navigate(R.id.switchOrganizationFragment)
+                    val bundle = bundleOf("email" to user.email)
+                    findNavController().navigate(R.id.switchOrganizationFragment, bundle)
                 }
                 R.id.invite_link -> {
                     val intent = Intent(Intent.ACTION_SEND)
