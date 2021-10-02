@@ -64,9 +64,9 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
         binding = FragmentDmBinding.bind(view)
 
         arguments?.let { bundle ->
-            val args = DMFragmentArgs.fromBundle(bundle)
-            roomId = args.roomId
-            senderId = args.senderId
+//            val args = DMFragmentArgs.fromBundle(bundle)
+//            roomId = args.roomId
+//            senderId = args.senderId
         }
 
         setupObservers()
@@ -170,7 +170,7 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
     }
 
     private fun navigateToAttachmentScreen(media: MEDIA = MEDIA.IMAGE){
-        findNavController().navigate(DMFragmentDirections.actionDmFragmentToAttachmentsFragment(media))
+//        findNavController().navigate(DMFragmentDirections.actionDmFragmentToAttachmentsFragment(media))
     }
 
     /**

@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ItemMessageBinding
 import com.tolstoy.zurichat.models.Message
+import com.tolstoy.zurichat.ui.dm_chat.model.response.message.Result
 import com.tolstoy.zurichat.util.FONT_KEY
 import com.tolstoy.zurichat.util.changeVisibility
 import java.time.LocalDateTime
