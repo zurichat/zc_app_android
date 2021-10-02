@@ -5,9 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.tolstoy.zurichat.models.User
-import io.reactivex.Completable
-import io.reactivex.Flowable
-
 /**
  * The users table is acting as a local cache while the app
  * is still trying to get data from the remote server or
