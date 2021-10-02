@@ -8,6 +8,7 @@ import android.media.SoundPool
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -18,7 +19,10 @@ import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.activities.ProfileActivity
 import com.tolstoy.zurichat.ui.notification.NotificationActivity
+import com.tolstoy.zurichat.ui.fragments.model.RoomData
 import com.tolstoy.zurichat.util.vibrateDevice
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 private const val TITLE_TAG = "settingsActivityTitle"
 
@@ -37,6 +41,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         val manageStorageContainer = findViewById<ConstraintLayout>(R.id.manage_storage_container)
         val networkUsageContainer = findViewById<ConstraintLayout>(R.id.network_usage_container)
         val divider = findViewById<View>(R.id.divider)
+        val nameTxt = findViewById<TextView>(R.id.name)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.settings, SettingsFragment())
@@ -54,6 +59,17 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
             }
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        user = intent.extras?.getParcelable("USER")!!
+        if (!(user.first_name.isEmpty() && user.last_name.isEmpty())){
+            nameTxt.text = user.first_name.plus(" "+user.last_name)
+        }else if (user.first_name.isNotEmpty()){
+              nameTxt.text = user.first_name
+        }else if (user.last_name.isNotEmpty()){
+             nameTxt.text = user.last_name
+        }else{
+             nameTxt.text = user.email
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

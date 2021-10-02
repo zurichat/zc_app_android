@@ -45,7 +45,8 @@ import kotlin.random.Random
 class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private val viewModel : ChannelViewModel by viewModels()
     private lateinit var sharedViewModel : SharedChannelViewModel
-
+    private val PREFS_NAME = "ORG_INFO"
+    private val ORG_ID = "org_id"
     private lateinit var binding: FragmentChannelsBinding
     private lateinit var channelsArrayList: ArrayList<ChannelModel>
     private lateinit var joinedArrayList: ArrayList<ChannelModel>
@@ -68,7 +69,9 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         roomDao = database.roomDao()
 
         user = requireActivity().intent.extras?.getParcelable("USER")!!
-        organizationID = "614679ee1a5607b13c00bcb7"
+        //organizationID = "614679ee1a5607b13c00bcb7"
+        sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        organizationID = sharedPref.getString(ORG_ID, null).toString()
 
         job = Job()
         uiScope = CoroutineScope(Dispatchers.Main + job)
