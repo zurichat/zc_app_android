@@ -60,7 +60,7 @@ class HomeScreenFragment : Fragment(R.layout.fragment_home_screen) {
                     it.searchTextInputLayout.editText?.requestFocus()
                 }
                 R.id.new_channel -> findNavController().navigate(R.id.action_homeScreenFragment_to_new_channel_nav_graph)
-                R.id.saved_messages -> {
+                R.id.starred_messages -> {
                 }
                 R.id.switch_workspace ->
                     findNavController().navigate(R.id.action_homeScreenFragment_to_switchOrganizationFragment)

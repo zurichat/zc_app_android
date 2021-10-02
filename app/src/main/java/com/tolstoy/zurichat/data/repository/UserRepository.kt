@@ -1,6 +1,7 @@
 package com.tolstoy.zurichat.data.repository
 
 import android.content.SharedPreferences
+import com.tolstoy.zurichat.data.remoteSource.TokenInterceptor
 import com.tolstoy.zurichat.data.localSource.dao.UserDao
 import com.tolstoy.zurichat.data.remoteSource.UsersService
 import com.tolstoy.zurichat.models.*
@@ -48,5 +49,5 @@ class UserRepository @Inject constructor(
 
     fun getUserToken() = preferences.getString(USER_TOKEN, "")!!
 
-    suspend fun getUser() = flow { emit(dao.getUser(getUserId())) }
+    suspend fun getUser() = dao.getUser(getUserId())
 }

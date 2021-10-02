@@ -52,10 +52,8 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
         return repository.getUserAuthState()
     }
 
-    private fun getUser() = viewModelScope.launch(Dispatchers.IO) {
-        repository.getUser().flowOn(Dispatchers.IO)
-            .catch { Timber.e(it) }
-            .collect { _user.postValue(it) }
+    private fun getUser() = viewModelScope.launch {
+        _user.value = repository.getUser()
     }
 
     fun saveUser(user: User) = viewModelScope.launch {

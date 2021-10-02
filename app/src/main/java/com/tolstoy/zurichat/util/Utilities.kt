@@ -11,8 +11,12 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.preference.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.shreyaspatil.MaterialDialog.MaterialDialog
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.models.network_response.UserOrganizationModel
+import okhttp3.ResponseBody
 
 // Sets theme according to the string passed
 fun setUpApplicationTheme(themeName : String){
@@ -75,4 +79,15 @@ fun vibrateDevice(context: Context) {
             it.vibrate(100)
         }
     }
+}
+
+fun handleErrorMessage(res: ResponseBody): String {
+    var errorMessage = ""
+    val gson = Gson()
+    val type = object : TypeToken<UserOrganizationModel>() {}.type
+    val errorResponse: UserOrganizationModel? = gson.fromJson(res.charStream(), type)
+    if (errorResponse != null) {
+        errorMessage = errorResponse.message
+    }
+    return errorMessage
 }

@@ -3,12 +3,15 @@ package com.tolstoy.zurichat.ui.channel_info;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -18,8 +21,11 @@ import android.view.WindowManager;
 import com.tolstoy.zurichat.R;
 import com.tolstoy.zurichat.models.Media;
 import com.tolstoy.zurichat.models.Participant;
+import com.tolstoy.zurichat.models.User;
 import com.tolstoy.zurichat.ui.adapters.MediaAdapter;
 import com.tolstoy.zurichat.ui.adapters.ParticipantAdapter;
+import com.tolstoy.zurichat.ui.fragments.model.ChannelData;
+import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelMessagesViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,21 +33,46 @@ import java.util.List;
 public class ChannelInfoActivity extends AppCompatActivity {
 
     private NavController navController;
+    ChannelMessagesViewModel channelMessagesViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_channel_info);
 
+        channelMessagesViewModel = new ViewModelProvider(this).get(ChannelMessagesViewModel.class);
         navController = Navigation.findNavController(this, R.id.nav_host);
         Toolbar toolbar = (Toolbar) findViewById(R.id.custom_toolbar);
         setSupportActionBar(toolbar);
-        NavigationUI.setupWithNavController(toolbar,navController);
+        NavigationUI.setupWithNavController(toolbar, navController);
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1A61DB")));
 
         String label = (String) navController.getCurrentDestination().getLabel();
+
+        channelMessagesViewModel.getChannelData().observe(this, channelData -> {
+            if (channelData != null) {
+                getDataPass(channelData);
+            }
+        });
+//
+//        try {
+//            Intent intent = getIntent();
+//            if (intent != null) {
+//                String channel = intent.getStringExtra("channel_name");
+//                int numberOfDocument = intent.getIntExtra("number_of_document", 0);
+//                List<User> members = intent.getParcelableArrayListExtra("members");
+//
+//            } else {
+//                System.out.println("bundle is null");
+//            }
+//
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
 
         if (actionBar != null) {
             try {
@@ -58,6 +89,13 @@ public class ChannelInfoActivity extends AppCompatActivity {
 
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.setStatusBarColor(Color.parseColor("#1A61DB"));
+    }
+
+    //implement the channel data to view
+    private void getDataPass(ChannelData channelData) {
+        System.out.println("Channel Name "+channelData.getChannelName());
+        System.out.println("Channel channel "+channelData.getMembers());
+        System.out.println("Channel data "+channelData.toString());
     }
 
 }

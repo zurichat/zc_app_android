@@ -1,5 +1,6 @@
 package com.tolstoy.zurichat.models.network_response
 
+import com.tolstoy.zurichat.models.Data
 import com.tolstoy.zurichat.models.OrganizationMember
 
 /*
@@ -56,3 +57,20 @@ data class OrganizationMembers(
     val message: String,
     val `data`: List<OrganizationMember>
 )
+
+data class UserOrganizationModel(
+    val `data`: List<Data>,
+    val message: String,
+    val status: Int
+){
+    data class Data(
+        val id: String,
+        val imgs: List<String>,
+        val isOwner: Boolean,
+        val logo_url: String,
+        val member_id: String,
+        val name: String,
+        val no_of_members: Int,
+        val workspace_url: String
+    )
+}

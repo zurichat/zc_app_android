@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ItemChatBinding
 import com.tolstoy.zurichat.models.OrganizationMember
+import com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.SelectContactFragment
 import com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.SelectContactFragmentDirections
 import com.tolstoy.zurichat.util.changeVisibility
 
