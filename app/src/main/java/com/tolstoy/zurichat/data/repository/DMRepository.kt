@@ -1,6 +1,6 @@
 package com.tolstoy.zurichat.data.repository
 
-import DMService
+import com.tolstoy.zurichat.data.remoteSource.DMService
 import com.tolstoy.zurichat.data.remoteSource.enqueue
 import com.tolstoy.zurichat.models.Message
 import com.tolstoy.zurichat.models.network_response.CreateRoom
