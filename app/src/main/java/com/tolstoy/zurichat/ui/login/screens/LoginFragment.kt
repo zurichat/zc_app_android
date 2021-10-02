@@ -15,6 +15,7 @@ import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.FragmentLoginBinding
 import com.tolstoy.zurichat.models.LoginBody
 import com.tolstoy.zurichat.models.LoginResponse
+import com.tolstoy.zurichat.ui.activities.CreateOrganizationActivity
 import com.tolstoy.zurichat.ui.activities.MainActivity
 import com.tolstoy.zurichat.ui.login.LoginViewModel
 import com.tolstoy.zurichat.ui.organizations.utils.ZuriSharePreference
@@ -29,6 +30,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private val binding by viewBinding(FragmentLoginBinding::bind)
     private val viewModel by viewModels<LoginViewModel>()
+    private lateinit var prevDest: String
 
     private lateinit var progressDialog: ProgressDialog
     @Inject
@@ -42,7 +44,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         val materialTextView = binding.materialTextView
         progressDialog = ProgressDialog(context)
 
-        val prevDest = Navigation.findNavController(view).previousBackStackEntry!!
+        prevDest = Navigation.findNavController(view).previousBackStackEntry!!
             .destination.label.toString()
 
         if (prevDest == "fragment_email_verified"){
@@ -106,18 +108,25 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         // add user object to room database
         viewModel.saveUser(user)
-
         progressDialog.dismiss()
         val bundle = Bundle()
         bundle.putParcelable("USER", user)
-        val intent = Intent(requireContext(), MainActivity::class.java)
-        Cache.map.putIfAbsent("user", user)
-        intent.putExtras(bundle)
-        startActivity(intent)
-        requireActivity().finish()
+        if(prevDest == "fragment_email_verified"){
+            val intent = Intent(requireContext(), CreateOrganizationActivity::class.java)
+            Cache.map.putIfAbsent("user", user)
+            intent.putExtras(bundle)
+            startActivity(intent)
+            requireActivity().finish()
+        }else{
+            val intent = Intent(requireContext(), MainActivity::class.java)
+            Cache.map.putIfAbsent("user", user)
+            intent.putExtras(bundle)
+            startActivity(intent)
+            requireActivity().finish()
+        }
         sharedPreferences.edit().putString("TOKEN",user.token).apply()
         Toast.makeText(context, "You have successfully logged in", Toast.LENGTH_LONG).show()
-
+        //Toast.makeText(context, prevDest, Toast.LENGTH_LONG).show()
         ZuriSharePreference(requireContext()).setString("TOKEN", user.token)
     }
 
