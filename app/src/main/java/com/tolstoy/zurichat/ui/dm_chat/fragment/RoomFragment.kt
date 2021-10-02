@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import com.tolstoy.zurichat.databinding.FragmentChannelChatBinding
 import com.tolstoy.zurichat.databinding.FragmentDmBinding
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.add_channel.BaseItem
@@ -18,9 +20,15 @@ import com.tolstoy.zurichat.ui.dm_chat.model.request.SendMessageBody
 import com.tolstoy.zurichat.ui.dm_chat.model.response.message.BaseRoomData
 import com.tolstoy.zurichat.ui.dm_chat.model.response.message.Data
 import com.tolstoy.zurichat.ui.dm_chat.model.response.message.SendMessageResponse
+import com.tolstoy.zurichat.ui.dm_chat.model.response.room.RoomsListResponseItem
+import com.tolstoy.zurichat.ui.dm_chat.repository.Repository
 import com.tolstoy.zurichat.ui.dm_chat.viewmodel.RoomViewModel
+import com.tolstoy.zurichat.ui.dm_chat.viewmodel.RoomViewModelFactory
 import com.tolstoy.zurichat.ui.fragments.channel_chat.ChannelHeaderItem
 import java.text.SimpleDateFormat
+import java.time.Instant
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatterBuilder
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.random.Random
@@ -33,8 +41,9 @@ class RoomFragment : Fragment() {
     private lateinit var userId: String
     private lateinit var senderId: String
     private lateinit var user : User
-    private lateinit var room : RoomListResponseItem
-    private val roomMsgViewModel : RoomViewModel by viewModels()
+    private lateinit var room : RoomsListResponseItem
+    private lateinit var roomMsgViewModel: RoomViewModel
+    private val roomMsgViewModel1 : RoomViewModel by viewModels()
     private lateinit var binding: FragmentDmBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,8 +53,10 @@ class RoomFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        user = requireActivity().intent.extras?.getParcelable("USER")!!
-        room = requireActivity().intent.extras?.getParcelable("room")!!
+        binding = FragmentDmBinding.inflate(inflater, container, false)
+        val bundle1 = arguments
+        user = bundle1?.getParcelable("USER")!!
+        room = bundle1.getParcelable("room")!!
         return binding.root
     }
 
@@ -81,7 +92,9 @@ class RoomFragment : Fragment() {
         binding.listDm.adapter = roomsListAdapter
         binding.listDm.itemAnimator = null
 
-
+        val repository = Repository()
+        val viewModelFactory = RoomViewModelFactory(repository)
+        roomMsgViewModel = ViewModelProvider(this, viewModelFactory).get(RoomViewModel::class.java)
         roomMsgViewModel.getMessages()
 
         roomMsgViewModel.myGetMessageResponse.observe(viewLifecycleOwner, { response ->
@@ -116,7 +129,7 @@ class RoomFragment : Fragment() {
 
         sendMessage.setOnClickListener{
             if (channelChatEdit.text.toString().isNotEmpty()){
-                val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+                val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                 s.timeZone = TimeZone.getTimeZone("UTC")
                 val time = s.format(Date(System.currentTimeMillis()))
 
@@ -125,6 +138,7 @@ class RoomFragment : Fragment() {
                 val sendMessageResponse = SendMessageResponse(dataMessage, "message_create", generateID().toString(), roomId, "201", false)
                 val baseRoomData = BaseRoomData(null, sendMessageResponse, false)
                 messagesArrayList.add(baseRoomData)
+                val messagePosition: Int = messagesArrayList.size -1
 
                 val messagesWithDateHeaders = createMessagesList(messagesArrayList).let {
                     roomsListAdapter.submitList(it)
@@ -136,7 +150,7 @@ class RoomFragment : Fragment() {
                         val messageResponse = response.body()
                         val position = messagesArrayList.indexOf(baseRoomData)
                         val newBaseRoomData = BaseRoomData(null, messageResponse, false)
-                        messagesArrayList[position] = newBaseRoomData
+                        messagesArrayList[messagePosition] = newBaseRoomData
                         createMessagesList(messagesArrayList).let {
                             roomsListAdapter.submitList(it)
                         }
@@ -161,6 +175,8 @@ class RoomFragment : Fragment() {
                 channelChatEdit.text?.clear()
             }
         }
+
+       // val instant: Instant = BING_INSTANT_PARSER.parse(stringFromBing, Instant::from)
 
         toolbar.setNavigationOnClickListener {
             requireActivity().onBackPressed()
@@ -209,7 +225,7 @@ class RoomFragment : Fragment() {
     }
 
     private fun convertStringDateToLong(date: String) : Long {
-        val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+        val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         s.timeZone = TimeZone.getTimeZone("UTC")
         var d = s.parse(date)
         return d.time
@@ -217,4 +233,10 @@ class RoomFragment : Fragment() {
     private fun generateID():Int{
         return Random(6000000).nextInt()
     }
+
+    private val BING_INSTANT_PARSER: DateTimeFormatter =
+        DateTimeFormatterBuilder().appendLiteral('"')
+            .append(DateTimeFormatter.ISO_INSTANT)
+            .appendLiteral('"')
+            .toFormatter()
 }
