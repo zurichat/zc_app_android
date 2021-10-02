@@ -82,7 +82,7 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
 //        }
 
        // setupObservers()
-        setupUI()
+        //setupUI()
     }
 
     override fun onPause() {
