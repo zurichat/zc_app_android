@@ -22,10 +22,12 @@ import androidx.core.content.ContextCompat
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.databinding.ActivityMainBinding
 import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragment
+import com.tolstoy.zurichat.ui.notification.NotificationUtils
 import com.tolstoy.zurichat.ui.settings.SettingsActivity
 import com.tolstoy.zurichat.ui.settings.notification.NotificationService
 import com.tolstoy.zurichat.util.setUpApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -39,6 +41,9 @@ class MainActivity : AppCompatActivity() {
     var messager_name: String = "Abass"
     var notification_message: String = "Notification"
 
+    private val mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
+    private var mNotified = true
+
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
@@ -46,7 +51,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        
+        if (!mNotified) {
+            NotificationUtils().setNotification(mNotificationTime, this@MainActivity)
+        }
 //        notificationSettings = SettingsActivity.NotificationAndSounds()
 //        createNotificationChannel()
 //        notificationSetting(messager_name,notification_message,pattern,message_sound)

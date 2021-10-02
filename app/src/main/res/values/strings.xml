@@ -261,4 +261,7 @@
     <string name="invite_link">Invite Link</string>
     <string name="channel_invite">Channel Invite</string>
 
+    <string name="notification">New Notification</string>
+    <string name="notification_channel_description">This is a sample notification channel for demonstration purpose.</string>
+
 </resources>
