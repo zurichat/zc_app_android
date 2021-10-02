@@ -26,6 +26,7 @@ import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDao
 import com.tolstoy.zurichat.ui.fragments.home_screen.CentrifugeClient
+import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragment
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChannelAdapter
 import com.tolstoy.zurichat.ui.fragments.home_screen.diff_utils.ChannelDiffUtil
 import com.tolstoy.zurichat.ui.fragments.model.Data
@@ -65,6 +66,10 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private lateinit var roomDao: RoomDao
     private lateinit var sharedPref: SharedPreferences
 
+    private val newChannelMenu by lazy {
+        (parentFragment as HomeScreenFragment).binding.toolbarContainer.toolbar.menu.findItem(R.id.new_channel)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelsBinding.inflate(inflater, container, false)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedChannelViewModel::class.java)
@@ -103,6 +108,16 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private fun generateRandomLong(): Long {
         val rand = Random(10000)
         return rand.nextLong()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        newChannelMenu.isVisible = true
+    }
+
+    override fun onPause() {
+        super.onPause()
+        newChannelMenu.isVisible = false
     }
 
     /***
