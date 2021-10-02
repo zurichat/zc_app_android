@@ -27,6 +27,7 @@ import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDao
 import com.tolstoy.zurichat.ui.fragments.home_screen.CentrifugeClient
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChannelAdapter
+import com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.localdatabase.ChannelListDao
 import com.tolstoy.zurichat.ui.fragments.home_screen.diff_utils.ChannelDiffUtil
 import com.tolstoy.zurichat.ui.fragments.model.Data
 import com.tolstoy.zurichat.ui.fragments.model.RoomData
@@ -63,6 +64,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
 
     private lateinit var database: AppDatabase
     private lateinit var roomDao: RoomDao
+    private lateinit var channelListDao: ChannelListDao
     private lateinit var sharedPref: SharedPreferences
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -71,11 +73,12 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
 
         database = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "zuri_chat").build()
         roomDao = database.roomDao()
+        channelListDao = database.channelListDao()
 
         user = requireActivity().intent.extras?.getParcelable("USER")!!
         //organizationID = "614679ee1a5607b13c00bcb7"
         sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-        organizationID = sharedPref.getString(ORG_ID, null).toString()
+        organizationID = sharedPref.getString(ORG_ID, "614679ee1a5607b13c00bcb7").toString()
 
         job = Job()
         uiScope = CoroutineScope(Dispatchers.Main + job)
@@ -200,6 +203,16 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     }
 
     private fun getListOfChannels() {
+        uiScope.launch(Dispatchers.IO){
+            channelListDao.getAllChannels().let {
+                uiScope.launch(Dispatchers.Main){
+                    if (it!=null){
+                        channelsArrayList.addAll(it)
+                        addHeaders()
+                    }
+                }
+            }
+        }
         viewModel.isConnected(false)
         viewModel.getChannelsList(organizationID)
         viewModel.channelsList.observe(viewLifecycleOwner,{
@@ -218,6 +231,9 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
                     originalChannelsArrayList.forEach{ channel ->
                         if (joinedChannel.id == channel._id){
                             channelsArrayList.add(channel)
+                            uiScope.launch(Dispatchers.IO){
+                                channelListDao.insertAll(channel)
+                            }
                         }
                     }
                 }
