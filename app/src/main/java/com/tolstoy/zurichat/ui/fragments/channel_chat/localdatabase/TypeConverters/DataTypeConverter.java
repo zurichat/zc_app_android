@@ -1,5 +1,7 @@
 package com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.TypeConverters;
 
+import android.util.Log;
+
 import androidx.room.TypeConverter;
 
 import com.google.gson.Gson;
@@ -17,6 +19,7 @@ public class DataTypeConverter {
     @TypeConverter
     public List<Data> storedStringToEmojis(String value) {
         if (value == null) {
+            Log.i("Null","Null");
             return Collections.emptyList();
         }
         Type listType = new TypeToken<List<Data>>() {}.getType();

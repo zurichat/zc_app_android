@@ -37,10 +37,9 @@ class ChannelMessagesViewModel : ViewModel(){
         viewModelScope.launch {
             try {
                 val joinedUser =
-                    RetrofitClientInstance.retrofitInstance?.create(JoinNewChannel::class.java)
-                        ?.retrieveAllMessages(organizationId, channelId)
+                    RetrofitClientInstance.retrofitInstance?.create(JoinNewChannel::class.java)?.retrieveAllMessages(organizationId, channelId)
                 joinedUser?.let {
-                    _allMessages.value = it
+                    _allMessages.value = AllChannelMessages(it,"",200)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

@@ -162,7 +162,6 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         adapt = ChannelAdapter(requireActivity(), channelsArrayList,uiScope, roomDao)
         adapt.organizationId = organizationID
         adapt.setItemClickListener {
-            client.disconnect()
             val bundle1 = Bundle()
             bundle1.putParcelable("USER",user)
             bundle1.putParcelable("Channel",it)
