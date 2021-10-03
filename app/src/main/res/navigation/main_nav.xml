@@ -309,7 +309,11 @@
         android:id="@+id/starredMessagesFragment"
         android:name="com.tolstoy.zurichat.ui.fragments.starred_messages.StarredMessagesFragment"
         android:label="fragment_starred_messages"
-        tools:layout="@layout/fragment_starred_messages" />
+        tools:layout="@layout/fragment_starred_messages" >
+        <action
+            android:id="@+id/action_starredMessagesFragment_to_homeScreenFragment"
+            app:destination="@id/homeScreenFragment" />
+    </fragment>
     <activity
         android:id="@+id/loginActivity"
         android:name="com.tolstoy.zurichat.ui.login.LoginActivity"
