@@ -327,6 +327,9 @@
         <action
             android:id="@+id/action_accountsFragment_to_confirmAccountPasswordFragment"
             app:destination="@id/confirmAccountPasswordFragment" />
+        <argument
+            android:name="currentUser"
+            app:argType="com.tolstoy.zurichat.models.User" />
     </fragment>
     <fragment
         android:id="@+id/confirmAccountPasswordFragment"
@@ -340,6 +343,9 @@
             app:popUpToInclusive="true" />
         <argument
             android:name="account"
+            app:argType="com.tolstoy.zurichat.models.User" />
+        <argument
+            android:name="currentUser"
             app:argType="com.tolstoy.zurichat.models.User" />
     </fragment>
     <fragment

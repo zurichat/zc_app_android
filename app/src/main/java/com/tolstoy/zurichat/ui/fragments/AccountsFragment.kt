@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +22,8 @@ import com.tolstoy.zurichat.models.User
 class AccountsFragment : Fragment() {
     private lateinit var user : User
     private lateinit var accountViewModel:UserViewModel
+    private val args by navArgs<AccountsFragmentArgs>()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,8 +40,8 @@ class AccountsFragment : Fragment() {
         val toolbar = view.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar3)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
         val textView = view.findViewById<TextView>(R.id.no_acct_txv)
-
-        val adapter = UserAccountAdapter()
+        val curUser = args.currentUser
+        val adapter = UserAccountAdapter(curUser)
         val recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_accts)
         recyclerView?.adapter = adapter
         recyclerView?.layoutManager = LinearLayoutManager(requireContext())

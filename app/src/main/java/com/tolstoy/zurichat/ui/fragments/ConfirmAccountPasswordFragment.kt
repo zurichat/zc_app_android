@@ -169,14 +169,16 @@ class ConfirmAccountPasswordFragment : Fragment(){
     }
 
     private fun updateUser (){
-       userViewModel.getCurUser().observe(viewLifecycleOwner,{
-           it?.let {
-               oldUser = it
-           val updatedUser = oldUser.copy(currentUser = false)
-           userViewModel.updateUser(updatedUser)
-           }
-
-       })
+//       userViewModel.getCurUser().observe(viewLifecycleOwner,{
+//           it?.let {
+//               oldUser = it
+//           val updatedUser = oldUser.copy(currentUser = false)
+//           userViewModel.updateUser(updatedUser)
+//           }
+//
+//       })
+        val updatedUser = args.currentUser.copy(currentUser = false)
+        userViewModel.updateUser(updatedUser)
 
     }
 
