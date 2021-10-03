@@ -16,8 +16,8 @@
             android:id="@+id/select_color"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
-            android:background="@color/selected" />
+            android:background="@color/selected"
+            android:visibility="gone" />
 
 
         <ImageView
@@ -32,8 +32,8 @@
             android:id="@+id/linearLayout1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
             android:layout_marginStart="3dp"
+            android:layout_marginTop="5dp"
             android:layout_toEndOf="@id/pdf1"
             android:orientation="vertical">
 

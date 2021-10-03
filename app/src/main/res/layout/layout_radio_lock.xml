@@ -1,31 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
     android:layout_marginTop="8dp"
     android:layout_marginEnd="16dp"
-    android:layout_marginStart="16dp"
     android:orientation="vertical">
+
     <TextView
         android:id="@android:id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
+        android:paddingBottom="8dp"
         android:textAlignment="viewStart"
         android:textColor="@color/primary_color"
-        android:textStyle="bold"
-        android:paddingBottom="8dp"
         android:textSize="16sp"
-        tools:ignore="RtlSymmetry"/>
+        android:textStyle="bold"
+        tools:ignore="RtlSymmetry" />
+
     <RadioGroup
         android:id="@+id/radioGroup2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp">
+
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,11 +47,12 @@
             android:textSize="14sp" />
 
     </RadioGroup>
+
     <TextView
         android:id="@android:id/summary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:textColor="?android:attr/textColorSecondary"/>
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="12sp" />
 </LinearLayout>
 

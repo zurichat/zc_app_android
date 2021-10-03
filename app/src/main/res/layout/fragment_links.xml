@@ -6,5 +6,4 @@
     tools:context=".ui.channel_info.fragments.LinksFragment">
 
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

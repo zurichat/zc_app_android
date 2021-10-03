@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/createOrganizationsFragment"
-    >
+    app:startDestination="@id/createOrganizationsFragment">
     <!--app:startDestination="@id/createOrganizationsFragment"-->
     <!--app:startDestination="@id/createOrganizationsFragment"-->
 
@@ -75,7 +74,7 @@
             tools:layout="@layout/fragment_select_member">
             <action
                 android:id="@+id/action_selectMemberFragment_to_newChannelDataFragment"
-                app:destination="@id/newChannelDataFragment"/>
+                app:destination="@id/newChannelDataFragment" />
             <action
                 android:id="@+id/action_selectMemberFragment_to_selectNewChannelFragment"
                 app:destination="@id/selectNewChannelFragment" />
@@ -96,16 +95,16 @@
                 app:destination="@id/channelChatFragment">
                 <argument
                     android:name="members"
-                    app:nullable="true"
-                    app:argType="string[]" />
+                    app:argType="string[]"
+                    app:nullable="true" />
                 <argument
                     android:name="channel_name"
-                    app:nullable="true"
-                    app:argType="string" />
+                    app:argType="string"
+                    app:nullable="true" />
                 <argument
                     android:name="user"
-                    app:nullable="true"
-                    app:argType="com.tolstoy.zurichat.models.User"/>
+                    app:argType="com.tolstoy.zurichat.models.User"
+                    app:nullable="true" />
 
                 <argument
                     android:name="channel_status"
@@ -128,7 +127,7 @@
             <argument
                 android:name="user"
                 app:argType="com.tolstoy.zurichat.models.User"
-                app:nullable="true"/>
+                app:nullable="true" />
 
             <argument
                 android:name="channel_status"
@@ -225,7 +224,7 @@
         android:id="@+id/chatsFragment"
         android:name="com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.ChatsFragment"
         android:label="ChatsFragment"
-        tools:layout="@layout/fragment_chats"/>
+        tools:layout="@layout/fragment_chats" />
     <fragment
         android:id="@+id/channelsFragment"
         android:name="com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.ChannelsFragment"
@@ -236,7 +235,7 @@
         android:id="@+id/createOrganizationsFragment"
         android:name="com.tolstoy.zurichat.ui.organizations.CreateOrganizationsFragment"
         android:label="fragment_create_organizations"
-        tools:layout="@layout/fragment_create_organizations" >
+        tools:layout="@layout/fragment_create_organizations">
         <action
             android:id="@+id/action_createOrganizationsFragment_to_newWorkspaceFragment"
             app:destination="@id/newWorkspaceFragment" />
@@ -245,7 +244,7 @@
         android:id="@+id/addByEmailFragment"
         android:name="com.tolstoy.zurichat.ui.organizations.AddByEmailFragment"
         android:label="fragment_add_by_email"
-        tools:layout="@layout/fragment_add_by_email" >
+        tools:layout="@layout/fragment_add_by_email">
         <action
             android:id="@+id/action_addByEmailFragment_to_seeYourChannelFragment"
             app:destination="@id/seeYourChannelFragment" />
@@ -254,7 +253,7 @@
         android:id="@+id/newWorkspaceFragment"
         android:name="com.tolstoy.zurichat.ui.organizations.NewWorkspaceFragment"
         android:label="fragment_new_workspace"
-        tools:layout="@layout/fragment_new_workspace" >
+        tools:layout="@layout/fragment_new_workspace">
         <action
             android:id="@+id/action_newWorkspaceFragment_to_nextFragment"
             app:destination="@id/nextFragment"
@@ -265,7 +264,7 @@
         android:id="@+id/nextFragment"
         android:name="com.tolstoy.zurichat.ui.organizations.NextFragment"
         android:label="fragment_next"
-        tools:layout="@layout/fragment_next" >
+        tools:layout="@layout/fragment_next">
         <action
             android:id="@+id/action_nextFragment_to_addByEmailFragment"
             app:destination="@id/addByEmailFragment" />
@@ -285,17 +284,18 @@
         android:id="@+id/seeYourChannelFragment"
         android:name="com.tolstoy.zurichat.ui.organizations.SeeYourChannelFragment"
         android:label="fragment_see_your_channel"
-        tools:layout="@layout/fragment_see_your_channel" >
+        tools:layout="@layout/fragment_see_your_channel">
         <action
             android:id="@+id/action_seeYourChannelFragment_to_homeScreenFragment"
             app:destination="@id/homeScreenFragment"
             app:popUpTo="@id/main_nav"
             app:popUpToInclusive="true" />
     </fragment>
-    <fragment android:id="@+id/switchOrganizationFragment"
+    <fragment
+        android:id="@+id/switchOrganizationFragment"
         android:name="com.tolstoy.zurichat.ui.organizations.ui.SwitchOrganizationsFragment"
-        tools:layout="@layout/fragment_switch_organizations"
-        android:label="switch_organization">
+        android:label="switch_organization"
+        tools:layout="@layout/fragment_switch_organizations">
         <action
             android:id="@+id/action_switchOrganizationFragment_to_homeScreenFragment"
             app:destination="@id/homeScreenFragment" />
@@ -309,7 +309,7 @@
         android:id="@+id/starredMessagesFragment"
         android:name="com.tolstoy.zurichat.ui.fragments.starred_messages.StarredMessagesFragment"
         android:label="fragment_starred_messages"
-        tools:layout="@layout/fragment_starred_messages" >
+        tools:layout="@layout/fragment_starred_messages">
         <action
             android:id="@+id/action_starredMessagesFragment_to_homeScreenFragment"
             app:destination="@id/homeScreenFragment" />
@@ -323,7 +323,7 @@
         android:id="@+id/accountsFragment"
         android:name="com.tolstoy.zurichat.ui.fragments.AccountsFragment"
         android:label="fragment_accounts"
-        tools:layout="@layout/fragment_accounts" >
+        tools:layout="@layout/fragment_accounts">
         <action
             android:id="@+id/action_accountsFragment_to_confirmAccountPasswordFragment"
             app:destination="@id/confirmAccountPasswordFragment" />
@@ -332,7 +332,7 @@
         android:id="@+id/confirmAccountPasswordFragment"
         android:name="com.tolstoy.zurichat.ui.fragments.ConfirmAccountPasswordFragment"
         android:label="fragment_confirm_account_password"
-        tools:layout="@layout/fragment_confirm_account_password" >
+        tools:layout="@layout/fragment_confirm_account_password">
         <action
             android:id="@+id/action_confirmAccountPasswordFragment_to_homeScreenFragment"
             app:destination="@id/homeScreenFragment"

@@ -24,10 +24,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Sign in to continue"
-        android:textSize="14sp"
-        android:textFontWeight="400"
         android:fontFamily="@font/lato"
+        android:text="Sign in to continue"
+        android:textFontWeight="400"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6" />
@@ -87,11 +87,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Forgot Password?"
-        android:textSize="14sp"
         android:fontFamily="@font/lato"
-        android:textFontWeight="400"
+        android:text="Forgot Password?"
         android:textColor="@color/primary_light_color"
+        android:textFontWeight="400"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/user_password"
         app:layout_constraintTop_toBottomOf="@+id/user_password" />
 
@@ -110,8 +110,8 @@
         android:id="@+id/layout_sign_in"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="24dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="@+id/button_signIn"
         app:layout_constraintStart_toStartOf="@+id/button_signIn"
         app:layout_constraintTop_toBottomOf="@+id/button_signIn">
@@ -120,19 +120,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="8dp"
+            android:fontFamily="@font/lato"
             android:text="Don't have an account?"
-            android:textSize="14sp"
             android:textFontWeight="700"
-            android:fontFamily="@font/lato"/>
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/textView_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/lato"
             android:text="Sign Up"
             android:textColor="@color/primary_light_color"
             android:textSize="14sp"
-            android:fontFamily="@font/lato"
             android:textStyle="bold" />
 
     </LinearLayout>

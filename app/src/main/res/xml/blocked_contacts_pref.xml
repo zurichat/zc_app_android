@@ -2,17 +2,17 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:title="Contacts"
-        android:layout="@layout/layout_blocked_contacts">
+        android:layout="@layout/layout_blocked_contacts"
+        android:title="Contacts">
 
     </PreferenceCategory>
 
     <Preference
-        android:title="Contact name"
-        android:layout="@layout/list_item_select_member"/>
+        android:layout="@layout/list_item_select_member"
+        android:title="Contact name" />
 
     <Preference
-        android:title="Contact name"
-        android:layout="@layout/list_item_select_member"/>
+        android:layout="@layout/list_item_select_member"
+        android:title="Contact name" />
 
 </PreferenceScreen>

@@ -28,16 +28,16 @@
         android:text="@string/sign_in"
         android:textAllCaps="false"
         android:textColor="@android:color/black"
-        android:textSize="14sp"
         android:textColorLink="@color/white"
+        android:textSize="14sp"
         app:cornerRadius="5dp"
-        app:strokeColor="@color/black"
-        app:strokeWidth="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.93"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="@color/black"
+        app:strokeWidth="4dp" />
 
     <TextView
         android:id="@+id/org_name"
