@@ -174,8 +174,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:text="Review and delete items"
         android:fontFamily="@font/lato"
+        android:text="Review and delete items"
         android:textColor="@color/primaryColor"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -196,10 +196,10 @@
         app:layout_constraintTop_toBottomOf="@+id/text_review_items" />
 
     <LinearLayout
+        android:id="@+id/mid_layout"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="16dp"
-        android:id="@+id/mid_layout"
         android:background="#ffffff"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -209,31 +209,31 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
             android:fontFamily="@font/lato"
             android:text="Items consume more than 5 MB"
-            android:textSize="15sp"
             android:textColor="@color/black"
-            android:layout_marginStart="16dp"
-            android:layout_gravity="center_vertical"/>
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/text_5mb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="70dp"
             android:fontFamily="@font/lato"
             android:text="500.7 MB"
-            android:textSize="14sp"
             android:textColor="@color/primaryColor"
-            android:layout_marginStart="70dp"
-            android:layout_gravity="center_vertical"/>
+            android:textSize="14sp" />
 
         <ImageView
+            android:id="@+id/icon_next_5mb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/icon_next_5mb"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="9dp"
-            android:src="@drawable/ic_next_navigation_24"/>
+            android:src="@drawable/ic_next_navigation_24" />
     </LinearLayout>
 
     <TextView
@@ -251,132 +251,132 @@
         app:layout_constraintTop_toBottomOf="@+id/mid_layout" />
 
     <LinearLayout
+        android:id="@+id/layout_other_1"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginTop="16dp"
         android:background="#ffffff"
         android:orientation="horizontal"
-        android:id="@+id/layout_other_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/text_other">
 
         <ImageView
+            android:id="@+id/icon_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/icon_profile"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="24dp"
             android:src="@drawable/ic_profile" />
 
         <TextView
+            android:id="@+id/text_profile_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/text_profile_name"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
             android:fontFamily="@font/lato"
             android:text="Joseph Kalu"
-            android:textSize="16sp"
             android:textColor="#454545"
-            android:textStyle="bold"
-            android:layout_marginStart="16dp"
-            android:layout_gravity="center_vertical"/>
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/text_profile_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="160dp"
             android:fontFamily="@font/lato"
             android:text="119 MB"
-            android:textSize="14sp"
             android:textColor="@color/primaryColor"
-            android:layout_marginStart="160dp"
-            android:layout_gravity="center_vertical"/>
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="70dp"
-    android:layout_marginTop="16dp"
-    android:background="#ffffff"
-    android:orientation="horizontal"
-    android:id="@+id/layout_other_2"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/layout_other_1">
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/icon_profile_2"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="24dp"
-        android:src="@drawable/ic_profile" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/text_profile_name_2"
-        android:fontFamily="@font/lato"
-        android:text="Design Channel"
-        android:textSize="16sp"
-        android:textColor="#454545"
-        android:textStyle="bold"
-        android:layout_marginStart="16dp"
-        android:layout_gravity="center_vertical"/>
-
-    <TextView
-        android:id="@+id/text_profile_data_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/lato"
-        android:text="320 MB"
-        android:textSize="14sp"
-        android:textColor="@color/primaryColor"
-        android:layout_marginStart="135dp"
-        android:layout_gravity="center_vertical"/>
-</LinearLayout>
-
-    <LinearLayout
+        android:id="@+id/layout_other_2"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginTop="16dp"
         android:background="#ffffff"
         android:orientation="horizontal"
-        android:id="@+id/layout_other_3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_other_2">
+        app:layout_constraintTop_toBottomOf="@id/layout_other_1">
 
         <ImageView
+            android:id="@+id/icon_profile_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/icon_profile_3"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="24dp"
             android:src="@drawable/ic_profile" />
 
         <TextView
+            android:id="@+id/text_profile_name_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:fontFamily="@font/lato"
+            android:text="Design Channel"
+            android:textColor="#454545"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/text_profile_data_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="135dp"
+            android:fontFamily="@font/lato"
+            android:text="320 MB"
+            android:textColor="@color/primaryColor"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_other_3"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="16dp"
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_other_2">
+
+        <ImageView
+            android:id="@+id/icon_profile_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="24dp"
+            android:src="@drawable/ic_profile" />
+
+        <TextView
             android:id="@+id/text_profile_name_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
             android:fontFamily="@font/lato"
             android:text="Announcement"
-            android:textSize="16sp"
             android:textColor="#454545"
-            android:textStyle="bold"
-            android:layout_marginStart="16dp"
-            android:layout_gravity="center_vertical"/>
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/text_profile_data_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="135dp"
             android:fontFamily="@font/lato"
             android:text="235 MB"
-            android:textSize="14sp"
             android:textColor="@color/primaryColor"
-            android:layout_marginStart="135dp"
-            android:layout_gravity="center_vertical"/>
+            android:textSize="14sp" />
     </LinearLayout>
 
 

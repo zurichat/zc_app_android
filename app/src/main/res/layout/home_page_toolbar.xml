@@ -18,7 +18,7 @@
         app:theme="@style/ToolbarTheme"
         app:title="@string/zuri"
         app:titleMarginStart="32dp"
-        app:titleTextColor="@color/white"/>
+        app:titleTextColor="@color/white" />
 
     <com.tolstoy.zurichat.util.jsearch_view_utils.JSearchView
         android:id="@+id/searchView"

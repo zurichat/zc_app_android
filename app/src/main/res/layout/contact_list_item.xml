@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="?android:selectableItemBackground"
-    android:clickable="true"
-    android:focusable="true"
     android:id="@+id/contact_container"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?android:selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
 
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -27,11 +27,11 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:ellipsize="end"
+        android:fontFamily="@font/lato"
         android:text="@string/app_name"
         android:textColor="#000"
-        android:textSize="18sp"
         android:textFontWeight="500"
-        android:fontFamily="@font/lato"
+        android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/contactStatus"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/contactImage"
@@ -45,12 +45,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="6dp"
         android:ellipsize="end"
+        android:fontFamily="@font/lato"
         android:singleLine="true"
         android:text="@string/app_name"
-        android:textSize="16sp"
-        android:textFontWeight="400"
-        android:fontFamily="@font/lato"
         android:textColor="#808080"
+        android:textFontWeight="400"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/contactImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/contactImage"
@@ -62,15 +62,14 @@
         android:id="@+id/checkContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_checked"
-        android:padding="0dp"
-        android:visibility="gone"
         android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
         android:contentDescription="@string/description"
+        android:padding="0dp"
+        android:src="@drawable/ic_checked"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="@id/contactImage"
-        app:layout_constraintTop_toTopOf="@id/contactImage"
-         />
+        app:layout_constraintTop_toTopOf="@id/contactImage" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

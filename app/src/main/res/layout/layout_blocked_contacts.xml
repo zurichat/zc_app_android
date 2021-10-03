@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/category_contact_pref"
     android:orientation="vertical">
+
     <TextView
         android:id="@android:id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:paddingStart="16dp"
         android:paddingEnd="?android:attr/listPreferredItemPaddingRight"
+        android:paddingBottom="8dp"
         android:textAlignment="viewStart"
         android:textColor="@color/pref_txt"
-        android:textStyle="bold"
-        android:paddingBottom="8dp"
-        android:paddingStart="16dp"
         android:textSize="16sp"
-        tools:ignore="RtlSymmetry"/>
+        android:textStyle="bold"
+        tools:ignore="RtlSymmetry" />
+
     <TextView
         android:id="@android:id/summary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:textColor="?android:attr/textColorSecondary"/>
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="12sp" />
 </LinearLayout>

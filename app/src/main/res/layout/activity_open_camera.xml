@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,33 +7,36 @@
     tools:context=".ui.activities.OpenCameraActivity">
 
     <RelativeLayout
+        android:id="@+id/sentLayout1"
         android:layout_width="match_parent"
         android:layout_height="64dp"
-        android:background="@color/green_color"
-        android:id="@+id/sentLayout1">
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/documentBack"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/ic_back"
-            android:layout_centerVertical="true"/>
+        android:background="@color/green_color">
 
         <ImageView
+            android:id="@+id/documentBack"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_back" />
+
+        <ImageView
+            android:id="@+id/documentImage"
             android:layout_width="41dp"
             android:layout_height="41dp"
-            android:id="@+id/documentImage"
-            android:layout_toEndOf="@id/documentBack"
+            android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
-            android:src="@drawable/dmuser"
-            android:layout_centerVertical="true"/>
+            android:layout_toEndOf="@id/documentBack"
+            android:src="@drawable/dmuser" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/documentImage"
-            android:layout_marginTop="11dp"
             android:layout_marginStart="6dp"
+            android:layout_marginTop="11dp"
+            android:layout_toEndOf="@id/documentImage"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/doc_user_name"
                 android:layout_width="wrap_content"
@@ -43,26 +45,26 @@
                 android:fontFamily="@font/lato"
                 android:text="John Doe Felix"
                 android:textAlignment="textStart"
-                android:textColor="@color/white"
                 android:textAppearance="?attr/textAppearanceBody1"
-                android:textSize="18sp"/>
+                android:textColor="@color/white"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:text="last seen at 5:50am"
-                android:textColor="@color/white"
-                android:layout_marginStart="10dp"/>
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/docSentMore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_more_vert"
-            android:id="@+id/docSentMore"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="5dp"/>
+            android:layout_marginEnd="5dp"
+            android:src="@drawable/ic_more_vert" />
 
     </RelativeLayout>
 
@@ -114,9 +116,9 @@
                         android:layout_height="25dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="5dp"
+                        android:contentDescription="Todo"
                         android:src="@drawable/ic_smile"
-                        app:tint="#737373"
-                        android:contentDescription="Todo" />
+                        app:tint="#737373" />
 
                     <EditText
                         android:id="@+id/message_edit"
@@ -126,8 +128,8 @@
                         android:layout_weight="1"
                         android:background="@android:color/transparent"
                         android:hint="@string/type_a_message"
-                        android:padding="10dp"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:padding="10dp" />
 
                     <ImageView
                         android:id="@+id/link_btn"
@@ -135,18 +137,18 @@
                         android:layout_height="25dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="15dp"
+                        android:contentDescription="Todo"
                         android:src="@drawable/link"
-                        app:tint="#737373"
-                        android:contentDescription="Todo" />
+                        app:tint="#737373" />
 
                     <ImageView
                         android:id="@+id/camera_btn"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_gravity="center_vertical"
+                        android:contentDescription="Todo"
                         android:src="@drawable/ic_camera"
-                        app:tint="#737373"
-                        android:contentDescription="Todo" />
+                        app:tint="#737373" />
 
                 </LinearLayout>
 
@@ -158,8 +160,8 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:backgroundTint="@color/green_color"
-                android:src="@drawable/ic_voice"
-                android:contentDescription="Todo" />
+                android:contentDescription="Todo"
+                android:src="@drawable/ic_voice" />
 
         </LinearLayout>
 
