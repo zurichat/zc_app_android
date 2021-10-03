@@ -27,6 +27,10 @@ class UserViewModel(application:Application): AndroidViewModel(application) {
         }
     }
 
+    fun getCurUser():LiveData<User?> {
+        return repository.getCurUser()
+    }
+
     fun updateUser(user: User){
         viewModelScope.launch(Dispatchers.IO) {
             repository.updateUser(user)

@@ -35,9 +35,12 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ConfirmAccountPasswordFragment : Fragment(){
     private lateinit var binding: FragmentConfirmAccountPasswordBinding
+    private lateinit var user: User
     private val viewModel by viewModels<LoginViewModel>()
     private val userViewModel by viewModels<UserViewModel>()
     private val args by navArgs<ConfirmAccountPasswordFragmentArgs>()
+    private lateinit var oldUser: User
+
     @Inject
     lateinit var sharedPreferences: SharedPreferences
 
@@ -136,7 +139,7 @@ class ConfirmAccountPasswordFragment : Fragment(){
         // add user auth state to shared preference
         viewModel.saveUserAuthState(true)
 
-        val user = response.data.user.copy(currentUser = false, password =args.account.password  )
+        val user = response.data.user.copy(currentUser = true, password =args.account.password  )
 
 
 
@@ -166,8 +169,15 @@ class ConfirmAccountPasswordFragment : Fragment(){
     }
 
     private fun updateUser (){
-        val updatedUser = args.account.copy(currentUser = false)
-        userViewModel.updateUser(updatedUser)
+       userViewModel.getCurUser().observe(viewLifecycleOwner,{
+           it?.let {
+               oldUser = it
+           val updatedUser = oldUser.copy(currentUser = false)
+           userViewModel.updateUser(updatedUser)
+           }
+
+       })
+
     }
 
 
