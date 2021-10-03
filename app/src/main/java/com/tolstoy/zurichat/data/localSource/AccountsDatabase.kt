@@ -9,26 +9,26 @@ import com.tolstoy.zurichat.data.localSource.dao.UserDao
 import com.tolstoy.zurichat.models.User
 
 @Database(entities = [User::class], version = 1)
-abstract class AccountsDatabase:RoomDatabase() {
+abstract class AccountsDatabase : RoomDatabase() {
 
-    abstract fun AccountsDao():AccountsDao
+    abstract fun AccountsDao(): AccountsDao
 
-    companion object{
+    companion object {
         @Volatile
         private var INSTANCE: AccountsDatabase? = null
 
-        fun getDatabase(context:Context):AccountsDatabase{
+        fun getDatabase(context: Context): AccountsDatabase {
             val tempInstance = INSTANCE
-            if (tempInstance!= null){
+            if (tempInstance != null) {
                 return tempInstance
             }
-            synchronized(this){
+            synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AccountsDatabase::class.java,
                     "accounts_database"
                 ).build()
-                INSTANCE= instance
+                INSTANCE = instance
                 return instance
             }
         }

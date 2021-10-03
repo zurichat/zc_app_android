@@ -38,14 +38,15 @@ suspend fun <T> Call<T>.enqueue(): Result<T?> {
             object : Callback<T> {
                 override fun onResponse(call: Call<T>, response: Response<T>) = with(response) {
                     cont.resume(
-                        try{
-                            if(isSuccessful) Result.Success(body())
+                        try {
+                            if (isSuccessful) Result.Success(body())
                             else Result.Error(Throwable(errorBody().toString()))
-                        }catch(throwable: Throwable) {
+                        } catch (throwable: Throwable) {
                             Result.Error(throwable)
                         }
-                    ){ Timber.tag("Suspendable Retrofit Call").e("onResponse: $it") }
+                    ) { Timber.tag("Suspendable Retrofit Call").e("onResponse: $it") }
                 }
+
                 override fun onFailure(call: Call<T>, t: Throwable) {
                     cont.resume(Result.Error(t)) {
                         Timber.tag("Suspendable Retrofit Call").e("onFailure: $it and $t")
@@ -56,24 +57,24 @@ suspend fun <T> Call<T>.enqueue(): Result<T?> {
     }
 }
 
-fun <T> MutableLiveData<T>.postValue(result: Result<T?>, error: MutableLiveData<String?>){
-    if(result is Result.Error) error.value = result.error.message
-    else if(result is Result.Success) value = result.data!!
+fun <T> MutableLiveData<T>.postValue(result: Result<T?>, error: MutableLiveData<String?>) {
+    if (result is Result.Error) error.value = result.error.message
+    else if (result is Result.Success) value = result.data!!
 }
 
-fun Context.hasNetwork(): Boolean{
+fun Context.hasNetwork(): Boolean {
     var isConnected = false
     val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val activeNetwork = connectivityManager.activeNetworkInfo
-    if(activeNetwork != null && activeNetwork.isConnected)
+    if (activeNetwork != null && activeNetwork.isConnected)
         isConnected = true
     return isConnected
 }
 
-fun <T> Result<T>.retrieve(error: MutableLiveData<String?>?): T?{
-    return if(this is Result.Success) this.data
+fun <T> Result<T>.retrieve(error: MutableLiveData<String?>?): T? {
+    return if (this is Result.Success) this.data
     else {
-        if(this is Result.Error) error?.value = this.error.message
+        if (this is Result.Error) error?.value = this.error.message
         null
     }
 }

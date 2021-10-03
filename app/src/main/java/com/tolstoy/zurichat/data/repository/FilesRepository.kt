@@ -23,17 +23,17 @@ import javax.inject.Inject
 class FilesRepository @Inject constructor(private val service: FilesService) {
     private val auth = Cache.map.getOrDefault("USER", "").toString()
 
-    suspend fun uploadFile(context: Context, uri: Uri): FileUploadResponse{
-        return withContext(Dispatchers.IO){
+    suspend fun uploadFile(context: Context, uri: Uri): FileUploadResponse {
+        return withContext(Dispatchers.IO) {
             val file = File(context.externalCacheDir, "file").apply {
-                if(!exists()) createNewFile()
+                if (!exists()) createNewFile()
                 val stream = FileOutputStream(this)
                 stream.write(context.contentResolver.openInputStream(uri)?.readBytes())
             }
             val request = file.asRequestBody("multipart/form-data".toMediaTypeOrNull())
             val multipart = MultipartBody.Builder()
-                .addFormDataPart("image",uri.toString(),request).build()
-            return@withContext service.uploadFile(auth, file =multipart.part(0))
+                .addFormDataPart("image", uri.toString(), request).build()
+            return@withContext service.uploadFile(auth, file = multipart.part(0))
         }
     }
 }

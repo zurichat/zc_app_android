@@ -25,12 +25,14 @@ interface UsersService {
     @POST("users")
     fun register(@Body registerUser: RegisterUser?): Call<RegisterUser?>?
 
-    @POST ("account/verify-account")
-    fun verifyEmail(@Body verifyEmail : VerifyEmail?): Call<VerifyEmail?>?
+    @POST("account/verify-account")
+    fun verifyEmail(@Body verifyEmail: VerifyEmail?): Call<VerifyEmail?>?
 
     @GET("organizations/{organization_id}/members")
-    suspend fun getMembers(@Header("Authorization")token: String,
-                           @Path("organization_id") orgId: String): Response<UserList>
+    suspend fun getMembers(
+        @Header("Authorization") token: String,
+        @Path("organization_id") orgId: String
+    ): Response<UserList>
 
     @POST("account/request-password-reset-code")
     suspend fun passwordReset(@Body passwordReset: PasswordReset): PassswordRestReponse
@@ -39,8 +41,10 @@ interface UsersService {
     fun getMembers(@Path("organization_id") org_id: String): Call<OrganizationMembers>
 
     @GET("organizations/{organization_id}/members/{member_id}")
-    fun getMember(@Path("organization_id") org_id: String,
-                  @Path("member_id") member_id: String): Call<OrganizationMember>
+    fun getMember(
+        @Path("organization_id") org_id: String,
+        @Path("member_id") member_id: String
+    ): Call<OrganizationMember>
 
     @POST("auth/logout")
     suspend fun logout(): Response<LogoutResponse>
