@@ -26,7 +26,7 @@ interface RemoteModule {
     companion object {
         @[Provides Singleton]
         fun provideApiService(tokenInterceptor: TokenInterceptor): NewChannelApiService =
-            ApiServiceFactory.createApiService(isDebug = true,tokenInterceptor = tokenInterceptor)
+            ApiServiceFactory.createApiService(isDebug = true, tokenInterceptor = tokenInterceptor)
 
         @ChannelRetrofitService
         @[Provides Singleton]
@@ -36,7 +36,10 @@ interface RemoteModule {
 
         @[Provides Singleton]
         fun provideRetrofitOrganization(tokenInterceptor: TokenInterceptor): OrganizationService =
-            OrganizationRetrofitClient.createOrganizationApiService(isDebug = true,tokenInterceptor =tokenInterceptor )
+            OrganizationRetrofitClient.createOrganizationApiService(
+                isDebug = true,
+                tokenInterceptor = tokenInterceptor
+            )
 
     }
 }

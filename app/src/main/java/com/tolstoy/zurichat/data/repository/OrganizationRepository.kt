@@ -13,7 +13,7 @@ class OrganizationRepository @Inject constructor(
     private val usersService: UsersService,
     private val preferences: SharedPreferences
 ) {
-    suspend fun getOrganization(organizationCreator: OrganizationCreator): OrganizationCreatorResponse{
+    suspend fun getOrganization(organizationCreator: OrganizationCreator): OrganizationCreatorResponse {
         return usersService.createOrganization(organizationCreator)
     }
 
@@ -27,7 +27,7 @@ class OrganizationRepository @Inject constructor(
 
     fun saveId(id: String) = preferences.edit().putString(ORG_ID, id).apply()
 
-    fun getId(): String{
+    fun getId(): String {
         preferences.getString(ORG_ID, "")
         return TEST_ID
     }

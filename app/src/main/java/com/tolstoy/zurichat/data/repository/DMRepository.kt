@@ -13,7 +13,7 @@ import javax.inject.Inject
 class DMRepository @Inject constructor(private val service: DMService) {
 
     suspend fun getMessages(orgId: String, roomId: String) =
-        service.getMessages(orgId,roomId).enqueue()
+        service.getMessages(orgId, roomId).enqueue()
 
     suspend fun getMessage(roomId: String, messageId: String) =
         service.getMessage(roomId, messageId).enqueue()

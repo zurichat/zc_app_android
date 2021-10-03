@@ -43,9 +43,11 @@ object RetrofitModule {
 
 
     @Provides
-    fun provideClient(cache: Cache, application: Application,
-                      interceptor: HttpLoggingInterceptor,
-                      sharedPreferences : SharedPreferences): OkHttpClient {
+    fun provideClient(
+        cache: Cache, application: Application,
+        interceptor: HttpLoggingInterceptor,
+        sharedPreferences: SharedPreferences
+    ): OkHttpClient {
         // Add authorization token to the header interceptor
         val headerAuthorization = Interceptor { chain ->
             val request = chain.request().newBuilder()
@@ -58,20 +60,23 @@ object RetrofitModule {
         // in case of no network service
         val cacheInterceptor = Interceptor { chain ->
             var request = chain.request()
-            request = if(application.applicationContext.hasNetwork())
-                request.newBuilder().header("Cache-Control",
-                    "public, max-age=" + 10).build()
+            request = if (application.applicationContext.hasNetwork())
+                request.newBuilder().header(
+                    "Cache-Control",
+                    "public, max-age=" + 10
+                ).build()
             else
-                request.newBuilder().header("Cache-Control",
-                    "public, only-if-cached, max-stale=" + 60 *60 *24 * 7).build()
+                request.newBuilder().header(
+                    "Cache-Control",
+                    "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7
+                ).build()
             chain.proceed(request)
         }
-        return OkHttpClient.Builder().
-        cache(cache)
+        return OkHttpClient.Builder().cache(cache)
             .addInterceptor(headerAuthorization)
             .addInterceptor(interceptor)
             .addInterceptor(cacheInterceptor)
-            .connectionPool(ConnectionPool(0,1, TimeUnit.MICROSECONDS))
+            .connectionPool(ConnectionPool(0, 1, TimeUnit.MICROSECONDS))
             .protocols(listOf(Protocol.HTTP_1_1))
             .connectTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
