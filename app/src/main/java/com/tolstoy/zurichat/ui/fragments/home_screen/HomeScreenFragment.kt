@@ -169,9 +169,8 @@ class HomeScreenFragment : Fragment() {
                     logout()
                 }
                 R.id.switch_acc -> {
-                    val bundle = Bundle()
-                    bundle.putParcelable("USER", user)
-                    findNavController().navigate((R.id.action_homeScreenFragment_to_accountsFragment),bundle)
+                    val action = HomeScreenFragmentDirections.actionHomeScreenFragmentToAccountsFragment(user)
+                    findNavController().navigate(action)
                 }
             }
             true

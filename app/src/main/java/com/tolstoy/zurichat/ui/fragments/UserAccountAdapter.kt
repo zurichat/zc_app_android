@@ -6,13 +6,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.models.User
 
-class UserAccountAdapter: RecyclerView.Adapter<UserAccountAdapter.MyViewHolder>() {
-
+class UserAccountAdapter(user: User): RecyclerView.Adapter<UserAccountAdapter.MyViewHolder>() {
     private var userList = emptyList<User>()
+    private var oldUser = user
 
     class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
@@ -23,11 +24,12 @@ class UserAccountAdapter: RecyclerView.Adapter<UserAccountAdapter.MyViewHolder>(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+
         val currentItem = userList[position]
         holder.itemView.findViewById<TextView>(R.id.contactName).text= currentItem.email
         holder.itemView.findViewById<TextView>(R.id.contactStatus).text = currentItem.id
         holder.itemView.findViewById<ConstraintLayout>(R.id.contact_container).setOnClickListener {
-            val action = AccountsFragmentDirections.actionAccountsFragmentToConfirmAccountPasswordFragment(currentItem)
+            val action = AccountsFragmentDirections.actionAccountsFragmentToConfirmAccountPasswordFragment(currentItem,oldUser)
             holder.itemView.findNavController().navigate(action)
         }
     }
