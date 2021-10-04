@@ -5,8 +5,10 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
@@ -14,36 +16,101 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.data.localSource.Cache
 import com.tolstoy.zurichat.databinding.FragmentHomeScreenBinding
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.activities.MainActivity
+import com.tolstoy.zurichat.ui.fragments.UserViewModel
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
+
+import com.tolstoy.zurichat.util.jsearch_view_utils.JSearchView
+import com.tolstoy.zurichat.ui.login.LoginViewModel
+import com.tolstoy.zurichat.util.Result
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeScreenFragment : Fragment() {
-    private lateinit var binding: FragmentHomeScreenBinding
-    private lateinit var user : User
+    lateinit var binding: FragmentHomeScreenBinding
+    private lateinit var user: User
     val viewModel: HomeScreenViewModel by viewModels()
+    val userViewModel: LoginViewModel by viewModels()
+    private val ViewModel by viewModels<UserViewModel>()
     private lateinit var organizationID: String
-    private lateinit var currentOrgName: String
+    private lateinit var organizationName: String
+
+    private lateinit var searchView: JSearchView
 
     private val PREFS_NAME = "ORG_INFO"
+    private val ORG_NAME = "org_name"
+    private val ORG_ID = "org_id"
     private lateinit var sharedPref: SharedPreferences
 
+
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
+
     @Inject
-    lateinit var preference : SharedPreferences
+    lateinit var preference: SharedPreferences
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if(searchView.onBackPressed()){
+                    return
+                }else{
+                    isEnabled = false
+                    activity?.onBackPressed()
+                }
+            }
+        })
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
-
         user = requireActivity().intent.extras?.getParcelable("USER")!!
         sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-       //organizationID = "614679ee1a5607b13c00bcb7"
+
+        searchView = binding.toolbarContainer.searchView
+
+        //get the label of the previous destination
+        val prevDestLabel = findNavController().previousBackStackEntry
+            ?.destination?.label.toString()
+
+        //Check if user just signed up and created organization or switched organization
+        when (prevDestLabel) {
+            "switch_organization", "fragment_see_your_channel" -> {
+                //get the organization name passed from the previous destinations above
+                organizationName = arguments?.getString(ORG_NAME).toString()
+                organizationID = arguments?.getString(ORG_ID).toString()
+                //save the organization name and id to a sharedPreference to persist it
+                with(sharedPref) {
+                    edit().putString(ORG_NAME, organizationName).apply()
+                    edit().putString(ORG_ID, organizationID).apply()
+                }
+            }
+            else -> {
+                /**
+                 * if the user is just logging in check if there is existing organization name
+                 * saved in the sharedPreference and retrieve it or set the organization name to
+                 * default if the sharedPreference does not contain it.
+                 */
+                if(sharedPref.contains(ORG_NAME)){
+                    organizationName = sharedPref.getString(ORG_NAME, null).toString()
+                }else{
+                    organizationName = "Zuri Chat Default"
+                }
+                organizationID = sharedPref.getString(ORG_ID, null).toString()
+            }
+        }
+        //organizationID = "614679ee1a5607b13c00bcb7"
         return binding.root
     }
 
@@ -56,25 +123,8 @@ class HomeScreenFragment : Fragment() {
         val toolbar = binding.toolbarContainer.toolbar
         val activity = requireActivity() as MainActivity
 
-        val prevDest = findNavController().previousBackStackEntry
-            ?.destination?.label.toString()
-
-        if (prevDest == "switch_organization" || prevDest == "fragment_see_your_channel"){
-            currentOrgName = arguments?.getString("org_name").toString()
-            organizationID = arguments?.getString("org_id").toString()
-            sharedPref.edit().putString("org_name", currentOrgName).apply()
-            sharedPref.edit().putString("org_id", organizationID).apply()
-        }else{
-            currentOrgName = sharedPref.getString("org_name", null).toString()
-            organizationID = sharedPref.getString("org_id", null).toString()
-            if (currentOrgName.equals(null)){
-                currentOrgName = "Zuri Chat Default"
-                organizationID = "614679ee1a5607b13c00bcb7"
-                Toast.makeText(context, "User Has No Org", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        binding.toolbarContainer.toolbar.setTitle(currentOrgName)
+        //set the toolbar title to the current logged in organization
+        toolbar.title = organizationName
 
         // setup for viewpager2 and tab layout
         viewPager.adapter = viewPagerAdapter
@@ -87,16 +137,16 @@ class HomeScreenFragment : Fragment() {
             )
         }.attach()
 
+        setupSearchView(toolbar.menu, tabs)
         toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.settings -> {
                     val bundle = Bundle()
-                    bundle.putParcelable("USER",user)
+                    bundle.putParcelable("USER", user)
                     findNavController().navigate(R.id.settingsActivity, bundle)
                 }
                 R.id.search -> {
-                    binding.searchContainer.root.isVisible = true
-                    binding.searchContainer.searchTextInputLayout.editText?.requestFocus()
+
                 }
                 R.id.new_channel -> {
                     try {
@@ -109,60 +159,73 @@ class HomeScreenFragment : Fragment() {
                     findNavController().navigate(R.id.action_homeScreenFragment_to_starredMessagesFragment)
                 }
                 R.id.switch_workspace -> {
-                    val bundle = bundleOf("email" to user.email)
+                    val bundle = bundleOf("email" to user?.email)
                     findNavController().navigate(R.id.switchOrganizationFragment, bundle)
                 }
                 R.id.invite_link -> {
-                    val intent = Intent(Intent.ACTION_SEND)
-                    intent.putExtra(
-                        Intent.EXTRA_TEXT,
-                        "https://api.zuri.chat/organizations/${organizationID}"
-                    )
-                    intent.type = "text/plain"
-
-                    val shareIntent = Intent.createChooser(intent, null)
-                    startActivity(shareIntent)
+                    findNavController().navigate(R.id.action_homeScreenFragment_to_shareLinkFragment)
+                }
+                R.id.logout -> {
+                    logout()
+                }
+                R.id.switch_acc -> {
+                    val action = HomeScreenFragmentDirections.actionHomeScreenFragmentToAccountsFragment(user)
+                    findNavController().navigate(action)
                 }
             }
             true
         }
-        binding.searchContainer.searchTextInputLayout.setStartIconOnClickListener {
-            binding.searchContainer.root.isVisible = false
-        }
-
-        binding.searchContainer.searchTextInputLayout.editText?.doOnTextChanged { text, start, before, count ->
-            viewModel.searchQuery.postValue(text.toString())
-        }
+        observeData()
     }
 
-    /**private fun processSearch(item: MenuItem?) {
-    val s = SpannableString("My MenuItem")
-    s.setSpan(ForegroundColorSpan(Color.WHITE), 0, s.length, 0)
-    if (item != null) {
-    item.title = s
-    }
-    searchView?.setOnSearchClickListener {
-    object : SearchView.OnQueryTextListener {
-    override fun onQueryTextSubmit(query: String?): Boolean {
-    var str = rcAdapter?.filter(query.toString())
+    private fun observeData() {
 
-    if (str == null) {
-    Toast.makeText(
-    this@MainActivity,
-    "No Match found",
-    Toast.LENGTH_LONG
-    ).show()
-    }
-    return false
+        userViewModel.logoutResponse.observe(viewLifecycleOwner, {
+            when (it) {
+                is Result.Success -> {
+                    Toast.makeText(context, "You have been successfully logged out", Toast.LENGTH_SHORT).show()
+                    updateUser()
+                    findNavController().navigate(R.id.action_homeScreenFragment_to_loginActivity)
+                    requireActivity().finish()
+                }
+                is Result.Error -> {
+                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                }
+                is Result.Loading -> {
+                    Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
     }
 
-    override fun onQueryTextChange(newText: String?): Boolean {
-    rcAdapter?.filter(newText.toString())
-    return true
+
+    private fun logout() {
+        userViewModel.logout()
+        userViewModel.clearUserAuthState()
     }
+    private fun updateUser(){
+        val user = user?.copy(currentUser = false)
+        ViewModel.updateUser(user!!)
     }
+
+    private fun setupSearchView(menu: Menu, tabLayout: TabLayout) = with(binding) {
+        val item = menu.findItem(R.id.search)
+        binding.toolbarContainer.searchView.setMenuItem(item)
+        binding.toolbarContainer.searchView.setTabLayout(tabLayout)
+        binding.toolbarContainer.searchView.setOnQueryTextListener(object : JSearchView.OnQueryTextListener{
+            override fun onQueryTextChange(newText: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextCleared(): Boolean {
+                return false
+            }
+        })
+
     }
-    }
-     */
 
 }

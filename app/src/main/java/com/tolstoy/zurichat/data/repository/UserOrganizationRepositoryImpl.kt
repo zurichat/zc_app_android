@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class UserOrganizationRepositoryImpl @Inject constructor(private val userOrganizationRemote: UserOrganizationRemote) :
     UserOrganizationRepository {
-    override fun getUserOrganization(emailAddress:String): Flow<Result<Any>> {
+    override fun getUserOrganization(emailAddress: String): Flow<Result<Any>> {
         return flow {
             when (val res =
                 userOrganizationRemote.getUserOrganization(emailAddress = emailAddress)) {

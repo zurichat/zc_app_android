@@ -51,6 +51,7 @@ class SwitchUserOrganizationAdapter(
             item.orgDescription.text = org.no_of_members.toString() + " Members"
             Glide.with(context).load(org.logo_url).into(item.orgImg)
             item.joinSignInButton.setOnClickListener {
+                //add organization name and id to a bundle and attach the bundle to the NavController
                 val bundle = bundleOf(
                     "org_name" to org.name,
                     "org_id" to org.id

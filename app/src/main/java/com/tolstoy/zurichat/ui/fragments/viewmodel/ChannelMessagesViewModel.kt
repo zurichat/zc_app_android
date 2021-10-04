@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.tolstoy.zurichat.data.remoteSource.OrganizationService
 import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.ui.fragments.model.*
 import com.tolstoy.zurichat.ui.fragments.model.AllChannelMessages
@@ -12,9 +13,12 @@ import com.tolstoy.zurichat.ui.fragments.model.Message
 import com.tolstoy.zurichat.ui.fragments.model.RoomData
 import com.tolstoy.zurichat.ui.fragments.networking.JoinNewChannel
 import com.tolstoy.zurichat.ui.fragments.networking.RetrofitClientInstance
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ChannelMessagesViewModel : ViewModel(){
+@HiltViewModel
+class ChannelMessagesViewModel @Inject constructor(val organizationService: OrganizationService) : ViewModel(){
     private var _allMessages = MutableLiveData<AllChannelMessages>()
     val allMessages : LiveData<AllChannelMessages> get() = _allMessages
 
@@ -43,6 +47,7 @@ class ChannelMessagesViewModel : ViewModel(){
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
+
             }
         }
     }
@@ -122,5 +127,18 @@ class ChannelMessagesViewModel : ViewModel(){
 
     fun saveChannel(channelData: ChannelData) {
         _channelData.value = channelData
+    }
+
+    fun getProfilePictures(orgId: String, list: List<Data>): List<Data> {
+
+        val newList = list
+        list.forEachIndexed { index, data ->
+            viewModelScope.launch {
+                val response = organizationService.getOrganizationMember(orgId, data._id)
+                newList[0].profile_url = response.body()?.data?.imageUrl
+            }
+        }
+
+        return newList
     }
 }

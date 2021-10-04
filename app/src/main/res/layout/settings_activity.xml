@@ -9,8 +9,7 @@
         android:id="@+id/profile_container"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="5dp"
-        >
+        android:layout_marginTop="5dp">
 
         <ImageView
             android:id="@+id/profile_image"

@@ -24,9 +24,9 @@
         app:subtitle="online"
         app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
         app:subtitleTextColor="@color/white"
-        app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
         app:title="John Doe Felix"
         app:titleMarginStart="32dp"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
         app:titleTextColor="@android:color/white" />
 
     <View
@@ -45,6 +45,7 @@
         android:id="@+id/list_dm"
         android:layout_width="0dp"
         android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toTopOf="@id/channel_typing_bar"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,7 +53,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_dm"
         app:layout_constraintVertical_bias="1.0"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="2"
         tools:listitem="@layout/channel_incoming_message_model">
 

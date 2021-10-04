@@ -9,7 +9,7 @@
         android:id="@+id/createOrganizationsFragment"
         android:name="com.tolstoy.zurichat.ui.organizations.CreateOrganizationsFragment"
         android:label="fragment_create_organizations"
-        tools:layout="@layout/fragment_create_organizations" >
+        tools:layout="@layout/fragment_create_organizations">
         <action
             android:id="@+id/action_createOrganizationsFragment_to_newWorkspaceFragment"
             app:destination="@id/newWorkspaceFragment" />
@@ -18,7 +18,7 @@
         android:id="@+id/newWorkspaceFragment"
         android:name="com.tolstoy.zurichat.ui.organizations.NewWorkspaceFragment"
         android:label="fragment_new_workspace"
-        tools:layout="@layout/fragment_new_workspace" >
+        tools:layout="@layout/fragment_new_workspace">
         <action
             android:id="@+id/action_newWorkspaceFragment_to_nextFragment"
             app:destination="@id/nextFragment" />
@@ -34,12 +34,18 @@
         <action
             android:id="@+id/action_nextFragment_to_addByEmailFragment"
             app:destination="@id/addByEmailFragment" />
+        <argument
+            android:name="organizationName"
+            app:argType="string" />
+        <argument
+            android:name="organizationId"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/addByEmailFragment"
         android:name="com.tolstoy.zurichat.ui.organizations.AddByEmailFragment"
         android:label="fragment_add_by_email"
-        tools:layout="@layout/fragment_add_by_email" >
+        tools:layout="@layout/fragment_add_by_email">
         <action
             android:id="@+id/action_addByEmailFragment_to_seeYourChannelFragment"
             app:destination="@id/seeYourChannelFragment" />
@@ -48,11 +54,19 @@
         android:id="@+id/seeYourChannelFragment"
         android:name="com.tolstoy.zurichat.ui.organizations.SeeYourChannelFragment"
         android:label="fragment_see_your_channel"
-        tools:layout="@layout/fragment_see_your_channel" >
+        tools:layout="@layout/fragment_see_your_channel">
         <action
             android:id="@+id/action_seeYourChannelFragment_to_homeScreenFragment"
             app:destination="@id/homeScreenFragment"
             app:popUpTo="@id/main_nav"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_seeYourChannelFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
     </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.tolstoy.zurichat.ui.activities.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
 </navigation>

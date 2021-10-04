@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_outline_person_outline_24"/>
+                android:src="@drawable/ic_outline_person_outline_24" />
         </RelativeLayout>
 
         <LinearLayout
@@ -134,7 +134,7 @@ visible to all memebers of the channel"
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_outline_info_24"/>
+                android:src="@drawable/ic_outline_info_24" />
         </RelativeLayout>
 
         <LinearLayout
@@ -210,7 +210,7 @@ visible to all memebers of the channel"
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_outline_phone_24"/>
+                android:src="@drawable/ic_outline_phone_24" />
         </RelativeLayout>
 
         <LinearLayout
@@ -229,31 +229,32 @@ visible to all memebers of the channel"
                 android:textSize="14sp" />
 
             <TextView
-            android:id="@+id/tv_phoneno"
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:fontFamily="@font/lato"
-            android:text="+255719858439"
-            android:textColor="#454545"
-            android:textSize="18sp" />
+                android:id="@+id/tv_phoneno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/lato"
+                android:text="+255719858439"
+                android:textColor="#454545"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
-        <RelativeLayout android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="10dp"
-        android:layout_weight="1">
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1">
 
-        <ImageView
-            android:id="@+id/imgPhone_editBT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-        android:src="@drawable/ic_edit_pen_icon" />
+            <ImageView
+                android:id="@+id/imgPhone_editBT"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_edit_pen_icon" />
 
-    </RelativeLayout>
+        </RelativeLayout>
 
     </LinearLayout>
 

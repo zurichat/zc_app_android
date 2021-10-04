@@ -29,4 +29,4 @@ data class OrganizationMemberEntity(
     val status: String = "",
     val timeZone: String = "",
     val userName: String = "" // mukhtar.b017
-):Parcelable
+) : Parcelable

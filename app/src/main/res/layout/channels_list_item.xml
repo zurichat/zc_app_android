@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
     android:background="?attr/selectableItemBackground"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:focusable="true"
-    >
+    android:clickable="true"
+    android:focusable="true">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -34,10 +32,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Comedy-and-riddles"
+        android:textColor="@color/text_color"
+        app:layout_constraintBottom_toBottomOf="@id/fab"
         app:layout_constraintStart_toEndOf="@id/fab"
         app:layout_constraintTop_toTopOf="@id/fab"
-        app:layout_constraintBottom_toBottomOf="@id/fab"
-        android:textColor="@color/text_color"
         tools:ignore="HardcodedText" />
 
     <com.google.android.material.button.MaterialButton
@@ -45,53 +43,51 @@
         android:layout_width="wrap_content"
         android:layout_height="35dp"
         android:layout_marginStart="10dp"
+        android:backgroundTint="@color/bg_color"
+        android:enabled="false"
+        android:text="@string/joined"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/text_color"
+        android:textSize="11sp"
+        android:visibility="gone"
+        app:cornerRadius="100dp"
+        app:layout_constraintBottom_toBottomOf="@id/channelTitle"
         app:layout_constraintStart_toEndOf="@id/channelTitle"
         app:layout_constraintTop_toTopOf="@id/channelTitle"
-        app:layout_constraintBottom_toBottomOf="@id/channelTitle"
-        android:textColor="@color/text_color"
-        android:text="@string/joined"
-        app:cornerRadius="100dp"
-        android:textSize="11sp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:backgroundTint="@color/bg_color"
         app:strokeColor="@color/primary_color"
-        app:strokeWidth="1dp"
-        android:visibility="gone"
-        android:enabled="false"
-        />
+        app:strokeWidth="1dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/badge"
         android:layout_width="wrap_content"
         android:layout_height="35dp"
-        android:minWidth="30dp"
-        android:maxWidth="60dp"
         android:layout_marginStart="10dp"
-        app:layout_constraintStart_toEndOf="@id/channelTitle"
-        app:layout_constraintTop_toTopOf="@id/channelTitle"
-        app:layout_constraintBottom_toBottomOf="@id/channelTitle"
-        android:textColor="#FFFFFF"
-        android:text="1"
-        android:ellipsize="end"
-        app:cornerRadius="100dp"
-        android:textSize="11sp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
         android:backgroundTint="@color/primaryColor"
+        android:ellipsize="end"
         android:enabled="false"
+        android:maxWidth="60dp"
+        android:minWidth="30dp"
+        android:text="1"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="#FFFFFF"
+        android:textSize="11sp"
         android:visibility="gone"
-        />
+        app:cornerRadius="100dp"
+        app:layout_constraintBottom_toBottomOf="@id/channelTitle"
+        app:layout_constraintStart_toEndOf="@id/channelTitle"
+        app:layout_constraintTop_toTopOf="@id/channelTitle" />
 
     <ImageView
         android:id="@+id/img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
+        android:scaleX=".8"
+        android:scaleY=".8"
         android:src="@drawable/ic_arrow_forward"
+        app:layout_constraintBottom_toBottomOf="@id/channelTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/channelTitle"
-        app:layout_constraintBottom_toBottomOf="@id/channelTitle"
-        android:scaleY=".8"
-        android:scaleX=".8"
         tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

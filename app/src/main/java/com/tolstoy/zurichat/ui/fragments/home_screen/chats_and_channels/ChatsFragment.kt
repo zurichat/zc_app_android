@@ -1,27 +1,18 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
-import com.tolstoy.zurichat.data.remoteSource.RoomService
 import com.tolstoy.zurichat.databinding.FragmentChatsBinding
-import com.tolstoy.zurichat.models.ChannelModel
 import com.tolstoy.zurichat.models.Message
-import com.tolstoy.zurichat.models.Room
 import com.tolstoy.zurichat.models.User
-import com.tolstoy.zurichat.ui.dm.response.RoomListResponse
 import com.tolstoy.zurichat.ui.dm_chat.adapter.RoomAdapter
 import com.tolstoy.zurichat.ui.dm_chat.model.response.room.RoomsListResponse
 import com.tolstoy.zurichat.ui.dm_chat.model.response.room.RoomsListResponseItem
@@ -33,6 +24,7 @@ import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragment
 import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragmentDirections
 import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenViewModel
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChatsAdapter
+import com.tolstoy.zurichat.ui.notification.NotificationUtils
 import com.tolstoy.zurichat.ui.profile.network.Constants
 import com.tolstoy.zurichat.ui.profile.network.ProfileService
 import dagger.hilt.android.AndroidEntryPoint
@@ -45,6 +37,8 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
+import java.util.*
+import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class ChatsFragment : Fragment(R.layout.fragment_chats) {
@@ -53,6 +47,8 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
     private var token: String? = null
     private lateinit var userID: String
 
+    private val mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
+    private var mNotified = false
 
     //variables initialization for new setup
     private lateinit var recyclerView: RecyclerView
@@ -82,7 +78,13 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         recyclerView = binding.listChats
         val recyclerView2 = view.findViewById<RecyclerView>(R.id.list_chats)
         user = requireActivity().intent.extras?.getParcelable("USER")!!
+
+        ModelPreferencesManager.with(requireContext())
         roomsArrayList = ArrayList()
+
+        if (!mNotified) {
+            NotificationUtils().setNotification(mNotificationTime, requireActivity())
+        }
 
         setupRecyclerView()
 
@@ -91,17 +93,19 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         viewModelRoom = ViewModelProvider(this, viewModelFactory).get(RoomViewModel::class.java)
         //call retrofit service function
         viewModelRoom.getRooms()
-        viewModelRoom.myResponse.observe(viewLifecycleOwner,  { response ->
+
+        viewModelRoom.myResponse.observe(viewLifecycleOwner) { response ->
             if (response.isSuccessful) {
 
                 roomList = response.body()!!
 
                 Log.i("RoomList response", "$roomList")
 
-              // ModelPreferencesManager.put(roomList, "rooms")
+                // ModelPreferencesManager.put(roomList, "rooms")
+                ModelPreferencesManager.put(roomList, "rooms")
 
                 room = roomList[0]
-              //  roomsArrayList.addAll(roomList)
+                //  roomsArrayList.addAll(roomList)
                 roomAdapter.setData(roomList)
 
                 for (room in roomList) {
@@ -113,7 +117,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
 
             } else {
 
-                when(response.code()){
+                when (response.code()) {
                     400 -> {
                         Log.e("Error 400", "invalid authorization")
                     }
@@ -129,7 +133,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
                 }
 
             }
-        })
+        }
 
 
         userID = "61467ee61a5607b13c00bcf2"
@@ -158,7 +162,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
 
     override fun onResume() {
         super.onResume()
-       // ModelPreferencesManager.get<RoomsListResponse>("room")
+        ModelPreferencesManager.get<RoomsListResponse>("room")
 
     }
 

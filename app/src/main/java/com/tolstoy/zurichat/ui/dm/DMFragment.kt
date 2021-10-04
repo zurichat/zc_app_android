@@ -160,16 +160,16 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
     private fun setupObservers() = with(viewModel){
         // retrieve messages if the room id is not null
         roomId?.let {
-            viewModelScope.launch {
-                val newAdapter = MessageAdapter(requireContext(), userId, getMessages(roomId).messages.toMutableList(), true)
-                if(this@DMFragment::adapter.isInitialized){
-                    adapter.messages.forEach{ message ->
-                        newAdapter.addMessage(message)
-                    }
-                }
-                adapter = newAdapter
-                binding.listDm.adapter = adapter
-            }
+//            viewModelScope.launch {
+//                val newAdapter = MessageAdapter(requireContext(), userId, getMessages(roomId).messages.toMutableList(), true)
+//                if(this@DMFragment::adapter.isInitialized){
+//                    adapter.messages.forEach{ message ->
+//                        newAdapter.addMessage(message)
+//                    }
+//                }
+//                adapter = newAdapter
+//                binding.listDm.adapter = adapter
+//            }
         }
         attachmentUploadResponse.observe(viewLifecycleOwner){
             // image was uploaded successfully

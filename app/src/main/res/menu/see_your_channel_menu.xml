@@ -4,8 +4,8 @@
 
 
     <item
-        android:title="@string/next"
         android:id="@+id/action_next"
-        app:showAsAction="always"/>
+        android:title="@string/next"
+        app:showAsAction="always" />
 
 </menu>

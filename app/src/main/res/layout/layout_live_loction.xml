@@ -9,34 +9,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="34dp"
+        android:contentDescription="@string/zuri_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/zuri_logo"
         app:srcCompat="@drawable/ellipse23" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
+        android:contentDescription="@string/zuri_logo"
         android:layerType="software"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/loc_icon"
-        android:contentDescription="@string/zuri_logo"/>
+        app:srcCompat="@drawable/loc_icon" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/you_aren_t_sharing_live_location"
-        android:textStyle="bold"
-        android:textSize="14sp"
         android:layout_marginTop="34dp"
+        android:text="@string/you_aren_t_sharing_live_location"
+        android:textSize="14sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView11" />
@@ -45,12 +45,12 @@
         android:id="@+id/textView15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/live_location_manage__device_settings"
         android:layout_marginTop="12dp"
         android:padding="28dp"
+        android:text="@string/live_location_manage__device_settings"
         android:textAlignment="center"
-        android:textSize="12sp"
         android:textColor="#B0AFB0"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView13" />

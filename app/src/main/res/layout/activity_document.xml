@@ -5,32 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.documents.DocumentActivity">
+
     <RelativeLayout
-        android:layout_width="match_parent"
         android:id="@+id/documentToolbar"
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
 
-
         <RelativeLayout
-            android:layout_height="60dp"
-            android:layout_width="match_parent"
             android:id="@+id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:background="@color/green_color">
+
             <ImageView
+                android:id="@+id/documentBack"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:id="@+id/documentBack"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="8dp"
-                android:src="@drawable/ic_back"
-                android:layout_centerVertical="true"/>
+                android:src="@drawable/ic_back" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/documentBack"
-                android:layout_marginStart="13dp"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="13dp"
+                android:layout_toRightOf="@+id/documentBack"
                 android:orientation="vertical">
 
                 <TextView
@@ -50,22 +51,24 @@
 
 
             </LinearLayout>
+
             <ImageView
+                android:id="@+id/documentSearch"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:id="@+id/documentSearch"
-                android:src="@drawable/ic_search"
-                android:layout_marginEnd="10dp"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_search" />
 
         </RelativeLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/docrecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="vertical"
             android:layout_below="@id/layout1"
+            android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
     </RelativeLayout>

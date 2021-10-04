@@ -19,7 +19,7 @@ class SeeYourChannelFragment : Fragment(R.layout.fragment_see_your_channel) {
 
         binding.btnSeeYourChannel.setOnClickListener {
             val bundle = bundleOf("org_name" to arguments?.getString("org_name"))
-            Navigation.findNavController(it).navigate(R.id.action_seeYourChannelFragment_to_homeScreenFragment, bundle)
+            Navigation.findNavController(it).navigate(R.id.action_seeYourChannelFragment_to_mainActivity, bundle)
         }
     }
 

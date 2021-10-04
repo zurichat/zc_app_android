@@ -180,6 +180,15 @@
     <string name="welcome_zc_txt">Welcome to Zuri Chat</string>
     <string name="welcome_rect">welcome top rectangle</string>
 
+    <!-- Confirm Password-->
+    <string name="confirm_pass_hdr">Confirm Password</string>
+    <string name="confirm_pass">Confirm password to sign in with account</string>
+
+    <!--Home screen Menu-->
+    <string name="switch_acc">Switch Account</string>
+    <string name="logout">Logout</string>
+
+
 
     <!--                      Forgot Password-->
     <string name="please_ente">
@@ -247,7 +256,7 @@
     <string name="ok_mute_channel">OK</string>
     <string name="who_else_is">Who else is working on this project?</string>
     <string name="to_add_team">To add teammates, you can either send a link or invite from your contacts.</string>
-    <string name="share_a_link">Share a link</string>
+    <string name="share_a_link">Share link</string>
     <string name="add_from_contacts">Add from contacts</string>
     <string name="add_by_email">Add by email</string>
     <string name="signout">Logout</string>
@@ -258,7 +267,12 @@
     <string name="retrieving_user_org">Retrieving user organization....</string>
     <string name="starred_messages">Starred Messages</string>
     <string name="empty_starrred_message_info">Tap and hold on any message \nin any chat to star it, \nso you can easily \nfind it later</string>
-    <string name="invite_link">Invite Link</string>
+    <string name="invite_link">Generate Link</string>
     <string name="channel_invite">Channel Invite</string>
+    <string name="create_link">Create Link</string>
+    <string name="generated_link">Generated Link</string>
+
+    <string name="notification">New Notification</string>
+    <string name="notification_channel_description">This is a sample notification channel for demonstration purpose.</string>
 
 </resources>

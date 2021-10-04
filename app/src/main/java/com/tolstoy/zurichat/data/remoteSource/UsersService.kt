@@ -1,6 +1,7 @@
 package com.tolstoy.zurichat.data.remoteSource
 
 import com.tolstoy.zurichat.models.*
+import com.tolstoy.zurichat.models.network_response.OrganizationMembers
 import com.tolstoy.zurichat.models.organization_model.OrganizationCreator
 import com.tolstoy.zurichat.models.organization_model.OrganizationCreatorResponse
 import retrofit2.Call
@@ -24,19 +25,29 @@ interface UsersService {
     @POST("users")
     fun register(@Body registerUser: RegisterUser?): Call<RegisterUser?>?
 
-    @POST ("account/verify-account")
-    fun verifyEmail(@Body verifyEmail : VerifyEmail?): Call<VerifyEmail?>?
-
-    /**
-     * The endpoint for fetching users has been blocked by the backend guys
-     */
-    @GET("users")
-    suspend fun getUsers(@Header("Authorization")token: String): Response<UserList>
+    @POST("account/verify-account")
+    fun verifyEmail(@Body verifyEmail: VerifyEmail?): Call<VerifyEmail?>?
 
     @GET("organizations/{organization_id}/members")
-    suspend fun getMembers(@Header("Authorization")token: String,
-                           @Path("organization_id") orgId: String): Response<UserList>
+    suspend fun getMembers(
+        @Header("Authorization") token: String,
+        @Path("organization_id") orgId: String
+    ): Response<UserList>
 
+    @POST("account/request-password-reset-code")
+    suspend fun passwordReset(@Body passwordReset: PasswordReset): PassswordRestReponse
+
+    @GET("organizations/{organization_id}/members")
+    fun getMembers(@Path("organization_id") org_id: String): Call<OrganizationMembers>
+
+    @GET("organizations/{organization_id}/members/{member_id}")
+    fun getMember(
+        @Path("organization_id") org_id: String,
+        @Path("member_id") member_id: String
+    ): Call<OrganizationMember>
+
+    @POST("auth/logout")
+    suspend fun logout(): Response<LogoutResponse>
 }
 
 

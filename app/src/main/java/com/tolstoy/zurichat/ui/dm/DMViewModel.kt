@@ -1,37 +1,47 @@
 package com.tolstoy.zurichat.ui.dm
 
 import android.app.Application
-import android.content.Context
 import android.net.Uri
 import androidx.lifecycle.*
-import com.tolstoy.zurichat.data.localSource.Cache
-import com.tolstoy.zurichat.data.repository.ChatsRepository
+import com.tolstoy.zurichat.data.remoteSource.postValue
+import com.tolstoy.zurichat.data.remoteSource.retrieve
+import com.tolstoy.zurichat.data.repository.DMRepository
 import com.tolstoy.zurichat.data.repository.FilesRepository
-import com.tolstoy.zurichat.data.repository.RoomRepository
+import com.tolstoy.zurichat.data.repository.OrganizationRepository
+import com.tolstoy.zurichat.data.repository.UserRepository
 import com.tolstoy.zurichat.models.Message
-import com.tolstoy.zurichat.models.Room
-import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.models.network_response.CreateRoom
-import com.tolstoy.zurichat.models.network_response.CreateRoomResponse
 import com.tolstoy.zurichat.models.network_response.FileUploadResponse
+import com.tolstoy.zurichat.models.network_response.GetMessagesResponse
 import com.tolstoy.zurichat.models.network_response.SendMessageResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Deferred
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
  * @author Jeffrey Orazulike [https://github.com/jeffreyorazulike]
  * Created 19-Sep-21
  */
+@ExperimentalCoroutinesApi
 @HiltViewModel
-class DMViewModel @Inject constructor(
-    private val chatsRepository: ChatsRepository,
-    private val roomsRepository: RoomRepository,
+class DMViewModel
+@Inject constructor(
+    private val dmRepository: DMRepository,
+    private val orgRepo: OrganizationRepository,
     private val filesRepository: FilesRepository,
+    private val userRepository: UserRepository,
     application: Application): AndroidViewModel(application) {
+
+    val userId by lazy { userRepository.getUserId() }
+
+    private var _error = MutableLiveData<String?>()
+    val error : LiveData<String?> get() = _error
+
+    private val handler = CoroutineExceptionHandler { _, exception ->
+        Timber.e("Caught $exception")
+        _error.value = exception.message
+    }
 
     val attachmentUploadResponse: LiveData<FileUploadResponse> get() = _attachmentUploadResponse
     private val _attachmentUploadResponse = MutableLiveData<FileUploadResponse>()
@@ -48,22 +58,20 @@ class DMViewModel @Inject constructor(
 
     val sendMessageResponse: LiveData<SendMessageResponse> get() = _sendMessageResponse
     private val _sendMessageResponse = MutableLiveData<SendMessageResponse>()
-    fun sendMessage(roomId: String, message: Message){
-        viewModelScope.launch {
-            try {
-                _sendMessageResponse.value = chatsRepository.sendMessage(roomId, message)
-            }catch (exception: Exception){
-                exception.printStackTrace()
-            }
-        }
+    fun sendMessage(roomId: String, message: Message) = viewModelScope.launch(handler){
+        _sendMessageResponse.postValue(dmRepository.sendMessage(orgRepo.getId(), roomId, message), _error)
     }
 
-    suspend fun getMessages(roomId: String) = viewModelScope.async {
-        return@async chatsRepository.getMessages(roomId)
-    }.await()
+    val messagesResponse: LiveData<GetMessagesResponse> get() = _messagesResponse
+    private val _messagesResponse = MutableLiveData<GetMessagesResponse>()
+    suspend fun getMessages(roomId: String) = viewModelScope.launch {
+        _messagesResponse.postValue(dmRepository.getMessages(orgRepo.getId(), roomId), _error)
+    }
 
-    suspend fun createRoom(userId: String, otherUserId: String,
-                           orgId: String = "614679ee1a5607b13c00bcb7") = viewModelScope.async {
-        return@async roomsRepository.createRoom(CreateRoom(orgId, listOf(userId, otherUserId)))
+    suspend fun createRoom(userId: String, otherUserId: String) = viewModelScope.async {
+        val orgId = orgRepo.getId()
+        return@async dmRepository.createRoom(orgId, userId, CreateRoom(orgId, listOf(userId, otherUserId))).retrieve(_error)
     }.await()
 }
+
+
