@@ -22,7 +22,7 @@
         <activity
             android:name=".ui.activities.DocumentOtions"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light"></activity>
+            android:theme="@style/Theme.MaterialComponents.Light"/>
         <activity
             android:name=".ui.activities.SplashActivity"
             android:exported="true"
@@ -79,7 +79,7 @@
             android:exported="true"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".ui.activities.MainActivity"
-            android:theme="@style/Theme.ZuriChat.Settings"></activity>
+            android:theme="@style/Theme.ZuriChat.Settings"/>
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="true"
@@ -90,7 +90,7 @@
             android:label="@string/profile_activity"
             android:parentActivityName=".ui.settings.ManageStorageActivity"
             android:theme="@style/Theme.ZuriChat.Settings" />
-        <activity android:name=".ui.activities.MainActivity"></activity>
+        <activity android:name=".ui.activities.MainActivity"/>
 
         <receiver
             android:name=".ui.notification.AlarmReceiver"
