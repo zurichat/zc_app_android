@@ -9,26 +9,18 @@ import android.net.NetworkRequest
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.tolstoy.zurichat.R
-import com.tolstoy.zurichat.ui.login.screens.InternetFragment
 import com.tolstoy.zurichat.util.setUpApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.util.*
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         // This setups application theme to value stored in sharedPref
         setUpApplicationTheme(this)
-
-        //internet connection
-        internetConnectionChecking()
     }
 
     override fun onStart() {
@@ -44,9 +36,10 @@ class LoginActivity : AppCompatActivity() {
         val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
 
         if(!isConnected){
-            val ft = supportFragmentManager.beginTransaction()
+            Toast.makeText(applicationContext,"No Internet Connection!",Toast.LENGTH_LONG).show()
+            /*val ft = supportFragmentManager.beginTransaction()
             ft.replace(R.id.fragment_placeholder, InternetFragment())
-            ft.commit()
+            ft.commit()*/
         }
     }
     // Internet Connectivity checking
@@ -72,9 +65,9 @@ class LoginActivity : AppCompatActivity() {
 
                 override fun onLost(network: Network) {
                     super.onLost(network)
-                    val ft = supportFragmentManager.beginTransaction()
-                    ft.add(R.id.fragment_placeholder, InternetFragment())
-                    ft.commit()
+                    /*val ft = supportFragmentManager.beginTransaction()
+                    ft.add(R.id.fragment_placehol,)
+                    ft.commit()*/
                 }
             }
         )
