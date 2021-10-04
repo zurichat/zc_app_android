@@ -4,14 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg"
     tools:context=".ui.login.screens.RegisterUserFragment">
 
     <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/rectangle_1033"
+        />
+
+    <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="52dp"
         android:scaleType="centerCrop"
         android:src="@drawable/logo1"
         app:layout_constraintEnd_toEndOf="parent"

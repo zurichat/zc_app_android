@@ -4,19 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg"
     tools:context=".ui.login.screens.EnterOtpFragment">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/rectangle_1033"
+        />
 
     <ImageView
         android:id="@+id/imageView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo1" />
-
 
     <TextView
         android:id="@+id/confirm_pass_hdr"
@@ -27,6 +33,7 @@
         android:gravity="center_horizontal|center_vertical"
         android:lineSpacingExtra="2sp"
         android:text="Forgot Password"
+        android:textColor="@color/text_color"
         android:textAppearance="@style/forgot_text_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +49,7 @@
         android:gravity="center_horizontal|center_vertical"
         android:lineSpacingExtra="1sp"
         android:text="Enter the 4-digit OTP sent to your mail"
-        android:textAppearance="@style/please_ente"
+        android:textColor="@color/text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirm_pass_hdr" />

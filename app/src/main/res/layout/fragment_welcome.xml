@@ -57,7 +57,7 @@
         android:fontFamily="@font/lato"
         android:text="@string/welcome_zc_txt"
         android:textAlignment="center"
-        android:textColor="@color/onboarding_black"
+        android:textColor="@color/text_color"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

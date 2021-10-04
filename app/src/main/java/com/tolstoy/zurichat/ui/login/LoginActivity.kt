@@ -2,11 +2,17 @@ package com.tolstoy.zurichat.ui.login
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.Configuration
+import android.graphics.Color
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkInfo
 import android.net.NetworkRequest
+import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.tolstoy.zurichat.R
@@ -21,6 +27,22 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         // This setups application theme to value stored in sharedPref
         setUpApplicationTheme(this)
+        setTransparentStatusBar()
+    }
+
+    fun setTransparentStatusBar() {
+        val nightModeFlags = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val window: Window = window
+            val winParams: WindowManager.LayoutParams = window.attributes
+            winParams.flags = winParams.flags and WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS.inv()
+            window.setAttributes(winParams)
+            if (nightModeFlags != Configuration.UI_MODE_NIGHT_YES) {
+                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR)
+            } else {
+                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+            }
+        }
     }
 
     override fun onStart() {
