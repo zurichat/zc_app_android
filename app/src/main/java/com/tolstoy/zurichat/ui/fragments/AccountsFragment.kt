@@ -52,7 +52,6 @@ class AccountsFragment : Fragment() {
             adapter.setData(user)
         })
 
-
     }
 
 //    fun setupRecycler(){
