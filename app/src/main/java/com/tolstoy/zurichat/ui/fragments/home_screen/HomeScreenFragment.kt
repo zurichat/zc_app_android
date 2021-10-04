@@ -169,7 +169,7 @@ class HomeScreenFragment : Fragment() {
                     logout()
                 }
                 R.id.switch_acc -> {
-                   // val action = HomeScreenFragmentDirections.actionHomeScreenFragmentToAccountsFragment(user)
+                   //val action = HomeScreenFragmentDirections.actionHomeScreenFragmentToAccountsFragment(user)
                    // findNavController().navigate(action)
                 }
             }

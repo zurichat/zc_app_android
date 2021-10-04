@@ -83,7 +83,7 @@
         <activity
             android:name=".ui.login.LoginActivity"
             android:exported="true"
-            android:theme="@style/Theme.ZuriChat.Splash" />
+            android:theme="@style/Theme.ZuriChat.LogIN" />
         <activity
             android:name=".ui.activities.ProfileActivity"
             android:exported="true"
