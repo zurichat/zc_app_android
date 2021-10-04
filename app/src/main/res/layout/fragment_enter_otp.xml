@@ -26,13 +26,15 @@
 
     <TextView
         android:id="@+id/confirm_pass_hdr"
-        android:layout_width="136dp"
+        android:layout_width="wrap_content"
         android:layout_height="23dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="24dp"
         android:gravity="center_horizontal|center_vertical"
         android:lineSpacingExtra="2sp"
         android:text="Forgot Password"
+        android:textSize="18sp"
         android:textColor="@color/text_color"
         android:textAppearance="@style/forgot_text_style"
         app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +51,6 @@
         android:gravity="center_horizontal|center_vertical"
         android:lineSpacingExtra="1sp"
         android:text="Enter the 4-digit OTP sent to your mail"
-        android:textColor="@color/text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirm_pass_hdr" />
@@ -77,8 +78,7 @@
         android:layout_marginTop="16dp"
         android:gravity="center_vertical"
         android:lineSpacingExtra="1sp"
-        android:text="@string/didn_t_rece"
-        android:textAppearance="@style/forgot_text_style"
+        android:text="@string/didn_t_receive_any_code"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pinView" />
 
@@ -101,8 +101,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Resend"
-        android:textColor="@color/primaryDarkColor"
+        android:textColor="@color/primaryColor"
         android:textSize="14sp"
+        android:layout_marginStart="5dp"
         app:layout_constraintBottom_toBottomOf="@+id/didn_t_rece"
         app:layout_constraintStart_toEndOf="@+id/didn_t_rece"
         app:layout_constraintTop_toTopOf="@+id/didn_t_rece" />
