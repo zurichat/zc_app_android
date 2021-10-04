@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -99,7 +98,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:backgroundTint="@color/primary_light_color"
+        android:backgroundTint="@color/primary_color"
         android:text="Sign In"
         app:layout_constraintEnd_toEndOf="@+id/materialTextView"
         app:layout_constraintStart_toStartOf="@+id/user_password"
@@ -130,7 +129,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/lato"
             android:text="Sign Up"
-            android:textColor="@color/primary_light_color"
+            android:textColor="@color/primary_color"
             android:textSize="14sp"
             android:textStyle="bold" />
 
