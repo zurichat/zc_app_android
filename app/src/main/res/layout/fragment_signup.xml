@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,11 +9,11 @@
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
         android:layout_marginTop="32dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/logo1"
+        android:src="@drawable/zuri_home_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,6 +26,7 @@
         android:text="Sign Up"
         android:textSize="22sp"
         android:textStyle="bold"
+        android:textColor="@color/text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6" />
@@ -116,7 +118,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Please sign up to create account"
-        android:textColor="@color/darkGray"
         android:textFontWeight="400"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/textView_sign_in"
@@ -138,7 +139,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:drawableLeft="@drawable/google_logo1"
+        android:drawableStart="@drawable/google_logo1"
         android:gravity="center"
         android:paddingLeft="70dp"
         android:paddingRight="70dp"

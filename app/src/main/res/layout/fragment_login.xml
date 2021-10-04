@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg"
-    android:theme="@style/Theme.MaterialComponents.DayNight"
     tools:context=".ui.login.screens.LoginFragment">
 
     <ImageView
         android:id="@+id/imageView6"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
         android:layout_marginTop="64dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/logo1"
+        android:src="@drawable/zuri_home_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -145,7 +144,6 @@
         android:layout_marginTop="104dp"
         android:fontFamily="@font/lato"
         android:text="Email Address"
-        android:textColor="@color/txt_black"
         android:textFontWeight="700"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -159,7 +157,6 @@
         android:layout_marginTop="95dp"
         android:fontFamily="@font/lato"
         android:text="Password"
-        android:textColor="@color/txt_black"
         android:textFontWeight="700"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
