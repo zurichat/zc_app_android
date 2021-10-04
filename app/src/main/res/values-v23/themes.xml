@@ -70,7 +70,6 @@
         <item name="android:navigationBarColor" tools:targetApi="l">#FFFFFF</item>
         <!-- Customize your theme here. -->
         <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="Theme.ZuriChat.NoActionBar">

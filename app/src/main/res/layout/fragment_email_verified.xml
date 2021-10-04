@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.login.screens.EmailVerifiedFragment">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/rectangle_1033"
+        />
+
 
     <ImageView
         android:id="@+id/imageView13"
@@ -25,7 +33,7 @@
         android:fontFamily="@font/roboto_regular"
         android:lineHeight="23.44dp"
         android:text="Email Verified"
-        android:textColor="@color/txt_black"
+        android:textColor="@color/text_color"
         android:textFontWeight="700"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
