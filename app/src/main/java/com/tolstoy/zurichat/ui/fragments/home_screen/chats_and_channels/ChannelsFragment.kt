@@ -28,7 +28,10 @@ import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDao
 import com.tolstoy.zurichat.ui.fragments.home_screen.CentrifugeClient
 import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragment
 import com.tolstoy.zurichat.ui.fragments.home_screen.adapters.ChannelAdapter
+import com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.localdatabase.AllChannelListDao
+import com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.localdatabase.AllChannelListObject
 import com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.localdatabase.ChannelListDao
+import com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.localdatabase.ChannelListObject
 import com.tolstoy.zurichat.ui.fragments.home_screen.diff_utils.ChannelDiffUtil
 import com.tolstoy.zurichat.ui.fragments.model.Data
 import com.tolstoy.zurichat.ui.fragments.model.RoomData
@@ -67,6 +70,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private lateinit var database: AppDatabase
     private lateinit var roomDao: RoomDao
     private lateinit var channelListDao: ChannelListDao
+    private lateinit var allChannelListDao: AllChannelListDao
     private lateinit var sharedPref: SharedPreferences
 
     private val mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
@@ -83,6 +87,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         database = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "zuri_chat").build()
         roomDao = database.roomDao()
         channelListDao = database.channelListDao()
+        allChannelListDao = database.allChannelListDao()
 
         user = requireActivity().intent.extras?.getParcelable("USER")!!
         //organizationID = "614679ee1a5607b13c00bcb7"
@@ -227,40 +232,57 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
 
     private fun getListOfChannels() {
         uiScope.launch(Dispatchers.IO){
-            channelListDao.getAllChannels().let {
+            allChannelListDao.getChannelListWithOrganizationID(organizationID).let {
+                uiScope.launch(Dispatchers.Main){
+                    if (it!=null){
+                        originalChannelsArrayList.clear()
+                        originalChannelsArrayList.addAll(it.channelList)
+                    }
+                }
+            }
+
+            channelListDao.getChannelListWithOrganizationID(organizationID).let {
                 uiScope.launch(Dispatchers.Main){
                     if (it!=null){
                         channelsArrayList.clear()
-                        channelsArrayList.addAll(it)
+                        channelsArrayList.addAll(it.channelList)
                         addHeaders()
                     }
                 }
             }
         }
+
         viewModel.isConnected(false)
         viewModel.getChannelsList(organizationID)
         viewModel.channelsList.observe(viewLifecycleOwner,{
             originalChannelsArrayList.clear()
             originalChannelsArrayList.addAll(it)
 
+            uiScope.launch(Dispatchers.IO){
+                val allChannelListObject = AllChannelListObject(it)
+                allChannelListObject.orgId = organizationID
+                allChannelListDao.insertAll(allChannelListObject)
+            }
             viewModel.getJoinedChannelsList(organizationID,user.id)
         })
 
         viewModel.joinedChannelsList.observe(viewLifecycleOwner,{ joinedList ->
-            //please the commented codes is not needed anymore.If needed in future please remember to uncomment also in the fragment_channels.xml file
-//            binding.progressBar2.visibility = View.GONE
             channelsArrayList.clear()
+            val arrayList = ArrayList<ChannelModel>()
             if (joinedList.isNotEmpty()){
                 joinedList.forEach{ joinedChannel ->
                     originalChannelsArrayList.forEach{ channel ->
                         if (joinedChannel.id == channel._id){
                             channelsArrayList.add(channel)
-                            uiScope.launch(Dispatchers.IO){
-                                channelListDao.insertAll(channel)
-                            }
+                            arrayList.add(channel)
                         }
                     }
                 }
+            }
+            uiScope.launch(Dispatchers.IO){
+                val channelListObject = ChannelListObject(arrayList)
+                channelListObject.orgId = organizationID
+                channelListDao.insertAll(channelListObject)
             }
             addHeaders()
         })

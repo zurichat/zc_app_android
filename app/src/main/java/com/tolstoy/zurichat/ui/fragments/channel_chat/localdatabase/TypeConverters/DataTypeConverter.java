@@ -19,7 +19,6 @@ public class DataTypeConverter {
     @TypeConverter
     public List<Data> storedStringToEmojis(String value) {
         if (value == null) {
-            Log.i("Null","Null");
             return Collections.emptyList();
         }
         Type listType = new TypeToken<List<Data>>() {}.getType();

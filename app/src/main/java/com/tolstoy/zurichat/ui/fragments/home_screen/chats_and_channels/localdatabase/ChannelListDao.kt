@@ -8,14 +8,14 @@ import com.tolstoy.zurichat.ui.fragments.model.Data
 @Dao
 interface ChannelListDao {
     @Query("SELECT * FROM channellist")
-    fun getAllChannels(): List<ChannelModel>
+    fun getAllChannels(): List<ChannelListObject>
 
-    @Query("SELECT * FROM channellist WHERE _id LIKE :channelID LIMIT 1")
-    fun getChannelListWithChannelID(channelID: String) : ChannelModel
+    @Query("SELECT * FROM channellist WHERE organization_id LIKE :orgID LIMIT 1")
+    fun getChannelListWithOrganizationID(orgID: String) : ChannelListObject
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(vararg data: ChannelModel)
+    fun insertAll(vararg data: ChannelListObject)
 
     @Delete
-    fun delete(vararg data: ChannelModel)
+    fun delete(vararg data: ChannelListObject)
 }
