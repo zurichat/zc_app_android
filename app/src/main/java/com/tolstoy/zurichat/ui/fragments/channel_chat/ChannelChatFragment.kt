@@ -12,7 +12,6 @@ import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,45 +20,35 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.room.Room
-import centrifuge.*
+import centrifuge.Client
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.data.localSource.AppDatabase
 import com.tolstoy.zurichat.databinding.FragmentChannelChatBinding
 import com.tolstoy.zurichat.models.ChannelModel
+import com.tolstoy.zurichat.models.OrganizationMember
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.add_channel.BaseItem
 import com.tolstoy.zurichat.ui.add_channel.BaseListAdapter
+import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.ChannelMessagesDao
+import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDao
+import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDataObject
+import com.tolstoy.zurichat.ui.fragments.home_screen.CentrifugeClient
 import com.tolstoy.zurichat.ui.fragments.model.Data
 import com.tolstoy.zurichat.ui.fragments.model.JoinChannelUser
 import com.tolstoy.zurichat.ui.fragments.model.RoomData
-import com.tolstoy.zurichat.ui.fragments.networking.AppConnectHandler
-import com.tolstoy.zurichat.ui.fragments.networking.AppDisconnectHandler
-import com.tolstoy.zurichat.ui.fragments.networking.AppServerPublishHandler
 import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelMessagesViewModel
 import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
 import com.tolstoy.zurichat.ui.fragments.viewmodel.SharedChannelViewModel
+import com.tolstoy.zurichat.ui.notification.NotificationUtils
+import dagger.hilt.android.AndroidEntryPoint
 import dev.ronnie.github.imagepicker.ImagePicker
 import dev.ronnie.github.imagepicker.ImageResult
 import kotlinx.coroutines.*
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 import kotlin.random.Random
-import com.google.gson.Gson
-import com.tolstoy.zurichat.data.localSource.AppDatabase
-import com.tolstoy.zurichat.models.OrganizationMember
-import com.tolstoy.zurichat.models.organization_model.OrganizationData
-import com.tolstoy.zurichat.models.organization_model.UserOrganizationModel
-import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.ChannelMessagesDao
-import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDao
-import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDataObject
-import com.tolstoy.zurichat.ui.fragments.home_screen.CentrifugeClient
-import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragmentDirections
-import com.tolstoy.zurichat.ui.fragments.networking.AppPublishHandler
-import com.tolstoy.zurichat.ui.notification.NotificationUtils
-import com.tolstoy.zurichat.ui.profile.data.DataX
-import dagger.hilt.android.AndroidEntryPoint
-import java.nio.charset.StandardCharsets
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ChannelChatFragment : Fragment() {
@@ -194,8 +183,8 @@ class ChannelChatFragment : Fragment() {
                 binding.text2.visibility = View.GONE
                 binding.channelName.visibility = View.GONE
                 binding.progressBar2.visibility = View.VISIBLE
-                user?.let { JoinChannelUser(it.id, "manager") }
-                    ?.let { viewModel.joinChannel(organizationID, channel._id, it) }
+                val joinChannelUser = JoinChannelUser(channel._id.toString())
+                viewModel.joinChannel(organizationID, channel._id, joinChannelUser)
             }
 
             viewModel.joinedUser.observe(viewLifecycleOwner, { joinedUser ->
@@ -444,11 +433,12 @@ class ChannelChatFragment : Fragment() {
         uiScope.launch(Dispatchers.IO) {
             try {
                 client = CentrifugeClient.getClient(requireActivity())
-                client.connect()
-
-                CentrifugeClient.setCustomListener(object : CentrifugeClient.CustomListener {
+                /*CentrifugeClient.setCustomListener(object : CentrifugeClient.CustomListener {
                     override fun onConnected(connected: Boolean) {
                         CentrifugeClient.subscribeToChannel(roomData!!.socket_name)
+                        uiScope.launch(Dispatchers.Main) {
+
+                        }
                     }
 
                     override fun onDataPublished(
@@ -461,7 +451,7 @@ class ChannelChatFragment : Fragment() {
                             channelMsgViewModel.receiveMessage(data)
                         }
                     }
-                })
+                })*/
             } catch (e: Exception) {
                 e.printStackTrace()
             }

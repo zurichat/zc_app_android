@@ -3,11 +3,9 @@ package com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
@@ -17,7 +15,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.room.Room
-import centrifuge.*
+import centrifuge.Client
 import com.google.android.material.snackbar.Snackbar
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.data.localSource.AppDatabase
@@ -33,10 +31,6 @@ import com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.localdat
 import com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.localdatabase.ChannelListDao
 import com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.localdatabase.ChannelListObject
 import com.tolstoy.zurichat.ui.fragments.home_screen.diff_utils.ChannelDiffUtil
-import com.tolstoy.zurichat.ui.fragments.model.Data
-import com.tolstoy.zurichat.ui.fragments.model.RoomData
-import com.tolstoy.zurichat.ui.fragments.networking.*
-import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelMessagesViewModel
 import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
 import com.tolstoy.zurichat.ui.fragments.viewmodel.SharedChannelViewModel
 import com.tolstoy.zurichat.ui.notification.NotificationUtils
@@ -45,9 +39,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.text.SimpleDateFormat
 import java.util.*
-import javax.inject.Inject
 import kotlin.collections.ArrayList
 import kotlin.random.Random
 
@@ -143,6 +135,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         uiScope.launch(Dispatchers.IO){
             try{
                 client = CentrifugeClient.getClient(requireActivity())
+                client.connect()
             }catch (e : Exception){
                 e.printStackTrace()
             }

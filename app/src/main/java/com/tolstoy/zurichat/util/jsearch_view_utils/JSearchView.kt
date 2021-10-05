@@ -139,7 +139,6 @@ class JSearchView @JvmOverloads constructor(
         super.onRestoreInstanceState(state.superState)
     }
 
-
     private fun clearSearch() = with(binding) {
         searchEditText.text = null
         onQueryChangeListener?.onQueryTextCleared()

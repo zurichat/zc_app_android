@@ -16,7 +16,7 @@
             android:id="@+id/searchContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@android:color/white"
+            android:background="@color/channel_bg_color"
             android:minHeight="?actionBarSize">
 
             <EditText
@@ -25,13 +25,13 @@
                 android:layout_height="?actionBarSize"
                 android:autofillHints=""
                 android:background="@null"
-
                 android:gravity="center_vertical"
                 android:hint="Search"
                 android:imeOptions="actionSearch"
                 android:inputType="textNoSuggestions"
                 android:lines="1"
                 android:textSize="16sp"
+                android:textColor="@color/text_color"
                 app:layout_constraintBottom_toTopOf="@id/bottomLine"
                 app:layout_constraintEnd_toStartOf="@id/clearButton"
                 app:layout_constraintStart_toEndOf="@id/backButton"
@@ -82,18 +82,18 @@
                 app:layout_constraintBottom_toTopOf="@id/search_rv"
                 app:layout_constraintTop_toBottomOf="@id/searchEditText" />
 
-
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/search_rv"
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
-                android:background="@color/white"
+                android:background="@color/channel_bg_color"
                 android:visibility="gone"
                 app:layoutManager="LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/bottomLine" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </FrameLayout>
 </layout>

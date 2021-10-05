@@ -15,5 +15,3 @@ data class AllChannelMessages(
     @PrimaryKey
     var channelId: String = ""
 }
-
-class Notifications

@@ -1,12 +1,7 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen;
 
-import android.util.Log;
-
 import androidx.collection.ArrayMap;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.ViewModelProvider;
-
-import com.tolstoy.zurichat.ui.fragments.viewmodel.SharedChannelViewModel;
 
 import java.util.ArrayList;
 
@@ -81,4 +76,5 @@ public class CentrifugeClient {
     public static void setCustomListener(CustomListener listener){
         customListener = listener;
     }
+
 }

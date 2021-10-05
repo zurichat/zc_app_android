@@ -1,19 +1,17 @@
 package com.tolstoy.zurichat.ui.fragments.home_screen.adapters
 
 import android.app.Activity
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import centrifuge.Client
 import centrifuge.PublishEvent
 import centrifuge.Subscription
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.gson.Gson
 import com.tolstoy.zurichat.R
 import com.tolstoy.zurichat.data.localSource.AppDatabase
 import com.tolstoy.zurichat.models.Channel
@@ -22,11 +20,13 @@ import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDao
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDataObject
 import com.tolstoy.zurichat.ui.fragments.home_screen.CentrifugeClient
 import com.tolstoy.zurichat.ui.fragments.home_screen.CentrifugeClient.CustomListener
+import com.tolstoy.zurichat.ui.fragments.model.Data
 import com.tolstoy.zurichat.ui.fragments.networking.JoinNewChannel
 import com.tolstoy.zurichat.ui.fragments.networking.RetrofitClientInstance
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.nio.charset.StandardCharsets
 
 class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>,val uiScope: CoroutineScope,val roomDao: RoomDao) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var onItemClickListener: ((channel:ChannelModel) -> Unit)? = null
@@ -70,8 +70,12 @@ class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>
                                 }
                                 override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
                                     uiScope.launch(Dispatchers.Main){
-                                        count++
-                                        badge.text = count.toString()
+                                        val dataString = String(publishEvent!!.data, StandardCharsets.UTF_8)
+                                        val data = Gson().fromJson(dataString, Data::class.java)
+                                        if (data.channel_id == channel._id) {
+                                            count++
+                                            badge.text = count.toString()
+                                        }
                                     }
                                 }
                             })
@@ -88,8 +92,12 @@ class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>
                                     }
                                     override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
                                         uiScope.launch(Dispatchers.Main){
-                                            count++
-                                            badge.text = count.toString()
+                                            val dataString = String(publishEvent!!.data, StandardCharsets.UTF_8)
+                                            val data = Gson().fromJson(dataString, Data::class.java)
+                                            if (data.channel_id == channel._id) {
+                                                count++
+                                                badge.text = count.toString()
+                                            }
                                         }
                                     }
                                 })
