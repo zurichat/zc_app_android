@@ -33,7 +33,6 @@ class CreateChannelViewModel @Inject constructor(
                             CreateChannelViewState.Success(R.string.successful_new_channel_creation, it.data)
                     }
                     is Result.Error -> {
-                        println(it.failure)
                         when (it.failure) {
                             Failure.InvalidParameter -> {
                                 _createChannelFlow.value =

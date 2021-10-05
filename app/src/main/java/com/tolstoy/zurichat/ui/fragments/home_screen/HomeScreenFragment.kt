@@ -151,6 +151,7 @@ class HomeScreenFragment : Fragment() {
                 R.id.new_channel -> {
                     try {
                         findNavController().navigate(HomeScreenFragmentDirections.actionHomeScreenFragmentToNewChannelNavGraph())
+
                     } catch (exc: Exception) {
                         exc.printStackTrace()
                     }

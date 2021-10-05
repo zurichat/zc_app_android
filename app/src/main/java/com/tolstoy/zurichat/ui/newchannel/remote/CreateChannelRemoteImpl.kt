@@ -10,35 +10,35 @@ import com.tolstoy.zurichat.ui.newchannel.CreateChannelRemote
 import javax.inject.Inject
 
 class CreateChannelRemoteImpl @Inject constructor(
-    private val apiService: NewChannelApiService
-): CreateChannelRemote {
+    private val apiService: NewChannelApiService,
+) : CreateChannelRemote {
     override suspend fun saveNewChannel(createChannelBodyModel: CreateChannelBodyModel): Result<CreateChannelResponseModel> {
         return try {
             val res = apiService.createChannel(createChannelBodyModel = createChannelBodyModel)
-            println("Res $res")
-            when(res.isSuccessful){
-                true ->{
+            when (res.isSuccessful) {
+                true -> {
                     res.body()?.let {
                         Result.Success(it)
-                    }?:Result.Error(Failure.ServerError)
+                    } ?: Result.Error(Failure.ServerError)
                 }
-                false->{
-                    when(res.code()){
-                        ResponseCode.INVALID_PARAMETER->{
-                           Result.Error(Failure.InvalidParameter)
-
-                        }  ResponseCode.USER_NOT_FOUND->{
-                           Result.Error(Failure.userNotFound)
+                false -> {
+                    when (res.code()) {
+                        ResponseCode.INVALID_PARAMETER -> {
+                            Result.Error(Failure.InvalidParameter)
 
                         }
-                        else->{
-                        Result.Error(Failure.ServerError)
-                    }
+                        ResponseCode.USER_NOT_FOUND -> {
+                            Result.Error(Failure.userNotFound)
+
+                        }
+                        else -> {
+                            Result.Error(Failure.ServerError)
+                        }
                     }
 
                 }
             }
-        }catch (exc:Exception){
+        } catch (exc: Exception) {
             println(exc)
             Result.Error(Failure.ServerError)
         }

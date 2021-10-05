@@ -17,7 +17,7 @@ import com.tolstoy.zurichat.ui.fragments.model.AllChannelMessages
 
 @Database(
     entities = [User::class, OrganizationMemberEntity::class, RoomDataObject::class, AllChannelMessages::class, ChannelModel::class],
-    version = 3,
+    version = 1,
     exportSchema = false
 )
 @TypeConverters(DataTypeConverter::class, ChannelConverter::class)

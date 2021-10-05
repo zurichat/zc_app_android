@@ -10,9 +10,10 @@ import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.PopupWindow
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
+import androidx.core.os.bundleOf
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,45 +22,40 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.room.Room
-import centrifuge.*
+import centrifuge.Client
+import centrifuge.PublishEvent
+import centrifuge.Subscription
+import com.google.gson.Gson
 import com.tolstoy.zurichat.R
+import com.tolstoy.zurichat.data.localSource.AppDatabase
 import com.tolstoy.zurichat.databinding.FragmentChannelChatBinding
 import com.tolstoy.zurichat.models.ChannelModel
+import com.tolstoy.zurichat.models.OrganizationMember
 import com.tolstoy.zurichat.models.User
 import com.tolstoy.zurichat.ui.add_channel.BaseItem
 import com.tolstoy.zurichat.ui.add_channel.BaseListAdapter
-import com.tolstoy.zurichat.ui.fragments.model.Data
-import com.tolstoy.zurichat.ui.fragments.model.JoinChannelUser
-import com.tolstoy.zurichat.ui.fragments.model.RoomData
-import com.tolstoy.zurichat.ui.fragments.networking.AppConnectHandler
-import com.tolstoy.zurichat.ui.fragments.networking.AppDisconnectHandler
-import com.tolstoy.zurichat.ui.fragments.networking.AppServerPublishHandler
-import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelMessagesViewModel
-import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
-import com.tolstoy.zurichat.ui.fragments.viewmodel.SharedChannelViewModel
-import dev.ronnie.github.imagepicker.ImagePicker
-import dev.ronnie.github.imagepicker.ImageResult
-import kotlinx.coroutines.*
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.random.Random
-import com.google.gson.Gson
-import com.tolstoy.zurichat.data.localSource.AppDatabase
-import com.tolstoy.zurichat.models.OrganizationMember
-import com.tolstoy.zurichat.models.organization_model.OrganizationData
-import com.tolstoy.zurichat.models.organization_model.UserOrganizationModel
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.ChannelMessagesDao
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDao
 import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDataObject
 import com.tolstoy.zurichat.ui.fragments.home_screen.CentrifugeClient
-import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragmentDirections
-import com.tolstoy.zurichat.ui.fragments.networking.AppPublishHandler
+import com.tolstoy.zurichat.ui.fragments.model.Data
+import com.tolstoy.zurichat.ui.fragments.model.JoinChannelUser
+import com.tolstoy.zurichat.ui.fragments.model.RoomData
+import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelMessagesViewModel
+import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
+import com.tolstoy.zurichat.ui.fragments.viewmodel.SharedChannelViewModel
 import com.tolstoy.zurichat.ui.notification.NotificationUtils
-import com.tolstoy.zurichat.ui.profile.data.DataX
+import com.tolstoy.zurichat.util.ZuriSharedPreferences
 import dagger.hilt.android.AndroidEntryPoint
+import dev.ronnie.github.imagepicker.ImagePicker
+import dev.ronnie.github.imagepicker.ImageResult
+import kotlinx.coroutines.*
 import java.nio.charset.StandardCharsets
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class ChannelChatFragment : Fragment() {
@@ -74,7 +70,7 @@ class ChannelChatFragment : Fragment() {
     private lateinit var database: AppDatabase
     private lateinit var roomDao: RoomDao
     private lateinit var channelMessagesDao: ChannelMessagesDao
-    private val members = ArrayList<OrganizationMember>()
+    private var members: List<OrganizationMember>?= null
 
     private var channelJoined = false
 
@@ -88,6 +84,19 @@ class ChannelChatFragment : Fragment() {
 
     @Inject
     lateinit var preference : SharedPreferences
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    ZuriSharedPreferences(requireContext()).setInt("tracker",1)
+                    findNavController().navigateUp()
+                }
+            }
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -116,6 +125,7 @@ class ChannelChatFragment : Fragment() {
             user = bundle.getParcelable("USER")!!
             channel = bundle.getParcelable("Channel")!!
             channelJoined = bundle.getBoolean("Channel Joined")
+            members = arguments?.get("members") as List<OrganizationMember>
 //            organizationID = "614679ee1a5607b13c00bcb7"
             organizationID = preference.getString("ORG_ID", "614679ee1a5607b13c00bcb7") ?: ""
             uiScope.launch(Dispatchers.IO) {
@@ -152,6 +162,8 @@ class ChannelChatFragment : Fragment() {
         toolbar = view.findViewById<Toolbar>(R.id.channel_toolbar)
 
         val imagePicker = ImagePicker(this)
+
+
 
         //val includeAttach = binding.attachment
         val attachment = binding.channelLink
@@ -407,7 +419,8 @@ class ChannelChatFragment : Fragment() {
         }
 
         toolbar.setNavigationOnClickListener {
-            requireActivity().onBackPressed()
+            ZuriSharedPreferences(requireContext()).setInt("tracker",1)
+            findNavController().navigateUp()
         }
 
         toolbar.setOnMenuItemClickListener {
@@ -424,9 +437,7 @@ class ChannelChatFragment : Fragment() {
                     startActivity(shareIntent)
                 }
                 R.id.channel_info -> {
-                    val bundle = Bundle()
-                    bundle.putString("channel_name", channel.name)
-                    findNavController().navigate(R.id.channel_info_nav_graph, bundle)
+                    findNavController().navigate(R.id.channel_info_nav_graph, bundleOf(Pair("channel_name",channel.name),Pair("members",members)))
                 }
             }
             true
