@@ -104,9 +104,10 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
                 // ModelPreferencesManager.put(roomList, "rooms")
                 ModelPreferencesManager.put(roomList, "rooms")
 
-                room = roomList[0]
+
+                //room = roomList[0]
                 //  roomsArrayList.addAll(roomList)
-                roomAdapter.setData(roomList)
+                //roomAdapter.setData(roomList)
 
                 for (room in roomList) {
                     roomsArrayList.add(room)
@@ -153,6 +154,9 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         adapt = RoomAdapter(requireActivity(), roomsArrayList)
         recyclerView.adapter = adapt
         adapt.setItemClickListener {
+            val position = roomsArrayList.indexOf(it)
+            roomsArrayList[position] = it
+            room = roomsArrayList[position]
             val bundle1 = Bundle()
             bundle1.putParcelable("USER",user)
             bundle1.putParcelable("room", room)
