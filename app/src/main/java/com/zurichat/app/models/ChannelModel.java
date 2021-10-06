@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.models;
+package com.zurichat.app.models;
 
 
 import android.os.Parcel;

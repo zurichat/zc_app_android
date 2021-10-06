@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/createOrganizationsFragment"
-        android:name="com.tolstoy.zurichat.ui.organizations.CreateOrganizationsFragment"
+        android:name="com.zurichat.app.ui.organizations.CreateOrganizationsFragment"
         android:label="fragment_create_organizations"
         tools:layout="@layout/fragment_create_organizations">
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/newWorkspaceFragment"
-        android:name="com.tolstoy.zurichat.ui.organizations.NewWorkspaceFragment"
+        android:name="com.zurichat.app.ui.organizations.NewWorkspaceFragment"
         android:label="fragment_new_workspace"
         tools:layout="@layout/fragment_new_workspace">
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/nextFragment"
-        android:name="com.tolstoy.zurichat.ui.organizations.NextFragment"
+        android:name="com.zurichat.app.ui.organizations.NextFragment"
         android:label="fragment_add_to_organization"
         tools:layout="@layout/fragment_add_to_organization">
         <action
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/addByEmailFragment"
-        android:name="com.tolstoy.zurichat.ui.organizations.AddByEmailFragment"
+        android:name="com.zurichat.app.ui.organizations.AddByEmailFragment"
         android:label="fragment_add_by_email"
         tools:layout="@layout/fragment_add_by_email">
         <action
@@ -52,7 +52,7 @@
     </fragment>
     <fragment
         android:id="@+id/seeYourChannelFragment"
-        android:name="com.tolstoy.zurichat.ui.organizations.SeeYourChannelFragment"
+        android:name="com.zurichat.app.ui.organizations.SeeYourChannelFragment"
         android:label="fragment_see_your_channel"
         tools:layout="@layout/fragment_see_your_channel">
         <action
@@ -66,7 +66,7 @@
     </fragment>
     <activity
         android:id="@+id/mainActivity"
-        android:name="com.tolstoy.zurichat.ui.activities.MainActivity"
+        android:name="com.zurichat.app.ui.activities.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
 </navigation>

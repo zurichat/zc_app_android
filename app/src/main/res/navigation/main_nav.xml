@@ -12,7 +12,7 @@
 
     <fragment
         android:id="@+id/dmFragment"
-        android:name="com.tolstoy.zurichat.ui.dm.DMFragment"
+        android:name="com.zurichat.app.ui.dm.DMFragment"
         tools:layout="@layout/fragment_dm">
         <action
             android:id="@+id/action_dmFragment_to_attachmentsFragment"
@@ -30,12 +30,12 @@
     </fragment>
     <fragment
         android:id="@+id/attachmentsFragment"
-        android:name="com.tolstoy.zurichat.ui.dm.AttachmentsFragment"
+        android:name="com.zurichat.app.ui.dm.AttachmentsFragment"
         tools:layout="@layout/fragment_attachments">
         <argument
             android:name="media"
             android:defaultValue="IMAGE"
-            app:argType="com.tolstoy.zurichat.ui.dm.MEDIA" />
+            app:argType="com.zurichat.app.ui.dm.MEDIA" />
     </fragment>
     <navigation
         android:id="@+id/new_channel_nav_graph"
@@ -56,7 +56,7 @@
         <!-    @somebody is expected to implement this feature, below is the navigation details. (This feature doesn't require any API consumption)-->
         <fragment
             android:id="@+id/selectNewChannelFragment"
-            android:name="com.tolstoy.zurichat.ui.newchannel.fragment.SelectNewChannelFragment"
+            android:name="com.zurichat.app.ui.newchannel.fragment.SelectNewChannelFragment"
             android:label="SelectContactFragment">
             <action
                 android:id="@+id/action_selectNewChannelFragment_to_selectMemberFragment"
@@ -71,7 +71,7 @@
         <!-    @somebody is expected to implement this feature, below is the navigation details.(This feature requires API consumption for storing new channel members)-->
         <fragment
             android:id="@+id/selectMemberFragment"
-            android:name="com.tolstoy.zurichat.ui.newchannel.fragment.SelectMemberFragment"
+            android:name="com.zurichat.app.ui.newchannel.fragment.SelectMemberFragment"
             android:label="fragment_select_member"
             tools:layout="@layout/fragment_select_member">
             <action
@@ -90,7 +90,7 @@
         <!-     @kolinton is expected to implement this feature, below is the navigation details. (This feature requires API consumption for creating new channel)-->
         <fragment
             android:id="@+id/newChannelDataFragment"
-            android:name="com.tolstoy.zurichat.ui.newchannel.fragment.NewChannelDataFragment"
+            android:name="com.zurichat.app.ui.newchannel.fragment.NewChannelDataFragment"
             android:label="NewChannelDataFragment">
             <action
                 android:id="@+id/action_newChannelDataFragment_to_channelChatFragment"
@@ -105,7 +105,7 @@
                     app:nullable="true" />
                 <argument
                     android:name="user"
-                    app:argType="com.tolstoy.zurichat.models.User"
+                    app:argType="com.zurichat.app.models.User"
                     app:nullable="true" />
 
                 <argument
@@ -128,7 +128,7 @@
                 app:nullable="true" />
             <argument
                 android:name="user"
-                app:argType="com.tolstoy.zurichat.models.User"
+                app:argType="com.zurichat.app.models.User"
                 app:nullable="true" />
 
             <argument
@@ -147,7 +147,7 @@
         <!-     @solidtm is expected to implement this feature, below is the navigation details. (This feature requires API consumption for channel messaging)-->
         <fragment
             android:id="@+id/channelChatFragment"
-            android:name="com.tolstoy.zurichat.ui.fragments.channel_chat.ChannelChatFragment"
+            android:name="com.zurichat.app.ui.fragments.channel_chat.ChannelChatFragment"
             android:label="ChannelChatFragment" />
         <action
             android:id="@+id/action_global_dmFragment"
@@ -165,7 +165,7 @@
 
     <fragment
         android:id="@+id/homeScreenFragment"
-        android:name="com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragment"
+        android:name="com.zurichat.app.ui.fragments.home_screen.HomeScreenFragment"
         android:label="HomeScreenFragment"
         tools:layout="@layout/fragment_home_screen">
         <action
@@ -204,38 +204,38 @@
 
     <activity
         android:id="@+id/settingsActivity"
-        android:name="com.tolstoy.zurichat.ui.settings.SettingsActivity"
+        android:name="com.zurichat.app.ui.settings.SettingsActivity"
         android:label="SettingsActivity" />
 
     <fragment
         android:id="@+id/channelChatFragment"
-        android:name="com.tolstoy.zurichat.ui.fragments.channel_chat.ChannelChatFragment"
+        android:name="com.zurichat.app.ui.fragments.channel_chat.ChannelChatFragment"
         android:label="ChannelChatFragment" />
 
     <fragment
         android:id="@+id/addChannelFragment"
-        android:name="com.tolstoy.zurichat.ui.add_channel.AddChannelFragment"
+        android:name="com.zurichat.app.ui.add_channel.AddChannelFragment"
         android:label="AddChannelFragment" />
 
     <fragment
         android:id="@+id/mentionFragment"
-        android:name="com.tolstoy.zurichat.ui.fragments.mentions.MentionsFragment"
+        android:name="com.zurichat.app.ui.fragments.mentions.MentionsFragment"
         android:label="MentionFragment" />
 
     <fragment
         android:id="@+id/chatsFragment"
-        android:name="com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.ChatsFragment"
+        android:name="com.zurichat.app.ui.fragments.home_screen.chats_and_channels.ChatsFragment"
         android:label="ChatsFragment"
         tools:layout="@layout/fragment_chats" />
     <fragment
         android:id="@+id/channelsFragment"
-        android:name="com.tolstoy.zurichat.ui.fragments.home_screen.chats_and_channels.ChannelsFragment"
+        android:name="com.zurichat.app.ui.fragments.home_screen.chats_and_channels.ChannelsFragment"
         android:label="fragment_channels"
         tools:layout="@layout/fragment_channels" />
 
     <fragment
         android:id="@+id/createOrganizationsFragment"
-        android:name="com.tolstoy.zurichat.ui.organizations.CreateOrganizationsFragment"
+        android:name="com.zurichat.app.ui.organizations.CreateOrganizationsFragment"
         android:label="fragment_create_organizations"
         tools:layout="@layout/fragment_create_organizations">
         <action
@@ -244,7 +244,7 @@
     </fragment>
     <fragment
         android:id="@+id/addByEmailFragment"
-        android:name="com.tolstoy.zurichat.ui.organizations.AddByEmailFragment"
+        android:name="com.zurichat.app.ui.organizations.AddByEmailFragment"
         android:label="fragment_add_by_email"
         tools:layout="@layout/fragment_add_by_email">
         <action
@@ -253,7 +253,7 @@
     </fragment>
     <fragment
         android:id="@+id/newWorkspaceFragment"
-        android:name="com.tolstoy.zurichat.ui.organizations.NewWorkspaceFragment"
+        android:name="com.zurichat.app.ui.organizations.NewWorkspaceFragment"
         android:label="fragment_new_workspace"
         tools:layout="@layout/fragment_new_workspace">
         <action
@@ -264,7 +264,7 @@
     </fragment>
     <fragment
         android:id="@+id/nextFragment"
-        android:name="com.tolstoy.zurichat.ui.organizations.NextFragment"
+        android:name="com.zurichat.app.ui.organizations.NextFragment"
         android:label="fragment_next"
         tools:layout="@layout/fragment_next">
         <action
@@ -284,7 +284,7 @@
     </fragment>
     <fragment
         android:id="@+id/seeYourChannelFragment"
-        android:name="com.tolstoy.zurichat.ui.organizations.SeeYourChannelFragment"
+        android:name="com.zurichat.app.ui.organizations.SeeYourChannelFragment"
         android:label="fragment_see_your_channel"
         tools:layout="@layout/fragment_see_your_channel">
         <action
@@ -295,7 +295,7 @@
     </fragment>
     <fragment
         android:id="@+id/switchOrganizationFragment"
-        android:name="com.tolstoy.zurichat.ui.organizations.ui.SwitchOrganizationsFragment"
+        android:name="com.zurichat.app.ui.organizations.ui.SwitchOrganizationsFragment"
         android:label="switch_organization"
         tools:layout="@layout/fragment_switch_organizations">
         <action
@@ -309,7 +309,7 @@
     <include app:graph="@navigation/channel_info_nav_graph" />
     <fragment
         android:id="@+id/starredMessagesFragment"
-        android:name="com.tolstoy.zurichat.ui.fragments.starred_messages.StarredMessagesFragment"
+        android:name="com.zurichat.app.ui.fragments.starred_messages.StarredMessagesFragment"
         android:label="fragment_starred_messages"
         tools:layout="@layout/fragment_starred_messages">
         <action
@@ -318,12 +318,12 @@
     </fragment>
     <activity
         android:id="@+id/loginActivity"
-        android:name="com.tolstoy.zurichat.ui.login.LoginActivity"
+        android:name="com.zurichat.app.ui.login.LoginActivity"
         android:label="activity_login"
         tools:layout="@layout/activity_login" />
     <fragment
         android:id="@+id/accountsFragment"
-        android:name="com.tolstoy.zurichat.ui.fragments.AccountsFragment"
+        android:name="com.zurichat.app.ui.fragments.AccountsFragment"
         android:label="fragment_accounts"
         tools:layout="@layout/fragment_accounts">
         <action
@@ -331,11 +331,11 @@
             app:destination="@id/confirmAccountPasswordFragment" />
         <argument
             android:name="currentUser"
-            app:argType="com.tolstoy.zurichat.models.User" />
+            app:argType="com.zurichat.app.models.User" />
     </fragment>
     <fragment
         android:id="@+id/confirmAccountPasswordFragment"
-        android:name="com.tolstoy.zurichat.ui.fragments.ConfirmAccountPasswordFragment"
+        android:name="com.zurichat.app.ui.fragments.ConfirmAccountPasswordFragment"
         android:label="fragment_confirm_account_password"
         tools:layout="@layout/fragment_confirm_account_password">
         <action
@@ -345,14 +345,14 @@
             app:popUpToInclusive="true" />
         <argument
             android:name="account"
-            app:argType="com.tolstoy.zurichat.models.User" />
+            app:argType="com.zurichat.app.models.User" />
         <argument
             android:name="currentUser"
-            app:argType="com.tolstoy.zurichat.models.User" />
+            app:argType="com.zurichat.app.models.User" />
     </fragment>
     <fragment
         android:id="@+id/shareLinkFragment"
-        android:name="com.tolstoy.zurichat.ShareLinkFragment"
+        android:name="com.zurichat.app.ShareLinkFragment"
         android:label="fragment_share_link"
         tools:layout="@layout/fragment_share_link" />
 </navigation>

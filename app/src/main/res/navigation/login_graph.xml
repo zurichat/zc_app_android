@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.tolstoy.zurichat.ui.login.screens.LoginFragment"
+        android:name="com.zurichat.app.ui.login.screens.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login">
         <action
@@ -18,7 +18,7 @@
             app:destination="@id/main_nav">
             <argument
                 android:name="user"
-                app:argType="com.tolstoy.zurichat.models.User" />
+                app:argType="com.zurichat.app.models.User" />
         </action>
         <action
             android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/registerUserFragment"
-        android:name="com.tolstoy.zurichat.ui.login.screens.RegisterUserFragment"
+        android:name="com.zurichat.app.ui.login.screens.RegisterUserFragment"
         android:label="fragment_register_user"
         tools:layout="@layout/fragment_register_user">
         <action
@@ -39,7 +39,7 @@
     <include app:graph="@navigation/main_nav" />
     <fragment
         android:id="@+id/confirmPasswordFragment"
-        android:name="com.tolstoy.zurichat.ui.login.screens.ConfirmPasswordFragment"
+        android:name="com.zurichat.app.ui.login.screens.ConfirmPasswordFragment"
         android:label="fragment_confirm_password"
         tools:layout="@layout/fragment_confirm_password">
         <action
@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
-        android:name="com.tolstoy.zurichat.ui.login.screens.ForgotPasswordFragment"
+        android:name="com.zurichat.app.ui.login.screens.ForgotPasswordFragment"
         android:label="fragment_forgot_password"
         tools:layout="@layout/fragment_forgot_password">
         <action
@@ -57,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/welcomeFragment"
-        android:name="com.tolstoy.zurichat.ui.login.screens.WelcomeFragment"
+        android:name="com.zurichat.app.ui.login.screens.WelcomeFragment"
         android:label="fragment_welcome"
         tools:layout="@layout/fragment_welcome">
         <action
@@ -69,7 +69,7 @@
     </fragment>
     <fragment
         android:id="@+id/enterOtpFragment"
-        android:name="com.tolstoy.zurichat.ui.login.screens.EnterOtpFragment"
+        android:name="com.zurichat.app.ui.login.screens.EnterOtpFragment"
         android:label="fragment_enter_otp"
         tools:layout="@layout/fragment_enter_otp">
         <action
@@ -78,7 +78,7 @@
     </fragment>
     <fragment
         android:id="@+id/emailVerificationFragment"
-        android:name="com.tolstoy.zurichat.ui.login.screens.EmailVerificationFragment"
+        android:name="com.zurichat.app.ui.login.screens.EmailVerificationFragment"
         android:label="fragment_email_verification"
         tools:layout="@layout/fragment_email_verification">
         <action
@@ -87,7 +87,7 @@
     </fragment>
     <fragment
         android:id="@+id/emailVerifiedFragment"
-        android:name="com.tolstoy.zurichat.ui.login.screens.EmailVerifiedFragment"
+        android:name="com.zurichat.app.ui.login.screens.EmailVerifiedFragment"
         android:label="fragment_email_verified"
         tools:layout="@layout/fragment_email_verified">
         <action

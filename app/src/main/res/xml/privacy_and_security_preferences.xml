@@ -49,7 +49,7 @@
             android:layout="@layout/my_pref_cat"/>
 
     <Preference
-        app:fragment="com.tolstoy.zurichat.ui.settings.SettingsActivity$ChannelsPrefFragment"
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$ChannelsPrefFragment"
         app:iconSpaceReserved="false"
         app:defaultValue="contacts"
         app:allowDividerAbove="true"
@@ -59,7 +59,7 @@
         android:layout="@layout/my_pref_item" />
 
     <Preference
-        app:fragment="com.tolstoy.zurichat.ui.settings.SettingsActivity$LiveLocationPrefFragment"
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$LiveLocationPrefFragment"
         app:iconSpaceReserved="false"
         app:defaultValue="none"
         app:key="live_locations"
@@ -68,7 +68,7 @@
         android:layout="@layout/my_pref_item"/>
 
     <Preference
-        app:fragment="com.tolstoy.zurichat.ui.settings.SettingsActivity$BlockedContactsPrefFragment"
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$BlockedContactsPrefFragment"
         app:iconSpaceReserved="false"
         app:key="blocked_contacts"
         app:title="@string/blocked_contacts_header"
@@ -76,7 +76,7 @@
         android:layout="@layout/my_pref_item"/>
 
     <Preference
-        app:fragment="com.tolstoy.zurichat.ui.settings.SettingsActivity$FingerPrintPrefFragment"
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$FingerPrintPrefFragment"
         app:iconSpaceReserved="false"
         app:defaultValue="2"
         app:key="fingerprint_lock"
