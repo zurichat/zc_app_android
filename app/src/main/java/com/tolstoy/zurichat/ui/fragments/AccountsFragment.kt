@@ -11,8 +11,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tolstoy.zurichat.R
@@ -36,16 +38,21 @@ class AccountsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        //setup toolbar with navgraph
+        val navController = findNavController()
         val toolbar = view.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar3)
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
-        val textView = view.findViewById<TextView>(R.id.no_acct_txv)
+        toolbar.setupWithNavController(navController)
+
+        //pass current user to the confirm password screen using navgraph args
         val curUser = args.currentUser
         val adapter = UserAccountAdapter(curUser)
-        val recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_accts)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_accts)
         recyclerView?.adapter = adapter
         recyclerView?.layoutManager = LinearLayoutManager(requireContext())
 
+        //Show textview text when no account available for switching
+        val textView = view.findViewById<TextView>(R.id.no_acct_txv)
         accountViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         accountViewModel.readAllData.observe(viewLifecycleOwner, Observer {user->
             if (!user.isNullOrEmpty())textView.visibility = View.GONE
@@ -53,12 +60,6 @@ class AccountsFragment : Fragment() {
         })
 
     }
-
-//    fun setupRecycler(){
-//        val recyclerView = view?.findViewById<RecyclerView>(R.id.recycler_accts)
-//        recyclerView?.adapter = UserAccountAdapter()
-//        recyclerView?.layoutManager = LinearLayoutManager(requireContext())
-//    }
 
 
 }
