@@ -188,6 +188,10 @@
     <string name="switch_acc">Switch Account</string>
     <string name="logout">Logout</string>
 
+    <!--Switch Accounts Menu-->
+    <string name="switch_accounts_toolbar_header">Previously Used Accounts</string>
+    <string name="no_account_to_switch_text">Sign in with more than one account on this device to use this feature</string>
+
 
 
     <!--                      Forgot Password-->
