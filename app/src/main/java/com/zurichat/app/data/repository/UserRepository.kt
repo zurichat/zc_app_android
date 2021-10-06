@@ -1,6 +1,7 @@
 package com.zurichat.app.data.repository
 
 import android.content.SharedPreferences
+import android.util.Log
 import com.zurichat.app.data.localSource.dao.UserDao
 import com.zurichat.app.data.remoteSource.UsersService
 import com.zurichat.app.models.*

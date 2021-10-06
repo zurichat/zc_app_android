@@ -77,8 +77,7 @@ class HomeScreenFragment : Fragment() {
         searchView = binding.toolbarContainer.searchView
 
         //get the label of the previous destination
-        val prevDestLabel = findNavController().previousBackStackEntry
-            ?.destination?.label.toString()
+        val prevDestLabel = findNavController().previousBackStackEntry?.destination?.label.toString()
 
         //Check if user just signed up and created organization or switched organization
         when (prevDestLabel) {

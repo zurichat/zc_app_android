@@ -13,7 +13,7 @@
         android:layout_height="?attr/actionBarSize"
         app:logo="@drawable/zuri_home_logo"
         app:menu="@menu/home_menu"
-        app:popupTheme="@style/Theme.MaterialComponents.Light.NoActionBar"
+        app:popupTheme="@style/Theme.ZuriChat.Toolbar"
         app:subtitleTextColor="@color/white"
         app:theme="@style/ToolbarTheme"
         app:title="@string/zuri"

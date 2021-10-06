@@ -28,7 +28,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
-
     private val binding by viewBinding(FragmentLoginBinding::bind)
     private val viewModel by viewModels<LoginViewModel>()
     private val accModel by viewModels<UserViewModel>()
@@ -36,7 +35,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private lateinit var progressDialog: ProgressDialog
     @Inject
     lateinit var sharedPreferences: SharedPreferences
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -106,8 +104,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         viewModel.saveUserAuthState(true)
 
         val user = response.data.user.copy(currentUser = true, password = binding.password.text.toString() )
-
-
 
         // add user object to room database
         viewModel.saveUser(user)
