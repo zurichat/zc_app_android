@@ -119,7 +119,7 @@ class HomeScreenFragment : Fragment() {
         val activity = requireActivity() as MainActivity
 
         //set the toolbar title to the current logged in organization
-        toolbar.title = organizationName
+        toolbar.subtitle = organizationName
 
         // setup for viewpager2 and tab layout
         viewPager.adapter = viewPagerAdapter
@@ -174,7 +174,6 @@ class HomeScreenFragment : Fragment() {
     }
 
     private fun observeData() {
-
         userViewModel.logoutResponse.observe(viewLifecycleOwner, {
             when (it) {
                 is Result.Success -> {
