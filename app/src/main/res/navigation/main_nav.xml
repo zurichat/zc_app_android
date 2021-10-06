@@ -324,7 +324,7 @@
     <fragment
         android:id="@+id/accountsFragment"
         android:name="com.zurichat.app.ui.fragments.AccountsFragment"
-        android:label="fragment_accounts"
+        android:label="@string/switch_accounts_toolbar_header"
         tools:layout="@layout/fragment_accounts">
         <action
             android:id="@+id/action_accountsFragment_to_confirmAccountPasswordFragment"
