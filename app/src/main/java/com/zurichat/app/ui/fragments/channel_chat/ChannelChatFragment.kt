@@ -21,6 +21,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.room.Room
 import centrifuge.Client
+import centrifuge.PublishEvent
+import centrifuge.Subscription
+import com.google.gson.Gson
 import com.zurichat.app.R
 import com.zurichat.app.data.localSource.AppDatabase
 import com.zurichat.app.databinding.FragmentChannelChatBinding
@@ -44,6 +47,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.ronnie.github.imagepicker.ImagePicker
 import dev.ronnie.github.imagepicker.ImageResult
 import kotlinx.coroutines.*
+import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -184,6 +188,7 @@ class ChannelChatFragment : Fragment() {
                 binding.channelName.visibility = View.GONE
                 binding.progressBar2.visibility = View.VISIBLE
                 val joinChannelUser = JoinChannelUser(channel._id.toString())
+                joinChannelUser.role_id = "manager"
                 viewModel.joinChannel(organizationID, channel._id, joinChannelUser)
             }
 
@@ -432,26 +437,30 @@ class ChannelChatFragment : Fragment() {
 
         uiScope.launch(Dispatchers.IO) {
             try {
-                client = CentrifugeClient.getClient(requireActivity())
-                /*CentrifugeClient.setCustomListener(object : CentrifugeClient.CustomListener {
+                //client = CentrifugeClient.getClient(requireActivity(),user)
+                //client.connect()
+                CentrifugeClient.setCustomListener(object : CentrifugeClient.CustomListener {
                     override fun onConnected(connected: Boolean) {
-                        CentrifugeClient.subscribeToChannel(roomData!!.socket_name)
-                        uiScope.launch(Dispatchers.Main) {
-
+                        try{
+                            CentrifugeClient.subscribeToChannel(roomData!!.socket_name)
+                            uiScope.launch(Dispatchers.Main){
+                                Toast.makeText(requireContext(),"Conn",Toast.LENGTH_SHORT).show()
+                            }
+                        }catch (e : Exception){
+                            e.printStackTrace()
                         }
                     }
 
-                    override fun onDataPublished(
-                        subscription: Subscription?,
-                        publishEvent: PublishEvent?
-                    ) {
+                    override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
                         val dataString = String(publishEvent!!.data, StandardCharsets.UTF_8)
                         val data = Gson().fromJson(dataString, Data::class.java)
                         if (data.channel_id == channel._id) {
                             channelMsgViewModel.receiveMessage(data)
                         }
                     }
-                })*/
+                })
+                client = CentrifugeClient.getClient(requireActivity(),user)
+                client.connect()
             } catch (e: Exception) {
                 e.printStackTrace()
             }

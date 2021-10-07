@@ -3,6 +3,7 @@ package com.zurichat.app.ui.fragments.home_screen.chats_and_channels
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -134,9 +135,9 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private fun addHeaders(){
         uiScope.launch(Dispatchers.IO){
             try{
-                client = CentrifugeClient.getClient(requireActivity())
-                client.connect()
+                client = CentrifugeClient.getClient(requireActivity(),user)
             }catch (e : Exception){
+                Log.e("Error Channels",e.toString())
                 e.printStackTrace()
             }
         }

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -62,11 +63,18 @@ class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>
             var count = 0
             uiScope.launch(Dispatchers.IO){
                 roomDao.getRoomDataWithChannelID(channel._id).let { roomDataObject ->
-                    if (roomDataObject!=null){
+                   /* if (roomDataObject!=null){
                         try{
                             CentrifugeClient.setCustomListener(object : CustomListener {
                                 override fun onConnected(connected: Boolean) {
-                                    CentrifugeClient.subscribeToChannel(roomDataObject.socketName)
+                                    try{
+                                        CentrifugeClient.subscribeToChannel(roomDataObject.socketName)
+                                        uiScope.launch(Dispatchers.Main){
+                                            Toast.makeText(context,""+roomDataObject.socketName,Toast.LENGTH_SHORT).show()
+                                        }
+                                    }catch (e : Exception){
+                                        e.printStackTrace()
+                                    }
                                 }
                                 override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
                                     uiScope.launch(Dispatchers.Main){
@@ -88,7 +96,14 @@ class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>
                             try{
                                 CentrifugeClient.setCustomListener(object : CustomListener {
                                     override fun onConnected(connected: Boolean) {
-                                        CentrifugeClient.subscribeToChannel(it.socket_name)
+                                        try{
+                                            CentrifugeClient.subscribeToChannel(it.socket_name)
+                                            uiScope.launch(Dispatchers.Main){
+                                                Toast.makeText(context,""+it.socket_name,Toast.LENGTH_SHORT).show()
+                                            }
+                                        }catch (e : Exception){
+                                            e.printStackTrace()
+                                        }
                                     }
                                     override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
                                         uiScope.launch(Dispatchers.Main){
@@ -102,16 +117,16 @@ class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>
                                     }
                                 })
 
-                                val roomDataObject = RoomDataObject()
-                                roomDataObject.channelId = it.channel_id
-                                roomDataObject.socketName = it.socket_name
+                                val roomDataObject1 = RoomDataObject()
+                                roomDataObject1.channelId = it.channel_id
+                                roomDataObject1.socketName = it.socket_name
 
-                                roomDao.insertAll(roomDataObject)
+                                roomDao.insertAll(roomDataObject1)
                             }catch(e : Exception){
                                 e.printStackTrace()
                             }
                         }
-                    }
+                    }*/
                 }
             }
         }

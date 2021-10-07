@@ -17,6 +17,6 @@ class AlarmReceiver: BroadcastReceiver() {
 
 
 
-        context.startService(service)
+//        context.startService(service)
     }
 }
