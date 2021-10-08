@@ -16,7 +16,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.room.Room
-import centrifuge.Client
+import io.github.centrifugal.centrifuge.*
 import com.google.android.material.snackbar.Snackbar
 import com.zurichat.app.R
 import com.zurichat.app.data.localSource.AppDatabase
@@ -112,6 +112,14 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
                 findNavController().navigate(R.id.mentionFragment,bundle)
             }
         }
+
+        uiScope.launch(Dispatchers.IO){
+            try{
+                 client = CentrifugeClient.getClient(user)
+            }catch (e : Exception){
+                e.printStackTrace()
+            }
+        }
     }
 
     private fun generateRandomLong(): Long {
@@ -133,15 +141,6 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
      * Headers Are Added Here. This will also be called after every update on the list to properly update the header positions
      */
     private fun addHeaders(){
-        uiScope.launch(Dispatchers.IO){
-            try{
-                client = CentrifugeClient.getClient(requireActivity(),user)
-            }catch (e : Exception){
-                Log.e("Error Channels",e.toString())
-                e.printStackTrace()
-            }
-        }
-
         val newList: ArrayList<ChannelModel> = ArrayList()
 
         val unreadList: ArrayList<ChannelModel> = ArrayList()

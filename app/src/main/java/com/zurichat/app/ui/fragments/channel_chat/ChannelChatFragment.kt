@@ -20,9 +20,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.room.Room
-import centrifuge.Client
-import centrifuge.PublishEvent
-import centrifuge.Subscription
 import com.google.gson.Gson
 import com.zurichat.app.R
 import com.zurichat.app.data.localSource.AppDatabase
@@ -46,6 +43,7 @@ import com.zurichat.app.ui.notification.NotificationUtils
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ronnie.github.imagepicker.ImagePicker
 import dev.ronnie.github.imagepicker.ImageResult
+import io.github.centrifugal.centrifuge.*
 import kotlinx.coroutines.*
 import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
@@ -437,14 +435,17 @@ class ChannelChatFragment : Fragment() {
 
         uiScope.launch(Dispatchers.IO) {
             try {
-                //client = CentrifugeClient.getClient(requireActivity(),user)
+                client = CentrifugeClient.getClient(user)
                 //client.connect()
-                CentrifugeClient.setCustomListener(object : CentrifugeClient.CustomListener {
+                CentrifugeClient.setCustomListener(object :
+                    CentrifugeClient.ChannelListener {
                     override fun onConnected(connected: Boolean) {
                         try{
-                            CentrifugeClient.subscribeToChannel(roomData!!.socket_name)
-                            uiScope.launch(Dispatchers.Main){
-                                Toast.makeText(requireContext(),"Conn",Toast.LENGTH_SHORT).show()
+                            if(connected){
+                                CentrifugeClient.subscribeToChannel(roomData!!.socket_name)
+                                uiScope.launch(Dispatchers.Main){
+                                    Toast.makeText(requireContext(),"Conn",Toast.LENGTH_SHORT).show()
+                                }
                             }
                         }catch (e : Exception){
                             e.printStackTrace()
@@ -459,8 +460,6 @@ class ChannelChatFragment : Fragment() {
                         }
                     }
                 })
-                client = CentrifugeClient.getClient(requireActivity(),user)
-                client.connect()
             } catch (e: Exception) {
                 e.printStackTrace()
             }
