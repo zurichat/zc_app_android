@@ -107,6 +107,14 @@ public class CentrifugeClient {
         return connected;
     }
 
+    public static ArrayMap<String, Subscription> getSubscriptionArrayMap() {
+        return subscriptionArrayMap;
+    }
+
+    public static Subscription getChannelSubscription(String roomID){
+        return subscriptionArrayMap.get(roomID);
+    }
+
     public interface ChannelListener {
         void onConnected(boolean connected);
         void onDataPublished(Subscription subscription, PublishEvent publishEvent);

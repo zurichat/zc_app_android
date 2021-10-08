@@ -43,7 +43,9 @@ import com.zurichat.app.ui.notification.NotificationUtils
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ronnie.github.imagepicker.ImagePicker
 import dev.ronnie.github.imagepicker.ImageResult
-import io.github.centrifugal.centrifuge.*
+import io.github.centrifugal.centrifuge.Client
+import io.github.centrifugal.centrifuge.PublishEvent
+import io.github.centrifugal.centrifuge.Subscription
 import kotlinx.coroutines.*
 import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
@@ -435,17 +437,16 @@ class ChannelChatFragment : Fragment() {
 
         uiScope.launch(Dispatchers.IO) {
             try {
+                if (CentrifugeClient.isConnected()){
+                    CentrifugeClient.subscribeToChannel(roomData!!.socket_name)
+                }
                 client = CentrifugeClient.getClient(user)
                 //client.connect()
-                CentrifugeClient.setCustomListener(object :
-                    CentrifugeClient.ChannelListener {
+                CentrifugeClient.setCustomListener(object : CentrifugeClient.ChannelListener {
                     override fun onConnected(connected: Boolean) {
                         try{
                             if(connected){
                                 CentrifugeClient.subscribeToChannel(roomData!!.socket_name)
-                                uiScope.launch(Dispatchers.Main){
-                                    Toast.makeText(requireContext(),"Conn",Toast.LENGTH_SHORT).show()
-                                }
                             }
                         }catch (e : Exception){
                             e.printStackTrace()
@@ -494,10 +495,6 @@ class ChannelChatFragment : Fragment() {
                     messagesArrayList
                 )
                 channelChatEdit.text?.clear()
-
-                /* val gson = Gson()
-                 val dataString = gson.toJson(data).toString().toByteArray(Charsets.UTF_8)
-                 sub!!.publish(dataString)*/
             }
         }
     }

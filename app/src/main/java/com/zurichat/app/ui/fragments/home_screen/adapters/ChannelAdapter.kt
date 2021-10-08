@@ -4,7 +4,6 @@ import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -15,11 +14,9 @@ import com.zurichat.app.R
 import com.zurichat.app.data.localSource.AppDatabase
 import com.zurichat.app.models.Channel
 import com.zurichat.app.models.ChannelModel
-import com.zurichat.app.ui.fragments.model.Data
 import com.zurichat.app.ui.fragments.channel_chat.localdatabase.RoomDao
 import com.zurichat.app.ui.fragments.home_screen.CentrifugeClient
-import com.zurichat.app.ui.fragments.networking.JoinNewChannel
-import com.zurichat.app.ui.fragments.networking.RetrofitClientInstance
+import com.zurichat.app.ui.fragments.model.Data
 import io.github.centrifugal.centrifuge.PublishEvent
 import io.github.centrifugal.centrifuge.Subscription
 import kotlinx.coroutines.CoroutineScope
@@ -63,18 +60,18 @@ class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>
                 roomDao.getRoomDataWithChannelID(channel._id).let { roomDataObject ->
                     if (roomDataObject!=null){
                         try{
+                            if (CentrifugeClient.isConnected()){
+                                CentrifugeClient.subscribeToChannel(roomDataObject.socketName)
+                            }
                             CentrifugeClient.setCustomListener(object : CentrifugeClient.ChannelListener {
                                 override fun onConnected(connected: Boolean) {
                                     try{
                                         CentrifugeClient.subscribeToChannel(roomDataObject.socketName)
-                                        uiScope.launch(Dispatchers.Main){
-                                            Toast.makeText(context,""+roomDataObject.socketName,
-                                                Toast.LENGTH_SHORT).show()
-                                        }
                                     }catch (e : Exception){
                                         e.printStackTrace()
                                     }
                                 }
+
                                 override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
                                     uiScope.launch(Dispatchers.Main){
                                         val dataString = String(publishEvent!!.data, StandardCharsets.UTF_8)
