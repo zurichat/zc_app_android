@@ -1,7 +1,6 @@
 package com.zurichat.app.data.repository
 
 import android.content.SharedPreferences
-import android.util.Log
 import com.zurichat.app.data.localSource.dao.UserDao
 import com.zurichat.app.data.remoteSource.UsersService
 import com.zurichat.app.models.*
@@ -34,8 +33,20 @@ class UserRepository @Inject constructor(
         return preferences.getBoolean(AUTH_PREF_KEY, false)
     }
 
-    suspend fun logout(): Response<LogoutResponse> {
-        return usersService.logout()
+    suspend fun logout(logoutBody: LogoutBody): Response<LogoutResponse> {
+        return usersService.logout(logoutBody)
+    }
+
+    suspend fun confirmPass( confirmPassBody: ConfirmPassBody):ConfirmPassResponse{
+        return usersService.confirmPass(confirmPassBody)
+    }
+
+    suspend fun verifyResetCode(resetCodeBody: ResetCodeBody):Response<ResetCodeResponse>{
+        return usersService.verifyResetOtp(resetCodeBody)
+    }
+
+    suspend fun updatePassword(updatePassBody: UpdatePassBody, verificationCode:String):Response<LogoutResponse>{
+        return usersService.updatePass(updatePassBody = updatePassBody,verCode = verificationCode)
     }
 
     fun clearUserAuthState() {
