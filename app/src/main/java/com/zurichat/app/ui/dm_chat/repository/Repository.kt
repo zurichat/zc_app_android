@@ -17,8 +17,8 @@ class Repository {
         return RetrofitInstance.retrofitService2.getMember(memId)
     }
 
-    suspend fun getMessages(): Response<GetMessageResponse> {
-        return RetrofitInstance.retrofitService.getMessages("6153851a627d729efec46b7a")
+    suspend fun getMessages(roomId: String): Response<GetMessageResponse> {
+        return RetrofitInstance.retrofitService.getMessages(roomId)
     }
 
     suspend fun sendMessages(messageBody: SendMessageBody): Response<SendMessageResponse> {
