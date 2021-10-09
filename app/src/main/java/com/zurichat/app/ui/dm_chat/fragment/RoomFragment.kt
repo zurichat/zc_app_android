@@ -144,7 +144,7 @@ class RoomFragment : Fragment() {
                     roomsListAdapter.submitList(it)
                 }
                 val messageBody = SendMessageBody(message, roomId, senderId )
-                roomMsgViewModel.sendMessages(messageBody)
+                roomMsgViewModel.sendMessages(roomId, messageBody)
                 roomMsgViewModel.mySendMessageResponse.observe(viewLifecycleOwner, { response ->
                     if (response.isSuccessful) {
                         val messageResponse = response.body()
