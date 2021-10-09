@@ -4,12 +4,9 @@ import android.app.Activity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import centrifuge.PublishEvent
-import centrifuge.Subscription
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
@@ -18,12 +15,10 @@ import com.zurichat.app.data.localSource.AppDatabase
 import com.zurichat.app.models.Channel
 import com.zurichat.app.models.ChannelModel
 import com.zurichat.app.ui.fragments.channel_chat.localdatabase.RoomDao
-import com.zurichat.app.ui.fragments.channel_chat.localdatabase.RoomDataObject
 import com.zurichat.app.ui.fragments.home_screen.CentrifugeClient
-import com.zurichat.app.ui.fragments.home_screen.CentrifugeClient.CustomListener
 import com.zurichat.app.ui.fragments.model.Data
-import com.zurichat.app.ui.fragments.networking.JoinNewChannel
-import com.zurichat.app.ui.fragments.networking.RetrofitClientInstance
+import io.github.centrifugal.centrifuge.PublishEvent
+import io.github.centrifugal.centrifuge.Subscription
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -63,19 +58,20 @@ class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>
             var count = 0
             uiScope.launch(Dispatchers.IO){
                 roomDao.getRoomDataWithChannelID(channel._id).let { roomDataObject ->
-                   /* if (roomDataObject!=null){
+                    if (roomDataObject!=null){
                         try{
-                            CentrifugeClient.setCustomListener(object : CustomListener {
+                            if (CentrifugeClient.isConnected()){
+                                CentrifugeClient.subscribeToChannel(roomDataObject.socketName)
+                            }
+                            CentrifugeClient.setCustomListener(object : CentrifugeClient.ChannelListener {
                                 override fun onConnected(connected: Boolean) {
                                     try{
                                         CentrifugeClient.subscribeToChannel(roomDataObject.socketName)
-                                        uiScope.launch(Dispatchers.Main){
-                                            Toast.makeText(context,""+roomDataObject.socketName,Toast.LENGTH_SHORT).show()
-                                        }
                                     }catch (e : Exception){
                                         e.printStackTrace()
                                     }
                                 }
+
                                 override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
                                     uiScope.launch(Dispatchers.Main){
                                         val dataString = String(publishEvent!!.data, StandardCharsets.UTF_8)
@@ -90,43 +86,7 @@ class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>
                         }catch(e : Exception){
                             e.printStackTrace()
                         }
-                    }else{
-                        val room = RetrofitClientInstance.retrofitInstance?.create(JoinNewChannel::class.java)?.getRoom(organizationId,channel._id)
-                        room?.let {
-                            try{
-                                CentrifugeClient.setCustomListener(object : CustomListener {
-                                    override fun onConnected(connected: Boolean) {
-                                        try{
-                                            CentrifugeClient.subscribeToChannel(it.socket_name)
-                                            uiScope.launch(Dispatchers.Main){
-                                                Toast.makeText(context,""+it.socket_name,Toast.LENGTH_SHORT).show()
-                                            }
-                                        }catch (e : Exception){
-                                            e.printStackTrace()
-                                        }
-                                    }
-                                    override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
-                                        uiScope.launch(Dispatchers.Main){
-                                            val dataString = String(publishEvent!!.data, StandardCharsets.UTF_8)
-                                            val data = Gson().fromJson(dataString, Data::class.java)
-                                            if (data.channel_id == channel._id) {
-                                                count++
-                                                badge.text = count.toString()
-                                            }
-                                        }
-                                    }
-                                })
-
-                                val roomDataObject1 = RoomDataObject()
-                                roomDataObject1.channelId = it.channel_id
-                                roomDataObject1.socketName = it.socket_name
-
-                                roomDao.insertAll(roomDataObject1)
-                            }catch(e : Exception){
-                                e.printStackTrace()
-                            }
-                        }
-                    }*/
+                    }
                 }
             }
         }

@@ -12,7 +12,7 @@
 
     <fragment
         android:id="@+id/dmFragment"
-        android:name="com.zurichat.app.ui.dm.DMFragment"
+        android:name="com.zurichat.app.ui.dm_chat.fragment.RoomFragment"
         tools:layout="@layout/fragment_dm">
         <action
             android:id="@+id/action_dmFragment_to_attachmentsFragment"

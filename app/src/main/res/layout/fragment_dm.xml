@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/body_color"
-    tools:context=".ui.dm.DMFragment">
+    tools:context=".ui.dm_chat.fragment.RoomFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar_dm"
