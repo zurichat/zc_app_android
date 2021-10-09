@@ -14,15 +14,9 @@
         android:background="@color/primary_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="#ffffff">
 
-        <TextView
-            style="@style/LatoBold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Previously Used Accounts"
-            android:textColor="#ffffff"
-            android:textSize="18sp" />
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -41,8 +35,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Sign in with more than one account on this device to use this feature"
-        android:textColor="#000000"
+        android:paddingEnd="16dp"
+        android:paddingStart="16dp"
+        android:text="@string/no_account_to_switch_text"
+        android:textColor="@color/deepBlack"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

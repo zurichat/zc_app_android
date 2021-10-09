@@ -45,6 +45,7 @@
                 android:text="Sign In"
                 android:textSize="22sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/lato"
                 android:textColor="@color/text_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -130,7 +131,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:backgroundTint="@color/primary_color"
+                android:backgroundTint="#00B87C"
                 android:text="Sign In"
                 app:layout_constraintEnd_toEndOf="@+id/materialTextView"
                 app:layout_constraintStart_toStartOf="@+id/user_password"
@@ -161,7 +162,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato"
                     android:text="Sign Up"
-                    android:textColor="@color/primary_color"
+                    android:textColor="#00B87C"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 

@@ -60,7 +60,7 @@
     <string name="new_channel">New Channel</string>
     <string name="saved_messages">Saved Messages</string>
     <string name="settings">Settings</string>
-    <string name="zuri">Zuri Chat Default</string>
+    <string name="zuri">Zuri Chat</string>
     <string name="profile_image">Profile image</string>
     <string name="chats">CHATS</string>
 
@@ -187,6 +187,10 @@
     <!--Home screen Menu-->
     <string name="switch_acc">Switch Account</string>
     <string name="logout">Logout</string>
+
+    <!--Switch Accounts Menu-->
+    <string name="switch_accounts_toolbar_header">Previously Used Accounts</string>
+    <string name="no_account_to_switch_text">Sign in with more than one account on this device to use this feature</string>
 
 
 

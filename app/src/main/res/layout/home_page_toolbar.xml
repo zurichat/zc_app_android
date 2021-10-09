@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/toolbar_container"
@@ -13,17 +13,18 @@
         android:layout_height="?attr/actionBarSize"
         app:logo="@drawable/zuri_home_logo"
         app:menu="@menu/home_menu"
-        app:popupTheme="@style/Theme.MaterialComponents.Light.NoActionBar"
+        app:popupTheme="@style/Theme.ZuriChat.Toolbar"
         app:subtitleTextColor="@color/white"
         app:theme="@style/ToolbarTheme"
         app:title="@string/zuri"
+        app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
         app:titleMarginStart="32dp"
         app:titleTextColor="@color/white" />
 
-    <com.tolstoy.zurichat.util.jsearch_view_utils.JSearchView
+    <com.zurichat.app.util.jsearch_view_utils.JSearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/purple_700"
         tools:visibility="visible" />
+
 </FrameLayout>

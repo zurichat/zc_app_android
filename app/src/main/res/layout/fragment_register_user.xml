@@ -45,6 +45,7 @@
                 android:text="Sign Up"
                 android:textSize="22sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/lato"
                 android:textColor="@color/text_color"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +59,7 @@
                 android:text="Please sign up to create account"
                 android:textFontWeight="400"
                 android:textSize="14sp"
+                android:fontFamily="@font/lato"
                 app:layout_constraintEnd_toEndOf="@+id/imageView6"
                 app:layout_constraintStart_toStartOf="@+id/imageView6"
                 app:layout_constraintTop_toBottomOf="@+id/textView_sign_in" />
@@ -241,6 +243,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sign In"
+                    android:fontFamily="@font/lato"
                     android:textColor="@color/primary_light_color"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -254,6 +257,7 @@
                 android:layout_marginTop="8dp"
                 android:text="By selecting this box, you agreed to our"
                 android:textSize="12sp"
+                android:fontFamily="@font/lato"
                 app:layout_constraintStart_toEndOf="@+id/checkBox"
                 app:layout_constraintTop_toTopOf="@+id/checkBox" />
 
@@ -263,9 +267,11 @@
                 android:layout_height="wrap_content"
                 android:autoLink="web"
                 android:text="@string/lbl_terms_and_conditions"
-                android:textColor="@color/primary_light_color"
+                android:textColor="#00B87C"
+                android:fontFamily="@font/lato"
                 android:textSize="12sp"
                 android:textStyle="bold"
+
                 app:layout_constraintStart_toStartOf="@+id/textView12"
                 app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
