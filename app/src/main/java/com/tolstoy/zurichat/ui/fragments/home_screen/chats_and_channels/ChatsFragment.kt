@@ -150,7 +150,6 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
     }
 
     fun addHeaders() {
-        //roomsArrayList.addAll(roomList)
         adapt = RoomAdapter(requireActivity(), roomsArrayList)
         recyclerView.adapter = adapt
         adapt.setItemClickListener {
@@ -160,6 +159,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
             val bundle1 = Bundle()
             bundle1.putParcelable("USER",user)
             bundle1.putParcelable("room", room)
+            bundle1.putInt("position", position)
             findNavController().navigate(R.id.dmFragment, bundle1)
         }
     }

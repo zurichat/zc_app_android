@@ -36,10 +36,10 @@ class RoomViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun getMessages() {
+    fun getMessages(roomId: String) {
         viewModelScope.launch {
             try {
-                val response = repository.getMessages()
+                val response = repository.getMessages(roomId)
                 myGetMessageResponse.value = response
             }catch (e : Exception){
                 e.printStackTrace()

@@ -31,6 +31,7 @@ import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatterBuilder
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.properties.Delegates
 import kotlin.random.Random
 
 
@@ -42,6 +43,7 @@ class RoomFragment : Fragment() {
     private lateinit var senderId: String
     private lateinit var user : User
     private lateinit var room : RoomsListResponseItem
+    private var currentPosition: Int? = null
     private lateinit var roomMsgViewModel: RoomViewModel
     private val roomMsgViewModel1 : RoomViewModel by viewModels()
     private lateinit var binding: FragmentDmBinding
@@ -57,6 +59,7 @@ class RoomFragment : Fragment() {
         val bundle1 = arguments
         user = bundle1?.getParcelable("USER")!!
         room = bundle1.getParcelable("room")!!
+        currentPosition = bundle1.getInt("position")
         return binding.root
     }
 
@@ -95,7 +98,7 @@ class RoomFragment : Fragment() {
         val repository = Repository()
         val viewModelFactory = RoomViewModelFactory(repository)
         roomMsgViewModel = ViewModelProvider(this, viewModelFactory).get(RoomViewModel::class.java)
-        roomMsgViewModel.getMessages()
+        roomMsgViewModel.getMessages(roomId)
 
         roomMsgViewModel.myGetMessageResponse.observe(viewLifecycleOwner, { response ->
             if (response.isSuccessful) {
