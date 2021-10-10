@@ -20,6 +20,7 @@ import com.zurichat.app.models.User
 import com.zurichat.app.ui.profile.data.*
 import com.zurichat.app.ui.profile.network.Constants
 import com.zurichat.app.ui.profile.network.ProfileService
+import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -31,7 +32,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 import java.io.File
+import javax.inject.Inject
 
+@AndroidEntryPoint
 open class ProfileActivity: AppCompatActivity() {
 
     private lateinit var savedName : TextView
@@ -42,6 +45,10 @@ open class ProfileActivity: AppCompatActivity() {
     private var token: String? = null
     private lateinit var orgMemId: String
     private lateinit var memId: String
+
+    @Inject
+    lateinit var preference : SharedPreferences
+
 
     private var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
         val newRequest: Request = chain.request().newBuilder()
@@ -66,11 +73,13 @@ open class ProfileActivity: AppCompatActivity() {
         //user = intent.extras?.getParcelable("USER")!!
 
         user = intent.getParcelableExtra<User>("USER") as User
+        orgMemId = preference.getString("ORG_ID", "") ?: ""
+        memId = preference.getString("MEMBER_ID", "") ?: ""
         setContentView(R.layout.activity_profile)
 
         token = user?.token
 
-        getUserOrganization()
+//        getUserOrganization()
 
         savedName = findViewById(R.id.saved_name)
         savedAbout = findViewById(R.id.saved_about)
@@ -262,6 +271,14 @@ open class ProfileActivity: AppCompatActivity() {
 
         })
     }
+
+    private fun updateProfile() {
+
+//        val call: Call<ProfileResponse> = retrofitService.updateProfile(orgMemId, memId, )
+
+    }
+
+
     private fun updateProfileName(orgMemId: String, memId: String, update: NameUpdate) {
 
         val call: Call<ProfileResponse> = retrofitService.updateProfileName(orgMemId, memId, update)
@@ -374,7 +391,7 @@ open class ProfileActivity: AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<UserOrganizationResponse>, t: Throwable) {
-                Timber.e(t.message.toString())
+                Timber.tag("ProfileActivity").d(t.message.toString())
             }
 
         })

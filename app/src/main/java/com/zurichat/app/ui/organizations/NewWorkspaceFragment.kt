@@ -73,8 +73,19 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
             when(it){
                 is Result.Loading -> handleLoadingState()
                 is Result.Success -> {
-                    handleSuccess(binding.editTextCompany.text.toString(),it.data.data.organization_id)
+                    Cache.map.putIfAbsent("orgId", it.data.data.organization_id)
                     preference.edit().putString("ORG_ID", it.data.data.organization_id).apply()
+                    addMemberToOrg(it.data.data.organization_id)
+                }
+                is Result.Error -> handleError(it.error)
+            }
+        })
+
+        viewModel.addMemberLiveData.observe(viewLifecycleOwner, {
+            when(it) {
+                is Result.Loading -> handleLoadingState()
+                is Result.Success -> {
+                    handleSuccess(binding.editTextCompany.text.toString(),it.data.data.organization_id)
                 }
                 is Result.Error -> handleError(it.error)
             }
@@ -90,9 +101,15 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
         progressDialog.dismiss()
     }
 
+    private fun addMemberToOrg(organizationId: String) {
+        preference.edit().putString("MEMBER_ID", organizationId).apply()
+
+        viewModel.addMemberToOrganization(organizationId, user.email)
+    }
+
     private fun handleSuccess(organizationName : String, organizationId : String) {
         // navigates to the next fragment on success with organization name and Id
-        Cache.map.putIfAbsent("orgId", organizationId)
+
         val action = NewWorkspaceFragmentDirections.actionNewWorkspaceFragmentToNextFragment(organizationName,organizationId)
         findNavController().navigate(action)
 

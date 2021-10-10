@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zurichat.app.data.repository.OrganizationRepository
+import com.zurichat.app.models.AddMemberRequest
 import com.zurichat.app.models.organization_model.OrganizationCreator
 import com.zurichat.app.models.organization_model.OrganizationCreatorResponse
 import com.zurichat.app.util.Result
@@ -22,6 +23,9 @@ class OrganizationViewModel @Inject constructor(
     private val _organizationCreator = MutableLiveData<Result<OrganizationCreatorResponse>>()
     val organizationCreator : LiveData<Result<OrganizationCreatorResponse>> = _organizationCreator
 
+    private val _addMemberLiveData = MutableLiveData<Result<OrganizationCreatorResponse>>()
+    val addMemberLiveData : LiveData<Result<OrganizationCreatorResponse>> = _addMemberLiveData
+
 
     private val exceptionHandler: CoroutineExceptionHandler =
         CoroutineExceptionHandler { _, throwable ->
@@ -37,4 +41,14 @@ class OrganizationViewModel @Inject constructor(
             _organizationCreator.postValue(Result.Success(organizationCreatorResponse))
         }
     }
+
+    fun addMemberToOrganization(orgId: String, userEmail: String) {
+        val addMemberRequest = AddMemberRequest(userEmail)
+        viewModelScope.launch(exceptionHandler) {
+            val addMemberResponse = organizationRepository.addMemberToOrganization(orgId, addMemberRequest)
+            _addMemberLiveData.postValue(Result.Success(addMemberResponse))
+        }
+    }
+
+
 }

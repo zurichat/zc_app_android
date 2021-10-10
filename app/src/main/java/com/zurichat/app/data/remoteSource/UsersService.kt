@@ -22,6 +22,12 @@ interface UsersService {
     @POST("organizations")
     suspend fun createOrganization(@Body organizationCreator: OrganizationCreator): OrganizationCreatorResponse
 
+    @POST("organizations/{organization_id}/members")
+    suspend fun addMemberToOrganization(
+        @Path("organization_id") orgId: String,
+        body: AddMemberRequest
+    ): OrganizationCreatorResponse
+
     @POST("users")
     fun register(@Body registerUser: RegisterUser?): Call<RegisterUser?>?
 

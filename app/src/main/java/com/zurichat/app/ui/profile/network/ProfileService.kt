@@ -36,7 +36,16 @@ interface ProfileService {
         @Body profilePayload: AboutUpdate
     ): Call<ProfileResponse>
 
-    //update profile photo service
+    // update profile
+    @Headers("Content-Type: application/json;charset=UTF-8")
+    @PATCH("organizations/{organization_id}/members/{member_id}/profile")
+    fun updateProfile(
+        @Path("organization_id") organizationId: String,
+        @Path("member_id") memberId: String,
+        @Body profileRequest: ProfileRequest
+    ): Call<ProfileUpdateResponse>
+
+    //update profile photo
 
     @Headers("Content-Type: application/json;charset=UTF-8")
     @Multipart

@@ -3,6 +3,7 @@ package com.zurichat.app.data.repository
 import android.content.SharedPreferences
 import com.zurichat.app.data.remoteSource.UsersService
 import com.zurichat.app.data.remoteSource.enqueue
+import com.zurichat.app.models.AddMemberRequest
 import com.zurichat.app.models.organization_model.OrganizationCreator
 import com.zurichat.app.models.organization_model.OrganizationCreatorResponse
 import com.zurichat.app.util.ORG_ID
@@ -15,6 +16,10 @@ class OrganizationRepository @Inject constructor(
 ) {
     suspend fun getOrganization(organizationCreator: OrganizationCreator): OrganizationCreatorResponse {
         return usersService.createOrganization(organizationCreator)
+    }
+
+    suspend fun addMemberToOrganization(orgId: String, userRequest: AddMemberRequest): OrganizationCreatorResponse {
+        return usersService.addMemberToOrganization(orgId, userRequest)
     }
 
     @ExperimentalCoroutinesApi
