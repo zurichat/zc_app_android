@@ -96,14 +96,6 @@ open class ProfileActivity: AppCompatActivity() {
             updateName(name)
 
         }
-
-        about.setOnClickListener {
-            editAboutDialog.show()
-
-            val aboutSaved = savedAbout.text.toString()
-            updateAbout(aboutSaved)
-        }
-
         camera.setOnClickListener {
             val dialog = BottomSheetDialog(this)
             val view=layoutInflater.inflate(R.layout.dialog_layout,null)
@@ -126,6 +118,14 @@ open class ProfileActivity: AppCompatActivity() {
             }
 
 
+            about.setOnClickListener {
+            editAboutDialog.show()
+
+            val aboutSaved = savedAbout.text.toString()
+            updateAbout(aboutSaved)
+        }
+
+
             val cam = view.findViewById<ImageView>(R.id.imageView_cam)
             //launch camera
             cam.setOnClickListener {
@@ -142,6 +142,8 @@ open class ProfileActivity: AppCompatActivity() {
 
 
         }
+
+
         // The following lines of code creates a dialog to change the Phone Number of the
         // user.
         phoneEdit.setOnClickListener{
@@ -179,6 +181,35 @@ open class ProfileActivity: AppCompatActivity() {
     }
 
 
+
+    override fun onResume() {
+        super.onResume()
+
+
+
+        val phoneTextView = findViewById<TextView>(R.id.tv_phoneno)
+        val phoneText = preferences.getString("phone", null)
+        phoneTextView.text = phoneText
+
+        val nameTextView = findViewById<TextView>(R.id.saved_name)
+        val aboutTextView = findViewById<TextView>(R.id.saved_about)
+
+        val nameText = preferences.getString("name", null)
+        nameTextView.text = nameText
+
+        val aboutText = preferences.getString("about", null)
+        aboutTextView.text = aboutText
+
+        val profilePhoto = findViewById<ImageView>(R.id.profile_photo)
+
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val mImageUri = preferences.getString("image", null)
+        if(mImageUri != null){
+            profilePhoto.setImageURI(Uri.parse(mImageUri))
+        }
+    }
+
+
     //start activity for result launcher for Image gallery
     private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
         if (it.resultCode == Activity.RESULT_OK) {
@@ -198,31 +229,6 @@ open class ProfileActivity: AppCompatActivity() {
             Toast.makeText(this, "Update Successful", Toast.LENGTH_SHORT).show()
             updateProfilePhoto(uri)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        val profilePhoto = findViewById<ImageView>(R.id.profile_photo)
-
-        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        val mImageUri = preferences.getString("image", null)
-        if(mImageUri != null){
-            profilePhoto.setImageURI(Uri.parse(mImageUri))
-        }
-
-        val phoneTextView = findViewById<TextView>(R.id.tv_phoneno)
-        val phoneText = preferences.getString("phone", null)
-        phoneTextView.text = phoneText
-
-        val nameTextView = findViewById<TextView>(R.id.saved_name)
-        val aboutTextView = findViewById<TextView>(R.id.saved_about)
-
-        val nameText = preferences.getString("name", null)
-        nameTextView.text = nameText
-
-        val aboutText = preferences.getString("about", null)
-        aboutTextView.text = aboutText
     }
 
 
@@ -420,21 +426,6 @@ open class ProfileActivity: AppCompatActivity() {
         })
     }
 
-    private fun updatePhone(phone: String) {
-        val phoneData = PhoneUpdate(phone)
-        updateProfilePhone(orgMemId, memId, phoneData)
-    }
-
-    private fun updateName(name: String) {
-        val nameData = NameUpdate(name)
-        updateProfileName(orgMemId, memId, nameData)
-    }
-
-    private fun updateAbout(bio: String) {
-        val bioData = AboutUpdate(bio)
-        updateProfileBio(orgMemId, memId, bioData)
-    }
-
     private fun updateProfilePhoto(uri: Uri) {
 
         // use the FileUtils to get the actual file by uri
@@ -465,13 +456,13 @@ open class ProfileActivity: AppCompatActivity() {
                 } else {
                     when(response.code()){
                         400 -> {
-                            Log.e("Error 400", "invalid authorization")
+                            Log.e("Error 400", "invalid ")
                         }
                         404 -> {
                             Log.e("Error 404", "Not Found")
                         }
                         401 -> {
-                            Log.e("Error 401", "No authorization or session expired")
+                            Log.e("Error 401", " session expired")
                         }
                         else -> {
                             Log.e("Error", "Generic Error")
@@ -480,11 +471,27 @@ open class ProfileActivity: AppCompatActivity() {
                 }
             }
 
+            private fun updateAbout(bio: String) {
+                val bioData = AboutUpdate(bio)
+                updateProfileBio(orgMemId, memId, bioData)
+            }
+
+
             override fun onFailure(call: Call<ProfilePhotoResponse>, t: Throwable) {
                 Timber.e(t.message.toString())
             }
 
         })
+    }
+
+    private fun updatePhone(phone: String) {
+        val phoneData = PhoneUpdate(phone)
+        updateProfilePhone(orgMemId, memId, phoneData)
+    }
+
+    private fun updateName(name: String) {
+        val nameData = NameUpdate(name)
+        updateProfileName(orgMemId, memId, nameData)
     }
 
 }

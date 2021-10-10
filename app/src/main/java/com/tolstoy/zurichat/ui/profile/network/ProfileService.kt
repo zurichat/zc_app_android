@@ -18,6 +18,19 @@ interface ProfileService {
         @Body profilePayload: PhoneUpdate
     ): Call<ProfileResponse>
 
+    //update profile photo service
+
+    @Headers("Content-Type: application/json;charset=UTF-8")
+    @Multipart
+    @PATCH("organizations/{id}/members/{mem_id}/photo")
+    fun updatePhoto(
+        @Path("id") id: String,
+        @Path("mem_id") mem_id: String,
+        @Part("description") description: RequestBody,
+        @Part file: MultipartBody.Part
+    ): Call<ProfilePhotoResponse>
+
+
     // name update service
     @Headers("Content-Type: application/json;charset=UTF-8")
     @PATCH("organizations/{id}/members/{mem_id}/profile")
@@ -36,17 +49,6 @@ interface ProfileService {
         @Body profilePayload: AboutUpdate
     ): Call<ProfileResponse>
 
-    //update profile photo service
-
-    @Headers("Content-Type: application/json;charset=UTF-8")
-    @Multipart
-    @PATCH("organizations/{id}/members/{mem_id}/photo")
-    fun updatePhoto(
-        @Path("id") id: String,
-        @Path("mem_id") mem_id: String,
-        @Part("description") description: RequestBody,
-        @Part file: MultipartBody.Part
-    ): Call<ProfilePhotoResponse>
 
     //get organization Id from list of organizations
     @Headers("Content-Type: application/json;charset=UTF-8")

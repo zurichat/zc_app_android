@@ -30,11 +30,11 @@
             <activity android:name=".ui.activities.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.ZuriChat.Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
         </activity>
 
 
@@ -92,7 +92,9 @@
             android:exported="true"
             android:label="@string/profile_activity"
             android:parentActivityName=".ui.settings.ManageStorageActivity"
-            android:theme="@style/Theme.ZuriChat.Settings" />
+            android:theme="@style/Theme.ZuriChat.Settings" >
+
+        </activity>
 
 
         <activity android:name=".ui.activities.MainActivity" />
