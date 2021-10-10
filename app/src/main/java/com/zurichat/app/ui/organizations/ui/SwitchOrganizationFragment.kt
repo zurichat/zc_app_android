@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentSwitchOrganizationsBinding
 import com.zurichat.app.models.organization_model.Data
@@ -36,7 +37,6 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
 
         viewModel.setToken(getToken())
         viewModel.getUserOrganizations(emailAddress = getUserEmailAddress()!!)
-
         observerData()
     }
 
@@ -60,13 +60,13 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
                     is UserOrganizationViewState.Success -> {
                         val userOrganizations = it.userOrganizationResponseModel
                         progressLoader.hide()
-                        Toast.makeText(context, getString(it.message), Toast.LENGTH_LONG).show()
+                        snackBar(getString(it.message))
                         setUpViews(userOrganizations!!.data)
                     }
                     is UserOrganizationViewState.Failure -> {
                         progressLoader.hide()
                         val errorMessage = it.message
-                        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
+                        snackBar(errorMessage)
                     }
                 }
             }
@@ -87,13 +87,18 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = userOrgAdapter
             }
-            Toast.makeText(context, "user organizations retrieved successfully", Toast.LENGTH_LONG).show()
         } catch (e: NullPointerException){
             Toast.makeText(context, "User has no organization", Toast.LENGTH_LONG).show()
         }
 
     }
+    private fun snackBar(message:String){
+        Snackbar.make(binding.parentLayout,message, Snackbar.LENGTH_SHORT)
+            .show()
+    }
 }
+
+
 
 private const val TOKEN = "TOKEN"
 

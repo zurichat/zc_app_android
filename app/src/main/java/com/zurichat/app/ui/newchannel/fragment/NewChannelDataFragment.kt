@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.ui.newchannel.fragment
+package com.zurichat.app.ui.newchannel.fragment
 
 //import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 import android.app.Activity
@@ -6,12 +6,10 @@ import android.content.ContentResolver
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Parcelable
 import android.provider.OpenableColumns
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,36 +18,22 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.work.WorkManager
-import com.tolstoy.zurichat.R
-import com.tolstoy.zurichat.data.localSource.Cache
-import com.tolstoy.zurichat.databinding.FragmentNewChannelDataBinding
-import com.tolstoy.zurichat.models.*
-import com.tolstoy.zurichat.ui.adapters.NewChannelMemberSelectedAdapter
-import com.tolstoy.zurichat.ui.newchannel.states.CreateChannelViewState
-import com.tolstoy.zurichat.ui.newchannel.viewmodel.CreateChannelViewModel
-import com.tolstoy.zurichat.util.ProgressLoader
-import com.tolstoy.zurichat.util.ZuriSharedPreferences
-import com.tolstoy.zurichat.util.viewBinding
 import com.zurichat.app.R
 import com.zurichat.app.data.localSource.Cache
 import com.zurichat.app.databinding.FragmentNewChannelDataBinding
-import com.zurichat.app.models.ChannelModel
-import com.zurichat.app.models.CreateChannelBodyModel
-import com.zurichat.app.models.OrganizationMember
-import com.zurichat.app.models.User
+import com.zurichat.app.models.*
 import com.zurichat.app.ui.adapters.NewChannelMemberSelectedAdapter
 import com.zurichat.app.ui.newchannel.states.CreateChannelViewState
 import com.zurichat.app.ui.newchannel.viewmodel.CreateChannelViewModel
 import com.zurichat.app.util.ProgressLoader
+import com.zurichat.app.util.ZuriSharedPreferences
 import com.zurichat.app.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import hani.momanii.supernova_emoji_library.Actions.*
 import hani.momanii.supernova_emoji_library.Actions.EmojIconActions
 import kotlinx.coroutines.flow.collect
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
-import java.util.ArrayList
 import javax.inject.Inject
 
 @AndroidEntryPoint

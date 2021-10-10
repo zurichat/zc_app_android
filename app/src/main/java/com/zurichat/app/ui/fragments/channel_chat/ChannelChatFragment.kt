@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.ui.fragments.channel_chat
+package com.zurichat.app.ui.fragments.channel_chat
 
 import android.content.Intent
 import android.content.SharedPreferences
@@ -42,31 +42,12 @@ import com.zurichat.app.ui.fragments.viewmodel.ChannelMessagesViewModel
 import com.zurichat.app.ui.fragments.viewmodel.ChannelViewModel
 import com.zurichat.app.ui.fragments.viewmodel.SharedChannelViewModel
 import com.zurichat.app.ui.notification.NotificationUtils
-import dagger.hilt.android.AndroidEntryPoint
-import centrifuge.Client
-import centrifuge.PublishEvent
-import centrifuge.Subscription
-import com.google.gson.Gson
-import com.tolstoy.zurichat.R
-import com.tolstoy.zurichat.data.localSource.AppDatabase
-import com.tolstoy.zurichat.databinding.FragmentChannelChatBinding
-import com.tolstoy.zurichat.models.ChannelModel
-import com.tolstoy.zurichat.models.OrganizationMember
-import com.tolstoy.zurichat.models.User
-import com.tolstoy.zurichat.ui.add_channel.BaseItem
-import com.tolstoy.zurichat.ui.add_channel.BaseListAdapter
-import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.ChannelMessagesDao
-import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDao
-import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDataObject
-import com.tolstoy.zurichat.ui.fragments.home_screen.CentrifugeClient
-import com.tolstoy.zurichat.ui.fragments.model.Data
-import com.tolstoy.zurichat.ui.fragments.model.JoinChannelUser
-import com.tolstoy.zurichat.ui.fragments.model.RoomData
-import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelMessagesViewModel
-import com.tolstoy.zurichat.ui.fragments.viewmodel.ChannelViewModel
-import com.tolstoy.zurichat.ui.fragments.viewmodel.SharedChannelViewModel
-import com.tolstoy.zurichat.ui.notification.NotificationUtils
-import com.tolstoy.zurichat.util.ZuriSharedPreferences
+//import centrifuge.Client
+//import centrifuge.PublishEvent
+//import centrifuge.Subscription
+import com.zurichat.app.ui.fragments.channel_chat.ChannelHeaderItem
+import com.zurichat.app.ui.fragments.channel_chat.ChannelListItem
+import com.zurichat.app.util.ZuriSharedPreferences
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ronnie.github.imagepicker.ImagePicker
 import dev.ronnie.github.imagepicker.ImageResult
@@ -80,22 +61,6 @@ import java.util.*
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 import kotlin.random.Random
-import com.google.gson.Gson
-import com.tolstoy.zurichat.data.localSource.AppDatabase
-import com.tolstoy.zurichat.models.OrganizationMember
-import com.tolstoy.zurichat.models.organization_model.OrganizationData
-import com.tolstoy.zurichat.models.organization_model.UserOrganizationModel
-import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.ChannelMessagesDao
-import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDao
-import com.tolstoy.zurichat.ui.fragments.channel_chat.localdatabase.RoomDataObject
-import com.tolstoy.zurichat.ui.fragments.home_screen.CentrifugeClient
-import com.tolstoy.zurichat.ui.fragments.home_screen.HomeScreenFragmentDirections
-import com.tolstoy.zurichat.ui.fragments.networking.AppPublishHandler
-import com.tolstoy.zurichat.ui.notification.NotificationUtils
-import com.tolstoy.zurichat.ui.profile.data.DataX
-import dagger.hilt.android.AndroidEntryPoint
-import java.nio.charset.StandardCharsets
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class ChannelChatFragment : Fragment() {
@@ -507,7 +472,7 @@ class ChannelChatFragment : Fragment() {
                             e.printStackTrace()
                         }
                     }
-
+                    
                     override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
                         val dataString = String(publishEvent!!.data, StandardCharsets.UTF_8)
                         val data = Gson().fromJson(dataString, Data::class.java)

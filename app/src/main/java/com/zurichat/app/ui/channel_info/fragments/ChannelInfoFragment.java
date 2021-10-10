@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.zurichat.app.R;
 import com.zurichat.app.models.Media;
+import com.zurichat.app.models.OrganizationMember;
 import com.zurichat.app.models.Participant;
 import com.zurichat.app.ui.adapters.MediaAdapter;
 import com.zurichat.app.ui.adapters.ParticipantAdapter;
