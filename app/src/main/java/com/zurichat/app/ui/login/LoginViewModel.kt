@@ -2,8 +2,13 @@ package com.zurichat.app.ui.login
 
 import android.widget.Toast
 import androidx.lifecycle.*
+import com.zurichat.app.data.remoteSource.postValue
 import com.zurichat.app.data.repository.UserRepository
 import com.zurichat.app.models.*
+import com.zurichat.app.ui.login.password.confirm.ConfirmPasswordData
+import com.zurichat.app.ui.login.password.confirm.ConfirmResponse
+import com.zurichat.app.ui.login.password.resetuserpass.ResetUserPasswordData
+import com.zurichat.app.ui.login.password.resetuserpass.ResetUserPasswordResponse
 import com.zurichat.app.util.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -36,6 +41,12 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
 
     private val _passwordReset = MutableLiveData<Result<PassswordRestReponse>>()
     val pssswordreset: LiveData<Result<PassswordRestReponse>> get() = _passwordReset
+
+    private val _confirmPassword = MutableLiveData<Result<ConfirmResponse>>()
+    val confirmPassword: LiveData<Result<ConfirmResponse>> get() = _confirmPassword
+
+    private val _resetUserPassword = MutableLiveData<Result<ResetUserPasswordResponse>>()
+    val resetUserPassword: LiveData<Result<ResetUserPasswordResponse>> get() = _resetUserPassword
 
     init {
         getUser()
@@ -145,5 +156,25 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
         }
 
 
+    }
+
+    fun confirmPassword(confirmPasswordData: ConfirmPasswordData){
+        try {
+            viewModelScope.launch {
+                _confirmPassword.postValue(Result.Success(repository.confirmPassword( confirmPasswordData)))
+            }
+        }catch (e:Exception) {
+           _confirmPassword.postValue(Result.Error(e))
+        }
+    }
+
+    fun resetUserPassword(resetUserPasswordData: ResetUserPasswordData){
+        try {
+            viewModelScope.launch {
+                _resetUserPassword.postValue(Result.Success(repository.resetUserPassword(resetUserPasswordData)))
+            }
+        }catch (e:Exception){
+            _resetUserPassword.postValue(Result.Error(e))
+        }
     }
 }

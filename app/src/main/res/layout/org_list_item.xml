@@ -6,10 +6,10 @@
 
     <ImageView
         android:id="@+id/orgImg"
-        android:layout_width="73dp"
-        android:layout_height="67dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="55dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,6 +31,7 @@
         android:textColorLink="@color/white"
         android:textSize="14sp"
         app:cornerRadius="5dp"
+        android:background="@drawable/border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.93"
@@ -46,8 +47,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="Android Devs"
-        android:textColor="@android:color/black"
-        android:textSize="16sp"
+        android:textColor="#1D1C1D"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/org_description"
         app:layout_constraintEnd_toStartOf="@+id/join_signIn_button"
         app:layout_constraintHorizontal_bias="0.0"
@@ -61,8 +62,22 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         android:text="Admin Invited you"
+        android:textColor="#B0AFB0"
         app:layout_constraintEnd_toStartOf="@+id/join_signIn_button"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/orgImg"
         app:layout_constraintTop_toBottomOf="@+id/org_name" />
+
+    <View
+        android:id="@+id/divider30"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/org_description" />
 </androidx.constraintlayout.widget.ConstraintLayout>

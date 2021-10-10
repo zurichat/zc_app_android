@@ -19,11 +19,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/login_graph" />
 
-  <FrameLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:id="@+id/fragment_placeholder">
+    <FrameLayout
+        android:id="@+id/fragment_placeholder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-  </FrameLayout>
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
