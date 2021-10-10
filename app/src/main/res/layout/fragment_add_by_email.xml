@@ -9,7 +9,7 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_signUp2"
+        android:id="@+id/button_sendRecipientEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -26,9 +26,9 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="-4dp"
-        android:layout_marginTop="-8dp"
-        android:layout_marginEnd="-4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="4dp"
         android:background="@color/white"
         android:elevation="8dp"
         android:hint="Enter recipient email"
@@ -37,10 +37,11 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/recipient_emailEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
-            android:inputType="textEmailAddress" />
+            android:inputType="textWebEmailAddress|textEmailAddress|textEmailSubject" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
