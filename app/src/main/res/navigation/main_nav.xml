@@ -200,6 +200,9 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_shareLinkFragment"
             app:destination="@id/shareLinkFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_nextFragment"
+            app:destination="@id/nextFragment" />
     </fragment>
 
     <activity
