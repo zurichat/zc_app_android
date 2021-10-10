@@ -17,7 +17,7 @@
             app:logo="@drawable/ic_channel_icon"
             app:menu="@menu/channel_chat_menu"
             app:navigationIcon="@drawable/ic_arrow_back"
-            app:popupTheme="@style/Theme.MaterialComponents.Light.NoActionBar"
+            app:popupTheme="@style/Theme.ZuriChat.Toolbar"
             app:subtitle="vicksoson"
             app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
             app:subtitleTextColor="@color/white"
