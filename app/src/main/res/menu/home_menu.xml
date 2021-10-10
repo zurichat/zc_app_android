@@ -22,6 +22,10 @@
         android:title="@string/switch_workspace"
         android:visible="true" />
     <item
+        android:id="@+id/create_organisation"
+        android:title="Create Organisation"
+        android:visible="true"/>
+    <item
         android:id="@+id/settings"
         android:title="@string/settings"
         android:visible="true" />
