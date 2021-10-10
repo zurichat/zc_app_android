@@ -1,4 +1,4 @@
-package com.zurichat.app.ui.fragments
+package com.zurichat.app.ui.fragments.switch_account
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -33,6 +33,11 @@ class UserViewModel(application:Application): AndroidViewModel(application) {
     fun updateUser(user: User){
         viewModelScope.launch(Dispatchers.IO) {
             repository.updateUser(user)
+        }
+    }
+    fun deleteUser(user: User){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteUser(user)
         }
     }
 

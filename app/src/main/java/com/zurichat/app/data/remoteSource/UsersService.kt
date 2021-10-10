@@ -51,15 +51,25 @@ interface UsersService {
     ): Call<OrganizationMember>
 
     @POST("auth/logout")
-    suspend fun logout(): Response<LogoutResponse>
+    suspend fun logout(@Body logoutBody: LogoutBody): Response<LogoutResponse>
+
+    @POST("auth/confirm-password")
+    suspend fun confirmPass( @Body confirmPassBody: ConfirmPassBody):ConfirmPassResponse
+
+    @POST("account/verify-reset-password")
+    suspend fun verifyResetOtp(@Body resetCodeBody: ResetCodeBody):Response<ResetCodeResponse>
+
+    @POST("account/update-password/{verification_code}")
+    suspend fun updatePass(
+        @Path ("verification_code") verCode : String,
+        @Body updatePassBody: UpdatePassBody
+    ):Response<LogoutResponse>
 
     @POST("auth/confirm-password")
     suspend fun confirmpassword(@Body confirmpassword: ConfirmPasswordData): ConfirmResponse
 
     @POST("auth/request-reset-password")
     suspend fun resetUserPassword(@Body resetUserPasswordData: ResetUserPasswordData): ResetUserPasswordResponse
-
-
 }
 
 

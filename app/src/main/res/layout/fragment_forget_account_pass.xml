@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.login.screens.EnterOtpFragment">
+    tools:context=".ui.login.screens.ForgotPasswordFragment">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -15,14 +15,14 @@
         />
 
     <ImageView
-        android:id="@+id/imageView9"
+        android:id="@+id/imageView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="84dp"
+        android:src="@drawable/logo1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo1" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/confirm_pass_hdr"
@@ -30,60 +30,49 @@
         android:layout_height="23dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="21dp"
+        android:fontFamily="@font/lato"
         android:gravity="center_horizontal|center_vertical"
         android:lineSpacingExtra="2sp"
-        android:text="Forgot Password"
-        android:textSize="18sp"
+        android:text="Forgotten Password"
         android:textColor="@color/text_color"
-        android:textAppearance="@style/forgot_text_style"
+        android:textStyle="bold"
+        android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
     <TextView
-        android:id="@+id/enter_the_4"
-        android:layout_width="240dp"
-        android:layout_height="18dp"
+        android:id="@+id/please_ente"
+        android:layout_width="265dp"
+        android:layout_height="36dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lato"
         android:gravity="center_horizontal|center_vertical"
         android:lineSpacingExtra="1sp"
-        android:text="Enter the 6-digit OTP sent to your mail"
+        android:layout_marginTop="8dp"
+        android:text="@string/forgot_pass_sub_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirm_pass_hdr" />
 
-    <com.chaos.view.PinView
-        android:id="@+id/pinView"
-        style="@style/PinWidget.PinView"
+    <TextView
+        android:id="@+id/user_email_txv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="66dp"
-        android:inputType="number"
-        android:textSize="32sp"
-        app:itemCount="6"
-        app:itemHeight="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enter_the_4"
-        tools:text="" />
+        android:layout_marginTop="64dp"
+        android:textSize="18sp"
+        android:textColor="@color/deepBlack"
+        android:text="email@email.com"
+        app:layout_constraintStart_toStartOf="@id/please_ente"
+        app:layout_constraintEnd_toEndOf="@id/please_ente"
+        app:layout_constraintTop_toBottomOf="@id/please_ente"/>
 
-    <TextView
-        android:id="@+id/didn_t_rece"
-        android:layout_width="wrap_content"
-        android:layout_height="18dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="16dp"
-        android:gravity="center_vertical"
-        android:lineSpacingExtra="1sp"
-        android:text="@string/didn_t_receive_any_code"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pinView" />
+
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_otp"
+        android:id="@+id/btn_forgot_password"
         android:layout_width="match_parent"
         android:layout_height="61dp"
         android:layout_marginStart="24dp"
@@ -91,20 +80,9 @@
         android:layout_marginEnd="24dp"
         android:backgroundTint="@color/secondary_color"
         android:text="Continue"
-        android:textAppearance="@style/forgot_text_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/didn_t_rece" />
+        app:layout_constraintTop_toBottomOf="@+id/user_email_txv" />
 
-    <TextView
-        android:id="@+id/text_resendCode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Resend"
-        android:textColor="@color/primaryColor"
-        android:textSize="14sp"
-        android:layout_marginStart="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/didn_t_rece"
-        app:layout_constraintStart_toEndOf="@+id/didn_t_rece"
-        app:layout_constraintTop_toTopOf="@+id/didn_t_rece" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
