@@ -416,11 +416,6 @@
             android:name="otpCode"
             app:argType="string"
             android:defaultValue="null" />
-        <action
-            android:id="@+id/action_changePassFragment_to_loginFragment2"
-            app:destination="@id/loginFragment2"
-            app:popUpTo="@id/main_nav"
-            app:popUpToInclusive="true" />
         <argument
             android:name="curUser"
             app:argType="com.zurichat.app.models.User" />
