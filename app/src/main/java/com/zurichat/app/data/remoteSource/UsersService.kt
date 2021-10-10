@@ -4,6 +4,10 @@ import com.zurichat.app.models.*
 import com.zurichat.app.models.network_response.OrganizationMembers
 import com.zurichat.app.models.organization_model.OrganizationCreator
 import com.zurichat.app.models.organization_model.OrganizationCreatorResponse
+import com.zurichat.app.ui.login.password.confirm.ConfirmPasswordData
+import com.zurichat.app.ui.login.password.confirm.ConfirmResponse
+import com.zurichat.app.ui.login.password.resetuserpass.ResetUserPasswordData
+import com.zurichat.app.ui.login.password.resetuserpass.ResetUserPasswordResponse
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -48,6 +52,14 @@ interface UsersService {
 
     @POST("auth/logout")
     suspend fun logout(): Response<LogoutResponse>
+
+    @POST("auth/confirm-password")
+    suspend fun confirmpassword(@Body confirmpassword: ConfirmPasswordData): ConfirmResponse
+
+    @POST("auth/request-reset-password")
+    suspend fun resetUserPassword(@Body resetUserPasswordData: ResetUserPasswordData): ResetUserPasswordResponse
+
+
 }
 
 
