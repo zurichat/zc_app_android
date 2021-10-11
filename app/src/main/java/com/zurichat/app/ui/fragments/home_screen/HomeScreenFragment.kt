@@ -7,9 +7,8 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import android.widget.Toast
-import androidx.core.os.bundleOf
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -20,12 +19,11 @@ import com.zurichat.app.databinding.FragmentHomeScreenBinding
 import com.zurichat.app.models.LogoutBody
 import com.zurichat.app.models.User
 import com.zurichat.app.ui.activities.MainActivity
-import com.zurichat.app.ui.fragments.switch_account.UserViewModel
 import com.zurichat.app.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
-
-import com.zurichat.app.util.jsearch_view_utils.JSearchView
+import com.zurichat.app.ui.fragments.switch_account.UserViewModel
 import com.zurichat.app.ui.login.LoginViewModel
 import com.zurichat.app.util.Result
+import com.zurichat.app.util.jsearch_view_utils.JSearchView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -156,7 +154,8 @@ class HomeScreenFragment : Fragment() {
                     findNavController().navigate(R.id.action_homeScreenFragment_to_starredMessagesFragment)
                 }
                 R.id.switch_workspace -> {
-                    val bundle = bundleOf("email" to user?.email)
+                    val bundle = Bundle()
+                    bundle.putParcelable("USER", user)
                     findNavController().navigate(R.id.switchOrganizationFragment, bundle)
                 }
                 R.id.invite_link -> {

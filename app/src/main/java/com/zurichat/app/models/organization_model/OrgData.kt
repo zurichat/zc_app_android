@@ -11,13 +11,13 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "OrgData")
 data class OrgData(
     @PrimaryKey
-    val id: String,
+    val id: String = "",
     @TypeConverters(StringListTypeConverter::class)
-    val imgs: List<String>,
-    val isOwner: Boolean,
-    val logo_url: String,
-    val member_id: String,
-    val name: String,
-    val no_of_members: Int,
-    val workspace_url: String
+    var imgs: List<String>,
+    val isOwner: Boolean = false,
+    val logo_url: String = "",
+    val member_id: String = "",
+    val name: String = "",
+    val no_of_members: Int = 0,
+    val workspace_url: String = ""
 ) : Parcelable
