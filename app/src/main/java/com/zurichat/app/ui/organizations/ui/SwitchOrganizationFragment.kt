@@ -11,7 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentSwitchOrganizationsBinding
-import com.zurichat.app.models.organization_model.Data
+import com.zurichat.app.models.User
+import com.zurichat.app.models.organization_model.OrgData
 import com.zurichat.app.ui.adapters.SwitchUserOrganizationAdapter
 import com.zurichat.app.ui.organizations.states.UserOrganizationViewState
 import com.zurichat.app.ui.organizations.utils.ZuriSharePreference
@@ -22,18 +23,26 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
+private const val TOKEN = "TOKEN"
+
 @AndroidEntryPoint
 class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizations) {
-
     @Inject
     lateinit var progressLoader: ProgressLoader
     private val viewModel: UserOrganizationViewModel by viewModels()
     private val binding by viewBinding(FragmentSwitchOrganizationsBinding::bind)
-    private var onOrgItemActionClicked: ((Data) -> Unit)? = null
+    private var onOrgItemActionClicked: ((OrgData,User) -> Unit)? = null
     private lateinit var userOrgAdapter: SwitchUserOrganizationAdapter
+
+    private lateinit var user: User
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val bundle = arguments
+
+        if (bundle != null) {
+            user = bundle.getParcelable("USER")!!
+        }
 
         binding.userEmail.text = getUserEmailAddress()
         viewModel.setToken(getToken())
@@ -73,19 +82,22 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
                         val errorMessage = it.message
                         snackBar(errorMessage)
                     }
+                    else -> {
+                        progressLoader.hide()
+                        val errorMessage = "An Error Occurred"
+                        snackBar(errorMessage)
+                    }
                 }
             }
         }
     }
 
-    private fun setUpViews(orgs: List<Data>) {
-
+    private fun setUpViews(orgs: List<OrgData>) {
         try {
-            userOrgAdapter = SwitchUserOrganizationAdapter(orgs, requireContext()).apply {
-                doOnOrgItemSelected {
+            userOrgAdapter = SwitchUserOrganizationAdapter(orgs, requireContext(),user).apply {
+                doOnOrgItemSelected { orgData, user ->
                     findNavController().navigateUp()
-                    onOrgItemActionClicked?.invoke(it)
-
+                    onOrgItemActionClicked?.invoke(orgData,user)
                 }
             }
             binding.orgRecyclerView.apply {
@@ -97,16 +109,11 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
         }
 
     }
+
     private fun snackBar(message:String){
-        Snackbar.make(binding.parentLayout,message, Snackbar.LENGTH_SHORT)
-            .show()
+        Snackbar.make(binding.parentLayout,message, Snackbar.LENGTH_SHORT).show()
     }
 }
-
-
-
-private const val TOKEN = "TOKEN"
-
 
 
 

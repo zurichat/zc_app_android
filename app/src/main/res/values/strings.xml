@@ -283,5 +283,6 @@
     <string name="notification">New Notification</string>
     <string name="notification_channel_description">This is a sample notification channel for demonstration purpose.</string>
     <string name="didn_t_receive_any_code">Didn\'t Receive Any Code?</string>
+    <string name="create_new_organization">Create New Organization</string>
 
 </resources>
