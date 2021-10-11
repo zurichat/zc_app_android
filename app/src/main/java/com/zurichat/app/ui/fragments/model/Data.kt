@@ -32,8 +32,9 @@ data class Data(
 
     override fun hashCode(): Int {
         var result = _id?.hashCode() ?: 0
-        result = 31 * result + (channel_id?.hashCode() ?: 0)
+        result = 31 * result + channel_id.hashCode()
         result = 31 * result + (user_id?.hashCode() ?: 0)
         return result
     }
+
 }

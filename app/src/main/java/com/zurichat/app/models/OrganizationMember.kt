@@ -1,11 +1,10 @@
 package com.zurichat.app.models
 
 
-import com.google.gson.annotations.SerializedName
 import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 import java.time.LocalDateTime
 import java.time.ZoneOffset
-
 
 data class OrganizationMember(
     @SerializedName("_id")

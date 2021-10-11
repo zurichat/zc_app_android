@@ -3,7 +3,6 @@ package com.zurichat.app.ui.fragments.home_screen.chats_and_channels
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,12 +15,12 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.room.Room
-import io.github.centrifugal.centrifuge.*
 import com.google.android.material.snackbar.Snackbar
 import com.zurichat.app.R
 import com.zurichat.app.data.localSource.AppDatabase
 import com.zurichat.app.databinding.FragmentChannelsBinding
 import com.zurichat.app.models.ChannelModel
+import com.zurichat.app.models.OrganizationMember
 import com.zurichat.app.models.User
 import com.zurichat.app.ui.fragments.channel_chat.localdatabase.RoomDao
 import com.zurichat.app.ui.fragments.home_screen.CentrifugeClient
@@ -35,6 +34,7 @@ import com.zurichat.app.ui.fragments.home_screen.diff_utils.ChannelDiffUtil
 import com.zurichat.app.ui.fragments.viewmodel.ChannelViewModel
 import com.zurichat.app.ui.fragments.viewmodel.SharedChannelViewModel
 import com.zurichat.app.ui.notification.NotificationUtils
+import io.github.centrifugal.centrifuge.Client
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -53,6 +53,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private lateinit var channelsArrayList: ArrayList<ChannelModel>
     private lateinit var joinedArrayList: ArrayList<ChannelModel>
     private lateinit var originalChannelsArrayList: ArrayList<ChannelModel>
+    private lateinit var members: List<OrganizationMember>
     private lateinit var user : User
     private lateinit var organizationID: String
 
@@ -102,6 +103,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         channelsArrayList = ArrayList()
         joinedArrayList = ArrayList()
         originalChannelsArrayList = ArrayList()
+        members = ArrayList()
         //addHeaders()
         getListOfChannels()
 
@@ -110,14 +112,6 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
                 val bundle = Bundle()
                 bundle.putParcelable("USER",user)
                 findNavController().navigate(R.id.mentionFragment,bundle)
-            }
-        }
-
-        uiScope.launch(Dispatchers.IO){
-            try{
-                 client = CentrifugeClient.getClient(user)
-            }catch (e : Exception){
-                e.printStackTrace()
             }
         }
     }
@@ -141,6 +135,14 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
      * Headers Are Added Here. This will also be called after every update on the list to properly update the header positions
      */
     private fun addHeaders(){
+        uiScope.launch(Dispatchers.IO){
+            try{
+                client = CentrifugeClient.getClient(user)
+            }catch (e : Exception){
+                e.printStackTrace()
+            }
+        }
+
         val newList: ArrayList<ChannelModel> = ArrayList()
 
         val unreadList: ArrayList<ChannelModel> = ArrayList()
