@@ -200,9 +200,6 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_shareLinkFragment"
             app:destination="@id/shareLinkFragment" />
-        <action
-            android:id="@+id/action_homeScreenFragment_to_nextFragment"
-            app:destination="@id/nextFragment" />
     </fragment>
 
     <activity
@@ -245,7 +242,22 @@
             android:id="@+id/action_createOrganizationsFragment_to_newWorkspaceFragment"
             app:destination="@id/newWorkspaceFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/addByEmailFragment"
+        android:name="com.zurichat.app.ui.organizations.AddByEmailFragment"
+        android:label="fragment_add_by_email"
+        tools:layout="@layout/fragment_add_by_email">
+        <action
+            android:id="@+id/action_addByEmailFragment_to_seeYourChannelFragment"
+            app:destination="@id/seeYourChannelFragment" />
+        <argument
+            android:name="organizationName"
+            app:argType="string" />
+        <argument
+            android:name="organizationId"
+            app:argType="string" />
 
+    </fragment>
     <fragment
         android:id="@+id/newWorkspaceFragment"
         android:name="com.zurichat.app.ui.organizations.NewWorkspaceFragment"
@@ -265,7 +277,8 @@
         <action
             android:id="@+id/action_nextFragment_to_addByEmailFragment"
             app:destination="@id/addByEmailFragment"
-            />
+            app:popUpTo="@id/main_nav"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_nextFragment_to_seeYourChannelFragment"
             app:destination="@id/seeYourChannelFragment"
@@ -278,17 +291,6 @@
             android:name="organizationId"
             app:argType="string" />
     </fragment>
-    <fragment
-        android:id="@+id/addByEmailFragment"
-        android:name="com.zurichat.app.ui.organizations.AddByEmailFragment"
-        android:label="fragment_add_by_email"
-        tools:layout="@layout/fragment_add_by_email">
-        <action
-            android:id="@+id/action_addByEmailFragment_to_seeYourChannelFragment"
-            app:destination="@id/seeYourChannelFragment" />
-
-    </fragment>
-
     <fragment
         android:id="@+id/seeYourChannelFragment"
         android:name="com.zurichat.app.ui.organizations.SeeYourChannelFragment"

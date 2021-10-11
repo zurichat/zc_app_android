@@ -17,15 +17,20 @@ import dagger.hilt.android.AndroidEntryPoint
 class AddByEmailFragment : Fragment(R.layout.fragment_add_by_email) {
 
     private val binding by viewBinding(FragmentAddByEmailBinding::bind)
+    private val addByEmailFragmentArgs: AddByEmailFragmentArgs by navArgs()
+    private lateinit var organizationName: String
+    private lateinit var organizationId: String
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        organizationName = addByEmailFragmentArgs.organizationName
+        organizationId = addByEmailFragmentArgs.organizationId
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonSendRecipientEmail.setOnClickListener(fun(_: View) {
-            val bundle = arguments
-            val organizationName = bundle!!.getString("org_name")
-            val organizationId = bundle.getString("orgId")
             val recipient = binding.recipientEmailEdit.text.toString()
             when {
                 recipient.isEmpty() -> {
@@ -40,11 +45,11 @@ class AddByEmailFragment : Fragment(R.layout.fragment_add_by_email) {
                         putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
                         putExtra(
                             Intent.EXTRA_TEXT,
-                            "We look forward to your response 😊. Use this link below to join  👇\nhttps://api.zuri.chat/organizations/${organizationId}"
+                            "https://api.zuri.chat/organizations/${organizationId}"
                         )
                         putExtra(
                             Intent.EXTRA_SUBJECT,
-                            "You are invited to join $organizationName on Zuri Chat"
+                            "You are invited to join this $organizationName"
                         )
                         data = Uri.parse("mailto:")
                     }

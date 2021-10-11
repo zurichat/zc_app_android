@@ -39,13 +39,8 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
         binding.toolbarAddTo.setNavigationOnClickListener { requireActivity().onBackPressed() }
         binding.apply {
             addByEmailButton.setOnClickListener(fun(_: View){
-                findNavController().navigate(R.id.action_nextFragment_to_addByEmailFragment)
-                val bundle = bundleOf("org_name" to organizationName)
-                val bundle2 = bundleOf("orgId" to organizationId)
-
-                val addByEmailFragment = AddByEmailFragment()
-                addByEmailFragment.arguments?.putBundle("org_name", bundle)
-                addByEmailFragment.arguments?.putBundle("orgId", bundle2)
+               val action  = NextFragmentDirections.actionNextFragmentToAddByEmailFragment(organizationName, organizationId)
+                findNavController().navigate(action)
             })
             addFromContactsButton
             addToOrganizationAppbar
@@ -62,7 +57,6 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
                     }
         }
 
-        // navigate from next fragment to seeYourChannelFragment  passing in the organization name
         binding.nextTextView.setOnClickListener {
             val bundle = bundleOf("org_name" to organizationName)
            Navigation.findNavController(it).navigate(R.id.action_nextFragment_to_seeYourChannelFragment, bundle)
