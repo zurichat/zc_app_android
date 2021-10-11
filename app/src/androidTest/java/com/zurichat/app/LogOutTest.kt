@@ -21,8 +21,9 @@ class LogOutTest {
     private val context = ApplicationProvider.getApplicationContext<Context>()
     private lateinit var dao: AccountsDao
 
-    private val user = User("","kolawole","ak@gmail.com","",
-                      "1x02","","",1, "","",
+   //User-data for testing purpose
+    private val user = User("","kolinton","ak@gmail.com","Kola",
+                      "1x02","Akin","",1, "","",
     "", true)
 
     @Before
@@ -37,7 +38,6 @@ class LogOutTest {
 
     @Test
     fun logOut() =runBlocking {
-        val play = true
         /**
          * When a user logs out, his currentUser status would be updated to false
          */
