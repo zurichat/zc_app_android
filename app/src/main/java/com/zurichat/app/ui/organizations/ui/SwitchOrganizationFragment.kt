@@ -3,6 +3,7 @@ package com.zurichat.app.ui.organizations.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -58,6 +59,19 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
             user = bundle.getParcelable("USER")!!
         }
 
+        if (ZuriSharePreference(requireContext()).getString("Current Organization ID","").isBlank()){
+            activity?.onBackPressedDispatcher?.addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    activity?.finish()
+                }
+            })
+        }else{
+            binding.toolbar4.setNavigationIcon(R.drawable.ic_arrow_back)
+            binding.toolbar4.setNavigationOnClickListener {
+                findNavController().navigateUp()
+            }
+        }
+
         job = Job()
         uiScope = CoroutineScope(Dispatchers.Main + job)
 
@@ -67,9 +81,6 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
         binding.userEmail.text = user.email
         viewModel.setToken(getToken())
         viewModel.getUserOrganizations(emailAddress = user.email)
-        binding.toolbar4.setNavigationOnClickListener {
-            findNavController().navigateUp()
-        }
         uiScope.launch(Dispatchers.IO) {
             orgDao.getAllOrgData().let {
                 uiScope.launch(Dispatchers.Main) {
@@ -85,6 +96,11 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
             }
         }
 
+        binding.organizationCardView.setOnClickListener {
+            val bundle1 = Bundle()
+            bundle1.putParcelable("USER",user)
+            findNavController().navigate(R.id.newWorkspaceFragment, bundle1)
+        }
     }
 
     private fun getUserEmailAddress(): String? { //"glagoandrew2001@gmail.com"
@@ -150,7 +166,7 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
                 doOnOrgItemSelected { orgData, user ->
                     findNavController().navigateUp()
                     onOrgItemActionClicked?.invoke(orgData,user)
-                    ZuriSharePreference(requireContext()).setString("Current Org ID",orgData.id)
+                    ZuriSharePreference(requireContext()).setString("Current Organization ID",orgData.id)
                 }
             }
             binding.orgRecyclerView.apply {

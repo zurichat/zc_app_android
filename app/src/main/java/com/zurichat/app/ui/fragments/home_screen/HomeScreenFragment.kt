@@ -22,6 +22,7 @@ import com.zurichat.app.ui.activities.MainActivity
 import com.zurichat.app.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
 import com.zurichat.app.ui.fragments.switch_account.UserViewModel
 import com.zurichat.app.ui.login.LoginViewModel
+import com.zurichat.app.ui.organizations.utils.ZuriSharePreference
 import com.zurichat.app.util.Result
 import com.zurichat.app.util.jsearch_view_utils.JSearchView
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,7 +45,6 @@ class HomeScreenFragment : Fragment() {
     private val ORG_ID = "org_id"
     private lateinit var sharedPref: SharedPreferences
 
-
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
 
     @Inject
@@ -64,11 +64,7 @@ class HomeScreenFragment : Fragment() {
         })
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
         user = requireActivity().intent.extras?.getParcelable("USER")!!
         sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -105,6 +101,11 @@ class HomeScreenFragment : Fragment() {
             }
         }
         //organizationID = "614679ee1a5607b13c00bcb7"
+        if (ZuriSharePreference(requireContext()).getString("Current Organization ID","").isBlank()){
+            val bundle = Bundle()
+            bundle.putParcelable("USER", user)
+            findNavController().navigate(R.id.switchOrganizationFragment, bundle)
+        }
         return binding.root
     }
 
@@ -145,7 +146,6 @@ class HomeScreenFragment : Fragment() {
                 R.id.new_channel -> {
                     try {
                         findNavController().navigate(HomeScreenFragmentDirections.actionHomeScreenFragmentToNewChannelNavGraph())
-
                     } catch (exc: Exception) {
                         exc.printStackTrace()
                     }

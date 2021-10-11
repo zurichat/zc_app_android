@@ -11,6 +11,7 @@ import com.zurichat.app.R
 import com.zurichat.app.databinding.OrgListItemBinding
 import com.zurichat.app.models.User
 import com.zurichat.app.models.organization_model.OrgData
+import com.zurichat.app.ui.organizations.utils.ZuriSharePreference
 
 class SwitchUserOrganizationAdapter(private val organizations: List<OrgData>, val context: Context,val user:User) : RecyclerView.Adapter<SwitchUserOrganizationAdapter.ViewHolder>() {
 
@@ -46,10 +47,13 @@ class SwitchUserOrganizationAdapter(private val organizations: List<OrgData>, va
             item.orgDescription.text = org.no_of_members.toString() + " Members"
             Glide.with(context).load(org.logo_url).into(item.orgImg)
             item.joinSignInButton.setOnClickListener {
+                ZuriSharePreference(context).setString("Current Organization ID",org.id)
                 //add organization and user to a bundle and attach the bundle to the NavController
                 val bundle = Bundle()
                 bundle.putParcelable("Organization",org)
                 bundle.putParcelable("USER",user)
+                bundle.putString("org_name",org.name)
+                bundle.putString("org_id",org.id)
                 Navigation.findNavController(item.root).navigate(R.id.homeScreenFragment, bundle)
             }
         }

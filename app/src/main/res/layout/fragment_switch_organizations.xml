@@ -114,7 +114,6 @@
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:title="Choose Organization"
-        app:navigationIcon="@drawable/ic_arrow_back"
         app:subtitle="No Organizations"
         app:subtitleTextColor="@color/white"
         app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"

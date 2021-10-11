@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
@@ -95,6 +96,11 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
             NotificationUtils().setNotification(mNotificationTime, requireActivity())
         }
 
+        activity?.onBackPressedDispatcher?.addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                activity?.onBackPressed()
+            }
+        })
         return binding.root
     }
 
@@ -104,7 +110,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         joinedArrayList = ArrayList()
         originalChannelsArrayList = ArrayList()
         members = ArrayList()
-        //addHeaders()
+        addHeaders()
         getListOfChannels()
 
         view.findViewById<LinearLayoutCompat>(R.id.mentionLayout_).setOnClickListener {
