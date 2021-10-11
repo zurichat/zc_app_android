@@ -35,6 +35,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         // Flag to enable support for the new language APIs
         coreLibraryDesugaringEnabled = true
@@ -174,10 +175,9 @@ dependencies {
     //for recording audio
     implementation 'com.devlomi.record-view:record-view:2.0.1'
 
-    //Centrifugo Libary. DO NOT REMOVE
-    implementation files('libs/centrifuge.aar')
-
     //Google Sign Up
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
+
+    //Centrifugo Libary. DO NOT REMOVE
     implementation 'io.github.centrifugal:centrifuge-java:0.1.0'
 }

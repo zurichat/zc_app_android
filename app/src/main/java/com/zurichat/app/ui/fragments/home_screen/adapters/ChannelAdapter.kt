@@ -17,8 +17,7 @@ import com.zurichat.app.models.ChannelModel
 import com.zurichat.app.ui.fragments.channel_chat.localdatabase.RoomDao
 import com.zurichat.app.ui.fragments.home_screen.CentrifugeClient
 import com.zurichat.app.ui.fragments.model.Data
-import io.github.centrifugal.centrifuge.PublishEvent
-import io.github.centrifugal.centrifuge.Subscription
+import io.github.centrifugal.centrifuge.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -70,6 +69,18 @@ class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>
                                     }catch (e : Exception){
                                         e.printStackTrace()
                                     }
+                                }
+
+                                override fun onConnectError(client: Client?, event: ErrorEvent?) {
+
+                                }
+
+                                override fun onChannelSubscribed(isSubscribed: Boolean, subscription: Subscription?) {
+
+                                }
+
+                                override fun onChannelSubscriptionError(subscription: Subscription?, event: SubscribeErrorEvent?) {
+
                                 }
 
                                 override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {

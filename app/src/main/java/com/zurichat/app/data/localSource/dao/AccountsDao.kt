@@ -18,4 +18,7 @@ interface AccountsDao {
 
     @Query("SELECT * FROM users WHERE currentUser = 1")
     fun getUser(): LiveData<User?>
+
+    @Delete
+    suspend fun deleteUser(user: User)
 }
