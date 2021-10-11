@@ -6,8 +6,10 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.zurichat.app.R
+import com.zurichat.app.data.localSource.Cache
 import com.zurichat.app.databinding.FragmentAddToOrganizationBinding
 import com.zurichat.app.util.generateMaterialDialog
 import com.zurichat.app.util.viewBinding
@@ -35,7 +37,11 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
 
         binding.toolbarAddTo.setNavigationOnClickListener { requireActivity().onBackPressed() }
         binding.apply {
-            addByEmailButton
+            addByEmailButton.setOnClickListener(fun(_: View){
+                Cache.map.putIfAbsent("orgId", organizationId)
+                val action = NextFragmentDirections.actionNextFragmentToAddByEmailFragment(organizationName,organizationId)
+                findNavController().navigate(action)
+            })
             addFromContactsButton
             addToOrganizationAppbar
             shareALinkButton.setOnClickListener {
