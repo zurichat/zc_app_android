@@ -63,7 +63,7 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
             }
 
             toolbar.setNavigationOnClickListener {
-               findNavController().navigateUp()
+               findNavController().popBackStack()
             }
 
             userListProgressBar.visibility = View.VISIBLE

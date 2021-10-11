@@ -10,8 +10,10 @@ import android.view.*
 import android.view.inputmethod.EditorInfo
 import android.widget.PopupWindow
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -40,6 +42,12 @@ import com.zurichat.app.ui.fragments.viewmodel.ChannelMessagesViewModel
 import com.zurichat.app.ui.fragments.viewmodel.ChannelViewModel
 import com.zurichat.app.ui.fragments.viewmodel.SharedChannelViewModel
 import com.zurichat.app.ui.notification.NotificationUtils
+//import centrifuge.Client
+//import centrifuge.PublishEvent
+//import centrifuge.Subscription
+import com.zurichat.app.ui.fragments.channel_chat.ChannelHeaderItem
+import com.zurichat.app.ui.fragments.channel_chat.ChannelListItem
+import com.zurichat.app.util.ZuriSharedPreferences
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ronnie.github.imagepicker.ImagePicker
 import dev.ronnie.github.imagepicker.ImageResult
@@ -67,7 +75,7 @@ class ChannelChatFragment : Fragment() {
     private lateinit var database: AppDatabase
     private lateinit var roomDao: RoomDao
     private lateinit var channelMessagesDao: ChannelMessagesDao
-    private val members = ArrayList<OrganizationMember>()
+    private var members: List<OrganizationMember>?= null
 
     private var channelJoined = false
 
@@ -81,6 +89,19 @@ class ChannelChatFragment : Fragment() {
 
     @Inject
     lateinit var preference : SharedPreferences
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        activity?.onBackPressedDispatcher?.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    ZuriSharedPreferences(requireContext()).setInt("tracker",1)
+                    findNavController().navigateUp()
+                }
+            }
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -109,6 +130,7 @@ class ChannelChatFragment : Fragment() {
             user = bundle.getParcelable("USER")!!
             channel = bundle.getParcelable("Channel")!!
             channelJoined = bundle.getBoolean("Channel Joined")
+            members = arguments?.get("members") as List<OrganizationMember>
 //            organizationID = "614679ee1a5607b13c00bcb7"
             organizationID = preference.getString("ORG_ID", "614679ee1a5607b13c00bcb7") ?: ""
             uiScope.launch(Dispatchers.IO) {
@@ -418,9 +440,7 @@ class ChannelChatFragment : Fragment() {
                     startActivity(shareIntent)
                 }
                 R.id.channel_info -> {
-                    val bundle = Bundle()
-                    bundle.putString("channel_name", channel.name)
-                    findNavController().navigate(R.id.channel_info_nav_graph, bundle)
+                    findNavController().navigate(R.id.channel_info_nav_graph, bundleOf(Pair("channel_name",channel.name),Pair("members",members)))
                 }
             }
             true
@@ -452,7 +472,7 @@ class ChannelChatFragment : Fragment() {
                             e.printStackTrace()
                         }
                     }
-
+                    
                     override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
                         val dataString = String(publishEvent!!.data, StandardCharsets.UTF_8)
                         val data = Gson().fromJson(dataString, Data::class.java)
@@ -495,6 +515,10 @@ class ChannelChatFragment : Fragment() {
                     messagesArrayList
                 )
                 channelChatEdit.text?.clear()
+
+                /* val gson = Gson()
+                 val dataString = gson.toJson(data).toString().toByteArray(Charsets.UTF_8)
+                 sub!!.publish(dataString)*/
             }
         }
     }

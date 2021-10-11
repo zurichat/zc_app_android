@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.zurichat.app.R;
 import com.zurichat.app.models.Media;
+import com.zurichat.app.models.OrganizationMember;
 import com.zurichat.app.models.Participant;
 import com.zurichat.app.ui.adapters.MediaAdapter;
 import com.zurichat.app.ui.adapters.ParticipantAdapter;
@@ -40,13 +41,15 @@ public class ChannelInfoFragment extends Fragment {
     private RecyclerView media_recyclerView;
     private RecyclerView participants_recyclerView;
     private List<Media> mediaList;
-    private List<Participant> participantList;
+    //private List<Participant> participantList;
     private MediaAdapter mediaAdapter;
     private ParticipantAdapter participantAdapter;
     private ConstraintLayout mediaDocs;
     private TextView channel_name;
     private Bundle bundle;
     private ImageView moreMenuIcon;
+    private TextView participantView;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,7 @@ public class ChannelInfoFragment extends Fragment {
 
         Bundle bundle = getArguments();
         String channelName = Objects.requireNonNull(bundle).getString("channel_name");
+        List<OrganizationMember> members =(List<OrganizationMember>) Objects.requireNonNull(bundle).get("members");
 
         navController = Navigation.findNavController(view);
         media_recyclerView = view.findViewById(R.id.recyclerView);
@@ -75,6 +79,11 @@ public class ChannelInfoFragment extends Fragment {
         moreMenuIcon = view.findViewById(R.id.moreMenuIconView);
 
         channel_name.setText(channelName);
+        participantView = view.findViewById(R.id.participants);
+        if (members.size()>0){
+            int size = members.size();
+            participantView.setText(size+" Participant(s)");
+        }
 
         mediaDocs.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,7 +95,7 @@ public class ChannelInfoFragment extends Fragment {
         });
 
         initMedia();
-        initParticipant();
+        initParticipant(members);
 
         //Launch More Menu Popup
         View moreOptions = LayoutInflater.from(getActivity()).inflate(R.layout.channel_info_more_menu, null);
@@ -110,6 +119,8 @@ public class ChannelInfoFragment extends Fragment {
         View leaveChannelView = LayoutInflater.from(requireContext()).inflate(R.layout.leave_channel_confirmation, null);
         TextView cancel = leaveChannelView.findViewById(R.id.leaveChannelWarningCancelTextView);
         TextView leave = leaveChannelView.findViewById(R.id.leaveChannelWarningLeaveTextView);
+
+
         AlertDialog.Builder builder1 = new AlertDialog.Builder(requireActivity());
         builder1.setCancelable(true)
                 .setView(leaveChannelView);
@@ -153,14 +164,14 @@ public class ChannelInfoFragment extends Fragment {
         media_recyclerView.setAdapter(mediaAdapter);
     }
 
-    public void initParticipant(){
+    public void initParticipant(List<OrganizationMember> members){
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         participants_recyclerView.setLayoutManager(layoutManager);
         participants_recyclerView.setHasFixedSize(true);
         participantAdapter = new ParticipantAdapter();
-        participantList = new ArrayList<>();
-        setParticipantListData();
-        participantAdapter.setParticipants(participantList);
+//        participantList = new ArrayList<>();
+//        setParticipantListData();
+        participantAdapter.setParticipants(getParticipantList(members));
         participants_recyclerView.setAdapter(participantAdapter);
     }
 
@@ -173,13 +184,20 @@ public class ChannelInfoFragment extends Fragment {
     }
 
     public void setParticipantListData(){
-        participantList.add(new Participant("Cephas", "I am a Person of the word, speaking life", R.drawable.img_user_profile));
-        participantList.add(new Participant("Hamid", "I am a Person of the word, speaking life", R.drawable.img_user_profile));
-        participantList.add(new Participant("Afhamou", "I am a Person of the word, speaking life", R.drawable.img_user_profile));
-        participantList.add(new Participant("Joseph", "I am a Person of the word, speaking life", R.drawable.img_user_profile));
-        participantList.add(new Participant("Kagiri", "I am a Person of the word, speaking life", R.drawable.img_user_profile));
+//        participantList.add(new Participant("Cephas", "I am a Person of the word, speaking life", R.drawable.img_user_profile));
+//        participantList.add(new Participant("Hamid", "I am a Person of the word, speaking life", R.drawable.img_user_profile));
+//        participantList.add(new Participant("Afhamou", "I am a Person of the word, speaking life", R.drawable.img_user_profile));
+//        participantList.add(new Participant("Joseph", "I am a Person of the word, speaking life", R.drawable.img_user_profile));
+//        participantList.add(new Participant("Kagiri", "I am a Person of the word, speaking life", R.drawable.img_user_profile));
     }
 
+    private List<Participant> getParticipantList(List<OrganizationMember> memberList){
+        List<Participant> participants = new ArrayList<>();
+        for (OrganizationMember member:memberList) {
+            participants.add(new Participant(member.getEmail(),"",R.drawable.img_user_profile));
+        }
+        return participants;
+    }
     @Override
     public void onResume() {
         super.onResume();
