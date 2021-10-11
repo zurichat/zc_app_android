@@ -283,12 +283,7 @@
         <action
             android:id="@+id/action_addByEmailFragment_to_seeYourChannelFragment"
             app:destination="@id/seeYourChannelFragment" />
-        <argument
-            android:name="organizationName"
-            app:argType="string" />
-        <argument
-            android:name="organizationId"
-            app:argType="string" />
+
     </fragment>
 
     <fragment

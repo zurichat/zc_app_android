@@ -38,10 +38,13 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
         binding.toolbarAddTo.setNavigationOnClickListener { requireActivity().onBackPressed() }
         binding.apply {
             addByEmailButton.setOnClickListener(fun(_: View){
+                findNavController().navigate(R.id.action_nextFragment_to_addByEmailFragment)
                 val bundle = bundleOf("org_name" to organizationName)
                 val bundle2 = bundleOf("orgId" to organizationId)
-                val action  = NextFragmentDirections.actionNextFragmentToAddByEmailFragment(bundle.getString("org_name").toString(),bundle2.getString("orgId").toString())
-                findNavController().navigate(action)
+
+                val addByEmailFragment = AddByEmailFragment()
+                addByEmailFragment.arguments?.putBundle("org_name", bundle)
+                addByEmailFragment.arguments?.putBundle("orgId", bundle2)
             })
             addFromContactsButton
             addToOrganizationAppbar

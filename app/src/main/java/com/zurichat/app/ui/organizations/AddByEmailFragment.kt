@@ -17,20 +17,15 @@ import dagger.hilt.android.AndroidEntryPoint
 class AddByEmailFragment : Fragment(R.layout.fragment_add_by_email) {
 
     private val binding by viewBinding(FragmentAddByEmailBinding::bind)
-    private val addByEmailFragmentArgs: AddByEmailFragmentArgs by navArgs()
-    private lateinit var organizationName: String
-    private lateinit var organizationId: String
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        organizationName = addByEmailFragmentArgs.organizationName
-        organizationId = addByEmailFragmentArgs.organizationId
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonSendRecipientEmail.setOnClickListener(fun(_: View) {
+            val bundle = arguments
+            val organizationName = bundle!!.getString("org_name")
+            val organizationId = bundle.getString("orgId")
             val recipient = binding.recipientEmailEdit.text.toString()
             when {
                 recipient.isEmpty() -> {
