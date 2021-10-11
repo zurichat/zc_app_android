@@ -157,6 +157,9 @@ class HomeScreenFragment : Fragment() {
                     val bundle = bundleOf("email" to user?.email)
                     findNavController().navigate(R.id.switchOrganizationFragment, bundle)
                 }
+                R.id.create_organisation -> {
+                    findNavController().navigate(R.id.action_homeScreenFragment_to_createOrganizationsFragment)
+                }
                 R.id.invite_link -> {
                     findNavController().navigate(R.id.action_homeScreenFragment_to_shareLinkFragment)
                 }
