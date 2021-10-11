@@ -98,7 +98,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
 
         activity?.onBackPressedDispatcher?.addCallback(requireActivity(), object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                activity?.onBackPressed()
+                findNavController().navigateUp()
             }
         })
         return binding.root

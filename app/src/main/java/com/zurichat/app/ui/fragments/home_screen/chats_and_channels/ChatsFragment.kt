@@ -3,6 +3,7 @@ package com.zurichat.app.ui.fragments.home_screen.chats_and_channels
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -129,6 +130,11 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         userID = "61467ee61a5607b13c00bcf2"
         //setupObservers()
         //setupUI()
+        activity?.onBackPressedDispatcher?.addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigateUp()
+            }
+        })
     }
 
     //setup recyclerView
