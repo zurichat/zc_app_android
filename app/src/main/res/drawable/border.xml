@@ -11,8 +11,8 @@
     </gradient>
 
     <stroke
-        android:width="2dp"
-        android:color="#D8DFE4">
+        android:width="0.9dp"
+        android:color="@color/grey">
 
     </stroke>
 

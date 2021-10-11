@@ -35,8 +35,12 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.userEmail.text = getUserEmailAddress()
         viewModel.setToken(getToken())
         viewModel.getUserOrganizations(emailAddress = getUserEmailAddress()!!)
+        binding.toolbar4.setNavigationOnClickListener {
+            findNavController().navigateUp()
+        }
         observerData()
     }
 
@@ -60,6 +64,7 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
                     is UserOrganizationViewState.Success -> {
                         val userOrganizations = it.userOrganizationResponseModel
                         progressLoader.hide()
+                        binding.toolbar4.subtitle = "${it.userOrganizationResponseModel?.data?.size} Workspace(s)"
                         snackBar(getString(it.message))
                         setUpViews(userOrganizations!!.data)
                     }
