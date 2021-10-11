@@ -284,12 +284,7 @@
             app:destination="@id/seeYourChannelFragment"
             app:popUpTo="@id/main_nav"
             app:popUpToInclusive="true" />
-        <argument
-            android:name="organizationName"
-            app:argType="string" />
-        <argument
-            android:name="organizationId"
-            app:argType="string" />
+
     </fragment>
     <fragment
         android:id="@+id/seeYourChannelFragment"
