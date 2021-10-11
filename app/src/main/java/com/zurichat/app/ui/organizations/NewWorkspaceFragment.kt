@@ -83,6 +83,7 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
 
     }
 
+    // function to handle error if creation og organization is not successfull
     private fun handleError(throwable: Throwable) {
         Toast.makeText(context, "An error occurred, please try again", Toast.LENGTH_LONG)
             .show()
@@ -91,6 +92,7 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
         progressDialog.dismiss()
     }
 
+    // function to handle next step if creation og organization is successfull
     private fun handleSuccess(organizationName : String, organizationId : String) {
         // navigates to the next fragment on success with organization name and Id
         Cache.map.putIfAbsent("orgId", organizationId)
@@ -102,11 +104,13 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
         progressDialog.dismiss()
     }
 
+    // function to handle creation of organization at the loading state
     private fun handleLoadingState() {
        progressDialog.show()
        binding.editTextCompany.showSnackBar("Please Wait...")
     }
 
+    // function to get info
     private fun validateOrganizationDetails(edtText: EditText): Boolean {
         if (edtText.length() == 0) {
             edtText.error = "Fill in this item"

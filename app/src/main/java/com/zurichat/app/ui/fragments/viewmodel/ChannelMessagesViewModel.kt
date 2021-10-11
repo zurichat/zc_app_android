@@ -6,10 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zurichat.app.data.remoteSource.OrganizationService
 import com.zurichat.app.ui.fragments.model.*
-import com.zurichat.app.ui.fragments.model.AllChannelMessages
-import com.zurichat.app.ui.fragments.model.Data
-import com.zurichat.app.ui.fragments.model.Message
-import com.zurichat.app.ui.fragments.model.RoomData
 import com.zurichat.app.ui.fragments.networking.JoinNewChannel
 import com.zurichat.app.ui.fragments.networking.RetrofitClientInstance
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,10 +17,8 @@ class ChannelMessagesViewModel @Inject constructor(val organizationService: Orga
     private var _allMessages = MutableLiveData<AllChannelMessages>()
     val allMessages : LiveData<AllChannelMessages> get() = _allMessages
 
-
     private var _channelData = MutableLiveData<ChannelData>()
     val channelData: LiveData<ChannelData> get() = _channelData
-
 
     private var _roomData = MutableLiveData<RoomData>()
     val roomData : LiveData<RoomData> get() = _roomData
@@ -71,16 +65,11 @@ class ChannelMessagesViewModel @Inject constructor(val organizationService: Orga
                 //_newMessage.value = data
                // val message = Message(data.user_id.toString(),data.content.toString(),data.files,data.event)
                // val joinedUser = RetrofitClientInstance.retrofitInstance?.create(JoinNewChannel::class.java)?.sendMessage(organizationId,channelId,message)
-                val message = Message(data.user_id.toString(),
-                    data.content.toString(),
-                    data.files,
-                    data.event)
+                val message = Message(data.user_id.toString(), data.content.toString(), data.files, data.event)
                 _allMessages.value!!.data = dataList
-                val joinedUser =
-                    RetrofitClientInstance.retrofitInstance?.create(JoinNewChannel::class.java)
-                        ?.sendMessage(organizationId, channelId, message)
+                val joinedUser = RetrofitClientInstance.retrofitInstance?.create(JoinNewChannel::class.java)?.sendMessage(organizationId, channelId, message)
                 joinedUser?.let {
-                    //_newMessage.value = data
+                    _newMessage.value = data
 
                     //Replaces The Message Item with Message Item with Permanent ID gotten from server After Sending THe Message
                     mutableDataList[position] = it
@@ -90,12 +79,6 @@ class ChannelMessagesViewModel @Inject constructor(val organizationService: Orga
             }catch (e : Exception){
                 e.printStackTrace()
             }
-        }
-    }
-
-    fun sendMessages(data : Data){
-        viewModelScope.launch {
-
         }
     }
 

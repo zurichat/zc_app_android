@@ -17,9 +17,10 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentHomeScreenBinding
+import com.zurichat.app.models.LogoutBody
 import com.zurichat.app.models.User
 import com.zurichat.app.ui.activities.MainActivity
-import com.zurichat.app.ui.fragments.UserViewModel
+import com.zurichat.app.ui.fragments.switch_account.UserViewModel
 import com.zurichat.app.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
 
 import com.zurichat.app.util.jsearch_view_utils.JSearchView
@@ -146,6 +147,7 @@ class HomeScreenFragment : Fragment() {
                 R.id.new_channel -> {
                     try {
                         findNavController().navigate(HomeScreenFragmentDirections.actionHomeScreenFragmentToNewChannelNavGraph())
+
                     } catch (exc: Exception) {
                         exc.printStackTrace()
                     }
@@ -197,7 +199,8 @@ class HomeScreenFragment : Fragment() {
 
 
     private fun logout() {
-        userViewModel.logout()
+        val logoutBody = LogoutBody(email = user.email)
+        userViewModel.logout(logoutBody)
         userViewModel.clearUserAuthState()
     }
     private fun updateUser(){

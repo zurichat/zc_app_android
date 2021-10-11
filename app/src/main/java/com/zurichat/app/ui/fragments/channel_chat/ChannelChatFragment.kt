@@ -43,9 +43,7 @@ import com.zurichat.app.ui.notification.NotificationUtils
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ronnie.github.imagepicker.ImagePicker
 import dev.ronnie.github.imagepicker.ImageResult
-import io.github.centrifugal.centrifuge.Client
-import io.github.centrifugal.centrifuge.PublishEvent
-import io.github.centrifugal.centrifuge.Subscription
+import io.github.centrifugal.centrifuge.*
 import kotlinx.coroutines.*
 import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
@@ -67,7 +65,8 @@ class ChannelChatFragment : Fragment() {
     private lateinit var database: AppDatabase
     private lateinit var roomDao: RoomDao
     private lateinit var channelMessagesDao: ChannelMessagesDao
-    private val members = ArrayList<OrganizationMember>()
+    private var members: List<OrganizationMember> = ArrayList()
+    private var messagesArrayList: ArrayList<Data> = ArrayList()
 
     private var channelJoined = false
 
@@ -82,24 +81,14 @@ class ChannelChatFragment : Fragment() {
     @Inject
     lateinit var preference : SharedPreferences
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelChatBinding.inflate(inflater, container, false)
-        sharedViewModel =
-            ViewModelProvider(requireActivity()).get(SharedChannelViewModel::class.java)
+        sharedViewModel = ViewModelProvider(requireActivity()).get(SharedChannelViewModel::class.java)
 
-        database = Room.databaseBuilder(
-            requireActivity().applicationContext,
-            AppDatabase::class.java,
-            "zuri_chat"
-        ).build()
+        database = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "zuri_chat").build()
         roomDao = database.roomDao()
         channelMessagesDao = database.channelMessagesDao()
-        isEnterSend = PreferenceManager.getDefaultSharedPreferences(requireContext())
-            .getBoolean("enter_to_send", false)
+        isEnterSend = PreferenceManager.getDefaultSharedPreferences(requireContext()).getBoolean("enter_to_send", false)
 
         job = Job()
         uiScope = CoroutineScope(Dispatchers.Main + job)
@@ -109,7 +98,12 @@ class ChannelChatFragment : Fragment() {
             user = bundle.getParcelable("USER")!!
             channel = bundle.getParcelable("Channel")!!
             channelJoined = bundle.getBoolean("Channel Joined")
-//            organizationID = "614679ee1a5607b13c00bcb7"
+            bundle.get("members").let {
+                if(it!=null){
+                    members = it as List<OrganizationMember>
+                }
+            }
+
             organizationID = preference.getString("ORG_ID", "614679ee1a5607b13c00bcb7") ?: ""
             uiScope.launch(Dispatchers.IO) {
                 roomDao.getRoomDataWithChannelID(channel._id).let {
@@ -196,11 +190,7 @@ class ChannelChatFragment : Fragment() {
                 if (joinedUser != null) {
                     dimmerBox.visibility = View.GONE
                     toolbar.subtitle = channel.members.plus(1).toString().plus(" Members")
-                    Toast.makeText(
-                        requireContext(),
-                        "Joined Channel Successfully",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    Toast.makeText(requireContext(), "Joined Channel Successfully", Toast.LENGTH_SHORT).show()
                     binding.channelJoinBar.visibility = View.GONE
                 } else {
                     binding.joinChannel.visibility = View.VISIBLE
@@ -244,7 +234,7 @@ class ChannelChatFragment : Fragment() {
 
         setupKeyboard()
 
-        channelListAdapter = BaseListAdapter { channelItem ->
+        channelListAdapter = BaseListAdapter {
 
         }
 
@@ -322,29 +312,24 @@ class ChannelChatFragment : Fragment() {
         })
 
         channelMsgViewModel.newMessage.observe(viewLifecycleOwner, {
-            if (messagesArrayList.contains(it)) {
+            /*if (messagesArrayList.contains(it)) {
                 val pos = messagesArrayList.indexOf(it)
                 messagesArrayList[pos] = it
-                val updatedList = channelMsgViewModel.getProfilePictures(
-                    organizationID,
-                    messagesArrayList
-                )
+                val updatedList = channelMsgViewModel.getProfilePictures(organizationID, messagesArrayList)
                 val channelsWithDateHeaders = createMessagesList(updatedList)
                 channelListAdapter.submitList(channelsWithDateHeaders)
             } else {
-                messagesArrayList.add(it)
-                val updatedList = channelMsgViewModel.getProfilePictures(
-                    organizationID,
-                    messagesArrayList
-                )
-                val channelsWithDateHeaders = createMessagesList(updatedList)
-                channelListAdapter.submitList(channelsWithDateHeaders)
-                if (scrollDown) {
-                    lifecycleScope.launch {
-                        delay(100)
-                        //binding.recyclerMessagesList.scrollToPosition(channelsWithDateHeaders.size-1)
-                        binding.recyclerMessagesList.smoothScrollToPosition(channelsWithDateHeaders.size - 1)
-                    }
+
+            }*/
+            messagesArrayList.add(it)
+            val updatedList = channelMsgViewModel.getProfilePictures(organizationID, messagesArrayList)
+            val channelsWithDateHeaders = createMessagesList(updatedList)
+            channelListAdapter.submitList(channelsWithDateHeaders)
+            if (scrollDown) {
+                lifecycleScope.launch {
+                    delay(100)
+                    //binding.recyclerMessagesList.scrollToPosition(channelsWithDateHeaders.size-1)
+                    binding.recyclerMessagesList.smoothScrollToPosition(channelsWithDateHeaders.size - 1)
                 }
             }
             channelChatEdit.setText("")
@@ -425,6 +410,7 @@ class ChannelChatFragment : Fragment() {
             }
             true
         }
+
     }
 
     val scrollDown = true
@@ -451,6 +437,18 @@ class ChannelChatFragment : Fragment() {
                         }catch (e : Exception){
                             e.printStackTrace()
                         }
+                    }
+
+                    override fun onConnectError(client: Client?, event: ErrorEvent?) {
+
+                    }
+
+                    override fun onChannelSubscribed(isSubscribed: Boolean, subscription: Subscription?) {
+
+                    }
+
+                    override fun onChannelSubscriptionError(subscription: Subscription?, event: SubscribeErrorEvent?) {
+
                     }
 
                     override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
@@ -499,11 +497,6 @@ class ChannelChatFragment : Fragment() {
         }
     }
 
-    override fun onDestroy() {
-        //connectHandler.disconnect(client)
-        super.onDestroy()
-    }
-
     private fun setupKeyboard() {
         // set keyboard to send if "enter is send" is set to true in settings
         binding.channelChatEditText.apply {
@@ -528,7 +521,6 @@ class ChannelChatFragment : Fragment() {
         return Random(6000000).nextInt()
     }
 
-    private var messagesArrayList: ArrayList<Data> = ArrayList()
     private fun createMessagesList(channels: List<Data>): MutableList<BaseItem<*>> {
         // Wrap data in list items
         val channelsItems = channels.map {

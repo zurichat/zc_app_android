@@ -4,6 +4,7 @@ import com.zurichat.app.data.functional.Failure
 import com.zurichat.app.data.functional.Result
 import com.zurichat.app.data.remoteSource.OrganizationService
 import com.zurichat.app.util.handleErrorMessage
+import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 class UserOrganizationRemoteImpl @Inject constructor(
@@ -25,9 +26,9 @@ class UserOrganizationRemoteImpl @Inject constructor(
                 }
             }
         } catch (exc: Exception) {
-            println(exc)
-            Result.Failed("Try Again")
+            Result.Failed("Unable to retrieve user organisation")
         }
+
     }
 }
 

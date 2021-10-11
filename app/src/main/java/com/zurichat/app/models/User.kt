@@ -11,7 +11,6 @@ data class User(
     val created_at: String,
     val display_name: String,
     val email: String,
-    val password: String,
     val first_name: String,
     @PrimaryKey
     val id: String,

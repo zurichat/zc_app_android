@@ -1,10 +1,13 @@
 package com.zurichat.app.data.repository
 
 import android.content.SharedPreferences
-import android.util.Log
 import com.zurichat.app.data.localSource.dao.UserDao
 import com.zurichat.app.data.remoteSource.UsersService
 import com.zurichat.app.models.*
+import com.zurichat.app.ui.login.password.confirm.ConfirmPasswordData
+import com.zurichat.app.ui.login.password.confirm.ConfirmResponse
+import com.zurichat.app.ui.login.password.resetuserpass.ResetUserPasswordData
+import com.zurichat.app.ui.login.password.resetuserpass.ResetUserPasswordResponse
 import com.zurichat.app.util.AUTH_PREF_KEY
 import com.zurichat.app.util.USER_EMAIL
 import com.zurichat.app.util.USER_ID
@@ -34,8 +37,20 @@ class UserRepository @Inject constructor(
         return preferences.getBoolean(AUTH_PREF_KEY, false)
     }
 
-    suspend fun logout(): Response<LogoutResponse> {
-        return usersService.logout()
+    suspend fun logout(logoutBody: LogoutBody): Response<LogoutResponse> {
+        return usersService.logout(logoutBody)
+    }
+
+    suspend fun confirmPass( confirmPassBody: ConfirmPassBody):ConfirmPassResponse{
+        return usersService.confirmPass(confirmPassBody)
+    }
+
+    suspend fun verifyResetCode(resetCodeBody: ResetCodeBody):Response<ResetCodeResponse>{
+        return usersService.verifyResetOtp(resetCodeBody)
+    }
+
+    suspend fun updatePassword(updatePassBody: UpdatePassBody, verificationCode:String):Response<LogoutResponse>{
+        return usersService.updatePass(updatePassBody = updatePassBody,verCode = verificationCode)
     }
 
     fun clearUserAuthState() {
@@ -58,4 +73,12 @@ class UserRepository @Inject constructor(
     fun getUserToken() = preferences.getString(USER_TOKEN, "")!!
 
     suspend fun getUser() = dao.getUser(getUserId())
+
+    suspend fun confirmPassword(confirmPasswordData: ConfirmPasswordData): ConfirmResponse {
+        return usersService.confirmpassword(confirmPasswordData)
+    }
+
+    suspend fun resetUserPassword( resetUserPasswordData: ResetUserPasswordData): ResetUserPasswordResponse{
+        return usersService.resetUserPassword(resetUserPasswordData)
+    }
 }

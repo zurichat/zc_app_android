@@ -35,6 +35,7 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
         generateMaterialDialog(requireActivity(),"Successful","You have successfully created" +
                 " $organizationName","Dismiss",null)
 
+        // Set function to each item on the toolbar when they are been clicked
         binding.toolbarAddTo.setNavigationOnClickListener { requireActivity().onBackPressed() }
         binding.apply {
             addByEmailButton.setOnClickListener(fun(_: View){
@@ -61,6 +62,7 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
                     }
         }
 
+        // navigate from next fragment to seeYourChannelFragment  passing in the organization name
         binding.nextTextView.setOnClickListener {
             val bundle = bundleOf("org_name" to organizationName)
            Navigation.findNavController(it).navigate(R.id.action_nextFragment_to_seeYourChannelFragment, bundle)
