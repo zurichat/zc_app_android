@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.zurichat.app.R
@@ -93,7 +94,9 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
     private fun handleSuccess(organizationName : String, organizationId : String) {
         // navigates to the next fragment on success with organization name and Id
         Cache.map.putIfAbsent("orgId", organizationId)
-        val action = NewWorkspaceFragmentDirections.actionNewWorkspaceFragmentToNextFragment(organizationName,organizationId)
+        val bundle = bundleOf("org_name" to organizationName)
+        val bundle2 = bundleOf("orgId" to organizationId)
+        val action = NewWorkspaceFragmentDirections.actionNewWorkspaceFragmentToNextFragment(bundle.getString("org_name").toString(),bundle2.getString("orgId").toString())
         findNavController().navigate(action)
 
         progressDialog.dismiss()

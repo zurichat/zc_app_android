@@ -45,11 +45,11 @@ class AddByEmailFragment : Fragment(R.layout.fragment_add_by_email) {
                         putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
                         putExtra(
                             Intent.EXTRA_TEXT,
-                            "https://api.zuri.chat/organizations/${organizationId}"
+                            "We look forward to your response 😊. Use this link below to join  👇\nhttps://api.zuri.chat/organizations/${organizationId}"
                         )
                         putExtra(
                             Intent.EXTRA_SUBJECT,
-                            "You are invited to join this $organizationName"
+                            "You are invited to join $organizationName on Zuri Chat"
                         )
                         data = Uri.parse("mailto:")
                     }
