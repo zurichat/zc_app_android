@@ -1,9 +1,7 @@
 package com.zurichat.app.ui.organizations.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
@@ -34,8 +32,6 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-private const val TOKEN = "TOKEN"
-
 @AndroidEntryPoint
 class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizations) {
     @Inject
@@ -54,7 +50,6 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
     private var callback: OnBackPressedCallback? = null
 
     private var firstTime = false
-    private var firstTime = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
