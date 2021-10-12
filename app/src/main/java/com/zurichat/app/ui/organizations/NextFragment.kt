@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavDirections
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -38,7 +39,8 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
         binding.toolbarAddTo.setNavigationOnClickListener { requireActivity().onBackPressed() }
         binding.apply {
             addByEmailButton.setOnClickListener(fun(_: View){
-                val action  = NextFragmentDirections.actionNextFragmentToAddByEmailFragment()
+                val action  =
+                    actionNextFragmentToAddByEmailFragment(organizationName, organizationId)
                 //action.organizationName = organizationName
                 //action.organizationId = organizationId
                 findNavController().navigate(action)
@@ -66,4 +68,10 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
     }
 
 
+}
+
+private fun actionNextFragmentToAddByEmailFragment(organizationName: String, organizationId: String): NavDirections {
+    //action.organizationName = organizationName
+    //action.organizationId = organizationId
+    return NextFragmentDirections.actionNextFragmentToAddByEmailFragment(organizationName, organizationId)
 }
