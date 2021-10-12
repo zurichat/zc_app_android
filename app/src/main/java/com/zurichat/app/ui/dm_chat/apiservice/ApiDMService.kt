@@ -1,5 +1,6 @@
 package com.zurichat.app.ui.dm_chat.apiservice
 
+import com.zurichat.app.models.organization_model.UserOrganizationModel
 import com.zurichat.app.ui.dm_chat.model.request.SendMessageBody
 import com.zurichat.app.ui.dm_chat.model.response.member.MemberResponse
 import com.zurichat.app.ui.dm_chat.model.response.message.GetMessageResponse
@@ -36,8 +37,12 @@ interface ApiDMService {
 
     @GET("organizations/614679ee1a5607b13c00bcb7/members{mem_id}")
     suspend fun getMember(
-        @Path("mem_id") memId: String,
+        @Path("mem_id") memId: String
     ): Response<MemberResponse>
 
+    @GET("users/{email}/organizations")
+    suspend fun getMemberIds(
+        @Path("email") email: String
+    ): Response<UserOrganizationModel>
 
 }

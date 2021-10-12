@@ -13,6 +13,7 @@ import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentChatsBinding
 import com.zurichat.app.models.Message
 import com.zurichat.app.models.User
+import com.zurichat.app.models.organization_model.UserOrganizationModel
 import com.zurichat.app.ui.dm_chat.adapter.RoomAdapter
 import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponse
 import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponseItem
@@ -25,7 +26,9 @@ import com.zurichat.app.ui.fragments.home_screen.HomeScreenFragmentDirections
 import com.zurichat.app.ui.fragments.home_screen.HomeScreenViewModel
 import com.zurichat.app.ui.fragments.home_screen.adapters.ChatsAdapter
 import com.zurichat.app.ui.notification.NotificationUtils
+import com.zurichat.app.ui.organizations.utils.ZuriSharePreference
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.Interceptor
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -47,10 +50,12 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
     private lateinit var roomList: RoomsListResponse
     private lateinit var roomsArrayList: ArrayList<RoomsListResponseItem>
 
-    private lateinit var roomUserId: List<String>
-    private lateinit var memId: String
     private lateinit var userName: String
 
+    private lateinit var memberList: UserOrganizationModel
+    private lateinit var email: String
+    private lateinit var orgId: String
+    private lateinit var memId: String
 
     private val roomAdapter by lazy { RoomAdapter(requireActivity(), roomsArrayList) }
 
@@ -77,36 +82,23 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
 
         setupRecyclerView()
 
+        //setup viewModel and Retrofit
         val repository = Repository()
         val viewModelFactory = RoomViewModelFactory(repository)
         viewModelRoom = ViewModelProvider(this, viewModelFactory).get(RoomViewModel::class.java)
-        //call retrofit service function
-        viewModelRoom.getRooms()
 
-        viewModelRoom.myResponse.observe(viewLifecycleOwner) { response ->
-            if (response.isSuccessful) {
+        //call retrofit service function to get list of org for a logged in user
+        email = user.email
+        viewModelRoom.getMemberIds(email)
+        viewModelRoom.myMemberIdsResponse.observe(viewLifecycleOwner) { response ->
+            if (response.isSuccessful){
+                memberList = response.body()!!
+                orgId = memberList.data[2].id
+                memId = memberList.data[2].member_id
 
-                roomList = response.body()!!
-
-                Log.i("RoomList response", "$roomList")
-
-                // ModelPreferencesManager.put(roomList, "rooms")
-                ModelPreferencesManager.put(roomList, "rooms")
-
-
-                //room = roomList[0]
-                //  roomsArrayList.addAll(roomList)
-                //roomAdapter.setData(roomList)
-
-                for (room in roomList) {
-                    roomsArrayList.add(room)
-                }
-                addHeaders()
-
-                Log.i("Rooms List", "$roomsArrayList")
+                Log.i("List of Organizations", "$memberList")
 
             } else {
-
                 when (response.code()) {
                     400 -> {
                         Log.e("Error 400", "invalid authorization")
@@ -121,12 +113,37 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
                         Log.e("Error", "Generic Error")
                     }
                 }
-
             }
         }
-
-
-        userID = "61467ee61a5607b13c00bcf2"
+        //call retrofit service function to get rooms
+        viewModelRoom.getRooms()
+        viewModelRoom.myResponse.observe(viewLifecycleOwner) { response ->
+            if (response.isSuccessful) {
+                roomList = response.body()!!
+                // ModelPreferencesManager.put(roomList, "rooms")
+                ModelPreferencesManager.put(roomList, "rooms")
+                for (room in roomList) {
+                    roomsArrayList.add(room)
+                }
+                selectChatItem()
+            } else {
+                when (response.code()) {
+                    400 -> {
+                        Log.e("Error 400", "invalid authorization")
+                    }
+                    404 -> {
+                        Log.e("Error 404", "Not Found")
+                    }
+                    401 -> {
+                        Log.e("Error 401", "No authorization or session expired")
+                    }
+                    else -> {
+                        Log.e("Error", "Generic Error")
+                    }
+                }
+            }
+        }
+        createNewRoom()
         //setupObservers()
         //setupUI()
     }
@@ -138,7 +155,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         recyclerView.adapter = adapt
     }
 
-    fun addHeaders() {
+    private fun selectChatItem() {
         adapt = RoomAdapter(requireActivity(), roomsArrayList)
         recyclerView.adapter = adapt
         adapt.setItemClickListener {
@@ -151,6 +168,17 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
             bundle1.putInt("position", position)
             findNavController().navigate(R.id.dmFragment, bundle1)
         }
+    }
+
+    private fun createNewRoom() {
+        val createRoomFab = binding.fabAddChat
+        createRoomFab.setOnClickListener {
+            findNavController().navigate(R.id.action_homeScreenFragment_to_createRoomFragment)
+        }
+    }
+
+    fun getToken(): String {
+        return ZuriSharePreference(requireContext()).getString("TOKEN")
     }
 
     override fun onResume() {

@@ -1,5 +1,6 @@
 package com.zurichat.app.ui.dm_chat.repository
 
+import com.zurichat.app.models.organization_model.UserOrganizationModel
 import com.zurichat.app.ui.dm_chat.apiservice.RetrofitInstance
 import com.zurichat.app.ui.dm_chat.model.request.SendMessageBody
 import com.zurichat.app.ui.dm_chat.model.response.member.MemberResponse
@@ -10,7 +11,7 @@ import retrofit2.Response
 
 class Repository {
     suspend fun getRooms(): Response<RoomsListResponse> {
-        return RetrofitInstance.retrofitService.getRooms("61467ee61a5607b13c00bcf2")
+        return RetrofitInstance.retrofitService.getRooms("614f088ee35bb73a77bc2b70")
     }
 
     suspend fun getMember(memId: String): Response<MemberResponse> {
@@ -23,6 +24,10 @@ class Repository {
 
     suspend fun sendMessages(roomId: String, messageBody: SendMessageBody): Response<SendMessageResponse> {
         return RetrofitInstance.retrofitService.sendMessages(roomId, messageBody)
+    }
+
+    suspend fun getMemberIds(email: String): Response<UserOrganizationModel> {
+        return RetrofitInstance.retrofitService2.getMemberIds(email)
     }
 
 }

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zurichat.app.models.organization_model.UserOrganizationModel
 import com.zurichat.app.ui.dm_chat.model.request.SendMessageBody
 import com.zurichat.app.ui.dm_chat.model.response.member.MemberResponse
 import com.zurichat.app.ui.dm_chat.model.response.message.GetMessageResponse
@@ -21,6 +22,7 @@ class RoomViewModel(private val repository: Repository) : ViewModel() {
 
     val myGetMessageResponse: MutableLiveData<Response<GetMessageResponse>> = MutableLiveData()
     val mySendMessageResponse: MutableLiveData<Response<SendMessageResponse>> = MutableLiveData()
+    val myMemberIdsResponse: MutableLiveData<Response<UserOrganizationModel>> = MutableLiveData()
 
 
     fun getRooms() {
@@ -50,6 +52,17 @@ class RoomViewModel(private val repository: Repository) : ViewModel() {
             try {
                 val response = repository.sendMessages(roomId, messageBody)
                 mySendMessageResponse.value = response
+            }catch (e : Exception){
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun getMemberIds(email: String) {
+        viewModelScope.launch {
+            try {
+                val response = repository.getMemberIds(email)
+                myMemberIdsResponse.value = response
             }catch (e : Exception){
                 e.printStackTrace()
             }

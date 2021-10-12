@@ -70,7 +70,7 @@ class RoomFragment : Fragment() {
         val typingBar = binding.channelTypingBar
         val toolbar = binding.toolbarDm
 
-        roomId = room._id
+        roomId = room.room_name
         userId = room.room_user_ids.first()
         senderId = room.room_user_ids.last()
 
