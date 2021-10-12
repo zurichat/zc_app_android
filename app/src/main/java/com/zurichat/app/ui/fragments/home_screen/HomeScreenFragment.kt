@@ -23,13 +23,19 @@ import com.zurichat.app.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapt
 import com.zurichat.app.ui.fragments.switch_account.UserViewModel
 import com.zurichat.app.ui.login.LoginViewModel
 import com.zurichat.app.ui.organizations.utils.ZuriSharePreference
+import com.zurichat.app.util.ProgressLoader
 import com.zurichat.app.util.Result
 import com.zurichat.app.util.jsearch_view_utils.JSearchView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+typealias Callback = () -> Unit
+
 @AndroidEntryPoint
 class HomeScreenFragment : Fragment() {
+
+    @Inject
+    lateinit var progressLoader: ProgressLoader
     lateinit var binding: FragmentHomeScreenBinding
     private lateinit var user: User
     val viewModel: HomeScreenViewModel by viewModels()
@@ -157,12 +163,17 @@ class HomeScreenFragment : Fragment() {
                     val bundle = Bundle()
                     bundle.putParcelable("USER", user)
                     findNavController().navigate(R.id.switchOrganizationFragment, bundle)
+                }R.id.create_organisation -> {
+                    findNavController().navigate(R.id.action_homeScreenFragment_to_createOrganizationsFragment)
                 }
                 R.id.invite_link -> {
                     findNavController().navigate(R.id.action_homeScreenFragment_to_shareLinkFragment)
                 }
                 R.id.logout -> {
-                    logout()
+                    //logout()
+                    val callback: Callback = { logout() }
+                    val logoutDialog = LogOutDialogFragment(callback)
+                    logoutDialog.show(childFragmentManager,"LOG_OUT")
                 }
                 R.id.switch_acc -> {
                  val action = HomeScreenFragmentDirections.actionHomeScreenFragmentToAccountsFragment(user)
@@ -179,16 +190,19 @@ class HomeScreenFragment : Fragment() {
             when (it) {
                 is Result.Success -> {
                     ZuriSharePreference(requireActivity()).setString("Current Organization ID","")
-                    Toast.makeText(context, "You have been successfully logged out", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "You have been successfully logged out", Toast.LENGTH_SHORT).show()
+                    progressLoader.hide()
                     updateUser()
                     findNavController().navigate(R.id.action_homeScreenFragment_to_loginActivity)
                     requireActivity().finish()
                 }
                 is Result.Error -> {
                     Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                    progressLoader.hide()
                 }
                 is Result.Loading -> {
-                    Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
+                    progressLoader.show(getString(R.string.final_logout))
+                    //Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
                 }
             }
         })

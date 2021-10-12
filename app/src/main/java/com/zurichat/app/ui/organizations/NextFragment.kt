@@ -6,6 +6,7 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentAddToOrganizationBinding
@@ -36,17 +37,22 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
         // Set function to each item on the toolbar when they are been clicked
         binding.toolbarAddTo.setNavigationOnClickListener { requireActivity().onBackPressed() }
         binding.apply {
-            addByEmailButton
+            addByEmailButton.setOnClickListener(fun(_: View){
+               // val action  = NextFragmentDirections.actionNextFragmentToAddByEmailFragment(organizationName, organizationId)
+                //action.organizationName = organizationName
+                //action.organizationId = organizationId
+             //   findNavController().navigate(action)
+            })
             addFromContactsButton
             addToOrganizationAppbar
             shareALinkButton.setOnClickListener {
                         val intent = Intent(Intent.ACTION_SEND)
                         intent.putExtra(
                             Intent.EXTRA_TEXT,
-                            "https://api.zuri.chat/organizations/${organizationId}"
+                            "https://zuri.chat"
                         )
                         intent.type = "text/plain"
-
+//"https://api.zuri.chat/organizations/${organizationId}"
                         val shareIntent = Intent.createChooser(intent, null)
                         startActivity(shareIntent)
                     }

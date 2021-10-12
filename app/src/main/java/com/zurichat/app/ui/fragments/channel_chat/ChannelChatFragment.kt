@@ -29,6 +29,7 @@ import com.zurichat.app.models.OrganizationMember
 import com.zurichat.app.models.User
 import com.zurichat.app.ui.add_channel.BaseItem
 import com.zurichat.app.ui.add_channel.BaseListAdapter
+import com.zurichat.app.ui.channel_info.fragments.ChannelInfoFragment
 import com.zurichat.app.ui.fragments.channel_chat.localdatabase.ChannelMessagesDao
 import com.zurichat.app.ui.fragments.channel_chat.localdatabase.RoomDao
 import com.zurichat.app.ui.fragments.channel_chat.localdatabase.RoomDataObject
@@ -48,6 +49,7 @@ import kotlinx.coroutines.*
 import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.Flow
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 import kotlin.random.Random
@@ -212,6 +214,8 @@ class ChannelChatFragment : Fragment() {
         } else {
             toolbar.subtitle = channel.members.toString().plus(" Member")
         }
+        toolbar.setOnClickListener { findNavController().navigate(ChannelChatFragmentDirections.
+        actionChannelChatFragmentToChannelInfoFragment2()) }
 
         channelChatEdit.doOnTextChanged { text, start, before, count ->
             if (text.isNullOrEmpty()) {
@@ -447,8 +451,11 @@ class ChannelChatFragment : Fragment() {
 
                     }
 
-                    override fun onChannelSubscriptionError(subscription: Subscription?, event: SubscribeErrorEvent?) {
-
+                    override fun onChannelSubscriptionError(
+                        subscription: Subscription?,
+                        event: SubscribeErrorEvent?
+                    ) {
+                        TODO("Not yet implemented")
                     }
 
                     override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
