@@ -30,11 +30,9 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ConfirmAccountPasswordFragment : Fragment(){
     private lateinit var binding: FragmentConfirmAccountPasswordBinding
-    private lateinit var user: User
     private val viewModel by viewModels<LoginViewModel>()
     private val userViewModel by viewModels<UserViewModel>()
     private val args by navArgs<ConfirmAccountPasswordFragmentArgs>()
-    private lateinit var oldUser: User
     private lateinit var progressDialog: ProgressDialog
 
     @Inject
@@ -44,7 +42,7 @@ class ConfirmAccountPasswordFragment : Fragment(){
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentConfirmAccountPasswordBinding.inflate(inflater, container, false)
         return binding.root
@@ -74,46 +72,14 @@ class ConfirmAccountPasswordFragment : Fragment(){
         //check if password entered is correct and perform account switching process
         val btn = binding.btnConfirmpass
         btn.setOnClickListener {
-            confirmPass(password.text.toString())
+            dismissKeyBoard(password)
+            handleSignIn()
         }
 
-        setupConfirmPassObservers()
         setupLogoutObservers()
         setupLoginObservers()
     }
 
-
-    //check if password entered is correct and perform account switching process
-    private fun confirmPass(password:String){
-        val confirmPassBody = ConfirmPassBody(
-            email = args.account.email,
-            password = password,
-            confirm_password = password
-        )
-        viewModel.confirmPass(confirmPassBody)
-    }
-
-    private fun setupConfirmPassObservers() {
-        viewModel.confirmPassResponse.observe(viewLifecycleOwner, {result->
-            when (result) {
-                is Result.Success -> { confirmPassSuccess() }
-                is Result.Error -> { confirmPassFailure(result.error) }
-                is Result.Loading -> { handleLoading() }
-            }
-        })
-    }
-
-    private fun confirmPassSuccess(){
-        val password = binding.confirmPassFld
-        dismissKeyBoard(password)
-        Toast.makeText(requireContext(), "Password Correct", Toast.LENGTH_SHORT).show()
-        dialogue()
-    }
-
-    private fun confirmPassFailure(throwable: Throwable){
-        binding.textInputConfirmPassword.error = "Try Again"
-        Timber.e(throwable)
-    }
 
 
     //logout current user
@@ -122,7 +88,6 @@ class ConfirmAccountPasswordFragment : Fragment(){
             email = args.currentUser.email
         )
         viewModel.logout(logoutBody)
-        viewModel.clearUserAuthState()
     }
 
     private fun setupLogoutObservers() {
@@ -130,15 +95,16 @@ class ConfirmAccountPasswordFragment : Fragment(){
         viewModel.logoutResponse.observe(viewLifecycleOwner, {
             when (it) {
                 is Result.Success -> {
-                    Toast.makeText(context, "You have been successfully logged out", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "You have successfully switched accounts", Toast.LENGTH_SHORT).show()
                     updateUser()
-                    handleSignIn()
+                    progressDialog.dismiss()
                 }
                 is Result.Error -> {
                     Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
                 }
                 is Result.Loading -> {
-                    Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
+                    progressDialog.setMessage("Loading")
+                    progressDialog.show()
                 }
             }
         })
@@ -165,37 +131,12 @@ class ConfirmAccountPasswordFragment : Fragment(){
 
 
     private fun handleLoading() {
-        Toast.makeText(context, "Please wait", Toast.LENGTH_LONG).show()
+        progressDialog.setMessage("Loading")
         progressDialog.show()
     }
 
     private fun handleSuccess(response: LoginResponse) {
-
-        // add user auth state to shared preference
-        viewModel.saveUserAuthState(true)
-        val user = response.data.user.copy(currentUser = true )
-
-        // add user object to room database
-        viewModel.saveUser(user)
-        userViewModel.addUser(user)
-
-        //bundle user object to main activity and save data to prefs to persist the login state
-        val bundle = Bundle()
-        bundle.putParcelable("USER", user)
-        val intent = Intent(requireContext(), MainActivity::class.java)
-        Cache.map.putIfAbsent("user", user)
-        intent.putExtras(bundle)
-        sharedPreferences.edit().putString("TOKEN",user.token).apply()
-        Toast.makeText(context, "You have successfully switched Accounts", Toast.LENGTH_LONG).show()
-        ZuriSharePreference(requireContext()).setString("TOKEN", user.token)
-
-        //start homescreen activity
-        startActivity(intent)
-        requireActivity().finish()
-
-        progressDialog.dismiss()
-
-
+        dialogue(response)
     }
 
     private fun handleError(throwable: Throwable) {
@@ -216,7 +157,7 @@ class ConfirmAccountPasswordFragment : Fragment(){
 
 
     //dialogue to confirm account switch
-    private fun dialogue (){
+    private fun dialogue (response: LoginResponse){
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Confirmation ")
             .setMessage("Are you sure you want to switch accounts \n(you would be logged out of current account)")
@@ -224,7 +165,8 @@ class ConfirmAccountPasswordFragment : Fragment(){
                 progressDialog.dismiss()
             }
             .setPositiveButton("Yes"){dialog,which->
-                logout()
+                viewModel.clearUserAuthState()
+                loginProcess(response)
             }
             .show()
     }
@@ -234,6 +176,34 @@ class ConfirmAccountPasswordFragment : Fragment(){
         val keyboardManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         keyboardManager.hideSoftInputFromWindow(view.windowToken,0)
         }
+
+    private fun loginProcess(response: LoginResponse){
+        // add user auth state to shared preference
+        viewModel.saveUserAuthState(true)
+        val user = response.data.user.copy(currentUser = true )
+
+        // add user object to room database
+        viewModel.saveUser(user)
+        userViewModel.addUser(user)
+
+        //bundle user object to main activity and save data to prefs to persist the login state
+        val bundle = Bundle()
+        bundle.putParcelable("USER", user)
+        val intent = Intent(requireContext(), MainActivity::class.java)
+        Cache.map.putIfAbsent("user", user)
+        intent.putExtras(bundle)
+        sharedPreferences.edit().putString("TOKEN",user.token).apply()
+        ZuriSharePreference(requireContext()).setString("TOKEN", user.token)
+
+        //logout previous user
+        logout()
+
+        //start homescreen activity
+        startActivity(intent)
+        requireActivity().finish()
+
+
+    }
 
 
 

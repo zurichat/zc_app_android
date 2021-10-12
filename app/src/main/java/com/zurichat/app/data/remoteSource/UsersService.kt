@@ -53,9 +53,6 @@ interface UsersService {
     @POST("auth/logout")
     suspend fun logout(@Body logoutBody: LogoutBody): Response<LogoutResponse>
 
-    @POST("auth/confirm-password")
-    suspend fun confirmPass( @Body confirmPassBody: ConfirmPassBody):ConfirmPassResponse
-
     @POST("account/verify-reset-password")
     suspend fun verifyResetOtp(@Body resetCodeBody: ResetCodeBody):Response<ResetCodeResponse>
 

@@ -27,9 +27,6 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
     private val _logoutResponse = MutableLiveData<Result<LogoutResponse>>()
     val logoutResponse: LiveData<Result<LogoutResponse>> = _logoutResponse
 
-    private val _confirmPassResponse = MutableLiveData<Result<ConfirmPassResponse>>()
-    val confirmPassResponse: LiveData<Result<ConfirmPassResponse>> = _confirmPassResponse
-
     private val _resetCodeResponse = MutableLiveData<Result<ResetCodeResponse>>()
     val resetCodeResponse: LiveData<Result<ResetCodeResponse>> = _resetCodeResponse
 
@@ -81,14 +78,6 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
         }
     }
 
-    fun confirmPass( confirmPassBody: ConfirmPassBody){
-        _confirmPassResponse.postValue(Result.Loading)
-        viewModelScope.launch(exceptionHandler){
-            val confirmPassResponse = repository.confirmPass(confirmPassBody)
-            _confirmPassResponse.postValue(Result.Success(confirmPassResponse))
-        }
-
-    }
 
     fun verifyResetCode(resetCodeBody: ResetCodeBody){
         _resetCodeResponse.postValue(Result.Loading)
