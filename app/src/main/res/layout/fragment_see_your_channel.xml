@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="ui.organizations.SeeYourChannelFragment">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar4"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primaryColor"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:title="Continue To Zuri Chat"
+        app:subtitleTextColor="@color/white"
+        app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
+        app:titleTextColor="@color/white"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/txt_teamChannelDesc"
@@ -15,10 +30,9 @@
         android:fontFamily="@font/lato"
         android:text="Channels is a place where you and your team can \ncollaborate and do amazing things, start \nconversations with just a click"
         android:textAlignment="center"
-        android:textColor=" #616061"
+        android:textColor="@color/text_color"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.468"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/see_channel_imgView" />
 
@@ -42,9 +56,9 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="24dp"
-        android:backgroundTint="@color/primary_light_color"
+        android:backgroundTint="@color/primaryColor"
         android:fontFamily="@font/lato"
-        android:text="See your channel in Zuri Chat "
+        android:text="Continue To Zuri Chat "
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -56,14 +70,15 @@
         android:id="@+id/txt_teamChannel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/lato"
         android:text="Hurrah! Welcome to your team’s \nfirst channel: #AndroidApp"
         android:textAlignment="center"
-        android:textColor="@color/onboarding_black"
+        android:textColor="@color/text_color"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.452"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar4" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

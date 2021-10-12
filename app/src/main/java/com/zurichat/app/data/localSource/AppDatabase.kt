@@ -18,14 +18,16 @@ import com.zurichat.app.ui.fragments.home_screen.chats_and_channels.localdatabas
 import com.zurichat.app.ui.fragments.home_screen.chats_and_channels.localdatabase.TypeConverter.ChannelListConverter
 import com.zurichat.app.ui.fragments.model.AllChannelMessages
 import com.zurichat.app.ui.organizations.localdatabase.OrgDao
+import com.zurichat.app.ui.organizations.localdatabase.OrgRoomData
+import com.zurichat.app.ui.organizations.localdatabase.TypeConverters.OrgDataTypeConverter
 import com.zurichat.app.ui.organizations.localdatabase.TypeConverters.StringListTypeConverter
 
 @Database(
-    entities = [User::class, OrganizationMemberEntity::class, RoomDataObject::class, AllChannelMessages::class, ChannelListObject::class, AllChannelListObject::class, OrgData::class],
+    entities = [User::class, OrganizationMemberEntity::class, RoomDataObject::class, AllChannelMessages::class, ChannelListObject::class, AllChannelListObject::class, OrgData::class, OrgRoomData::class],
     version = 3,
     exportSchema = false
 )
-@TypeConverters(DataTypeConverter::class, ChannelListConverter::class, StringListTypeConverter::class)
+@TypeConverters(DataTypeConverter::class, ChannelListConverter::class, StringListTypeConverter::class, OrgDataTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao

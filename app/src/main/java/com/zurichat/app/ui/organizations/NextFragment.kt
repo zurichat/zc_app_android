@@ -59,5 +59,4 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
         }
     }
 
-
 }
