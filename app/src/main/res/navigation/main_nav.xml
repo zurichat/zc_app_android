@@ -279,7 +279,9 @@
         tools:layout="@layout/fragment_next">
         <action
             android:id="@+id/action_nextFragment_to_addByEmailFragment"
-            app:destination="@id/addByEmailFragment" />
+            app:destination="@id/addByEmailFragment"
+            app:popUpTo="@id/main_nav"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_nextFragment_to_seeYourChannelFragment"
             app:destination="@id/seeYourChannelFragment"
@@ -287,12 +289,10 @@
             app:popUpToInclusive="true" />
         <argument
             android:name="organizationName"
-            app:argType="string"
-            app:nullable="true"/>
+            app:argType="string" />
         <argument
             android:name="organizationId"
-            app:argType="string"
-            app:nullable="true"/>
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/seeYourChannelFragment"
