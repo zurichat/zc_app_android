@@ -26,6 +26,7 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
 
     private val _logoutResponse = MutableLiveData<Result<LogoutResponse>>()
     val logoutResponse: LiveData<Result<LogoutResponse>> = _logoutResponse
+    lateinit var  logRes :LoginResponse
 
     private val _resetCodeResponse = MutableLiveData<Result<ResetCodeResponse>>()
     val resetCodeResponse: LiveData<Result<ResetCodeResponse>> = _resetCodeResponse
@@ -60,6 +61,7 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
         viewModelScope.launch(exceptionHandler) {
             val loginResponse = repository.login(loginBody)
             _loginResponse.postValue(Result.Success(loginResponse))
+            logRes = loginResponse
         }
     }
 

@@ -88,6 +88,7 @@ class ConfirmAccountPasswordFragment : Fragment(){
             email = args.currentUser.email
         )
         viewModel.logout(logoutBody)
+
     }
 
     private fun setupLogoutObservers() {
@@ -95,9 +96,8 @@ class ConfirmAccountPasswordFragment : Fragment(){
         viewModel.logoutResponse.observe(viewLifecycleOwner, {
             when (it) {
                 is Result.Success -> {
-                    Toast.makeText(context, "You have successfully switched accounts", Toast.LENGTH_SHORT).show()
                     updateUser()
-                    progressDialog.dismiss()
+                    loginProcess(viewModel.logRes)
                 }
                 is Result.Error -> {
                     Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
@@ -136,7 +136,7 @@ class ConfirmAccountPasswordFragment : Fragment(){
     }
 
     private fun handleSuccess(response: LoginResponse) {
-        dialogue(response)
+        dialogue()
     }
 
     private fun handleError(throwable: Throwable) {
@@ -157,7 +157,7 @@ class ConfirmAccountPasswordFragment : Fragment(){
 
 
     //dialogue to confirm account switch
-    private fun dialogue (response: LoginResponse){
+    private fun dialogue (){
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Confirmation ")
             .setMessage("Are you sure you want to switch accounts \n(you would be logged out of current account)")
@@ -166,7 +166,7 @@ class ConfirmAccountPasswordFragment : Fragment(){
             }
             .setPositiveButton("Yes"){dialog,which->
                 viewModel.clearUserAuthState()
-                loginProcess(response)
+                logout()
             }
             .show()
     }
@@ -195,13 +195,11 @@ class ConfirmAccountPasswordFragment : Fragment(){
         sharedPreferences.edit().putString("TOKEN",user.token).apply()
         ZuriSharePreference(requireContext()).setString("TOKEN", user.token)
 
-        //logout previous user
-        logout()
-
         //start homescreen activity
         startActivity(intent)
         requireActivity().finish()
-
+        progressDialog.dismiss()
+        Toast.makeText(context, "You have successfully switched accounts", Toast.LENGTH_SHORT).show()
 
     }
 
