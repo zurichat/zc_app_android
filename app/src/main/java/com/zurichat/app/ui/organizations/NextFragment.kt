@@ -39,8 +39,8 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
         binding.apply {
             addByEmailButton.setOnClickListener(fun(_: View){
                 val action  = NextFragmentDirections.actionNextFragmentToAddByEmailFragment()
-                action.organizationName = organizationName
-                action.organizationId = organizationId
+                //action.organizationName = organizationName
+                //action.organizationId = organizationId
                 findNavController().navigate(action)
             })
             addFromContactsButton
