@@ -1,4 +1,4 @@
-package com.zurichat.app.ui.fragments
+package com.zurichat.app.ui.fragments.switch_account
 
 import android.view.LayoutInflater
 import android.view.View

@@ -102,7 +102,6 @@ public class RegisterUserFragment extends Fragment {
             public void onResponse(Call<RegisterUser> call, Response<RegisterUser> response) {
                 if (response.code() == 400) {
                     Toast.makeText(getContext(), "User Already Exists!", Toast.LENGTH_LONG).show();
-
                 } else {
                     if (response.body().getMessage().matches("user created")) {
                         Toast.makeText(getContext(), "Registration Successful", Toast.LENGTH_LONG).show();

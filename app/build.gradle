@@ -35,6 +35,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         // Flag to enable support for the new language APIs
         coreLibraryDesugaringEnabled = true
@@ -58,10 +59,18 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
     implementation 'androidx.preference:preference-ktx:1.1.1'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13.2'
+
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    androidTestImplementation 'androidx.test:runner:1.3.0'
+    androidTestImplementation 'androidx.test:core:1.3.0'
+    androidTestImplementation 'androidx.test.ext:junit-ktx:1.1.3'
+
+    testImplementation("org.mockito:mockito-core:2.21.0")
+    testImplementation 'org.mockito:mockito-inline:2.23.0'
+    testImplementation 'org.robolectric:robolectric:4.3.1'
 
     // navigation
     def nav_version = "2.3.5"
@@ -170,10 +179,9 @@ dependencies {
     //for recording audio
     implementation 'com.devlomi.record-view:record-view:2.0.1'
 
-    //Centrifugo Libary. DO NOT REMOVE
-    implementation files('libs/centrifuge.aar')
-
     //Google Sign Up
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
+
+    //Centrifugo Libary. DO NOT REMOVE
     implementation 'io.github.centrifugal:centrifuge-java:0.1.0'
 }

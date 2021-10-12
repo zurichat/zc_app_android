@@ -7,9 +7,8 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import android.widget.Toast
-import androidx.core.os.bundleOf
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -17,19 +16,26 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentHomeScreenBinding
+import com.zurichat.app.models.LogoutBody
 import com.zurichat.app.models.User
 import com.zurichat.app.ui.activities.MainActivity
-import com.zurichat.app.ui.fragments.UserViewModel
 import com.zurichat.app.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
-
-import com.zurichat.app.util.jsearch_view_utils.JSearchView
+import com.zurichat.app.ui.fragments.switch_account.UserViewModel
 import com.zurichat.app.ui.login.LoginViewModel
+import com.zurichat.app.ui.organizations.utils.ZuriSharePreference
+import com.zurichat.app.util.ProgressLoader
 import com.zurichat.app.util.Result
+import com.zurichat.app.util.jsearch_view_utils.JSearchView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+typealias Callback = () -> Unit
+
 @AndroidEntryPoint
 class HomeScreenFragment : Fragment() {
+
+    @Inject
+    lateinit var progressLoader: ProgressLoader
     lateinit var binding: FragmentHomeScreenBinding
     private lateinit var user: User
     val viewModel: HomeScreenViewModel by viewModels()
@@ -44,7 +50,6 @@ class HomeScreenFragment : Fragment() {
     private val ORG_NAME = "org_name"
     private val ORG_ID = "org_id"
     private lateinit var sharedPref: SharedPreferences
-
 
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
 
@@ -65,11 +70,7 @@ class HomeScreenFragment : Fragment() {
         })
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
         user = requireActivity().intent.extras?.getParcelable("USER")!!
         sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
@@ -106,6 +107,11 @@ class HomeScreenFragment : Fragment() {
             }
         }
         //organizationID = "614679ee1a5607b13c00bcb7"
+        if (ZuriSharePreference(requireContext()).getString("Current Organization ID","").isBlank()){
+            val bundle = Bundle()
+            bundle.putParcelable("USER", user)
+            findNavController().navigate(R.id.switchOrganizationFragment, bundle)
+        }
         return binding.root
     }
 
@@ -154,14 +160,20 @@ class HomeScreenFragment : Fragment() {
                     findNavController().navigate(R.id.action_homeScreenFragment_to_starredMessagesFragment)
                 }
                 R.id.switch_workspace -> {
-                    val bundle = bundleOf("email" to user?.email)
+                    val bundle = Bundle()
+                    bundle.putParcelable("USER", user)
                     findNavController().navigate(R.id.switchOrganizationFragment, bundle)
+                }R.id.create_organisation -> {
+                    findNavController().navigate(R.id.action_homeScreenFragment_to_createOrganizationsFragment)
                 }
                 R.id.invite_link -> {
                     findNavController().navigate(R.id.action_homeScreenFragment_to_shareLinkFragment)
                 }
                 R.id.logout -> {
-                    logout()
+                    //logout()
+                    val callback: Callback = { logout() }
+                    val logoutDialog = LogOutDialogFragment(callback)
+                    logoutDialog.show(childFragmentManager,"LOG_OUT")
                 }
                 R.id.switch_acc -> {
                  val action = HomeScreenFragmentDirections.actionHomeScreenFragmentToAccountsFragment(user)
@@ -177,16 +189,19 @@ class HomeScreenFragment : Fragment() {
         userViewModel.logoutResponse.observe(viewLifecycleOwner, {
             when (it) {
                 is Result.Success -> {
-                    Toast.makeText(context, "You have been successfully logged out", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "You have been successfully logged out", Toast.LENGTH_SHORT).show()
+                    progressLoader.hide()
                     updateUser()
                     findNavController().navigate(R.id.action_homeScreenFragment_to_loginActivity)
                     requireActivity().finish()
                 }
                 is Result.Error -> {
                     Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                    progressLoader.hide()
                 }
                 is Result.Loading -> {
-                    Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
+                    progressLoader.show(getString(R.string.final_logout))
+                    //Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -194,7 +209,8 @@ class HomeScreenFragment : Fragment() {
 
 
     private fun logout() {
-        userViewModel.logout()
+        val logoutBody = LogoutBody(email = user.email)
+        userViewModel.logout(logoutBody)
         userViewModel.clearUserAuthState()
     }
     private fun updateUser(){

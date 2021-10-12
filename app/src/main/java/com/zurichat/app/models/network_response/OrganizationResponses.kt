@@ -1,7 +1,5 @@
 package com.zurichat.app.models.network_response
 
-import com.zurichat.app.models.OrganizationMember
-
 /*
 * Jeffrey Orazulike [https://github.com/jeffreyorazulike]
 * Created on 10/2/2021 at 10:20 PM 
@@ -41,7 +39,7 @@ data class Organization(
     val status: Int
 )
 
-data class UserOrganizationData (
+data class UserOrganizationData(
     val _id: String,
     val imgs: ArrayList<String>,
     val isOwner: Boolean,
@@ -52,16 +50,10 @@ data class UserOrganizationData (
 )
 
 data class OrganizationMembers(
-    val code: Int, // 200
-    val message: String,
-    val `data`: List<OrganizationMember>
+    val code: Int, // 200 val message: String, val `data`: List<OrganizationMember>
 )
 
-data class UserOrganizationModel(
-    val `data`: List<Data>,
-    val message: String,
-    val status: Int
-){
+data class UserOrganizationModel(val `data`: List<Data>, val message: String, val status: Int) {
     data class Data(
         val id: String,
         val imgs: List<String>,

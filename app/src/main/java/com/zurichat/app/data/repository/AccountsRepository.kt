@@ -19,5 +19,8 @@ class AccountsRepository(private val accountsDao: AccountsDao) {
         return accountsDao.getUser()
     }
 
+    suspend fun deleteUser(user: User){
+        accountsDao.deleteUser(user)
+    }
 
 }

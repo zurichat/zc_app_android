@@ -3,17 +3,18 @@ package com.zurichat.app.ui.organizations
 import android.app.ProgressDialog
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.zurichat.app.R
 import com.zurichat.app.data.localSource.Cache
 import com.zurichat.app.databinding.FragmentNewWorkspaceBinding
-import com.zurichat.app.models.organization_model.OrganizationCreator
 import com.zurichat.app.models.User
+import com.zurichat.app.models.organization_model.OrganizationCreator
 import com.zurichat.app.ui.organizations.viewmodel.OrganizationViewModel
 import com.zurichat.app.util.Result
 import com.zurichat.app.util.createProgressDialog
@@ -46,8 +47,7 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
 
         progressDialog = createProgressDialog(requireContext())
 
-
-        binding.toolbarContainer.root.setNavigationOnClickListener { requireActivity().onBackPressed() }
+        binding.toolbarContainer.root.setNavigationOnClickListener { findNavController().navigateUp() }
 
         binding.newWorkspaceBtn.setOnClickListener {
             val companyValidationResult = validateOrganizationDetails(binding.editTextCompany)
@@ -80,8 +80,14 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
             }
         })
 
+        activity?.onBackPressedDispatcher?.addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigateUp()
+            }
+        })
     }
 
+    // function to handle error if creation og organization is not successfull
     private fun handleError(throwable: Throwable) {
         Toast.makeText(context, "An error occurred, please try again", Toast.LENGTH_LONG)
             .show()
@@ -90,6 +96,7 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
         progressDialog.dismiss()
     }
 
+    // function to handle next step if creation og organization is successfull
     private fun handleSuccess(organizationName : String, organizationId : String) {
         // navigates to the next fragment on success with organization name and Id
         Cache.map.putIfAbsent("orgId", organizationId)
@@ -99,11 +106,13 @@ class NewWorkspaceFragment : Fragment(R.layout.fragment_new_workspace) {
         progressDialog.dismiss()
     }
 
+    // function to handle creation of organization at the loading state
     private fun handleLoadingState() {
        progressDialog.show()
        binding.editTextCompany.showSnackBar("Please Wait...")
     }
 
+    // function to get info
     private fun validateOrganizationDetails(edtText: EditText): Boolean {
         if (edtText.length() == 0) {
             edtText.error = "Fill in this item"

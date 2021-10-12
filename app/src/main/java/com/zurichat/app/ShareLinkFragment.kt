@@ -65,7 +65,7 @@ class ShareLinkFragment : Fragment() {
             clipboard.setPrimaryClip(clip)
             Toast.makeText(context, "link copied", Toast.LENGTH_SHORT).show()
         }
-
+        // Set function to each item on the toolbar when they are been clicked
         binding.toolbarAddToSL.setNavigationOnClickListener { requireActivity().onBackPressed() }
         binding.apply {
             addToOrganizationAppbar

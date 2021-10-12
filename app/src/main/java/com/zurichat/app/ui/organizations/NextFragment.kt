@@ -6,6 +6,7 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentAddToOrganizationBinding
@@ -33,9 +34,15 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
         generateMaterialDialog(requireActivity(),"Successful","You have successfully created" +
                 " $organizationName","Dismiss",null)
 
+        // Set function to each item on the toolbar when they are been clicked
         binding.toolbarAddTo.setNavigationOnClickListener { requireActivity().onBackPressed() }
         binding.apply {
-            addByEmailButton
+            addByEmailButton.setOnClickListener(fun(_: View){
+               // val action  = NextFragmentDirections.actionNextFragmentToAddByEmailFragment(organizationName, organizationId)
+                //action.organizationName = organizationName
+                //action.organizationId = organizationId
+             //   findNavController().navigate(action)
+            })
             addFromContactsButton
             addToOrganizationAppbar
             shareALinkButton.setOnClickListener {
@@ -51,6 +58,7 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
                     }
         }
 
+        // navigate from next fragment to seeYourChannelFragment  passing in the organization name
         binding.nextTextView.setOnClickListener {
             val bundle = bundleOf("org_name" to organizationName)
            Navigation.findNavController(it).navigate(R.id.action_nextFragment_to_seeYourChannelFragment, bundle)
