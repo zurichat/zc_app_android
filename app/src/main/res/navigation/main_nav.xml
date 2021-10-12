@@ -148,7 +148,11 @@
         <fragment
             android:id="@+id/channelChatFragment"
             android:name="com.zurichat.app.ui.fragments.channel_chat.ChannelChatFragment"
-            android:label="ChannelChatFragment" />
+            android:label="ChannelChatFragment" >
+            <action
+                android:id="@+id/action_channelChatFragment_to_channelInfoFragment2"
+                app:destination="@id/channelInfoFragment2" />
+        </fragment>
         <action
             android:id="@+id/action_global_dmFragment"
             app:destination="@id/dmFragment" />
@@ -160,6 +164,11 @@
                 android:name="channel_name"
                 app:argType="string" />
         </action>
+        <fragment
+            android:id="@+id/channelInfoFragment2"
+            android:name="com.zurichat.app.ui.channel_info.fragments.ChannelInfoFragment"
+            android:label="fragment_channel_info"
+            tools:layout="@layout/fragment_channel_info" />
 
     </navigation>
 
