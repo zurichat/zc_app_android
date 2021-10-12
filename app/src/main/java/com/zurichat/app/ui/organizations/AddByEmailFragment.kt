@@ -49,7 +49,7 @@ class AddByEmailFragment : Fragment(R.layout.fragment_add_by_email) {
                         )
                         putExtra(
                             Intent.EXTRA_SUBJECT,
-                            "You are invited to join this $organizationName"
+                            "You are invited to join  $organizationName on Zuri"
                         )
                         data = Uri.parse("mailto:")
                     }
