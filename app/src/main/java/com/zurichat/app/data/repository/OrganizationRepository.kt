@@ -2,11 +2,10 @@ package com.zurichat.app.data.repository
 
 import android.content.SharedPreferences
 import com.zurichat.app.data.remoteSource.UsersService
-import com.zurichat.app.data.remoteSource.enqueue
+import com.zurichat.app.data.remoteSource.result
 import com.zurichat.app.models.organization_model.OrganizationCreator
 import com.zurichat.app.models.organization_model.OrganizationCreatorResponse
 import com.zurichat.app.util.ORG_ID
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import javax.inject.Inject
 
 class OrganizationRepository @Inject constructor(
@@ -17,13 +16,11 @@ class OrganizationRepository @Inject constructor(
         return usersService.createOrganization(organizationCreator)
     }
 
-    @ExperimentalCoroutinesApi
     suspend fun getMember(userId: String, organizationId: String = getId()) =
-        usersService.getMember(organizationId, userId).enqueue()
+        usersService.getMember(organizationId, userId).result()
 
-    @ExperimentalCoroutinesApi
     suspend fun getMembers(organizationId: String = getId()) =
-        usersService.getMembers(organizationId).enqueue()
+        usersService.getMembers(organizationId).result()
 
     fun saveId(id: String) = preferences.edit().putString(ORG_ID, id).apply()
 

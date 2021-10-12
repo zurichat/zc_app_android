@@ -42,13 +42,13 @@ interface UsersService {
     suspend fun passwordReset(@Body passwordReset: PasswordReset): PassswordRestReponse
 
     @GET("organizations/{organization_id}/members")
-    fun getMembers(@Path("organization_id") org_id: String): Call<OrganizationMembers>
+    fun getMembers(@Path("organization_id") org_id: String): Response<OrganizationMembers>
 
     @GET("organizations/{organization_id}/members/{member_id}")
     fun getMember(
         @Path("organization_id") org_id: String,
         @Path("member_id") member_id: String
-    ): Call<OrganizationMember>
+    ): Response<OrganizationMember>
 
     @POST("auth/logout")
     suspend fun logout(@Body logoutBody: LogoutBody): Response<LogoutResponse>

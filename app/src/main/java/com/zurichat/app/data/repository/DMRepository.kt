@@ -1,7 +1,7 @@
 package com.zurichat.app.data.repository
 
 import com.zurichat.app.data.remoteSource.DMService
-import com.zurichat.app.data.remoteSource.enqueue
+import com.zurichat.app.data.remoteSource.result
 import com.zurichat.app.models.Message
 import com.zurichat.app.models.network_response.CreateRoom
 import javax.inject.Inject
@@ -13,21 +13,21 @@ import javax.inject.Inject
 class DMRepository @Inject constructor(private val service: DMService) {
 
     suspend fun getMessages(orgId: String, roomId: String) =
-        service.getMessages(orgId, roomId).enqueue()
+        service.getMessages(orgId, roomId).result()
 
     suspend fun getMessage(roomId: String, messageId: String) =
-        service.getMessage(roomId, messageId).enqueue()
+        service.getMessage(roomId, messageId).result()
 
     suspend fun sendMessage(orgId: String, roomId: String, message: Message) =
-        service.sendMessage(orgId, roomId, message).enqueue()
+        service.sendMessage(orgId, roomId, message).result()
 
     suspend fun getRooms(orgId: String, userId: String) =
-        service.getRooms(orgId, userId).enqueue()
+        service.getRooms(orgId, userId).result()
 
     suspend fun getRoomInfo(orgId: String, roomId: String) =
-        service.getRoomInfo(orgId, roomId).enqueue()
+        service.getRoomInfo(orgId, roomId).result()
 
     suspend fun createRoom(orgId: String, userId: String, room: CreateRoom) =
-        service.createRoom(orgId, userId, room).enqueue()
+        service.createRoom(orgId, userId, room).result()
 
 }
