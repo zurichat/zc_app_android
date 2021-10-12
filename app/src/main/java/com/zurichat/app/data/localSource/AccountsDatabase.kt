@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.zurichat.app.data.localSource.dao.AccountsDao
 import com.zurichat.app.models.User
 
-@Database(entities = [User::class], version = 1)
+@Database(entities = [User::class], version = 1, exportSchema = false)
 abstract class AccountsDatabase : RoomDatabase() {
 
     abstract fun AccountsDao(): AccountsDao
