@@ -63,7 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:textSize="18sp"
-        android:textColor="@color/deepBlack"
+        android:textColor="@color/text_color"
         android:text="email@email.com"
         app:layout_constraintStart_toStartOf="@id/please_ente"
         app:layout_constraintEnd_toEndOf="@id/please_ente"
