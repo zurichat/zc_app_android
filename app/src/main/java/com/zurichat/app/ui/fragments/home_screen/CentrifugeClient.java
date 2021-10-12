@@ -23,6 +23,7 @@ import io.github.centrifugal.centrifuge.Subscription;
 import io.github.centrifugal.centrifuge.SubscriptionEventListener;
 import io.github.centrifugal.centrifuge.UnsubscribeEvent;
 
+
 public class CentrifugeClient {
     private static Client client = null;
     private static ArrayList<String> channelRoomIDList;

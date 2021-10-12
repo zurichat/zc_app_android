@@ -50,10 +50,10 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
                         val intent = Intent(Intent.ACTION_SEND)
                         intent.putExtra(
                             Intent.EXTRA_TEXT,
-                            "https://api.zuri.chat/organizations/${organizationId}"
+                            "https://zuri.chat"
                         )
                         intent.type = "text/plain"
-
+//"https://api.zuri.chat/organizations/${organizationId}"
                         val shareIntent = Intent.createChooser(intent, null)
                         startActivity(shareIntent)
                     }
@@ -65,6 +65,5 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
            Navigation.findNavController(it).navigate(R.id.action_nextFragment_to_seeYourChannelFragment, bundle)
         }
     }
-
 
 }

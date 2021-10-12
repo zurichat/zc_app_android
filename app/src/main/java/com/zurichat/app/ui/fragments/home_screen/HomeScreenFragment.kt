@@ -189,6 +189,7 @@ class HomeScreenFragment : Fragment() {
         userViewModel.logoutResponse.observe(viewLifecycleOwner, {
             when (it) {
                 is Result.Success -> {
+                    ZuriSharePreference(requireActivity()).setString("Current Organization ID","")
                     //Toast.makeText(context, "You have been successfully logged out", Toast.LENGTH_SHORT).show()
                     progressLoader.hide()
                     updateUser()
@@ -207,12 +208,12 @@ class HomeScreenFragment : Fragment() {
         })
     }
 
-
     private fun logout() {
         val logoutBody = LogoutBody(email = user.email)
         userViewModel.logout(logoutBody)
         userViewModel.clearUserAuthState()
     }
+
     private fun updateUser(){
         val user = user?.copy(currentUser = false)
         ViewModel.updateUser(user!!)

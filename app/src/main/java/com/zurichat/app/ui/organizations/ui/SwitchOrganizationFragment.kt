@@ -1,9 +1,7 @@
 package com.zurichat.app.ui.organizations.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
@@ -20,6 +18,7 @@ import com.zurichat.app.models.User
 import com.zurichat.app.models.organization_model.OrgData
 import com.zurichat.app.ui.adapters.SwitchUserOrganizationAdapter
 import com.zurichat.app.ui.organizations.localdatabase.OrgDao
+import com.zurichat.app.ui.organizations.localdatabase.OrgRoomData
 import com.zurichat.app.ui.organizations.states.UserOrganizationViewState
 import com.zurichat.app.ui.organizations.utils.ZuriSharePreference
 import com.zurichat.app.ui.organizations.viewmodel.UserOrganizationViewModel
@@ -32,8 +31,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-private const val TOKEN = "TOKEN"
 
 @AndroidEntryPoint
 class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizations) {
@@ -50,7 +47,9 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
 
     private lateinit var job: Job
     private lateinit var uiScope: CoroutineScope
-    private var firstTime = true
+    private var callback: OnBackPressedCallback? = null
+
+    private var firstTime = false
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -61,11 +60,12 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
         }
 
         if (ZuriSharePreference(requireContext()).getString("Current Organization ID","").isBlank()){
-            activity?.onBackPressedDispatcher?.addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+            callback = object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
                     activity?.finish()
                 }
-            })
+            }
+            activity?.onBackPressedDispatcher?.addCallback(requireActivity(), callback!!)
         }else{
             binding.toolbar4.setNavigationIcon(R.drawable.ic_arrow_back)
             binding.toolbar4.setNavigationOnClickListener {
@@ -83,17 +83,22 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
         viewModel.setToken(getToken())
         viewModel.getUserOrganizations(emailAddress = user.email)
         uiScope.launch(Dispatchers.IO) {
-            orgDao.getAllOrgData().let {
+            orgDao.getOrgDataWithID(user.id).let {
                 uiScope.launch(Dispatchers.Main) {
                     if (it != null) {
-                        if (it.isNotEmpty()){
+                        if (it.orgData.isNotEmpty()){
                             firstTime = false
-                            setUpViews(it)
-                            binding.toolbar4.subtitle = "${it.size} Organization(s)"
+                            setUpViews(it.orgData)
+                            binding.toolbar4.subtitle = "${it.orgData.size} Organization(s)"
+                        }else{
+                            firstTime = true
                         }
                     }
                     observerData()
                 }
+            }
+            orgDao.getAllOrgData().let {
+
             }
         }
 
@@ -114,56 +119,56 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
 
     private fun observerData() {
         lifecycleScope.launchWhenCreated {
-            viewModel.userOrganizationFlow.collect {
-                when (it) {
-                    is UserOrganizationViewState.Loading -> {
-                        it.message?.let {
-                            if (firstTime){
-                                progressLoader.show(getString(it))
-                            }
-                        }
-                    }
-                    is UserOrganizationViewState.Success -> {
-                        val userOrganizations = it.userOrganizationResponseModel
-                        if (firstTime){
-                            progressLoader.hide()
-                            snackBar(getString(it.message))
-                        }
-                        binding.toolbar4.subtitle = "${it.userOrganizationResponseModel?.data?.size} Organization(s)"
-                        setUpViews(userOrganizations!!.data)
-                        uiScope.launch(Dispatchers.IO) {
-                            it.userOrganizationResponseModel.data.forEach { orgData ->
-                                if (orgData.imgs == null){
-                                    orgData.imgs = ArrayList();
+            try {
+                viewModel.userOrganizationFlow.collect {
+                    when (it) {
+                        is UserOrganizationViewState.Loading -> {
+                            it.message?.let {
+                                if (firstTime){
+                                    progressLoader.show(getString(it))
                                 }
-                                orgDao.insertAll(orgData)
                             }
                         }
-                    }
-                    is UserOrganizationViewState.Failure -> {
-                       // progressLoader.hide()
-                        if (firstTime){
-                            progressLoader.hide()
-                            val errorMessage = it.message
-                            snackBar(errorMessage)
+                        is UserOrganizationViewState.Success -> {
+                            val userOrganizations = it.userOrganizationResponseModel
+                            if (firstTime){
+                                progressLoader.hide()
+                                snackBar(getString(it.message))
+                            }
+                            binding.toolbar4.subtitle = "${it.userOrganizationResponseModel?.data?.size} Organization(s)"
+                            setUpViews(userOrganizations!!.data)
+                            uiScope.launch(Dispatchers.IO) {
+                                val orgRoomData = OrgRoomData(user.id,it.userOrganizationResponseModel.data)
+                                orgDao.insertAll(orgRoomData)
+                            }
                         }
-                    }
-                    else -> {
-                       // progressLoader.hide()
-                        if (firstTime){
-                            progressLoader.hide()
-                            val errorMessage = "An Error Occurred"
-                            snackBar(errorMessage)
+                        is UserOrganizationViewState.Failure -> {
+                            // progressLoader.hide()
+                            if (firstTime){
+                                progressLoader.hide()
+                                val errorMessage = it.message
+                                snackBar(errorMessage)
+                            }
+                        }
+                        else -> {
+                            // progressLoader.hide()
+                            if (firstTime){
+                                progressLoader.hide()
+                                val errorMessage = "An Error Occurred"
+                                snackBar(errorMessage)
+                            }
                         }
                     }
                 }
+            }catch (e:Exception){
+                e.printStackTrace()
             }
         }
     }
 
     private fun setUpViews(orgs: List<OrgData>) {
         try {
-            userOrgAdapter = SwitchUserOrganizationAdapter(orgs, requireContext(),user).apply {
+            userOrgAdapter = SwitchUserOrganizationAdapter(orgs, requireContext(),user,callback).apply {
                 doOnOrgItemSelected { orgData, user ->
                     findNavController().navigateUp()
                     onOrgItemActionClicked?.invoke(orgData,user)
@@ -183,6 +188,7 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
     private fun snackBar(message:String){
         Snackbar.make(binding.parentLayout,message, Snackbar.LENGTH_SHORT).show()
     }
+
 }
 
 
