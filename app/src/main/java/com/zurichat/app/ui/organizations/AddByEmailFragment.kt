@@ -45,7 +45,7 @@ class AddByEmailFragment : Fragment(R.layout.fragment_add_by_email) {
                         putExtra(Intent.EXTRA_EMAIL, arrayOf(recipient))
                         putExtra(
                             Intent.EXTRA_TEXT,
-                            "https://api.zuri.chat/organizations/${organizationId}"
+                            "https://zuri.chat/${organizationId}"
                         )
                         putExtra(
                             Intent.EXTRA_SUBJECT,

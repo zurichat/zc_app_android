@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.zurichat.app.data.localSource.dao.StarredMessagesDao
 import com.zurichat.app.models.StarredMessages
 
-@Database(entities = [StarredMessages::class], version = 1)
+@Database(entities = [StarredMessages::class], version = 1, exportSchema = false)
 abstract class StarredMessagesDatabase : RoomDatabase() {
 
     abstract fun StarredMessagesDao(): StarredMessagesDao
