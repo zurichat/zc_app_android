@@ -52,7 +52,7 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
                             "https://zuri.chat"
                         )
                         intent.type = "text/plain"
-
+//"https://api.zuri.chat/organizations/${organizationId}"
                         val shareIntent = Intent.createChooser(intent, null)
                         startActivity(shareIntent)
                     }
