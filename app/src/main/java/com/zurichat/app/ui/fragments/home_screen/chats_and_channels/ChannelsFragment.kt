@@ -33,6 +33,7 @@ import com.zurichat.app.ui.fragments.home_screen.chats_and_channels.localdatabas
 import com.zurichat.app.ui.fragments.home_screen.diff_utils.ChannelDiffUtil
 import com.zurichat.app.ui.fragments.viewmodel.ChannelViewModel
 import com.zurichat.app.ui.fragments.viewmodel.SharedChannelViewModel
+import com.zurichat.app.ui.newchannel.SelectNewChannelViewModel
 import com.zurichat.app.ui.notification.NotificationUtils
 import io.github.centrifugal.centrifuge.Client
 import kotlinx.coroutines.CoroutineScope
@@ -46,6 +47,7 @@ import kotlin.random.Random
 
 class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private val viewModel : ChannelViewModel by viewModels()
+    private  val getOrgMembers: SelectNewChannelViewModel by viewModels()
     private lateinit var sharedViewModel : SharedChannelViewModel
     private val PREFS_NAME = "ORG_INFO"
     private val ORG_ID = "org_id"

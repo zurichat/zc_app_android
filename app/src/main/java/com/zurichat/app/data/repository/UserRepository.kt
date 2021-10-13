@@ -41,10 +41,6 @@ class UserRepository @Inject constructor(
         return usersService.logout(logoutBody)
     }
 
-    suspend fun confirmPass( confirmPassBody: ConfirmPassBody):ConfirmPassResponse{
-        return usersService.confirmPass(confirmPassBody)
-    }
-
     suspend fun verifyResetCode(resetCodeBody: ResetCodeBody):Response<ResetCodeResponse>{
         return usersService.verifyResetOtp(resetCodeBody)
     }

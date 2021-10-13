@@ -63,7 +63,7 @@ data class OrganizationMember(
     val socials: Any? = null, // null
     @SerializedName("status")
     @Expose
-    val status: String = "",
+    val status: Any? = null,
     @SerializedName("time_zone")
     @Expose
     val timeZone: String = "",

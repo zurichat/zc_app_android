@@ -143,7 +143,7 @@
     <string name="chanel_search">Search</string>
     <string name="channel_media">Channel media</string>
     <string name="select_contact">Select Contact</string>
-    <string name="members">Members</string>
+    <string name="members">Member(s)</string>
     <string name="changephoneno_hint_txt">Enter your new phone number</string>
     <string name="search_for_channels">Search for channels</string>
 
@@ -288,5 +288,7 @@
     <string name="notification_channel_description">This is a sample notification channel for demonstration purpose.</string>
     <string name="didn_t_receive_any_code">Didn\'t Receive Any Code?</string>
     <string name="create_new_organization">Create New Organization</string>
+    <string name="forgot_password_txt">Forgot Password?</string>
+    <string name="continue_txt">Continue</string>
 
 </resources>

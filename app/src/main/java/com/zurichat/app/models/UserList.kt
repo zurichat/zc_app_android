@@ -1,7 +1,7 @@
 package com.zurichat.app.models
 
-import com.google.gson.annotations.SerializedName
-
 data class UserList(
-    @SerializedName("data")
-    val data: List<OrganizationMember> )
+    val status: Int,
+    val message: String,
+    val data: List<OrganizationMember>
+)

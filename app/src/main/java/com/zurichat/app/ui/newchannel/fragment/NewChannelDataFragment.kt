@@ -3,7 +3,9 @@ package com.zurichat.app.ui.newchannel.fragment
 //import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 import android.app.Activity
 import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
@@ -45,17 +47,24 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     private lateinit var userList: List<OrganizationMember>
     private var private = false
     private var channelId = ""
+    private lateinit var organizationID: String
     private var user: User? = null
     private var selectedImageUri: Uri? = null
     private val contentResolver: ContentResolver? = null
     private var emoji: EmojIconActions? = null
 
+    lateinit var sharedPref: SharedPreferences
+    private val PREFS_NAME = "ORG_INFO"
+    private val ORG_NAME = "org_name"
+    private val ORG_ID = "org_id"
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        organizationID = sharedPref.getString(ORG_ID, null).toString()
+
         user = Cache.map["user"] as? User
         userList = arguments?.get("Selected_user") as List<OrganizationMember>
-        emoji = EmojIconActions(requireContext(), binding.root,
-            binding.channelName, binding.emojiBtn)
+        emoji = EmojIconActions(requireContext(), binding.root, binding.channelName, binding.emojiBtn)
         emoji!!.ShowEmojIcon()
 
         setupViewsAndListeners()
@@ -79,9 +88,9 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                 selectImage()
             }
 
+            val emojiOpen = false
             newChannelNameInput.setEndIconOnClickListener {
-                emojiBtn.visibility = View.VISIBLE
-
+                //emojiBtn.visibility = View.VISIBLE
                 emoji?.setKeyboardListener(object : EmojIconActions.KeyboardListener {
                     override fun onKeyboardOpen() {
                         Log.e("Keyboard", "open")
@@ -94,14 +103,12 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
             }
 
             floatingActionButton.setOnClickListener {
-
                 if (channelName.text!!.isEmpty() || channelName.text.equals("")) {
                     Toast.makeText(requireContext(), "Channel name can't be empty.", Toast.LENGTH_SHORT)
                         .show()
                 } else if (user?.token == null || user!!.id == "") {
                    channelName.error = "User must be logged in"
                 } else {
-
                     ZuriSharedPreferences(requireContext()).setInt("tracker", 0)
                     saveImage()
                     val name = channelName.text.toString()
@@ -114,10 +121,8 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                         owner = owner,
                         private = privateValue
                     )
-                    viewModel.createNewChannel(createChannelBodyModel = createChannelBodyModel)
+                    viewModel.createNewChannel(createChannelBodyModel = createChannelBodyModel,organizationID)
                     progressLoader.show(getString(R.string.creating_new_channel))
-
-
                 }
                 observerData()
             }
@@ -129,21 +134,6 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
             newChannelCamera.setOnClickListener {
                 //selectImage()
             }
-
-            newChannelNameInput.setEndIconOnClickListener {
-                emojiBtn.visibility = View.VISIBLE
-
-                emoji?.setKeyboardListener(object : EmojIconActions.KeyboardListener {
-                    override fun onKeyboardOpen() {
-                        Log.e("Keyboard", "open")
-                    }
-
-                    override fun onKeyboardClose() {
-                        Log.e("Keyboard", "close")
-                    }
-                })
-            }
-
 
             radioGroup1.setOnCheckedChangeListener { _, checkedId ->
                 when (checkedId) {
@@ -168,10 +158,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     }
 
     private fun saveImage() {
-
-
-        val parcelFileDescriptor =
-            contentResolver?.openFileDescriptor(selectedImageUri!!, "r", null) ?: return
+        val parcelFileDescriptor = contentResolver?.openFileDescriptor(selectedImageUri!!, "r", null) ?: return
 
         val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
         val file = File(contentResolver.getFileName(selectedImageUri!!))
@@ -179,7 +166,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
         inputStream.copyTo(outputStream)
     }
 
-    fun ContentResolver.getFileName(fileUri: Uri): String {
+    private fun ContentResolver.getFileName(fileUri: Uri): String {
         var name = ""
         val returnCursor = this.query(fileUri, null, null, null, null)
         if (returnCursor != null) {
@@ -227,7 +214,6 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                            } catch (ex: Exception) {
                                ex.printStackTrace()
                            }
-
                            navigateToDetails()
                        }
                     }
@@ -289,4 +275,5 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     companion object {
         const val REQUEST_IMAGE_CODE = 101
     }
+
 }

@@ -3,16 +3,18 @@ package com.zurichat.app.ui.add_channel
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentAddChannelBinding
 import com.zurichat.app.models.ChannelModel
+import com.zurichat.app.models.OrganizationMember
 import com.zurichat.app.models.User
-import java.util.ArrayList
+import java.util.*
 
 class AddChannelFragment : Fragment() {
     private lateinit var binding: FragmentAddChannelBinding
@@ -21,6 +23,8 @@ class AddChannelFragment : Fragment() {
     private var user : User? = null
     private lateinit var channelsArrayList: ArrayList<ChannelModel>
     private lateinit var joinedChannelsArrayList: ArrayList<ChannelModel>
+
+    var userList: List<OrganizationMember> = ArrayList()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentAddChannelBinding.inflate(inflater, container, false)
@@ -65,6 +69,13 @@ class AddChannelFragment : Fragment() {
 
         binding.channelToolbar.setNavigationOnClickListener {
             requireActivity().onBackPressed()
+        }
+        binding.newChannel.setOnClickListener {
+            try {
+                findNavController().navigate(R.id.action_selectNewChannelFragment_to_selectMemberFragment, bundleOf(Pair("USER_LIST",userList)))
+            } catch (exc: Exception) {
+                exc.printStackTrace()
+            }
         }
         return binding.root
     }

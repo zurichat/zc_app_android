@@ -9,5 +9,5 @@ import kotlinx.coroutines.flow.Flow
  *
  */
 interface FlowUseCase<in Params, out Type> {
-    operator fun invoke(params: Params? = null): Flow<Result<Type>>
+    operator fun invoke(params: Params? = null,org_ID: String): Flow<Result<Type>>
 }

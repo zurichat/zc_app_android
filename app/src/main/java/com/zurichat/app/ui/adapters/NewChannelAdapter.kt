@@ -7,9 +7,8 @@ import android.widget.Filter
 import android.widget.Filterable
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.zurichat.app.R
 import com.zurichat.app.databinding.NewChannelItemBinding
-import com.zurichat.app.models.*
+import com.zurichat.app.models.OrganizationMember
 
 
 class NewChannelAdapter(val fragment: Fragment): RecyclerView.Adapter<NewChannelAdapter.ViewHolder>(), Filterable {
@@ -38,8 +37,7 @@ class NewChannelAdapter(val fragment: Fragment): RecyclerView.Adapter<NewChannel
                 if(chat.firstName.isEmpty() && chat.lastName.isEmpty()) "No name"
                 else "${chat.firstName} ${chat.lastName}"
 
-
-            item.channelItemPersonIcon.setBackgroundResource(R.drawable.ic_kolade_icon)
+           // item.channelItemPersonIcon.setBackgroundResource(R.drawable.ic_kolade_icon)
             item.channelItemMessageTxt.text = chat.email
             item.root.setOnClickListener {
                 // will crash the app because no value is being passed

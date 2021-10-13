@@ -4,6 +4,7 @@ import com.zurichat.app.models.Message
 import com.zurichat.app.models.Room
 import com.zurichat.app.models.network_response.*
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 /**
@@ -12,42 +13,42 @@ import retrofit2.http.*
  */
 interface DMService {
     @GET("${DM_API}{org_id}/rooms/{room_id}/messages")
-    fun getMessages(
+    suspend fun getMessages(
         @Path("org_id") orgId: String,
         @Path("room_id") roomId: String
-    ): Call<GetMessagesResponse>
+    ): Response<GetMessagesResponse>
+
 
     @GET("dmgetmessage/{room_id}/{message_id}")
-    fun getMessage(
+    suspend fun getMessage(
         @Path("room_id") roomId: String,
         @Path("message_id") messageId: String
-    ): Call<Message>
-
+    ): Response<Message>
     @POST("${DM_API}{org_id}/rooms/{room_id}/messages")
-    fun sendMessage(
+    suspend fun sendMessage(
         @Path("org_id") orgId: String,
         @Path("room_id") roomId: String,
         @Body message: Message
-    ): Call<SendMessageResponse>
+    ): Response<SendMessageResponse>
 
     @GET("${DM_API}{org_id}/users/{user_id}/rooms")
-    fun getRooms(
+    suspend fun getRooms(
         @Path("org_id") orgId: String,
         @Path("user_id") userId: String
-    ): Call<List<Room>>
+    ): Response<List<Room>>
 
     @GET("${DM_API}{org_id}/rooms/{room_id}/info")
-    fun getRoomInfo(
+    suspend fun getRoomInfo(
         @Path("org_id") orgId: String,
         @Query("room_id") roomId: String
-    ): Call<RoomInfoResponse>
+    ): Response<RoomInfoResponse>
 
     @POST("${DM_API}{org_id}/user/{user_id}/room")
-    fun createRoom(
+    suspend fun createRoom(
         @Path("org_id") orgId: String,
         @Path("user_id") userId: String,
         @Body roomInfo: CreateRoom
-    ): Call<CreateRoomResponse>
+    ): Response<CreateRoomResponse>
 
     companion object {
         const val BASE_URL = "https://dm.zuri.chat/"

@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import com.zurichat.app.R
 import com.zurichat.app.databinding.ListItemSelectMemberBinding
 import com.zurichat.app.models.MembersData
 import com.zurichat.app.models.OrganizationMember
@@ -52,7 +51,6 @@ class SelectMemberAdapter(private val user: (OrganizationMember) -> Unit):
             binding.channelItemPersonNameTxt.text = if(user.firstName.isEmpty() && user.lastName.isEmpty())
                 "No name"
             else "${user.firstName} ${user.lastName}"
-            binding.channelItemPersonIcon.setImageResource(R.drawable.ic_kolade_icon)
             binding.channelItemMessageTxt.text = user.email
         }
     }

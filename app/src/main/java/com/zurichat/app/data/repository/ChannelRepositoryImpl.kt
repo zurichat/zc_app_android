@@ -9,11 +9,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-class ChannelRepositoryImpl @Inject constructor(private val createChannelRemote: CreateChannelRemote) :
-    ChannelRepository {
-    override fun createChannel(createChannelBodyModel: CreateChannelBodyModel): Flow<Result<CreateChannelResponseModel>> {
+class ChannelRepositoryImpl @Inject constructor(private val createChannelRemote: CreateChannelRemote) : ChannelRepository {
+    override fun createChannel(createChannelBodyModel: CreateChannelBodyModel,org_ID: String): Flow<Result<CreateChannelResponseModel>> {
         return flow {
-            when (val res = createChannelRemote.saveNewChannel(createChannelBodyModel)) {
+            when (val res = createChannelRemote.saveNewChannel(createChannelBodyModel,org_ID)) {
                 is Result.Success -> {
                     emit(Result.Success(res.data))
                 }

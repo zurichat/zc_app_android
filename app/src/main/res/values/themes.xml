@@ -102,6 +102,7 @@
         <item name="android:navigationBarColor" tools:targetApi="l">#FFFFFF</item>
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/black</item>
+        <item name="actionMenuTextAppearance">@style/App.ToolbarMenuItem</item>
     </style>
 
     <style name="Theme.ZuriChat.LogIN" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -126,5 +127,35 @@
         <item name="android:textColor">@color/background_color</item>
         <item name="android:background">@color/white</item>
         <item name="colorAccent">@color/background_color</item>
+    </style>
+
+    <!-- Toolbar Styles -->
+    <style name="App.ToolbarStyle" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+    </style>
+    <style name="App.ToolbarTitleTex" parent="App.ToolbarStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="fontFamily">@font/lato_bold</item>
+    </style>
+    <style name="App.ToolbarSubtitleTex" parent="App.ToolbarStyle">
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/lato_regular</item>
+    </style>
+    <style name="App.ToolbarMenuItem" parent="App.ToolbarSubtitleTex">
+        <item name="textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--Text Input-->
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@android:color/transparent</item>
+        <item name="boxStrokeColor">@color/green_color</item>
+    </style>
+    <style name="DropDownInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxBackgroundColor">@android:color/transparent</item>
+    </style>
+    <style name="EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textSize">14sp</item>
     </style>
 </resources>

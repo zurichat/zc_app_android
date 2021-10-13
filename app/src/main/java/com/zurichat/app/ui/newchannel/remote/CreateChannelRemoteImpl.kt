@@ -9,12 +9,10 @@ import com.zurichat.app.models.CreateChannelResponseModel
 import com.zurichat.app.ui.newchannel.CreateChannelRemote
 import javax.inject.Inject
 
-class CreateChannelRemoteImpl @Inject constructor(
-    private val apiService: NewChannelApiService,
-) : CreateChannelRemote {
-    override suspend fun saveNewChannel(createChannelBodyModel: CreateChannelBodyModel): Result<CreateChannelResponseModel> {
+class CreateChannelRemoteImpl @Inject constructor(private val apiService: NewChannelApiService) : CreateChannelRemote {
+    override suspend fun saveNewChannel(createChannelBodyModel: CreateChannelBodyModel,org_id:String): Result<CreateChannelResponseModel> {
         return try {
-            val res = apiService.createChannel(createChannelBodyModel = createChannelBodyModel)
+            val res = apiService.createChannel(createChannelBodyModel,org_id)
             when (res.isSuccessful) {
                 true -> {
                     res.body()?.let {
