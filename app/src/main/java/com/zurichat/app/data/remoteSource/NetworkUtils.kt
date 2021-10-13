@@ -28,7 +28,7 @@ fun <T> Response<T>.result(): Result<T?> {
 
 fun <T> MutableLiveData<T>.postValue(result: Result<T?>, error: MutableLiveData<String?>) {
     if (result is Result.Error) error.value = result.error.message
-    else if (result is Result.Success) value = result.data!!
+    else if (result is Result.Success) result.data?.let{ value = it }
 }
 
 fun Context.hasNetwork(): Boolean {

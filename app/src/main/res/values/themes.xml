@@ -131,7 +131,7 @@
 
     <!-- Toolbar Styles -->
     <style name="App.ToolbarStyle" parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
-        <item name="android:background">@color/top_color</item>
+        <item name="android:background">?attr/colorPrimary</item>
         <item name="colorOnPrimary">@android:color/white</item>
     </style>
     <style name="App.ToolbarTitleTex" parent="App.ToolbarStyle">
@@ -145,5 +145,17 @@
     <style name="App.ToolbarMenuItem" parent="App.ToolbarSubtitleTex">
         <item name="textAllCaps">true</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <!--Text Input-->
+    <style name="TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@android:color/transparent</item>
+        <item name="boxStrokeColor">@color/green_color</item>
+    </style>
+    <style name="DropDownInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxBackgroundColor">@android:color/transparent</item>
+    </style>
+    <style name="EditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textSize">14sp</item>
     </style>
 </resources>

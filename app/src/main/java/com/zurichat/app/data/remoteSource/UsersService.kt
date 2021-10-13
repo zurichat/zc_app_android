@@ -2,6 +2,7 @@ package com.zurichat.app.data.remoteSource
 
 import com.zurichat.app.models.*
 import com.zurichat.app.models.network_response.OrganizationMembers
+import com.zurichat.app.models.network_response.OrganizationMembers.OrganizationMember
 import com.zurichat.app.models.organization_model.OrganizationCreator
 import com.zurichat.app.models.organization_model.OrganizationCreatorResponse
 import com.zurichat.app.ui.login.password.confirm.ConfirmPasswordData
@@ -42,10 +43,10 @@ interface UsersService {
     suspend fun passwordReset(@Body passwordReset: PasswordReset): PassswordRestReponse
 
     @GET("organizations/{organization_id}/members")
-    fun getMembers(@Path("organization_id") org_id: String): Response<OrganizationMembers>
+    suspend fun getMembers(@Path("organization_id") org_id: String): Response<OrganizationMembers>
 
     @GET("organizations/{organization_id}/members/{member_id}")
-    fun getMember(
+    suspend fun getMember(
         @Path("organization_id") org_id: String,
         @Path("member_id") member_id: String
     ): Response<OrganizationMember>
