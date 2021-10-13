@@ -400,6 +400,11 @@
         android:label="switch_organization"
         tools:layout="@layout/fragment_switch_organizations">
         <action
+        android:id="@+id/action_switchOrganizationFragment_to_loginActivity"
+        app:destination="@id/loginActivity"
+        app:popUpTo="@id/main_nav"
+        app:popUpToInclusive="true" />
+        <action
             android:id="@+id/action_switchOrganizationFragment_to_homeScreenFragment"
             app:destination="@id/homeScreenFragment" />
         <action
