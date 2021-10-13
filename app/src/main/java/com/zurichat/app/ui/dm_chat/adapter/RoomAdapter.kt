@@ -47,9 +47,9 @@ class RoomAdapter(val context: Activity, val roomList: ArrayList<RoomsListRespon
     override fun onBindViewHolder(holder: RoomViewHolder, position: Int) {
 
         holder.bind(roomList[position])
-//        holder.currentPosition = position
-//        val room = myList.get(position)
-//        holder.mRoomId = room._id
+        //holder.currentPosition = position
+        //val room = myList.get(position)
+        //holder.mRoomId = room._id
 
         //holder.username.text = myList[position].room_user_ids[0]
 
