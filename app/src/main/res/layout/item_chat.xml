@@ -17,7 +17,7 @@
         android:contentDescription="@string/profile_image"
         android:padding="8dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/dmuser"
+        android:src="@drawable/image_channel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

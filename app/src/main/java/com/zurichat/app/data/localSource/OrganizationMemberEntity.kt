@@ -26,7 +26,7 @@ data class OrganizationMemberEntity(
     val presence: String = "", // true
     val pronouns: String = "",
     val role: String = "", // owner
-    val status: String = "",
+    //val status: String = "",
     val timeZone: String = "",
     val userName: String = "" // mukhtar.b017
 ) : Parcelable

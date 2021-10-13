@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -156,7 +157,12 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
             }
         }
         //setupObservers()
-        //setupUI()
+        setupUI()
+        activity?.onBackPressedDispatcher?.addCallback(requireActivity(), object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigateUp()
+            }
+        })
     }
 
     //setup recyclerView
@@ -199,37 +205,37 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
     }
 
     private fun setupUI() = with(binding){
-        viewModel.userRooms.observe(viewLifecycleOwner){ rooms ->
-            val chats = rooms.map { room ->
-                val otherId = room.roomUserIds.first { it != viewModel.user!!.id }
-                // TODO: Resolve the name of each chat by getting the name of the user that holds this id
-                ChatsAdapter.Chat("Mark", Message(senderId = otherId,
-                    roomId = room.id, message = "Hey what's good"), (Math.random() * 10).toInt())
-            }
-            listChats.also {
-                it.layoutManager = LinearLayoutManager(requireContext())
-                it.adapter = ChatsAdapter(chats).apply {
-                    setItemClickListener { chat ->
-                        val action = HomeScreenFragmentDirections
-                            .actionHomeScreenFragmentToDmFragment(chat.message.roomId,
-                                viewModel.user!!.id, chat.message.senderId)
-                        requireView().findNavController().navigate(action)
-                    }
-                }
-            }
-        }
+//        viewModel.userRooms.observe(viewLifecycleOwner){ rooms ->
+//            val chats = rooms.map { room ->
+//                val otherId = room.roomUserIds.first { it != viewModel.user!!.id }
+//                // TODO: Resolve the name of each chat by getting the name of the user that holds this id
+//                ChatsAdapter.Chat("Mark", Message(senderId = otherId,
+//                    roomId = room.id, message = "Hey what's good"), (Math.random() * 10).toInt())
+//            }
+//            listChats.also {
+//                it.layoutManager = LinearLayoutManager(requireContext())
+//                it.adapter = ChatsAdapter(chats).apply {
+//                    setItemClickListener { chat ->
+//                        val action = HomeScreenFragmentDirections
+//                            .actionHomeScreenFragmentToDmFragment(chat.message.roomId,
+//                                viewModel.user!!.id, chat.message.senderId)
+//                        requireView().findNavController().navigate(action)
+//                    }
+//                }
+//            }
+//        }
 
         fabAddChat.setOnClickListener {
-            findNavController().navigate(R.id.action_homeScreenFragment_to_new_channel_nav_graph)
+            findNavController().navigate(R.id.action_homeScreenFragment_to_newChannelFragment)
         }
 
-        viewModel.searchQuery.observe(viewLifecycleOwner){ query ->
-            Log.d(TAG, "query: $query")
-            val adapter = listChats.adapter as ChatsAdapter
-            adapter.differ.submitList(adapter.chats.filter {
-                query.lowercase() in it.sender.lowercase()
-            })
-        }
+//        viewModel.searchQuery.observe(viewLifecycleOwner){ query ->
+//            Log.d(TAG, "query: $query")
+//            val adapter = listChats.adapter as ChatsAdapter
+//            adapter.differ.submitList(adapter.chats.filter {
+//                query.lowercase() in it.sender.lowercase()
+//            })
+//        }
     }
 
     private fun setupObservers() = with(viewModel){

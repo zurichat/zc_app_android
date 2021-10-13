@@ -8,10 +8,8 @@ import com.zurichat.app.models.CreateChannelResponseModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class CreateChannel @Inject constructor(
-    private val channelRepository: ChannelRepository,
-) : FlowUseCase<CreateChannelBodyModel, CreateChannelResponseModel> {
-    override fun invoke(params: CreateChannelBodyModel?): Flow<Result<CreateChannelResponseModel>> {
-        return channelRepository.createChannel(createChannelBodyModel = params!!)
+class CreateChannel @Inject constructor(private val channelRepository: ChannelRepository) : FlowUseCase<CreateChannelBodyModel, CreateChannelResponseModel> {
+    override fun invoke(params: CreateChannelBodyModel?,org_ID: String): Flow<Result<CreateChannelResponseModel>> {
+        return channelRepository.createChannel(createChannelBodyModel = params!!,org_ID)
     }
 }

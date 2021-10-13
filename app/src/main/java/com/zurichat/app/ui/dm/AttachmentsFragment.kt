@@ -113,6 +113,7 @@ class AttachmentsFragment : Fragment(R.layout.fragment_attachments) {
 
     }
 
+    // function to get info about each audio retrieved
     private fun getAllAudios(): ArrayList<AudioInfo> {
         val audios = ArrayList<AudioInfo>()
 

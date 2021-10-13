@@ -1,15 +1,18 @@
 package com.zurichat.app.ui.newchannel.fragment
 
-//import com.app.app.ui.newchannel.NewChannelActivity
+//import com.tolstoy.zurichat.ui.newchannel.NewChannelActivity
 import android.app.Activity
 import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.provider.OpenableColumns
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -20,17 +23,14 @@ import androidx.work.WorkManager
 import com.zurichat.app.R
 import com.zurichat.app.data.localSource.Cache
 import com.zurichat.app.databinding.FragmentNewChannelDataBinding
-import com.zurichat.app.models.ChannelModel
-import com.zurichat.app.models.CreateChannelBodyModel
-import com.zurichat.app.models.OrganizationMember
-import com.zurichat.app.models.User
+import com.zurichat.app.models.*
 import com.zurichat.app.ui.adapters.NewChannelMemberSelectedAdapter
 import com.zurichat.app.ui.newchannel.states.CreateChannelViewState
 import com.zurichat.app.ui.newchannel.viewmodel.CreateChannelViewModel
 import com.zurichat.app.util.ProgressLoader
+import com.zurichat.app.util.ZuriSharedPreferences
 import com.zurichat.app.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import hani.momanii.supernova_emoji_library.Actions.*
 import hani.momanii.supernova_emoji_library.Actions.EmojIconActions
 import kotlinx.coroutines.flow.collect
 import java.io.File
@@ -47,21 +47,28 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     private lateinit var userList: List<OrganizationMember>
     private var private = false
     private var channelId = ""
+    private lateinit var organizationID: String
     private var user: User? = null
     private var selectedImageUri: Uri? = null
     private val contentResolver: ContentResolver? = null
     private var emoji: EmojIconActions? = null
 
+    lateinit var sharedPref: SharedPreferences
+    private val PREFS_NAME = "ORG_INFO"
+    private val ORG_NAME = "org_name"
+    private val ORG_ID = "org_id"
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        organizationID = sharedPref.getString(ORG_ID, null).toString()
+
         user = Cache.map["user"] as? User
         userList = arguments?.get("Selected_user") as List<OrganizationMember>
-        emoji = EmojIconActions(requireContext(), binding.root,
-            binding.channelName, binding.emojiBtn)
+        emoji = EmojIconActions(requireContext(), binding.root, binding.channelName, binding.emojiBtn)
         emoji!!.ShowEmojIcon()
 
         setupViewsAndListeners()
-
+        observerData()
     }
 
     private fun retrieveChannelOwner(): String {
@@ -81,9 +88,9 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                 selectImage()
             }
 
+            val emojiOpen = false
             newChannelNameInput.setEndIconOnClickListener {
-                emojiBtn.visibility = View.VISIBLE
-
+                //emojiBtn.visibility = View.VISIBLE
                 emoji?.setKeyboardListener(object : EmojIconActions.KeyboardListener {
                     override fun onKeyboardOpen() {
                         Log.e("Keyboard", "open")
@@ -96,15 +103,15 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
             }
 
             floatingActionButton.setOnClickListener {
-
                 if (channelName.text!!.isEmpty() || channelName.text.equals("")) {
-                    Toast.makeText(requireContext(), "Channel name can't be empty.", Toast.LENGTH_SHORT).show()
-                }
-                else if (user?.token == null || user!!.id == "") {
-                    channelName.error = "User must be logged in"
+                    Toast.makeText(requireContext(), "Channel name can't be empty.", Toast.LENGTH_SHORT)
+                        .show()
+                } else if (user?.token == null || user!!.id == "") {
+                   channelName.error = "User must be logged in"
                 } else {
+                    ZuriSharedPreferences(requireContext()).setInt("tracker", 0)
                     saveImage()
-                    val name = binding.channelName.text.toString()
+                    val name = channelName.text.toString()
                     val description = "$name description"
                     val owner = retrieveChannelOwner()
                     val privateValue = private
@@ -114,10 +121,18 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                         owner = owner,
                         private = privateValue
                     )
-                    viewModel.createNewChannel(createChannelBodyModel = createChannelBodyModel)
+                    viewModel.createNewChannel(createChannelBodyModel = createChannelBodyModel,organizationID)
                     progressLoader.show(getString(R.string.creating_new_channel))
                 }
                 observerData()
+            }
+
+            newChannelToolbar.setNavigationOnClickListener {
+                findNavController().navigateUp()
+            }
+
+            newChannelCamera.setOnClickListener {
+                //selectImage()
             }
 
             radioGroup1.setOnCheckedChangeListener { _, checkedId ->
@@ -143,10 +158,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     }
 
     private fun saveImage() {
-
-
-        val parcelFileDescriptor =
-            contentResolver?.openFileDescriptor(selectedImageUri!!, "r", null) ?: return
+        val parcelFileDescriptor = contentResolver?.openFileDescriptor(selectedImageUri!!, "r", null) ?: return
 
         val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
         val file = File(contentResolver.getFileName(selectedImageUri!!))
@@ -154,7 +166,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
         inputStream.copyTo(outputStream)
     }
 
-    fun ContentResolver.getFileName(fileUri: Uri): String {
+    private fun ContentResolver.getFileName(fileUri: Uri): String {
         var name = ""
         val returnCursor = this.query(fileUri, null, null, null, null)
         if (returnCursor != null) {
@@ -192,18 +204,24 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
             viewModel.createChannelViewFlow.collect {
                 when (it) {
                     is CreateChannelViewState.Success -> {
-                        val channelResponseModel = it.createChannelResponseModel
-                        channelId = channelResponseModel!!._id
-                        progressLoader.hide()
-                        Toast.makeText(context, getString(it.message), Toast.LENGTH_LONG).show()
-                        sendNotification()
-                        navigateToDetails()
+                       if (it.createChannelResponseModel is CreateChannelResponseModel){
+                           progressLoader.hide()
+                           val channelResponseModel = it.createChannelResponseModel
+                           channelId = channelResponseModel._id
+                           //Toast.makeText(context, getString(it.message), Toast.LENGTH_SHORT).show()
+                           try {
+                               sendNotification()
+                           } catch (ex: Exception) {
+                               ex.printStackTrace()
+                           }
+                           navigateToDetails()
+                       }
                     }
                     is CreateChannelViewState.Failure -> {
                         progressLoader.hide()
                         val errorMessage = String.format(getString(it.message),
                             binding.channelName.text.toString())
-                        Toast.makeText(context, errorMessage, Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -235,14 +253,27 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
             binding.channelName.error = "Channel name can't be empty."
         } else {
             try {
-                findNavController().navigate(R.id.channelChatFragment, bundle)
+                findNavController().navigate(R.id.channelChatFragment,
+                    bundleOf(Pair("USER", user),
+                        Pair("Channel", channel),
+                        Pair("members", userList),
+                        Pair("Channel Joined", true)))
             } catch (exc: Exception) {
                 exc.printStackTrace()
             }
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        val tracker = ZuriSharedPreferences(requireContext()).getInt("tracker", 0)
+        if (tracker == 1) {
+            binding.channelName.setText("")
+        }
+    }
+
     companion object {
         const val REQUEST_IMAGE_CODE = 101
     }
+
 }

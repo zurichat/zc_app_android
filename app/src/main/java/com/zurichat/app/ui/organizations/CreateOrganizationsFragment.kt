@@ -16,8 +16,11 @@ class CreateOrganizationsFragment : Fragment(R.layout.fragment_create_organizati
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // navigate from create organization fragment to new workspace fragment
         binding.organizationCardView.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_createOrganizationsFragment_to_newWorkspaceFragment)
+            Navigation.findNavController(it)
+                .navigate(R.id.action_createOrganizationsFragment_to_newWorkspaceFragment)
         }
     }
 }

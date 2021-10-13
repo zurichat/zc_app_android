@@ -1,5 +1,7 @@
 package com.zurichat.app.ui.newchannel.fragment
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
@@ -23,31 +25,42 @@ import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) {
-
     private val binding by viewBinding(FragmentSelectNewChannelBinding::bind)
     var user: OrganizationMember?= null
+    private lateinit var organizationID: String
+
     lateinit var userList: List<OrganizationMember>
     private val adapter = NewChannelAdapter(this)
     private  val viewModel: SelectNewChannelViewModel by viewModels()
     private var endPointLoadingState: SelectNewChannelViewState<String> = SelectNewChannelViewState.Empty
 
+    lateinit var sharedPref: SharedPreferences
+    private val PREFS_NAME = "ORG_INFO"
+    private val ORG_NAME = "org_name"
+    private val ORG_ID = "org_id"
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+        sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        organizationID = sharedPref.getString(ORG_ID, null).toString()
 
         setUpViews()
         initAdapter()
         observeUsersList()
-        viewModel.getListOfUsers()
+        try {
+            viewModel.orgID.value = organizationID
+            viewModel.getListOfUsers(organizationID)
+        }catch (e : Exception){
+            e.printStackTrace()
+        }
         observeEndPointLoading()
-
     }
+
     private fun setUpViews() {
         with(binding) {
             memberButton.setOnClickListener {
                 try {
-                    findNavController().navigate(R.id.action_selectNewChannelFragment_to_selectMemberFragment,
-                        bundleOf(Pair("USER_LIST",userList)))
+                    findNavController().navigate(R.id.action_selectNewChannelFragment_to_selectMemberFragment, bundleOf(Pair("USER_LIST",userList)))
                 } catch (exc: Exception) {
 
                 }
@@ -63,7 +76,7 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
             }
 
             toolbar.setNavigationOnClickListener {
-               findNavController().navigateUp()
+               findNavController().popBackStack()
             }
 
             userListProgressBar.visibility = View.VISIBLE
@@ -97,17 +110,14 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
 
     private fun observeUsersList() {
         lifecycleScope.launchWhenStarted {
-
             viewModel._users.collect {
                 when(it) {
                     is SelectNewChannelViewState.Success -> {
-
                         adapter.list = it.data
                         adapter.notifyDataSetChanged()
                         userList = it.data
                         binding.userListProgressBar.visibility = View.GONE
-                        binding.numberOfContactsTxt.text =
-                            "${it.data.size} ${getString(R.string.members)}"
+                        binding.toolbar.subtitle = "${it.data.size} ${getString(R.string.members)}"
                     }
                     is SelectNewChannelViewState.Error -> {
                         binding.userListProgressBar.visibility = View.GONE
@@ -119,15 +129,14 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
                 }
             }
         }
-
     }
+
     private fun observeEndPointLoading() {
         lifecycleScope.launchWhenStarted {
             viewModel._endPointResult.collect {
                 endPointLoadingState = it
                 if ( it is SelectNewChannelViewState.Error) {
-                    Toast.makeText(requireContext(),"Error in Loading data from server", Toast.LENGTH_LONG)
-                        .show()
+                    Toast.makeText(requireContext(),"Error in Loading data from server", Toast.LENGTH_LONG).show()
                 }
             }
         }

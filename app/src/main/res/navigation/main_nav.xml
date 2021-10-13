@@ -148,7 +148,11 @@
         <fragment
             android:id="@+id/channelChatFragment"
             android:name="com.zurichat.app.ui.fragments.channel_chat.ChannelChatFragment"
-            android:label="ChannelChatFragment" />
+            android:label="ChannelChatFragment" >
+            <action
+                android:id="@+id/action_channelChatFragment_to_channelInfoFragment2"
+                app:destination="@id/channelInfoFragment2" />
+        </fragment>
         <action
             android:id="@+id/action_global_dmFragment"
             app:destination="@id/dmFragment" />
@@ -160,6 +164,11 @@
                 android:name="channel_name"
                 app:argType="string" />
         </action>
+        <fragment
+            android:id="@+id/channelInfoFragment2"
+            android:name="com.zurichat.app.ui.channel_info.fragments.ChannelInfoFragment"
+            android:label="fragment_channel_info"
+            tools:layout="@layout/fragment_channel_info" />
 
     </navigation>
 
@@ -204,6 +213,12 @@
             android:id="@+id/action_homeScreenFragment_to_createRoomFragment"
             app:destination="@id/createRoomFragment" />
 
+        <action
+            android:id="@+id/action_homeScreenFragment_to_nextFragment"
+            app:destination="@id/nextFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_newChannelFragment"
+            app:destination="@id/newChannelFragment" />
     </fragment>
 
     <activity
@@ -264,6 +279,13 @@
         <action
             android:id="@+id/action_addByEmailFragment_to_seeYourChannelFragment"
             app:destination="@id/seeYourChannelFragment" />
+        <argument
+            android:name="organizationName"
+            app:argType="string" />
+        <argument
+            android:name="organizationId"
+            app:argType="string" />
+
     </fragment>
     <fragment
         android:id="@+id/newWorkspaceFragment"
@@ -283,7 +305,9 @@
         tools:layout="@layout/fragment_next">
         <action
             android:id="@+id/action_nextFragment_to_addByEmailFragment"
-            app:destination="@id/addByEmailFragment" />
+            app:destination="@id/addByEmailFragment"
+            app:popUpTo="@id/main_nav"
+            app:popUpToInclusive="true"/>
         <action
             android:id="@+id/action_nextFragment_to_seeYourChannelFragment"
             app:destination="@id/seeYourChannelFragment"
@@ -337,7 +361,7 @@
         tools:layout="@layout/activity_login" />
     <fragment
         android:id="@+id/accountsFragment"
-        android:name="com.zurichat.app.ui.fragments.AccountsFragment"
+        android:name="com.zurichat.app.ui.fragments.switch_account.AccountsFragment"
         android:label="@string/switch_accounts_toolbar_header"
         tools:layout="@layout/fragment_accounts">
         <action
@@ -349,7 +373,7 @@
     </fragment>
     <fragment
         android:id="@+id/confirmAccountPasswordFragment"
-        android:name="com.zurichat.app.ui.fragments.ConfirmAccountPasswordFragment"
+        android:name="com.zurichat.app.ui.fragments.switch_account.ConfirmAccountPasswordFragment"
         android:label="fragment_confirm_account_password"
         tools:layout="@layout/fragment_confirm_account_password">
         <action
@@ -363,10 +387,85 @@
         <argument
             android:name="currentUser"
             app:argType="com.zurichat.app.models.User" />
+        <action
+            android:id="@+id/action_confirmAccountPasswordFragment_to_forgetAccountPassword"
+            app:destination="@id/forgetAccountPassword"
+            app:popUpTo="@id/homeScreenFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/shareLinkFragment"
         android:name="com.zurichat.app.ShareLinkFragment"
         android:label="fragment_share_link"
         tools:layout="@layout/fragment_share_link" />
+    <fragment
+        android:id="@+id/forgetAccountPassword"
+        android:name="com.zurichat.app.ui.fragments.switch_account.ForgetAccountPassword"
+        android:label="ForgetAccountPassword" >
+        <argument
+            android:name="account"
+            app:argType="com.zurichat.app.models.User" />
+        <action
+            android:id="@+id/action_forgetAccountPassword_to_enterOtpACFragment"
+            app:destination="@id/enterOtpACFragment"
+            app:popUpTo="@id/homeScreenFragment" />
+        <argument
+            android:name="curUser"
+            app:argType="com.zurichat.app.models.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/enterOtpACFragment"
+        android:name="com.zurichat.app.ui.fragments.switch_account.EnterOtpACFragment"
+        android:label="EnterOtpACFragment" >
+        <argument
+            android:name="account"
+            app:argType="com.zurichat.app.models.User" />
+        <action
+            android:id="@+id/action_enterOtpACFragment_to_changePassFragment"
+            app:destination="@id/changePassFragment"
+            app:popUpTo="@id/homeScreenFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="curUser"
+            app:argType="com.zurichat.app.models.User" />
+        <action
+            android:id="@+id/action_enterOtpACFragment_to_forgetAccountPassword"
+            app:destination="@id/forgetAccountPassword"
+            app:popUpTo="@id/homeScreenFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePassFragment"
+        android:name="com.zurichat.app.ui.fragments.switch_account.ChangePassFragment"
+        android:label="ChangePassFragment" >
+        <argument
+            android:name="account"
+            app:argType="com.zurichat.app.models.User" />
+        <argument
+            android:name="otpCode"
+            app:argType="string"
+            android:defaultValue="null" />
+        <argument
+            android:name="curUser"
+            app:argType="com.zurichat.app.models.User" />
+        <action
+            android:id="@+id/action_changePassFragment_to_loginActivity"
+            app:destination="@id/loginActivity"
+            app:popUpTo="@id/main_nav"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment2"
+        android:name="com.zurichat.app.ui.login.screens.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/newChannelFragment"
+        android:name="com.zurichat.app.ui.screens.NewChannelFragment"
+        tools:layout="@layout/fragment_new_channel">
+        <argument
+            android:name="page"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>

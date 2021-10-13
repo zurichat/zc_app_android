@@ -29,7 +29,7 @@
         android:ellipsize="end"
         android:fontFamily="@font/lato"
         android:text="@string/app_name"
-        android:textColor="#000"
+        android:textColor="@color/text_color"
         android:textFontWeight="500"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/contactStatus"

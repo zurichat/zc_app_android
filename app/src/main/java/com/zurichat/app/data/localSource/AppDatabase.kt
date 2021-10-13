@@ -6,6 +6,7 @@ import androidx.room.TypeConverters
 import com.zurichat.app.data.localSource.dao.OrganizationMembersDao
 import com.zurichat.app.data.localSource.dao.UserDao
 import com.zurichat.app.models.User
+import com.zurichat.app.models.organization_model.OrgData
 import com.zurichat.app.ui.fragments.channel_chat.localdatabase.ChannelMessagesDao
 import com.zurichat.app.ui.fragments.channel_chat.localdatabase.RoomDao
 import com.zurichat.app.ui.fragments.channel_chat.localdatabase.RoomDataObject
@@ -16,13 +17,17 @@ import com.zurichat.app.ui.fragments.home_screen.chats_and_channels.localdatabas
 import com.zurichat.app.ui.fragments.home_screen.chats_and_channels.localdatabase.ChannelListObject
 import com.zurichat.app.ui.fragments.home_screen.chats_and_channels.localdatabase.TypeConverter.ChannelListConverter
 import com.zurichat.app.ui.fragments.model.AllChannelMessages
+import com.zurichat.app.ui.organizations.localdatabase.OrgDao
+import com.zurichat.app.ui.organizations.localdatabase.OrgRoomData
+import com.zurichat.app.ui.organizations.localdatabase.TypeConverters.OrgDataTypeConverter
+import com.zurichat.app.ui.organizations.localdatabase.TypeConverters.StringListTypeConverter
 
 @Database(
-    entities = [User::class, OrganizationMemberEntity::class, RoomDataObject::class, AllChannelMessages::class, ChannelListObject::class, AllChannelListObject::class],
+    entities = [User::class, OrganizationMemberEntity::class, RoomDataObject::class, AllChannelMessages::class, ChannelListObject::class, AllChannelListObject::class, OrgData::class, OrgRoomData::class],
     version = 3,
     exportSchema = false
 )
-@TypeConverters(DataTypeConverter::class, ChannelListConverter::class)
+@TypeConverters(DataTypeConverter::class, ChannelListConverter::class, StringListTypeConverter::class, OrgDataTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun userDao(): UserDao
@@ -36,4 +41,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun channelListDao(): ChannelListDao
 
     abstract fun allChannelListDao(): AllChannelListDao
+
+    abstract fun orgDao(): OrgDao
 }

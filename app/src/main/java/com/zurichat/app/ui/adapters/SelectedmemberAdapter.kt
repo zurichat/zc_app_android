@@ -3,7 +3,6 @@ package com.zurichat.app.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.zurichat.app.R
 import com.zurichat.app.databinding.ListItemSelectMember2Binding
 import com.zurichat.app.models.OrganizationMember
 
@@ -25,19 +24,15 @@ RecyclerView.Adapter<SelectedMemberAdapter.SelectedViewHolder>(){
             itemView.setOnClickListener {
                 user(selectedUserList[position])
             }
-
         }
 
     }
 
     override fun getItemCount() = selectedUserList.size
 
-
     inner class SelectedViewHolder(val binding: ListItemSelectMember2Binding):
         RecyclerView.ViewHolder(binding.root) {
-
          fun bind(user: OrganizationMember) {
-             binding.imageChatUser.setImageResource(R.drawable.ic_kolade_icon)
              binding.nameOfContact.text = if(user.firstName.isEmpty() && user.lastName.isEmpty())
                  "No name"
              else "${user.firstName} ${user.lastName}"

@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
-    android:background="@android:color/white">
+    android:clickable="true"
+    >
 
     <TextView
         android:id="@+id/channel_item_person_name_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/lato"
-        android:text=""
-        android:textColor="@color/fadeBlack"
+        android:text="Title"
+        android:textColor="@color/text_color"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/channel_item_person_icon"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,9 +26,12 @@
 
     <ImageButton
         android:id="@+id/channel_item_person_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_mary_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/image_channel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -38,8 +43,7 @@
         android:id="@+id/channel_item_message_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
-        android:textColor="@color/lightGray"
+        android:text="Sub-Title"
         app:layout_constraintBottom_toBottomOf="@+id/channel_item_person_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.03"

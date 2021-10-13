@@ -12,13 +12,10 @@ data class CreateRoom(
     @SerializedName("org_id")
     @Expose
     val orgId: String, // 6145eee9285e4a18402074cd
-    @SerializedName("room_user_ids")
+    @SerializedName("room_member_ids")
     @Expose
-    val roomUserIds: List<String>,
-    @SerializedName("bookmarks")
+    val roomMemberIds: List<String>,
+    @SerializedName("room_name")
     @Expose
-    val bookmarks: List<Any> = listOf(),
-    @SerializedName("pinned")
-    @Expose
-    val pinned: List<Any> = listOf()
+    val roomName: String = roomMemberIds.toString()
 )

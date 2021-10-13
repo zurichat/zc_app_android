@@ -1,5 +1,7 @@
 package com.zurichat.app.ui.newchannel.fragment
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.SearchView
@@ -17,25 +19,29 @@ import com.zurichat.app.ui.adapters.SelectedMemberAdapter
 import com.zurichat.app.util.viewBinding
 
 class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
-
-
     private val binding by viewBinding(FragmentSelectMemberBinding::bind)
     private lateinit var userList: List<OrganizationMember>
+    private lateinit var organizationID: String
     private val selectedUserLiveData = MutableLiveData<List<OrganizationMember>>()
     private val selectedUsers = mutableListOf<OrganizationMember>()
     private val selectMemberAdapter = SelectMemberAdapter { user -> addUser(user) }
     private val selectedMemberAdapter = SelectedMemberAdapter { user -> removeUser(user) }
 
+    lateinit var sharedPref: SharedPreferences
+    private val PREFS_NAME = "ORG_INFO"
+    private val ORG_NAME = "org_name"
+    private val ORG_ID = "org_id"
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        organizationID = sharedPref.getString(ORG_ID, null).toString()
         userList = arguments?.get("USER_LIST") as List<OrganizationMember>
-
 
         setUpViews()
         initAdapter()
         observeData()
-
     }
+
     private fun setUpViews() {
         with(binding) {
             //textView6.text = "${selectMember().size} Members"
@@ -86,18 +92,16 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
 
     private fun observeData() {
         selectedUserLiveData.observe(viewLifecycleOwner) {
-
             if (it.isEmpty()) {
                 binding.topRecyclerView.visibility = View.GONE
                 binding.fabAddChannel.visibility = View.GONE
-                binding.numberOfContactsTxt.text = "Choose Channel Members"
+                binding.toolbar.subtitle = "Choose Channel Members"
             } else {
                 binding.topRecyclerView.visibility = View.VISIBLE
                 binding.fabAddChannel.visibility = View.VISIBLE
                 selectedMemberAdapter.selectedUserList = it
                 selectedMemberAdapter.notifyDataSetChanged()
-                binding.numberOfContactsTxt.text =
-                    "${selectedUsers.size} out of ${userList.size} selected"
+                binding.toolbar.subtitle = "${selectedUsers.size} out of ${userList.size} selected"
                 binding.topRecyclerView.smoothScrollToPosition(selectedUsers.size - 1)
 
             }

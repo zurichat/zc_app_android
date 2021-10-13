@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import io.github.centrifugal.centrifuge.Client;
 import io.github.centrifugal.centrifuge.ConnectEvent;
 import io.github.centrifugal.centrifuge.DisconnectEvent;
+import io.github.centrifugal.centrifuge.ErrorEvent;
 import io.github.centrifugal.centrifuge.EventListener;
 import io.github.centrifugal.centrifuge.Options;
 import io.github.centrifugal.centrifuge.PublishEvent;
@@ -21,7 +22,7 @@ import io.github.centrifugal.centrifuge.SubscribeSuccessEvent;
 import io.github.centrifugal.centrifuge.Subscription;
 import io.github.centrifugal.centrifuge.SubscriptionEventListener;
 import io.github.centrifugal.centrifuge.UnsubscribeEvent;
-import timber.log.Timber;
+
 
 public class CentrifugeClient {
     private static Client client = null;
@@ -52,16 +53,22 @@ public class CentrifugeClient {
                     connected = false;
                     channelListener.onConnected(false);
                 }
+
+                @Override
+                public void onError(Client client, ErrorEvent event) {
+                    super.onError(client, event);
+                    channelListener.onConnectError(client, event);
+                }
             };
-            client = new Client(
-                    "wss://realtime.zuri.chat/connection/websocket?format=protobuf",
-                    new Options(),
-                    listener
-            );
+            client = new Client("wss://realtime.zuri.chat/connection/websocket?format=protobuf", new Options(), listener);
             client.setConnectData(bytes);
             client.connect();
         }
         return client;
+    }
+
+    public static boolean isConnected(){
+        return connected;
     }
 
     public static void subscribeToChannel(String channelRoomID) {
@@ -71,11 +78,12 @@ public class CentrifugeClient {
                 public void onSubscribeSuccess(Subscription sub, SubscribeSuccessEvent event) {
                     channelRoomIDList.add(channelRoomID);
                     subscriptionArrayMap.put(channelRoomID,sub);
+                    channelListener.onChannelSubscribed(true,sub);
                 }
 
                 @Override
                 public void onSubscribeError(Subscription sub, SubscribeErrorEvent event) {
-                    Timber.e("Subscribed%s", event.getMessage());
+                    channelListener.onChannelSubscriptionError(sub, event);
                 }
 
                 @Override
@@ -87,6 +95,7 @@ public class CentrifugeClient {
                 public void onUnsubscribe(Subscription sub, UnsubscribeEvent event) {
                     super.onUnsubscribe(sub, event);
                     client.removeSubscription(sub);
+                    channelListener.onChannelSubscribed(false,sub);
                 }
             };
             Subscription subscription = client.newSubscription(channelRoomID,subListener);
@@ -103,21 +112,16 @@ public class CentrifugeClient {
         }
     }
 
-    public static boolean isConnected(){
-        return connected;
-    }
-
-    public static ArrayMap<String, Subscription> getSubscriptionArrayMap() {
-        return subscriptionArrayMap;
-    }
-
     public static Subscription getChannelSubscription(String roomID){
         return subscriptionArrayMap.get(roomID);
     }
 
     public interface ChannelListener {
         void onConnected(boolean connected);
+        void onConnectError(Client client, ErrorEvent event);
         void onDataPublished(Subscription subscription, PublishEvent publishEvent);
+        void onChannelSubscribed(boolean isSubscribed, Subscription subscription);
+        void onChannelSubscriptionError(Subscription subscription, SubscribeErrorEvent event);
     }
 
     public static void setCustomListener(ChannelListener listener){

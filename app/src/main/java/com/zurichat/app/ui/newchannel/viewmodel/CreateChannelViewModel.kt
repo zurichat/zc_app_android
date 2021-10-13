@@ -16,24 +16,19 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CreateChannelViewModel @Inject constructor(
-    private val createChannelRemote: CreateChannel,
-) : ViewModel() {
+class CreateChannelViewModel @Inject constructor(private val createChannelRemote: CreateChannel) : ViewModel() {
 
-    private val _createChannelFlow =
-        MutableStateFlow<CreateChannelViewState>(CreateChannelViewState.Empty)
+    private val _createChannelFlow = MutableStateFlow<CreateChannelViewState>(CreateChannelViewState.Empty)
     val createChannelViewFlow: StateFlow<CreateChannelViewState> = _createChannelFlow
 
-    fun createNewChannel(createChannelBodyModel: CreateChannelBodyModel) {
+    fun createNewChannel(createChannelBodyModel: CreateChannelBodyModel,org_id:String) {
         viewModelScope.launch {
-            createChannelRemote(createChannelBodyModel).collect {
+            createChannelRemote(createChannelBodyModel,org_id).collect {
                 when (it) {
                     is Result.Success -> {
-                        _createChannelFlow.value =
-                            CreateChannelViewState.Success(R.string.successful_new_channel_creation, it.data)
+                        _createChannelFlow.value = CreateChannelViewState.Success(R.string.successful_new_channel_creation, it.data)
                     }
                     is Result.Error -> {
-                        println(it.failure)
                         when (it.failure) {
                             Failure.InvalidParameter -> {
                                 _createChannelFlow.value =

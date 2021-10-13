@@ -6,10 +6,8 @@ import com.zurichat.app.data.repository.UserOrganizationRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetUserOrganization @Inject constructor(
-    private val userRepository: UserOrganizationRepository,
-) : FlowUseCase<String, Any> {
-    override fun invoke(params: String?): Flow<Result<Any>> {
+class GetUserOrganization @Inject constructor(private val userRepository: UserOrganizationRepository, ) : FlowUseCase<String, Any> {
+    override fun invoke(params: String?,org_ID: String): Flow<Result<Any>> {
         return userRepository.getUserOrganization(params!!)
     }
 }
