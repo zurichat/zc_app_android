@@ -14,7 +14,6 @@ import androidx.core.text.trimmedLength
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.google.android.material.tabs.TabLayout
 import com.zurichat.app.R
 import com.zurichat.app.databinding.SearchviewLayoutBinding
@@ -98,7 +97,6 @@ class JSearchView @JvmOverloads constructor(
     private fun initClickListeners() = with(binding) {
         backButton.setOnClickListener { closeSearch() }
         //clearButton.setOnClickListener { clearSearch() }
-
 
 
         videosChip.setOnCloseIconClickListener {
@@ -246,7 +244,7 @@ class JSearchView @JvmOverloads constructor(
         searchViewListener?.onSearchViewShown()
     }
 
-    private fun chipShow(inactiveChip:Chip, activeChip:Chip)= with(binding){
+    fun chipShow(inactiveChip:Chip,activeChip:Chip)= with(binding){
         if(inactiveChip.isVisible){
             activeChip.visibility = VISIBLE
             inactiveChip.visibility = GONE
