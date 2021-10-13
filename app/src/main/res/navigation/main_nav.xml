@@ -273,6 +273,10 @@
             android:id="@+id/action_homeScreenFragment_to_shareLinkFragment"
             app:destination="@id/shareLinkFragment" />
         <action
+            android:id="@+id/action_homeScreenFragment_to_createRoomFragment"
+            app:destination="@id/createRoomFragment" />
+
+        <action
             android:id="@+id/action_homeScreenFragment_to_nextFragment"
             app:destination="@id/nextFragment" />
         <action
@@ -310,6 +314,16 @@
         android:name="com.zurichat.app.ui.fragments.home_screen.chats_and_channels.ChannelsFragment"
         android:label="fragment_channels"
         tools:layout="@layout/fragment_channels" />
+
+    <fragment
+        android:id="@+id/createRoomFragment"
+        android:name="com.zurichat.app.ui.dm_chat.fragment.CreateRoomFragment"
+        android:label="CreateRoomFragment" >
+        <action
+            android:id="@+id/action_createRoomFragment_to_homeScreenFragment"
+            app:destination="@+id/homeScreenFragment"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/createOrganizationsFragment"
