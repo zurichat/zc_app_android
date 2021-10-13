@@ -10,14 +10,12 @@ import android.util.Log
 import android.view.*
 import android.widget.FrameLayout
 import android.widget.TextView
-import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
 import androidx.core.text.trimmedLength
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayout
-import com.zurichat.app.databinding.JSearchViewBinding
+import com.zurichat.app.R
 import com.zurichat.app.databinding.SearchviewLayoutBinding
 import com.zurichat.app.util.jsearch_view_utils.*
 
@@ -100,15 +98,13 @@ class JSearchView @JvmOverloads constructor(
         backButton.setOnClickListener { closeSearch() }
         //clearButton.setOnClickListener { clearSearch() }
 
-        chipGroup.setOnCheckedChangeListener { group, checkedId ->
-            val chip:Chip = findViewById(checkedId)
-            chip.visibility = GONE
-        }
 
         videosChip.setOnCloseIconClickListener {
+            videosChip.setChipBackgroundColorResource(R.color.background_color)
            chipShow(videosChip,searchVideosChip)
         }
         audioChip.setOnCloseIconClickListener {
+            audioChip.setChipBackgroundColorResource(R.color.background_color)
             chipShow(audioChip,searchAudioChip)
         }
         docsChip.setOnCloseIconClickListener {
