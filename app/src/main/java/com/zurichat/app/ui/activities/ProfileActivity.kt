@@ -24,6 +24,7 @@ import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -37,18 +38,21 @@ open class ProfileActivity: AppCompatActivity() {
     private lateinit var savedName : TextView
     private lateinit var savedAbout : TextView
     private var user : User? = null
+    private lateinit var uri: Uri
 
     //token id
     private var token: String? = null
     private lateinit var orgMemId: String
     private lateinit var memId: String
+    val logging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
     private var client: OkHttpClient = OkHttpClient.Builder().addInterceptor(Interceptor { chain ->
         val newRequest: Request = chain.request().newBuilder()
             .addHeader("Authorization", "Bearer $token")
             .build()
         chain.proceed(newRequest)
-    }).build()
+    }).addInterceptor(logging)
+        .build()
 
     //prepare retrofit service
     private val retrofit: Retrofit = Retrofit.Builder()
