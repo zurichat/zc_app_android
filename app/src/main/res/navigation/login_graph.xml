@@ -44,7 +44,14 @@
         tools:layout="@layout/fragment_confirm_password">
         <action
             android:id="@+id/action_confirmPasswordFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/loginFragment" />
+        <argument
+            android:name="userEmail"
+            app:argType="string" />
+        <argument
+            android:name="otpCode"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/forgotPasswordFragment"
@@ -53,7 +60,8 @@
         tools:layout="@layout/fragment_forgot_password">
         <action
             android:id="@+id/action_forgotPasswordFragment_to_enterOtpFragment"
-            app:destination="@id/enterOtpFragment" />
+            app:destination="@id/enterOtpFragment"
+            app:popUpTo="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/welcomeFragment"
@@ -74,7 +82,11 @@
         tools:layout="@layout/fragment_enter_otp">
         <action
             android:id="@+id/action_enterOtpFragment_to_confirmPasswordFragment"
-            app:destination="@id/confirmPasswordFragment" />
+            app:destination="@id/confirmPasswordFragment"
+            app:popUpTo="@id/loginFragment" />
+        <argument
+            android:name="userEmail"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/emailVerificationFragment"
