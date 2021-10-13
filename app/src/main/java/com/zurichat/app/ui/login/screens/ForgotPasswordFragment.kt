@@ -24,6 +24,13 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val backToSignin = binding.backToSig
+        backToSignin.setOnClickListener {
+            val action = ForgotPasswordFragmentDirections
+                .actionForgotPasswordFragmentToLoginFragment()
+            findNavController().navigate(action)
+        }
+
         val emailFld = binding.TextEditForgotPassword
         emailFld.doOnTextChanged { text, start, before, count ->
             binding.textInputForgotPassword.error = null
