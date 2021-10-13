@@ -37,6 +37,68 @@
             android:defaultValue="IMAGE"
             app:argType="com.zurichat.app.ui.dm.MEDIA" />
     </fragment>
+
+    <fragment
+        android:id="@+id/selectMember"
+        android:name="com.zurichat.app.ui.newchannel.fragment.SelectMemberFragment"
+        android:label="fragment_select_member"
+        tools:layout="@layout/fragment_select_member">
+        <action
+            android:id="@+id/action_selectMemberFragment_to_newChannelDataFragment"
+            app:destination="@id/newChannelDataFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/newChannelData"
+        android:name="com.zurichat.app.ui.newchannel.fragment.NewChannelDataFragment"
+        android:label="NewChannelDataFragment">
+        <action
+            android:id="@+id/action_newChannelDataFragment_to_channelChatFragment"
+            app:destination="@id/channelChatFragment">
+            <argument
+                android:name="members"
+                app:argType="string[]"
+                app:nullable="true" />
+            <argument
+                android:name="channel_name"
+                app:argType="string"
+                app:nullable="true" />
+            <argument
+                android:name="user"
+                app:argType="com.zurichat.app.models.User"
+                app:nullable="true" />
+            <argument
+                android:name="channel_status"
+                app:argType="boolean" />
+            <argument
+                android:name="channel_id"
+                app:argType="string"
+                app:nullable="true" />
+        </action>
+
+        <argument
+            android:name="members"
+            app:argType="string[]"
+            app:nullable="true" />
+        <argument
+            android:name="channel_name"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="user"
+            app:argType="com.zurichat.app.models.User"
+            app:nullable="true" />
+
+        <argument
+            android:name="channel_status"
+            app:argType="boolean" />
+
+        <argument
+            android:name="channel_id"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+
     <navigation
         android:id="@+id/new_channel_nav_graph"
         app:startDestination="@id/selectNewChannelFragment">
@@ -81,6 +143,7 @@
                 android:id="@+id/action_selectMemberFragment_to_selectNewChannelFragment"
                 app:destination="@id/selectNewChannelFragment" />
         </fragment>
+
         <!-- 4. NewChannelDataFragment:
                 Third fragment to move to after selecting members from 3 above-->
         <!--    Here we are interested in imputing the name, and privacy status of the new channel we are creating,
@@ -210,6 +273,10 @@
             android:id="@+id/action_homeScreenFragment_to_shareLinkFragment"
             app:destination="@id/shareLinkFragment" />
         <action
+            android:id="@+id/action_homeScreenFragment_to_createRoomFragment"
+            app:destination="@id/createRoomFragment" />
+
+        <action
             android:id="@+id/action_homeScreenFragment_to_nextFragment"
             app:destination="@id/nextFragment" />
         <action
@@ -247,6 +314,16 @@
         android:name="com.zurichat.app.ui.fragments.home_screen.chats_and_channels.ChannelsFragment"
         android:label="fragment_channels"
         tools:layout="@layout/fragment_channels" />
+
+    <fragment
+        android:id="@+id/createRoomFragment"
+        android:name="com.zurichat.app.ui.dm_chat.fragment.CreateRoomFragment"
+        android:label="CreateRoomFragment" >
+        <action
+            android:id="@+id/action_createRoomFragment_to_homeScreenFragment"
+            app:destination="@+id/homeScreenFragment"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/createOrganizationsFragment"

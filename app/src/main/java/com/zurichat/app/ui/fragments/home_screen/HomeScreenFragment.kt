@@ -40,11 +40,13 @@ class HomeScreenFragment : Fragment() {
     lateinit var progressLoader: ProgressLoader
     lateinit var binding: FragmentHomeScreenBinding
     private lateinit var user: User
+    private var organization: OrgData? = null
     val viewModel: HomeScreenViewModel by viewModels()
     val userViewModel: LoginViewModel by viewModels()
     private val ViewModel by viewModels<UserViewModel>()
     private lateinit var organizationID: String
     private lateinit var organizationName: String
+    private lateinit var memberId: String
 
     private lateinit var searchView: JSearchView
     private lateinit var orgData: OrgData
@@ -52,6 +54,7 @@ class HomeScreenFragment : Fragment() {
     private val PREFS_NAME = "ORG_INFO"
     private val ORG_NAME = "org_name"
     private val ORG_ID = "org_id"
+    private val MEM_ID = "mem_Id"
     private lateinit var sharedPref: SharedPreferences
 
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
@@ -77,6 +80,8 @@ class HomeScreenFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
         user = requireActivity().intent.extras?.getParcelable("USER")!!
+        val bundle = arguments
+        organization = bundle?.getParcelable("Organization")
         sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
         searchView = binding.toolbarContainer.searchView
@@ -88,12 +93,14 @@ class HomeScreenFragment : Fragment() {
         when (prevDestLabel) {
             "switch_organization", "fragment_see_your_channel" -> {
                 //get the organization name passed from the previous destinations above
-                organizationName = arguments?.getString(ORG_NAME).toString()
-                organizationID = arguments?.getString(ORG_ID).toString()
+                organizationName = organization!!.name
+                organizationID = organization!!.id
+                memberId = organization!!.member_id
                 //save the organization name and id to a sharedPreference to persist it
                 with(sharedPref) {
                     edit().putString(ORG_NAME, organizationName).apply()
                     edit().putString(ORG_ID, organizationID).apply()
+                    edit().putString(MEM_ID, memberId).apply()
                 }
             }
             else -> {
@@ -108,6 +115,7 @@ class HomeScreenFragment : Fragment() {
                     organizationName = "Zuri Chat Default"
                 }
                 organizationID = sharedPref.getString(ORG_ID, null).toString()
+                memberId = sharedPref.getString(MEM_ID, null).toString()
             }
         }
         //organizationID = "614679ee1a5607b13c00bcb7"

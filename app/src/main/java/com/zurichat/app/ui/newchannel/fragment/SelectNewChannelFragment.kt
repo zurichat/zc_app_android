@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentSelectNewChannelBinding
 import com.zurichat.app.models.OrganizationMember
@@ -109,6 +110,7 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
     }
 
     private fun observeUsersList() {
+        val gson = Gson()
         lifecycleScope.launchWhenStarted {
             viewModel._users.collect {
                 when(it) {
@@ -116,6 +118,7 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
                         adapter.list = it.data
                         adapter.notifyDataSetChanged()
                         userList = it.data
+                        sharedPref.edit().putString("User List",gson.toJson(it.data)).apply()
                         binding.userListProgressBar.visibility = View.GONE
                         binding.toolbar.subtitle = "${it.data.size} ${getString(R.string.members)}"
                     }

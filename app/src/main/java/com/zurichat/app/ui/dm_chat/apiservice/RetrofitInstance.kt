@@ -1,5 +1,7 @@
 package com.zurichat.app.ui.dm_chat.apiservice
 
+import android.content.Context
+import com.zurichat.app.models.User
 import com.zurichat.app.ui.dm_chat.utils.MyInterceptor
 import com.zurichat.app.ui.dm_chat.utils.RoomConstants
 import okhttp3.OkHttpClient
@@ -7,8 +9,9 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
+    private val user: User? = null
     private val client = OkHttpClient.Builder().apply {
-        addInterceptor(MyInterceptor())
+        addInterceptor(MyInterceptor(user?.token))
     }.build()
 
     private val retrofit by lazy {
