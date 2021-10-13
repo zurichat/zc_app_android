@@ -28,7 +28,7 @@ class UserOrganizationViewModel @Inject constructor(
     fun getUserOrganizations(emailAddress: String) {
         viewModelScope.launch {
             _userOrganizationFlow.value = UserOrganizationViewState.Loading(R.string.retrieving_user_org)
-            getUserOrganization(emailAddress).collect {
+            getUserOrganization(emailAddress,"").collect {
                 when (it) {
                     is Result.Success -> {
                         if (it.data is UserOrganizationModel) {

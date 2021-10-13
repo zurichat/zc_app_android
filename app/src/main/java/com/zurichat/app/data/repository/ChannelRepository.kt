@@ -6,5 +6,5 @@ import com.zurichat.app.models.CreateChannelResponseModel
 import kotlinx.coroutines.flow.Flow
 
 interface ChannelRepository {
-    fun createChannel(createChannelBodyModel: CreateChannelBodyModel): Flow<Result<CreateChannelResponseModel>>
+    fun createChannel(createChannelBodyModel: CreateChannelBodyModel,org_ID: String): Flow<Result<CreateChannelResponseModel>>
 }

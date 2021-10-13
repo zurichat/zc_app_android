@@ -15,11 +15,7 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class SelectNewChannelRepository
-@Inject constructor(
-    @ChannelRetrofitService private val retrofitService: UsersService,
-    private val dao: OrganizationMembersDao
-) {
-
+@Inject constructor(@ChannelRetrofitService private val retrofitService: UsersService, private val dao: OrganizationMembersDao) {
     //Fetch list of users from the local database
     suspend fun getMembers(orgId: String): Flow<GetUserResult<List<OrganizationMember>>> {
         return try {
@@ -28,7 +24,6 @@ class SelectNewChannelRepository
                     emit(GetUserResult.Success(it.mapToMemberList()))
                 }
             }
-
         } catch (excep: Exception) {
             flow<GetUserResult<List<OrganizationMember>>> {
                 emit(GetUserResult.Error(Failure.DataError))
@@ -40,7 +35,6 @@ class SelectNewChannelRepository
     suspend fun insertUsers(token: String, orgId: String): GetUserResult<UserList> {
         val res = retrofitService.getMembers(token, orgId)
         return try {
-
             if (res.isSuccessful) {
                 res.body()?.let {
                     dao.insertMembers(it.data.mapToEntityList())
@@ -48,7 +42,6 @@ class SelectNewChannelRepository
                 } ?: GetUserResult.Error(Failure.ServerError)
             } else {
                 GetUserResult.Error(Failure.ServerError)
-
             }
         } catch (excep: Exception) {
             GetUserResult.Error(Failure.ServerError)

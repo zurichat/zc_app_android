@@ -19,7 +19,7 @@ fun OrganizationMember.mapToEntity() = OrganizationMemberEntity(
     presence,
     pronouns,
     role,
-    status,
+    //status,
     timeZone,
     userName
 )
@@ -42,7 +42,7 @@ fun OrganizationMemberEntity.mapToMember() = OrganizationMember(
     role = role,
     settings = null,
     socials = null,
-    status = status,
+   // status = status,
     timeZone =timeZone,
     userName = userName
 )

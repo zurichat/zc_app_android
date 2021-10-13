@@ -18,10 +18,12 @@ import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentHomeScreenBinding
 import com.zurichat.app.models.LogoutBody
 import com.zurichat.app.models.User
+import com.zurichat.app.models.organization_model.OrgData
 import com.zurichat.app.ui.activities.MainActivity
 import com.zurichat.app.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
 import com.zurichat.app.ui.fragments.switch_account.UserViewModel
 import com.zurichat.app.ui.login.LoginViewModel
+import com.zurichat.app.ui.newchannel.SelectNewChannelViewModel
 import com.zurichat.app.ui.organizations.utils.ZuriSharePreference
 import com.zurichat.app.util.ProgressLoader
 import com.zurichat.app.util.Result
@@ -45,6 +47,7 @@ class HomeScreenFragment : Fragment() {
     private lateinit var organizationName: String
 
     private lateinit var searchView: JSearchView
+    private lateinit var orgData: OrgData
 
     private val PREFS_NAME = "ORG_INFO"
     private val ORG_NAME = "org_name"
@@ -52,6 +55,7 @@ class HomeScreenFragment : Fragment() {
     private lateinit var sharedPref: SharedPreferences
 
     private val tabTitles = intArrayOf(R.string.chats, R.string.channels)
+    private  val getOrgMembers: SelectNewChannelViewModel by viewModels()
 
     @Inject
     lateinit var preference: SharedPreferences
@@ -111,6 +115,12 @@ class HomeScreenFragment : Fragment() {
             val bundle = Bundle()
             bundle.putParcelable("USER", user)
             findNavController().navigate(R.id.switchOrganizationFragment, bundle)
+        }
+        try {
+            getOrgMembers.orgID.value = organizationID
+            getOrgMembers.getListOfUsers(organizationID)
+        }catch (e : Exception){
+            e.printStackTrace()
         }
         return binding.root
     }
