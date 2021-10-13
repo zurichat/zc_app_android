@@ -7,6 +7,11 @@
 
     </data>
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="?actionBarSize">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/searchContainer"
             android:layout_width="match_parent"
@@ -90,4 +95,5 @@
                 app:layout_constraintTop_toBottomOf="@id/bottomLine" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 </layout>
