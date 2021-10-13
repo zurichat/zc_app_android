@@ -212,6 +212,9 @@
         <action
             android:id="@+id/action_homeScreenFragment_to_nextFragment"
             app:destination="@id/nextFragment" />
+        <action
+            android:id="@+id/action_homeScreenFragment_to_newChannelFragment"
+            app:destination="@id/newChannelFragment" />
     </fragment>
 
     <activity
@@ -442,4 +445,13 @@
         android:name="com.zurichat.app.ui.login.screens.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/newChannelFragment"
+        android:name="com.zurichat.app.ui.screens.NewChannelFragment"
+        tools:layout="@layout/fragment_new_channel">
+        <argument
+            android:name="page"
+            app:argType="integer"
+            android:defaultValue="0" />
+    </fragment>
 </navigation>
