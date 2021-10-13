@@ -40,6 +40,7 @@ class HomeScreenFragment : Fragment() {
     lateinit var progressLoader: ProgressLoader
     lateinit var binding: FragmentHomeScreenBinding
     private lateinit var user: User
+    private var organization: OrgData? = null
     val viewModel: HomeScreenViewModel by viewModels()
     val userViewModel: LoginViewModel by viewModels()
     private val ViewModel by viewModels<UserViewModel>()
@@ -79,6 +80,8 @@ class HomeScreenFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?, ): View {
         binding = FragmentHomeScreenBinding.inflate(inflater, container, false)
         user = requireActivity().intent.extras?.getParcelable("USER")!!
+        val bundle = arguments
+        organization = bundle?.getParcelable("Organization")
         sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
         searchView = binding.toolbarContainer.searchView
@@ -90,9 +93,9 @@ class HomeScreenFragment : Fragment() {
         when (prevDestLabel) {
             "switch_organization", "fragment_see_your_channel" -> {
                 //get the organization name passed from the previous destinations above
-                organizationName = arguments?.getString(ORG_NAME).toString()
-                organizationID = arguments?.getString(ORG_ID).toString()
-                memberId = arguments?.getString(MEM_ID).toString()
+                organizationName = organization!!.name
+                organizationID = organization!!.id
+                memberId = organization!!.member_id
                 //save the organization name and id to a sharedPreference to persist it
                 with(sharedPref) {
                     edit().putString(ORG_NAME, organizationName).apply()

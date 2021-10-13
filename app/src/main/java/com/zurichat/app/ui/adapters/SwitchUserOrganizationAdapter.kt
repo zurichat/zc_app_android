@@ -58,7 +58,6 @@ class SwitchUserOrganizationAdapter(private val organizations: List<OrgData>, va
                 bundle.putParcelable("USER",user)
                 bundle.putString("org_name",org.name)
                 bundle.putString("mem_id", org.member_id)
-                )
                 Navigation.findNavController(item.root).navigate(R.id.homeScreenFragment, bundle)
             }
         }
