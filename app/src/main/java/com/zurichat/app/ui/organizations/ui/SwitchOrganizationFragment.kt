@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import android.widget.SearchView
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -107,6 +109,29 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
             bundle1.putParcelable("USER",user)
             findNavController().navigate(R.id.newWorkspaceFragment, bundle1)
         }
+
+        val menu = binding.toolbar4.menu
+        val search = menu[0].actionView as SearchView
+
+        search.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+
+                if(this@SwitchOrganizationsFragment::userOrgAdapter.isInitialized) {
+                    println("I AM INITIALIZED")
+                    userOrgAdapter.filter.filter(query)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if(this@SwitchOrganizationsFragment::userOrgAdapter.isInitialized) {
+                    println("I AM INITIALIZED")
+                    userOrgAdapter.filter.filter(newText)
+                }
+                return true
+            }
+
+        })
     }
 
     private fun getUserEmailAddress(): String? { //"glagoandrew2001@gmail.com"
