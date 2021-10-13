@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -13,7 +14,7 @@ import com.zurichat.app.models.User
 import com.zurichat.app.models.organization_model.OrgData
 import com.zurichat.app.ui.organizations.utils.ZuriSharePreference
 
-class SwitchUserOrganizationAdapter(private val organizations: List<OrgData>, val context: Context,val user:User) : RecyclerView.Adapter<SwitchUserOrganizationAdapter.ViewHolder>() {
+class SwitchUserOrganizationAdapter(private val organizations: List<OrgData>, val context: Context,val user:User,var callback: OnBackPressedCallback?) : RecyclerView.Adapter<SwitchUserOrganizationAdapter.ViewHolder>() {
 
     private var onClickListener: ((orgData:OrgData, user:User) -> Unit)? = null
 
@@ -47,6 +48,9 @@ class SwitchUserOrganizationAdapter(private val organizations: List<OrgData>, va
             item.orgDescription.text = org.no_of_members.toString() + " Members"
             Glide.with(context).load(org.logo_url).into(item.orgImg)
             item.joinSignInButton.setOnClickListener {
+                if (callback!=null){
+                    callback?.remove()
+                }
                 ZuriSharePreference(context).setString("Current Organization ID",org.id)
                 //add organization and user to a bundle and attach the bundle to the NavController
                 val bundle = Bundle()

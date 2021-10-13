@@ -5,6 +5,8 @@ import com.zurichat.app.data.remoteSource.UsersService
 import com.zurichat.app.data.remoteSource.result
 import com.zurichat.app.models.organization_model.OrganizationCreator
 import com.zurichat.app.models.organization_model.OrganizationCreatorResponse
+import com.zurichat.app.models.organization_model.OrganizationName
+import com.zurichat.app.models.organization_model.OrganizationNameResponse
 import com.zurichat.app.util.ORG_ID
 import javax.inject.Inject
 
@@ -14,6 +16,11 @@ class OrganizationRepository @Inject constructor(
 ) {
     suspend fun getOrganization(organizationCreator: OrganizationCreator): OrganizationCreatorResponse {
         return usersService.createOrganization(organizationCreator)
+    }
+
+    suspend fun updateOrganizationName(orgID: String, orgName: String): OrganizationNameResponse {
+        val organizationNameResponse = OrganizationName(orgName)
+        return usersService.updateOrganizationName(orgID,organizationNameResponse)
     }
 
     suspend fun getMember(userId: String, organizationId: String = getId()) =

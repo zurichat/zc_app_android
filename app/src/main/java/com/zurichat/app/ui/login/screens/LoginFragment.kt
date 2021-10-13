@@ -15,7 +15,6 @@ import com.zurichat.app.data.localSource.Cache
 import com.zurichat.app.databinding.FragmentLoginBinding
 import com.zurichat.app.models.LoginBody
 import com.zurichat.app.models.LoginResponse
-import com.zurichat.app.ui.activities.CreateOrganizationActivity
 import com.zurichat.app.ui.activities.MainActivity
 import com.zurichat.app.ui.fragments.switch_account.UserViewModel
 import com.zurichat.app.ui.login.LoginViewModel
@@ -128,7 +127,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             if the user is not logging in for the first time redirect him to home activity
         */
 
-        if(prevDest == "fragment_email_verified"){
+        /*if(prevDest == "fragment_email_verified"){
             val intent = Intent(requireContext(), CreateOrganizationActivity::class.java)
             Cache.map.putIfAbsent("user", user)
             intent.putExtras(bundle)
@@ -140,7 +139,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             intent.putExtras(bundle)
             startActivity(intent)
             requireActivity().finish()
-        }
+        }*/
     }
 
     private fun handleError(throwable: Throwable) {

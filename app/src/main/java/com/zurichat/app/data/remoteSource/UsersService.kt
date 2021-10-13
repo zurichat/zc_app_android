@@ -5,6 +5,8 @@ import com.zurichat.app.models.network_response.OrganizationMembers
 import com.zurichat.app.models.network_response.OrganizationMembers.OrganizationMember
 import com.zurichat.app.models.organization_model.OrganizationCreator
 import com.zurichat.app.models.organization_model.OrganizationCreatorResponse
+import com.zurichat.app.models.organization_model.OrganizationName
+import com.zurichat.app.models.organization_model.OrganizationNameResponse
 import com.zurichat.app.ui.login.password.confirm.ConfirmPasswordData
 import com.zurichat.app.ui.login.password.confirm.ConfirmResponse
 import com.zurichat.app.ui.login.password.resetuserpass.ResetUserPasswordData
@@ -26,6 +28,12 @@ interface UsersService {
 
     @POST("organizations")
     suspend fun createOrganization(@Body organizationCreator: OrganizationCreator): OrganizationCreatorResponse
+
+    @PATCH("organizations/{organization_id}/name")
+    suspend fun updateOrganizationName(
+        @Path("organization_id") orgId: String,
+        @Body organization_name: OrganizationName
+    ): OrganizationNameResponse
 
     @POST("users")
     fun register(@Body registerUser: RegisterUser?): Call<RegisterUser?>?
@@ -53,9 +61,6 @@ interface UsersService {
 
     @POST("auth/logout")
     suspend fun logout(@Body logoutBody: LogoutBody): Response<LogoutResponse>
-
-    @POST("auth/confirm-password")
-    suspend fun confirmPass( @Body confirmPassBody: ConfirmPassBody):ConfirmPassResponse
 
     @POST("account/verify-reset-password")
     suspend fun verifyResetOtp(@Body resetCodeBody: ResetCodeBody):Response<ResetCodeResponse>

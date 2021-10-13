@@ -38,6 +38,7 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
         binding.toolbarAddTo.setNavigationOnClickListener { requireActivity().onBackPressed() }
         binding.apply {
             addByEmailButton.setOnClickListener(fun(_: View){
+
                // val action  = NextFragmentDirections.actionNextFragmentToAddByEmailFragment(organizationName, organizationId)
                 //action.organizationName = organizationName
                 //action.organizationId = organizationId
@@ -64,6 +65,5 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
            Navigation.findNavController(it).navigate(R.id.action_nextFragment_to_seeYourChannelFragment, bundle)
         }
     }
-
 
 }

@@ -26,7 +26,7 @@ class UserAccountAdapter(user: User): RecyclerView.Adapter<UserAccountAdapter.My
 
         val currentItem = userList[position]
         holder.itemView.findViewById<TextView>(R.id.contactName).text= currentItem.email
-        holder.itemView.findViewById<TextView>(R.id.contactStatus).text = currentItem.id
+        holder.itemView.findViewById<TextView>(R.id.contactStatus).text = ("${currentItem.first_name} ${currentItem.last_name}")
         holder.itemView.findViewById<ConstraintLayout>(R.id.contact_container).setOnClickListener {
             val action = AccountsFragmentDirections.actionAccountsFragmentToConfirmAccountPasswordFragment(currentItem,oldUser)
             holder.itemView.findNavController().navigate(action)
