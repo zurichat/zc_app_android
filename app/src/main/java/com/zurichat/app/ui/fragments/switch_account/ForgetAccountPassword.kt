@@ -41,6 +41,9 @@ class ForgetAccountPassword : Fragment(R.layout.fragment_forget_account_pass) {
                 is Result.Error -> {
                     Toast.makeText(requireContext(), "please try again", Toast.LENGTH_SHORT).show()
                 }
+                is Result.Loading ->{
+                    Toast.makeText(requireContext(), "please wait", Toast.LENGTH_SHORT).show()
+                }
             }
         })
     }
@@ -60,7 +63,7 @@ class ForgetAccountPassword : Fragment(R.layout.fragment_forget_account_pass) {
 
     private fun success(){
         val email = args.account.email
-        Toast.makeText(requireContext(), "a code has been sent to $email to reset password ", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), "A code has been sent to $email to reset password ", Toast.LENGTH_SHORT).show()
 
         val action = ForgetAccountPasswordDirections.actionForgetAccountPasswordToEnterOtpACFragment(args.account,args.curUser)
         findNavController().navigate(action)
