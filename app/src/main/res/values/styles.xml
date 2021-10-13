@@ -180,7 +180,7 @@
 
     <style name="next">
         <item name="android:textSize">
-            16sp
+            18sp
         </item>
 
         <item name="android:textColor">
