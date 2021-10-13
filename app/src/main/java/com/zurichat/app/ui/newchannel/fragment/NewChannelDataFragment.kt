@@ -113,7 +113,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                     saveImage()
                     val name = channelName.text.toString()
                     val description = "$name description"
-                    val owner = retrieveChannelOwner()
+                    val owner = user!!.id
                     val privateValue = private
                     val createChannelBodyModel = CreateChannelBodyModel(
                         description = description,

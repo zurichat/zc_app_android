@@ -1,5 +1,6 @@
 package com.zurichat.app.ui.fragments.channel_chat
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.drawable.ColorDrawable
@@ -29,7 +30,6 @@ import com.zurichat.app.models.OrganizationMember
 import com.zurichat.app.models.User
 import com.zurichat.app.ui.add_channel.BaseItem
 import com.zurichat.app.ui.add_channel.BaseListAdapter
-import com.zurichat.app.ui.channel_info.fragments.ChannelInfoFragment
 import com.zurichat.app.ui.fragments.channel_chat.localdatabase.ChannelMessagesDao
 import com.zurichat.app.ui.fragments.channel_chat.localdatabase.RoomDao
 import com.zurichat.app.ui.fragments.channel_chat.localdatabase.RoomDataObject
@@ -49,7 +49,6 @@ import kotlinx.coroutines.*
 import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.Flow
 import javax.inject.Inject
 import kotlin.collections.ArrayList
 import kotlin.random.Random
@@ -83,9 +82,16 @@ class ChannelChatFragment : Fragment() {
     @Inject
     lateinit var preference : SharedPreferences
 
+    lateinit var sharedPref: SharedPreferences
+    private val PREFS_NAME = "ORG_INFO"
+    private val ORG_NAME = "org_name"
+    private val ORG_ID = "org_id"
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelChatBinding.inflate(inflater, container, false)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedChannelViewModel::class.java)
+
+        sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
         database = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "zuri_chat").build()
         roomDao = database.roomDao()
@@ -106,7 +112,7 @@ class ChannelChatFragment : Fragment() {
                 }
             }
 
-            organizationID = preference.getString("ORG_ID", "614679ee1a5607b13c00bcb7") ?: ""
+            organizationID = sharedPref.getString(ORG_ID, "") ?: ""
             uiScope.launch(Dispatchers.IO) {
                 roomDao.getRoomDataWithChannelID(channel._id).let {
                     uiScope.launch(Dispatchers.Main) {
@@ -183,7 +189,7 @@ class ChannelChatFragment : Fragment() {
                 binding.text2.visibility = View.GONE
                 binding.channelName.visibility = View.GONE
                 binding.progressBar2.visibility = View.VISIBLE
-                val joinChannelUser = JoinChannelUser(channel._id.toString())
+                val joinChannelUser = JoinChannelUser(user.id)
                 joinChannelUser.role_id = "manager"
                 viewModel.joinChannel(organizationID, channel._id, joinChannelUser)
             }
@@ -451,10 +457,7 @@ class ChannelChatFragment : Fragment() {
 
                     }
 
-                    override fun onChannelSubscriptionError(
-                        subscription: Subscription?,
-                        event: SubscribeErrorEvent?
-                    ) {
+                    override fun onChannelSubscriptionError(subscription: Subscription?, event: SubscribeErrorEvent?) {
                         TODO("Not yet implemented")
                     }
 
@@ -499,7 +502,6 @@ class ChannelChatFragment : Fragment() {
                     channel._id,
                     messagesArrayList
                 )
-                channelChatEdit.text?.clear()
             }
         }
     }
