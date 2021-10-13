@@ -148,6 +148,7 @@ class HomeScreenFragment : Fragment() {
                 }
                 R.id.search -> {
 
+
                 }
                 R.id.new_channel -> {
                     try {
@@ -215,8 +216,8 @@ class HomeScreenFragment : Fragment() {
     }
 
     private fun updateUser(){
-        val user = user?.copy(currentUser = false)
-        ViewModel.updateUser(user!!)
+        val user = user.copy(currentUser = false)
+        ViewModel.updateUser(user)
     }
 
     private fun setupSearchView(menu: Menu, tabLayout: TabLayout) = with(binding) {
