@@ -26,7 +26,15 @@ data class DataX(
     val role: String,
     //val settings: Any,
     //val socials: Any,
-    val status: String,
+    val status: Status,
     val time_zone: String,
     val user_name: String
 ): Parcelable
+
+@Parcelize
+data class Status(
+    val expiry_time : String,
+   // val status_history : Any,
+    val tag : String,
+    val text : String
+):Parcelable
