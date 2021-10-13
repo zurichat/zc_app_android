@@ -40,10 +40,9 @@ class NewChannelAdapter(val fragment: Fragment): RecyclerView.Adapter<NewChannel
            // item.channelItemPersonIcon.setBackgroundResource(R.drawable.ic_kolade_icon)
             item.channelItemMessageTxt.text = chat.email
             item.root.setOnClickListener {
-                // will crash the app because no value is being passed
+                //will crash the app because no value is being passed
                 //it.findNavController().navigate(R.id.dmFragment)
             }
-
         }
     }
 

@@ -65,6 +65,7 @@
         app:srcCompat="@drawable/ic_close_black"
         android:tint="#ffffff"
         android:rotation="45"
+        android:enabled="false"
         tools:ignore="ContentDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
