@@ -37,12 +37,14 @@ class HomeScreenFragment : Fragment() {
     private val ViewModel by viewModels<UserViewModel>()
     private lateinit var organizationID: String
     private lateinit var organizationName: String
+    private lateinit var memberId: String
 
     private lateinit var searchView: JSearchView
 
     private val PREFS_NAME = "ORG_INFO"
     private val ORG_NAME = "org_name"
     private val ORG_ID = "org_id"
+    private val MEM_ID = "mem_Id"
     private lateinit var sharedPref: SharedPreferences
 
 
@@ -85,10 +87,12 @@ class HomeScreenFragment : Fragment() {
                 //get the organization name passed from the previous destinations above
                 organizationName = arguments?.getString(ORG_NAME).toString()
                 organizationID = arguments?.getString(ORG_ID).toString()
+                memberId = arguments?.getString(MEM_ID).toString()
                 //save the organization name and id to a sharedPreference to persist it
                 with(sharedPref) {
                     edit().putString(ORG_NAME, organizationName).apply()
                     edit().putString(ORG_ID, organizationID).apply()
+                    edit().putString(MEM_ID, memberId).apply()
                 }
             }
             else -> {
@@ -103,6 +107,7 @@ class HomeScreenFragment : Fragment() {
                     organizationName = "Zuri Chat Default"
                 }
                 organizationID = sharedPref.getString(ORG_ID, null).toString()
+                memberId = sharedPref.getString(MEM_ID, null).toString()
             }
         }
         //organizationID = "614679ee1a5607b13c00bcb7"

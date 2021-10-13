@@ -1,5 +1,7 @@
 package com.zurichat.app.ui.fragments.home_screen.chats_and_channels
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -50,14 +52,20 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
     private lateinit var roomList: RoomsListResponse
     private lateinit var roomsArrayList: ArrayList<RoomsListResponseItem>
 
-    private lateinit var userName: String
-
     private lateinit var memberList: UserOrganizationModel
     private lateinit var email: String
     private lateinit var orgId: String
     private lateinit var memId: String
 
-    private val roomAdapter by lazy { RoomAdapter(requireActivity(), roomsArrayList) }
+    private lateinit var organizationID: String
+    private lateinit var organizationName: String
+    private lateinit var memberId: String
+    private val PREFS_NAME = "ORG_INFO"
+    private val ORG_NAME = "org_name"
+    private val ORG_ID = "org_id"
+    private val MEM_ID = "mem_Id"
+    private lateinit var sharedPref: SharedPreferences
+
 
     private lateinit var adapt: RoomAdapter
 
@@ -70,8 +78,12 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentChatsBinding.bind(view)
         recyclerView = binding.listChats
-        val recyclerView2 = view.findViewById<RecyclerView>(R.id.list_chats)
         user = requireActivity().intent.extras?.getParcelable("USER")!!
+        sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+
+        organizationName = sharedPref.getString(ORG_NAME, null).toString()
+        organizationID = sharedPref.getString(ORG_ID, null).toString()
+        memberId = sharedPref.getString(MEM_ID, null).toString()
 
         ModelPreferencesManager.with(requireContext())
         roomsArrayList = ArrayList()

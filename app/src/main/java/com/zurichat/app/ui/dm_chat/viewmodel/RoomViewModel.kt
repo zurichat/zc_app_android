@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zurichat.app.models.organization_model.UserOrganizationModel
 import com.zurichat.app.ui.dm_chat.model.request.SendMessageBody
+import com.zurichat.app.ui.dm_chat.model.request.createroom.CreateRoomBody
+import com.zurichat.app.ui.dm_chat.model.response.createroom.CreateRoomsResponse
 import com.zurichat.app.ui.dm_chat.model.response.member.MemberResponse
 import com.zurichat.app.ui.dm_chat.model.response.message.GetMessageResponse
 import com.zurichat.app.ui.dm_chat.model.response.message.SendMessageResponse
@@ -23,6 +25,7 @@ class RoomViewModel(private val repository: Repository) : ViewModel() {
     val myGetMessageResponse: MutableLiveData<Response<GetMessageResponse>> = MutableLiveData()
     val mySendMessageResponse: MutableLiveData<Response<SendMessageResponse>> = MutableLiveData()
     val myMemberIdsResponse: MutableLiveData<Response<UserOrganizationModel>> = MutableLiveData()
+    val myCreateRoomResponse: MutableLiveData<Response<CreateRoomsResponse>> = MutableLiveData()
 
 
     fun getRooms() {
@@ -31,6 +34,17 @@ class RoomViewModel(private val repository: Repository) : ViewModel() {
                 val response = repository.getRooms()
                 myResponse.value = response
             }catch (e : Exception){
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun createRoom(memId: String, createRoomBody: CreateRoomBody) {
+        viewModelScope.launch {
+            try {
+                val response = repository.createRoom(memId, createRoomBody)
+                myCreateRoomResponse.value = response
+            } catch (e: Exception){
                 e.printStackTrace()
             }
         }

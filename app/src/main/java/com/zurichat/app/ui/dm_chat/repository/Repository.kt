@@ -3,6 +3,8 @@ package com.zurichat.app.ui.dm_chat.repository
 import com.zurichat.app.models.organization_model.UserOrganizationModel
 import com.zurichat.app.ui.dm_chat.apiservice.RetrofitInstance
 import com.zurichat.app.ui.dm_chat.model.request.SendMessageBody
+import com.zurichat.app.ui.dm_chat.model.request.createroom.CreateRoomBody
+import com.zurichat.app.ui.dm_chat.model.response.createroom.CreateRoomsResponse
 import com.zurichat.app.ui.dm_chat.model.response.member.MemberResponse
 import com.zurichat.app.ui.dm_chat.model.response.message.GetMessageResponse
 import com.zurichat.app.ui.dm_chat.model.response.message.SendMessageResponse
@@ -28,6 +30,9 @@ class Repository {
 
     suspend fun getMemberIds(email: String): Response<UserOrganizationModel> {
         return RetrofitInstance.retrofitService2.getMemberIds(email)
+    }
+    suspend fun createRoom(memId: String, createRoomBody: CreateRoomBody): Response<CreateRoomsResponse> {
+        return RetrofitInstance.retrofitService.createRoom(memId, createRoomBody)
     }
 
 }

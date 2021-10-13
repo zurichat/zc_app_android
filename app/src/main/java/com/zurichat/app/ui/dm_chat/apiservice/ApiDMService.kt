@@ -2,6 +2,8 @@ package com.zurichat.app.ui.dm_chat.apiservice
 
 import com.zurichat.app.models.organization_model.UserOrganizationModel
 import com.zurichat.app.ui.dm_chat.model.request.SendMessageBody
+import com.zurichat.app.ui.dm_chat.model.request.createroom.CreateRoomBody
+import com.zurichat.app.ui.dm_chat.model.response.createroom.CreateRoomsResponse
 import com.zurichat.app.ui.dm_chat.model.response.member.MemberResponse
 import com.zurichat.app.ui.dm_chat.model.response.message.GetMessageResponse
 import com.zurichat.app.ui.dm_chat.model.response.message.SendMessageResponse
@@ -16,6 +18,8 @@ import retrofit2.http.Path
 //https://api.zuri.chat/organizations/614679ee1a5607b13c00bcb7/members/614f093ee35bb73a77bc2bc5
 
 //https://dm.zuri.chat/dmapi/v1/org/614679ee1a5607b13c00bcb7/rooms/6153851a627d729efec46b7a/messages
+
+//https://dm.zuri.chat/api/v1/org/6162210d8e856323d6f12110/users/6162210d8e856323d6f12111/room
 
 interface ApiDMService {
 
@@ -44,5 +48,11 @@ interface ApiDMService {
     suspend fun getMemberIds(
         @Path("email") email: String
     ): Response<UserOrganizationModel>
+
+    @POST("users/{mem_id}/room")
+    suspend fun createRoom(
+        @Path("mem_id") memId: String,
+        @Body createRoomBody: CreateRoomBody
+    ): Response<CreateRoomsResponse>
 
 }

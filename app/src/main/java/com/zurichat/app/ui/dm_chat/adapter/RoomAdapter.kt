@@ -26,9 +26,6 @@ class RoomAdapter(val context: Activity, val roomList: ArrayList<RoomsListRespon
 
     inner class RoomViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 
-        var currentPosition: Int = 0
-        public lateinit var mRoomId: String
-
         fun bind(room: RoomsListResponseItem) {
            itemView.findViewById<TextView>(R.id.text_chat_username).text = room.room_name
             itemView.findViewById<ConstraintLayout>(R.id.root_layout).setOnClickListener{
@@ -45,14 +42,7 @@ class RoomAdapter(val context: Activity, val roomList: ArrayList<RoomsListRespon
     }
 
     override fun onBindViewHolder(holder: RoomViewHolder, position: Int) {
-
         holder.bind(roomList[position])
-//        holder.currentPosition = position
-//        val room = myList.get(position)
-//        holder.mRoomId = room._id
-
-        //holder.username.text = myList[position].room_user_ids[0]
-
     }
 
     override fun getItemCount(): Int {

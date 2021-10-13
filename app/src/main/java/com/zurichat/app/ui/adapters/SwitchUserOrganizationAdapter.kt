@@ -52,7 +52,8 @@ class SwitchUserOrganizationAdapter(
                 //add organization name and id to a bundle and attach the bundle to the NavController
                 val bundle = bundleOf(
                     "org_name" to org.name,
-                    "org_id" to org.id
+                    "org_id" to org.id,
+                    "mem_id" to org.member_id
                 )
                 Navigation.findNavController(item.root).navigate(R.id.homeScreenFragment, bundle)
             }
