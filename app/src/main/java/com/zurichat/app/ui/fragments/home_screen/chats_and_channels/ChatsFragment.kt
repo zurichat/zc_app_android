@@ -1,5 +1,7 @@
 package com.zurichat.app.ui.fragments.home_screen.chats_and_channels
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -14,6 +16,7 @@ import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentChatsBinding
 import com.zurichat.app.models.Message
 import com.zurichat.app.models.User
+import com.zurichat.app.models.organization_model.UserOrganizationModel
 import com.zurichat.app.ui.dm_chat.adapter.RoomAdapter
 import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponse
 import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponseItem
@@ -26,7 +29,9 @@ import com.zurichat.app.ui.fragments.home_screen.HomeScreenFragmentDirections
 import com.zurichat.app.ui.fragments.home_screen.HomeScreenViewModel
 import com.zurichat.app.ui.fragments.home_screen.adapters.ChatsAdapter
 import com.zurichat.app.ui.notification.NotificationUtils
+import com.zurichat.app.ui.organizations.utils.ZuriSharePreference
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.Interceptor
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -48,12 +53,20 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
     private lateinit var roomList: RoomsListResponse
     private lateinit var roomsArrayList: ArrayList<RoomsListResponseItem>
 
-    private lateinit var roomUserId: List<String>
+    private lateinit var memberList: UserOrganizationModel
+    private lateinit var email: String
+    private lateinit var orgId: String
     private lateinit var memId: String
-    private lateinit var userName: String
 
+    private lateinit var organizationID: String
+    private lateinit var organizationName: String
+    private lateinit var memberId: String
+    private val PREFS_NAME = "ORG_INFO"
+    private val ORG_NAME = "org_name"
+    private val ORG_ID = "org_id"
+    private val MEM_ID = "mem_Id"
+    private lateinit var sharedPref: SharedPreferences
 
-    private val roomAdapter by lazy { RoomAdapter(requireActivity(), roomsArrayList) }
 
     private lateinit var adapt: RoomAdapter
 
@@ -66,8 +79,12 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentChatsBinding.bind(view)
         recyclerView = binding.listChats
-        val recyclerView2 = view.findViewById<RecyclerView>(R.id.list_chats)
         user = requireActivity().intent.extras?.getParcelable("USER")!!
+        sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+
+        organizationName = sharedPref.getString(ORG_NAME, null).toString()
+        organizationID = sharedPref.getString(ORG_ID, null).toString()
+        memberId = sharedPref.getString(MEM_ID, null).toString()
 
         ModelPreferencesManager.with(requireContext())
         roomsArrayList = ArrayList()
@@ -75,39 +92,23 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         if (!mNotified) {
             NotificationUtils().setNotification(mNotificationTime, requireActivity())
         }
-
-        setupRecyclerView()
-
+        adapt = RoomAdapter(requireActivity(), roomsArrayList)
+        //setup viewModel and Retrofit
         val repository = Repository()
         val viewModelFactory = RoomViewModelFactory(repository)
         viewModelRoom = ViewModelProvider(this, viewModelFactory).get(RoomViewModel::class.java)
-        //call retrofit service function
-        viewModelRoom.getRooms()
 
+
+        //call retrofit service function to get rooms
+        viewModelRoom.getRooms(organizationID, memberId)
         viewModelRoom.myResponse.observe(viewLifecycleOwner) { response ->
             if (response.isSuccessful) {
-
                 roomList = response.body()!!
-
-                Log.i("RoomList response", "$roomList")
-
-                // ModelPreferencesManager.put(roomList, "rooms")
-                ModelPreferencesManager.put(roomList, "rooms")
-
-
-                //room = roomList[0]
-                //  roomsArrayList.addAll(roomList)
-                //roomAdapter.setData(roomList)
-
-                for (room in roomList) {
-                    roomsArrayList.add(room)
+                roomList.forEach{
+                    roomsArrayList.add(it)
                 }
-                addHeaders()
-
-                Log.i("Rooms List", "$roomsArrayList")
-
+                ModelPreferencesManager.put(roomList, "rooms")
             } else {
-
                 when (response.code()) {
                     400 -> {
                         Log.e("Error 400", "invalid authorization")
@@ -122,13 +123,10 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
                         Log.e("Error", "Generic Error")
                     }
                 }
-
             }
+            recyclerView.adapter = adapt
         }
-
-
-        userID = "61467ee61a5607b13c00bcf2"
-        //setupObservers()
+        selectChatItem()
         setupUI()
         activity?.onBackPressedDispatcher?.addCallback(requireActivity(), object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -137,16 +135,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         })
     }
 
-    //setup recyclerView
-    private fun setupRecyclerView() {
-        //recyclerView.adapter = roomAdapter
-        adapt = RoomAdapter(requireActivity(), roomsArrayList)
-        recyclerView.adapter = adapt
-    }
-
-    fun addHeaders() {
-        adapt = RoomAdapter(requireActivity(), roomsArrayList)
-        recyclerView.adapter = adapt
+    private fun selectChatItem() {
         adapt.setItemClickListener {
             val position = roomsArrayList.indexOf(it)
             roomsArrayList[position] = it
@@ -156,6 +145,13 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
             bundle1.putParcelable("room", room)
             bundle1.putInt("position", position)
             findNavController().navigate(R.id.dmFragment, bundle1)
+        }
+    }
+
+    private fun createNewRoom() {
+        val createRoomFab = binding.fabAddChat
+        createRoomFab.setOnClickListener {
+            findNavController().navigate(R.id.action_homeScreenFragment_to_createRoomFragment)
         }
     }
 
