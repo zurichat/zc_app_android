@@ -92,53 +92,22 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         if (!mNotified) {
             NotificationUtils().setNotification(mNotificationTime, requireActivity())
         }
-
-        setupRecyclerView()
-
+        adapt = RoomAdapter(requireActivity(), roomsArrayList)
         //setup viewModel and Retrofit
         val repository = Repository()
         val viewModelFactory = RoomViewModelFactory(repository)
         viewModelRoom = ViewModelProvider(this, viewModelFactory).get(RoomViewModel::class.java)
 
-        //call retrofit service function to get list of org for a logged in user
-        email = user.email
-        viewModelRoom.getMemberIds(email)
-        viewModelRoom.myMemberIdsResponse.observe(viewLifecycleOwner) { response ->
-            if (response.isSuccessful){
-                memberList = response.body()!!
-                orgId = memberList.data[2].id
-                memId = memberList.data[2].member_id
 
-                Log.i("List of Organizations", "$memberList")
-
-            } else {
-                when (response.code()) {
-                    400 -> {
-                        Log.e("Error 400", "invalid authorization")
-                    }
-                    404 -> {
-                        Log.e("Error 404", "Not Found")
-                    }
-                    401 -> {
-                        Log.e("Error 401", "No authorization or session expired")
-                    }
-                    else -> {
-                        Log.e("Error", "Generic Error")
-                    }
-                }
-            }
-        }
         //call retrofit service function to get rooms
-        viewModelRoom.getRooms()
+        viewModelRoom.getRooms(organizationID, memberId)
         viewModelRoom.myResponse.observe(viewLifecycleOwner) { response ->
             if (response.isSuccessful) {
                 roomList = response.body()!!
-                // ModelPreferencesManager.put(roomList, "rooms")
-                ModelPreferencesManager.put(roomList, "rooms")
-                for (room in roomList) {
-                    roomsArrayList.add(room)
+                roomList.forEach{
+                    roomsArrayList.add(it)
                 }
-                selectChatItem()
+                ModelPreferencesManager.put(roomList, "rooms")
             } else {
                 when (response.code()) {
                     400 -> {
@@ -155,8 +124,9 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
                     }
                 }
             }
+            recyclerView.adapter = adapt
         }
-        //setupObservers()
+        selectChatItem()
         setupUI()
         activity?.onBackPressedDispatcher?.addCallback(requireActivity(), object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -165,16 +135,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         })
     }
 
-    //setup recyclerView
-    private fun setupRecyclerView() {
-        //recyclerView.adapter = roomAdapter
-        adapt = RoomAdapter(requireActivity(), roomsArrayList)
-        recyclerView.adapter = adapt
-    }
-
     private fun selectChatItem() {
-        adapt = RoomAdapter(requireActivity(), roomsArrayList)
-        recyclerView.adapter = adapt
         adapt.setItemClickListener {
             val position = roomsArrayList.indexOf(it)
             roomsArrayList[position] = it
@@ -192,10 +153,6 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         createRoomFab.setOnClickListener {
             findNavController().navigate(R.id.action_homeScreenFragment_to_createRoomFragment)
         }
-    }
-
-    fun getToken(): String {
-        return ZuriSharePreference(requireContext()).getString("TOKEN")
     }
 
     override fun onResume() {

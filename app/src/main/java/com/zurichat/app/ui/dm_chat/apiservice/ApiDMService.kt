@@ -23,18 +23,21 @@ import retrofit2.http.Path
 
 interface ApiDMService {
 
-    @GET("users/{user_id}/rooms")
+    @GET("org/{org_id}/users/{user_id}/rooms")
     suspend fun getRooms(
+        @Path("org_id") orgId: String,
         @Path("user_id") userId: String
     ): Response<RoomsListResponse>
 
-    @GET("rooms/{room_id}/messages")
+    @GET("org/{org_id}/rooms/{room_id}/messages")
     suspend fun getMessages(
+        @Path("org_id") orgId: String,
         @Path("room_id") roomId: String
     ): Response<GetMessageResponse>
 
-    @POST("rooms/{room_id}/messages")
+    @POST("org/{org_id}/rooms/{room_id}/messages")
     suspend fun sendMessages(
+        @Path("org_id") orgId: String,
         @Path("room_id") roomId: String,
         @Body messageBody: SendMessageBody
     ): Response<SendMessageResponse>

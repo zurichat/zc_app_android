@@ -28,10 +28,10 @@ class RoomViewModel(private val repository: Repository) : ViewModel() {
     val myCreateRoomResponse: MutableLiveData<Response<CreateRoomsResponse>> = MutableLiveData()
 
 
-    fun getRooms() {
+    fun getRooms(orgId: String, memId: String) {
         viewModelScope.launch {
             try {
-                val response = repository.getRooms()
+                val response = repository.getRooms(orgId, memId)
                 myResponse.value = response
             }catch (e : Exception){
                 e.printStackTrace()
@@ -50,10 +50,10 @@ class RoomViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun getMessages(roomId: String) {
+    fun getMessages(orgId: String, roomId: String) {
         viewModelScope.launch {
             try {
-                val response = repository.getMessages(roomId)
+                val response = repository.getMessages(orgId, roomId)
                 myGetMessageResponse.value = response
             }catch (e : Exception){
                 e.printStackTrace()
@@ -61,10 +61,10 @@ class RoomViewModel(private val repository: Repository) : ViewModel() {
         }
     }
 
-    fun sendMessages(roomId: String, messageBody: SendMessageBody) {
+    fun sendMessages(orgId: String, roomId: String, messageBody: SendMessageBody) {
         viewModelScope.launch {
             try {
-                val response = repository.sendMessages(roomId, messageBody)
+                val response = repository.sendMessages(orgId, roomId, messageBody)
                 mySendMessageResponse.value = response
             }catch (e : Exception){
                 e.printStackTrace()
