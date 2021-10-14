@@ -10,6 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.zurichat.app.databinding.FragmentDmBinding
@@ -188,7 +191,7 @@ class RoomFragment : Fragment() {
                 }
                 val messageBody = SendMessageBody(message, roomId, senderId )
                 roomMsgViewModel.sendMessages(organizationID, roomId, messageBody)
-                roomMsgViewModel.mySendMessageResponse.observe(viewLifecycleOwner, { response ->
+                roomMsgViewModel.mySendMessageResponse.observeOnce(viewLifecycleOwner, { response ->
                     if (response.isSuccessful) {
                         val messageResponse = response.body()
                         val position = messagesArrayList.indexOf(baseRoomData)
@@ -214,7 +217,7 @@ class RoomFragment : Fragment() {
                             }
                         }
                     }
-                })
+                    })
                 channelChatEdit.text?.clear()
             }
         }
@@ -372,4 +375,13 @@ class RoomFragment : Fragment() {
             .append(DateTimeFormatter.ISO_INSTANT)
             .appendLiteral('"')
             .toFormatter()
+
+    private fun <T> LiveData<T>.observeOnce(owner: LifecycleOwner, observer: (T) -> Unit) {
+        observe(owner, object : Observer<T> {
+            override fun onChanged(value: T) {
+                removeObserver(this)
+                observer(value)
+            }
+        })
+    }
 }
