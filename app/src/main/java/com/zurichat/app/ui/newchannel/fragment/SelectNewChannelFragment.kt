@@ -49,7 +49,7 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
                 if(result is Result.Success)
                     findNavController().navigate(R.id.dmFragment,
                         bundleOf(
-                            "room" to RoomsListResponseItem(result.data.id, org_id = result.data.orgId, room_user_ids = result.data.roomUserIds),
+                            "room" to RoomsListResponseItem(result.data.id, org_id = result.data.orgId, room_user_ids = result.data.roomUserIds, room_name = member.name()),
                             "USER" to User("","","","","","","",0,"","","")
                         ))
                 else Toast.makeText(requireContext(),
