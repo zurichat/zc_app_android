@@ -32,8 +32,8 @@ object OrganizationRetrofitClient {
         return OkHttpClient.Builder()
             .addInterceptor(tokenInterceptor)
             .addInterceptor(httpLoggingInterceptor)
-            .connectTimeout(60, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
+            .connectTimeout(120, TimeUnit.SECONDS)
+            .readTimeout(120, TimeUnit.SECONDS)
             .build()
     }
 

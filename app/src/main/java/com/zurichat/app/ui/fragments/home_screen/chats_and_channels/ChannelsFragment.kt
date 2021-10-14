@@ -3,6 +3,7 @@ package com.zurichat.app.ui.fragments.home_screen.chats_and_channels
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -197,10 +198,15 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         adapt = ChannelAdapter(requireActivity(), channelsArrayList,uiScope, roomDao)
         adapt.organizationId = organizationID
         adapt.setItemClickListener {
+
+            val memberList = members
             val bundle1 = Bundle()
             bundle1.putParcelable("USER",user)
             bundle1.putParcelable("Channel",it)
             bundle1.putBoolean("Channel Joined",true)
+
+
+            bundle1.putParcelableArrayList("members", members as ArrayList<out Parcelable>)
             findNavController().navigate(R.id.channelChatFragment,bundle1)
         }
         adapt.setAddChannelClickListener {
