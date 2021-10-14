@@ -43,7 +43,6 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.random.Random
 
-
 class RoomFragment : Fragment() {
     private lateinit var roomsListAdapter : BaseListAdapter
     private lateinit var roomId: String
@@ -69,7 +68,6 @@ class RoomFragment : Fragment() {
 
     private lateinit var emojiIconsActions: EmojIconActions
     private lateinit var partialAttachmentPopupBinding: PartialAttachmentPopupBinding
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,11 +105,7 @@ class RoomFragment : Fragment() {
         roomId = room._id
         userId = room.room_user_ids.first()
         senderId = room.room_user_ids.last()
-        if (room.room_name.isEmpty()){
-            roomName = "No Name"
-        }else{
-            roomName = room.room_name
-        }
+        roomName = room.room_name
 
         toolbar.title = roomName
 
@@ -175,7 +169,6 @@ class RoomFragment : Fragment() {
             it.groupAudio.setClickListener { navigateToAttachmentScreen(MEDIA.AUDIO) }
             it.groupDocument.setClickListener { navigateToAttachmentScreen(MEDIA.DOCUMENT) }
         }
-
 
         sendMessage.setOnClickListener {
             if (channelChatEdit.text.toString().isNotEmpty()) {
