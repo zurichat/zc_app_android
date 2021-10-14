@@ -28,6 +28,14 @@ data class Room(
     @Expose
     val pinned: List<Any> = emptyList(),
 
+    @SerializedName("private")
+    @Expose
+    val isPrivateRoom: Boolean = false,
+
+    @SerializedName("room_name")
+    @Expose
+    val roomName: String = "",
+
     @SerializedName("room_user_ids")
     @Expose
     val roomUserIds: List<String> = emptyList()
