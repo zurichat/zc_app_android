@@ -75,6 +75,6 @@ data class OrganizationMember(
         displayName.isNotBlank() -> displayName
         userName.isNotBlank() -> userName
         firstName.isNotBlank() -> "$firstName $lastName"
-        else -> email
+        else -> email.substringBefore('@')
     }
 }
