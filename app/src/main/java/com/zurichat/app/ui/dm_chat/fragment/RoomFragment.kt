@@ -12,10 +12,13 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.zurichat.app.databinding.FragmentDmBinding
+import com.zurichat.app.databinding.PartialAttachmentPopupBinding
 import com.zurichat.app.models.User
 import com.zurichat.app.ui.add_channel.BaseItem
 import com.zurichat.app.ui.add_channel.BaseListAdapter
+import com.zurichat.app.ui.dm.MEDIA
 import com.zurichat.app.ui.dm_chat.model.request.SendMessageBody
 import com.zurichat.app.ui.dm_chat.model.response.message.BaseRoomData
 import com.zurichat.app.ui.dm_chat.model.response.message.Data
@@ -25,6 +28,8 @@ import com.zurichat.app.ui.dm_chat.repository.Repository
 import com.zurichat.app.ui.dm_chat.viewmodel.RoomViewModel
 import com.zurichat.app.ui.dm_chat.viewmodel.RoomViewModelFactory
 import com.zurichat.app.ui.fragments.channel_chat.ChannelHeaderItem
+import com.zurichat.app.util.setClickListener
+import hani.momanii.supernova_emoji_library.Actions.EmojIconActions
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatterBuilder
@@ -55,6 +60,10 @@ class RoomFragment : Fragment() {
     private lateinit var organizationID: String
     private lateinit var memberId: String
 
+    private lateinit var emojiIconsActions: EmojIconActions
+    private lateinit var partialAttachmentPopupBinding: PartialAttachmentPopupBinding
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -71,6 +80,10 @@ class RoomFragment : Fragment() {
         sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         organizationID = sharedPref.getString(ORG_ID, null).toString()
         memberId = sharedPref.getString(MEM_ID, null).toString()
+
+        partialAttachmentPopupBinding =
+            PartialAttachmentPopupBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
@@ -141,9 +154,20 @@ class RoomFragment : Fragment() {
             }
         })
 
+        emojiIconsActions =
+            EmojIconActions(context, view, binding.channelChatEditText, binding.iconBtn)
+        emojiIconsActions.ShowEmojIcon()
+        emojiIconsActions.addEmojiconEditTextList()
 
-        sendMessage.setOnClickListener{
-            if (channelChatEdit.text.toString().isNotEmpty()){
+        partialAttachmentPopupBinding.also {
+            it.groupGallery.setClickListener { navigateToAttachmentScreen() }
+            it.groupAudio.setClickListener { navigateToAttachmentScreen(MEDIA.AUDIO) }
+            it.groupDocument.setClickListener { navigateToAttachmentScreen(MEDIA.DOCUMENT) }
+        }
+
+
+        sendMessage.setOnClickListener {
+            if (channelChatEdit.text.toString().isNotEmpty()) {
                 val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
                 s.timeZone = TimeZone.getTimeZone("UTC")
                 val time = s.format(Date(System.currentTimeMillis()))
@@ -239,14 +263,23 @@ class RoomFragment : Fragment() {
         return roomsWithDateHeaders
     }
 
-    private fun convertStringDateToLong(date: String) : Long {
+    private fun convertStringDateToLong(date: String): Long {
         val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         s.timeZone = TimeZone.getTimeZone("UTC")
         var d = s.parse(date)
         return d.time
     }
-    private fun generateID():Int{
+
+    private fun generateID(): Int {
         return Random(6000000).nextInt()
+    }
+
+    private fun navigateToAttachmentScreen(media: MEDIA = MEDIA.IMAGE) {
+        findNavController().navigate(
+            RoomFragmentDirections.actionDmFragmentToAttachmentsFragment(
+                media
+            )
+        )
     }
 
     private val BING_INSTANT_PARSER: DateTimeFormatter =

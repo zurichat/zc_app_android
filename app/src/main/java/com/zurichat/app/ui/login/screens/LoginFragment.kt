@@ -1,11 +1,15 @@
 package com.zurichat.app.ui.login.screens
 
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -89,6 +93,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         Toast.makeText(context, "Please wait", Toast.LENGTH_LONG).show()
         Timber.d("Loading...")
         progressDialog.show()
+        progressDialog.setTitle("Loading...")
     }
 
     private fun handleSuccess(response: LoginResponse) {
@@ -107,6 +112,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         // add user object to room database
         viewModel.saveUser(user)
         accModel.addUser(user)
+
 
         progressDialog.dismiss()
         val bundle = Bundle()
@@ -148,6 +154,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         Timber.e(throwable)
         progressDialog.dismiss()
     }
+
 
 }
 

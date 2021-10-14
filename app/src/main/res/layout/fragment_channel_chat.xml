@@ -70,7 +70,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_insert_emoticon" />
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <hani.momanii.supernova_emoji_library.Helper.EmojiconEditText
                     android:id="@+id/channel_chat_editText"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -180,6 +180,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
+            android:id="@+id/ll1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

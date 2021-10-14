@@ -292,7 +292,11 @@
     <fragment
         android:id="@+id/channelChatFragment"
         android:name="com.zurichat.app.ui.fragments.channel_chat.ChannelChatFragment"
-        android:label="ChannelChatFragment" />
+        android:label="ChannelChatFragment">
+        <action
+            android:id="@+id/action_channelChatFragment_to_attachmentsFragment"
+            app:destination="@id/attachmentsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/addChannelFragment"
