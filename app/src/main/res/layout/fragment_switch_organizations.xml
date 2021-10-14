@@ -115,6 +115,8 @@
         android:background="@color/primaryColor"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
+        app:logo="@drawable/zuri_chat_icon"
+        app:titleMarginStart="32dp"
         app:title="Choose Organization"
         app:subtitle="No Organizations"
         app:subtitleTextColor="@color/white"
