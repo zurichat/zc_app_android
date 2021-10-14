@@ -24,7 +24,7 @@ import com.zurichat.app.ui.organizations.localdatabase.TypeConverters.StringList
 
 @Database(
     entities = [User::class, OrganizationMemberEntity::class, RoomDataObject::class, AllChannelMessages::class, ChannelListObject::class, AllChannelListObject::class, OrgData::class, OrgRoomData::class],
-    version = 3,
+    version = 2,
     exportSchema = false
 )
 @TypeConverters(DataTypeConverter::class, ChannelListConverter::class, StringListTypeConverter::class, OrgDataTypeConverter::class)

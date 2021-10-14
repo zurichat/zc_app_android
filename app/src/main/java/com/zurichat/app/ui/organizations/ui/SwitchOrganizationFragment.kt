@@ -89,7 +89,8 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
         job = Job()
         uiScope = CoroutineScope(Dispatchers.Main + job)
 
-        database = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "zuri_chat").build()
+        database = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "zuri_chat")
+            .build()
         orgDao = database.orgDao()
 
         binding.userEmail.text = user.email

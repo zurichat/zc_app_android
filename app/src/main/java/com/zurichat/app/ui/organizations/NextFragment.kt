@@ -3,6 +3,7 @@ package com.zurichat.app.ui.organizations
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
@@ -31,18 +32,21 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        generateMaterialDialog(requireActivity(),"Successful","You have successfully created" +
-                " $organizationName","Dismiss",null)
+
+        val prevDestLabel = findNavController().previousBackStackEntry?.destination?.label.toString()
+        if(prevDestLabel.equals("fragment_add_by_email")){
+
+        }else{
+            generateMaterialDialog(requireActivity(),"Successful","You have successfully created" +
+                    " $organizationName","Dismiss",null)
+        }
+
 
         // Set function to each item on the toolbar when they are been clicked
         binding.toolbarAddTo.setNavigationOnClickListener { requireActivity().onBackPressed() }
         binding.apply {
             addByEmailButton.setOnClickListener(fun(_: View){
 
-               // val action  = NextFragmentDirections.actionNextFragmentToAddByEmailFragment(organizationName, organizationId)
-                //action.organizationName = organizationName
-                //action.organizationId = organizationId
-             //   findNavController().navigate(action)
             })
             addFromContactsButton
             addToOrganizationAppbar
@@ -53,7 +57,7 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
                             "https://zuri.chat"
                         )
                         intent.type = "text/plain"
-//"https://api.zuri.chat/organizations/${organizationId}"
+                        //"https://api.zuri.chat/organizations/${organizationId}"
                         val shareIntent = Intent.createChooser(intent, null)
                         startActivity(shareIntent)
                     }
@@ -62,7 +66,17 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
         // navigate from next fragment to seeYourChannelFragment  passing in the organization name
         binding.nextTextView.setOnClickListener {
             val bundle = bundleOf("org_name" to organizationName)
-           Navigation.findNavController(it).navigate(R.id.action_nextFragment_to_seeYourChannelFragment, bundle)
+            Navigation.findNavController(it)
+                .navigate(R.id.action_nextFragment_to_seeYourChannelFragment, bundle)
+        }
+
+        binding.addByEmailButton.setOnClickListener {
+            //Toast.makeText(context, organizationId, Toast.LENGTH_SHORT).show()
+            val bundle = bundleOf(
+                "org_id" to organizationId,
+                "org_name" to organizationName)
+            Navigation.findNavController(it)
+                .navigate(R.id.action_nextFragment_to_addByEmailFragment, bundle)
         }
     }
 
