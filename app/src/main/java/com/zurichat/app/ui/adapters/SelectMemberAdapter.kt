@@ -48,9 +48,10 @@ class SelectMemberAdapter(private val user: (OrganizationMember) -> Unit):
     inner class SelectMemberViewModel(val binding: ListItemSelectMemberBinding): RecyclerView.ViewHolder(binding.root){
 
         fun bind(user: OrganizationMember) {
-            binding.channelItemPersonNameTxt.text = if(user.firstName.isEmpty() && user.lastName.isEmpty())
-                "No name"
-            else "${user.firstName} ${user.lastName}"
+//            binding.channelItemPersonNameTxt.text = if(user.firstName.isEmpty() && user.lastName.isEmpty())
+//                "No name"
+//            else "${user.firstName} ${user.lastName}"
+            binding.channelItemPersonNameTxt.text = user.name()
             binding.channelItemMessageTxt.text = user.email
         }
     }

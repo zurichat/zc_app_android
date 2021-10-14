@@ -204,8 +204,6 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
             bundle1.putParcelable("USER",user)
             bundle1.putParcelable("Channel",it)
             bundle1.putBoolean("Channel Joined",true)
-
-
             bundle1.putParcelableArrayList("members", members as ArrayList<out Parcelable>)
             findNavController().navigate(R.id.channelChatFragment,bundle1)
         }
