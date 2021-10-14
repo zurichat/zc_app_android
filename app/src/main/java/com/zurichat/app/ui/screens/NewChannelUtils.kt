@@ -11,7 +11,7 @@ import com.zurichat.app.data.remoteSource.postValue
 import com.zurichat.app.data.repository.OrganizationRepository
 import com.zurichat.app.databinding.ContactListItemBinding
 import com.zurichat.app.databinding.ListItemSelectMember2Binding
-import com.zurichat.app.models.network_response.OrganizationMembers.OrganizationMember
+import com.zurichat.app.models.OrganizationMember
 import com.zurichat.app.models.network_response.OrganizationMembers
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -25,10 +25,6 @@ import javax.inject.Inject
 class NewChannelViewModel @Inject constructor(
     private val orgRepo: OrganizationRepository
 ): ViewModel() {
-
-    init {
-        getMembers()
-    }
 
     // Variables that save the state of the UI
     var currentPage = 0
@@ -85,21 +81,23 @@ class SelectedMembersAdapter(private val selectedMembers: MutableList<Organizati
         ViewHolder(ListItemSelectMember2Binding
             .inflate(LayoutInflater.from(parent.context), parent, false))
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(position)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind()
 
     override fun getItemCount() = selectedMembers.size
 
     fun add(member: OrganizationMember){
-        selectedMembers.add(member)
-        notifyItemInserted(selectedMembers.lastIndex)
+        if(!selectedMembers.contains(member)) {
+            selectedMembers.add(member)
+            notifyItemInserted(selectedMembers.lastIndex)
+        }
     }
 
     inner class ViewHolder(val binding: ListItemSelectMember2Binding): RecyclerView.ViewHolder(binding.root){
-        fun bind(position: Int) = with(binding){
-            nameOfContact.text = selectedMembers[position].name()
+        fun bind() = with(binding){
+            nameOfContact.text = selectedMembers[adapterPosition].name()
             root.setOnClickListener {
-                selectedMembers.removeAt(position)
-                notifyItemRemoved(position)
+                selectedMembers.removeAt(adapterPosition)
+                notifyItemRemoved(adapterPosition)
             }
         }
     }

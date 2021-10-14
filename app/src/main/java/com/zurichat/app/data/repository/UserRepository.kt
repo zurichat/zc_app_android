@@ -66,6 +66,8 @@ class UserRepository @Inject constructor(
 
     fun getUserId() = preferences.getString(USER_ID, "")!!
 
+    fun getUserEmail() = preferences.getString(USER_EMAIL, "")!!
+
     fun getUserToken() = preferences.getString(USER_TOKEN, "")!!
 
     suspend fun getUser() = dao.getUser(getUserId())

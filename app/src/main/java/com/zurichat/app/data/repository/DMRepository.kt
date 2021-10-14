@@ -1,9 +1,12 @@
 package com.zurichat.app.data.repository
 
+import com.zurichat.app.R
 import com.zurichat.app.data.remoteSource.DMService
 import com.zurichat.app.data.remoteSource.result
 import com.zurichat.app.models.Message
 import com.zurichat.app.models.network_response.CreateRoom
+import com.zurichat.app.models.network_response.CreateRoomResponse
+import com.zurichat.app.util.Result
 import javax.inject.Inject
 
 /**
@@ -29,5 +32,4 @@ class DMRepository @Inject constructor(private val service: DMService) {
 
     suspend fun createRoom(orgId: String, userId: String, room: CreateRoom) =
         service.createRoom(orgId, userId, room).result()
-
 }

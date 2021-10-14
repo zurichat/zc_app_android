@@ -70,4 +70,11 @@ data class OrganizationMember(
     @SerializedName("user_name")
     @Expose
     val userName: String = "" // mukhtar.b017
-)
+){
+    fun name() = when {
+        displayName.isNotBlank() -> displayName
+        userName.isNotBlank() -> userName
+        firstName.isNotBlank() -> "$firstName $lastName"
+        else -> email
+    }
+}

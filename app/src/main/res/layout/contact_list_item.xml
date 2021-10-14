@@ -14,11 +14,11 @@
         android:id="@+id/contactImage"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/dmuser" />
+        app:srcCompat="@drawable/image_channel" />
 
     <TextView
         android:id="@+id/contactName"

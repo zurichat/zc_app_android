@@ -197,7 +197,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
 //        }
 
         fabAddChat.setOnClickListener {
-            findNavController().navigate(R.id.action_homeScreenFragment_to_newChannelFragment)
+            findNavController().navigate(R.id.new_channel_nav_graph)
         }
 
 //        viewModel.searchQuery.observe(viewLifecycleOwner){ query ->

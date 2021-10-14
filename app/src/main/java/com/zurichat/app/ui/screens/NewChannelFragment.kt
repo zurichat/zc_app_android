@@ -14,6 +14,8 @@ import com.zurichat.app.models.OrganizationMember
 import com.zurichat.app.util.MultiPageFragment
 import com.zurichat.app.util.setClickListener
 import dagger.hilt.android.AndroidEntryPoint
+import hani.momanii.supernova_emoji_library.Actions.EmojIconActions
+import hani.momanii.supernova_emoji_library.Helper.EmojiconEditText
 
 /**
  * @author Jeffrey Orazulike [https://github.com/jeffreyorazulike]
@@ -23,23 +25,20 @@ import dagger.hilt.android.AndroidEntryPoint
 class NewChannelFragment: MultiPageFragment(R.layout.fragment_new_channel) {
 
     override val groups: List<Group> by lazy {
-        listOf(
-            binding.groupNewChannel1,
-            binding.groupNewChannel2,
-            binding.groupNewChannel3,
-            binding.groupNewChannel4
-        )
+        with(binding){
+            listOf(groupNewChannel1, groupNewChannel2, groupNewChannel3, groupNewChannel4)
+        }
     }
     private val titles by lazy { resources.getStringArray(R.array.new_channel_titles) }
     private val subtitles by lazy { resources.getStringArray(R.array.new_channel_subtitles) }
 
-    private var members = mutableListOf<OrganizationMember>()
     private var membersAdapter = MembersAdapter(listOf())
     private val selectedMembersAdapter by lazy { SelectedMembersAdapter(viewModel.selectedMembers) }
 
     private lateinit var binding: FragmentNewChannelBinding
     private val viewModel: NewChannelViewModel by viewModels()
     private val args: NewChannelFragmentArgs by navArgs()
+    private var emoji: EmojIconActions? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -61,8 +60,8 @@ class NewChannelFragment: MultiPageFragment(R.layout.fragment_new_channel) {
         // update the toolbar
         toolbarNewChannel.toolbarApp.title = titles[page]
         toolbarNewChannel.toolbarApp.subtitle = when(page){
-            0 -> subtitles[page].format(members.size)
-            2 -> subtitles[page].format(viewModel.selectedMembers.size, members.size)
+            0 -> subtitles[page].format(membersAdapter.members.size)
+            2 -> subtitles[page].format(viewModel.selectedMembers.size, membersAdapter.members.size)
             else -> subtitles[page]
         }
         // update the fab
@@ -88,7 +87,7 @@ class NewChannelFragment: MultiPageFragment(R.layout.fragment_new_channel) {
                 2 -> {
                     selectedMembersAdapter.add(it)
                     toolbarNewChannel.toolbarApp.subtitle =
-                        subtitles[2].format(viewModel.selectedMembers.size, members.size)
+                        subtitles[page].format(viewModel.selectedMembers.size, membersAdapter.members.size)
                 }
             }
         }
@@ -96,6 +95,14 @@ class NewChannelFragment: MultiPageFragment(R.layout.fragment_new_channel) {
 
     private fun setupUI(): Unit = with(binding){
         groupNewChannel.setClickListener{display(Direction.FORWARD)}
+        textinputNewChannelName.also{
+            emoji = EmojIconActions(requireContext(), root, it.editText as EmojiconEditText, imageNewChannelEmojiButton)
+            emoji!!.ShowEmojIcon()
+        }
+
+        textinputNewChannelName.setEndIconOnClickListener {
+
+        }
         listNewChannelMembers.also {
             it.layoutManager = LinearLayoutManager(requireContext())
         }
@@ -113,10 +120,13 @@ class NewChannelFragment: MultiPageFragment(R.layout.fragment_new_channel) {
     }
 
     private fun setupObservers(): Unit = with(viewModel){
+        getMembers()
         organizationMembersResponse.observe(viewLifecycleOwner){
-            membersAdapter = MembersAdapter(it.data)
-            binding.listNewChannelMembers.adapter = membersAdapter
-            display()
+            it.members?.let{
+                membersAdapter = MembersAdapter(it)
+                binding.listNewChannelMembers.adapter = membersAdapter
+                display()
+            }
         }
         error.observe(viewLifecycleOwner){
             Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()

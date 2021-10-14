@@ -5,6 +5,8 @@ import androidx.lifecycle.viewModelScope
 import com.zurichat.app.R
 import com.zurichat.app.data.functional.Result
 import com.zurichat.app.data.remoteSource.TokenInterceptor
+import com.zurichat.app.data.repository.OrganizationRepository
+import com.zurichat.app.models.organization_model.OrgData
 import com.zurichat.app.models.organization_model.UserOrganizationModel
 import com.zurichat.app.ui.organizations.states.UserOrganizationViewState
 import com.zurichat.app.ui.organizations.usecase.GetUserOrganization
@@ -18,6 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class UserOrganizationViewModel @Inject constructor(
     private val getUserOrganization: GetUserOrganization,
+    val orgRepo: OrganizationRepository,
     private val interceptor: TokenInterceptor,
 ) : ViewModel() {
 
@@ -52,4 +55,6 @@ class UserOrganizationViewModel @Inject constructor(
         interceptor.setToken(token)
 
     }
+
+    fun saveOrgData(orgData: OrgData) = orgRepo.save(orgData)
 }
