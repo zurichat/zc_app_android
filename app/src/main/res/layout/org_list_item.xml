@@ -87,7 +87,7 @@
         android:textAllCaps="false"
         android:textStyle="bold"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:textColor="@color/text_color"
+        android:textColor="#000000"
         android:textColorLink="@color/white"
         android:textSize="14sp"
         app:cornerRadius="5dp"
