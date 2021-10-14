@@ -64,8 +64,6 @@ data class RoomListItem(val data: BaseRoomData, val user: User, val context: Act
         }
 
         binding.imageParent.visibility = View.GONE
-
-
     }
 
     private fun convertStringDateToLong(date: String): Date {
