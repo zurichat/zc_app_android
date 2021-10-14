@@ -47,16 +47,24 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
             //textView6.text = "${selectMember().size} Members"
             toolbar.setNavigationOnClickListener {
                 try {
-                    val action =
-                        SelectMemberFragmentDirections.actionSelectMemberFragmentToSelectNewChannelFragment()
-                    findNavController().navigate(action)
+                    /*if (arguments?.getBoolean("") == true){
+
+                    }else{
+                        val action =
+                            SelectMemberFragmentDirections.actionSelectMemberFragmentToSelectNewChannelFragment()
+                        findNavController().navigate(action)
+                    }*/
+                    findNavController().navigateUp()
                 } catch (exc: Exception) {
 
                 }
             }
             fabAddChannel.setOnClickListener {
-                findNavController().navigate(R.id.action_selectMemberFragment_to_newChannelDataFragment,
-                    bundleOf(Pair("Selected_user", selectedUsers)))
+                if (arguments?.getBoolean("AddChannelFragment") == true){
+                    findNavController().navigate(R.id.newChannelData, bundleOf(Pair("Selected_user", selectedUsers)))
+                }else{
+                    findNavController().navigate(R.id.action_selectMemberFragment_to_newChannelDataFragment, bundleOf(Pair("Selected_user", selectedUsers)))
+                }
             }
 
             val search = toolbar.menu[0]

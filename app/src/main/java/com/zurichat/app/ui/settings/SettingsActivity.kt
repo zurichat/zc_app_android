@@ -5,15 +5,18 @@ import android.content.SharedPreferences
 import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.SoundPool
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreference
 import com.zurichat.app.R
 import com.zurichat.app.models.User
@@ -26,11 +29,11 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
 
     var soundPool: SoundPool? = null
     private lateinit var user : User
+    private lateinit var profileImage : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
-
         initializePool()
 
         val profileContainer = findViewById<ConstraintLayout>(R.id.profile_container)
@@ -38,6 +41,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         val networkUsageContainer = findViewById<ConstraintLayout>(R.id.network_usage_container)
         val divider = findViewById<View>(R.id.divider)
         val nameTxt = findViewById<TextView>(R.id.name)
+        profileImage = findViewById(R.id.profile_image)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.settings, SettingsFragment())
@@ -65,6 +69,16 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
              nameTxt.text = user.last_name
         }else{
              nameTxt.text = user.email
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val mImageUri = preferences.getString("image", null)
+        if(mImageUri != null){
+            profileImage.setImageURI(Uri.parse(mImageUri))
         }
     }
 
@@ -302,7 +316,6 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
                 soundPool?.play(sound, 1F, 1F,0,0, 1F)
             }
         Toast.makeText(this, key, Toast.LENGTH_LONG).show()
-//        TODO("Not yet implemented")
     }
 
     fun initializePool() {

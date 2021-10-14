@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface OrganizationMembersDao {
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMembers(list: List<OrganizationMemberEntity>)
 

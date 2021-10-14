@@ -1,5 +1,7 @@
 package com.zurichat.app.ui.dm_chat.apiservice
 
+import android.content.Context
+import com.zurichat.app.models.User
 import com.zurichat.app.ui.dm_chat.utils.MyInterceptor
 import com.zurichat.app.ui.dm_chat.utils.RoomConstants
 import okhttp3.OkHttpClient

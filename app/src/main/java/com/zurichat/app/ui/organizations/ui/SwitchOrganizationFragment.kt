@@ -1,6 +1,7 @@
 package com.zurichat.app.ui.organizations.ui
 
 import android.os.Bundle
+import android.view.Menu
 import android.view.View
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -14,15 +15,20 @@ import com.google.android.material.snackbar.Snackbar
 import com.zurichat.app.R
 import com.zurichat.app.data.localSource.AppDatabase
 import com.zurichat.app.databinding.FragmentSwitchOrganizationsBinding
+import com.zurichat.app.models.LogoutBody
 import com.zurichat.app.models.User
 import com.zurichat.app.models.organization_model.OrgData
 import com.zurichat.app.ui.adapters.SwitchUserOrganizationAdapter
+import com.zurichat.app.ui.fragments.home_screen.LogOutDialogFragment
+import com.zurichat.app.ui.fragments.switch_account.UserViewModel
+import com.zurichat.app.ui.login.LoginViewModel
 import com.zurichat.app.ui.organizations.localdatabase.OrgDao
 import com.zurichat.app.ui.organizations.localdatabase.OrgRoomData
 import com.zurichat.app.ui.organizations.states.UserOrganizationViewState
 import com.zurichat.app.ui.organizations.utils.ZuriSharePreference
 import com.zurichat.app.ui.organizations.viewmodel.UserOrganizationViewModel
 import com.zurichat.app.util.ProgressLoader
+import com.zurichat.app.util.Result
 import com.zurichat.app.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -32,15 +38,19 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+
+typealias Callback = () -> Unit
+
 @AndroidEntryPoint
 class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizations) {
     @Inject
     lateinit var progressLoader: ProgressLoader
     private val viewModel: UserOrganizationViewModel by viewModels()
     private val binding by viewBinding(FragmentSwitchOrganizationsBinding::bind)
-    private var onOrgItemActionClicked: ((OrgData,User) -> Unit)? = null
+    private var onOrgItemActionClicked: ((OrgData, User) -> Unit)? = null
     private lateinit var userOrgAdapter: SwitchUserOrganizationAdapter
-
+    val userViewModel: LoginViewModel by viewModels()
+    private val ViewModel by viewModels<UserViewModel>()
     private lateinit var user: User
     private lateinit var database: AppDatabase
     private lateinit var orgDao: OrgDao
@@ -86,11 +96,11 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
             orgDao.getOrgDataWithID(user.id).let {
                 uiScope.launch(Dispatchers.Main) {
                     if (it != null) {
-                        if (it.orgData.isNotEmpty()){
+                        if (it.orgData.isNotEmpty()) {
                             firstTime = false
                             setUpViews(it.orgData)
                             binding.toolbar4.subtitle = "${it.orgData.size} Organization(s)"
-                        }else{
+                        } else {
                             firstTime = true
                         }
                     }
@@ -104,9 +114,24 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
 
         binding.organizationCardView.setOnClickListener {
             val bundle1 = Bundle()
-            bundle1.putParcelable("USER",user)
+            bundle1.putParcelable("USER", user)
             findNavController().navigate(R.id.newWorkspaceFragment, bundle1)
         }
+
+        setupToolbarLogOut(binding.toolbar4.menu)
+        binding.toolbar4.setOnMenuItemClickListener{
+            when(it.itemId){
+                R.id.action_logout ->{
+                    //logout()
+                    val callback: Callback = { logout() }
+                    val logoutDialog = LogOutDialogFragment(callback)
+                    logoutDialog.show(childFragmentManager,"LOG_OUT")
+                }
+            }
+            true
+        }
+        observeDataLogOut()
+
     }
 
     private fun getUserEmailAddress(): String? { //"glagoandrew2001@gmail.com"
@@ -124,14 +149,14 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
                     when (it) {
                         is UserOrganizationViewState.Loading -> {
                             it.message?.let {
-                                if (firstTime){
+                                if (firstTime) {
                                     progressLoader.show(getString(it))
                                 }
                             }
                         }
                         is UserOrganizationViewState.Success -> {
                             val userOrganizations = it.userOrganizationResponseModel
-                            if (firstTime){
+                            if (firstTime) {
                                 progressLoader.hide()
                                 snackBar(getString(it.message))
                             }
@@ -144,7 +169,7 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
                         }
                         is UserOrganizationViewState.Failure -> {
                             // progressLoader.hide()
-                            if (firstTime){
+                            if (firstTime) {
                                 progressLoader.hide()
                                 val errorMessage = it.message
                                 snackBar(errorMessage)
@@ -152,7 +177,7 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
                         }
                         else -> {
                             // progressLoader.hide()
-                            if (firstTime){
+                            if (firstTime) {
                                 progressLoader.hide()
                                 val errorMessage = "An Error Occurred"
                                 snackBar(errorMessage)
@@ -160,7 +185,7 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
                         }
                     }
                 }
-            }catch (e:Exception){
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
@@ -180,14 +205,54 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
                 layoutManager = LinearLayoutManager(requireContext())
                 adapter = userOrgAdapter
             }
-        } catch (e: NullPointerException){
+        } catch (e: NullPointerException) {
             Toast.makeText(context, "User has no organization", Toast.LENGTH_LONG).show()
         }
 
     }
 
-    private fun snackBar(message:String){
-        Snackbar.make(binding.parentLayout,message, Snackbar.LENGTH_SHORT).show()
+    private fun snackBar(message: String) {
+        Snackbar.make(binding.parentLayout, message, Snackbar.LENGTH_SHORT).show()
+    }
+
+
+    private fun setupToolbarLogOut(menu: Menu) = with(binding) {
+        menu.findItem(R.id.action_logout)
+        binding.toolbar4.inflateMenu(R.menu.organisation_log_out_menu)
+    }
+
+    private fun observeDataLogOut() {
+        userViewModel.logoutResponse.observe(viewLifecycleOwner, {
+            when (it) {
+                is Result.Success -> {
+                    ZuriSharePreference(requireActivity()).setString("Current Organization ID", "")
+                    //Toast.makeText(context, "You have been successfully logged out", Toast.LENGTH_SHORT).show()
+                    progressLoader.hide()
+                    updateUser()
+                    findNavController().navigate(R.id.action_switchOrganizationFragment_to_loginActivity)
+                    requireActivity().finish()
+                }
+                is Result.Error -> {
+                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                    progressLoader.hide()
+                }
+                is Result.Loading -> {
+                    progressLoader.show(getString(R.string.final_logout))
+                    //Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+    }
+
+    private fun logout() {
+        val logoutBody = LogoutBody(email = user.email)
+        userViewModel.logout(logoutBody)
+        userViewModel.clearUserAuthState()
+    }
+
+    private fun updateUser() {
+        val user = user.copy(currentUser = false)
+        ViewModel.updateUser(user)
     }
 
 }

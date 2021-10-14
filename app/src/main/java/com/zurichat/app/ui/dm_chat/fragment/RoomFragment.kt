@@ -1,5 +1,7 @@
 package com.zurichat.app.ui.dm_chat.fragment
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.format.DateUtils
 import android.util.Log
@@ -38,12 +40,21 @@ class RoomFragment : Fragment() {
     private lateinit var roomId: String
     private lateinit var userId: String
     private lateinit var senderId: String
+    private lateinit var roomName: String
     private lateinit var user : User
     private lateinit var room : RoomsListResponseItem
     private var currentPosition: Int? = null
     private lateinit var roomMsgViewModel: RoomViewModel
-    private val roomMsgViewModel1 : RoomViewModel by viewModels()
     private lateinit var binding: FragmentDmBinding
+
+    private val PREFS_NAME = "ORG_INFO"
+    private val ORG_NAME = "org_name"
+    private val ORG_ID = "org_id"
+    private val MEM_ID = "mem_Id"
+    private lateinit var sharedPref: SharedPreferences
+    private lateinit var organizationID: String
+    private lateinit var memberId: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -57,6 +68,9 @@ class RoomFragment : Fragment() {
         user = bundle1?.getParcelable("USER")!!
         room = bundle1.getParcelable("room")!!
         currentPosition = bundle1.getInt("position")
+        sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        organizationID = sharedPref.getString(ORG_ID, null).toString()
+        memberId = sharedPref.getString(MEM_ID, null).toString()
         return binding.root
     }
 
@@ -73,8 +87,9 @@ class RoomFragment : Fragment() {
         roomId = room._id
         userId = room.room_user_ids.first()
         senderId = room.room_user_ids.last()
+        roomName = room.room_name
 
-        toolbar.title = roomId
+        toolbar.title = roomName
 
         channelChatEdit.doOnTextChanged { text, start, before, count ->
             if (text.isNullOrEmpty()) {
@@ -95,7 +110,7 @@ class RoomFragment : Fragment() {
         val repository = Repository()
         val viewModelFactory = RoomViewModelFactory(repository)
         roomMsgViewModel = ViewModelProvider(this, viewModelFactory).get(RoomViewModel::class.java)
-        roomMsgViewModel.getMessages(roomId)
+        roomMsgViewModel.getMessages(organizationID, roomId)
 
         roomMsgViewModel.myGetMessageResponse.observe(viewLifecycleOwner, { response ->
             if (response.isSuccessful) {
@@ -144,7 +159,7 @@ class RoomFragment : Fragment() {
                     roomsListAdapter.submitList(it)
                 }
                 val messageBody = SendMessageBody(message, roomId, senderId )
-                roomMsgViewModel.sendMessages(messageBody)
+                roomMsgViewModel.sendMessages(organizationID, roomId, messageBody)
                 roomMsgViewModel.mySendMessageResponse.observe(viewLifecycleOwner, { response ->
                     if (response.isSuccessful) {
                         val messageResponse = response.body()

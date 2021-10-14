@@ -1,5 +1,7 @@
 package com.zurichat.app.ui.add_channel
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,12 +11,20 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.room.Room
 import com.zurichat.app.R
+import com.zurichat.app.data.localSource.AppDatabase
+import com.zurichat.app.data.localSource.dao.OrganizationMembersDao
 import com.zurichat.app.databinding.FragmentAddChannelBinding
 import com.zurichat.app.models.ChannelModel
 import com.zurichat.app.models.OrganizationMember
 import com.zurichat.app.models.User
-import java.util.*
+import com.zurichat.app.util.mapToMemberList
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class AddChannelFragment : Fragment() {
     private lateinit var binding: FragmentAddChannelBinding
@@ -25,9 +35,20 @@ class AddChannelFragment : Fragment() {
     private lateinit var joinedChannelsArrayList: ArrayList<ChannelModel>
 
     var userList: List<OrganizationMember> = ArrayList()
+    lateinit var sharedPref: SharedPreferences
+    private val PREFS_NAME = "ORG_INFO"
+    private val ORG_NAME = "org_name"
+    private val ORG_ID = "org_id"
+
+    private lateinit var job: Job
+    private lateinit var uiScope: CoroutineScope
+
+    private lateinit var database: AppDatabase
+    private lateinit var organizationMembersDao: OrganizationMembersDao
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentAddChannelBinding.inflate(inflater, container, false)
+        sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val bundle = arguments
         if (bundle != null) {
             user = bundle.getParcelable("USER")
@@ -70,9 +91,43 @@ class AddChannelFragment : Fragment() {
         binding.channelToolbar.setNavigationOnClickListener {
             requireActivity().onBackPressed()
         }
+
+        job = Job()
+        uiScope = CoroutineScope(Dispatchers.Main + job)
+
+        database = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "zuri_chat").build()
+        organizationMembersDao = database.organizationMembersDao()
+
+        val listString = sharedPref.getString("User List","")
+        var organizationID = sharedPref.getString(ORG_ID,"")
+        //This Will Be Removed Later.
+        organizationID = "6145eee9285e4a18402074cd"
+        if (!(organizationID.isNullOrBlank())){
+            uiScope.launch(Dispatchers.IO) {
+                organizationMembersDao.getMembers(organizationID).collect {
+                    try{
+                        userList = it.mapToMemberList()
+                        uiScope.launch(Dispatchers.Main) {
+                            binding.newChannel.isEnabled = true
+                        }
+                    }catch (e: Exception){
+                        e.printStackTrace()
+                    }
+                }
+            }
+        }
+        /*val gson = Gson()
+        if (listString != null) {
+            if (listString.isNotBlank()){
+                userList = gson.fromJson(listString,Array<OrganizationMember>::class.java).toList()
+            }
+        }*/
         binding.newChannel.setOnClickListener {
             try {
-                findNavController().navigate(R.id.action_selectNewChannelFragment_to_selectMemberFragment, bundleOf(Pair("USER_LIST",userList)))
+                findNavController().navigate(R.id.selectMember, bundleOf(
+                    Pair("USER_LIST",userList),
+                    Pair("AddChannelFragment",true)
+                ))
             } catch (exc: Exception) {
                 exc.printStackTrace()
             }
