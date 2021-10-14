@@ -63,6 +63,10 @@ public class CentrifugeClient {
             client = new Client("wss://realtime.zuri.chat/connection/websocket?format=protobuf", new Options(), listener);
             client.setConnectData(bytes);
             client.connect();
+        }else {
+            if (!isConnected()){
+                client.connect();
+            }
         }
         return client;
     }

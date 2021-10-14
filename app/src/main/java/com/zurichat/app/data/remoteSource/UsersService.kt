@@ -42,10 +42,7 @@ interface UsersService {
     fun verifyEmail(@Body verifyEmail: VerifyEmail?): Call<VerifyEmail?>?
 
     @GET("organizations/{organization_id}/members")
-    suspend fun getMembers(
-        @Header("Authorization") token: String,
-        @Path("organization_id") orgId: String
-    ): Response<UserList>
+    suspend fun getMembers(@Header("Authorization") token: String, @Path("organization_id") orgId: String): Response<UserList>
 
     @POST("account/request-password-reset-code")
     suspend fun passwordReset(@Body passwordReset: PasswordReset): PassswordRestReponse
@@ -54,10 +51,7 @@ interface UsersService {
     suspend fun getMembers(@Path("organization_id") org_id: String): Response<OrganizationMembers>
 
     @GET("organizations/{organization_id}/members/{member_id}")
-    suspend fun getMember(
-        @Path("organization_id") org_id: String,
-        @Path("member_id") member_id: String
-    ): Response<OrganizationMember>
+    suspend fun getMember(@Path("organization_id") org_id: String, @Path("member_id") member_id: String): Response<OrganizationMember>
 
     @POST("auth/logout")
     suspend fun logout(@Body logoutBody: LogoutBody): Response<LogoutResponse>

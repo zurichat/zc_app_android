@@ -69,7 +69,7 @@ class ChannelMessagesViewModel @Inject constructor(val organizationService: Orga
                 _allMessages.value!!.data = dataList
                 val joinedUser = RetrofitClientInstance.retrofitInstance?.create(JoinNewChannel::class.java)?.sendMessage(organizationId, channelId, message)
                 joinedUser?.let {
-                    _newMessage.value = data
+                   // _newMessage.value = data
 
                     //Replaces The Message Item with Message Item with Permanent ID gotten from server After Sending THe Message
                     mutableDataList[position] = it
@@ -112,15 +112,19 @@ class ChannelMessagesViewModel @Inject constructor(val organizationService: Orga
     }
 
     fun getProfilePictures(orgId: String, list: List<Data>): List<Data> {
-
         val newList = list
         list.forEachIndexed { index, data ->
             viewModelScope.launch {
-                val response = organizationService.getOrganizationMember(orgId, data._id)
-                newList[0].profile_url = response.body()?.data?.imageUrl
+                try{
+                    if (newList.isNotEmpty()){
+                        val response = organizationService.getOrganizationMember(orgId, data._id)
+                        newList[0].profile_url = response.body()?.data?.imageUrl
+                    }
+                }catch (e:Exception){
+                    e.printStackTrace()
+                }
             }
         }
-
         return newList
     }
 }
