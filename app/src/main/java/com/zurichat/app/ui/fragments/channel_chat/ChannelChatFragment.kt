@@ -101,7 +101,8 @@ class ChannelChatFragment : Fragment() {
 
         sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-        database = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "zuri_chat").build()
+        database = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "zuri_chat")
+            .build()
         roomDao = database.roomDao()
         channelMessagesDao = database.channelMessagesDao()
         isEnterSend = PreferenceManager.getDefaultSharedPreferences(requireContext()).getBoolean("enter_to_send", false)
