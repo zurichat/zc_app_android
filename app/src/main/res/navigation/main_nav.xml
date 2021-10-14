@@ -292,7 +292,11 @@
     <fragment
         android:id="@+id/channelChatFragment"
         android:name="com.zurichat.app.ui.fragments.channel_chat.ChannelChatFragment"
-        android:label="ChannelChatFragment" />
+        android:label="ChannelChatFragment">
+        <action
+            android:id="@+id/action_channelChatFragment_to_attachmentsFragment"
+            app:destination="@id/attachmentsFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/addChannelFragment"
@@ -399,6 +403,11 @@
         android:name="com.zurichat.app.ui.organizations.ui.SwitchOrganizationsFragment"
         android:label="switch_organization"
         tools:layout="@layout/fragment_switch_organizations">
+        <action
+        android:id="@+id/action_switchOrganizationFragment_to_loginActivity"
+        app:destination="@id/loginActivity"
+        app:popUpTo="@id/main_nav"
+        app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_switchOrganizationFragment_to_homeScreenFragment"
             app:destination="@id/homeScreenFragment" />

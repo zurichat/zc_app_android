@@ -43,7 +43,7 @@ interface DMService {
         @Query("room_id") roomId: String
     ): Response<RoomInfoResponse>
 
-    @POST("${DM_API}{org_id}/user/{user_id}/room")
+    @POST("${DM_API}{org_id}/users/{user_id}/room")
     suspend fun createRoom(
         @Path("org_id") orgId: String,
         @Path("user_id") userId: String,

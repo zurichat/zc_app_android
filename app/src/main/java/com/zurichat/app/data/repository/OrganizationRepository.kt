@@ -3,10 +3,8 @@ package com.zurichat.app.data.repository
 import android.content.SharedPreferences
 import com.zurichat.app.data.remoteSource.UsersService
 import com.zurichat.app.data.remoteSource.result
-import com.zurichat.app.models.organization_model.OrganizationCreator
-import com.zurichat.app.models.organization_model.OrganizationCreatorResponse
-import com.zurichat.app.models.organization_model.OrganizationName
-import com.zurichat.app.models.organization_model.OrganizationNameResponse
+import com.zurichat.app.models.organization_model.*
+import com.zurichat.app.util.MEMBER_ID
 import com.zurichat.app.util.ORG_ID
 import javax.inject.Inject
 
@@ -26,19 +24,28 @@ class OrganizationRepository @Inject constructor(
     suspend fun getMember(userId: String, organizationId: String = getId()) =
         usersService.getMember(organizationId, userId).result()
 
+    suspend fun getMemberByEmail(email: String, organizationId: String = getId()) =
+        usersService.getMemberByEmail(organizationId, email).result()
+
     suspend fun getMembers(organizationId: String = getId()) =
         usersService.getMembers(organizationId).result()
 
-    fun saveId(id: String) = preferences.edit().putString(ORG_ID, id).apply()
+    fun save(orgData: OrgData) = with(orgData){
+        preferences.edit()
+            .putString(ORG_ID, id)
+            .putString(MEMBER_ID, member_id).apply()
+    }
 
     fun getId(): String {
         preferences.getString(ORG_ID, "")
         return TEST_ID
     }
 
+    fun getMemberId() = preferences.getString(MEMBER_ID, "")!!
+
     companion object {
         val TAG = OrganizationRepository::class.simpleName
 
-        const val TEST_ID = "6145eee9285e4a18402074cd" // used for testing if endpoints are working
+        const val TEST_ID = "6162210d8e856323d6f12110" // used for testing if endpoints are working
     }
 }

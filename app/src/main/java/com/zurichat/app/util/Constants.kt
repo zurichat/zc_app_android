@@ -8,5 +8,6 @@ const val USER_TOKEN: String = "com.app.zurichat.values.auth_token"
 const val USER_ID: String = "com.app.zurichat.values.user_id"
 const val USER_EMAIL: String = "com.app.zurichat.values.user_email"
 const val ORG_ID: String = "com.app.zurichat.values.organization_id"
+const val MEMBER_ID: String = "com.app.zurichat.values.member_id"
 
 const val RETROFIT_CACHE_SIZE = 10L * 1024 * 1024

@@ -55,19 +55,7 @@ data class SendMessageResponse(
 }
 
 data class CreateRoomResponse(
-    @SerializedName("status")
-    @Expose
-    val status: Int = 0, // 200
     @SerializedName("room_id")
     @Expose
     val roomId: String = "", // 614b774544a9bd81cedc0cbb
-    @SerializedName("message")
-    @Expose
-    val message: String = "", // Bad Request
-){
-    val responseResult: Result<String> get() = when(status){
-        0 -> Result.Loading
-        200, 201 -> Result.Success(roomId)
-        else -> Result.Error(message)
-    }
-}
+)

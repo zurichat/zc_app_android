@@ -29,33 +29,30 @@ object RetrofitModule {
         return Gson().newBuilder().setLenient().create()
     }
 
-    @Provides
-    fun provideLoggingInterceptor(): HttpLoggingInterceptor {
+    @Provides fun loggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().also {
             it.level = HttpLoggingInterceptor.Level.BODY
         }
     }
 
-    @Provides
-    fun provideRetrofitCache(application: Application) =
+    @Provides fun retrofitCache(application: Application) =
         // creates a cache with a max size of 10mb
         Cache(application.applicationContext.cacheDir, RETROFIT_CACHE_SIZE)
 
+    @Provides fun headerAuthorization(sharedPreferences: SharedPreferences) = Interceptor { chain ->
+        val request = chain.request().newBuilder()
+        sharedPreferences.getString(USER_TOKEN, null)?.let {
+            request.addHeader("Authorization", "Bearer $it")
+        }
+        chain.proceed(request.build())
+    }
 
     @Provides
-    fun provideClient(
+    fun okHttpClientBuilder(
         cache: Cache, application: Application,
         interceptor: HttpLoggingInterceptor,
         sharedPreferences: SharedPreferences
-    ): OkHttpClient {
-        // Add authorization token to the header interceptor
-        val headerAuthorization = Interceptor { chain ->
-            val request = chain.request().newBuilder()
-            sharedPreferences.getString(USER_TOKEN, null)?.let {
-                request.addHeader("Authorization", "Bearer $it")
-            }
-            chain.proceed(request.build())
-        }
+    ): OkHttpClient.Builder{
         // Add the cache interceptor that helps cache http responses on the users machine
         // in case of no network service
         val cacheInterceptor = Interceptor { chain ->
@@ -73,7 +70,6 @@ object RetrofitModule {
             chain.proceed(request)
         }
         return OkHttpClient.Builder().cache(cache)
-            .addInterceptor(headerAuthorization)
             .addInterceptor(interceptor)
             .addInterceptor(cacheInterceptor)
             .connectionPool(ConnectionPool(0, 1, TimeUnit.MICROSECONDS))
@@ -81,22 +77,23 @@ object RetrofitModule {
             .connectTimeout(60, TimeUnit.SECONDS)
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
-            .build()
     }
 
-    @Provides
-    fun provideRetrofitBuilder(client: OkHttpClient, gson: Gson): Retrofit.Builder =
-        Retrofit.Builder()
-            .client(client)
+    @Provides fun retrofitBuilder(
+        client: OkHttpClient.Builder,
+        header: Interceptor,
+        gson: Gson): Retrofit.Builder = Retrofit.Builder()
+            .client(client.addInterceptor(header).build())
             .addConverterFactory(GsonConverterFactory.create(gson))
 
     @Provides
     fun provideUserService(builder: Retrofit.Builder): UsersService =
         builder.baseUrl("https://api.zuri.chat/").build().create(UsersService::class.java)
 
-    @Provides
-    fun provideDMService(builder: Retrofit.Builder) =
-        builder.baseUrl(DMService.BASE_URL).build().create(DMService::class.java)
+    @Provides fun dmService(client: OkHttpClient.Builder, gson: Gson) =
+        Retrofit.Builder().client(client.build())
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .baseUrl(DMService.BASE_URL).build().create(DMService::class.java)
 
     @Provides
     fun provideFileService(builder: Retrofit.Builder) =
