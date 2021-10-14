@@ -1,6 +1,5 @@
 package com.zurichat.app.ui.organizations.ui
 
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
@@ -40,7 +39,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 
 typealias Callback = () -> Unit
 

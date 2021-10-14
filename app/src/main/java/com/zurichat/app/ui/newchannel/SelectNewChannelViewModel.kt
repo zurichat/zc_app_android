@@ -43,7 +43,7 @@ class SelectNewChannelViewModel @Inject constructor(
 
         viewModelScope.launch {
             //remove this later
-            orgID.value = "6145eee9285e4a18402074cd"
+            //orgID.value = "6145eee9285e4a18402074cd"
             repository.getMembers(orgID.value.toString()).collect {
                 when (it) {
                     is GetUserResult.Success -> {
@@ -60,7 +60,7 @@ class SelectNewChannelViewModel @Inject constructor(
 
     fun getListOfUsers(orgID:String) {
         viewModelScope.launch {
-            val res = repository.insertUsers("Bearer ${preference.getString("TOKEN", "")}", "6145eee9285e4a18402074cd")
+            val res = repository.insertUsers("Bearer ${preference.getString("TOKEN", "")}", orgID)
             when(res) {
                 is GetUserResult.Success -> {
                     userList.value = res.data.data

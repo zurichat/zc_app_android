@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.zurichat.app.databinding.FragmentDmBinding
@@ -28,19 +27,24 @@ import com.zurichat.app.ui.dm_chat.repository.Repository
 import com.zurichat.app.ui.dm_chat.viewmodel.RoomViewModel
 import com.zurichat.app.ui.dm_chat.viewmodel.RoomViewModelFactory
 import com.zurichat.app.ui.fragments.channel_chat.ChannelHeaderItem
+import com.zurichat.app.ui.fragments.home_screen.CentrifugeClient
 import com.zurichat.app.util.setClickListener
 import hani.momanii.supernova_emoji_library.Actions.EmojIconActions
+import io.github.centrifugal.centrifuge.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeFormatterBuilder
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.properties.Delegates
 import kotlin.random.Random
 
 
 class RoomFragment : Fragment() {
-
     private lateinit var roomsListAdapter : BaseListAdapter
     private lateinit var roomId: String
     private lateinit var userId: String
@@ -60,6 +64,9 @@ class RoomFragment : Fragment() {
     private lateinit var organizationID: String
     private lateinit var memberId: String
 
+    private lateinit var job: Job
+    private lateinit var uiScope: CoroutineScope
+
     private lateinit var emojiIconsActions: EmojIconActions
     private lateinit var partialAttachmentPopupBinding: PartialAttachmentPopupBinding
 
@@ -68,11 +75,12 @@ class RoomFragment : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentDmBinding.inflate(inflater, container, false)
+
+        job = Job()
+        uiScope = CoroutineScope(Dispatchers.Main + job)
+
         val bundle1 = arguments
         user = bundle1?.getParcelable("USER")!!
         room = bundle1.getParcelable("room")!!
@@ -87,7 +95,6 @@ class RoomFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -100,7 +107,11 @@ class RoomFragment : Fragment() {
         roomId = room._id
         userId = room.room_user_ids.first()
         senderId = room.room_user_ids.last()
-        roomName = room.room_name
+        if (room.room_name.isNotEmpty()){
+            roomName = "No Name"
+        }else{
+            roomName = room.room_name
+        }
 
         toolbar.title = roomName
 
@@ -220,6 +231,7 @@ class RoomFragment : Fragment() {
         toolbar.setNavigationOnClickListener {
             requireActivity().onBackPressed()
         }
+        //connectToSocket()
     }
 
     private var messagesArrayList: ArrayList<BaseRoomData> = ArrayList()
@@ -261,6 +273,86 @@ class RoomFragment : Fragment() {
         }
 
         return roomsWithDateHeaders
+    }
+
+    private lateinit var client: Client
+    private fun connectToSocket() {
+        uiScope.launch(Dispatchers.IO) {
+            try {
+                if (CentrifugeClient.isConnected()){
+                    CentrifugeClient.subscribeToDm(roomId)
+                }
+                client = CentrifugeClient.getClient(user)
+                //client.connect()
+                CentrifugeClient.setCustomListener(object : CentrifugeClient.ChannelListener {
+                    override fun onConnected(connected: Boolean) {
+                        try{
+                            if(connected){
+                                CentrifugeClient.subscribeToDm(roomId)
+                            }
+                        }catch (e : Exception){
+                            e.printStackTrace()
+                        }
+                    }
+
+                    override fun onConnectError(client: Client?, event: ErrorEvent?) {
+
+                    }
+
+                    override fun onChannelSubscribed(isSubscribed: Boolean, subscription: Subscription?) {
+
+                    }
+
+                    override fun onChannelSubscriptionError(subscription: Subscription?, event: SubscribeErrorEvent?) {
+                        if (event != null) {
+                            Log.i("Room",event.message)
+                        }
+                    }
+
+                    override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
+                        val dataString = String(publishEvent!!.data, StandardCharsets.UTF_8)
+                        //val data = Gson().fromJson(dataString, Data::class.java)
+                       /* if (data.channel_id == channel._id) {
+                            channelMsgViewModel.receiveMessage(data)
+                        }*/
+                        Log.i("Room",dataString)
+                    }
+                })
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+       /*// binding.sendMessageBtn.setOnClickListener {
+            if (channelChatEdit.text.toString().isNotEmpty()) {
+                val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                s.timeZone = TimeZone.getTimeZone("UTC")
+                val time = s.format(Date(System.currentTimeMillis()))
+                val data = Data(
+                    generateID().toString(),
+                    false,
+                    channel._id,
+                    channelChatEdit.text.toString(),
+                    false,
+                    null,
+                    null,
+                    null,
+                    false,
+                    false,
+                    0,
+                    time,
+                    "message",
+                    user.id
+                )
+
+                channelMsgViewModel.sendMessages(
+                    data,
+                    organizationID,
+                    channel._id,
+                    messagesArrayList
+                )
+            }
+        }*/
     }
 
     private fun convertStringDateToLong(date: String): Long {

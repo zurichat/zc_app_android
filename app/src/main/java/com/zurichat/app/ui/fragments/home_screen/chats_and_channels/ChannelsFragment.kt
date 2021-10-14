@@ -12,6 +12,7 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
@@ -35,11 +36,13 @@ import com.zurichat.app.ui.fragments.home_screen.diff_utils.ChannelDiffUtil
 import com.zurichat.app.ui.fragments.viewmodel.ChannelViewModel
 import com.zurichat.app.ui.fragments.viewmodel.SharedChannelViewModel
 import com.zurichat.app.ui.newchannel.SelectNewChannelViewModel
+import com.zurichat.app.ui.newchannel.states.SelectNewChannelViewState
 import com.zurichat.app.ui.notification.NotificationUtils
 import io.github.centrifugal.centrifuge.Client
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.util.*
@@ -73,6 +76,8 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private val mNotificationTime = Calendar.getInstance().timeInMillis + 5000 //Set after 5 seconds from the current time.
     private var mNotified = false
 
+    private lateinit var selectNewChannelViewModel: SelectNewChannelViewModel
+
     private val newChannelMenu by lazy {
         (parentFragment as HomeScreenFragment).binding.toolbarContainer.toolbar.menu.findItem(R.id.new_channel)
     }
@@ -80,6 +85,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelsBinding.inflate(inflater, container, false)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedChannelViewModel::class.java)
+        selectNewChannelViewModel = ViewModelProvider(requireActivity()).get(SelectNewChannelViewModel::class.java)
 
         database = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "zuri_chat").build()
         roomDao = database.roomDao()
@@ -98,7 +104,26 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
             NotificationUtils().setNotification(mNotificationTime, requireActivity())
         }
 
+        observeUsersList()
+        try {
+            selectNewChannelViewModel.orgID.value = organizationID
+            selectNewChannelViewModel.getListOfUsers(organizationID)
+        }catch (e : Exception){
+            e.printStackTrace()
+        }
         return binding.root
+    }
+
+    private fun observeUsersList() {
+        lifecycleScope.launchWhenStarted {
+            selectNewChannelViewModel._users.collect {
+                when(it) {
+                    is SelectNewChannelViewState.Success -> {
+
+                    }
+                }
+            }
+        }
     }
 
     private lateinit var adapt:ChannelAdapter
@@ -149,7 +174,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         val newList: ArrayList<ChannelModel> = ArrayList()
 
         val unreadList: ArrayList<ChannelModel> = ArrayList()
-        val unreadChannelHeader = ChannelModel(getString(R.string.unread_messages), false, false, "channel_header_unread", generateRandomLong().toString(), 0)
+        val unreadChannelHeader = ChannelModel("Channels", false, false, "channel_header_unread", generateRandomLong().toString(), 0)
 
         val readList: ArrayList<ChannelModel> = ArrayList()
         val addChannelHeader = ChannelModel(getString(R.string._add_channel), false, false, "channel_header_add", generateRandomLong().toString(), 0)

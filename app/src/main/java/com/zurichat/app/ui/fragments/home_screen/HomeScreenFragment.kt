@@ -35,7 +35,6 @@ typealias Callback = () -> Unit
 
 @AndroidEntryPoint
 class HomeScreenFragment : Fragment() {
-
     @Inject
     lateinit var progressLoader: ProgressLoader
     lateinit var binding: FragmentHomeScreenBinding
@@ -174,15 +173,10 @@ class HomeScreenFragment : Fragment() {
                         exc.printStackTrace()
                     }
                 }
-                R.id.starred_messages -> {
-                    findNavController().navigate(R.id.action_homeScreenFragment_to_starredMessagesFragment)
-                }
                 R.id.switch_workspace -> {
                     val bundle = Bundle()
                     bundle.putParcelable("USER", user)
                     findNavController().navigate(R.id.switchOrganizationFragment, bundle)
-                }R.id.create_organisation -> {
-                    findNavController().navigate(R.id.action_homeScreenFragment_to_createOrganizationsFragment)
                 }
                 R.id.invite_link -> {
                     findNavController().navigate(R.id.action_homeScreenFragment_to_shareLinkFragment)

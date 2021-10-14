@@ -6,6 +6,7 @@ data class BaseRoomData(
     val checkMessage: Boolean
 ){
     var id : String = ""
+
     init {
         id = if (checkMessage) {
             getMessageResponse!!.id

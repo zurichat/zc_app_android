@@ -53,17 +53,23 @@ public class CentrifugeClient {
                 public void onConnect(Client client, ConnectEvent event) {
                     connected = true;
                     channelListener.onConnected(true);
+                    dmListener.onConnected(false);
                 }
 
                 @Override
                 public void onDisconnect(Client client, DisconnectEvent event) {
                     connected = false;
                     channelListener.onConnected(false);
+                    dmListener.onConnected(false);
+                    client.connect();
                 }
 
                 @Override
                 public void onError(Client client, ErrorEvent event) {
                     super.onError(client, event);
+                    connected = false;
+                    channelListener.onConnected(false);
+                    dmListener.onConnected(false);
                     channelListener.onConnectError(client, event);
                 }
             };

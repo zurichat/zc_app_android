@@ -14,11 +14,10 @@ data class RoomListItem(val data: BaseRoomData, val user: User, val context: Act
     BaseItem<ChannelIncomingMessageModelBinding> {
     override val layoutId = R.layout.channel_incoming_message_model
     override var uniqueId: String = if (data.checkMessage) {
-        data.getMessageResponse!!.id
-    } else {
         data.sendMessageResponse!!.message_id
+    } else {
+        data.getMessageResponse!!.id
     }
-
 
     override fun initializeViewBinding(view: View) = ChannelIncomingMessageModelBinding.bind(view)
 
@@ -44,17 +43,7 @@ data class RoomListItem(val data: BaseRoomData, val user: User, val context: Act
 //            binding.messageAuthor.text = data.user_id
 //        }
 
-
-        if (data.checkMessage) {
-            val time = s.format(convertStringDateToLong(data.getMessageResponse!!.created_at))
-
-            binding.bubble1.visibility = View.GONE
-            binding.bubble.visibility = View.VISIBLE
-
-            binding.messageText.text = data.getMessageResponse.message
-            binding.messageAuthor.text = data.getMessageResponse.sender_id
-            binding.messageTime.text = time
-        } else {
+        if ((data.checkMessage)) {
             val time = s.format(convertStringDateToLong(data.sendMessageResponse!!.data.created_at))
 
             binding.bubble1.visibility = View.VISIBLE
@@ -63,6 +52,15 @@ data class RoomListItem(val data: BaseRoomData, val user: User, val context: Act
             binding.messageText1.text = data.sendMessageResponse.data.message
             binding.messageAuthor.text = data.sendMessageResponse.data.sender_id
             binding.messageTime1.text = time
+        } else {
+            val time = s.format(convertStringDateToLong(data.getMessageResponse!!.created_at))
+
+            binding.bubble.visibility = View.VISIBLE
+            binding.bubble1.visibility = View.GONE
+
+            binding.messageText.text = data.getMessageResponse.message
+            binding.messageAuthor.text = data.getMessageResponse.sender_id
+            binding.messageTime.text = time
         }
 
         binding.imageParent.visibility = View.GONE

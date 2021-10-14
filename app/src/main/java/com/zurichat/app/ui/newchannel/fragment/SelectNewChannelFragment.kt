@@ -13,8 +13,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
 import com.google.gson.Gson
 import com.zurichat.app.R
+import com.zurichat.app.data.localSource.AppDatabase
+import com.zurichat.app.data.localSource.dao.OrganizationMembersDao
 import com.zurichat.app.databinding.FragmentSelectNewChannelBinding
 import com.zurichat.app.models.OrganizationMember
 import com.zurichat.app.models.User
@@ -23,8 +26,12 @@ import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponseItem
 import com.zurichat.app.ui.newchannel.SelectNewChannelViewModel
 import com.zurichat.app.ui.newchannel.states.SelectNewChannelViewState
 import com.zurichat.app.util.Result
+import com.zurichat.app.util.mapToMemberList
 import com.zurichat.app.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -57,22 +64,53 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
     private val PREFS_NAME = "ORG_INFO"
     private val ORG_NAME = "org_name"
     private val ORG_ID = "org_id"
+
+    private lateinit var job: Job
+    private lateinit var uiScope: CoroutineScope
+
+    private lateinit var database: AppDatabase
+    private lateinit var organizationMembersDao: OrganizationMembersDao
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
         sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         organizationID = sharedPref.getString(ORG_ID, null).toString()
 
+        job = Job()
+        uiScope = CoroutineScope(Dispatchers.Main + job)
+
+        database = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "zuri_chat").build()
+        organizationMembersDao = database.organizationMembersDao()
+
         setUpViews()
         initAdapter()
-        observeUsersList()
+        /*observeUsersList()
         try {
             viewModel.orgID.value = organizationID
             viewModel.getListOfUsers(organizationID)
         }catch (e : Exception){
             e.printStackTrace()
         }
-        observeEndPointLoading()
+        observeEndPointLoading()*/
+
+        if (organizationID.isNotBlank()){
+            uiScope.launch(Dispatchers.IO) {
+                organizationMembersDao.getMembers(organizationID).collect {
+                    try{
+                        uiScope.launch(Dispatchers.Main) {
+                            userList = it.mapToMemberList()
+                            adapter.list = it.mapToMemberList()
+                            adapter.notifyDataSetChanged()
+                            binding.userListProgressBar.visibility = View.GONE
+                            binding.toolbar.subtitle = "${userList.size} ${getString(R.string.members)}"
+                        }
+                    }catch (e: Exception){
+                        e.printStackTrace()
+                    }
+                }
+            }
+        }
     }
 
     private fun setUpViews() {

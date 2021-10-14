@@ -101,7 +101,7 @@ class AddChannelFragment : Fragment() {
         val listString = sharedPref.getString("User List","")
         var organizationID = sharedPref.getString(ORG_ID,"")
         //This Will Be Removed Later.
-        organizationID = "6145eee9285e4a18402074cd"
+        //organizationID = "6145eee9285e4a18402074cd"
         if (!(organizationID.isNullOrBlank())){
             uiScope.launch(Dispatchers.IO) {
                 organizationMembersDao.getMembers(organizationID).collect {

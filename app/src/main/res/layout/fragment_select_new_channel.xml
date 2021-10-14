@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/new_channel_menu"
-        app:title="@string/select_members_"
+        app:title="Select Member"
         app:titleTextColor="#ffffff"
         app:subtitle="0 Member(s)"
         app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
@@ -34,7 +34,8 @@
         android:background="@drawable/ic_person_background"
         android:src="@drawable/ic_people_icon"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/member_label"
@@ -44,6 +45,7 @@
         android:text="@string/new_channel"
         android:textColor="@color/text_color"
         android:textSize="16sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/member_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/member_button"
@@ -57,6 +59,7 @@
         android:background="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/member_label" />
 
     <androidx.recyclerview.widget.RecyclerView

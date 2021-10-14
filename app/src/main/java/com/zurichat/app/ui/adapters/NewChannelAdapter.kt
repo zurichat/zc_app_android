@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zurichat.app.databinding.NewChannelItemBinding
 import com.zurichat.app.models.OrganizationMember
 
-
 class NewChannelAdapter(val fragment: Fragment): RecyclerView.Adapter<NewChannelAdapter.ViewHolder>(), Filterable {
     var list = emptyList<OrganizationMember>()
     val _list: List<OrganizationMember> by lazy { list }
