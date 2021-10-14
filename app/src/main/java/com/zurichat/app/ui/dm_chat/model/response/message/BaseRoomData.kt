@@ -9,9 +9,9 @@ data class BaseRoomData(
 
     init {
         id = if (checkMessage) {
-            getMessageResponse!!.id
-        } else {
             sendMessageResponse!!.message_id
+        } else {
+            getMessageResponse!!.id
         }
     }
 

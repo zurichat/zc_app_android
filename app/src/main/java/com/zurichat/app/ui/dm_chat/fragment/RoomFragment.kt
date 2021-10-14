@@ -247,7 +247,7 @@ class RoomFragment : Fragment() {
 
         roomsItems.forEach{ c->
             if (c.data.checkMessage){
-                val dateString = DateUtils.getRelativeTimeSpanString(convertStringDateToLong(c.data.getMessageResponse!!.created_at),
+                val dateString = DateUtils.getRelativeTimeSpanString(convertStringDateToLong(c.data.sendMessageResponse!!.data.created_at),
                     Calendar.getInstance().timeInMillis,
                     DateUtils.DAY_IN_MILLIS)
                 dateString.toString().let {
@@ -258,7 +258,7 @@ class RoomFragment : Fragment() {
                 }
                 roomsWithDateHeaders.add(c)
             } else {
-                val dateString = DateUtils.getRelativeTimeSpanString(convertStringDateToLong(c.data.sendMessageResponse!!.data.created_at),
+                val dateString = DateUtils.getRelativeTimeSpanString(convertStringDateToLong(c.data.getMessageResponse!!.created_at),
                     Calendar.getInstance().timeInMillis,
                     DateUtils.DAY_IN_MILLIS)
                 dateString.toString().let {

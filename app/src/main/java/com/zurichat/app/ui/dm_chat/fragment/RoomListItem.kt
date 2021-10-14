@@ -19,7 +19,6 @@ data class RoomListItem(val data: BaseRoomData, val user: User, val context: Act
         data.getMessageResponse!!.id
     }
 
-
     override fun initializeViewBinding(view: View) = ChannelIncomingMessageModelBinding.bind(view)
 
     override fun bind(binding: ChannelIncomingMessageModelBinding, itemClickCallback: ((BaseItem<ChannelIncomingMessageModelBinding>) -> Unit)?) {
