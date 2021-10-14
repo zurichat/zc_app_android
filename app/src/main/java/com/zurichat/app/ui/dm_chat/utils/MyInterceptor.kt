@@ -7,13 +7,12 @@ import com.zurichat.app.util.jsearch_view_utils.scanForActivity
 import okhttp3.Interceptor
 import okhttp3.Response
 
-class MyInterceptor(userToken: String?): Interceptor {
-    val token = userToken
+class MyInterceptor(): Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
             .newBuilder()
-            .addHeader("Authorization", "Bearer $token")
+            .addHeader("Authorization", "Bearer")
             .build()
         return chain.proceed(request)
     }

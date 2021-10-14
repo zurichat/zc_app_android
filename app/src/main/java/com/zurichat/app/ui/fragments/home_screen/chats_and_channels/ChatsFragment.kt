@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentChatsBinding
+import com.zurichat.app.databinding.FragmentDmBinding
 import com.zurichat.app.models.Message
 import com.zurichat.app.models.User
 import com.zurichat.app.models.organization_model.UserOrganizationModel
@@ -75,6 +78,17 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         (parentFragment as HomeScreenFragment).viewModel
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentChatsBinding.inflate(inflater, container, false)
+        roomsArrayList = ArrayList()
+        recyclerView = binding.listChats
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentChatsBinding.bind(view)
@@ -88,11 +102,10 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
 
         ModelPreferencesManager.with(requireContext())
         roomsArrayList = ArrayList()
-
+        adapt = RoomAdapter(requireActivity(), roomsArrayList)
         if (!mNotified) {
             NotificationUtils().setNotification(mNotificationTime, requireActivity())
         }
-        adapt = RoomAdapter(requireActivity(), roomsArrayList)
         //setup viewModel and Retrofit
         val repository = Repository()
         val viewModelFactory = RoomViewModelFactory(repository)
@@ -102,6 +115,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         //call retrofit service function to get rooms
         viewModelRoom.getRooms(organizationID, memberId)
         viewModelRoom.myResponse.observe(viewLifecycleOwner) { response ->
+            roomsArrayList.clear()
             if (response.isSuccessful) {
                 roomList = response.body()!!
                 roomList.forEach{
