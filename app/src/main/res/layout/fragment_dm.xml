@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/body_color"
+    android:id="@+id/root_layout"
     tools:context=".ui.dm_chat.fragment.RoomFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -108,7 +109,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_insert_emoticon" />
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <hani.momanii.supernova_emoji_library.Helper.EmojiconEditText
                     android:id="@+id/channel_chat_editText"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
