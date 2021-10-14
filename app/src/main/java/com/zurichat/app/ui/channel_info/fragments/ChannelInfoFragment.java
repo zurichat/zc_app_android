@@ -80,7 +80,7 @@ public class ChannelInfoFragment extends Fragment {
 
         channel_name.setText(channelName);
         participantView = view.findViewById(R.id.participants);
-        if (members.size()>0){
+        if (members != null){
             int size = members.size();
             participantView.setText(size+" Participant(s)");
         }
@@ -95,7 +95,10 @@ public class ChannelInfoFragment extends Fragment {
         });
 
         initMedia();
-        initParticipant(members);
+        if (members != null){
+            initParticipant(members);
+        }
+
 
         //Launch More Menu Popup
         View moreOptions = LayoutInflater.from(getActivity()).inflate(R.layout.channel_info_more_menu, null);
@@ -108,7 +111,7 @@ public class ChannelInfoFragment extends Fragment {
 
         //Navigate to the add to channel Fragment on-click
         moreMenuIcon.setOnClickListener(v -> {
-            navController.navigate(R.id.action_channelInfoFragment_to_addToChannel);
+            //navController.navigate(R.id.action_channelInfoFragment_to_addToChannel);
         });
 
         View thePopUpWindow = popupWindow.getContentView();
@@ -194,7 +197,7 @@ public class ChannelInfoFragment extends Fragment {
     private List<Participant> getParticipantList(List<OrganizationMember> memberList){
         List<Participant> participants = new ArrayList<>();
         for (OrganizationMember member:memberList) {
-            participants.add(new Participant(member.getEmail(),"",R.drawable.img_user_profile));
+            participants.add(new Participant(member.name(),"",R.drawable.img_user_profile));
         }
         return participants;
     }

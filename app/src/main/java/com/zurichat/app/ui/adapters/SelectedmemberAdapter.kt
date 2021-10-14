@@ -33,9 +33,10 @@ RecyclerView.Adapter<SelectedMemberAdapter.SelectedViewHolder>(){
     inner class SelectedViewHolder(val binding: ListItemSelectMember2Binding):
         RecyclerView.ViewHolder(binding.root) {
          fun bind(user: OrganizationMember) {
-             binding.nameOfContact.text = if(user.firstName.isEmpty() && user.lastName.isEmpty())
-                 "No name"
-             else "${user.firstName} ${user.lastName}"
+//             binding.nameOfContact.text = if(user.firstName.isEmpty() && user.lastName.isEmpty())
+//                 "No name"
+//             else "${user.firstName} ${user.lastName}"
+             binding.nameOfContact.text = user.name()
          }
         }
 

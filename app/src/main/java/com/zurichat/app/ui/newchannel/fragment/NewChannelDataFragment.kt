@@ -8,6 +8,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.os.Parcelable
 import android.provider.OpenableColumns
 import android.util.Log
 import android.view.View
@@ -29,6 +30,8 @@ import com.zurichat.app.ui.newchannel.states.CreateChannelViewState
 import com.zurichat.app.ui.newchannel.viewmodel.CreateChannelViewModel
 import com.zurichat.app.util.ProgressLoader
 import com.zurichat.app.util.ZuriSharedPreferences
+import com.zurichat.app.util.jsearch_view_utils.hideKeyboard
+import com.zurichat.app.util.showSnackBar
 import com.zurichat.app.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import hani.momanii.supernova_emoji_library.Actions.EmojIconActions
@@ -64,11 +67,12 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
 
         user = Cache.map["user"] as? User
         userList = arguments?.get("Selected_user") as List<OrganizationMember>
-        emoji = EmojIconActions(requireContext(), binding.root, binding.channelName, binding.emojiBtn)
+        emoji =
+            EmojIconActions(requireContext(), binding.root, binding.channelName, binding.emojiBtn)
         emoji!!.ShowEmojIcon()
 
         setupViewsAndListeners()
-        observerData()
+        observerData(view)
     }
 
     private fun retrieveChannelOwner(): String {
@@ -104,11 +108,14 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
 
             floatingActionButton.setOnClickListener {
                 if (channelName.text!!.isEmpty() || channelName.text.equals("")) {
-                    Toast.makeText(requireContext(), "Channel name can't be empty.", Toast.LENGTH_SHORT)
+                    Toast.makeText(requireContext(),
+                        "Channel name can't be empty.",
+                        Toast.LENGTH_SHORT)
                         .show()
                 } else if (user?.token == null || user!!.id == "") {
-                   channelName.error = "User must be logged in"
+                    channelName.error = "User must be logged in"
                 } else {
+                    hideKeyboard(it)
                     ZuriSharedPreferences(requireContext()).setInt("tracker", 0)
                     saveImage()
                     val name = channelName.text.toString()
@@ -121,10 +128,10 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
                         owner = owner,
                         private = privateValue
                     )
-                    viewModel.createNewChannel(createChannelBodyModel = createChannelBodyModel,organizationID)
+                    viewModel.createNewChannel(createChannelBodyModel = createChannelBodyModel,
+                        organizationID)
                     progressLoader.show(getString(R.string.creating_new_channel))
                 }
-                observerData()
             }
 
             newChannelToolbar.setNavigationOnClickListener {
@@ -158,7 +165,8 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
     }
 
     private fun saveImage() {
-        val parcelFileDescriptor = contentResolver?.openFileDescriptor(selectedImageUri!!, "r", null) ?: return
+        val parcelFileDescriptor =
+            contentResolver?.openFileDescriptor(selectedImageUri!!, "r", null) ?: return
 
         val inputStream = FileInputStream(parcelFileDescriptor.fileDescriptor)
         val file = File(contentResolver.getFileName(selectedImageUri!!))
@@ -199,29 +207,30 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
         }
     }
 
-    private fun observerData() {
+    private fun observerData(view: View) {
         lifecycleScope.launchWhenCreated {
             viewModel.createChannelViewFlow.collect {
                 when (it) {
                     is CreateChannelViewState.Success -> {
-                       if (it.createChannelResponseModel is CreateChannelResponseModel){
-                           progressLoader.hide()
-                           val channelResponseModel = it.createChannelResponseModel
-                           channelId = channelResponseModel._id
-                           //Toast.makeText(context, getString(it.message), Toast.LENGTH_SHORT).show()
-                           try {
-                               sendNotification()
-                           } catch (ex: Exception) {
-                               ex.printStackTrace()
-                           }
-                           navigateToDetails()
-                       }
+                        if (it.createChannelResponseModel is CreateChannelResponseModel) {
+                            progressLoader.hide()
+                            val channelResponseModel = it.createChannelResponseModel
+                            channelId = channelResponseModel._id
+                            //Toast.makeText(context, getString(it.message), Toast.LENGTH_SHORT).show()
+                            try {
+                                sendNotification()
+                            } catch (ex: Exception) {
+                                ex.printStackTrace()
+                            }
+                            navigateToDetails()
+                        }
                     }
                     is CreateChannelViewState.Failure -> {
                         progressLoader.hide()
                         val errorMessage = String.format(getString(it.message),
                             binding.channelName.text.toString())
-                        Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+                        view.showSnackBar(errorMessage)
+                        //Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -246,7 +255,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
         val bundle = Bundle()
         bundle.putParcelable("USER", user)
         bundle.putParcelable("Channel", channel)
-//        bundle.putParcelableArrayList("members",userList as ArrayList<out Parcelable>)
+        bundle.putParcelableArrayList("members", userList as ArrayList<out Parcelable>)
         bundle.putBoolean("Channel Joined", true)
 
         if (binding.channelName.text!!.isEmpty()) {

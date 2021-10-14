@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Parcelable
 import android.text.InputType
 import android.text.format.DateUtils
 import android.view.*
@@ -115,7 +116,9 @@ class ChannelChatFragment : Fragment() {
             channelJoined = bundle.getBoolean("Channel Joined")
             bundle.get("members").let {
                 if(it!=null){
+
                     members = it as List<OrganizationMember>
+
                 }
             }
 
@@ -435,7 +438,9 @@ class ChannelChatFragment : Fragment() {
                     startActivity(shareIntent)
                 }
                 R.id.channel_info -> {
+                    val memberList = members
                     val bundle = Bundle()
+                    bundle.putParcelableArrayList("members", memberList as ArrayList<out Parcelable>)
                     bundle.putString("channel_name", channel.name)
                     findNavController().navigate(R.id.channel_info_nav_graph, bundle)
                 }
