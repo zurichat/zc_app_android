@@ -348,10 +348,15 @@
             app:destination="@id/seeYourChannelFragment" />
         <argument
             android:name="organizationName"
-            app:argType="string" />
+            app:argType="string"
+            android:defaultValue="" />
         <argument
             android:name="organizationId"
-            app:argType="string" />
+            app:argType="string"
+            android:defaultValue="" />
+        <action
+            android:id="@+id/action_addByEmailFragment_to_nextFragment"
+            app:destination="@id/nextFragment" />
 
     </fragment>
     <fragment

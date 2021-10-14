@@ -69,7 +69,7 @@ class ChannelMessagesViewModel @Inject constructor(val organizationService: Orga
                 _allMessages.value!!.data = dataList
                 val joinedUser = RetrofitClientInstance.retrofitInstance?.create(JoinNewChannel::class.java)?.sendMessage(organizationId, channelId, message)
                 joinedUser?.let {
-                   // _newMessage.value = data
+                    _newMessage.value = data
 
                     //Replaces The Message Item with Message Item with Permanent ID gotten from server After Sending THe Message
                     mutableDataList[position] = it
@@ -85,7 +85,7 @@ class ChannelMessagesViewModel @Inject constructor(val organizationService: Orga
     // This function gets called after a new message enters
     fun receiveMessage(data : Data){
         viewModelScope.launch {
-            _newMessage.value = data
+           // _newMessage.value = data
         }
     }
 

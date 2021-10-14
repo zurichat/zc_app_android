@@ -13,6 +13,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.collection.ArrayMap
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
@@ -25,6 +26,7 @@ import androidx.room.Room
 import com.google.gson.Gson
 import com.zurichat.app.R
 import com.zurichat.app.data.localSource.AppDatabase
+import com.zurichat.app.data.localSource.dao.OrganizationMembersDao
 import com.zurichat.app.databinding.FragmentChannelChatBinding
 import com.zurichat.app.databinding.PartialAttachmentPopupBinding
 import com.zurichat.app.models.ChannelModel
@@ -45,6 +47,7 @@ import com.zurichat.app.ui.fragments.viewmodel.ChannelMessagesViewModel
 import com.zurichat.app.ui.fragments.viewmodel.ChannelViewModel
 import com.zurichat.app.ui.fragments.viewmodel.SharedChannelViewModel
 import com.zurichat.app.ui.notification.NotificationUtils
+import com.zurichat.app.util.mapToMemberList
 import com.zurichat.app.util.setClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ronnie.github.imagepicker.ImagePicker
@@ -52,6 +55,7 @@ import dev.ronnie.github.imagepicker.ImageResult
 import hani.momanii.supernova_emoji_library.Actions.EmojIconActions
 import io.github.centrifugal.centrifuge.*
 import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
 import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.*
@@ -95,15 +99,20 @@ class ChannelChatFragment : Fragment() {
     private val ORG_NAME = "org_name"
     private val ORG_ID = "org_id"
 
+    var userMap: ArrayMap<String,OrganizationMember> = ArrayMap()
+    private lateinit var organizationMembersDao: OrganizationMembersDao
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelChatBinding.inflate(inflater, container, false)
         sharedViewModel = ViewModelProvider(requireActivity()).get(SharedChannelViewModel::class.java)
 
         sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-        database = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "zuri_chat").build()
+        database = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "zuri_chat")
+            .build()
         roomDao = database.roomDao()
         channelMessagesDao = database.channelMessagesDao()
+        organizationMembersDao = database.organizationMembersDao()
         isEnterSend = PreferenceManager.getDefaultSharedPreferences(requireContext()).getBoolean("enter_to_send", false)
 
         job = Job()
@@ -137,8 +146,7 @@ class ChannelChatFragment : Fragment() {
             }
         }
 
-        partialAttachmentPopupBinding =
-            PartialAttachmentPopupBinding.inflate(inflater, container, false)
+        partialAttachmentPopupBinding = PartialAttachmentPopupBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -289,6 +297,21 @@ class ChannelChatFragment : Fragment() {
                             binding.introGroupText.visibility = View.GONE
                             binding.recyclerMessagesList.scrollToPosition(channelsWithDateHeaders.size - 1)
                         }
+                    }
+                }
+            }
+            organizationMembersDao.getMembers(organizationID).collect {
+                try{
+                    it.mapToMemberList().forEach {
+                        userMap[it.id] = it
+                    }
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
+                uiScope.launch(Dispatchers.Main) {
+                    if (messagesArrayList.isNotEmpty()) {
+                        val channelsWithDateHeaders = createMessagesList(messagesArrayList)
+                        channelListAdapter.submitList(channelsWithDateHeaders)
                     }
                 }
             }
@@ -568,7 +591,7 @@ class ChannelChatFragment : Fragment() {
     private fun createMessagesList(channels: List<Data>): MutableList<BaseItem<*>> {
         // Wrap data in list items
         val channelsItems = channels.map {
-            ChannelListItem(it, user, requireActivity(), uiScope)
+            ChannelListItem(it, user, requireActivity(), userMap)
         }
 
         val channelsWithDateHeaders = mutableListOf<BaseItem<*>>()
