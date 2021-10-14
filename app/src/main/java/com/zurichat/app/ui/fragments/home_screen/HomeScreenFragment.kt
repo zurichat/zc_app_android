@@ -16,7 +16,6 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentHomeScreenBinding
-import com.zurichat.app.databinding.SearchviewLayoutBinding
 import com.zurichat.app.models.LogoutBody
 import com.zurichat.app.models.User
 import com.zurichat.app.models.organization_model.OrgData
@@ -255,11 +254,6 @@ class HomeScreenFragment : Fragment() {
                 return false
             }
         })
-
-        val bind: SearchviewLayoutBinding = SearchviewLayoutBinding.inflate(layoutInflater)
-        bind.audioChip.setOnClickListener {
-            Toast.makeText(context, "hello", Toast.LENGTH_SHORT).show()
-        }
 
     }
 
