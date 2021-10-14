@@ -16,7 +16,7 @@ import com.zurichat.app.ui.organizations.utils.ZuriSharePreference
 
 class SwitchUserOrganizationAdapter(private val organizations: List<OrgData>, val context: Context,val user:User,var callback: OnBackPressedCallback?) : RecyclerView.Adapter<SwitchUserOrganizationAdapter.ViewHolder>() {
 
-    private var onClickListener: ((orgData:OrgData, user:User) -> Unit)? = null
+    private var onClickListener: ((orgData:OrgData) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -33,7 +33,7 @@ class SwitchUserOrganizationAdapter(private val organizations: List<OrgData>, va
         holder.bind(organizations[position])
     }
 
-    fun doOnOrgItemSelected(listener: ((OrgData,User) -> Unit)) {
+    fun doOnOrgItemSelected(listener: ((OrgData) -> Unit)) {
         this.onClickListener = listener
     }
 
@@ -51,6 +51,7 @@ class SwitchUserOrganizationAdapter(private val organizations: List<OrgData>, va
                 if (callback!=null){
                     callback?.remove()
                 }
+                onClickListener?.invoke(org)
                 ZuriSharePreference(context).setString("Current Organization ID",org.id)
                 //add organization and user to a bundle and attach the bundle to the NavController
                 val bundle = Bundle()

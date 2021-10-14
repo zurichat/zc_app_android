@@ -199,10 +199,11 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
     private fun setUpViews(orgs: List<OrgData>) {
         try {
             userOrgAdapter = SwitchUserOrganizationAdapter(orgs, requireContext(),user,callback).apply {
-                doOnOrgItemSelected { orgData, user ->
-                    findNavController().navigateUp()
-                    onOrgItemActionClicked?.invoke(orgData,user)
-                    ZuriSharePreference(requireContext()).setString("Current Organization ID",orgData.id)
+                doOnOrgItemSelected { orgData ->
+//                    findNavController().navigateUp()
+                    viewModel.saveOrgData(orgData)
+//                    onOrgItemActionClicked?.invoke(orgData,user)
+//                    ZuriSharePreference(requireContext()).setString("Current Organization ID",orgData.id)
                 }
             }
             binding.orgRecyclerView.apply {

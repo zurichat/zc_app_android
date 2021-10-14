@@ -12,7 +12,7 @@
     <item
         android:id="@+id/new_channel"
         android:title="@string/new_channel"
-        android:visible="true" />
+        android:visible="false" />
     <item
         android:id="@+id/starred_messages"
         android:title="@string/starred_messages"

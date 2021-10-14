@@ -31,7 +31,10 @@ import com.zurichat.app.util.setClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ronnie.github.imagepicker.ImagePicker
 import dev.ronnie.github.imagepicker.ImageResult
+import hani.momanii.supernova_emoji_library.Helper.EmojiconsPopup
 import kotlinx.coroutines.launch
+import hani.momanii.supernova_emoji_library.Actions.EmojIconActions
+
 
 @AndroidEntryPoint
 class DMFragment : Fragment(R.layout.fragment_dm) {
@@ -48,6 +51,7 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
 
     private lateinit var user : User
     private lateinit var roomList: RoomsListResponseItem
+    private lateinit var emojiIconsActions: EmojIconActions
 
 
     private val sendDrawable by lazy {
@@ -61,6 +65,9 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
         super.onCreate(savedInstanceState)
 
         imagePicker = ImagePicker(this)
+        emojiIconsActions =
+            EmojIconActions(context, view, binding.channelChatEditText, binding.iconBtn)
+        emojiIconsActions.ShowEmojIcon()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,6 +82,10 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
         userId = roomList.room_user_ids.first()
         senderId = roomList.room_user_ids.last()
 
+        binding.iconBtn.setOnClickListener {
+            Toast.makeText(context, "Show Emoji", Toast.LENGTH_LONG).show()
+        }
+
 //        arguments?.let { bundle ->
 //            val args = DMFragmentArgs.fromBundle(bundle)
 //            roomId = args.roomId
@@ -82,8 +93,8 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
 //            senderId = args.senderId
 //        }
 
-       // setupObservers()
-        //setupUI()
+//        setupObservers()
+//        setupUI()
     }
 
     override fun onPause() {
@@ -181,7 +192,7 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
     }
 
     private fun navigateToAttachmentScreen(media: MEDIA = MEDIA.IMAGE){
-        //findNavController().navigate(DMFragmentDirections.actionDmFragmentToAttachmentsFragment(media))
+//        findNavController().navigate(DMFragmentDirections.actionDmFragmentToAttachmentsFragment(media))
     }
 
     /**
@@ -217,8 +228,12 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
 //            if(roomId == null){
 //                roomId = createRoom("61467ee61a5607b13c00bcf2", "614f088ee35bb73a77bc2b70").roomId
 //            }
-            sendMessage(roomId!!, Message(message = text, senderId = userId,
-                roomId = roomId!!, media = media.toList()))
+            sendMessage(
+                roomId, Message(
+                    message = text, senderId = userId,
+                    roomId = roomId, media = media.toList()
+                )
+            )
         }
     }
 

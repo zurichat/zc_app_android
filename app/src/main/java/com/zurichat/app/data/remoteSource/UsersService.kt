@@ -2,7 +2,6 @@ package com.zurichat.app.data.remoteSource
 
 import com.zurichat.app.models.*
 import com.zurichat.app.models.network_response.OrganizationMembers
-import com.zurichat.app.models.network_response.OrganizationMembers.OrganizationMember
 import com.zurichat.app.models.organization_model.OrganizationCreator
 import com.zurichat.app.models.organization_model.OrganizationCreatorResponse
 import com.zurichat.app.models.organization_model.OrganizationName
@@ -52,6 +51,12 @@ interface UsersService {
 
     @GET("organizations/{organization_id}/members/{member_id}")
     suspend fun getMember(@Path("organization_id") org_id: String, @Path("member_id") member_id: String): Response<OrganizationMember>
+
+    @GET("organizations/{organization_id}/members")
+    suspend fun getMemberByEmail(
+        @Path("organization_id") org_id: String,
+        @Query("query") email: String
+    ): Response<OrganizationMembers>
 
     @POST("auth/logout")
     suspend fun logout(@Body logoutBody: LogoutBody): Response<LogoutResponse>

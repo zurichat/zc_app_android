@@ -26,11 +26,14 @@ import com.google.gson.Gson
 import com.zurichat.app.R
 import com.zurichat.app.data.localSource.AppDatabase
 import com.zurichat.app.databinding.FragmentChannelChatBinding
+import com.zurichat.app.databinding.PartialAttachmentPopupBinding
 import com.zurichat.app.models.ChannelModel
 import com.zurichat.app.models.OrganizationMember
 import com.zurichat.app.models.User
 import com.zurichat.app.ui.add_channel.BaseItem
 import com.zurichat.app.ui.add_channel.BaseListAdapter
+import com.zurichat.app.ui.dm.MEDIA
+import com.zurichat.app.ui.dm_chat.fragment.RoomFragmentDirections
 import com.zurichat.app.ui.fragments.channel_chat.localdatabase.ChannelMessagesDao
 import com.zurichat.app.ui.fragments.channel_chat.localdatabase.RoomDao
 import com.zurichat.app.ui.fragments.channel_chat.localdatabase.RoomDataObject
@@ -42,9 +45,11 @@ import com.zurichat.app.ui.fragments.viewmodel.ChannelMessagesViewModel
 import com.zurichat.app.ui.fragments.viewmodel.ChannelViewModel
 import com.zurichat.app.ui.fragments.viewmodel.SharedChannelViewModel
 import com.zurichat.app.ui.notification.NotificationUtils
+import com.zurichat.app.util.setClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ronnie.github.imagepicker.ImagePicker
 import dev.ronnie.github.imagepicker.ImageResult
+import hani.momanii.supernova_emoji_library.Actions.EmojIconActions
 import io.github.centrifugal.centrifuge.*
 import kotlinx.coroutines.*
 import java.nio.charset.StandardCharsets
@@ -69,6 +74,7 @@ class ChannelChatFragment : Fragment() {
     private lateinit var channelMessagesDao: ChannelMessagesDao
     private var members: List<OrganizationMember> = ArrayList()
     private var messagesArrayList: ArrayList<Data> = ArrayList()
+    private lateinit var emojiIconsActions: EmojIconActions
 
     private var channelJoined = false
 
@@ -79,6 +85,7 @@ class ChannelChatFragment : Fragment() {
 
     private val channelMsgViewModel: ChannelMessagesViewModel by viewModels()
     private lateinit var channelListAdapter: BaseListAdapter
+    private lateinit var partialAttachmentPopupBinding: PartialAttachmentPopupBinding
 
     @Inject
     lateinit var preference : SharedPreferences
@@ -130,6 +137,9 @@ class ChannelChatFragment : Fragment() {
             }
         }
 
+        partialAttachmentPopupBinding =
+            PartialAttachmentPopupBinding.inflate(inflater, container, false)
+
         return binding.root
     }
 
@@ -159,6 +169,12 @@ class ChannelChatFragment : Fragment() {
             WindowManager.LayoutParams.MATCH_PARENT,
             WindowManager.LayoutParams.WRAP_CONTENT
         )
+
+        emojiIconsActions =
+            EmojIconActions(context, view, binding.channelChatEditText, binding.iconBtn)
+        emojiIconsActions.ShowEmojIcon()
+        emojiIconsActions.addEmojiconEditTextList()
+
 
         dimmerBox.alpha = dimVal
 
@@ -223,8 +239,8 @@ class ChannelChatFragment : Fragment() {
         } else {
             toolbar.subtitle = channel.members.toString().plus(" Member")
         }
-        toolbar.setOnClickListener { findNavController().navigate(ChannelChatFragmentDirections.
-        actionChannelChatFragmentToChannelInfoFragment2()) }
+//        toolbar.setOnClickListener { findNavController().navigate(ChannelChatFragmentDirections.
+//        actionChannelChatFragmentToChannelInfoNavFragment2()) }
 
         channelChatEdit.doOnTextChanged { text, start, before, count ->
             if (text.isNullOrEmpty()) {
@@ -243,6 +259,12 @@ class ChannelChatFragment : Fragment() {
         attachment.setOnClickListener {
             //popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 600)
             popupWindow.showAsDropDown(typingBar, 0, -(typingBar.height * 4), Gravity.TOP)
+        }
+
+        partialAttachmentPopupBinding.also {
+            it.groupGallery.setClickListener { navigateToAttachmentScreen() }
+            it.groupAudio.setClickListener { navigateToAttachmentScreen(MEDIA.AUDIO) }
+            it.groupDocument.setClickListener { navigateToAttachmentScreen(MEDIA.DOCUMENT) }
         }
 
         setupKeyboard()
@@ -529,6 +551,14 @@ class ChannelChatFragment : Fragment() {
                 false
             }
         }
+    }
+
+    private fun navigateToAttachmentScreen(media: MEDIA = MEDIA.IMAGE) {
+        findNavController().navigate(
+            RoomFragmentDirections.actionDmFragmentToAttachmentsFragment(
+                media
+            )
+        )
     }
 
     private fun generateID(): Int {
