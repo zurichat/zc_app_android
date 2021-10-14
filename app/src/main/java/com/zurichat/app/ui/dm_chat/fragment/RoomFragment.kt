@@ -107,7 +107,7 @@ class RoomFragment : Fragment() {
         roomId = room._id
         userId = room.room_user_ids.first()
         senderId = room.room_user_ids.last()
-        if (room.room_name.isNotEmpty()){
+        if (room.room_name.isEmpty()){
             roomName = "No Name"
         }else{
             roomName = room.room_name
@@ -140,7 +140,7 @@ class RoomFragment : Fragment() {
             if (response.isSuccessful) {
                 val messageResponse = response.body()
                 messageResponse?.results?.forEach{
-                    val newBaseRoomData = BaseRoomData(it, null, true)
+                    val newBaseRoomData = BaseRoomData(it, null, false)
                     messagesArrayList.add(newBaseRoomData)
                 }
                 createMessagesList(messagesArrayList).let {
@@ -186,7 +186,7 @@ class RoomFragment : Fragment() {
                 val message = channelChatEdit.text.toString()
                 val dataMessage = Data(time, message, senderId)
                 val sendMessageResponse = SendMessageResponse(dataMessage, "message_create", generateID().toString(), roomId, "201", false)
-                val baseRoomData = BaseRoomData(null, sendMessageResponse, false)
+                val baseRoomData = BaseRoomData(null, sendMessageResponse, true)
                 messagesArrayList.add(baseRoomData)
                 val messagePosition: Int = messagesArrayList.size -1
 
@@ -199,7 +199,7 @@ class RoomFragment : Fragment() {
                     if (response.isSuccessful) {
                         val messageResponse = response.body()
                         val position = messagesArrayList.indexOf(baseRoomData)
-                        val newBaseRoomData = BaseRoomData(null, messageResponse, false)
+                        val newBaseRoomData = BaseRoomData(null, messageResponse, true)
                         messagesArrayList[messagePosition] = newBaseRoomData
                         createMessagesList(messagesArrayList).let {
                             roomsListAdapter.submitList(it)
