@@ -10,10 +10,15 @@ import android.util.Log
 import android.view.*
 import android.widget.FrameLayout
 import android.widget.TextView
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.core.text.trimmedLength
+import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayout
 import com.zurichat.app.databinding.JSearchViewBinding
+import com.zurichat.app.databinding.SearchviewLayoutBinding
 import com.zurichat.app.util.jsearch_view_utils.*
 
 class JSearchView @JvmOverloads constructor(
@@ -27,7 +32,7 @@ class JSearchView @JvmOverloads constructor(
      * @return current reveal or fade animations duration
      */
 
-    var animationDuration = ANIMATION_DURATION_DEFAULT
+    private var animationDuration = ANIMATION_DURATION_DEFAULT
 
     /**
      * @param revealAnimationCenter center of the reveal animation, used to customize the origin of the animation
@@ -47,7 +52,7 @@ class JSearchView @JvmOverloads constructor(
         }
     private var query: CharSequence? = null
     private var oldQuery: CharSequence? = null
-    var isSearchOpen = false
+    private var isSearchOpen = false
         private set
     private var isClearingFocus = false
 
@@ -55,7 +60,7 @@ class JSearchView @JvmOverloads constructor(
     /**
      * @return the TabLayout attached to the JSearchView behavior
      */
-    var tabLayout: TabLayout? = null
+    private var tabLayout: TabLayout? = null
         private set
     private var tabLayoutInitialHeight = 0
     private var onQueryChangeListener: OnQueryTextListener? = null
@@ -63,7 +68,7 @@ class JSearchView @JvmOverloads constructor(
     private var searchIsClosing = false
     private var keepQuery = false
 
-    private val binding = JSearchViewBinding.inflate(LayoutInflater.from(context), this, true)
+    private val binding = SearchviewLayoutBinding.inflate(LayoutInflater.from(context), this, true)
 
     private fun initSearchEditText() = with(binding) {
         searchEditText.doOnTextChanged { text, start, before, count ->
@@ -90,9 +95,46 @@ class JSearchView @JvmOverloads constructor(
 
     }
 
+
     private fun initClickListeners() = with(binding) {
         backButton.setOnClickListener { closeSearch() }
-        clearButton.setOnClickListener { clearSearch() }
+        //clearButton.setOnClickListener { clearSearch() }
+
+        chipGroup.setOnCheckedChangeListener { group, checkedId ->
+            val chip:Chip = findViewById(checkedId)
+            chip.visibility = GONE
+        }
+
+        videosChip.setOnCloseIconClickListener {
+           chipShow(videosChip,searchVideosChip)
+        }
+        audioChip.setOnCloseIconClickListener {
+            chipShow(audioChip,searchAudioChip)
+        }
+        docsChip.setOnCloseIconClickListener {
+            chipShow(docsChip,searchDocsChip)
+        }
+        photosChip.setOnCloseIconClickListener {
+            chipShow(photosChip,searchPhotosChip)
+        }
+        linksChip.setOnCloseIconClickListener {
+            chipShow(linksChip,searchLinksChip)
+        }
+        searchVideosChip.setOnCloseIconClickListener {
+            chipShow(searchVideosChip,videosChip)
+        }
+        searchLinksChip.setOnCloseIconClickListener {
+            chipShow(searchLinksChip,linksChip)
+        }
+        searchPhotosChip.setOnCloseIconClickListener {
+            chipShow(searchPhotosChip,photosChip)
+        }
+        searchDocsChip.setOnCloseIconClickListener {
+            chipShow(searchDocsChip,docsChip)
+        }
+        searchAudioChip.setOnCloseIconClickListener {
+            chipShow(searchAudioChip, audioChip)
+        }
     }
 
     override fun clearFocus() = with(binding) {
@@ -146,10 +188,10 @@ class JSearchView @JvmOverloads constructor(
         query = newText
         val hasText = newText.isNotBlank()
         if (hasText) {
-            clearButton.visibility = VISIBLE
+            //clearButton.visibility = VISIBLE
             searchRv.visibility = VISIBLE
         } else {
-            clearButton.visibility = GONE
+            //clearButton.visibility = GONE
             searchRv.visibility = GONE
         }
         if (newText != oldQuery) {
@@ -206,7 +248,16 @@ class JSearchView @JvmOverloads constructor(
         searchViewListener?.onSearchViewShown()
     }
 
-
+    fun chipShow(inactiveChip:Chip,activeChip:Chip)= with(binding){
+        if(inactiveChip.isVisible){
+            activeChip.visibility = VISIBLE
+            inactiveChip.visibility = GONE
+        }
+        else{
+            inactiveChip.visibility = VISIBLE
+            activeChip.visibility = GONE
+        }
+    }
     @JvmOverloads
     fun closeSearch(animate: Boolean = true) = with(binding) {
         if (!isSearchOpen) {
@@ -318,7 +369,7 @@ class JSearchView @JvmOverloads constructor(
      * Sets icons alpha, does not set the back/up icon
      */
     fun setIconsAlpha(alpha: Float) = with(binding) {
-        clearButton.alpha = alpha
+        //clearButton.alpha = alpha
     }
 
     /**
