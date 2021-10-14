@@ -14,6 +14,7 @@ import androidx.core.text.trimmedLength
 import androidx.core.widget.doOnTextChanged
 import com.google.android.material.tabs.TabLayout
 import com.zurichat.app.databinding.JSearchViewBinding
+import com.zurichat.app.databinding.SearchviewLayoutBinding
 import com.zurichat.app.util.jsearch_view_utils.*
 
 class JSearchView @JvmOverloads constructor(
@@ -63,7 +64,7 @@ class JSearchView @JvmOverloads constructor(
     private var searchIsClosing = false
     private var keepQuery = false
 
-    private val binding = JSearchViewBinding.inflate(LayoutInflater.from(context), this, true)
+    private val binding = SearchviewLayoutBinding.inflate(LayoutInflater.from(context), this, true)
 
     private fun initSearchEditText() = with(binding) {
         searchEditText.doOnTextChanged { text, start, before, count ->
@@ -92,7 +93,7 @@ class JSearchView @JvmOverloads constructor(
 
     private fun initClickListeners() = with(binding) {
         backButton.setOnClickListener { closeSearch() }
-        clearButton.setOnClickListener { clearSearch() }
+        //clearButton.setOnClickListener { clearSearch() }
     }
 
     override fun clearFocus() = with(binding) {
@@ -146,10 +147,10 @@ class JSearchView @JvmOverloads constructor(
         query = newText
         val hasText = newText.isNotBlank()
         if (hasText) {
-            clearButton.visibility = VISIBLE
+            //clearButton.visibility = VISIBLE
             searchRv.visibility = VISIBLE
         } else {
-            clearButton.visibility = GONE
+            //clearButton.visibility = GONE
             searchRv.visibility = GONE
         }
         if (newText != oldQuery) {
@@ -318,7 +319,7 @@ class JSearchView @JvmOverloads constructor(
      * Sets icons alpha, does not set the back/up icon
      */
     fun setIconsAlpha(alpha: Float) = with(binding) {
-        clearButton.alpha = alpha
+        //clearButton.alpha = alpha
     }
 
     /**
