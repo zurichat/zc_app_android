@@ -6,10 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zurichat.app.data.functional.GetUserResult
-import com.zurichat.app.data.repository.SelectNewChannelRepository
+import com.zurichat.app.data.repository.*
 import com.zurichat.app.models.OrganizationMember
+import com.zurichat.app.models.Room
+import com.zurichat.app.models.network_response.CreateRoom
 import com.zurichat.app.ui.newchannel.states.SelectNewChannelViewState
+import com.zurichat.app.util.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
@@ -17,7 +21,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SelectNewChannelViewModel @Inject constructor(val repository: SelectNewChannelRepository, val app: Application, val preference: SharedPreferences): ViewModel() {
+class SelectNewChannelViewModel @Inject constructor(
+    val repository: SelectNewChannelRepository,
+    private val orgRepo: OrganizationRepository,
+    private val dmRepository: DMRepository,
+    private val userRepository: UserRepository,
+    val app: Application,
+    val preference: SharedPreferences): ViewModel() {
     private val users = MutableStateFlow<SelectNewChannelViewState<List<OrganizationMember>>>(SelectNewChannelViewState.Empty)
     val _users:StateFlow<SelectNewChannelViewState<List<OrganizationMember>>> = users
 
@@ -63,5 +73,23 @@ class SelectNewChannelViewModel @Inject constructor(val repository: SelectNewCha
 
         }
     }
+
+    fun getId() = orgRepo.getId()
+
+    suspend fun createRoom(otherUserId: String): Result<Room> = viewModelScope.async {
+        val createRoom = CreateRoom(
+            orgId = getId(),
+            roomMemberIds = listOf(orgRepo.getMemberId(), otherUserId),
+            roomName = otherUserId
+        )
+        val result = dmRepository.createRoom(orgRepo.getId(), orgRepo.getMemberId(), createRoom)
+        return@async if(result is Result.Success) {
+            Result.Success(Room(
+                id = result.data!!.roomId,
+                orgId = createRoom.orgId,
+                roomUserIds = createRoom.roomMemberIds
+            ))
+        } else result as Result.Error
+    }.await()
 
 }

@@ -14,6 +14,7 @@ import com.zurichat.app.models.OrganizationMember
 class NewChannelAdapter(val fragment: Fragment): RecyclerView.Adapter<NewChannelAdapter.ViewHolder>(), Filterable {
     var list = emptyList<OrganizationMember>()
     val _list: List<OrganizationMember> by lazy { list }
+    var itemClickListener: ((OrganizationMember) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -33,16 +34,11 @@ class NewChannelAdapter(val fragment: Fragment): RecyclerView.Adapter<NewChannel
 
     inner class ViewHolder(private var item: NewChannelItemBinding) : RecyclerView.ViewHolder(item.root) {
         fun bind(chat: OrganizationMember) {
-            item.channelItemPersonNameTxt.text =
-                if(chat.firstName.isEmpty() && chat.lastName.isEmpty()) "No name"
-                else "${chat.firstName} ${chat.lastName}"
+            item.channelItemPersonNameTxt.text = chat.name()
 
            // item.channelItemPersonIcon.setBackgroundResource(R.drawable.ic_kolade_icon)
             item.channelItemMessageTxt.text = chat.email
-            item.root.setOnClickListener {
-                // will crash the app because no value is being passed
-                //it.findNavController().navigate(R.id.dmFragment)
-            }
+            item.root.setOnClickListener { itemClickListener?.invoke(chat) }
 
         }
     }

@@ -16,12 +16,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentSelectNewChannelBinding
 import com.zurichat.app.models.OrganizationMember
+import com.zurichat.app.models.User
 import com.zurichat.app.ui.adapters.NewChannelAdapter
+import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponseItem
 import com.zurichat.app.ui.newchannel.SelectNewChannelViewModel
 import com.zurichat.app.ui.newchannel.states.SelectNewChannelViewState
+import com.zurichat.app.util.Result
 import com.zurichat.app.util.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) {
@@ -30,7 +34,21 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
     private lateinit var organizationID: String
 
     lateinit var userList: List<OrganizationMember>
-    private val adapter = NewChannelAdapter(this)
+    private val adapter = NewChannelAdapter(this).also {
+        it.itemClickListener = { member ->
+            lifecycleScope.launch {
+                val result = viewModel.createRoom(member.id)
+                if(result is Result.Success)
+                    findNavController().navigate(R.id.dmFragment,
+                        bundleOf(
+                            "room" to RoomsListResponseItem(result.data.id, org_id = result.data.orgId, room_user_ids = result.data.roomUserIds),
+                            "USER" to User("","","","","","","",0,"","","")
+                        ))
+                else Toast.makeText(requireContext(),
+                    (result as Result.Error).error.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
     private  val viewModel: SelectNewChannelViewModel by viewModels()
     private var endPointLoadingState: SelectNewChannelViewState<String> = SelectNewChannelViewState.Empty
 
