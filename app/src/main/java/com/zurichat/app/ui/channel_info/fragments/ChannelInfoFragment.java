@@ -197,7 +197,7 @@ public class ChannelInfoFragment extends Fragment {
     private List<Participant> getParticipantList(List<OrganizationMember> memberList){
         List<Participant> participants = new ArrayList<>();
         for (OrganizationMember member:memberList) {
-            participants.add(new Participant(member.getEmail(),"",R.drawable.img_user_profile));
+            participants.add(new Participant(member.name(),"",R.drawable.img_user_profile));
         }
         return participants;
     }
