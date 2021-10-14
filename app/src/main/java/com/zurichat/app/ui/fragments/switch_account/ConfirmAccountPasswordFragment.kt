@@ -5,20 +5,22 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.zurichat.app.data.localSource.Cache
 import com.zurichat.app.databinding.FragmentConfirmAccountPasswordBinding
-import com.zurichat.app.models.*
+import com.zurichat.app.models.LoginBody
+import com.zurichat.app.models.LoginResponse
+import com.zurichat.app.models.LogoutBody
 import com.zurichat.app.ui.activities.MainActivity
 import com.zurichat.app.ui.login.LoginViewModel
 import com.zurichat.app.ui.organizations.utils.ZuriSharePreference
@@ -96,6 +98,7 @@ class ConfirmAccountPasswordFragment : Fragment(){
         viewModel.logoutResponse.observe(viewLifecycleOwner, {
             when (it) {
                 is Result.Success -> {
+                    ZuriSharePreference(requireActivity()).setString("Current Organization ID","")
                     updateUser()
                     loginProcess(viewModel.logRes)
                 }
