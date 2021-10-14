@@ -31,10 +31,17 @@ public class CentrifugeClient {
     private static boolean connected = false;
     private static ChannelListener channelListener;
 
+    private static ArrayList<String> dmRoomIDList;
+    private static ArrayMap<String, Subscription> dmSubscriptionArrayMap;
+    private static ChannelListener dmListener;
+
     public static synchronized Client getClient(User user) throws JSONException {
         if (client==null) {
             channelRoomIDList = new ArrayList<>();
             subscriptionArrayMap = new ArrayMap<>();
+
+            dmRoomIDList = new ArrayList<>();
+            dmSubscriptionArrayMap = new ArrayMap<>();
 
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("bearer",user.getToken());
@@ -120,6 +127,51 @@ public class CentrifugeClient {
         return subscriptionArrayMap.get(roomID);
     }
 
+    public static void subscribeToDm(String channelRoomID) {
+        if(!dmRoomIDList.contains(channelRoomID) && isConnected()){
+            SubscriptionEventListener subListener = new SubscriptionEventListener() {
+                @Override
+                public void onSubscribeSuccess(Subscription sub, SubscribeSuccessEvent event) {
+                    dmRoomIDList.add(channelRoomID);
+                    dmSubscriptionArrayMap.put(channelRoomID,sub);
+                    dmListener.onChannelSubscribed(true,sub);
+                }
+
+                @Override
+                public void onSubscribeError(Subscription sub, SubscribeErrorEvent event) {
+                    dmListener.onChannelSubscriptionError(sub, event);
+                }
+
+                @Override
+                public void onPublish(Subscription sub, PublishEvent event) {
+                    dmListener.onDataPublished(sub,event);
+                }
+
+                @Override
+                public void onUnsubscribe(Subscription sub, UnsubscribeEvent event) {
+                    super.onUnsubscribe(sub, event);
+                    client.removeSubscription(sub);
+                    dmListener.onChannelSubscribed(false,sub);
+                }
+            };
+            Subscription subscription = client.newSubscription(channelRoomID,subListener);
+            subscription.subscribe();
+        }
+    }
+
+    public static void unSubscribeFromDm(String channelRoomID) {
+        if (dmRoomIDList.contains(channelRoomID)){
+            Subscription subscription = dmSubscriptionArrayMap.get(channelRoomID);
+            if (subscription!=null){
+                subscription.unsubscribe();
+            }
+        }
+    }
+
+    public static Subscription getDmSubscription(String roomID){
+        return dmSubscriptionArrayMap.get(roomID);
+    }
+
     public interface ChannelListener {
         void onConnected(boolean connected);
         void onConnectError(Client client, ErrorEvent event);
@@ -132,4 +184,7 @@ public class CentrifugeClient {
         channelListener = listener;
     }
 
+    public static void setDmCustomListener(ChannelListener listener){
+        dmListener = listener;
+    }
 }
