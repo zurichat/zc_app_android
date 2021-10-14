@@ -9,9 +9,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitInstance {
-    private val user: User? = null
     private val client = OkHttpClient.Builder().apply {
-        addInterceptor(MyInterceptor(user?.token))
+        addInterceptor(MyInterceptor())
     }.build()
 
     private val retrofit by lazy {

@@ -40,6 +40,7 @@ class RoomFragment : Fragment() {
     private lateinit var roomId: String
     private lateinit var userId: String
     private lateinit var senderId: String
+    private lateinit var roomName: String
     private lateinit var user : User
     private lateinit var room : RoomsListResponseItem
     private var currentPosition: Int? = null
@@ -83,11 +84,12 @@ class RoomFragment : Fragment() {
         val typingBar = binding.channelTypingBar
         val toolbar = binding.toolbarDm
 
-        roomId = room.room_name
+        roomId = room._id
         userId = room.room_user_ids.first()
         senderId = room.room_user_ids.last()
+        roomName = room.room_name
 
-        toolbar.title = roomId
+        toolbar.title = roomName
 
         channelChatEdit.doOnTextChanged { text, start, before, count ->
             if (text.isNullOrEmpty()) {
