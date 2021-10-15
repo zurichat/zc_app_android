@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.zurichat.app">
 
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Permissions for Media attachments -->
@@ -30,9 +31,7 @@
 
             android:theme="@style/Theme.MaterialComponents.Light" />
 
-        <activity android:name=".ui.activities.SplashActivity"
 
-            android:theme="@style/Theme.MaterialComponents.Light"/>
         <activity
             android:name=".ui.activities.SplashActivity"
             android:exported="true"
