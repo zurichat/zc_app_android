@@ -20,7 +20,7 @@
         android:theme="@style/Theme.ZuriChat">
         <activity
             android:name=".ui.audio.AudiosActivity"
-            android:exported="false" />
+            android:exported="tue" />
         <activity
             android:name=".ui.documents.DocumentActivity"
             android:exported="true"></activity>
