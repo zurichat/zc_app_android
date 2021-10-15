@@ -48,7 +48,7 @@ class AddByEmailFragment : Fragment(R.layout.fragment_add_by_email) {
 
         val toolbar = binding.toolbarContainer.toolbar
         progressDialog = ProgressDialog(context)
-        toolbar.title = "Invite"
+        toolbar.title = "Invite By Email"
         toolbar.subtitle = organizationName
         binding.toolbarContainer.toolbar.setLogo(drawable.ic_back)
         val logoView = toolbar.getChildAt(1)
