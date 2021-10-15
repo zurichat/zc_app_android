@@ -486,9 +486,11 @@ class ChannelChatFragment : Fragment() {
             try {
                 if (CentrifugeClient.isConnected()){
                     CentrifugeClient.subscribeToChannel(roomData!!.socket_name)
+                    uiScope.launch(Dispatchers.Main) {
+                        Toast.makeText(requireContext(),"Connected",Toast.LENGTH_SHORT).show()
+                    }
                 }
                 client = CentrifugeClient.getClient(user)
-                //client.connect()
                 CentrifugeClient.setCustomListener(object : CentrifugeClient.ChannelListener {
                     override fun onConnected(connected: Boolean) {
                         try{
