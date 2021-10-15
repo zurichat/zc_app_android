@@ -28,13 +28,12 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-
     <com.google.android.material.button.MaterialButton
         android:id="@+id/button_sendRecipientEmail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:backgroundTint="@color/primary_light_color"
+        android:backgroundTint="@color/primary_color"
         android:text="Send"
         app:layout_constraintEnd_toEndOf="@+id/recyclerview"
         app:layout_constraintStart_toStartOf="@+id/recyclerview"

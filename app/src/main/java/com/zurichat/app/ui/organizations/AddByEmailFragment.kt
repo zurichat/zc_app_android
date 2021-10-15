@@ -41,16 +41,14 @@ class AddByEmailFragment : Fragment(R.layout.fragment_add_by_email) {
         super.onCreate(savedInstanceState)
         organizationName = arguments?.getString("org_name").toString()
         organizationId = arguments?.getString("org_id").toString()
-
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         val toolbar = binding.toolbarContainer.toolbar
         progressDialog = ProgressDialog(context)
-        toolbar.setTitle("invite")
+        toolbar.setTitle("Invite")
         toolbar.subtitle = organizationName
         binding.toolbarContainer.toolbar.setLogo(drawable.ic_clear)
         val logoView = toolbar.getChildAt(1)

@@ -302,8 +302,8 @@ class ChannelChatFragment : Fragment() {
             }
             organizationMembersDao.getMembers(organizationID).collect {
                 try{
-                    it.mapToMemberList().forEach {
-                        userMap[it.id] = it
+                    it.mapToMemberList().forEach { organizationMember ->
+                        userMap[organizationMember.id] = organizationMember
                     }
                 }catch (e: Exception){
                     e.printStackTrace()
@@ -379,6 +379,7 @@ class ChannelChatFragment : Fragment() {
             } else {
 
             }*/
+            messagesArrayList.remove(it)
             messagesArrayList.add(it)
             val updatedList = channelMsgViewModel.getProfilePictures(organizationID, messagesArrayList)
             val channelsWithDateHeaders = createMessagesList(updatedList)
@@ -516,6 +517,9 @@ class ChannelChatFragment : Fragment() {
                         val data = Gson().fromJson(dataString, Data::class.java)
                         if (data.channel_id == channel._id) {
                             channelMsgViewModel.receiveMessage(data)
+                            uiScope.launch(Dispatchers.Main) {
+                                //Toast.makeText(requireContext(),data.content,Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
                 })

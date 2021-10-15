@@ -7,17 +7,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentChatsBinding
-import com.zurichat.app.databinding.FragmentDmBinding
-import com.zurichat.app.models.Message
 import com.zurichat.app.models.User
 import com.zurichat.app.models.organization_model.UserOrganizationModel
 import com.zurichat.app.ui.dm_chat.adapter.RoomAdapter
@@ -28,13 +23,9 @@ import com.zurichat.app.ui.dm_chat.utils.ModelPreferencesManager
 import com.zurichat.app.ui.dm_chat.viewmodel.RoomViewModel
 import com.zurichat.app.ui.dm_chat.viewmodel.RoomViewModelFactory
 import com.zurichat.app.ui.fragments.home_screen.HomeScreenFragment
-import com.zurichat.app.ui.fragments.home_screen.HomeScreenFragmentDirections
 import com.zurichat.app.ui.fragments.home_screen.HomeScreenViewModel
-import com.zurichat.app.ui.fragments.home_screen.adapters.ChatsAdapter
 import com.zurichat.app.ui.notification.NotificationUtils
-import com.zurichat.app.ui.organizations.utils.ZuriSharePreference
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.Interceptor
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -111,7 +102,6 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         val viewModelFactory = RoomViewModelFactory(repository)
         viewModelRoom = ViewModelProvider(this, viewModelFactory).get(RoomViewModel::class.java)
 
-
         //call retrofit service function to get rooms
         viewModelRoom.getRooms(organizationID, memberId)
         viewModelRoom.myResponse.observe(viewLifecycleOwner) { response ->
@@ -142,11 +132,6 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         }
         selectChatItem()
         setupUI()
-        activity?.onBackPressedDispatcher?.addCallback(requireActivity(), object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                findNavController().navigateUp()
-            }
-        })
     }
 
     private fun selectChatItem() {
@@ -216,4 +201,5 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
     companion object{
         val TAG = ChatsFragment::class.simpleName
     }
+
 }

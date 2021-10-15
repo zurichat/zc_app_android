@@ -1,11 +1,11 @@
 package com.zurichat.app.ui.fragments.switch_account
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -22,7 +22,6 @@ class AccountsFragment : Fragment() {
     private lateinit var accountViewModel: UserViewModel
     private val args by navArgs<AccountsFragmentArgs>()
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,7 +36,7 @@ class AccountsFragment : Fragment() {
         //setup toolbar with navgraph
         val navController = findNavController()
         val toolbar = view.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar3)
-        toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
+        //toolbar.setNavigationIcon(R.drawable.ic_arrow_back)
         toolbar.setupWithNavController(navController)
 
         //pass current user to the confirm password screen using navgraph args
@@ -53,6 +52,9 @@ class AccountsFragment : Fragment() {
         accountViewModel.readAllData.observe(viewLifecycleOwner, Observer {user->
             if (!user.isNullOrEmpty())textView.visibility = View.GONE
             adapter.setData(user)
+            if (user.isNotEmpty()){
+                toolbar.subtitle = user.size.toString()+ " Account(s)"
+            }
         })
 
     }
