@@ -95,17 +95,22 @@ class JSearchView @JvmOverloads constructor(
     fun addChipToGroup(text: String){
         val chip = Chip(context)
         chip.text = text
-        chip.chipIcon = ContextCompat.getDrawable(context, R.drawable.ic_remove_icon)
+        //chip.chipIcon = ContextCompat.getDrawable(context, R.drawable.ic_remove_icon)
         chip.isChipIconVisible = false
         chip.isCheckedIconVisible = true
         // to get single selection working
         chip.isClickable = true
+        chip.setTextAppearance(R.style.TextAppearance_AppCompat_Inverse)
+        chip.setCloseIconTintResource(R.color.white)
         chip.isCheckable = false
+        chip.isCloseIconVisible = true
         chip.setChipBackgroundColorResource(R.color.background_color)
         binding.searchChipLayout.addView(chip as View)
         chip.setOnCloseIconClickListener {
             binding.searchChipLayout.removeView(chip as View)
+            binding.chipGroup.visibility = VISIBLE
         }
+        binding.chipGroup.visibility = GONE
     }
 
     fun chipListener(chip:Chip) = with(binding){
