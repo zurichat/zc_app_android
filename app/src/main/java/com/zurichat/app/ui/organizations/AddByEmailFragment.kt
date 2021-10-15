@@ -48,9 +48,9 @@ class AddByEmailFragment : Fragment(R.layout.fragment_add_by_email) {
 
         val toolbar = binding.toolbarContainer.toolbar
         progressDialog = ProgressDialog(context)
-        toolbar.setTitle("Invite")
+        toolbar.title = "Invite"
         toolbar.subtitle = organizationName
-        binding.toolbarContainer.toolbar.setLogo(drawable.ic_clear)
+        binding.toolbarContainer.toolbar.setLogo(drawable.ic_back)
         val logoView = toolbar.getChildAt(1)
         logoView.setOnClickListener(View.OnClickListener {
             val bundle = bundleOf(
@@ -59,8 +59,8 @@ class AddByEmailFragment : Fragment(R.layout.fragment_add_by_email) {
             findNavController().navigate(R.id.action_addByEmailFragment_to_nextFragment, bundle)
         })
 
-        var list = ArrayList<String>()
-        var emails_list = ArrayList<RecipientEmail>()
+        val list = ArrayList<String>()
+        val emails_list = ArrayList<RecipientEmail>()
         binding.recyclerview.layoutManager = LinearLayoutManager(context)
 
         val interceptor = TokenInterceptor()
@@ -76,12 +76,11 @@ class AddByEmailFragment : Fragment(R.layout.fragment_add_by_email) {
             val adapter = RecipientEmailAdapter(emails_list)
             binding.recyclerview.adapter = adapter
             binding.recipientEmailEdit.text.clear()
-
         }
 
         binding.buttonSendRecipientEmail.setOnClickListener {
-            for (i in 0..emails_list.size-1){
-                val recipientEmail = emails_list.get(i)
+            for (i in 0 until emails_list.size){
+                val recipientEmail = emails_list[i]
                 list.add(recipientEmail.email)
             }
             if (list.size == 0){

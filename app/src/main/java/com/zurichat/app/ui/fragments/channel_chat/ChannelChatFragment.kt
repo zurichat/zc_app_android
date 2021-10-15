@@ -518,7 +518,7 @@ class ChannelChatFragment : Fragment() {
                         if (data.channel_id == channel._id) {
                             channelMsgViewModel.receiveMessage(data)
                             uiScope.launch(Dispatchers.Main) {
-                                //Toast.makeText(requireContext(),data.content,Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(),data.content,Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
