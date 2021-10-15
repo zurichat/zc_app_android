@@ -28,18 +28,10 @@ data class Room(
     @Expose
     val pinned: List<Any> = emptyList(),
 
-    @SerializedName("private")
-    @Expose
-    val isPrivateRoom: Boolean = false,
-
-    @SerializedName("room_name")
-    @Expose
-    val roomName: String = "",
-
     @SerializedName("room_user_ids")
     @Expose
     val roomUserIds: List<String> = emptyList()
 ){
-    override fun equals(other: Any?) = ((other is Room) && other.orgId == orgId && other.id == id)
+    override fun equals(other: Any?) = ((other is Room ) && other.orgId == orgId && other.id == id)
     override fun hashCode() = Objects.hash(orgId, id)
 }

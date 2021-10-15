@@ -31,10 +31,10 @@ interface DMService {
         @Body message: Message
     ): Response<SendMessageResponse>
 
-    @GET("${DM_API}{org_id}/users/{member_id}/rooms")
+    @GET("${DM_API}{org_id}/users/{user_id}/rooms")
     suspend fun getRooms(
         @Path("org_id") orgId: String,
-        @Path("member_id") memberId: String
+        @Path("user_id") userId: String
     ): Response<List<Room>>
 
     @GET("${DM_API}{org_id}/rooms/{room_id}/info")
@@ -43,10 +43,10 @@ interface DMService {
         @Query("room_id") roomId: String
     ): Response<RoomInfoResponse>
 
-    @POST("${DM_API}{org_id}/users/{member_id}/room")
+    @POST("${DM_API}{org_id}/users/{user_id}/room")
     suspend fun createRoom(
         @Path("org_id") orgId: String,
-        @Path("member_id") memberId: String,
+        @Path("user_id") userId: String,
         @Body roomInfo: CreateRoom
     ): Response<CreateRoomResponse>
 

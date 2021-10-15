@@ -238,12 +238,10 @@ class HomeScreenFragment : Fragment() {
         binding.toolbarContainer.searchView.setTabLayout(tabLayout)
         binding.toolbarContainer.searchView.setOnQueryTextListener(object : JSearchView.OnQueryTextListener{
             override fun onQueryTextChange(newText: String): Boolean {
-//                viewModel.searchQuery.value = newText
                 return false
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
-//                viewModel.searchQuery.value = query
                 return false
             }
 
