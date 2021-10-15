@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,43 +9,21 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:background="@color/top_color"
-        android:minHeight="?attr/actionBarSize"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primaryColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/new_channel_menu"
+        app:title="Select Member"
+        app:titleTextColor="#ffffff"
+        app:subtitle="0 Member(s)"
+        app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:popupTheme="@style/Theme.MaterialComponents.Light.NoActionBar"
         app:subtitleTextColor="@color/white"
-        app:theme="@style/ToolbarTheme">
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/select_members_"
-                android:textColor="@android:color/white"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/number_of_contacts_txt"
-                android:layout_width="wrap_content"
-                android:textSize="14dp"
-                android:layout_marginTop="6dp"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textColor="@color/white" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-    </androidx.appcompat.widget.Toolbar>
-
+        app:theme="@style/ToolbarTheme"/>
 
     <ImageButton
         android:id="@+id/member_button"
@@ -55,18 +34,20 @@
         android:background="@drawable/ic_person_background"
         android:src="@drawable/ic_people_icon"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:visibility="gone"/>
 
     <TextView
         android:id="@+id/member_label"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:text="@string/new_channel"
-        android:textColor="@color/fadeBlack"
+        android:textColor="@color/text_color"
         android:textSize="16sp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/member_button"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@+id/member_button"
         app:layout_constraintTop_toTopOf="@+id/member_button" />
 
@@ -78,17 +59,17 @@
         android:background="@android:color/darker_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/member_label" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:scrollbars="vertical"
         android:scrollbarSize="5dp"
         android:scrollbarThumbVertical="@color/top_color"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,10 +82,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

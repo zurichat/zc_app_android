@@ -6,29 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".ui.login.screens.EmailVerificationFragment">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/rectangle_1033"
+        />
+
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/zuri_chat_icon" />
+
     <TextView
         android:id="@+id/verify_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/lato_regular"
         android:gravity="center"
         android:lineHeight="24dp"
         android:lineSpacingExtra="2sp"
+        android:textSize="18sp"
         android:text="Verify your Email"
-        android:textSize="20dp"
-        android:textStyle="bold"
+        android:textColor="@color/text_color"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/imageView9" />
 
     <TextView
         android:id="@+id/textView_enter_code"
         android:layout_width="411dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/lato"
         android:gravity="center"
         android:text="Please enter the code sent to"

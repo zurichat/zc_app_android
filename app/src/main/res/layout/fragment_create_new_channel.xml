@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -72,10 +73,10 @@
         android:id="@+id/textView19"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:text="Type a message"
         android:background="@null"
+        android:padding="16dp"
         android:paddingStart="64dp"
+        android:text="Type a message"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2"
         app:layout_constraintVertical_bias="0.97"
@@ -85,14 +86,15 @@
         android:id="@+id/imageButton2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
         android:background="@drawable/ic_smile"
         android:paddingStart="1dp"
+        android:paddingTop="16dp"
         android:paddingEnd="16dp"
         android:paddingBottom="16dp"
-        android:paddingTop="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView19"
-        app:layout_constraintTop_toTopOf="@+id/textView19"
-        tools:layout_editor_absoluteX="33dp" />
+        app:layout_constraintStart_toStartOf="@+id/textView19"
+        app:layout_constraintTop_toTopOf="@+id/textView19" />
 
     <ImageButton
         android:id="@+id/imageButton3"

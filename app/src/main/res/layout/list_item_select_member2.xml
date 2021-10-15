@@ -1,47 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_margin="3dp">
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/image_chat_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_mary_icon"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/image_channel" />
+
     <TextView
         android:id="@+id/nameOfContact"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLength="7"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/lato"
+        android:singleLine="true"
+        android:maxLines="1"
         android:ellipsize="end"
-        android:text="kolawole"
-        app:layout_constraintTop_toBottomOf="@id/image_chat_user"
-        app:layout_constraintStart_toStartOf="@id/image_chat_user"
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="@color/text_color"
         app:layout_constraintEnd_toEndOf="@id/image_chat_user"
-        />
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.55" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.68" />
+        app:layout_constraintStart_toStartOf="@id/image_chat_user"
+        app:layout_constraintTop_toBottomOf="@id/image_chat_user" />
 
     <ImageView
-        android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
+        android:contentDescription="@string/description"
+        android:padding="0dp"
         android:src="@drawable/ic_remove_icon"
-        app:layout_constraintTop_toBottomOf="@id/guideline2"
-        app:layout_constraintStart_toEndOf="@id/guideline3"
-        />
+        app:layout_constraintStart_toStartOf="@id/image_chat_user"
+        app:layout_constraintTop_toTopOf="@id/image_chat_user"
+        app:tint="@color/primary_color" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

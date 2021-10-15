@@ -4,13 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/channel_bg_color"
-    android:animateLayoutChanges="true"
-    >
+    android:background="@color/channel_bg_color">
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/channel_toolbar"/>
+        layout="@layout/channel_toolbar" />
 
     <TextView
         android:id="@+id/intro_group_text"
@@ -25,15 +23,15 @@
         tools:ignore="HardcodedText" />
 
     <View
+        android:id="@+id/dm_chat_dimmer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:id="@+id/dm_chat_dimmer"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:alpha="0.0"
         android:background="#000000"
-        android:alpha="0.0"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/channel_typing_bar"
@@ -50,11 +48,11 @@
             android:layout_marginEnd="70dp"
             app:cardCornerRadius="27dp"
             app:cardElevation="0dp"
-            app:strokeWidth="1dp"
-            app:strokeColor="@color/bg_color_1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="@color/bg_color_1"
+            app:strokeWidth="1dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -64,23 +62,23 @@
                     android:id="@+id/icon_btn"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
+                    android:layout_marginStart="5dp"
                     android:scaleX=".7"
                     android:scaleY=".7"
-                    android:layout_marginStart="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_insert_emoticon" />
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <hani.momanii.supernova_emoji_library.Helper.EmojiconEditText
                     android:id="@+id/channel_chat_editText"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="6dp"
+                    android:layout_marginEnd="5dp"
                     android:background="@null"
                     android:hint="@string/type_a_message"
                     android:textSize="18sp"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginEnd="5dp"
                     app:layout_constraintEnd_toStartOf="@id/channel_link"
                     app:layout_constraintStart_toEndOf="@id/icon_btn" />
 
@@ -88,11 +86,11 @@
                     android:id="@+id/channel_link"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:scaleX=".7"
-                    android:scaleY=".7"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="10dp"
                     android:rotation="-45"
+                    android:scaleX=".7"
+                    android:scaleY=".7"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/camera_channel_btn"
                     app:layout_constraintTop_toTopOf="parent"
@@ -102,10 +100,10 @@
                     android:id="@+id/camera_channel_btn"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:scaleX=".7"
-                    android:scaleY=".7"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
+                    android:scaleX=".7"
+                    android:scaleY=".7"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -120,6 +118,8 @@
             android:id="@+id/send_voice_btn"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:contentDescription="record voice button"
+            android:outlineProvider="none"
             android:src="@drawable/ic_voice"
             app:backgroundTint="@color/primary_light_color"
             app:fabCustomSize="48dp"
@@ -128,25 +128,23 @@
             app:layout_constraintStart_toEndOf="@id/cardView"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white"
-            android:contentDescription="record voice button"
-            android:outlineProvider="none"
             tools:ignore="HardcodedText" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/send_message_btn"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:contentDescription="send button"
+            android:enabled="false"
+            android:outlineProvider="none"
             android:src="@drawable/ic_send_"
-            app:fabCustomSize="48dp"
             app:backgroundTint="@color/primary_light_color"
+            app:fabCustomSize="48dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cardView"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white"
-            android:contentDescription="send button"
-            android:outlineProvider="none"
-            android:enabled="false"
             tools:ignore="HardcodedText" />
         <!--endregion-->
 
@@ -157,66 +155,66 @@
         android:id="@+id/recyclerMessagesList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:requiresFadingEdge="vertical"
+        app:layoutManager="LinearLayoutManager"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toTopOf="@+id/channel_typing_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layoutManager="LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@+id/intro_group_text"
-        android:requiresFadingEdge="vertical"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/intro_group_text" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/channel_join_bar"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:background="@color/bg_color"
         android:clickable="true"
-        android:visibility="gone">
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@color/primaryLightColor"/>
+            android:background="@color/primaryLightColor"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
+            android:id="@+id/ll1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/view"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@id/join_channel"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:orientation="horizontal">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view">
 
             <TextView
                 android:id="@+id/text2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/view"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="4dp"
                 android:text="@string/you_are_viewing"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/text_color"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view" />
 
             <TextView
                 android:id="@+id/channel_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/view"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:drawablePadding="1dp"
                 android:text="chat-funny"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/text_color"
                 android:textStyle="bold"
-                app:drawableTint="@color/primaryColor"
                 app:drawableStartCompat="@drawable/ic_new_lock"
-                android:drawablePadding="1dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                app:drawableTint="@color/primaryColor"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view" />
 
         </LinearLayout>
 
@@ -224,24 +222,24 @@
             android:id="@+id/join_channel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="10dp"
             android:text="@string/join_channel"
-            android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ProgressBar
             android:id="@+id/progressBar2"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="165dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:visibility="gone"/>
+            tools:layout_editor_absoluteX="165dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

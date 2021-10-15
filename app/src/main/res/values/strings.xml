@@ -12,7 +12,7 @@
     <string name="next">Next</string>
     <string name="skip_intro">Skip Intro</string>
     <string name="verification_code">A verification code has been sent to \n <b> nwevopeacechinedu@gmail.com,</b> please enter the code \n to verify your account.</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">No Internet Connection!</string>
     <string name="skip">Skip</string>
     <string name="slider_image">Slider Image</string>
     <string name="never_miss_a_chat">Never miss a chat</string>
@@ -60,7 +60,7 @@
     <string name="new_channel">New Channel</string>
     <string name="saved_messages">Saved Messages</string>
     <string name="settings">Settings</string>
-    <string name="zuri">ZURI</string>
+    <string name="zuri">Zuri Chat</string>
     <string name="profile_image">Profile image</string>
     <string name="chats">CHATS</string>
 
@@ -143,7 +143,7 @@
     <string name="chanel_search">Search</string>
     <string name="channel_media">Channel media</string>
     <string name="select_contact">Select Contact</string>
-    <string name="members">Members</string>
+    <string name="members">Member(s)</string>
     <string name="changephoneno_hint_txt">Enter your new phone number</string>
     <string name="search_for_channels">Search for channels</string>
 
@@ -158,6 +158,7 @@
     <string name="vibrate_summary">Vibrate on new messages</string>
     <string name="high_priority_header">High priority Notification</string>
     <string name="high_priority_summary">Display Preview of notification at the top of the screen</string>
+    <string name="dm_notification_channel_name">DM Notification</string>
 
 
     <string name="unread_messages">Unread messages</string>
@@ -178,6 +179,26 @@
     <string name="sign_in_txt">Sign in to your Zuri account</string>
     <string name="welcome_zc_txt">Welcome to Zuri Chat</string>
     <string name="welcome_rect">welcome top rectangle</string>
+
+    <!-- Confirm Password-->
+    <string name="confirm_pass_hdr">Confirm Password</string>
+    <string name="confirm_pass">Confirm password to sign in with account</string>
+
+    <!--Forget Account Password -->
+    <string name="forgot_pass_sub_1">Please press continue to reset the password for the account</string>
+
+
+    <!--Home screen Menu-->
+    <string name="switch_acc">Switch Account</string>
+    <string name="logout">Log out</string>
+    <string name="logout_dialog">Do you want to log out?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="final_logout">Logging out…</string>
+
+    <!--Switch Accounts Menu-->
+    <string name="switch_accounts_toolbar_header">Previously Used Accounts</string>
+    <string name="no_account_to_switch_text">Sign in with more than one account on this device to use this feature</string>
 
 
     <!--                      Forgot Password-->
@@ -246,7 +267,7 @@
     <string name="ok_mute_channel">OK</string>
     <string name="who_else_is">Who else is working on this project?</string>
     <string name="to_add_team">To add teammates, you can either send a link or invite from your contacts.</string>
-    <string name="share_a_link">Share a link</string>
+    <string name="share_a_link">Share link</string>
     <string name="add_from_contacts">Add from contacts</string>
     <string name="add_by_email">Add by email</string>
     <string name="signout">Logout</string>
@@ -254,5 +275,19 @@
     <string name="sign_in">Sign In</string>
     <string name="invite_user">Invite User</string>
     <string name="successful_get_user_org">user organizations retrieved successfully</string>
+    <string name="retrieving_user_org">Retrieving user organization....</string>
+    <string name="starred_messages">Starred Messages</string>
+    <string name="empty_starrred_message_info">Tap and hold on any message \nin any chat to star it, \nso you can easily \nfind it later</string>
+    <string name="invite_link">Generate Link</string>
+    <string name="channel_invite">Channel Invite</string>
+    <string name="create_link">Create Link</string>
+    <string name="generated_link">Generated Link</string>
+
+    <string name="notification">New Notification</string>
+    <string name="notification_channel_description">This is a sample notification channel for demonstration purpose.</string>
+    <string name="didn_t_receive_any_code">Didn\'t Receive Any Code?</string>
+    <string name="create_new_organization">Create New Organization</string>
+    <string name="forgot_password_txt">Forgot Password?</string>
+    <string name="continue_txt">Continue</string>
 
 </resources>

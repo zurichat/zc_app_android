@@ -28,7 +28,7 @@
         layout="@layout/partial_message_sent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toBottomOf="@+id/text_m_t_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constrainedWidth="true" />
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

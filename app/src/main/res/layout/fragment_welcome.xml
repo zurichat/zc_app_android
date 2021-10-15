@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg"
     tools:context=".ui.login.screens.WelcomeFragment">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/rectangle_1033"
+        />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/register_zc_btn"
@@ -33,12 +40,11 @@
         android:layout_width="254dp"
         android:layout_height="230dp"
         android:layout_marginStart="53dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="72dp"
         android:layout_marginEnd="53dp"
         android:contentDescription="@string/welcome_image"
         android:src="@drawable/welcome_zc"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,11 +56,10 @@
         android:fontFamily="@font/lato"
         android:text="@string/welcome_zc_txt"
         android:textAlignment="center"
-        android:textColor="@color/onboarding_black"
+        android:textColor="@color/text_color"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
@@ -67,7 +72,6 @@
         android:text="@string/welcome_desc"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/welcome_zc_txtview"
         tools:textSize="14sp" />

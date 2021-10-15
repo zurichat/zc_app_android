@@ -6,75 +6,92 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.home_screen.chats_and_channels.ChannelsFragment">
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/mentionLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="15dp"
-        android:orientation="horizontal"
+        app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/mentionText"
-            android:layout_width="wrap_content"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/mentionLayout_"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="View mentions"
-            tools:ignore="HardcodedText" />
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/badge"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="10dp"
-            android:background="@drawable/channels_badge"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="1"
-            android:textColor="@android:color/white"
-            android:textSize="11sp"
-            android:visibility="gone"
-            tools:ignore="HardcodedText" />
+            <TextView
+                android:id="@+id/mentionText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="View mentions"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
 
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
+            <TextView
+                android:id="@+id/badge"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/channels_badge"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="1"
+                android:textColor="@android:color/white"
+                android:textSize="11sp"
+                android:visibility="gone"
+                tools:ignore="HardcodedText" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="0dp"
-            android:scaleY=".8"
-            android:scaleX=".8"
-            android:src="@drawable/ic_arrow_forward"
-            android:contentDescription="forward arrow"
-            tools:ignore="HardcodedText" />
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="0dp"
+                android:contentDescription="forward arrow"
+                android:scaleX=".8"
+                android:scaleY=".8"
+                android:src="@drawable/ic_arrow_forward"
+                tools:ignore="HardcodedText" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/unread_messages_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constrainedHeight="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:orientation="vertical"
-        app:layout_constraintTop_toBottomOf="@id/mentionLayout"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mentionLayout">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/channelRecycleView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constrainedHeight="true"
-            app:layoutManager="LinearLayoutManager"
             android:requiresFadingEdge="vertical"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constrainedHeight="true"
             tools:listitem="@layout/channels_list_item" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -83,35 +100,35 @@
         android:id="@+id/join_channel_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:text="@string/click_button_to_join_a_channel"
         android:textSize="25sp"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_add_channel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_add"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/join_channel_info"
         android:contentDescription="@string/button_to_join_channel"
-        android:visibility="gone"/>
+        android:src="@drawable/ic_add"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/join_channel_info" />
 
-<!--    <ProgressBar-->
-<!--        android:id="@+id/progressBar2"-->
-<!--        style="?android:attr/progressBarStyle"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        tools:layout_editor_absoluteX="165dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        />-->
+    <!--    <ProgressBar-->
+    <!--        android:id="@+id/progressBar2"-->
+    <!--        style="?android:attr/progressBarStyle"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        tools:layout_editor_absoluteX="165dp"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
