@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.ui.audio;
+package com.zurichat.app.ui.audio;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.view.View;
 
 import java.io.File;
-import com.tolstoy.zurichat.R;
+import com.zurichat.app.R;
 
 
 import okhttp3.MediaType;

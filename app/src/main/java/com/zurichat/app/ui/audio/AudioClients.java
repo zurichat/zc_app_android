@@ -1,4 +1,4 @@
-package com.tolstoy.zurichat.ui.audio;
+package com.zurichat.app.ui.audio;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
