@@ -8,41 +8,82 @@
     tools:context=".ui.organizations.AddByEmailFragment">
 
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/button_sendRecipientEmail"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="24dp"
-        android:backgroundTint="@color/primary_light_color"
-        android:text="Send"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recipient_email" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/recipient_email"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        style="@style/HeaderBar"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="4dp"
-        android:background="@color/white"
-        android:elevation="8dp"
-        android:hint="Enter recipient email"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/recipient_emailEdit"
+        <include
+            android:id="@+id/toolbar_container"
+            layout="@layout/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:focusable="true"
-            android:inputType="textWebEmailAddress|textEmailAddress|textEmailSubject" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_sendRecipientEmail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/primary_color"
+        android:text="Send"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerview"
+        app:layout_constraintStart_toStartOf="@+id/recyclerview"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerview" />
+
+    <LinearLayout
+        android:id="@+id/recipientEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appbar">
+
+        <EditText
+            android:id="@+id/recipientEmailEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:focusable="true"
+            android:hint="Enter recipient email"
+            android:inputType="textWebEmailAddress|textEmailAddress|textEmailSubject"
+            android:paddingRight="40dp"
+            android:singleLine="true" />
+
+        <ImageButton
+            android:id="@+id/add_to_emails"
+            style="?android:buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-40dp"
+            android:paddingBottom="5dp"
+            android:src="@drawable/ic_add"
+            tools:ignore="SpeakableTextPresentCheck" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        tools:listitem="@layout/recipient_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recipientEmail" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

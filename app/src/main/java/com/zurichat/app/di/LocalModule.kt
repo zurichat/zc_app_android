@@ -24,7 +24,7 @@ class LocalModule {
 
     @Provides
     fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
-        return Room.databaseBuilder(context, AppDatabase::class.java, "zuri_chat").build()
+        return Room.databaseBuilder(context, AppDatabase::class.java, "zuri_chat").fallbackToDestructiveMigration().build()
     }
 
     @Provides

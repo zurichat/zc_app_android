@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.switch_account.AccountsFragment">
 
-
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"
         android:layout_width="match_parent"
@@ -15,6 +14,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:popupTheme="@style/Theme.MaterialComponents.Light.NoActionBar"
+        app:subtitle="0 Account(s)"
+        app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
+        app:subtitleTextColor="@color/white"
+        app:theme="@style/ToolbarTheme"
+        app:title="Previously Used Accounts"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
         app:titleTextColor="#ffffff">
 
     </androidx.appcompat.widget.Toolbar>
@@ -47,6 +54,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar3" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

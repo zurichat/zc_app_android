@@ -2,6 +2,7 @@ package com.zurichat.app.ui.login.screens;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,6 +98,7 @@ public class RegisterUserFragment extends Fragment {
         progressDialog.show();
         final RegisterUser registerUser = new RegisterUser(first_name, last_name, display_name, email, password, phone);
         Call<RegisterUser> call = usersService.register(registerUser);
+        Log.d("REG", "registerUser: "+registerUser);
         call.enqueue(new Callback<RegisterUser>() {
             @Override
             public void onResponse(Call<RegisterUser> call, Response<RegisterUser> response) {

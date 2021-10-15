@@ -52,10 +52,6 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
     }
 
     private fun setupUI() = with(binding){
-        activity?.onBackPressedDispatcher?.addCallback(requireActivity(), object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() { findNavController().navigateUp() }
-        })
-
         if (!mNotified) {
             NotificationUtils().setNotification(mNotificationTime, requireActivity())
         }
