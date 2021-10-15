@@ -40,6 +40,6 @@ data class Room(
     @Expose
     val roomUserIds: List<String> = emptyList()
 ){
-    override fun equals(other: Any?) = ((other is Room ) && other.orgId == orgId && other.id == id)
+    override fun equals(other: Any?) = ((other is Room) && other.orgId == orgId && other.id == id)
     override fun hashCode() = Objects.hash(orgId, id)
 }

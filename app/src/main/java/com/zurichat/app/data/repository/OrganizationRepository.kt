@@ -21,8 +21,8 @@ class OrganizationRepository @Inject constructor(
         return usersService.updateOrganizationName(orgID,organizationNameResponse)
     }
 
-    suspend fun getMember(userId: String, organizationId: String = getId()) =
-        usersService.getMember(organizationId, userId).result()
+    suspend fun getMember(memberId: String, organizationId: String = getId()) =
+        usersService.getMember(organizationId, memberId).result()
 
     suspend fun getMemberByEmail(email: String, organizationId: String = getId()) =
         usersService.getMemberByEmail(organizationId, email).result()
