@@ -2,6 +2,9 @@ package com.zurichat.app.util
 
 import android.util.Log
 import android.util.Patterns
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import org.jsoup.Jsoup
 
 /**
@@ -24,3 +27,12 @@ suspend fun String.getWebsiteMetadata() = try {
     Log.d(TAG, "getWebsiteMetadata: after get $result")
     result
 } catch (exception: Exception) { null }
+
+fun <T> LiveData<T>.observeOnce(lifecycleOwner: LifecycleOwner, observer: Observer<T>){
+    observe(lifecycleOwner, object : Observer<T> {
+        override fun onChanged(t: T) {
+            observer.onChanged(t)
+            removeObserver(this)
+        }
+    })
+}

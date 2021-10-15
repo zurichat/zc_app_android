@@ -45,13 +45,9 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
     private val adapter = NewChannelAdapter(this).also {
         it.itemClickListener = { member ->
             lifecycleScope.launch {
-                val result = viewModel.createRoom(member.id)
+                val result = viewModel.createRoom(member)
                 if(result is Result.Success)
-                    findNavController().navigate(R.id.dmFragment,
-                        bundleOf(
-                            "room" to RoomsListResponseItem(result.data.id, org_id = result.data.orgId, room_user_ids = result.data.roomUserIds, room_name = member.name()),
-                            "USER" to User("","","","","","","",0,"","","")
-                        ))
+                    findNavController().navigate(R.id.dmFragment, result.data)
                 else Toast.makeText(requireContext(),
                     (result as Result.Error).error.message, Toast.LENGTH_SHORT).show()
             }

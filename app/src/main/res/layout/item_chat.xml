@@ -12,13 +12,14 @@
 
     <ImageView
         android:id="@+id/image_chat_user"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:contentDescription="@string/profile_image"
-        android:padding="8dp"
+        android:padding="2dp"
         android:scaleType="centerCrop"
         android:src="@drawable/image_channel"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,19 +37,22 @@
 
     <TextView
         android:id="@+id/text_chat_username"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_weight="1"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
         android:text="@string/username_"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@color/chat_name_txt"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/text_chat_last_message"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/image_chat_user"
         app:layout_constraintTop_toTopOf="@+id/image_chat_user"
-        app:layout_constraintVertical_chainStyle="packed"
-        app:layout_constraintWidth_default="wrap" />
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <TextClock
         android:id="@+id/text_chat_time"
@@ -57,24 +61,27 @@
         android:text="@string/_10_07"
         android:textSize="12sp"
         android:textColor="@color/primary_light_color"
+        app:layout_constraintBottom_toBottomOf="@+id/text_chat_username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/text_chat_username" />
 
     <TextView
         android:id="@+id/text_chat_last_message"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
         android:layout_weight="1"
-        android:text="@string/hey_what_s_good_"
+        android:singleLine="true"
+        android:text="lllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllll]"
         android:textColor="@color/chat_txt"
-        android:textSize="12sp"
+        android:textSize="13sp"
+        app:layout_constrainedWidth="true"
         app:layout_constraintBottom_toBottomOf="@+id/image_chat_user"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@id/text_chat_username"
-        app:layout_constraintTop_toBottomOf="@id/text_chat_username"
-        app:layout_constraintWidth_default="wrap" />
+        app:layout_constraintTop_toBottomOf="@id/text_chat_username" />
 
     <TextView
         android:id="@+id/text_chat_unread_messages"
