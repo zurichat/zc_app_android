@@ -2,16 +2,19 @@ package com.zurichat.app.ui.dm_chat.fragment
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.text.format.DateUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.zurichat.app.databinding.FragmentDmBinding
 import com.zurichat.app.databinding.PartialAttachmentPopupBinding
 import com.zurichat.app.models.User
@@ -42,6 +45,7 @@ import java.time.format.DateTimeFormatterBuilder
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.random.Random
+
 
 class RoomFragment : Fragment() {
     private lateinit var roomsListAdapter : BaseListAdapter
@@ -101,6 +105,7 @@ class RoomFragment : Fragment() {
         val sendMessage = binding.sendMessageBtn                    //use this button to send the message
         val typingBar = binding.channelTypingBar
         val toolbar = binding.toolbarDm
+        val recyclerView = binding.listDm
 
         roomId = room._id
         userId = room.room_user_ids.first()
@@ -216,6 +221,18 @@ class RoomFragment : Fragment() {
                     }
                 })
                 channelChatEdit.text?.clear()
+
+                recyclerView.addOnLayoutChangeListener(View.OnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+                    if (bottom < oldBottom) {
+                        recyclerView.postDelayed(Runnable {
+                            recyclerView.adapter?.itemCount?.minus(1)?.let { it1 ->
+                                recyclerView.smoothScrollToPosition(
+                                    it1
+                                )
+                            }
+                        }, 100)
+                    }
+                })
             }
         }
 

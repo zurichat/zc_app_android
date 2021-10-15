@@ -59,7 +59,7 @@ data class RoomListItem(val data: BaseRoomData, val user: User, val context: Act
             binding.bubble1.visibility = View.GONE
 
             binding.messageText.text = data.getMessageResponse.message
-            binding.messageAuthor.text = data.getMessageResponse.sender_id
+            //binding.messageAuthor.text = data.getMessageResponse.sender_id
             binding.messageTime.text = time
         }
 
