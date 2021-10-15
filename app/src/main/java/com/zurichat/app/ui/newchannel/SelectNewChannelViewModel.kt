@@ -2,6 +2,7 @@ package com.zurichat.app.ui.newchannel
 
 import android.app.Application
 import android.content.SharedPreferences
+import androidx.core.os.bundleOf
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,7 +10,9 @@ import com.zurichat.app.data.functional.GetUserResult
 import com.zurichat.app.data.repository.*
 import com.zurichat.app.models.OrganizationMember
 import com.zurichat.app.models.Room
+import com.zurichat.app.models.User
 import com.zurichat.app.models.network_response.CreateRoom
+import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponseItem
 import com.zurichat.app.ui.newchannel.states.SelectNewChannelViewState
 import com.zurichat.app.util.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -28,6 +31,7 @@ class SelectNewChannelViewModel @Inject constructor(
     private val userRepository: UserRepository,
     val app: Application,
     val preference: SharedPreferences): ViewModel() {
+
     private val users = MutableStateFlow<SelectNewChannelViewState<List<OrganizationMember>>>(SelectNewChannelViewState.Empty)
     val _users:StateFlow<SelectNewChannelViewState<List<OrganizationMember>>> = users
 
@@ -76,18 +80,14 @@ class SelectNewChannelViewModel @Inject constructor(
 
     fun getId() = orgRepo.getId()
 
-    suspend fun createRoom(otherUserId: String): Result<Room> = viewModelScope.async {
-        val createRoom = CreateRoom(
-            orgId = getId(),
-            roomMemberIds = listOf(orgRepo.getMemberId(), otherUserId),
-            roomName = otherUserId
-        )
-        val result = dmRepository.createRoom(orgRepo.getId(), orgRepo.getMemberId(), createRoom)
+    suspend fun createRoom(member: OrganizationMember) = viewModelScope.async {
+        val room = CreateRoom(getId(), listOf(orgRepo.getMemberId(), member.id), member.name())
+        val result = dmRepository.createRoom(orgRepo.getId(), orgRepo.getMemberId(), room)
         return@async if(result is Result.Success) {
-            Result.Success(Room(
-                id = result.data!!.roomId,
-                orgId = createRoom.orgId,
-                roomUserIds = createRoom.roomMemberIds
+            Result.Success(bundleOf(
+                "room" to RoomsListResponseItem(result.data!!.roomId, org_id = room.orgId,
+                    room_user_ids = room.roomMemberIds, room_name = member.name()),
+                "USER" to userRepository.getUser()
             ))
         } else result as Result.Error
     }.await()
