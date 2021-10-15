@@ -117,7 +117,6 @@ class AddByEmailFragment : Fragment(R.layout.fragment_add_by_email) {
             }
 
         }
-
     }
 
 }

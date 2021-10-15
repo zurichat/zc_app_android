@@ -43,6 +43,9 @@ data class RoomListItem(val data: BaseRoomData, val user: User, val context: Act
 //            binding.messageAuthor.text = data.user_id
 //        }
 
+        binding.messageAuthor.visibility = View.GONE
+        binding.imageParent.visibility = View.GONE
+
         if ((data.checkMessage)) {
             val time = s.format(convertStringDateToLong(data.sendMessageResponse!!.data.created_at))
 
@@ -63,6 +66,7 @@ data class RoomListItem(val data: BaseRoomData, val user: User, val context: Act
             binding.messageTime.text = time
         }
 
+        binding.messageAuthor.visibility = View.GONE
         binding.imageParent.visibility = View.GONE
     }
 
@@ -71,4 +75,5 @@ data class RoomListItem(val data: BaseRoomData, val user: User, val context: Act
         s.timeZone = TimeZone.getTimeZone("UTC")
         return s.parse(date)
     }
+
 }
