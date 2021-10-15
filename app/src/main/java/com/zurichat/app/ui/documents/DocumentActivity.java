@@ -5,7 +5,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -13,77 +17,90 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.zurichat.app.R;
+import com.zurichat.app.ui.audio.AudioClients;
+import com.zurichat.app.ui.audio.AudiosActivity;
+import com.zurichat.app.ui.audio.SendAudio;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+
 public class DocumentActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private List<File> fileList;
-    private DocumentAdapter documentAdapter;
-    File storage;
+    ImageView docs;
+    private int IMG = 33;
+    String filepath = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_document);
 
-        String document = System.getenv("EXTERNAL_STORAGE");
+        docs = findViewById(R.id.link_doc);
 
-        storage = new File(document);
-
-        String data;
-        try {
-            data = getString(Integer.parseInt("path"));
-            File file = new File(data);
-            storage = file;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        runtimepermission();
-    }
-
-    private void runtimepermission() {
-        Dexter.withContext(this).withPermissions(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-        ).withListener(new MultiplePermissionsListener() {
+        docs.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onPermissionsChecked( MultiplePermissionsReport multiplePermissionsReport){
-                displayFiles();
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setType("application/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent,IMG);
             }
-            @Override
-            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> list, PermissionToken permissionToken){
-                permissionToken.continuePermissionRequest();
-            }
+        });
 
-        }).check();
+
     }
-    private ArrayList<File> findFiles(File storage) {
-        ArrayList<File> arrayList = new ArrayList<>();
-        File[] files = storage.listFiles();
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        //to get all document files
-        for (File singleFile : files){
-            if (singleFile.getName().toLowerCase().endsWith(".pdf") || singleFile.getName().toLowerCase().endsWith(".pptx")
-                    || singleFile.getName().toLowerCase().endsWith(".docx") || singleFile.getName().toLowerCase().endsWith(".apk")){
-                arrayList.add(singleFile);
-
-            }
+        if (requestCode == IMG &&  resultCode == RESULT_OK &&  data != null && data.getData()  != null){
+            sendDocument();
         }
-        return arrayList;
 
     }
-    private void displayFiles(){
-        recyclerView = findViewById(R.id.docrecyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        fileList = new ArrayList<>();
-        fileList.addAll(findFiles(storage));
-        documentAdapter = new DocumentAdapter(this, fileList);
-        recyclerView.setAdapter(documentAdapter);
+    private void sendDocument() {
+        File file = new File(filepath);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/*"), file);
+        MultipartBody.Part part = MultipartBody.Part.createFormData("messagemedia", file.getName(),requestBody);
+
+        RequestBody fomData = RequestBody.create(MediaType.parse("text/plain"), "This is a new audio");
+        Retrofit retrofit = DocumentClients.getRetrofit();
+        SendDocs sendDocs = (SendDocs) retrofit.create(SendDocs.class);
+        Call call = sendDocs.sendDocs(part, fomData);
+        call.enqueue(new Callback() {
+            @java.lang.Override
+            public void onResponse(Call call, Response response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(DocumentActivity.this, "Sent Successfully", Toast.LENGTH_SHORT).show();
+                }else if (response.code() == 400){
+                    Toast.makeText(DocumentActivity.this, "Error 400, invalid", Toast.LENGTH_SHORT).show();
+
+                }else if (response.code() == 404){
+                    Toast.makeText(DocumentActivity.this, "Error 404, Not found", Toast.LENGTH_SHORT).show();
+
+                }else if (response.code() == 401){
+                    Toast.makeText(DocumentActivity.this, "Error 400, invalid", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+            @java.lang.Override
+            public void onFailure(Call call, java.lang.Throwable t) {
+
+            }
+        });
+
+
+
     }
 
 
