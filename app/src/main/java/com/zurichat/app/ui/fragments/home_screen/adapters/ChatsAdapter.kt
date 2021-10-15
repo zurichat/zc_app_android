@@ -5,18 +5,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.zurichat.app.R
 import com.zurichat.app.databinding.ItemChatBinding
-import com.zurichat.app.models.Room
+import com.zurichat.app.models.Message
 
-class ChatsAdapter: RecyclerView.Adapter<ChatsAdapter.ChatViewHolder>() {
+class ChatsAdapter(val chats: List<Chat>): RecyclerView.Adapter<ChatsAdapter.ChatViewHolder>() {
 
-    var onItemClickListener: ((Chat) -> Unit)? = null
+    private var onItemClickListener: ((Chat) -> Unit)? = null
+
+    fun setItemClickListener(listener: (Chat) -> Unit) {
+        onItemClickListener = listener
+    }
 
     private val differCallback = object: DiffUtil.ItemCallback<Chat>(){
         override fun areItemsTheSame(oldItem: Chat, newItem: Chat): Boolean {
-            return oldItem.room.id == newItem.room.id
+            return oldItem.sender == newItem.sender
         }
 
         override fun areContentsTheSame(oldItem: Chat, newItem: Chat): Boolean {
@@ -31,21 +33,21 @@ class ChatsAdapter: RecyclerView.Adapter<ChatsAdapter.ChatViewHolder>() {
             .inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
-    override fun getItemCount() = differ.currentList.size
-
-    override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
-        return holder.bind(differ.currentList[position])
+    override fun getItemCount(): Int {
+        return differ.currentList.size
     }
 
-    fun addItems(chats: List<Chat>) = differ.submitList(chats)
+    override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
+        val cat = differ.currentList[position]
+        return holder.bind(cat)
+    }
 
-    inner class ChatViewHolder(private val binding: ItemChatBinding): RecyclerView.ViewHolder(binding.root){
+    inner class ChatViewHolder(private val binding: ItemChatBinding):
+        RecyclerView.ViewHolder(binding.root){
 
         fun bind(chat: Chat) = with(binding){
-            Glide.with(root.context.applicationContext).load(chat.dp)
-                .placeholder(R.drawable.image_channel).into(imageChatUser)
-            textChatLastMessage.text = chat.message
-            textChatTime.text = chat.createdAt
+            textChatLastMessage.text = chat.message.message
+            textChatTime.text = chat.message.createdAt
             textChatUsername.text = chat.sender
             textChatUnreadMessages.text = chat.unreadCount.toString()
 
@@ -55,6 +57,5 @@ class ChatsAdapter: RecyclerView.Adapter<ChatsAdapter.ChatViewHolder>() {
         }
     }
 
-    data class Chat(val sender: String, val dp: String, val room: Room,
-                    val message: String, val createdAt: String, val unreadCount: Int)
+    data class Chat(val sender: String, val message: Message, val unreadCount: Int)
 }
