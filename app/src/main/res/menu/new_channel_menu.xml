@@ -2,6 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+   <!--Notice!!! Please, don't add more menu item to this file-->
     <item
         android:id="@+id/search_channel"
         android:checkable="false"

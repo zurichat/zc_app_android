@@ -114,7 +114,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/primaryColor"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
+        android:theme="@style/ToolbarTheme"
         app:logo="@drawable/zuri_chat_icon"
         app:titleMarginStart="32dp"
         app:title="Choose Organization"
