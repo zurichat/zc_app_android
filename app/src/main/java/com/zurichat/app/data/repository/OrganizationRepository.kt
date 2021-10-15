@@ -36,16 +36,11 @@ class OrganizationRepository @Inject constructor(
             .putString(MEMBER_ID, member_id).apply()
     }
 
-    fun getId(): String {
-        preferences.getString(ORG_ID, "")
-        return TEST_ID
-    }
+    fun getId() = preferences.getString(ORG_ID, "")!!
 
     fun getMemberId() = preferences.getString(MEMBER_ID, "")!!
 
     companion object {
         val TAG = OrganizationRepository::class.simpleName
-
-        const val TEST_ID = "6162210d8e856323d6f12110" // used for testing if endpoints are working
     }
 }
