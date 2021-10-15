@@ -174,6 +174,7 @@ class HomeScreenFragment : Fragment() {
                     }
                 }
                 R.id.switch_workspace -> {
+
                     val bundle = Bundle()
                     bundle.putParcelable("USER", user)
                     findNavController().navigate(R.id.switchOrganizationFragment, bundle)

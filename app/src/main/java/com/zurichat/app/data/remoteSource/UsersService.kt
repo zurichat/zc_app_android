@@ -2,10 +2,7 @@ package com.zurichat.app.data.remoteSource
 
 import com.zurichat.app.models.*
 import com.zurichat.app.models.network_response.OrganizationMembers
-import com.zurichat.app.models.organization_model.OrganizationCreator
-import com.zurichat.app.models.organization_model.OrganizationCreatorResponse
-import com.zurichat.app.models.organization_model.OrganizationName
-import com.zurichat.app.models.organization_model.OrganizationNameResponse
+import com.zurichat.app.models.organization_model.*
 import com.zurichat.app.ui.login.password.confirm.ConfirmPasswordData
 import com.zurichat.app.ui.login.password.confirm.ConfirmResponse
 import com.zurichat.app.ui.login.password.resetuserpass.ResetUserPasswordData
@@ -37,6 +34,7 @@ interface UsersService {
     @POST("users")
     fun register(@Body registerUser: RegisterUser?): Call<RegisterUser?>?
 
+
     @POST("account/verify-account")
     fun verifyEmail(@Body verifyEmail: VerifyEmail?): Call<VerifyEmail?>?
 
@@ -62,13 +60,13 @@ interface UsersService {
     suspend fun logout(@Body logoutBody: LogoutBody): Response<LogoutResponse>
 
     @POST("account/verify-reset-password")
-    suspend fun verifyResetOtp(@Body resetCodeBody: ResetCodeBody):Response<ResetCodeResponse>
+    suspend fun verifyResetOtp(@Body resetCodeBody: ResetCodeBody): Response<ResetCodeResponse>
 
     @POST("account/update-password/{verification_code}")
     suspend fun updatePass(
-        @Path ("verification_code") verCode : String,
+        @Path("verification_code") verCode: String,
         @Body updatePassBody: UpdatePassBody
-    ):Response<LogoutResponse>
+    ): Response<LogoutResponse>
 
     @POST("auth/confirm-password")
     suspend fun confirmpassword(@Body confirmpassword: ConfirmPasswordData): ConfirmResponse

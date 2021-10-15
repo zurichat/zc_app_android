@@ -14,8 +14,8 @@ android {
         applicationId "com.zurichat.app"
         minSdk 21
         targetSdk 30
-        versionCode 5
-        versionName "1.0.4"
+        versionCode 6
+        versionName "1.0.5"
 
         flavorDimensions "default"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -55,6 +55,7 @@ android {
 
 dependencies {
     implementation 'com.android.volley:volley:1.2.1'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
 // for using some java 8 classes like LocalDate with older versions of android
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")

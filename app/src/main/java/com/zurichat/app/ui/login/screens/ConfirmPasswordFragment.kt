@@ -1,22 +1,21 @@
 package com.zurichat.app.ui.login.screens
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.zurichat.app.R
-import com.zurichat.app.util.viewBinding
-import dagger.hilt.android.AndroidEntryPoint
 import com.zurichat.app.databinding.FragmentConfirmPasswordBinding
 import com.zurichat.app.models.UpdatePassBody
-import com.zurichat.app.ui.fragments.switch_account.ChangePassFragmentArgs
-import com.zurichat.app.ui.fragments.switch_account.UserViewModel
 import com.zurichat.app.ui.login.LoginViewModel
+import com.zurichat.app.ui.organizations.utils.ZuriSharePreference
 import com.zurichat.app.util.Result
+import com.zurichat.app.util.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -25,7 +24,6 @@ class ConfirmPasswordFragment : Fragment(R.layout.fragment_confirm_password) {
     private val binding by viewBinding(FragmentConfirmPasswordBinding::bind)
     private val args by navArgs<ConfirmPasswordFragmentArgs>()
     private val viewModel by viewModels<LoginViewModel>()
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -82,6 +80,7 @@ class ConfirmPasswordFragment : Fragment(R.layout.fragment_confirm_password) {
     }
 
     private fun updateSuccess(){
+        ZuriSharePreference(requireActivity()).setString("Current Organization ID","")
         Toast.makeText(requireContext(), "Password change successful", Toast.LENGTH_SHORT).show()
         val action = ConfirmPasswordFragmentDirections.actionConfirmPasswordFragmentToLoginFragment()
         findNavController().navigate(action)

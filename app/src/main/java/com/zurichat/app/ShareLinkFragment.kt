@@ -2,11 +2,11 @@ package com.zurichat.app
 
 import android.content.*
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.zurichat.app.databinding.FragmentShareLinkBinding
 import com.zurichat.app.models.User
 import com.zurichat.app.util.viewBinding
@@ -15,7 +15,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ShareLinkFragment : Fragment() {
-
 
     private val binding by viewBinding(FragmentShareLinkBinding::bind)
     private lateinit var organizationID: String
@@ -51,10 +50,6 @@ class ShareLinkFragment : Fragment() {
 //        organizationID = arguments?.getString(ORG_ID).toString()
 
         organizationID = preference.getString("ORG_ID", "") ?: ""
-
-
-
-
 
         binding.linkGenerated.text = "https://api.zuri.chat/organizations/${organizationID}"
 

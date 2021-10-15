@@ -36,12 +36,17 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private val accModel by viewModels<UserViewModel>()
     private lateinit var prevDest: String
     private lateinit var progressDialog: ProgressDialog
+    private val PREFS_NAME = "USER_INFO"
+    private lateinit var userPreferences: SharedPreferences
+
     @Inject
     lateinit var sharedPreferences: SharedPreferences
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        userPreferences = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         val textView = binding.textViewRegister
         val materialTextView = binding.materialTextView
         progressDialog = ProgressDialog(context)
@@ -49,7 +54,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         prevDest = Navigation.findNavController(view).previousBackStackEntry!!
             .destination.label.toString()
 
-        if (prevDest == "fragment_email_verified"){
+        if (prevDest == "fragment_email_verified") {
             binding.email.setText(arguments?.getString("email"))
         }
 
@@ -71,10 +76,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         buttonSignIn.setOnClickListener {
             val loginBody = LoginBody(
                 email = email.text.toString().trim(),
-              
+
                 password = password.text.toString(),
 
-            )
+                )
             viewModel.login(loginBody)
         }
     }
@@ -97,17 +102,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun handleSuccess(response: LoginResponse) {
-        //val action = LoginFragmentDirections.actionLoginFragmentToMainNav(response.data.user)
-        // findNavController().navigate(action)
-        //findNavController().navigate(R.id.action_loginFragment_to_main_nav,bundle)
 
-        //Starting A Activity With A Navigation Component Causes Issues With The Activity Theme.
-        //Better To Sse An Intent
-
-        // add user auth state to shared preference
         viewModel.saveUserAuthState(true)
 
-        val user = response.data.user.copy(currentUser = true )
+        val user = response.data.user.copy(currentUser = true)
 
         // add user object to room database
         viewModel.saveUser(user)
@@ -122,30 +120,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         intent.putExtras(bundle)
         startActivity(intent)
         requireActivity().finish()
-        sharedPreferences.edit().putString("TOKEN",user.token).apply()
-        Toast.makeText(context, "You have successfully logged in", Toast.LENGTH_LONG).show()
+        sharedPreferences.edit().putString("TOKEN", user.token).apply()
+        userPreferences.edit().putString("TOKEN", user.token).apply()
 
+        Toast.makeText(context, "You have successfully logged in", Toast.LENGTH_LONG).show()
         ZuriSharePreference(requireContext()).setString("TOKEN", user.token)
 
-        /*
-            if the user is just signed up and logged in and redirect him to an activity
-            where he will create new organization.
-            if the user is not logging in for the first time redirect him to home activity
-        */
-
-        /*if(prevDest == "fragment_email_verified"){
-            val intent = Intent(requireContext(), CreateOrganizationActivity::class.java)
-            Cache.map.putIfAbsent("user", user)
-            intent.putExtras(bundle)
-            startActivity(intent)
-            requireActivity().finish()
-        }else{
-            val intent = Intent(requireContext(), MainActivity::class.java)
-            Cache.map.putIfAbsent("user", user)
-            intent.putExtras(bundle)
-            startActivity(intent)
-            requireActivity().finish()
-        }*/
     }
 
     private fun handleError(throwable: Throwable) {

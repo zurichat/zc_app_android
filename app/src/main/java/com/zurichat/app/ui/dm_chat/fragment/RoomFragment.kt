@@ -12,6 +12,9 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -72,10 +75,6 @@ class RoomFragment : Fragment() {
 
     private lateinit var emojiIconsActions: EmojIconActions
     private lateinit var partialAttachmentPopupBinding: PartialAttachmentPopupBinding
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentDmBinding.inflate(inflater, container, false)
@@ -193,7 +192,7 @@ class RoomFragment : Fragment() {
                 }
                 val messageBody = SendMessageBody(message, roomId, senderId )
                 roomMsgViewModel.sendMessages(organizationID, roomId, messageBody)
-                roomMsgViewModel.mySendMessageResponse.observe(viewLifecycleOwner, { response ->
+                roomMsgViewModel.mySendMessageResponse.observeOnce(viewLifecycleOwner, { response ->
                     if (response.isSuccessful) {
                         val messageResponse = response.body()
                         val position = messagesArrayList.indexOf(baseRoomData)
@@ -219,7 +218,7 @@ class RoomFragment : Fragment() {
                             }
                         }
                     }
-                })
+                    })
                 channelChatEdit.text?.clear()
 
                 recyclerView.addOnLayoutChangeListener(View.OnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
@@ -332,37 +331,6 @@ class RoomFragment : Fragment() {
                 e.printStackTrace()
             }
         }
-
-       /*// binding.sendMessageBtn.setOnClickListener {
-            if (channelChatEdit.text.toString().isNotEmpty()) {
-                val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-                s.timeZone = TimeZone.getTimeZone("UTC")
-                val time = s.format(Date(System.currentTimeMillis()))
-                val data = Data(
-                    generateID().toString(),
-                    false,
-                    channel._id,
-                    channelChatEdit.text.toString(),
-                    false,
-                    null,
-                    null,
-                    null,
-                    false,
-                    false,
-                    0,
-                    time,
-                    "message",
-                    user.id
-                )
-
-                channelMsgViewModel.sendMessages(
-                    data,
-                    organizationID,
-                    channel._id,
-                    messagesArrayList
-                )
-            }
-        }*/
     }
 
     private fun convertStringDateToLong(date: String): Long {
@@ -389,4 +357,13 @@ class RoomFragment : Fragment() {
             .append(DateTimeFormatter.ISO_INSTANT)
             .appendLiteral('"')
             .toFormatter()
+
+    private fun <T> LiveData<T>.observeOnce(owner: LifecycleOwner, observer: (T) -> Unit) {
+        observe(owner, object : Observer<T> {
+            override fun onChanged(value: T) {
+                removeObserver(this)
+                observer(value)
+            }
+        })
+    }
 }

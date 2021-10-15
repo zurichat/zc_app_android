@@ -35,7 +35,8 @@ class MentionsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentMentionsBinding.inflate(inflater, container, false)
-        database = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "zuri_chat").build()
+        database = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "zuri_chat")
+            .build()
         channelMessagesDao = database.channelMessagesDao()
 
         user = requireActivity().intent.extras?.getParcelable("USER")!!

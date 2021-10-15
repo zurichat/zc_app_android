@@ -77,7 +77,7 @@ public class CentrifugeClient {
             client.setConnectData(bytes);
             client.connect();
         }else {
-            if (!isConnected()){
+            if (!connected){
                 client.connect();
             }
         }
@@ -90,6 +90,7 @@ public class CentrifugeClient {
 
     public static void subscribeToChannel(String channelRoomID) {
         if(!channelRoomIDList.contains(channelRoomID) && isConnected()){
+            channelRoomIDList.add(channelRoomID);
             SubscriptionEventListener subListener = new SubscriptionEventListener() {
                 @Override
                 public void onSubscribeSuccess(Subscription sub, SubscribeSuccessEvent event) {
@@ -101,6 +102,7 @@ public class CentrifugeClient {
                 @Override
                 public void onSubscribeError(Subscription sub, SubscribeErrorEvent event) {
                     channelListener.onChannelSubscriptionError(sub, event);
+                    channelRoomIDList.remove(channelRoomID);
                 }
 
                 @Override

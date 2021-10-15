@@ -1,10 +1,12 @@
 package com.zurichat.app.data.remoteSource
 
+import com.zurichat.app.models.organization_model.SendInviteResponse
+import com.zurichat.app.models.organization_model.SentInviteBody
 import com.zurichat.app.models.organization_model.UserOrganizationModel
 import com.zurichat.app.ui.fragments.channel_chat.UserOrganizationMemberResponse
+import retrofit2.Call
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.*
 
 /**
  * @author Richard Ebo [https://github.com/solidtm]
@@ -22,4 +24,10 @@ interface OrganizationService {
         @Path("organization_id") organizationId: String?,
         @Path("member_id") memberId: String?
     ): Response<UserOrganizationMemberResponse>
+
+    @POST("organizations/{id}/send-invite")
+    fun sendInvite(
+        @Path("id") orgId: String,
+        @Body sendInviteBody: SentInviteBody
+    ): Call<SendInviteResponse>
 }
