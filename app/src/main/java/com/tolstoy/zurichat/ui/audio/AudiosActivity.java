@@ -24,7 +24,7 @@ import retrofit2.Retrofit;
 public class AudiosActivity extends AppCompatActivity {
 
     ImageView audio;
-    private int IMG = 33;
+    private int IMG = 31;
     String filepath = "";
 
     @Override
