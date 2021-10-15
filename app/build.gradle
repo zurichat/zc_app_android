@@ -14,8 +14,8 @@ android {
         applicationId "com.zurichat.app"
         minSdk 21
         targetSdk 30
-        versionCode 5
-        versionName "1.0.4"
+        versionCode 6
+        versionName "1.0.5"
 
         flavorDimensions "default"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

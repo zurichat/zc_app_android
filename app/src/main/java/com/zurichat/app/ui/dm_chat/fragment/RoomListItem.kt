@@ -26,22 +26,9 @@ data class RoomListItem(val data: BaseRoomData, val user: User, val context: Act
         binding.root.setOnClickListener {
             itemClickCallback?.invoke(this)
         }
-//        if (data.user_id.toString() == user.id){
-//            binding.bubble1.visibility = View.VISIBLE
-//            binding.bubble.visibility = View.GONE
-//            binding.imageParent.visibility = View.GONE
-//
-//            binding.messageText1.text = data.content
-//            binding.messageTime1.text = time
-//        }else{
-//            binding.bubble1.visibility = View.GONE
-//            binding.bubble.visibility = View.VISIBLE
-//            binding.imageParent.visibility = View.VISIBLE
-//
-//            binding.messageText.text = data.content
-//            binding.messageTime.text = time
-//            binding.messageAuthor.text = data.user_id
-//        }
+
+        binding.messageAuthor.visibility = View.GONE
+        binding.imageParent.visibility = View.GONE
 
         if ((data.checkMessage)) {
             val time = s.format(convertStringDateToLong(data.sendMessageResponse!!.data.created_at))
@@ -62,8 +49,6 @@ data class RoomListItem(val data: BaseRoomData, val user: User, val context: Act
             binding.messageAuthor.text = data.getMessageResponse.sender_id
             binding.messageTime.text = time
         }
-
-        binding.imageParent.visibility = View.GONE
     }
 
     private fun convertStringDateToLong(date: String): Date {
@@ -71,4 +56,5 @@ data class RoomListItem(val data: BaseRoomData, val user: User, val context: Act
         s.timeZone = TimeZone.getTimeZone("UTC")
         return s.parse(date)
     }
+
 }

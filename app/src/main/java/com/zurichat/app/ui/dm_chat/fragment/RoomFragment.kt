@@ -72,10 +72,6 @@ class RoomFragment : Fragment() {
     private lateinit var emojiIconsActions: EmojIconActions
     private lateinit var partialAttachmentPopupBinding: PartialAttachmentPopupBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentDmBinding.inflate(inflater, container, false)
 
@@ -318,37 +314,6 @@ class RoomFragment : Fragment() {
                 e.printStackTrace()
             }
         }
-
-       /*// binding.sendMessageBtn.setOnClickListener {
-            if (channelChatEdit.text.toString().isNotEmpty()) {
-                val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-                s.timeZone = TimeZone.getTimeZone("UTC")
-                val time = s.format(Date(System.currentTimeMillis()))
-                val data = Data(
-                    generateID().toString(),
-                    false,
-                    channel._id,
-                    channelChatEdit.text.toString(),
-                    false,
-                    null,
-                    null,
-                    null,
-                    false,
-                    false,
-                    0,
-                    time,
-                    "message",
-                    user.id
-                )
-
-                channelMsgViewModel.sendMessages(
-                    data,
-                    organizationID,
-                    channel._id,
-                    messagesArrayList
-                )
-            }
-        }*/
     }
 
     private fun convertStringDateToLong(date: String): Long {

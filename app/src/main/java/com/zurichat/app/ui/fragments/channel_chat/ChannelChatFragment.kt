@@ -488,7 +488,6 @@ class ChannelChatFragment : Fragment() {
                     CentrifugeClient.subscribeToChannel(roomData!!.socket_name)
                 }
                 client = CentrifugeClient.getClient(user)
-                //client.connect()
                 CentrifugeClient.setCustomListener(object : CentrifugeClient.ChannelListener {
                     override fun onConnected(connected: Boolean) {
                         try{
@@ -505,11 +504,9 @@ class ChannelChatFragment : Fragment() {
                     }
 
                     override fun onChannelSubscribed(isSubscribed: Boolean, subscription: Subscription?) {
-
                     }
 
                     override fun onChannelSubscriptionError(subscription: Subscription?, event: SubscribeErrorEvent?) {
-                        TODO("Not yet implemented")
                     }
 
                     override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
@@ -517,9 +514,6 @@ class ChannelChatFragment : Fragment() {
                         val data = Gson().fromJson(dataString, Data::class.java)
                         if (data.channel_id == channel._id) {
                             channelMsgViewModel.receiveMessage(data)
-                            uiScope.launch(Dispatchers.Main) {
-                                //Toast.makeText(requireContext(),data.content,Toast.LENGTH_SHORT).show()
-                            }
                         }
                     }
                 })

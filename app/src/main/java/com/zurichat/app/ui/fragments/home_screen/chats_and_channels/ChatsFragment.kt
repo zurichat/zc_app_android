@@ -31,7 +31,6 @@ import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
 class ChatsFragment : Fragment(R.layout.fragment_chats) {
-
     private lateinit var user : User
     private var token: String? = null
     private lateinit var userID: String

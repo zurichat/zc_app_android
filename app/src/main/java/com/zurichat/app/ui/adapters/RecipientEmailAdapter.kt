@@ -3,6 +3,7 @@ package com.zurichat.app.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -27,8 +28,8 @@ class RecipientEmailAdapter(private val mList: List<RecipientEmail>) : RecyclerV
         val ItemsViewModel = listData[position]
 
         // sets the image to the imageview from our itemHolder class
-        holder.imgEmail.setImageResource(R.drawable.ic_baseline_email_24)
-        holder.btnRemove.setImageResource(R.drawable.ic_cancel)
+        //holder.imgEmail.setImageResource(R.drawable.ic_baseline_email_24)
+        //holder.btnRemove.setImageResource(R.drawable.ic_cancel)
 
         // sets the text to the textview from our itemHolder class
         holder.textView.text = ItemsViewModel.email
@@ -48,7 +49,7 @@ class RecipientEmailAdapter(private val mList: List<RecipientEmail>) : RecyclerV
     // Holds the views for adding it to image and text
     class ViewHolder(ItemView: View) : RecyclerView.ViewHolder(ItemView) {
         val imgEmail: ImageView = itemView.findViewById(R.id.ic_email)
-        val btnRemove: ImageView = itemView.findViewById(R.id.btn_remove);
+        val btnRemove: ImageButton = itemView.findViewById(R.id.btn_remove);
         val textView: TextView = itemView.findViewById(R.id.textView_recipient_email)
     }
 }
