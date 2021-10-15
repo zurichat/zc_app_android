@@ -13,10 +13,12 @@
 
     <ImageView
         android:id="@+id/image_chat_user"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:contentDescription="@string/profile_image"
-        android:padding="8dp"
         android:scaleType="centerCrop"
         android:src="@drawable/image_channel"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,10 +39,10 @@
 
     <TextView
         android:id="@+id/text_chat_username"
-        android:layout_width="0dp"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="14dp"
-        android:layout_weight="1"
+        android:layout_marginStart="16dp"
         android:text="@string/username_"
         android:textColor="@color/text_color"
         app:layout_constraintBottom_toTopOf="@+id/text_chat_last_message"
@@ -55,9 +57,9 @@
         android:id="@+id/text_chat_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:text="@string/_10_07"
         android:textSize="12sp"
-        android:layout_marginEnd="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/text_chat_username" />
 
@@ -65,11 +67,10 @@
         android:id="@+id/text_chat_last_message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:layout_weight="1"
         android:text="@string/hey_what_s_good_"
         android:textColor="@color/chat_txt"
-        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="@+id/image_chat_user"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.0"
