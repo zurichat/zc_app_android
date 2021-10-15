@@ -28,6 +28,7 @@ class RoomAdapter(val context: Activity, val roomList: ArrayList<RoomsListRespon
 
         fun bind(room: RoomsListResponseItem) {
            itemView.findViewById<TextView>(R.id.text_chat_username).text = room.room_name
+           itemView.findViewById<TextView>(R.id.text_chat_last_message).text = ""
             itemView.findViewById<ConstraintLayout>(R.id.root_layout).setOnClickListener{
                 onItemClickListener?.invoke(room)
             }
