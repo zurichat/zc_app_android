@@ -205,7 +205,4 @@ class ConfirmAccountPasswordFragment : Fragment(){
         Toast.makeText(context, "You have successfully switched accounts", Toast.LENGTH_SHORT).show()
 
     }
-
-
-
 }

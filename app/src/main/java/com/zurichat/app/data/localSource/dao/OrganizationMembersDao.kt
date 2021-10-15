@@ -14,4 +14,5 @@ interface OrganizationMembersDao {
 
     @Query("SELECT * FROM organizationMembers WHERE orgId LIKE :orgId")
     fun getMembers(orgId: String): Flow<List<OrganizationMemberEntity>>
+
 }

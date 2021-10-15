@@ -23,10 +23,10 @@ class UserAccountAdapter(user: User): RecyclerView.Adapter<UserAccountAdapter.My
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-
         val currentItem = userList[position]
-        holder.itemView.findViewById<TextView>(R.id.contactName).text= currentItem.email
-        holder.itemView.findViewById<TextView>(R.id.contactStatus).text = ("${currentItem.first_name} ${currentItem.last_name}")
+        val pos = currentItem.email.indexOf("@")
+        holder.itemView.findViewById<TextView>(R.id.contactName).text= currentItem.email.substring(0,pos)
+        holder.itemView.findViewById<TextView>(R.id.contactStatus).text = (currentItem.email)
         holder.itemView.findViewById<ConstraintLayout>(R.id.contact_container).setOnClickListener {
             val action = AccountsFragmentDirections.actionAccountsFragmentToConfirmAccountPasswordFragment(currentItem,oldUser)
             holder.itemView.findNavController().navigate(action)
