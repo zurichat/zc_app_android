@@ -1,4 +1,4 @@
-package com.zurichat.app.ui.fragments.home_screen
+package com.zurichat.app.ui.settings.dialogs
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

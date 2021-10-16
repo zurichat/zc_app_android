@@ -201,12 +201,6 @@ class HomeScreenFragment : Fragment() {
                 R.id.invite_link -> {
                     findNavController().navigate(R.id.action_homeScreenFragment_to_shareLinkFragment)
                 }
-                R.id.logout -> {
-                    //logout()
-                    val callback: Callback = { logout() }
-                    val logoutDialog = LogOutDialogFragment(callback)
-                    logoutDialog.show(childFragmentManager,"LOG_OUT")
-                }
                 R.id.switch_acc -> {
                  val action = HomeScreenFragmentDirections.actionHomeScreenFragmentToAccountsFragment(user)
                  findNavController().navigate(action)
@@ -214,42 +208,11 @@ class HomeScreenFragment : Fragment() {
             }
             true
         }
-        observeData()
+
     }
 
-    private fun observeData() {
-        userViewModel.logoutResponse.observe(viewLifecycleOwner) {
-            when (it) {
-                is Result.Success -> {
-                    ZuriSharePreference(requireActivity()).setString("Current Organization ID", "")
-                    //Toast.makeText(context, "You have been successfully logged out", Toast.LENGTH_SHORT).show()
-                    progressLoader.hide()
-                    updateUser()
-                    findNavController().navigate(R.id.action_homeScreenFragment_to_loginActivity)
-                    requireActivity().finish()
-                }
-                is Result.Error -> {
-                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
-                    progressLoader.hide()
-                }
-                is Result.Loading -> {
-                    progressLoader.show(getString(R.string.final_logout))
-                    //Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
 
-    private fun logout() {
-        val logoutBody = LogoutBody(email = user.email)
-        userViewModel.logout(logoutBody)
-        userViewModel.clearUserAuthState()
-    }
 
-    private fun updateUser(){
-        val user = user?.copy(currentUser = false)
-        ViewModel.updateUser(user!!)
-    }
 
     private fun setupSearchView(menu: Menu, tabLayout: TabLayout) = with(binding) {
         val searchResult = mutableListOf<SearchItem<RoomsListResponseItem, ChannelModel>>()
@@ -259,40 +222,9 @@ class HomeScreenFragment : Fragment() {
         val sv = toolbarContainer.searchView
 
         val item = menu.findItem(R.id.search)
-        sv.setMenuItem(item)
-        sv.setTabLayout(tabLayout)
-
-        sv.setOnSearchViewListener(object: JSearchView.SearchViewListener{
-            override fun onSearchViewShown() {
-                searchResult.clear()
-
-                if (tabLayout.selectedTabPosition == 0){
-                    getRooms {
-                        it.forEach { item->
-                            searchResult.add(SearchItem.Room(room=item))
-                        }
-                    }
-                } else{
-                    getChannels {
-                        Log.d("HomeScreenFragment", "onSearchViewShown: $it")
-                        it.forEach { item->
-                            searchResult.add(SearchItem.Channel(channel= item))
-                        }
-                    }
-                }
-
-            }
-
-            override fun onSearchViewClosed() {
-            }
-
-            override fun onSearchViewShownAnimation() {
-            }
-
-            override fun onSearchViewClosedAnimation() {
-            }
-        })
-        sv.setOnQueryTextListener(object : JSearchView.OnQueryTextListener{
+        binding.toolbarContainer.searchView.setMenuItem(item)
+        binding.toolbarContainer.searchView.setTabLayout(tabLayout)
+        binding.toolbarContainer.searchView.setOnQueryTextListener(object : JSearchView.OnQueryTextListener{
             override fun onQueryTextChange(newText: String): Boolean {
 
                 if (tabLayout.selectedTabPosition == 0){

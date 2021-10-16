@@ -33,10 +33,10 @@
         android:id="@+id/switch_acc"
         android:title="@string/switch_acc"
         android:visible="true" />
-    <item
+    <!--<item
         android:id="@+id/logout"
         android:title="@string/logout"
-        android:visible="true" />
+        android:visible="true" /> -->
     <item
         android:id="@+id/settings"
         android:title="@string/settings"

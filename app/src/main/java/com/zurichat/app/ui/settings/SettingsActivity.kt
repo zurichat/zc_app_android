@@ -14,17 +14,30 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.viewModels
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import androidx.preference.SwitchPreference
 import com.zurichat.app.R
+import com.zurichat.app.models.LogoutBody
 import com.zurichat.app.models.User
 import com.zurichat.app.ui.activities.ProfileActivity
+import com.zurichat.app.ui.fragments.switch_account.UserViewModel
+import com.zurichat.app.ui.login.LoginActivity
+import com.zurichat.app.ui.login.LoginViewModel
+import com.zurichat.app.ui.organizations.utils.ZuriSharePreference
+import com.zurichat.app.ui.settings.dialogs.LogOutDialogFragment
+import com.zurichat.app.util.ProgressLoader
+import com.zurichat.app.util.Result
 import com.zurichat.app.util.vibrateDevice
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 private const val TITLE_TAG = "settingsActivityTitle"
+typealias Callback = () -> Unit
 
+@AndroidEntryPoint
 class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPreferenceStartFragmentCallback, SharedPreferences.OnSharedPreferenceChangeListener {
 
     var soundPool: SoundPool? = null
@@ -111,9 +124,21 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         return true
     }
 
+    @AndroidEntryPoint
     class SettingsFragment : PreferenceFragmentCompat() {
+        @Inject
+        lateinit var progressLoader: ProgressLoader
+        private val userViewModel: LoginViewModel by viewModels()
+        private val ViewModel by viewModels<UserViewModel>()
         private lateinit var user : User
 
+        override fun onPreferenceTreeClick(preference: Preference?): Boolean {
+            return super.onPreferenceTreeClick(preference)
+        }
+        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+            super.onViewCreated(view, savedInstanceState)
+            observeData()
+        }
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.settings_preferences, rootKey)
 
@@ -124,7 +149,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
             val securitySettings = findPreference<Preference>("security_header")
             val storageSettings = findPreference<Preference>("storage_header")
             val notificationSettings = findPreference<Preference>("notification_header")
-
+            val logout = findPreference<Preference>("logout_header")
             val profileContainer = activity?.findViewById<ConstraintLayout>(R.id.profile_container)
 
 
@@ -206,8 +231,50 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
                 }
                 false
             }
+            logout!!.setOnPreferenceClickListener {
+                //logout()
+                val callback: Callback = { logoutUser() }
+                val logoutDialog = LogOutDialogFragment(callback)
+                logoutDialog.show(childFragmentManager, "LOG_OUT")
+                true
+            }
+        }
+
+        private fun observeData() {
+            userViewModel.logoutResponse.observe(viewLifecycleOwner, {
+                when (it) {
+                    is Result.Success -> {
+                        ZuriSharePreference(requireContext()).setString("Current Organization ID","")
+                        //Toast.makeText(context, "You have been successfully logged out", Toast.LENGTH_SHORT).show()
+                        progressLoader.hide()
+                        updateUser()
+                        val intent = Intent(requireContext(), LoginActivity::class.java)
+                        startActivity(intent)
+                    }
+                    is Result.Error -> {
+                        Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                        progressLoader.hide()
+                    }
+                    is Result.Loading -> {
+                        progressLoader.show(getString(R.string.final_logout))
+                        //Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+        }
+
+        private fun updateUser(){
+            val user = user?.copy(currentUser = false)
+            ViewModel.updateUser(user!!)
+        }
+        private fun logoutUser() {
+            val logoutBody = LogoutBody(email = user.email)
+            userViewModel.logout(logoutBody)
+            userViewModel.clearUserAuthState()
         }
     }
+
+
 
     class PrivacyAndSecurityFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
