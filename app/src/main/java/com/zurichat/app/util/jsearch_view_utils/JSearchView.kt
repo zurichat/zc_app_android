@@ -25,6 +25,13 @@ import com.zurichat.app.databinding.SearchviewLayoutBinding
 import com.zurichat.app.models.ChannelModel
 import com.zurichat.app.models.SearchItem
 import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponseItem
+import androidx.room.Room
+import com.google.android.material.chip.Chip
+import com.google.android.material.tabs.TabLayout
+import com.zurichat.app.R
+import com.zurichat.app.databinding.SearchviewLayoutBinding
+import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponseItem
+import com.zurichat.app.ui.fragments.home_screen.adapters.ChatsAdapter
 import com.zurichat.app.util.jsearch_view_utils.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -231,6 +238,7 @@ class JSearchView @JvmOverloads constructor(
         }
         searchEditText.setText(if (keepQuery) query else null)
         searchEditText.requestFocus()
+        chipGroup.visibility = VISIBLE
         if (animate) {
             val animationListener: AnimationListener = object : JAnimationListener() {
                 override fun onAnimationEnd(view: View): Boolean {
@@ -262,6 +270,7 @@ class JSearchView @JvmOverloads constructor(
         searchEditText.text = null
         searchRv.visibility = GONE
         searchIsClosing = false
+        chipGroup.visibility = GONE
         clearFocus()
         if (animate) {
             val animationListener: AnimationListener = object : JAnimationListener() {
