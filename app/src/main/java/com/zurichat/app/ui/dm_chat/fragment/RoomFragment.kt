@@ -231,9 +231,11 @@ class RoomFragment : Fragment() {
 //                }
 //            })
         }
-        recyclerView.addOnLayoutChangeListener(View.OnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+        recyclerView.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+            // Fixes crash when recyclerview is empty
+            if (recyclerView.adapter?.itemCount!! <= 0) return@addOnLayoutChangeListener
             if (bottom < oldBottom) {
-                recyclerView.postDelayed(Runnable {
+                recyclerView.postDelayed({
                     recyclerView.adapter?.itemCount?.minus(1)?.let { it1 ->
                         recyclerView.smoothScrollToPosition(
                             it1
@@ -241,17 +243,13 @@ class RoomFragment : Fragment() {
                     }
                 }, 100)
             }
-        })
+        }
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == RecyclerView.SCROLL_STATE_DRAGGING){
-                    if(!recyclerView.canScrollVertically(1)){
-                        scrollDown = true
-                    }else{
-                        scrollDown = false
-                    }
+                    scrollDown = !recyclerView.canScrollVertically(1)
                 }
             }
 
