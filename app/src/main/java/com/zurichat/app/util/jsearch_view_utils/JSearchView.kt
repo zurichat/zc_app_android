@@ -6,7 +6,6 @@ import android.graphics.Rect
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.AttributeSet
-import android.util.Log
 import android.view.*
 import android.widget.FrameLayout
 import android.widget.TextView
@@ -25,15 +24,7 @@ import com.zurichat.app.databinding.SearchviewLayoutBinding
 import com.zurichat.app.models.ChannelModel
 import com.zurichat.app.models.SearchItem
 import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponseItem
-import androidx.room.Room
-import com.google.android.material.chip.Chip
-import com.google.android.material.tabs.TabLayout
-import com.zurichat.app.R
-import com.zurichat.app.databinding.SearchviewLayoutBinding
-import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponseItem
-import com.zurichat.app.ui.fragments.home_screen.adapters.ChatsAdapter
 import com.zurichat.app.util.jsearch_view_utils.*
-import java.text.SimpleDateFormat
 import java.util.*
 
 class JSearchView @JvmOverloads constructor(
@@ -99,8 +90,7 @@ class JSearchView @JvmOverloads constructor(
         searchEditText.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
                 showKeyboard(searchEditText)
-            }
-            else{
+            } else {
                 closeSearch()
             }
         }
@@ -111,7 +101,8 @@ class JSearchView @JvmOverloads constructor(
         }
 
     }
-    fun addChipToGroup(text: String){
+
+    fun addChipToGroup(text: String) {
         val chip = Chip(context)
         chip.text = text
         //chip.chipIcon = ContextCompat.getDrawable(context, R.drawable.ic_remove_icon)
@@ -132,12 +123,13 @@ class JSearchView @JvmOverloads constructor(
         binding.chipGroup.visibility = GONE
     }
 
-    fun chipListener(chip:Chip) = with(binding){
+    fun chipListener(chip: Chip) = with(binding) {
         chip.setOnClickListener {
             val text: String = chip.text.toString()
             addChipToGroup(text)
         }
     }
+
     private fun initClickListeners() = with(binding) {
         backButton.setOnClickListener { closeSearch() }
         //clearButton.setOnClickListener { clearSearch() }
@@ -156,7 +148,8 @@ class JSearchView @JvmOverloads constructor(
         isClearingFocus = false
     }
 
-    override fun requestFocus(direction: Int, previouslyFocusedRect: Rect?): Boolean = with(binding) {
+    override fun requestFocus(direction: Int, previouslyFocusedRect: Rect?): Boolean =
+        with(binding) {
             if (isClearingFocus) {
                 return false
             }
@@ -534,71 +527,89 @@ class JSearchView @JvmOverloads constructor(
         binding.searchRv.requestLayout()
     }
 
-    fun setClickListeners(rvAdapter: (SearchResultsAdapter)->Unit){
+    fun setClickListeners(rvAdapter: (SearchResultsAdapter) -> Unit) {
         rvAdapter(adapter)
     }
 }
 
-class SearchResultsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>(){
-    private var onRoomItemClickListener: ((room:RoomsListResponseItem) -> Unit)? = null
+class SearchResultsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var onRoomItemClickListener: ((room: RoomsListResponseItem) -> Unit)? = null
 
-    fun setRoomItemClickListener(listener: (room:RoomsListResponseItem) -> Unit) {
+    fun setRoomItemClickListener(listener: (room: RoomsListResponseItem) -> Unit) {
         onRoomItemClickListener = listener
     }
 
 
-    private var onChannelItemClickListener: ((channel:ChannelModel) -> Unit)? = null
+    private var onChannelItemClickListener: ((channel: ChannelModel) -> Unit)? = null
 
-    fun setChannelItemClickListener(listener: (channel:ChannelModel) -> Unit) {
+    fun setChannelItemClickListener(listener: (channel: ChannelModel) -> Unit) {
         onChannelItemClickListener = listener
     }
 
 
-    inner class ChannelsVH(val binding: ChannelsListItemBinding):RecyclerView.ViewHolder(binding.root) {
+    inner class ChannelsVH(val binding: ChannelsListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(channel: ChannelModel) {
             binding.channelTitle.text = channel.name
-            binding.root.setOnClickListener{
+            binding.root.setOnClickListener {
                 onChannelItemClickListener?.invoke(channel)
             }
 
-            if (channel.isPrivate){
-                binding.fab.setImageDrawable(ContextCompat.getDrawable( binding.fab.context,R.drawable.ic_new_lock))
+            if (channel.isPrivate) {
+                binding.fab.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        binding.fab.context,
+                        R.drawable.ic_new_lock
+                    )
+                )
 
-            }else{
-                binding.fab.setImageDrawable(ContextCompat.getDrawable( binding.fab.context,R.drawable.ic_hash))
+            } else {
+                binding.fab.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        binding.fab.context,
+                        R.drawable.ic_hash
+                    )
+                )
 
             }
         }
 
     }
 
-    inner class RoomsVH(val binding: ItemChatBinding):RecyclerView.ViewHolder(binding.root) {
+    inner class RoomsVH(val binding: ItemChatBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(room: RoomsListResponseItem) {
             binding.textChatUsername.text = room.room_name
-            binding.root.setOnClickListener{
+            binding.root.setOnClickListener {
                 onRoomItemClickListener?.invoke(room)
             }
         }
 
     }
 
-    private val differCallback = object : DiffUtil.ItemCallback<SearchItem<RoomsListResponseItem, ChannelModel>>() {
-        override fun areItemsTheSame(oldItem: SearchItem<RoomsListResponseItem, ChannelModel>, newItem: SearchItem<RoomsListResponseItem, ChannelModel>): Boolean {
-            return if (oldItem.room != null) {
-                oldItem.room._id == newItem.room?._id
-            } else {
-                oldItem.channel?._id == newItem.channel?._id
+    private val differCallback =
+        object : DiffUtil.ItemCallback<SearchItem<RoomsListResponseItem, ChannelModel>>() {
+            override fun areItemsTheSame(
+                oldItem: SearchItem<RoomsListResponseItem, ChannelModel>,
+                newItem: SearchItem<RoomsListResponseItem, ChannelModel>
+            ): Boolean {
+                return if (oldItem.room != null) {
+                    oldItem.room._id == newItem.room?._id
+                } else {
+                    oldItem.channel?._id == newItem.channel?._id
+                }
             }
-        }
 
-        override fun areContentsTheSame(oldItem: SearchItem<RoomsListResponseItem, ChannelModel>, newItem: SearchItem<RoomsListResponseItem, ChannelModel>): Boolean {
-            return if (oldItem.room != null) {
-                oldItem.room == newItem.room
-            } else {
-                oldItem.channel == newItem.channel
+            override fun areContentsTheSame(
+                oldItem: SearchItem<RoomsListResponseItem, ChannelModel>,
+                newItem: SearchItem<RoomsListResponseItem, ChannelModel>
+            ): Boolean {
+                return if (oldItem.room != null) {
+                    oldItem.room == newItem.room
+                } else {
+                    oldItem.channel == newItem.channel
+                }
             }
         }
-    }
 
     val differ = AsyncListDiffer(this, differCallback)
 
