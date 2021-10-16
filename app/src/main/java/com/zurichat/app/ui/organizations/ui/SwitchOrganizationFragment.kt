@@ -3,6 +3,7 @@ package com.zurichat.app.ui.organizations.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.graphics.BlendModeColorFilterCompat
@@ -223,6 +224,24 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
     private fun setupToolbarLogOut(menu: Menu) = with(binding) {
         menu.findItem(R.id.action_logout)
         binding.toolbar4.inflateMenu(R.menu.organisation_log_out_menu)
+        val searchItem = menu.findItem(R.id.search_organizations)
+        val searchView = searchItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if(this@SwitchOrganizationsFragment::userOrgAdapter.isInitialized) {
+                    userOrgAdapter.filter.filter(query)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if(this@SwitchOrganizationsFragment::userOrgAdapter.isInitialized) {
+                    userOrgAdapter.filter.filter(newText)
+                }
+                return true
+            }
+
+        })
     }
 
     private fun observeDataLogOut() {
