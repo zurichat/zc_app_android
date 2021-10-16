@@ -1,5 +1,6 @@
 package com.zurichat.app.ui.newchannel.fragment
 
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -34,6 +35,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+private lateinit var progressDialog: ProgressDialog
 
 @AndroidEntryPoint
 class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) {
@@ -44,6 +46,10 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
     lateinit var userList: List<OrganizationMember>
     private val adapter = NewChannelAdapter(this).also {
         it.itemClickListener = { member ->
+
+            progressDialog.setMessage("Loading")
+            progressDialog.show()
+
             lifecycleScope.launch {
                 val result = viewModel.createRoom(member)
                 //val result = viewModel.createRoom(member.id)
@@ -56,6 +62,8 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
 //                        ))
                 else Toast.makeText(requireContext(),
                     (result as Result.Error).error.message, Toast.LENGTH_SHORT).show()
+
+                progressDialog.dismiss()
             }
         }
     }
@@ -76,6 +84,8 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
+        progressDialog = ProgressDialog(context)
+
         sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         organizationID = sharedPref.getString(ORG_ID, null).toString()
 
