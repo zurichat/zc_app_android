@@ -13,10 +13,13 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.text.trimmedLength
 import androidx.core.widget.doOnTextChanged
+import androidx.room.Room
 import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayout
 import com.zurichat.app.R
 import com.zurichat.app.databinding.SearchviewLayoutBinding
+import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponseItem
+import com.zurichat.app.ui.fragments.home_screen.adapters.ChatsAdapter
 import com.zurichat.app.util.jsearch_view_utils.*
 
 class JSearchView @JvmOverloads constructor(
@@ -378,6 +381,7 @@ class JSearchView @JvmOverloads constructor(
     fun setMenuItem(menuItem: MenuItem) {
         menuItem.setOnMenuItemClickListener {
             showSearch()
+            binding.chipGroup.visibility = VISIBLE
             true
         }
     }
