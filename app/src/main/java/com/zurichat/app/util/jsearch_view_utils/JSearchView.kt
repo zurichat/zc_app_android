@@ -10,12 +10,10 @@ import android.util.Log
 import android.view.*
 import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.text.trimmedLength
 import androidx.core.widget.doOnTextChanged
-import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayout
-import com.zurichat.app.R
+import com.zurichat.app.databinding.JSearchViewBinding
 import com.zurichat.app.databinding.SearchviewLayoutBinding
 import com.zurichat.app.util.jsearch_view_utils.*
 
@@ -92,41 +90,10 @@ class JSearchView @JvmOverloads constructor(
         }
 
     }
-    fun addChipToGroup(text: String){
-        val chip = Chip(context)
-        chip.text = text
-        //chip.chipIcon = ContextCompat.getDrawable(context, R.drawable.ic_remove_icon)
-        chip.isChipIconVisible = false
-        chip.isCheckedIconVisible = true
-        // to get single selection working
-        chip.isClickable = true
-        chip.setTextAppearance(R.style.TextAppearance_AppCompat_Inverse)
-        chip.setCloseIconTintResource(R.color.white)
-        chip.isCheckable = false
-        chip.isCloseIconVisible = true
-        chip.setChipBackgroundColorResource(R.color.background_color)
-        binding.searchChipLayout.addView(chip as View)
-        chip.setOnCloseIconClickListener {
-            binding.searchChipLayout.removeView(chip as View)
-            binding.chipGroup.visibility = VISIBLE
-        }
-        binding.chipGroup.visibility = GONE
-    }
 
-    fun chipListener(chip:Chip) = with(binding){
-        chip.setOnClickListener {
-            val text: String = chip.text.toString()
-            addChipToGroup(text)
-        }
-    }
     private fun initClickListeners() = with(binding) {
         backButton.setOnClickListener { closeSearch() }
         //clearButton.setOnClickListener { clearSearch() }
-        chipListener(audioChip)
-        chipListener(videosChip)
-        chipListener(docsChip)
-        chipListener(photosChip)
-        chipListener(linksChip)
     }
 
     override fun clearFocus() = with(binding) {
