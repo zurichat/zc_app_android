@@ -63,7 +63,6 @@
                         android:layout_height="wrap_content"
                         app:boxStrokeWidth="0dp"
                         app:boxStrokeWidthFocused="0dp"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:endIconMode="clear_text"
                         app:hintEnabled="false"
                         app:layout_constraintEnd_toEndOf="parent"
