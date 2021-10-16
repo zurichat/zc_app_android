@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.format.DateUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -113,7 +115,7 @@ class RoomFragment : Fragment() {
 
         toolbar.title = roomName
 
-        channelChatEdit.doOnTextChanged { text, start, before, count ->
+        channelChatEdit.doOnTextChanged { text, start, count, after  ->
             if (text.isNullOrEmpty()) {
                 sendMessage.isEnabled = false
                 sendVoiceNote.isEnabled = true
@@ -220,22 +222,43 @@ class RoomFragment : Fragment() {
                     }
                     })
                 channelChatEdit.text?.clear()
-
-                recyclerView.addOnLayoutChangeListener(View.OnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
-                    if (bottom < oldBottom) {
-                        recyclerView.postDelayed(Runnable {
-                            recyclerView.adapter?.itemCount?.minus(1)?.let { it1 ->
-                                recyclerView.smoothScrollToPosition(
-                                    it1
-                                )
-                            }
-                        }, 100)
-                    }
-                })
             }
+//            val handler = Handler(Looper.getMainLooper())
+//            handler.post(object : Runnable {
+//                override fun run() {
+//                    roomMsgViewModel.getMessages(organizationID, roomId)
+//                    handler.postDelayed(this,10000)
+//                }
+//            })
         }
+        recyclerView.addOnLayoutChangeListener(View.OnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
+            if (bottom < oldBottom) {
+                recyclerView.postDelayed(Runnable {
+                    recyclerView.adapter?.itemCount?.minus(1)?.let { it1 ->
+                        recyclerView.smoothScrollToPosition(
+                            it1
+                        )
+                    }
+                }, 100)
+            }
+        })
 
-       // val instant: Instant = BING_INSTANT_PARSER.parse(stringFromBing, Instant::from)
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING){
+                    if(!recyclerView.canScrollVertically(1)){
+                        scrollDown = true
+                    }else{
+                        scrollDown = false
+                    }
+                }
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+            }
+        })
 
         toolbar.setNavigationOnClickListener {
             requireActivity().onBackPressed()
@@ -284,6 +307,7 @@ class RoomFragment : Fragment() {
         return roomsWithDateHeaders
     }
 
+    var scrollDown = true
     private lateinit var client: Client
     private fun connectToSocket() {
         uiScope.launch(Dispatchers.IO) {
