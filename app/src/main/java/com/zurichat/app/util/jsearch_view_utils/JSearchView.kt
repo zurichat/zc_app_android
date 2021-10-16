@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.*
 import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.text.trimmedLength
 import androidx.core.widget.doOnTextChanged
 import androidx.room.Room
@@ -222,6 +221,7 @@ class JSearchView @JvmOverloads constructor(
         }
         searchEditText.setText(if (keepQuery) query else null)
         searchEditText.requestFocus()
+        chipGroup.visibility = VISIBLE
         if (animate) {
             val animationListener: AnimationListener = object : JAnimationListener() {
                 override fun onAnimationEnd(view: View): Boolean {
@@ -253,6 +253,7 @@ class JSearchView @JvmOverloads constructor(
         searchEditText.text = null
         searchRv.visibility = GONE
         searchIsClosing = false
+        chipGroup.visibility = GONE
         clearFocus()
         if (animate) {
             val animationListener: AnimationListener = object : JAnimationListener() {
@@ -381,7 +382,6 @@ class JSearchView @JvmOverloads constructor(
     fun setMenuItem(menuItem: MenuItem) {
         menuItem.setOnMenuItemClickListener {
             showSearch()
-            binding.chipGroup.visibility = VISIBLE
             true
         }
     }
