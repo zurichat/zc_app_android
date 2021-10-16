@@ -96,6 +96,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         if (!mNotified) {
             NotificationUtils().setNotification(mNotificationTime, requireActivity())
         }
+
         //setup viewModel and Retrofit
         val repository = Repository()
         val viewModelFactory = RoomViewModelFactory(repository)

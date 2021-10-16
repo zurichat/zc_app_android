@@ -136,10 +136,10 @@ class RoomFragment : Fragment() {
         roomMsgViewModel = ViewModelProvider(this, viewModelFactory).get(RoomViewModel::class.java)
         roomMsgViewModel.getMessages(organizationID, roomId)
 
-        roomMsgViewModel.myGetMessageResponse.observe(viewLifecycleOwner, { response ->
+        roomMsgViewModel.myGetMessageResponse.observe(viewLifecycleOwner) { response ->
             if (response.isSuccessful) {
                 val messageResponse = response.body()
-                messageResponse?.results?.forEach{
+                messageResponse?.results?.forEach {
                     val newBaseRoomData = BaseRoomData(it, null, false)
                     messagesArrayList.add(newBaseRoomData)
                 }
@@ -163,7 +163,7 @@ class RoomFragment : Fragment() {
                     }
                 }
             }
-        })
+        }
 
         emojiIconsActions =
             EmojIconActions(context, view, binding.channelChatEditText, binding.iconBtn)
@@ -194,7 +194,7 @@ class RoomFragment : Fragment() {
                 }
                 val messageBody = SendMessageBody(message, roomId, senderId )
                 roomMsgViewModel.sendMessages(organizationID, roomId, messageBody)
-                roomMsgViewModel.mySendMessageResponse.observeOnce(viewLifecycleOwner, { response ->
+                roomMsgViewModel.mySendMessageResponse.observeOnce(viewLifecycleOwner) { response ->
                     if (response.isSuccessful) {
                         val messageResponse = response.body()
                         val position = messagesArrayList.indexOf(baseRoomData)
@@ -220,7 +220,7 @@ class RoomFragment : Fragment() {
                             }
                         }
                     }
-                    })
+                }
                 channelChatEdit.text?.clear()
             }
 //            val handler = Handler(Looper.getMainLooper())
