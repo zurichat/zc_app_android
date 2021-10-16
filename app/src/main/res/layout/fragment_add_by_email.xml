@@ -67,24 +67,25 @@
                 android:id="@+id/recipientEmailEdit"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
+                android:layout_marginStart="16dp"
                 android:layout_weight="1"
+                android:background="@android:color/transparent"
                 android:focusable="true"
                 android:hint="Enter recipient email"
-                android:layout_marginStart="16dp"
-                android:textColor="@color/text_color"
-                android:requiresFadingEdge="horizontal"
-                android:background="@android:color/transparent"
                 android:inputType="textWebEmailAddress|textEmailAddress|textEmailSubject"
-                android:singleLine="true" />
+                android:requiresFadingEdge="horizontal"
+                android:singleLine="true"
+                android:textColor="@color/text_color"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <ImageButton
                 android:id="@+id/add_to_emails"
                 android:layout_width="50dp"
                 android:layout_height="45dp"
-                android:src="@drawable/ic_add"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                tools:ignore="SpeakableTextPresentCheck"
-                app:tint="@color/text_color" />
+                android:src="@drawable/ic_add"
+                app:tint="@color/text_color"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         </LinearLayout>
 
