@@ -117,8 +117,7 @@ class RoomFragment : Fragment() {
         toolbar.title = roomName
 
         toolbar.setNavigationOnClickListener {
-//            findNavController().popBackStack(R.id.main_nav, true)
-            requireActivity().finish()
+            findNavController().popBackStack(R.id.main_nav, false)
         }
 
         channelChatEdit.doOnTextChanged { text, start, count, after  ->

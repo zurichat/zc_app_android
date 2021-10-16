@@ -171,8 +171,7 @@ class ChannelChatFragment : Fragment() {
         val typingBar = binding.cardView
         toolbar = view.findViewById(R.id.channel_toolbar)
         toolbar.setNavigationOnClickListener {
-//            findNavController().popBackStack(R.id.main_nav, true)
-            requireActivity().finish()
+            findNavController().popBackStack(R.id.main_nav, true)
         }
 
         val imagePicker = ImagePicker(this)
