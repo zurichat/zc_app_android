@@ -222,9 +222,40 @@ class HomeScreenFragment : Fragment() {
         val sv = toolbarContainer.searchView
 
         val item = menu.findItem(R.id.search)
-        binding.toolbarContainer.searchView.setMenuItem(item)
-        binding.toolbarContainer.searchView.setTabLayout(tabLayout)
-        binding.toolbarContainer.searchView.setOnQueryTextListener(object : JSearchView.OnQueryTextListener{
+        sv.setMenuItem(item)
+        sv.setTabLayout(tabLayout)
+
+        sv.setOnSearchViewListener(object: JSearchView.SearchViewListener{
+            override fun onSearchViewShown() {
+                searchResult.clear()
+
+                if (tabLayout.selectedTabPosition == 0){
+                    getRooms {
+                        it.forEach { item->
+                            searchResult.add(SearchItem.Room(room=item))
+                        }
+                    }
+                } else{
+                    getChannels {
+                        Log.d("HomeScreenFragment", "onSearchViewShown: $it")
+                        it.forEach { item->
+                            searchResult.add(SearchItem.Channel(channel= item))
+                        }
+                    }
+                }
+
+            }
+
+            override fun onSearchViewClosed() {
+            }
+
+            override fun onSearchViewShownAnimation() {
+            }
+
+            override fun onSearchViewClosedAnimation() {
+            }
+        })
+        sv.setOnQueryTextListener(object : JSearchView.OnQueryTextListener{
             override fun onQueryTextChange(newText: String): Boolean {
 
                 if (tabLayout.selectedTabPosition == 0){
