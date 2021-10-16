@@ -3,6 +3,8 @@ package com.zurichat.app.ui.fragments.home_screen
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Parcelable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
@@ -11,17 +13,25 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentHomeScreenBinding
-import com.zurichat.app.models.LogoutBody
-import com.zurichat.app.models.User
+import com.zurichat.app.models.*
 import com.zurichat.app.models.organization_model.OrgData
 import com.zurichat.app.ui.activities.MainActivity
+import com.zurichat.app.ui.dm.response.RoomListResponseItem
+import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponseItem
+import com.zurichat.app.ui.dm_chat.repository.Repository
+import com.zurichat.app.ui.dm_chat.utils.ModelPreferencesManager
+import com.zurichat.app.ui.dm_chat.viewmodel.RoomViewModel
+import com.zurichat.app.ui.dm_chat.viewmodel.RoomViewModelFactory
 import com.zurichat.app.ui.fragments.home_screen.adapters.HomeFragmentPagerAdapter
+import com.zurichat.app.ui.fragments.home_screen.chats_and_channels.localdatabase.AllChannelListObject
 import com.zurichat.app.ui.fragments.switch_account.UserViewModel
+import com.zurichat.app.ui.fragments.viewmodel.ChannelViewModel
 import com.zurichat.app.ui.login.LoginViewModel
 import com.zurichat.app.ui.newchannel.SelectNewChannelViewModel
 import com.zurichat.app.ui.organizations.utils.ZuriSharePreference
@@ -29,6 +39,8 @@ import com.zurichat.app.util.ProgressLoader
 import com.zurichat.app.util.Result
 import com.zurichat.app.util.jsearch_view_utils.JSearchView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 typealias Callback = () -> Unit
@@ -48,6 +60,13 @@ class HomeScreenFragment : Fragment() {
     private lateinit var memberId: String
 
     private lateinit var searchView: JSearchView
+    private val roomViewModel: RoomViewModel by viewModels {
+        val repository = Repository()
+        RoomViewModelFactory(repository)
+    }
+
+    private val channelsViewModel: ChannelViewModel by viewModels()
+
     private lateinit var orgData: OrgData
 
     private val PREFS_NAME = "ORG_INFO"
@@ -199,10 +218,10 @@ class HomeScreenFragment : Fragment() {
     }
 
     private fun observeData() {
-        userViewModel.logoutResponse.observe(viewLifecycleOwner, {
+        userViewModel.logoutResponse.observe(viewLifecycleOwner) {
             when (it) {
                 is Result.Success -> {
-                    ZuriSharePreference(requireActivity()).setString("Current Organization ID","")
+                    ZuriSharePreference(requireActivity()).setString("Current Organization ID", "")
                     //Toast.makeText(context, "You have been successfully logged out", Toast.LENGTH_SHORT).show()
                     progressLoader.hide()
                     updateUser()
@@ -218,7 +237,7 @@ class HomeScreenFragment : Fragment() {
                     //Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
                 }
             }
-        })
+        }
     }
 
     private fun logout() {
@@ -233,23 +252,156 @@ class HomeScreenFragment : Fragment() {
     }
 
     private fun setupSearchView(menu: Menu, tabLayout: TabLayout) = with(binding) {
+        val searchResult = mutableListOf<SearchItem<RoomsListResponseItem, ChannelModel>>()
+
+//        val channels
+
+        val sv = toolbarContainer.searchView
+
         val item = menu.findItem(R.id.search)
-        binding.toolbarContainer.searchView.setMenuItem(item)
-        binding.toolbarContainer.searchView.setTabLayout(tabLayout)
-        binding.toolbarContainer.searchView.setOnQueryTextListener(object : JSearchView.OnQueryTextListener{
+        sv.setMenuItem(item)
+        sv.setTabLayout(tabLayout)
+
+        sv.setOnSearchViewListener(object: JSearchView.SearchViewListener{
+            override fun onSearchViewShown() {
+                searchResult.clear()
+
+                if (tabLayout.selectedTabPosition == 0){
+                    getRooms {
+                        it.forEach { item->
+                            searchResult.add(SearchItem.Room(room=item))
+                        }
+                    }
+                } else{
+                    getChannels {
+                        Log.d("HomeScreenFragment", "onSearchViewShown: $it")
+                        it.forEach { item->
+                            searchResult.add(SearchItem.Channel(channel= item))
+                        }
+                    }
+                }
+
+            }
+
+            override fun onSearchViewClosed() {
+            }
+
+            override fun onSearchViewShownAnimation() {
+            }
+
+            override fun onSearchViewClosedAnimation() {
+            }
+        })
+        sv.setOnQueryTextListener(object : JSearchView.OnQueryTextListener{
             override fun onQueryTextChange(newText: String): Boolean {
+
+                if (tabLayout.selectedTabPosition == 0){
+                    sv.handleResults(searchResult.filter {
+                        if (it.room == null) return false
+                        it.room.room_name.lowercase().contains(newText.lowercase())
+                    })
+
+                } else {
+                    sv.handleResults(searchResult.filter {
+                        if (it.channel == null) return false
+                        it.channel.name.lowercase().contains(newText.lowercase())
+
+                    })
+
+                }
+
                 return false
             }
 
             override fun onQueryTextSubmit(query: String): Boolean {
+
+                if (tabLayout.selectedTabPosition == 0){
+                    sv.handleResults(searchResult.filter {
+                        it.room?.room_name?.lowercase()?.contains(query.lowercase())!!
+                    })
+
+                } else {
+//                    sv.handleResults(searchResult.filter {
+//                        it.channel?.name?.lowercase()?.contains(query.lowercase())!!
+//                    })
+
+                }
                 return false
             }
 
             override fun onQueryTextCleared(): Boolean {
+                searchResult.clear()
                 return false
             }
         })
 
+        sv.setClickListeners{ adapter->
+            adapter.apply {
+                setChannelItemClickListener {
+                    val members = ArrayList<OrganizationMember>()
+                    val bundle1 = Bundle()
+                    bundle1.putParcelable("USER",user)
+                    bundle1.putParcelable("Channel",it)
+                    bundle1.putBoolean("Channel Joined",true)
+                    bundle1.putParcelableArrayList("members", members as ArrayList<out Parcelable>)
+                    sv.closeSearch()
+                    findNavController().navigate(R.id.channelChatFragment,bundle1)
+
+                }
+
+                setRoomItemClickListener {
+                    val bundle1 = Bundle()
+                    bundle1.putParcelable("USER",user)
+                    bundle1.putParcelable("room", it)
+                    bundle1.putInt("position", 0)
+                    sv.closeSearch()
+
+                    findNavController().navigate(R.id.dmFragment, bundle1)
+                }
+            }
+        }
+
+    }
+
+    private fun getChannels(channels: (List<ChannelModel>) -> Unit) {
+        val channelsResponse = mutableListOf<ChannelModel>()
+
+        channelsViewModel.getChannelsList(organizationID)
+        channelsViewModel.channelsList.observe(viewLifecycleOwner) {
+           it.forEach { channel->
+               channelsResponse.add(channel)
+           }
+            channels(channelsResponse)
+        }
+    }
+
+    private fun getRooms(rooms: (List<RoomsListResponseItem>)->Unit) {
+
+        val roomsResponse = mutableListOf<RoomsListResponseItem>()
+        roomViewModel.getRooms(organizationID, memberId)
+        roomViewModel.myResponse.observe(viewLifecycleOwner) { response ->
+            if (response.isSuccessful) {
+                response.body()!!.forEach {
+                    roomsResponse.add(it)
+                }
+                rooms(roomsResponse)
+            } else {
+                when (response.code()) {
+                    400 -> {
+                        Log.e("Error 400", "invalid authorization")
+                    }
+                    404 -> {
+                        Log.e("Error 404", "Not Found")
+                    }
+                    401 -> {
+                        Log.e("Error 401", "No authorization or session expired")
+                    }
+                    else -> {
+                        Log.e("Error", "Generic Error")
+                    }
+                }
+            }
+        }
     }
 
 }
