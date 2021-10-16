@@ -129,6 +129,7 @@
         app:layout_constraintStart_toEndOf="@id/cardView"
         app:tint="@color/white"
         android:elevation="0dp"
+        android:visibility="gone"
         android:background="@android:color/transparent"
         tools:ignore="HardcodedText" />
 
