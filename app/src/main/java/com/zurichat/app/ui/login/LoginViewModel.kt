@@ -1,13 +1,10 @@
 package com.zurichat.app.ui.login
 
-import android.widget.Toast
 import androidx.lifecycle.*
-import com.zurichat.app.data.remoteSource.postValue
 import com.zurichat.app.data.repository.UserRepository
 import com.zurichat.app.models.*
 import com.zurichat.app.ui.login.password.confirm.ConfirmPasswordData
 import com.zurichat.app.ui.login.password.confirm.ConfirmResponse
-import com.zurichat.app.ui.login.password.resetuserpass.ResetUserPasswordData
 import com.zurichat.app.ui.login.password.resetuserpass.ResetUserPasswordResponse
 import com.zurichat.app.util.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -37,8 +34,8 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
     private val _user = MutableLiveData<User>()
     val user: LiveData<User> get() = _user
 
-    private val _passwordReset = MutableLiveData<Result<PassswordRestReponse>>()
-    val pssswordreset: LiveData<Result<PassswordRestReponse>> get() = _passwordReset
+    private val _passwordReset = MutableLiveData<Result<PasswordRestReponse>>()
+    val passwordReset: LiveData<Result<PasswordRestReponse>> = _passwordReset
 
     private val _confirmPassword = MutableLiveData<Result<ConfirmResponse>>()
     val confirmPassword: LiveData<Result<ConfirmResponse>> get() = _confirmPassword
@@ -75,7 +72,7 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
                     _logoutResponse.postValue(Result.Success(it))
                 }
             }else {
-                _logoutResponse.postValue(Result.Error(Exception("ERROR MESSAGE")))
+                _logoutResponse.postValue(Result.Error(Exception("Error occurred please try again ")))
             }
         }
     }
@@ -92,7 +89,7 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
                 }
 
             } else {
-                _resetCodeResponse.postValue(Result.Error(Exception("ERROR MESSAGE")))
+                _resetCodeResponse.postValue(Result.Error(Exception("Error occurred please try again ")))
             }
 
         }
@@ -110,10 +107,28 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
                 }
 
             } else {
-                _updatePassResponse.postValue(Result.Error(Exception("ERROR MESSAGE")))
+                _updatePassResponse.postValue(Result
+                    .Error(Exception("Error occurred please try again ")))
             }
 
         }
+
+    }
+
+    fun passwordReset(passwordResetBody: PasswordResetBody) {
+        _passwordReset.postValue(Result.Loading)
+        viewModelScope.launch(exceptionHandler){
+            val passwordResetResponse = repository.passwordReset(passwordResetBody)
+            if (passwordResetResponse.code() == 200 && passwordResetResponse.isSuccessful){
+                val body = passwordResetResponse.body()
+                body?.let {
+                    _passwordReset.postValue(Result.Success(it))
+                }
+            }else{
+                _passwordReset.postValue(Result.Error(Exception("ERROR MESSAGE")))
+            }
+        }
+
 
     }
 
@@ -137,17 +152,7 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
         repository.saveUser(user)
     }
 
-    fun passwordReset(passwordReset: PasswordReset) {
-        try {
-            viewModelScope.launch {
-                _passwordReset.postValue(Result.Success(repository.passwordReset(passwordReset)))
-            }
-        } catch (e: Exception) {
-            _passwordReset.postValue(Result.Error(e))
-        }
 
-
-    }
 
     fun confirmPassword(confirmPasswordData: ConfirmPasswordData){
         try {
@@ -159,13 +164,4 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
         }
     }
 
-    fun resetUserPassword(resetUserPasswordData: ResetUserPasswordData){
-        try {
-            viewModelScope.launch {
-                _resetUserPassword.postValue(Result.Success(repository.resetUserPassword(resetUserPasswordData)))
-            }
-        }catch (e:Exception){
-            _resetUserPassword.postValue(Result.Error(e))
-        }
-    }
 }

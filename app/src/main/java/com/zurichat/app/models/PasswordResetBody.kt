@@ -1,6 +1,5 @@
 package com.zurichat.app.models
 
-data class PasswordReset (
+data class PasswordResetBody (
     val email: String
-
         )
