@@ -33,17 +33,17 @@ class ChannelMessagesViewModel @Inject constructor(val organizationService: Orga
     fun retrieveAllMessages(organizationId: String, channelId: String) {
         viewModelScope.launch {
             try {
-                val joinedUser =
-                    RetrofitClientInstance.retrofitInstance?.create(JoinNewChannel::class.java)?.retrieveAllMessages(organizationId, channelId)
+                val joinedUser = RetrofitClientInstance.retrofitInstance?.create(JoinNewChannel::class.java)?.retrieveAllMessages(organizationId, channelId)
                 joinedUser?.let {
                     _allMessages.value = AllChannelMessages(it,"",200)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
-
             }
         }
     }
+
+
 
     // This function gets called to send a message
     fun sendMessages(data: Data, organizationId: String, channelId: String, dataList: List<Data>) {
