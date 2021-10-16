@@ -15,6 +15,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.room.Room
+import com.zurichat.app.data.localSource.AppDatabase
+import com.zurichat.app.data.localSource.dm.RoomMessageDao
+import com.zurichat.app.data.localSource.dm.RoomModel
 import com.zurichat.app.databinding.FragmentDmBinding
 import com.zurichat.app.databinding.PartialAttachmentPopupBinding
 import com.zurichat.app.models.User
@@ -30,7 +34,9 @@ import com.zurichat.app.ui.dm_chat.repository.Repository
 import com.zurichat.app.ui.dm_chat.viewmodel.RoomViewModel
 import com.zurichat.app.ui.dm_chat.viewmodel.RoomViewModelFactory
 import com.zurichat.app.ui.fragments.channel_chat.ChannelHeaderItem
+import com.zurichat.app.ui.fragments.channel_chat.localdatabase.RoomDao
 import com.zurichat.app.ui.fragments.home_screen.CentrifugeClient
+import com.zurichat.app.util.isInternetAvailable
 import com.zurichat.app.util.setClickListener
 import hani.momanii.supernova_emoji_library.Actions.EmojIconActions
 import io.github.centrifugal.centrifuge.*
@@ -72,6 +78,9 @@ class RoomFragment : Fragment() {
     private lateinit var emojiIconsActions: EmojIconActions
     private lateinit var partialAttachmentPopupBinding: PartialAttachmentPopupBinding
 
+    private lateinit var database: AppDatabase
+    private lateinit var roomMessageDao: RoomMessageDao
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentDmBinding.inflate(inflater, container, false)
 
@@ -88,6 +97,10 @@ class RoomFragment : Fragment() {
 
         partialAttachmentPopupBinding =
             PartialAttachmentPopupBinding.inflate(inflater, container, false)
+
+        database = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "zuri_chat")
+            .build()
+        roomMessageDao = database.roomMessageDao()
 
         return binding.root
     }
@@ -348,5 +361,35 @@ class RoomFragment : Fragment() {
                 observer(value)
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (!requireActivity().isInternetAvailable()){
+            val userID = "1"
+            val senderID = "2"
+
+            roomMsgViewModel.getMessage(senderID).observe(viewLifecycleOwner, {
+                val senderMessage = it
+                println("Sender: " + senderMessage)
+            })
+
+            roomMsgViewModel.getMessage(userID).observe(viewLifecycleOwner, {
+                val userMessage = it
+                println("User: " + userMessage)
+            })
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        val message = listOf(RoomModel("1", "Mano", "This is a message", "12:45PM"),
+                             RoomModel("2", "Mano", "This is a message", "12:45PM"),
+            RoomModel("1", "Mano", "This is a message", "12:45PM"),
+            RoomModel("2", "Mano", "This is a message", "12:45PM"))
+
+        roomMsgViewModel.saveMessage(message)
     }
 }

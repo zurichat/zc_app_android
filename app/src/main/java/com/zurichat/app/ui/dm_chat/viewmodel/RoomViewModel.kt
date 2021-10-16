@@ -1,9 +1,12 @@
 package com.zurichat.app.ui.dm_chat.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.zurichat.app.data.localSource.dm.RoomMessageDao
+import com.zurichat.app.data.localSource.dm.RoomModel
 import com.zurichat.app.models.organization_model.UserOrganizationModel
 import com.zurichat.app.ui.dm_chat.model.request.SendMessageBody
 import com.zurichat.app.ui.dm_chat.model.request.createroom.CreateRoomBody
@@ -16,7 +19,7 @@ import com.zurichat.app.ui.dm_chat.repository.Repository
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class RoomViewModel(private val repository: Repository) : ViewModel() {
+class RoomViewModel(private val repository: Repository, private val roomMessageDao: RoomMessageDao? = null) : ViewModel() {
 
     val myResponse: MutableLiveData<Response<RoomsListResponse>> = MutableLiveData()
 
@@ -26,6 +29,9 @@ class RoomViewModel(private val repository: Repository) : ViewModel() {
     val mySendMessageResponse: MutableLiveData<Response<SendMessageResponse>> = MutableLiveData()
     val myMemberIdsResponse: MutableLiveData<Response<UserOrganizationModel>> = MutableLiveData()
     val myCreateRoomResponse: MutableLiveData<Response<CreateRoomsResponse>> = MutableLiveData()
+
+//    private var _roomLiveData: MutableLiveData<List<RoomModel>> = MutableLiveData()
+//    val roomLiveData get() = _roomLiveData
 
 
     fun getRooms(orgId: String, memId: String) {
@@ -92,9 +98,17 @@ class RoomViewModel(private val repository: Repository) : ViewModel() {
         }catch (e : Exception){
             e.printStackTrace()
         }
+    }
 
 
+    fun saveMessage(roomMessage: List<RoomModel>){
+       viewModelScope.launch {
+           roomMessageDao?.insertAll(roomMessage)
+       }
+    }
 
+    fun getMessage(user_id: String) : LiveData<List<RoomModel>>{
+        return roomMessageDao!!.getRoomMessageWithUserID(user_id)
     }
 
 }
