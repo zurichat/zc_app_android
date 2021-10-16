@@ -170,6 +170,9 @@ class ChannelChatFragment : Fragment() {
             binding.sendMessageBtn                    //use this button to send the message
         val typingBar = binding.cardView
         toolbar = view.findViewById(R.id.channel_toolbar)
+        toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack(R.id.main_nav, true)
+        }
 
         val imagePicker = ImagePicker(this)
 
@@ -507,10 +510,6 @@ class ChannelChatFragment : Fragment() {
                 )
                 channelChatEdit.text?.clear()
             }
-        }
-
-        toolbar.setNavigationOnClickListener {
-            requireActivity().onBackPressed()
         }
 
         toolbar.setOnMenuItemClickListener {

@@ -20,6 +20,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentDmBinding
 import com.zurichat.app.databinding.PartialAttachmentPopupBinding
 import com.zurichat.app.models.User
@@ -114,6 +115,10 @@ class RoomFragment : Fragment() {
         roomName = room.room_name
 
         toolbar.title = roomName
+
+        toolbar.setNavigationOnClickListener {
+            findNavController().popBackStack(R.id.main_nav, false)
+        }
 
         channelChatEdit.doOnTextChanged { text, start, count, after  ->
             if (text.isNullOrEmpty()) {
@@ -277,9 +282,6 @@ class RoomFragment : Fragment() {
             }
         })
 
-        toolbar.setNavigationOnClickListener {
-            requireActivity().onBackPressed()
-        }
         //connectToSocket()
         val handler = Handler(Looper.getMainLooper())
         handler.post(object : Runnable {
