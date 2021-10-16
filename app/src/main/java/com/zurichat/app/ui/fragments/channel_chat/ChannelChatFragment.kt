@@ -232,6 +232,8 @@ class ChannelChatFragment : Fragment() {
 
             viewModel.joinedUser.observe(viewLifecycleOwner, { joinedUser ->
                 if (joinedUser != null) {
+                    sendMessage.visibility = View.VISIBLE
+                    sendVoiceNote.visibility = View.VISIBLE
                     dimmerBox.visibility = View.GONE
                     toolbar.subtitle = channel.members.plus(1).toString().plus(" Members")
                     Toast.makeText(requireContext(), "Joined Channel Successfully", Toast.LENGTH_SHORT).show()
@@ -334,11 +336,18 @@ class ChannelChatFragment : Fragment() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == RecyclerView.SCROLL_STATE_DRAGGING){
-                    if(!binding.recyclerMessagesList.canScrollVertically(1)){
-                        scrollDown = true
+                   /* scrollDown = if(!binding.recyclerMessagesList.canScrollVertically(1)){
+                        true
                     }else{
-                        scrollDown = false
-                    }
+                        false
+                    }*/
+                }
+                if(binding.recyclerMessagesList.canScrollVertically(1)){
+                    scrollDown = false
+                    binding.scrollDown.visibility = View.VISIBLE
+                }else{
+                    scrollDown = true
+                    binding.scrollDown.visibility = View.GONE
                 }
             }
 
@@ -467,10 +476,6 @@ class ChannelChatFragment : Fragment() {
             }
         })
 
-        sharedViewModel.newMessage.observe(viewLifecycleOwner, {
-
-        })
-
         sendMessage.setOnClickListener {
             if (channelChatEdit.text.toString().isNotEmpty()) {
                 val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
@@ -552,9 +557,6 @@ class ChannelChatFragment : Fragment() {
             try {
                 if (CentrifugeClient.isConnected()){
                     CentrifugeClient.subscribeToChannel(roomData!!.socket_name)
-                    uiScope.launch(Dispatchers.Main) {
-                        //Toast.makeText(requireContext(),"Connected",Toast.LENGTH_SHORT).show()
-                    }
                 }
                 client = CentrifugeClient.getClient(user)
                 CentrifugeClient.setCustomListener(object : CentrifugeClient.ChannelListener {
@@ -562,9 +564,6 @@ class ChannelChatFragment : Fragment() {
                         try{
                             if(connected){
                                 CentrifugeClient.subscribeToChannel(roomData!!.socket_name)
-                                uiScope.launch(Dispatchers.Main) {
-                                   // Toast.makeText(requireContext(),"Connected 1",Toast.LENGTH_SHORT).show()
-                                }
                             }
                         }catch (e : Exception){
                             e.printStackTrace()
@@ -584,11 +583,11 @@ class ChannelChatFragment : Fragment() {
                     override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
                         val dataString = String(publishEvent!!.data, StandardCharsets.UTF_8)
                         val data = Gson().fromJson(dataString, Data::class.java)
+                        uiScope.launch(Dispatchers.Main) {
+                            Toast.makeText(requireContext(),data.content,Toast.LENGTH_SHORT).show()
+                        }
                         if (data.channel_id == channel._id) {
                             channelMsgViewModel.receiveMessage(data)
-                            uiScope.launch(Dispatchers.Main) {
-                               // Toast.makeText(requireContext(),data.content,Toast.LENGTH_SHORT).show()
-                            }
                         }
                     }
                 })
