@@ -19,7 +19,11 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity(), Animation.AnimationListener {
+
+    private var a1: AlphaAnimation? = null
+    private var a2: AlphaAnimation? = null
+    private var a3: AlphaAnimation? = null
 
     private val viewModel: LoginViewModel by viewModels()
 
@@ -51,6 +55,36 @@ class SplashActivity : AppCompatActivity() {
             }
             finish()
         }
+
+        crossFade()
     }
 
+    private fun crossFade() = with(binding) {
+        a1 = AlphaAnimation(0f, 1f)
+        a1!!.duration = 1000
+        a2 = AlphaAnimation(1f, 0f)
+        a2!!.duration = 2000
+        a2!!.interpolator = AnticipateInterpolator()
+        a3 = AlphaAnimation(0f, 1f)
+        a3!!.duration = 1000
+        a1!!.setAnimationListener(this@SplashActivity)
+        a2!!.setAnimationListener(this@SplashActivity)
+        a3!!.setAnimationListener(this@SplashActivity)
+        imageView.visibility = View.VISIBLE
+        imageView.animation = a1
+    }
+
+    override fun onAnimationStart(animation: Animation) {}
+    override fun onAnimationEnd(animation: Animation) {
+        if (animation === a1) {
+            binding.imageView.animation = a2
+            binding.imageView.visibility = View.INVISIBLE
+        }
+        if (animation === a2) {
+            binding.imageView4.visibility = View.VISIBLE
+            binding.imageView4.animation = a3
+        }
+    }
+
+    override fun onAnimationRepeat(animation: Animation) {}
 }
