@@ -1,6 +1,8 @@
 package com.zurichat.app.ui.fragments.home_screen;
 
+import androidx.annotation.NonNull;
 import androidx.collection.ArrayMap;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.zurichat.app.models.User;
 
