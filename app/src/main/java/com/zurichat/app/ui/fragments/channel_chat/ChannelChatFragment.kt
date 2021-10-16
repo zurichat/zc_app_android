@@ -169,7 +169,7 @@ class ChannelChatFragment : Fragment() {
         val sendMessage =
             binding.sendMessageBtn                    //use this button to send the message
         val typingBar = binding.cardView
-        toolbar = view.findViewById<Toolbar>(R.id.channel_toolbar)
+        toolbar = view.findViewById(R.id.channel_toolbar)
 
         val imagePicker = ImagePicker(this)
 
@@ -194,13 +194,13 @@ class ChannelChatFragment : Fragment() {
             dimmerBox.visibility = View.GONE
             binding.channelJoinBar.visibility = View.GONE
             sendMessage.visibility = View.VISIBLE
-            sendVoiceNote.visibility = View.VISIBLE
+            //sendVoiceNote.visibility = View.VISIBLE
         } else {
             dimmerBox.visibility = View.VISIBLE
             binding.channelName.text = channel.name
 
             sendMessage.visibility = View.GONE
-            sendVoiceNote.visibility = View.GONE
+            //sendVoiceNote.visibility = View.GONE
 
             if (channel.isPrivate) {
                 binding.channelName.setCompoundDrawablesRelativeWithIntrinsicBounds(
@@ -233,7 +233,7 @@ class ChannelChatFragment : Fragment() {
             viewModel.joinedUser.observe(viewLifecycleOwner, { joinedUser ->
                 if (joinedUser != null) {
                     sendMessage.visibility = View.VISIBLE
-                    sendVoiceNote.visibility = View.VISIBLE
+                    //sendVoiceNote.visibility = View.VISIBLE
                     dimmerBox.visibility = View.GONE
                     toolbar.subtitle = channel.members.plus(1).toString().plus(" Members")
                     Toast.makeText(requireContext(), "Joined Channel Successfully", Toast.LENGTH_SHORT).show()
