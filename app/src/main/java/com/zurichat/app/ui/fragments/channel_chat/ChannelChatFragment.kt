@@ -5,11 +5,14 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.os.Parcelable
 import android.text.InputType
 import android.text.format.DateUtils
 import android.view.*
 import android.view.inputmethod.EditorInfo
+import android.widget.AbsListView
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
@@ -22,6 +25,7 @@ import androidx.lifecycle.*
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.google.gson.Gson
 import com.zurichat.app.R
@@ -164,7 +168,7 @@ class ChannelChatFragment : Fragment() {
         val sendVoiceNote = binding.sendVoiceBtn
         val sendMessage =
             binding.sendMessageBtn                    //use this button to send the message
-        val typingBar = binding.channelTypingBar
+        val typingBar = binding.cardView
         toolbar = view.findViewById<Toolbar>(R.id.channel_toolbar)
 
         val imagePicker = ImagePicker(this)
@@ -189,9 +193,14 @@ class ChannelChatFragment : Fragment() {
         if (channelJoined) {
             dimmerBox.visibility = View.GONE
             binding.channelJoinBar.visibility = View.GONE
+            sendMessage.visibility = View.VISIBLE
+            sendVoiceNote.visibility = View.VISIBLE
         } else {
             dimmerBox.visibility = View.VISIBLE
             binding.channelName.text = channel.name
+
+            sendMessage.visibility = View.GONE
+            sendVoiceNote.visibility = View.GONE
 
             if (channel.isPrivate) {
                 binding.channelName.setCompoundDrawablesRelativeWithIntrinsicBounds(
@@ -223,6 +232,8 @@ class ChannelChatFragment : Fragment() {
 
             viewModel.joinedUser.observe(viewLifecycleOwner, { joinedUser ->
                 if (joinedUser != null) {
+                    sendMessage.visibility = View.VISIBLE
+                    sendVoiceNote.visibility = View.VISIBLE
                     dimmerBox.visibility = View.GONE
                     toolbar.subtitle = channel.members.plus(1).toString().plus(" Members")
                     Toast.makeText(requireContext(), "Joined Channel Successfully", Toast.LENGTH_SHORT).show()
@@ -263,6 +274,7 @@ class ChannelChatFragment : Fragment() {
         //Launch Attachment Popup
         popupWindow.setBackgroundDrawable(ColorDrawable())
         popupWindow.isOutsideTouchable = true
+
 
         attachment.setOnClickListener {
             //popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 600)
@@ -320,6 +332,30 @@ class ChannelChatFragment : Fragment() {
         binding.recyclerMessagesList.adapter = channelListAdapter
         binding.recyclerMessagesList.itemAnimator = null
 
+        binding.recyclerMessagesList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == RecyclerView.SCROLL_STATE_DRAGGING){
+                   /* scrollDown = if(!binding.recyclerMessagesList.canScrollVertically(1)){
+                        true
+                    }else{
+                        false
+                    }*/
+                }
+                if(binding.recyclerMessagesList.canScrollVertically(1)){
+                    scrollDown = false
+                    binding.scrollDown.visibility = View.VISIBLE
+                }else{
+                    scrollDown = true
+                    binding.scrollDown.visibility = View.GONE
+                }
+            }
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+            }
+        })
+
         binding.cameraChannelBtn.setOnClickListener {
             imagePicker.pickFromStorage { imageResult ->
                 when (imageResult) {
@@ -333,6 +369,12 @@ class ChannelChatFragment : Fragment() {
                     }
                 }
             }
+        }
+
+        binding.scrollDown.setOnClickListener {
+            scrollDown = true
+            binding.recyclerMessagesList.smoothScrollToPosition(channelListAdapter.itemCount-1)
+            binding.scrollDown.visibility = View.GONE
         }
 
         /**
@@ -367,6 +409,30 @@ class ChannelChatFragment : Fragment() {
                 binding.introGroupText.visibility = View.GONE
                 binding.recyclerMessagesList.scrollToPosition(channelsWithDateHeaders.size - 1)
             }
+
+            channelMsgViewModel.allMessages.observe(viewLifecycleOwner,{ allChannelMessages ->
+                messagesArrayList.clear()
+                messagesArrayList.addAll(allChannelMessages.data)
+
+                if (messagesArrayList.isNotEmpty()) {
+                    uiScope.launch(Dispatchers.IO) {
+                        allChannelMessages.channelId = channel._id
+                        channelMessagesDao.insertAll(allChannelMessages)
+                    }
+                    val updatedList = channelMsgViewModel.getProfilePictures(
+                        organizationID,
+                        messagesArrayList
+                    )
+                    val channelsWithDateHeaders = createMessagesList(updatedList)
+                    channelListAdapter.submitList(channelsWithDateHeaders)
+                    binding.introGroupText.visibility = View.GONE
+                    if (scrollDown){
+                        binding.recyclerMessagesList.scrollToPosition(channelsWithDateHeaders.size - 1)
+                    }else{
+                        binding.scrollDown.visibility = View.VISIBLE
+                    }
+                }
+            })
         })
 
         channelMsgViewModel.newMessage.observe(viewLifecycleOwner, {
@@ -390,6 +456,8 @@ class ChannelChatFragment : Fragment() {
                     //binding.recyclerMessagesList.scrollToPosition(channelsWithDateHeaders.size-1)
                     binding.recyclerMessagesList.smoothScrollToPosition(channelsWithDateHeaders.size - 1)
                 }
+            }else{
+                binding.scrollDown.visibility = View.VISIBLE
             }
             channelChatEdit.setText("")
         })
@@ -406,10 +474,6 @@ class ChannelChatFragment : Fragment() {
                 }
                 connectToSocket()
             }
-        })
-
-        sharedViewModel.newMessage.observe(viewLifecycleOwner, {
-
         })
 
         sendMessage.setOnClickListener {
@@ -472,9 +536,16 @@ class ChannelChatFragment : Fragment() {
             true
         }
 
+        val handler = Handler(Looper.getMainLooper())
+        handler.post(object : Runnable {
+            override fun run() {
+                channelMsgViewModel.retrieveAllMessages(organizationID, channel._id)
+                handler.postDelayed(this,2000)
+            }
+        })
     }
 
-    val scrollDown = true
+    var scrollDown = true
     private lateinit var job: Job
     private lateinit var uiScope: CoroutineScope
 
@@ -512,6 +583,9 @@ class ChannelChatFragment : Fragment() {
                     override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
                         val dataString = String(publishEvent!!.data, StandardCharsets.UTF_8)
                         val data = Gson().fromJson(dataString, Data::class.java)
+                        uiScope.launch(Dispatchers.Main) {
+                           // Toast.makeText(requireContext(),data.content,Toast.LENGTH_SHORT).show()
+                        }
                         if (data.channel_id == channel._id) {
                             channelMsgViewModel.receiveMessage(data)
                         }

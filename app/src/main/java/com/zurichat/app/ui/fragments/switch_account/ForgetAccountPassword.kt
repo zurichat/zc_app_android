@@ -10,7 +10,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentForgetAccountPassBinding
-import com.zurichat.app.models.PasswordReset
+import com.zurichat.app.models.PasswordResetBody
 import com.zurichat.app.ui.login.LoginViewModel
 import com.zurichat.app.util.Result
 import com.zurichat.app.util.viewBinding
@@ -33,10 +33,11 @@ class ForgetAccountPassword : Fragment(R.layout.fragment_forget_account_pass) {
             dialogue()
         }
 
-        viewModel.pssswordreset.observe(viewLifecycleOwner, {
+        viewModel.passwordReset.observe(viewLifecycleOwner, {
             when(it){
                 is Result.Success -> {
-                    success()
+                    val message = it.data.message
+                    success(message)
                 }
                 is Result.Error -> {
                     Toast.makeText(requireContext(), "please try again", Toast.LENGTH_SHORT).show()
@@ -56,14 +57,14 @@ class ForgetAccountPassword : Fragment(R.layout.fragment_forget_account_pass) {
 
             }
             .setPositiveButton("Yes"){dialog,which->
-                viewModel.passwordReset(PasswordReset(args.account.email))
+                viewModel.passwordReset(PasswordResetBody(args.account.email))
             }
             .show()
     }
 
-    private fun success(){
+    private fun success(message:String){
         val email = args.account.email
-        Toast.makeText(requireContext(), "A code has been sent to $email to reset password ", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
 
         val action = ForgetAccountPasswordDirections.actionForgetAccountPasswordToEnterOtpACFragment(args.account,args.curUser)
         findNavController().navigate(action)
