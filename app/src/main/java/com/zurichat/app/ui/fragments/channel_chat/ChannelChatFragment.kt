@@ -174,7 +174,7 @@ class ChannelChatFragment : Fragment() {
         val imagePicker = ImagePicker(this)
 
         //val includeAttach = binding.attachment
-        val attachment = binding.channelLink
+       // val attachment = binding.channelLink
         val popupView: View = layoutInflater.inflate(R.layout.partial_attachment_popup, null)
         val popupWindow = PopupWindow(
             popupView,
@@ -276,10 +276,10 @@ class ChannelChatFragment : Fragment() {
         popupWindow.isOutsideTouchable = true
 
 
-        attachment.setOnClickListener {
+       /* attachment.setOnClickListener {
             //popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 600)
             popupWindow.showAsDropDown(typingBar, 0, -(typingBar.height * 4), Gravity.TOP)
-        }
+        }*/
 
         partialAttachmentPopupBinding.also {
             it.groupGallery.setClickListener { navigateToAttachmentScreen() }
@@ -356,12 +356,12 @@ class ChannelChatFragment : Fragment() {
             }
         })
 
-        binding.cameraChannelBtn.setOnClickListener {
+        /*binding.cameraChannelBtn.setOnClickListener {
             imagePicker.pickFromStorage { imageResult ->
                 when (imageResult) {
                     is ImageResult.Success -> {
-                        /*val uri = imageResult.value
-                       */
+                        *//*val uri = imageResult.value
+                       *//*
                     }
                     is ImageResult.Failure -> {
                         val errorString = imageResult.errorString
@@ -369,7 +369,7 @@ class ChannelChatFragment : Fragment() {
                     }
                 }
             }
-        }
+        }*/
 
         binding.scrollDown.setOnClickListener {
             scrollDown = true
