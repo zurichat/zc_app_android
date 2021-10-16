@@ -7,6 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.SplashActivity">
 
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:src="@drawable/zuri_chat_icon"-->
+<!--        android:visibility="gone"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        tools:ignore="ContentDescription" />-->
+
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="250dp"
