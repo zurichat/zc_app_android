@@ -169,7 +169,7 @@ class ChannelChatFragment : Fragment() {
         val sendMessage =
             binding.sendMessageBtn                    //use this button to send the message
         val typingBar = binding.cardView
-        toolbar = view.findViewById<Toolbar>(R.id.channel_toolbar)
+        toolbar = view.findViewById(R.id.channel_toolbar)
         toolbar.setNavigationOnClickListener {
             findNavController().popBackStack(R.id.main_nav, true)
         }
@@ -177,7 +177,7 @@ class ChannelChatFragment : Fragment() {
         val imagePicker = ImagePicker(this)
 
         //val includeAttach = binding.attachment
-        val attachment = binding.channelLink
+       // val attachment = binding.channelLink
         val popupView: View = layoutInflater.inflate(R.layout.partial_attachment_popup, null)
         val popupWindow = PopupWindow(
             popupView,
@@ -197,13 +197,13 @@ class ChannelChatFragment : Fragment() {
             dimmerBox.visibility = View.GONE
             binding.channelJoinBar.visibility = View.GONE
             sendMessage.visibility = View.VISIBLE
-            sendVoiceNote.visibility = View.VISIBLE
+            //sendVoiceNote.visibility = View.VISIBLE
         } else {
             dimmerBox.visibility = View.VISIBLE
             binding.channelName.text = channel.name
 
             sendMessage.visibility = View.GONE
-            sendVoiceNote.visibility = View.GONE
+            //sendVoiceNote.visibility = View.GONE
 
             if (channel.isPrivate) {
                 binding.channelName.setCompoundDrawablesRelativeWithIntrinsicBounds(
@@ -236,7 +236,7 @@ class ChannelChatFragment : Fragment() {
             viewModel.joinedUser.observe(viewLifecycleOwner, { joinedUser ->
                 if (joinedUser != null) {
                     sendMessage.visibility = View.VISIBLE
-                    sendVoiceNote.visibility = View.VISIBLE
+                    //sendVoiceNote.visibility = View.VISIBLE
                     dimmerBox.visibility = View.GONE
                     toolbar.subtitle = channel.members.plus(1).toString().plus(" Members")
                     Toast.makeText(requireContext(), "Joined Channel Successfully", Toast.LENGTH_SHORT).show()
@@ -279,11 +279,12 @@ class ChannelChatFragment : Fragment() {
         popupWindow.isOutsideTouchable = true
 
 
-        attachment.setOnClickListener {
+       /* attachment.setOnClickListener {
             //popupWindow.showAtLocation(popupView, Gravity.CENTER, 0, 600)
             popupWindow.showAsDropDown(typingBar, 0, -(typingBar.height * 4), Gravity.TOP)
-        }
+        }*/
 
+        
         partialAttachmentPopupBinding.also {
             it.groupGallery.setClickListener { navigateToAttachmentScreen() }
             it.groupAudio.setClickListener { navigateToAttachmentScreen(MEDIA.AUDIO) }
@@ -359,12 +360,12 @@ class ChannelChatFragment : Fragment() {
             }
         })
 
-        binding.cameraChannelBtn.setOnClickListener {
+        /*binding.cameraChannelBtn.setOnClickListener {
             imagePicker.pickFromStorage { imageResult ->
                 when (imageResult) {
                     is ImageResult.Success -> {
-                        /*val uri = imageResult.value
-                       */
+                        *//*val uri = imageResult.value
+                       *//*
                     }
                     is ImageResult.Failure -> {
                         val errorString = imageResult.errorString
@@ -372,7 +373,7 @@ class ChannelChatFragment : Fragment() {
                     }
                 }
             }
-        }
+        }*/
 
         binding.scrollDown.setOnClickListener {
             scrollDown = true

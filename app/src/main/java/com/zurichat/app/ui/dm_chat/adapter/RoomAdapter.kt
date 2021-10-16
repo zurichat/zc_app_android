@@ -12,7 +12,7 @@ import com.zurichat.app.R
 import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponse
 import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponseItem
 
-class RoomAdapter(val context: Activity, val roomList: ArrayList<RoomsListResponseItem>): RecyclerView.Adapter<RoomAdapter.RoomViewHolder>() {
+class RoomAdapter(val context: Activity, val roomList: ArrayList<RoomsListResponseItem>): RecyclerView.Adapter<RoomAdapter.RoomViewHolder>(){
 
     private var onItemClickListener: ((room: RoomsListResponseItem) -> Unit)? = null
 
@@ -61,5 +61,6 @@ class RoomAdapter(val context: Activity, val roomList: ArrayList<RoomsListRespon
     fun setUserName(name: String) {
         userNameNew = name
     }
+
 
 }

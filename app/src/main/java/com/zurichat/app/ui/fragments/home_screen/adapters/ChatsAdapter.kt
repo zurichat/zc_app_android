@@ -2,6 +2,8 @@ package com.zurichat.app.ui.fragments.home_screen.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -58,4 +60,5 @@ class ChatsAdapter(val chats: List<Chat>): RecyclerView.Adapter<ChatsAdapter.Cha
     }
 
     data class Chat(val sender: String, val message: Message, val unreadCount: Int)
+
 }
