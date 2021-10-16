@@ -70,7 +70,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:layout_marginEnd="5dp"
+                android:layout_marginEnd="10dp"
                 android:maxHeight="150dp"
                 android:minHeight="48dp"
                 android:background="@null"
@@ -79,10 +79,10 @@
                 android:textColor="@color/text_color"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/channel_link"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/icon_btn" />
 
-            <androidx.appcompat.widget.AppCompatImageView
+            <!--<androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/channel_link"
                 android:layout_width="35dp"
                 android:layout_height="48dp"
@@ -109,7 +109,7 @@
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/ic_photo_camera" />
+                app:srcCompat="@drawable/ic_photo_camera" />-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
