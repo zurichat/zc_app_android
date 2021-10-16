@@ -1,24 +1,16 @@
 package com.zurichat.app.ui.login.screens
 
-import android.app.ProgressDialog
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.zurichat.app.R
-import com.zurichat.app.data.remoteSource.UsersService
 import com.zurichat.app.databinding.FragmentEnterOtpBinding
-import com.zurichat.app.models.PasswordReset
+import com.zurichat.app.models.PasswordResetBody
 import com.zurichat.app.models.ResetCodeBody
-import com.zurichat.app.ui.fragments.switch_account.EnterOtpACFragmentArgs
-import com.zurichat.app.ui.fragments.switch_account.EnterOtpACFragmentDirections
 import com.zurichat.app.ui.login.LoginViewModel
 import com.zurichat.app.util.Result
 import com.zurichat.app.util.viewBinding
@@ -41,7 +33,7 @@ class EnterOtpFragment : Fragment(R.layout.fragment_enter_otp) {
 
         val resendCode = binding.textResendCode
         resendCode.setOnClickListener {
-            viewModel.passwordReset(PasswordReset(args.userEmail))
+            viewModel.passwordReset(PasswordResetBody(args.userEmail))
         }
 
         butOtp.setOnClickListener {
@@ -95,7 +87,7 @@ class EnterOtpFragment : Fragment(R.layout.fragment_enter_otp) {
 
 
     private fun setupForgotPassObserver(){
-        viewModel.pssswordreset.observe(viewLifecycleOwner, {
+        viewModel.passwordReset.observe(viewLifecycleOwner, {
             when(it){
                 is Result.Success -> {
                     val resultMsg = it.data.message

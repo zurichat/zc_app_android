@@ -1,6 +1,6 @@
 package com.zurichat.app.models
 
-data class PassswordRestReponse(
+data class PasswordRestReponse(
     val `data`: Any,
     val message: String,
     val status: Int

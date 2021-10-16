@@ -1,7 +1,6 @@
 package com.zurichat.app.ui.login.screens
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Toast
@@ -10,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentForgotPasswordBinding
-import com.zurichat.app.models.PasswordReset
+import com.zurichat.app.models.PasswordResetBody
 import com.zurichat.app.ui.login.LoginViewModel
 import com.zurichat.app.util.Result
 import com.zurichat.app.util.viewBinding
@@ -49,7 +48,7 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
     }
 
     private fun resetPass(email:String){
-        val passwordResetBody = PasswordReset(
+        val passwordResetBody = PasswordResetBody(
             email = email
         )
         viewModel.passwordReset(passwordResetBody)
@@ -58,7 +57,7 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
 
 
     private fun setupPassResetObsv(){
-        viewModel.pssswordreset.observe(viewLifecycleOwner, {
+        viewModel.passwordReset.observe(viewLifecycleOwner, {
             when(it){
                 is Result.Success -> {
                     val resultMsg = it.data.message
@@ -72,8 +71,9 @@ class ForgotPasswordFragment : Fragment(R.layout.fragment_forgot_password) {
 
                 }
                 is Result.Error -> {
+                    binding.textInputForgotPassword.error = "Check email and try again"
                     Toast.makeText(requireContext()
-                        , "An error occured please check email and try again "
+                        , "An error occurred please check email and try again "
                         , Toast.LENGTH_SHORT).show()
                 }
 
