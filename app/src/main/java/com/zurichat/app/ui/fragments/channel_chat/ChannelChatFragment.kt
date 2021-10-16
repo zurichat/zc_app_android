@@ -281,6 +281,7 @@ class ChannelChatFragment : Fragment() {
             popupWindow.showAsDropDown(typingBar, 0, -(typingBar.height * 4), Gravity.TOP)
         }*/
 
+        
         partialAttachmentPopupBinding.also {
             it.groupGallery.setClickListener { navigateToAttachmentScreen() }
             it.groupAudio.setClickListener { navigateToAttachmentScreen(MEDIA.AUDIO) }
