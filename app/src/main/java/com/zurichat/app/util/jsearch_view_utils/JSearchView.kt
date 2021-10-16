@@ -6,20 +6,26 @@ import android.graphics.Rect
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.AttributeSet
-import android.util.Log
 import android.view.*
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.text.trimmedLength
 import androidx.core.widget.doOnTextChanged
-import androidx.room.Room
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.chip.Chip
 import com.google.android.material.tabs.TabLayout
 import com.zurichat.app.R
+import com.zurichat.app.databinding.ChannelsListItemBinding
+import com.zurichat.app.databinding.ItemChatBinding
 import com.zurichat.app.databinding.SearchviewLayoutBinding
+import com.zurichat.app.models.ChannelModel
+import com.zurichat.app.models.SearchItem
 import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponseItem
-import com.zurichat.app.ui.fragments.home_screen.adapters.ChatsAdapter
 import com.zurichat.app.util.jsearch_view_utils.*
+import java.util.*
 
 class JSearchView @JvmOverloads constructor(
     creationContext: Context,
@@ -68,6 +74,8 @@ class JSearchView @JvmOverloads constructor(
     private var searchIsClosing = false
     private var keepQuery = false
 
+    val adapter = SearchResultsAdapter()
+
     private val binding = SearchviewLayoutBinding.inflate(LayoutInflater.from(context), this, true)
 
     private fun initSearchEditText() = with(binding) {
@@ -82,8 +90,7 @@ class JSearchView @JvmOverloads constructor(
         searchEditText.setOnFocusChangeListener { view, hasFocus ->
             if (hasFocus) {
                 showKeyboard(searchEditText)
-            }
-            else{
+            } else {
                 closeSearch()
             }
         }
@@ -94,7 +101,8 @@ class JSearchView @JvmOverloads constructor(
         }
 
     }
-    fun addChipToGroup(text: String){
+
+    fun addChipToGroup(text: String) {
         val chip = Chip(context)
         chip.text = text
         //chip.chipIcon = ContextCompat.getDrawable(context, R.drawable.ic_remove_icon)
@@ -115,12 +123,13 @@ class JSearchView @JvmOverloads constructor(
         binding.chipGroup.visibility = GONE
     }
 
-    fun chipListener(chip:Chip) = with(binding){
+    fun chipListener(chip: Chip) = with(binding) {
         chip.setOnClickListener {
             val text: String = chip.text.toString()
             addChipToGroup(text)
         }
     }
+
     private fun initClickListeners() = with(binding) {
         backButton.setOnClickListener { closeSearch() }
         //clearButton.setOnClickListener { clearSearch() }
@@ -139,7 +148,8 @@ class JSearchView @JvmOverloads constructor(
         isClearingFocus = false
     }
 
-    override fun requestFocus(direction: Int, previouslyFocusedRect: Rect?): Boolean = with(binding) {
+    override fun requestFocus(direction: Int, previouslyFocusedRect: Rect?): Boolean =
+        with(binding) {
             if (isClearingFocus) {
                 return false
             }
@@ -201,10 +211,10 @@ class JSearchView @JvmOverloads constructor(
                     submittedQuery.toString()
                 )
             ) {
-                closeSearch()
-                searchIsClosing = true
-                searchEditText.text = null
-                searchIsClosing = false
+//                closeSearch()
+//                searchIsClosing = true
+//                searchEditText.text = null
+//                searchIsClosing = false
             }
         }
     }
@@ -269,7 +279,7 @@ class JSearchView @JvmOverloads constructor(
                 null//revealAnimationCenter
             ).start()
         } else {
-            visibility = INVISIBLE
+            visibility = GONE
         }
         showTabLayout(animate)
         isSearchOpen = false
@@ -402,6 +412,12 @@ class JSearchView @JvmOverloads constructor(
         searchViewListener = listener
     }
 
+    fun handleResults(searchResult: List<SearchItem<RoomsListResponseItem, ChannelModel>>) {
+
+        adapter.differ.submitList(searchResult)
+
+    }
+
 
     internal class SavedState : BaseSavedState {
         var query: String? = null
@@ -503,12 +519,136 @@ class JSearchView @JvmOverloads constructor(
         initSearchEditText()
         initClickListeners()
         if (!isInEditMode) {
-            visibility = INVISIBLE
+            visibility = GONE
         }
-
+        binding.searchRv.adapter = adapter
         val rvHeight = screenRectPx.height()
         binding.searchRv.layoutParams.height = rvHeight
-        Log.d("SearchView", rvHeight.toString())
         binding.searchRv.requestLayout()
+    }
+
+    fun setClickListeners(rvAdapter: (SearchResultsAdapter) -> Unit) {
+        rvAdapter(adapter)
+    }
+}
+
+class SearchResultsAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var onRoomItemClickListener: ((room: RoomsListResponseItem) -> Unit)? = null
+
+    fun setRoomItemClickListener(listener: (room: RoomsListResponseItem) -> Unit) {
+        onRoomItemClickListener = listener
+    }
+
+
+    private var onChannelItemClickListener: ((channel: ChannelModel) -> Unit)? = null
+
+    fun setChannelItemClickListener(listener: (channel: ChannelModel) -> Unit) {
+        onChannelItemClickListener = listener
+    }
+
+
+    inner class ChannelsVH(val binding: ChannelsListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(channel: ChannelModel) {
+            binding.channelTitle.text = channel.name
+            binding.root.setOnClickListener {
+                onChannelItemClickListener?.invoke(channel)
+            }
+
+            if (channel.isPrivate) {
+                binding.fab.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        binding.fab.context,
+                        R.drawable.ic_new_lock
+                    )
+                )
+
+            } else {
+                binding.fab.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        binding.fab.context,
+                        R.drawable.ic_hash
+                    )
+                )
+
+            }
+        }
+
+    }
+
+    inner class RoomsVH(val binding: ItemChatBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(room: RoomsListResponseItem) {
+            binding.textChatUsername.text = room.room_name
+            binding.root.setOnClickListener {
+                onRoomItemClickListener?.invoke(room)
+            }
+        }
+
+    }
+
+    private val differCallback =
+        object : DiffUtil.ItemCallback<SearchItem<RoomsListResponseItem, ChannelModel>>() {
+            override fun areItemsTheSame(
+                oldItem: SearchItem<RoomsListResponseItem, ChannelModel>,
+                newItem: SearchItem<RoomsListResponseItem, ChannelModel>
+            ): Boolean {
+                return if (oldItem.room != null) {
+                    oldItem.room._id == newItem.room?._id
+                } else {
+                    oldItem.channel?._id == newItem.channel?._id
+                }
+            }
+
+            override fun areContentsTheSame(
+                oldItem: SearchItem<RoomsListResponseItem, ChannelModel>,
+                newItem: SearchItem<RoomsListResponseItem, ChannelModel>
+            ): Boolean {
+                return if (oldItem.room != null) {
+                    oldItem.room == newItem.room
+                } else {
+                    oldItem.channel == newItem.channel
+                }
+            }
+        }
+
+    val differ = AsyncListDiffer(this, differCallback)
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val roomBinding = ItemChatBinding.inflate(inflater, parent, false)
+        val channelBinding = ChannelsListItemBinding.inflate(inflater, parent, false)
+
+        return if (viewType == ROOM_VIEW_TYPE) {
+            RoomsVH(roomBinding)
+        } else {
+            ChannelsVH(channelBinding)
+        }
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val item = differ.currentList[position]
+        when (holder.itemViewType) {
+            ROOM_VIEW_TYPE -> {
+                item.room?.let { (holder as RoomsVH).bind(it) }
+            }
+            CHANNEL_VIEW_TYPE -> {
+                item.channel?.let { (holder as ChannelsVH).bind(it) }
+            }
+        }
+    }
+
+    override fun getItemCount(): Int = differ.currentList.size
+
+    override fun getItemViewType(position: Int): Int {
+        return when (differ.currentList[position]) {
+            is SearchItem.Room<RoomsListResponseItem, ChannelModel> -> ROOM_VIEW_TYPE
+            is SearchItem.Channel<RoomsListResponseItem, ChannelModel> -> CHANNEL_VIEW_TYPE
+        }
+    }
+
+    private companion object {
+        private const val ROOM_VIEW_TYPE = 0
+        private const val CHANNEL_VIEW_TYPE = 1
     }
 }

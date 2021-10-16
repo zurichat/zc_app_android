@@ -280,17 +280,17 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
 
         viewModel.isConnected(false)
         viewModel.getChannelsList(organizationID)
-        viewModel.channelsList.observe(viewLifecycleOwner,{
+        viewModel.channelsList.observe(viewLifecycleOwner) {
             originalChannelsArrayList.clear()
             originalChannelsArrayList.addAll(it)
 
-            uiScope.launch(Dispatchers.IO){
+            uiScope.launch(Dispatchers.IO) {
                 val allChannelListObject = AllChannelListObject(it)
                 allChannelListObject.orgId = organizationID
                 allChannelListDao.insertAll(allChannelListObject)
             }
-            viewModel.getJoinedChannelsList(organizationID,user.id)
-        })
+            viewModel.getJoinedChannelsList(organizationID, user.id)
+        }
 
         viewModel.joinedChannelsList.observe(viewLifecycleOwner,{ joinedList ->
             channelsArrayList.clear()
