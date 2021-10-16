@@ -1,6 +1,5 @@
 package com.zurichat.app.ui.newchannel.fragment
 
-import android.app.ProgressDialog
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -36,41 +35,27 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-
 @AndroidEntryPoint
 class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) {
     private val binding by viewBinding(FragmentSelectNewChannelBinding::bind)
     var user: OrganizationMember?= null
     private lateinit var organizationID: String
-    private lateinit var progressDialog: ProgressDialog
 
     lateinit var userList: List<OrganizationMember>
     private val adapter = NewChannelAdapter(this).also {
         it.itemClickListener = { member ->
-
-            progressDialog.setMessage("Loading")
-            progressDialog.show()
-
             lifecycleScope.launch {
-                try {
-                    val result = viewModel.createRoom(member)
-                    //val result = viewModel.createRoom(member.id)
-                    if(result is Result.Success)
-                        findNavController().navigate(R.id.dmFragment, result.data)
+                val result = viewModel.createRoom(member)
+                //val result = viewModel.createRoom(member.id)
+                if(result is Result.Success)
+                    findNavController().navigate(R.id.dmFragment, result.data)
 //                    findNavController().navigate(R.id.dmFragment,
 //                        bundleOf(
 //                            "room" to RoomsListResponseItem(result.data.id, org_id = result.data.orgId, room_user_ids = result.data.roomUserIds, room_name = member.name()),
 //                            "USER" to User("","","","","","","",0,"","","")
 //                        ))
-                    else Toast.makeText(requireContext(),
-                        (result as Result.Error).error.message, Toast.LENGTH_SHORT).show()
-
-                    progressDialog.dismiss()
-                }catch (e:Exception){
-                    Toast.makeText(requireContext(), "an error occurred please try again later", Toast.LENGTH_SHORT).show()
-                    progressDialog.dismiss()
-                }
-
+                else Toast.makeText(requireContext(),
+                    (result as Result.Error).error.message, Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -91,8 +76,6 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setHasOptionsMenu(true)
-        progressDialog = ProgressDialog(context)
-
         sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
         organizationID = sharedPref.getString(ORG_ID, null).toString()
 
@@ -152,7 +135,7 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
             }
 
             toolbar.setNavigationOnClickListener {
-                findNavController().popBackStack()
+               findNavController().popBackStack()
             }
 
             userListProgressBar.visibility = View.VISIBLE
