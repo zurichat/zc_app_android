@@ -50,7 +50,6 @@
                         android:id="@+id/search_chip_layout"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/Widget.MaterialComponents.Chip.Entry"
                         app:layout_constraintStart_toEndOf="@id/backButton"
                         app:layout_constraintTop_toTopOf="parent"
                         android:layout_marginStart="16dp">

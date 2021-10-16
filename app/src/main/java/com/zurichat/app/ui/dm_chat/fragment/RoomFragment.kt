@@ -136,13 +136,22 @@ class RoomFragment : Fragment() {
         roomMsgViewModel = ViewModelProvider(this, viewModelFactory).get(RoomViewModel::class.java)
         roomMsgViewModel.getMessages(organizationID, roomId)
 
-        roomMsgViewModel.myGetMessageResponse.observe(viewLifecycleOwner) { response ->
+        roomMsgViewModel.myGetMessageResponse.observe(viewLifecycleOwner, { response ->
             if (response.isSuccessful) {
+                messagesArrayList.clear()
                 val messageResponse = response.body()
-                messageResponse?.results?.forEach {
-                    val newBaseRoomData = BaseRoomData(it, null, false)
-                    messagesArrayList.add(newBaseRoomData)
+                messageResponse?.results?.forEach{
+                    if (it.sender_id == senderId){
+                        val data = Data(it.created_at,it.message,it.sender_id)
+                        val sendMessageResponse = SendMessageResponse(data,"",it.id,it.room_id,"",false)
+                        val newBaseRoomData = BaseRoomData(null, sendMessageResponse, true)
+                        messagesArrayList.add(newBaseRoomData)
+                    }else{
+                        val newBaseRoomData = BaseRoomData(it, null, false)
+                        messagesArrayList.add(newBaseRoomData)
+                    }
                 }
+                messagesArrayList.reverse()
                 createMessagesList(messagesArrayList).let {
                     roomsListAdapter.submitList(it)
                 }
@@ -163,7 +172,7 @@ class RoomFragment : Fragment() {
                     }
                 }
             }
-        }
+        })
 
         emojiIconsActions =
             EmojIconActions(context, view, binding.channelChatEditText, binding.iconBtn)
@@ -178,12 +187,12 @@ class RoomFragment : Fragment() {
 
         sendMessage.setOnClickListener {
             if (channelChatEdit.text.toString().isNotEmpty()) {
-                val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-                s.timeZone = TimeZone.getTimeZone("UTC")
-                val time = s.format(Date(System.currentTimeMillis()))
+                //val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                //s.timeZone = TimeZone.getTimeZone("UTC")
+                //val time = s.format(Date(System.currentTimeMillis()))
 
                 val message = channelChatEdit.text.toString()
-                val dataMessage = Data(time, message, senderId)
+                /*val dataMessage = Data(time, message, senderId)
                 val sendMessageResponse = SendMessageResponse(dataMessage, "message_create", generateID().toString(), roomId, "201", false)
                 val baseRoomData = BaseRoomData(null, sendMessageResponse, true)
                 messagesArrayList.add(baseRoomData)
@@ -191,38 +200,13 @@ class RoomFragment : Fragment() {
 
                 val messagesWithDateHeaders = createMessagesList(messagesArrayList).let {
                     roomsListAdapter.submitList(it)
-                }
-                val messageBody = SendMessageBody(message, roomId, senderId )
+                }*/
+                val messageBody = SendMessageBody(message, roomId, senderId)
                 roomMsgViewModel.sendMessages(organizationID, roomId, messageBody)
-                roomMsgViewModel.mySendMessageResponse.observeOnce(viewLifecycleOwner) { response ->
-                    if (response.isSuccessful) {
-                        val messageResponse = response.body()
-                        val position = messagesArrayList.indexOf(baseRoomData)
-                        val newBaseRoomData = BaseRoomData(null, messageResponse, true)
-                        messagesArrayList[messagePosition] = newBaseRoomData
-                        createMessagesList(messagesArrayList).let {
-                            roomsListAdapter.submitList(it)
-                        }
-                        Log.i("Message Response", "$messageResponse")
-                    } else {
-                        when (response.code()) {
-                            400 -> {
-                                Log.e("Error 400", "invalid authorization")
-                            }
-                            404 -> {
-                                Log.e("Error 404", "Not Found")
-                            }
-                            401 -> {
-                                Log.e("Error 401", "No authorization or session expired")
-                            }
-                            else -> {
-                                Log.e("Error", "Generic Error")
-                            }
-                        }
-                    }
-                }
                 channelChatEdit.text?.clear()
             }
+
+
 //            val handler = Handler(Looper.getMainLooper())
 //            handler.post(object : Runnable {
 //                override fun run() {
@@ -231,25 +215,60 @@ class RoomFragment : Fragment() {
 //                }
 //            })
         }
-        recyclerView.addOnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
-            // Fixes crash when recyclerview is empty
-            if (recyclerView.adapter?.itemCount!! <= 0) return@addOnLayoutChangeListener
+
+        roomMsgViewModel.mySendMessageResponse.observe(viewLifecycleOwner, { response ->
+            if (response.isSuccessful) {
+                val messageResponse = response.body()
+                ///val position = messagesArrayList.indexOf(baseRoomData)
+                val newBaseRoomData = BaseRoomData(null, messageResponse, true)
+                //messagesArrayList[messagePosition] = newBaseRoomData
+                messagesArrayList.remove(newBaseRoomData)
+                messagesArrayList.add(newBaseRoomData)
+                createMessagesList(messagesArrayList).let {
+                    roomsListAdapter.submitList(it)
+                }
+                Log.i("Message Response", "$messageResponse")
+            } else {
+                when (response.code()) {
+                    400 -> {
+                        Log.e("Error 400", "invalid authorization")
+                    }
+                    404 -> {
+                        Log.e("Error 404", "Not Found")
+                    }
+                    401 -> {
+                        Log.e("Error 401", "No authorization or session expired")
+                    }
+                    else -> {
+                        Log.e("Error", "Generic Error")
+                    }
+                }
+            }
+        })
+
+        recyclerView.addOnLayoutChangeListener(View.OnLayoutChangeListener { v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom ->
             if (bottom < oldBottom) {
-                recyclerView.postDelayed({
+                recyclerView.postDelayed(Runnable {
+                    if (recyclerView.adapter?.itemCount!! > 1){
                     recyclerView.adapter?.itemCount?.minus(1)?.let { it1 ->
                         recyclerView.smoothScrollToPosition(
                             it1
                         )
                     }
+                }
                 }, 100)
             }
-        }
+        })
 
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (newState == RecyclerView.SCROLL_STATE_DRAGGING){
-                    scrollDown = !recyclerView.canScrollVertically(1)
+                    if(!recyclerView.canScrollVertically(1)){
+                        scrollDown = true
+                    }else{
+                        scrollDown = false
+                    }
                 }
             }
 
@@ -262,6 +281,13 @@ class RoomFragment : Fragment() {
             requireActivity().onBackPressed()
         }
         //connectToSocket()
+        val handler = Handler(Looper.getMainLooper())
+        handler.post(object : Runnable {
+            override fun run() {
+                roomMsgViewModel.getMessages(organizationID, roomId)
+                handler.postDelayed(this,3500)
+            }
+        })
     }
 
     private var messagesArrayList: ArrayList<BaseRoomData> = ArrayList()
