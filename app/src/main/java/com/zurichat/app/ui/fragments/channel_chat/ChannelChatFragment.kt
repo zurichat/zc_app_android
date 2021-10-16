@@ -584,7 +584,7 @@ class ChannelChatFragment : Fragment() {
                         val dataString = String(publishEvent!!.data, StandardCharsets.UTF_8)
                         val data = Gson().fromJson(dataString, Data::class.java)
                         uiScope.launch(Dispatchers.Main) {
-                            Toast.makeText(requireContext(),data.content,Toast.LENGTH_SHORT).show()
+                           // Toast.makeText(requireContext(),data.content,Toast.LENGTH_SHORT).show()
                         }
                         if (data.channel_id == channel._id) {
                             channelMsgViewModel.receiveMessage(data)
