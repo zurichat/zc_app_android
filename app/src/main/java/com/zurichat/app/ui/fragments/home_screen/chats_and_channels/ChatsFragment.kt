@@ -96,6 +96,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
         if (!mNotified) {
             NotificationUtils().setNotification(mNotificationTime, requireActivity())
         }
+
         //setup viewModel and Retrofit
         val repository = Repository()
         val viewModelFactory = RoomViewModelFactory(repository)
@@ -107,7 +108,9 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
             roomsArrayList.clear()
             if (response.isSuccessful) {
                 roomList = response.body()!!
-                roomList.forEach{
+                if(roomList.isEmpty()){
+                    binding.groupChatBlank.visibility = View.VISIBLE
+                } else roomList.forEach{
                     roomsArrayList.add(it)
                 }
                 ModelPreferencesManager.put(roomList, "rooms")

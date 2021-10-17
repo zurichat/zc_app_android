@@ -3,6 +3,7 @@ package com.zurichat.app.ui.organizations.ui
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.graphics.BlendModeColorFilterCompat
@@ -21,7 +22,6 @@ import com.zurichat.app.models.LogoutBody
 import com.zurichat.app.models.User
 import com.zurichat.app.models.organization_model.OrgData
 import com.zurichat.app.ui.adapters.SwitchUserOrganizationAdapter
-import com.zurichat.app.ui.fragments.home_screen.LogOutDialogFragment
 import com.zurichat.app.ui.fragments.switch_account.UserViewModel
 import com.zurichat.app.ui.login.LoginViewModel
 import com.zurichat.app.ui.organizations.localdatabase.OrgDao
@@ -29,6 +29,7 @@ import com.zurichat.app.ui.organizations.localdatabase.OrgRoomData
 import com.zurichat.app.ui.organizations.states.UserOrganizationViewState
 import com.zurichat.app.ui.organizations.utils.ZuriSharePreference
 import com.zurichat.app.ui.organizations.viewmodel.UserOrganizationViewModel
+import com.zurichat.app.ui.settings.dialogs.LogOutDialogFragment
 import com.zurichat.app.util.ProgressLoader
 import com.zurichat.app.util.Result
 import com.zurichat.app.util.viewBinding
@@ -223,6 +224,24 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
     private fun setupToolbarLogOut(menu: Menu) = with(binding) {
         menu.findItem(R.id.action_logout)
         binding.toolbar4.inflateMenu(R.menu.organisation_log_out_menu)
+        val searchItem = menu.findItem(R.id.search_organizations)
+        val searchView = searchItem.actionView as SearchView
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if(this@SwitchOrganizationsFragment::userOrgAdapter.isInitialized) {
+                    userOrgAdapter.filter.filter(query)
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if(this@SwitchOrganizationsFragment::userOrgAdapter.isInitialized) {
+                    userOrgAdapter.filter.filter(newText)
+                }
+                return true
+            }
+
+        })
     }
 
     private fun observeDataLogOut() {

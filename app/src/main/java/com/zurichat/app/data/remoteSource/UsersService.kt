@@ -5,8 +5,6 @@ import com.zurichat.app.models.network_response.OrganizationMembers
 import com.zurichat.app.models.organization_model.*
 import com.zurichat.app.ui.login.password.confirm.ConfirmPasswordData
 import com.zurichat.app.ui.login.password.confirm.ConfirmResponse
-import com.zurichat.app.ui.login.password.resetuserpass.ResetUserPasswordData
-import com.zurichat.app.ui.login.password.resetuserpass.ResetUserPasswordResponse
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -20,7 +18,7 @@ interface UsersService {
     suspend fun login(@Body loginBody: LoginBody): LoginResponse
 
     @POST("account/request-password-reset-code")
-    suspend fun passwordreset(@Body passwordReset: PasswordReset): PassswordRestReponse
+    suspend fun passwordreset(@Body passwordResetBody: PasswordResetBody): PasswordRestReponse
 
     @POST("organizations")
     suspend fun createOrganization(@Body organizationCreator: OrganizationCreator): OrganizationCreatorResponse
@@ -42,7 +40,7 @@ interface UsersService {
     suspend fun getMembers(@Header("Authorization") token: String, @Path("organization_id") orgId: String): Response<UserList>
 
     @POST("account/request-password-reset-code")
-    suspend fun passwordReset(@Body passwordReset: PasswordReset): PassswordRestReponse
+    suspend fun passwordReset(@Body passwordResetBody: PasswordResetBody): Response<PasswordRestReponse>
 
     @GET("organizations/{organization_id}/members")
     suspend fun getMembers(@Path("organization_id") org_id: String): Response<OrganizationMembers>
@@ -70,9 +68,6 @@ interface UsersService {
 
     @POST("auth/confirm-password")
     suspend fun confirmpassword(@Body confirmpassword: ConfirmPasswordData): ConfirmResponse
-
-    @POST("auth/request-reset-password")
-    suspend fun resetUserPassword(@Body resetUserPasswordData: ResetUserPasswordData): ResetUserPasswordResponse
 }
 
 

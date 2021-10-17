@@ -4,6 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
@@ -14,8 +16,12 @@ import com.zurichat.app.models.User
 import com.zurichat.app.models.organization_model.OrgData
 import com.zurichat.app.ui.organizations.utils.ZuriSharePreference
 
-class SwitchUserOrganizationAdapter(private val organizations: List<OrgData>, val context: Context,val user:User,var callback: OnBackPressedCallback?) : RecyclerView.Adapter<SwitchUserOrganizationAdapter.ViewHolder>() {
+class SwitchUserOrganizationAdapter(private var organizations: List<OrgData>,
+                                    val context: Context,val user:User,
+                                    var callback: OnBackPressedCallback?) :
+    RecyclerView.Adapter<SwitchUserOrganizationAdapter.ViewHolder>(), Filterable {
 
+    val backUpListForFiltering = organizations
     private var onClickListener: ((orgData:OrgData) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -62,5 +68,32 @@ class SwitchUserOrganizationAdapter(private val organizations: List<OrgData>, va
                 Navigation.findNavController(item.root).navigate(R.id.homeScreenFragment, bundle)
             }
         }
+    }
+
+    override fun getFilter(): Filter {
+        return _filter
+    }
+    val _filter = object : Filter() {
+        override fun performFiltering(constraint: CharSequence?): FilterResults {
+            val filteredList = mutableListOf<OrgData>()
+            for (item in backUpListForFiltering) {
+                if(item.name.contains(constraint!!, true)) {
+                    filteredList.add(item)
+                }
+            }
+            return FilterResults().apply { values = filteredList }
+        }
+
+        override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+            val result = results!!.values as List<OrgData>
+            if (result.isEmpty()) {
+                organizations = backUpListForFiltering
+                notifyDataSetChanged()
+            } else {
+                organizations = result
+                notifyDataSetChanged()
+            }
+        }
+
     }
 }
