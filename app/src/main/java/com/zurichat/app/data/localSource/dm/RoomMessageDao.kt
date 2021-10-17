@@ -10,6 +10,6 @@ interface RoomMessageDao {
     fun getRoomMessageWithUserID(userID: String) : LiveData<List<RoomModel>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertAll(roomMessages: List<RoomModel>)
+    suspend fun insertAll(roomMessages: List<RoomModel>)
 
 }

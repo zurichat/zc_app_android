@@ -19,7 +19,7 @@ import com.zurichat.app.ui.dm_chat.repository.Repository
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class RoomViewModel(private val repository: Repository, private val roomMessageDao: RoomMessageDao? = null) : ViewModel() {
+class RoomViewModel(private val repository: Repository) : ViewModel() {
 
     val myResponse: MutableLiveData<Response<RoomsListResponse>> = MutableLiveData()
 
@@ -100,15 +100,5 @@ class RoomViewModel(private val repository: Repository, private val roomMessageD
         }
     }
 
-
-    fun saveMessage(roomMessage: List<RoomModel>){
-       viewModelScope.launch {
-           roomMessageDao?.insertAll(roomMessage)
-       }
-    }
-
-    fun getMessage(user_id: String) : LiveData<List<RoomModel>>{
-        return roomMessageDao!!.getRoomMessageWithUserID(user_id)
-    }
 
 }

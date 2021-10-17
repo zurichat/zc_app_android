@@ -14,13 +14,16 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.*
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
+import androidx.room.Room.databaseBuilder
 import com.zurichat.app.R
+import com.zurichat.app.data.localSource.AppDatabase
+import com.zurichat.app.data.localSource.dm.RoomMessageDao
+import com.zurichat.app.data.localSource.dm.RoomModel
 import com.zurichat.app.databinding.FragmentDmBinding
 import com.zurichat.app.databinding.PartialAttachmentPopupBinding
 import com.zurichat.app.models.User
@@ -37,6 +40,7 @@ import com.zurichat.app.ui.dm_chat.viewmodel.RoomViewModel
 import com.zurichat.app.ui.dm_chat.viewmodel.RoomViewModelFactory
 import com.zurichat.app.ui.fragments.channel_chat.ChannelHeaderItem
 import com.zurichat.app.ui.fragments.home_screen.CentrifugeClient
+import com.zurichat.app.util.isInternetAvailable
 import com.zurichat.app.util.setClickListener
 import hani.momanii.supernova_emoji_library.Actions.EmojIconActions
 import io.github.centrifugal.centrifuge.*
@@ -79,6 +83,9 @@ class RoomFragment : Fragment() {
     private lateinit var emojiIconsActions: EmojIconActions
     private lateinit var partialAttachmentPopupBinding: PartialAttachmentPopupBinding
 
+    private lateinit var database: AppDatabase
+    private lateinit var roomMessageDao: RoomMessageDao
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentDmBinding.inflate(inflater, container, false)
 
@@ -95,6 +102,10 @@ class RoomFragment : Fragment() {
 
         partialAttachmentPopupBinding =
             PartialAttachmentPopupBinding.inflate(inflater, container, false)
+
+        database = databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "zuri_chat")
+            .build()
+        roomMessageDao = database.roomMessageDao()
 
         return binding.root
     }
@@ -415,5 +426,46 @@ class RoomFragment : Fragment() {
                 observer(value)
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (!requireActivity().isInternetAvailable()){
+            val userID = "1"
+            val senderID = "2"
+
+            getMessage(senderID).observe(viewLifecycleOwner, {
+                val senderMessage = it
+                println("Sender: " + senderMessage)
+            })
+
+            getMessage(userID).observe(viewLifecycleOwner, {
+                val userMessage = it
+                println("User: " + userMessage)
+            })
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        val message = listOf(
+            RoomModel("1", "Mano", "This is a message", "12:45PM"),
+            RoomModel("2", "Mano", "This is a message", "12:45PM"),
+            RoomModel("1", "Mano", "This is a message", "12:45PM"),
+            RoomModel("2", "Mano", "This is a message", "12:45PM"))
+
+        saveMessage(message)
+    }
+
+    private fun saveMessage(roomMessage: List<RoomModel>){
+        lifecycleScope.launch {
+            roomMessageDao.insertAll(roomMessage)
+        }
+    }
+
+    fun getMessage(user_id: String) : LiveData<List<RoomModel>>{
+        return roomMessageDao.getRoomMessageWithUserID(user_id)
     }
 }
