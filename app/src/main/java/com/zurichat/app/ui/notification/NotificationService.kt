@@ -36,7 +36,6 @@ class NotificationService: IntentService("NotificationService") {
             notificationChannel.lockscreenVisibility = Notification.VISIBILITY_PUBLIC
             notificationManager.createNotificationChannel(notificationChannel)
         }
-
     }
 
     companion object {

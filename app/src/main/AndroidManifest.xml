@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.zurichat.app">
 
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Permissions for Media attachments -->
@@ -16,22 +16,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ZuriChat">
+
+        <activity
+            android:name=".ui.audio.AudiosActivity"
+            android:exported="true" >
+
+        </activity>
         <activity
             android:name=".ui.activities.CreateOrganizationActivity"
             android:exported="true" />
         <activity
             android:name=".ui.activities.DocumentOtions"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light"/>
+
+            android:theme="@style/Theme.MaterialComponents.Light" />
+
+
         <activity
             android:name=".ui.activities.SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.ZuriChat.Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".ui.activities.DocumentsSelectedActivity"
@@ -44,7 +49,15 @@
         <activity
             android:name=".ui.activities.DocumentSentActivity"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light" />
+
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+      </activity>
+
         <activity
             android:name=".ui.settings.ChatBackupActivity"
             android:exported="true"
@@ -118,5 +131,7 @@
             android:resource="@array/preloaded_fonts" />
         <service android:name=".ui.dm.audio.PlayService" />
     </application>
+
+
 
 </manifest>

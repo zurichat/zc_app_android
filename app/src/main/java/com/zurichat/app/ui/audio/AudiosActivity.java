@@ -1,29 +1,16 @@
-package com.zurichat.app.ui.documents;
+package com.zurichat.app.ui.audio;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.Manifest;
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.MultiplePermissionsReport;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.zurichat.app.R;
-import com.zurichat.app.ui.audio.AudioClients;
-import com.zurichat.app.ui.audio.AudiosActivity;
-import com.zurichat.app.ui.audio.SendAudio;
+import android.os.Bundle;
+import android.widget.ImageView;
+import android.view.View;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import com.zurichat.app.R;
+
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -33,24 +20,24 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
-public class DocumentActivity extends AppCompatActivity {
 
-    ImageView docs;
-    private int IMG = 33;
+public class AudiosActivity extends AppCompatActivity {
+
+    ImageView audio;
+    private int IMG = 31;
     String filepath = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_document);
+        setContentView(R.layout.activity_audios);
+        audio = findViewById(R.id.link_btn);
 
-        docs = findViewById(R.id.link_doc);
-
-        docs.setOnClickListener(new View.OnClickListener() {
+        audio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent();
-                intent.setType("application/*");
+                intent.setType("audio/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(intent,IMG);
             }
@@ -63,32 +50,32 @@ public class DocumentActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == IMG &&  resultCode == RESULT_OK &&  data != null && data.getData()  != null){
-            sendDocument();
+            sendAudio();
         }
 
     }
-    private void sendDocument() {
+    private void sendAudio() {
         File file = new File(filepath);
-        RequestBody requestBody = RequestBody.create(MediaType.parse("application/*"), file);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("audio/*"), file);
         MultipartBody.Part part = MultipartBody.Part.createFormData("messagemedia", file.getName(),requestBody);
 
         RequestBody fomData = RequestBody.create(MediaType.parse("text/plain"), "This is a new audio");
-        Retrofit retrofit = DocumentClients.getRetrofit();
-        SendDocs sendDocs = (SendDocs) retrofit.create(SendDocs.class);
-        Call call = sendDocs.sendDocs(part, fomData);
+        Retrofit retrofit = AudioClients.getRetrofit();
+        SendAudio sendAudio = (SendAudio) retrofit.create(SendAudio.class);
+        Call call = sendAudio.sendAudio(part, fomData);
         call.enqueue(new Callback() {
             @java.lang.Override
             public void onResponse(Call call, Response response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(DocumentActivity.this, "Sent Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AudiosActivity.this, "Sent Successfully", Toast.LENGTH_SHORT).show();
                 }else if (response.code() == 400){
-                    Toast.makeText(DocumentActivity.this, "Error 400, invalid", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AudiosActivity.this, "Error 400, invalid", Toast.LENGTH_SHORT).show();
 
                 }else if (response.code() == 404){
-                    Toast.makeText(DocumentActivity.this, "Error 404, Not found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AudiosActivity.this, "Error 404, Not found", Toast.LENGTH_SHORT).show();
 
                 }else if (response.code() == 401){
-                    Toast.makeText(DocumentActivity.this, "Error 400, invalid", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AudiosActivity.this, "Error 400, invalid", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -102,6 +89,5 @@ public class DocumentActivity extends AppCompatActivity {
 
 
     }
-
 
 }

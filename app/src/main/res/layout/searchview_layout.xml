@@ -55,26 +55,29 @@
                         android:layout_marginStart="16dp">
 
                     </com.google.android.material.chip.ChipGroup>
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/search_text_input_layout"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/search_chip_layout"
                         app:boxStrokeWidth="0dp"
                         app:boxStrokeWidthFocused="0dp"
-                        app:layout_constraintEnd_toEndOf="parent"
                         app:endIconMode="clear_text"
-                        app:hintEnabled="false">
+                        app:hintEnabled="false"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/search_chip_layout"
+                        app:layout_constraintTop_toTopOf="parent">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/searchEditText"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:hint="Search"
-                            tools:ignore="HardcodedText"
-                            android:text="" />
+                            android:maxLines="1"
+                            android:inputType="text"
+                            android:imeOptions="actionSearch"
+                            tools:ignore="HardcodedText" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

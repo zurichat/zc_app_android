@@ -25,4 +25,10 @@
         app:key="notification_header"
         app:title="Notification and Sounds" />
 
+    <Preference
+        app:fragment="com.zurichat.app.ui.settings.dialogs.LogoutDialogFragment"
+        app:icon="@drawable/ic_logout"
+        app:key="logout_header"
+        app:title="Log out"/>
+
 </PreferenceScreen>
