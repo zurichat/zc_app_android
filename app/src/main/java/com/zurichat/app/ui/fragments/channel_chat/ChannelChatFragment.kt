@@ -129,9 +129,7 @@ class ChannelChatFragment : Fragment() {
             channelJoined = bundle.getBoolean("Channel Joined")
             bundle.get("members").let {
                 if(it!=null){
-
                     members = it as List<OrganizationMember>
-
                 }
             }
 
@@ -238,6 +236,7 @@ class ChannelChatFragment : Fragment() {
                     toolbar.subtitle = channel.members.plus(1).toString().plus(" Members")
                     Toast.makeText(requireContext(), "Joined Channel Successfully", Toast.LENGTH_SHORT).show()
                     binding.channelJoinBar.visibility = View.GONE
+                    channelJoined = true
                 } else {
                     binding.joinChannel.visibility = View.VISIBLE
                     binding.text2.visibility = View.VISIBLE
@@ -281,7 +280,7 @@ class ChannelChatFragment : Fragment() {
             popupWindow.showAsDropDown(typingBar, 0, -(typingBar.height * 4), Gravity.TOP)
         }*/
 
-        
+
         partialAttachmentPopupBinding.also {
             it.groupGallery.setClickListener { navigateToAttachmentScreen() }
             it.groupAudio.setClickListener { navigateToAttachmentScreen(MEDIA.AUDIO) }
@@ -565,6 +564,7 @@ class ChannelChatFragment : Fragment() {
                         try{
                             if(connected){
                                 CentrifugeClient.subscribeToChannel(roomData!!.socket_name)
+
                             }
                         }catch (e : Exception){
                             e.printStackTrace()
@@ -584,9 +584,7 @@ class ChannelChatFragment : Fragment() {
                     override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
                         val dataString = String(publishEvent!!.data, StandardCharsets.UTF_8)
                         val data = Gson().fromJson(dataString, Data::class.java)
-                        uiScope.launch(Dispatchers.Main) {
-                           // Toast.makeText(requireContext(),data.content,Toast.LENGTH_SHORT).show()
-                        }
+
                         if (data.channel_id == channel._id) {
                             channelMsgViewModel.receiveMessage(data)
                         }

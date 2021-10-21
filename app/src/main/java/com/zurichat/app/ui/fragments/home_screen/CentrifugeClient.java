@@ -55,7 +55,7 @@ public class CentrifugeClient {
                 public void onConnect(Client client, ConnectEvent event) {
                     connected = true;
                     channelListener.onConnected(true);
-                    dmListener.onConnected(false);
+                    dmListener.onConnected(true);
                 }
 
                 @Override

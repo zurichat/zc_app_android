@@ -48,6 +48,10 @@ data class ChannelListItem (val data: Data,val user:User, val context: Activity,
                         .load(orgMember?.imageUrl)
                         .into(binding.messageUserAvatar1)
                 }
+
+                if (!(orgMember?.displayName.isNullOrBlank())){
+                    binding.messageAuthor.text = orgMember?.displayName
+                }
             }else{
                 binding.messageAuthor.text = "No Name"
             }
