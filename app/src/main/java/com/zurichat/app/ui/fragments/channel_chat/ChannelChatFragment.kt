@@ -538,8 +538,8 @@ class ChannelChatFragment : Fragment() {
         val handler = Handler(Looper.getMainLooper())
         handler.post(object : Runnable {
             override fun run() {
-                channelMsgViewModel.retrieveAllMessages(organizationID, channel._id)
-                handler.postDelayed(this,2000)
+                //channelMsgViewModel.retrieveAllMessages(organizationID, channel._id)
+                //handler.postDelayed(this,2000)
             }
         })
     }
@@ -562,8 +562,10 @@ class ChannelChatFragment : Fragment() {
                     override fun onConnected(connected: Boolean) {
                         try{
                             if(connected){
+                                uiScope.launch(Dispatchers.Main) {
+                                    Toast.makeText(requireContext(),roomData!!.socket_name,Toast.LENGTH_SHORT).show()
+                                }
                                 CentrifugeClient.subscribeToChannel(roomData!!.socket_name)
-
                             }
                         }catch (e : Exception){
                             e.printStackTrace()
@@ -575,6 +577,9 @@ class ChannelChatFragment : Fragment() {
                     }
 
                     override fun onChannelSubscribed(isSubscribed: Boolean, subscription: Subscription?) {
+                        uiScope.launch(Dispatchers.Main) {
+                            Toast.makeText(requireContext(),"roomData!!.socket_name",Toast.LENGTH_SHORT).show()
+                        }
                     }
 
                     override fun onChannelSubscriptionError(subscription: Subscription?, event: SubscribeErrorEvent?) {
@@ -586,6 +591,9 @@ class ChannelChatFragment : Fragment() {
 
                         if (data.channel_id == channel._id) {
                             channelMsgViewModel.receiveMessage(data)
+                        }
+                        uiScope.launch(Dispatchers.Main) {
+                            Toast.makeText(requireContext(),roomData!!.socket_name,Toast.LENGTH_SHORT).show()
                         }
                     }
                 })

@@ -91,7 +91,7 @@ public class CentrifugeClient {
     }
 
     public static void subscribeToChannel(String channelRoomID) {
-        if(!channelRoomIDList.contains(channelRoomID) && isConnected()){
+        if(!channelRoomIDList.contains(channelRoomID)){
             channelRoomIDList.add(channelRoomID);
             SubscriptionEventListener subListener = new SubscriptionEventListener() {
                 @Override
@@ -104,7 +104,7 @@ public class CentrifugeClient {
                 @Override
                 public void onSubscribeError(Subscription sub, SubscribeErrorEvent event) {
                     channelListener.onChannelSubscriptionError(sub, event);
-                    channelRoomIDList.remove(channelRoomID);
+                    //channelRoomIDList.remove(channelRoomID);
                 }
 
                 @Override

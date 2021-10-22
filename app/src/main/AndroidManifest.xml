@@ -37,6 +37,12 @@
             android:exported="true"
             android:theme="@style/Theme.ZuriChat.Splash">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
         </activity>
         <activity
             android:name=".ui.activities.DocumentsSelectedActivity"
@@ -51,11 +57,7 @@
             android:exported="true"
 
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
       </activity>
 
         <activity
