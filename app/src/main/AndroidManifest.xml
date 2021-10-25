@@ -1,139 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.zurichat.app">
 
-    <uses-permission android:name="android.permission.INTERNET" /> <!-- Permissions for Media attachments -->
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name="ZuriChatApplication"
+        android:name=".ZuriChatApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ZuriChat">
-
         <activity
-            android:name=".ui.audio.AudiosActivity"
-            android:exported="true" >
-
-        </activity>
-        <activity
-            android:name=".ui.activities.CreateOrganizationActivity"
-            android:exported="true" />
-        <activity
-            android:name=".ui.activities.DocumentOtions"
+            android:name=".ui.main.MainActivity"
             android:exported="true"
-
-            android:theme="@style/Theme.MaterialComponents.Light" />
-
-
-        <activity
-            android:name=".ui.activities.SplashActivity"
-            android:exported="true"
-            android:theme="@style/Theme.ZuriChat.Splash">
-
+            android:theme="@style/Theme.ZuriChat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-        <activity
-            android:name=".ui.activities.DocumentsSelectedActivity"
-            android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light" />
-        <activity
-            android:name=".ui.activities.OpenCameraActivity"
-            android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
-        <activity
-            android:name=".ui.activities.DocumentSentActivity"
-            android:exported="true"
-
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" >
-
-      </activity>
-
-        <activity
-            android:name=".ui.settings.ChatBackupActivity"
-            android:exported="true"
-            android:theme="@style/Theme.ZuriChat.Settings" />
-        <activity
-            android:name=".ui.settings.fragments.ChooseWallpaperCategory"
-            android:exported="true"
-            android:theme="@style/Theme.ZuriChat.Settings" />
-        <!--
-<activity
-            android:name=".ui.newchannel.NewChannelPersonsActivity"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="android.intent.action.SENDTO" />
-                <data android:scheme="mailto" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".ui.channel_info.ChannelInfoActivity"
-            android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
-        -->
-        <activity
-            android:name=".ui.settings.LargerItemsActivity"
-            android:exported="true"
-            android:label="@string/larger_items_or_no_items_string"
-            android:parentActivityName=".ui.settings.LargerItemsActivity"
-            android:theme="@style/Theme.ZuriChat.Settings" />
-        <activity
-            android:name=".ui.settings.ManageStorageActivity"
-            android:exported="true"
-            android:label="@string/string_manage_storage"
-            android:parentActivityName=".ui.settings.ManageStorageActivity"
-            android:theme="@style/Theme.ZuriChat.Settings" />
-        <activity
-            android:name=".ui.settings.SettingsActivity"
-            android:exported="true"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName=".ui.activities.MainActivity"
-            android:theme="@style/Theme.ZuriChat.Settings"/>
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:exported="true"
-            android:theme="@style/Theme.ZuriChat.LogIN" />
-        <activity
-            android:name=".ui.activities.ProfileActivity"
-            android:exported="true"
-            android:label="@string/profile_activity"
-            android:parentActivityName=".ui.settings.ManageStorageActivity"
-            android:theme="@style/Theme.ZuriChat.Settings" />
-        <activity android:name=".ui.activities.MainActivity"/>
-
-        <receiver
-            android:name=".ui.notification.AlarmReceiver"
-            android:enabled="true" />
-
-        <service
-            android:name=".ui.notification.NotificationService"
-            android:enabled="true" />
-
-        <activity
-            android:name=".ui.notification.NotificationActivity"
-            android:excludeFromRecents="true"
-            android:label="@string/notification"
-            android:launchMode="singleTask"
-            android:taskAffinity="" />
-
-        <meta-data
-            android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
-        <service android:name=".ui.dm.audio.PlayService" />
     </application>
-
-
 
 </manifest>
