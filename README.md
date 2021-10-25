@@ -26,7 +26,7 @@ For a feature: `git commit -m "feat: implemented user log-in"`<br/>
 For a bug: `git commit -m "bug: fixed inconsistency in log in screen"`<br/>
 For a chore: `git commit -m "chore: updated read me to include API endpoints"`<br/>
 
-- Create your PR to the `develop` branch of this repository.
+- Create your PR to the `dev` branch of this repository.
 ### When making a PR, your PR is expected to have the following comments:<br/>
 - What is the task completed ?<br/>
 - What the PR actually does  ?<br/>
