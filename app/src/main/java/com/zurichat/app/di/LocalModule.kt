@@ -4,7 +4,9 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.room.Room
 import com.zurichat.app.data.localSource.AppDatabase
+import com.zurichat.app.data.localSource.dao.AccountsDao
 import com.zurichat.app.data.localSource.dao.OrganizationMembersDao
+import com.zurichat.app.data.localSource.dao.StarredMessagesDao
 import com.zurichat.app.data.localSource.dao.UserDao
 import com.zurichat.app.util.SHARED_PREF_KEY
 import dagger.Module
@@ -35,5 +37,15 @@ class LocalModule {
     @Provides
     fun provideOrganizationMembersDao(database: AppDatabase): OrganizationMembersDao {
         return database.organizationMembersDao()
+    }
+
+    @Provides
+    fun provideStarredMessagesDao(database: AppDatabase): StarredMessagesDao {
+        return database.StarredMessagesDao()
+    }
+
+    @Provides
+    fun provideaccountsDao(database: AppDatabase): AccountsDao {
+        return database.AccountsDao()
     }
 }

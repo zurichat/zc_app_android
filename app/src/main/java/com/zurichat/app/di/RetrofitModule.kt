@@ -3,7 +3,6 @@ package com.zurichat.app.di
 import android.app.Application
 import android.content.SharedPreferences
 import com.google.gson.Gson
-import com.zurichat.app.data.remoteSource.DMService
 import com.zurichat.app.data.remoteSource.FilesService
 import com.zurichat.app.data.remoteSource.UsersService
 import com.zurichat.app.data.remoteSource.hasNetwork
@@ -79,7 +78,8 @@ object RetrofitModule {
             .writeTimeout(60, TimeUnit.SECONDS)
     }
 
-    @Provides fun retrofitBuilder(
+    @Provides
+    fun retrofitBuilder(
         client: OkHttpClient.Builder,
         header: Interceptor,
         gson: Gson): Retrofit.Builder = Retrofit.Builder()
@@ -89,11 +89,6 @@ object RetrofitModule {
     @Provides
     fun provideUserService(builder: Retrofit.Builder): UsersService =
         builder.baseUrl("https://api.zuri.chat/").build().create(UsersService::class.java)
-
-    @Provides fun dmService(client: OkHttpClient.Builder, gson: Gson) =
-        Retrofit.Builder().client(client.build())
-        .addConverterFactory(GsonConverterFactory.create(gson))
-        .baseUrl(DMService.BASE_URL).build().create(DMService::class.java)
 
     @Provides
     fun provideFileService(builder: Retrofit.Builder) =

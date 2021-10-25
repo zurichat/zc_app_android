@@ -1,4 +1,4 @@
-package com.zurichat.app.data.localSource.dm
+package com.zurichat.app.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

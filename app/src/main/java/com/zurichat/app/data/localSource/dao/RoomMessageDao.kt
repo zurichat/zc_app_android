@@ -1,7 +1,8 @@
-package com.zurichat.app.data.localSource.dm
+package com.zurichat.app.data.localSource.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.zurichat.app.models.RoomModel
 
 @Dao
 interface RoomMessageDao {

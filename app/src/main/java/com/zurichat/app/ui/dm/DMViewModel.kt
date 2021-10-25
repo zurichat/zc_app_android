@@ -5,7 +5,6 @@ import android.net.Uri
 import androidx.lifecycle.*
 import com.zurichat.app.data.remoteSource.postValue
 import com.zurichat.app.data.remoteSource.retrieve
-import com.zurichat.app.data.repository.DMRepository
 import com.zurichat.app.data.repository.FilesRepository
 import com.zurichat.app.data.repository.OrganizationRepository
 import com.zurichat.app.data.repository.UserRepository
@@ -27,7 +26,6 @@ import javax.inject.Inject
 @HiltViewModel
 class DMViewModel
 @Inject constructor(
-    private val dmRepository: DMRepository,
     private val orgRepo: OrganizationRepository,
     private val filesRepository: FilesRepository,
     private val userRepository: UserRepository,
@@ -59,18 +57,18 @@ class DMViewModel
     val sendMessageResponse: LiveData<SendMessageResponse> get() = _sendMessageResponse
     private val _sendMessageResponse = MutableLiveData<SendMessageResponse>()
     fun sendMessage(roomId: String, message: Message) = viewModelScope.launch(handler){
-        _sendMessageResponse.postValue(dmRepository.sendMessage(orgRepo.getId(), roomId, message), _error)
+        _sendMessageResponse.postValue(userRepository.sendMessage(orgRepo.getId(), roomId, message), _error)
     }
 
     val messagesResponse: LiveData<GetMessagesResponse> get() = _messagesResponse
     private val _messagesResponse = MutableLiveData<GetMessagesResponse>()
     suspend fun getMessages(roomId: String) = viewModelScope.launch {
-        _messagesResponse.postValue(dmRepository.getMessages(orgRepo.getId(), roomId), _error)
+        _messagesResponse.postValue(userRepository.getMessages(orgRepo.getId(), roomId), _error)
     }
 
     suspend fun createRoom(userId: String, otherUserId: String) = viewModelScope.async {
         val orgId = orgRepo.getId()
-        return@async dmRepository.createRoom(orgId, userId, CreateRoom(orgId, listOf(userId, otherUserId))).retrieve(_error)
+        return@async userRepository.createRoom(orgId, userId, CreateRoom(orgId, listOf(userId, otherUserId))).retrieve(_error)
     }.await()
 }
 

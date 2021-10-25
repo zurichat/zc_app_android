@@ -15,8 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.zurichat.app.R
 import com.zurichat.app.models.User
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class AccountsFragment : Fragment() {
     private lateinit var user : User
     private lateinit var accountViewModel: UserViewModel

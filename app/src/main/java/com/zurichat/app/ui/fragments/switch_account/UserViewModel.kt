@@ -4,19 +4,24 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.zurichat.app.data.localSource.AccountsDatabase
-import com.zurichat.app.data.repository.AccountsRepository
+import com.zurichat.app.data.localSource.AppDatabase
+import com.zurichat.app.data.repository.UserRepository
 import com.zurichat.app.models.User
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class UserViewModel(application:Application): AndroidViewModel(application) {
+@HiltViewModel
+class UserViewModel @Inject constructor (application:Application, private val repository:
+UserRepository): AndroidViewModel(application) {
+
     val readAllData: LiveData<List<User>>
-    private val repository: AccountsRepository
+  //  private val repository: AccountsRepository
 
     init {
-        val accountsDao = AccountsDatabase.getDatabase(application).AccountsDao()
-        repository = AccountsRepository(accountsDao)
+        // val accountsDao = AppDatabase.getDatabase(application).AccountsDao()
+       // repository = AccountsRepository(accountsDao)
         readAllData = repository.readAllData
     }
 

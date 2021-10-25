@@ -3,10 +3,14 @@ package com.zurichat.app.data.localSource
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.zurichat.app.data.localSource.dao.AccountsDao
 import com.zurichat.app.data.localSource.dao.OrganizationMembersDao
+import com.zurichat.app.data.localSource.dao.StarredMessagesDao
 import com.zurichat.app.data.localSource.dao.UserDao
-import com.zurichat.app.data.localSource.dm.RoomMessageDao
-import com.zurichat.app.data.localSource.dm.RoomModel
+import com.zurichat.app.data.localSource.dao.RoomMessageDao
+import com.zurichat.app.data.localSource.entity.OrganizationMemberEntity
+import com.zurichat.app.models.RoomModel
+import com.zurichat.app.models.StarredMessages
 import com.zurichat.app.models.User
 import com.zurichat.app.models.organization_model.OrgData
 import com.zurichat.app.ui.fragments.channel_chat.localdatabase.ChannelMessagesDao
@@ -26,7 +30,7 @@ import com.zurichat.app.ui.organizations.localdatabase.TypeConverters.StringList
 
 @Database(
     entities = [User::class, OrganizationMemberEntity::class, RoomDataObject::class, AllChannelMessages::class, ChannelListObject::class,
-        AllChannelListObject::class, OrgData::class, OrgRoomData::class, RoomModel::class],
+        AllChannelListObject::class, OrgData::class, OrgRoomData::class, RoomModel::class, StarredMessages::class],
     version = 2,
     exportSchema = false
 )
@@ -48,4 +52,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun orgDao(): OrgDao
 
     abstract fun roomMessageDao(): RoomMessageDao
+
+    abstract fun StarredMessagesDao(): StarredMessagesDao
+
+    abstract fun AccountsDao(): AccountsDao
 }

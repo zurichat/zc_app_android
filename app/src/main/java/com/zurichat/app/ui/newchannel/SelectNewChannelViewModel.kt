@@ -26,7 +26,6 @@ import javax.inject.Inject
 class SelectNewChannelViewModel @Inject constructor(
     val repository: SelectNewChannelRepository,
     private val orgRepo: OrganizationRepository,
-    private val dmRepository: DMRepository,
     private val userRepository: UserRepository,
     val app: Application,
     val preference: SharedPreferences): ViewModel() {
@@ -80,7 +79,7 @@ class SelectNewChannelViewModel @Inject constructor(
 
     suspend fun createRoom(member: OrganizationMember) = viewModelScope.async {
         val room = CreateRoom(getId(), listOf(orgRepo.getMemberId(), member.id), member.name())
-        val result = dmRepository.createRoom(orgRepo.getId(), orgRepo.getMemberId(), room)
+        val result = userRepository.createRoom(orgRepo.getId(), orgRepo.getMemberId(), room)
 
 //    suspend fun createRoom(otherUserId: String): Result<Room> = viewModelScope.async {
 //        val createRoom = CreateRoom(

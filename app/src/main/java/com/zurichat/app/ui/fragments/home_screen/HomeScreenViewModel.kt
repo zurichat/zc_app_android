@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.zurichat.app.data.localSource.Cache
 import com.zurichat.app.data.remoteSource.retrieve
-import com.zurichat.app.data.repository.DMRepository
 import com.zurichat.app.data.repository.OrganizationRepository
+import com.zurichat.app.data.repository.UserRepository
 import com.zurichat.app.models.Room
 import com.zurichat.app.models.User
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,7 +20,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeScreenViewModel
 @Inject constructor(
-    private val dmRepo: DMRepository,
+    private val usersRepository: UserRepository,
     private val orgRepo: OrganizationRepository
     ): ViewModel() {
     val searchQuery = MutableLiveData<String>()
@@ -33,7 +33,7 @@ class HomeScreenViewModel
 
 
     fun getRooms() = viewModelScope.launch {
-        val result = dmRepo.getRooms(userId = "61467ee61a5607b13c00bcf2", orgId = orgRepo.getId()).retrieve(null)?.let{
+        val result = usersRepository.getRooms(userId = "61467ee61a5607b13c00bcf2", orgId = orgRepo.getId()).retrieve(null)?.let{
             _userRooms.value = it
         } //userId = user!!.id
     }
