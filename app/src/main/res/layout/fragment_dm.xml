@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/body_color"
     android:id="@+id/root_layout"
+    android:background="@color/channel_bg_color"
     tools:context=".ui.dm_chat.fragment.RoomFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -46,6 +47,7 @@
         android:id="@+id/list_dm"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:requiresFadingEdge="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toTopOf="@id/channel_typing_bar"
@@ -79,6 +81,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/list_dm">
+
         <!-- region Emoji Message Pictures & Attachments-->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardView"
@@ -102,7 +105,7 @@
                     android:id="@+id/icon_btn"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_marginStart="5dp"
+                    android:layout_marginStart="8dp"
                     android:scaleX=".7"
                     android:scaleY=".7"
                     android:tint="@color/text_color"

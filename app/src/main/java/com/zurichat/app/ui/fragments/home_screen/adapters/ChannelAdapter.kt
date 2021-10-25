@@ -56,16 +56,16 @@ class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>
 
             var count = 0
             uiScope.launch(Dispatchers.IO){
-                roomDao.getRoomDataWithChannelID(channel._id).let { roomDataObject ->
+                /*roomDao.getRoomDataWithChannelID(channel._id).let { roomDataObject ->
                     if (roomDataObject!=null){
                         try{
                             if (CentrifugeClient.isConnected()){
-                                CentrifugeClient.subscribeToChannel(roomDataObject.socketName)
+                               // CentrifugeClient.subscribeToChannel(roomDataObject.socketName)
                             }
                             CentrifugeClient.setCustomListener(object : CentrifugeClient.ChannelListener {
                                 override fun onConnected(connected: Boolean) {
                                     try{
-                                        CentrifugeClient.subscribeToChannel(roomDataObject.socketName)
+                                      //  CentrifugeClient.subscribeToChannel(roomDataObject.socketName)
                                     }catch (e : Exception){
                                         e.printStackTrace()
                                     }
@@ -98,7 +98,7 @@ class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>
                             e.printStackTrace()
                         }
                     }
-                }
+                }*/
             }
         }
     }
