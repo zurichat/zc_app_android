@@ -1,12 +1,8 @@
 package com.zurichat.app.ui.dm_chat.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zurichat.app.data.localSource.dm.RoomMessageDao
-import com.zurichat.app.data.localSource.dm.RoomModel
 import com.zurichat.app.models.organization_model.UserOrganizationModel
 import com.zurichat.app.ui.dm_chat.model.request.SendMessageBody
 import com.zurichat.app.ui.dm_chat.model.request.createroom.CreateRoomBody

@@ -472,7 +472,7 @@
     </fragment>
     <fragment
         android:id="@+id/shareLinkFragment"
-        android:name="com.zurichat.app.ShareLinkFragment"
+        android:name="com.zurichat.app.ui.organizations.ShareLinkFragment"
         android:label="fragment_share_link"
         tools:layout="@layout/fragment_share_link" />
     <fragment

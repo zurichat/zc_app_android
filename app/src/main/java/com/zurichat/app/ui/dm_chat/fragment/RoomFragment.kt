@@ -2,7 +2,6 @@ package com.zurichat.app.ui.dm_chat.fragment
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -11,19 +10,17 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import androidx.room.Room.databaseBuilder
 import com.zurichat.app.R
 import com.zurichat.app.data.localSource.AppDatabase
-import com.zurichat.app.data.localSource.dm.RoomMessageDao
-import com.zurichat.app.data.localSource.dm.RoomModel
+import com.zurichat.app.data.localSource.dao.RoomMessageDao
+import com.zurichat.app.models.RoomModel
 import com.zurichat.app.databinding.FragmentDmBinding
 import com.zurichat.app.databinding.PartialAttachmentPopupBinding
 import com.zurichat.app.models.User
@@ -454,7 +451,8 @@ class RoomFragment : Fragment() {
             RoomModel("1", "Mano", "This is a message", "12:45PM"),
             RoomModel("2", "Mano", "This is a message", "12:45PM"),
             RoomModel("1", "Mano", "This is a message", "12:45PM"),
-            RoomModel("2", "Mano", "This is a message", "12:45PM"))
+            RoomModel("2", "Mano", "This is a message", "12:45PM")
+        )
 
         saveMessage(message)
     }

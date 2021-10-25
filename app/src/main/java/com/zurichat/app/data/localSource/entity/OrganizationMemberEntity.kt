@@ -1,4 +1,4 @@
-package com.zurichat.app.data.localSource
+package com.zurichat.app.data.localSource.entity
 
 import android.os.Parcelable
 import androidx.room.Entity

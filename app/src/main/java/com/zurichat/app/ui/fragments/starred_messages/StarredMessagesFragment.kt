@@ -8,24 +8,29 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.zurichat.app.R
 import com.zurichat.app.ZuriChatApplication
 import com.zurichat.app.databinding.FragmentStarredMessagesBinding
+import com.zurichat.app.util.viewBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class StarredMessagesFragment : Fragment() {
+@AndroidEntryPoint
+class StarredMessagesFragment : Fragment(R.layout.fragment_starred_messages) {
 
-    private lateinit var binding: FragmentStarredMessagesBinding
-    private val starredMessagesViewModel: StarredMessagesViewModel by viewModels {
-        StarredMessageViewModelFactory((requireActivity().application as ZuriChatApplication).repository)
-    }
+    private val binding by viewBinding(FragmentStarredMessagesBinding::bind)
+    private val viewModel by viewModels<StarredMessagesViewModel>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        binding = FragmentStarredMessagesBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+ //   private lateinit var binding: FragmentStarredMessagesBinding
+  //  private val starredMessagesViewModel by vi
+
+//    override fun onCreateView(
+//        inflater: LayoutInflater, container: ViewGroup?,
+//        savedInstanceState: Bundle?
+//    ): View {
+//        // Inflate the layout for this fragment
+//        binding = FragmentStarredMessagesBinding.inflate(inflater, container, false)
+//        return binding.root
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -39,7 +44,7 @@ class StarredMessagesFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
         }
 
-        starredMessagesViewModel.allStarredMessages.observe(
+        viewModel.allStarredMessages.observe(
             requireActivity(),
             Observer { starredMessages ->
                 starredMessages?.let { listAdapter.submitList(it) }

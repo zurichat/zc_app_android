@@ -1,6 +1,6 @@
 package com.zurichat.app.util
 
-import com.zurichat.app.data.localSource.OrganizationMemberEntity
+import com.zurichat.app.data.localSource.entity.OrganizationMemberEntity
 import com.zurichat.app.models.OrganizationMember
 
 fun OrganizationMember.mapToEntity() = OrganizationMemberEntity(

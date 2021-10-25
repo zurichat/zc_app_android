@@ -1,4 +1,4 @@
-package com.zurichat.app
+package com.zurichat.app.ui.organizations
 
 import android.content.*
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentShareLinkBinding
 import com.zurichat.app.models.User
 import com.zurichat.app.util.viewBinding
