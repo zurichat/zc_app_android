@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.AccountsFragment">
-
+    tools:context=".ui.fragments.switch_account.AccountsFragment">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"
@@ -15,6 +14,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:popupTheme="@style/Theme.MaterialComponents.Light.NoActionBar"
+        app:subtitle="0 Account(s)"
+        app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
+        app:subtitleTextColor="@color/white"
+        app:theme="@style/ToolbarTheme"
+        app:title="Previously Used Accounts"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
         app:titleTextColor="#ffffff">
 
     </androidx.appcompat.widget.Toolbar>
@@ -23,6 +30,9 @@
         android:id="@+id/recycler_accts"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,13 +47,12 @@
         android:gravity="center"
         android:paddingEnd="16dp"
         android:paddingStart="16dp"
+        android:fontFamily="@font/lato_medium"
         android:text="@string/no_account_to_switch_text"
-        android:textColor="@color/deepBlack"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar3" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

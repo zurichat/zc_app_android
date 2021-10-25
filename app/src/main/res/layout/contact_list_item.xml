@@ -1,35 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/contact_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
     android:background="?android:selectableItemBackground"
     android:clickable="true"
     android:focusable="true">
 
-
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/contactImage"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_margin="8dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/dmuser" />
+        app:srcCompat="@drawable/image_channel" />
 
     <TextView
         android:id="@+id/contactName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:fontFamily="@font/lato"
         android:text="@string/app_name"
-        android:textColor="#000"
+        android:textColor="@color/text_color"
         android:textFontWeight="500"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/contactStatus"
@@ -57,7 +56,6 @@
         app:layout_constraintTop_toBottomOf="@id/contactName"
         tools:targetApi="p" />
 
-
     <ImageButton
         android:id="@+id/checkContact"
         android:layout_width="wrap_content"
@@ -70,6 +68,5 @@
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="@id/contactImage"
         app:layout_constraintTop_toTopOf="@id/contactImage" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

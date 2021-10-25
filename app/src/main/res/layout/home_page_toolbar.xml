@@ -11,9 +11,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:logo="@drawable/zuri_home_logo"
+        app:logo="@drawable/zuri_chat_icon"
         app:menu="@menu/home_menu"
-        app:popupTheme="@style/Theme.MaterialComponents.Light.NoActionBar"
+        app:popupTheme="@style/Theme.ZuriChat.Toolbar"
         app:subtitleTextColor="@color/white"
         app:theme="@style/ToolbarTheme"
         app:title="@string/zuri"
@@ -21,7 +21,7 @@
         app:titleMarginStart="32dp"
         app:titleTextColor="@color/white" />
 
-    <com.tolstoy.zurichat.util.jsearch_view_utils.JSearchView
+    <com.zurichat.app.util.jsearch_view_utils.JSearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

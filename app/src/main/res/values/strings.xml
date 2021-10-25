@@ -143,7 +143,7 @@
     <string name="chanel_search">Search</string>
     <string name="channel_media">Channel media</string>
     <string name="select_contact">Select Contact</string>
-    <string name="members">Members</string>
+    <string name="members">Member(s)</string>
     <string name="changephoneno_hint_txt">Enter your new phone number</string>
     <string name="search_for_channels">Search for channels</string>
 
@@ -184,14 +184,21 @@
     <string name="confirm_pass_hdr">Confirm Password</string>
     <string name="confirm_pass">Confirm password to sign in with account</string>
 
+    <!--Forget Account Password -->
+    <string name="forgot_pass_sub_1">Please press continue to reset the password for the account</string>
+
+
     <!--Home screen Menu-->
     <string name="switch_acc">Switch Account</string>
-    <string name="logout">Logout</string>
+    <string name="logout">Log out</string>
+    <string name="logout_dialog">Do you want to log out?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="final_logout">Logging out…</string>
 
     <!--Switch Accounts Menu-->
     <string name="switch_accounts_toolbar_header">Previously Used Accounts</string>
     <string name="no_account_to_switch_text">Sign in with more than one account on this device to use this feature</string>
-
 
 
     <!--                      Forgot Password-->
@@ -279,5 +286,8 @@
     <string name="notification">New Notification</string>
     <string name="notification_channel_description">This is a sample notification channel for demonstration purpose.</string>
     <string name="didn_t_receive_any_code">Didn\'t Receive Any Code?</string>
+    <string name="create_new_organization">Create New Organization</string>
+    <string name="forgot_password_txt">Forgot Password?</string>
+    <string name="continue_txt">Continue</string>
 
 </resources>

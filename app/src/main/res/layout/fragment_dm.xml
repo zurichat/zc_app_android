@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/body_color"
-    tools:context=".ui.dm.DMFragment">
+    android:id="@+id/root_layout"
+    tools:context=".ui.dm_chat.fragment.RoomFragment">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar_dm"
@@ -44,7 +45,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list_dm"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toTopOf="@id/channel_typing_bar"
@@ -52,7 +53,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_dm"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.0"
         tools:itemCount="2"
         tools:listitem="@layout/channel_incoming_message_model">
 
@@ -76,7 +77,8 @@
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/list_dm">
         <!-- region Emoji Message Pictures & Attachments-->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardView"
@@ -103,24 +105,26 @@
                     android:layout_marginStart="5dp"
                     android:scaleX=".7"
                     android:scaleY=".7"
+                    android:tint="@color/text_color"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_insert_emoticon" />
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <hani.momanii.supernova_emoji_library.Helper.EmojiconEditText
                     android:id="@+id/channel_chat_editText"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="6dp"
                     android:layout_marginEnd="5dp"
+                    app:layout_goneMarginEnd="10dp"
                     android:background="@null"
                     android:hint="@string/type_a_message"
                     android:textSize="18sp"
-                    app:layout_constraintEnd_toStartOf="@id/channel_link"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/icon_btn" />
 
-                <androidx.appcompat.widget.AppCompatImageView
+                <!--<androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/channel_link"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
@@ -129,6 +133,7 @@
                     android:rotation="-45"
                     android:scaleX=".7"
                     android:scaleY=".7"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/camera_channel_btn"
                     app:layout_constraintTop_toTopOf="parent"
@@ -142,10 +147,11 @@
                     android:layout_marginEnd="5dp"
                     android:scaleX=".7"
                     android:scaleY=".7"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ic_photo_camera" />
+                    app:srcCompat="@drawable/ic_photo_camera" />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -161,6 +167,7 @@
             android:src="@drawable/ic_voice"
             app:backgroundTint="@color/primary_light_color"
             app:fabCustomSize="48dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/cardView"

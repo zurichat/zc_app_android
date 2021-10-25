@@ -16,13 +16,13 @@
 
     <ImageView
         android:id="@+id/imageView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo1" />
+        app:srcCompat="@drawable/zuri_chat_icon" />
 
     <TextView
         android:id="@+id/confirm_pass_hdr"
@@ -50,7 +50,7 @@
         android:layout_marginTop="8dp"
         android:gravity="center_horizontal|center_vertical"
         android:lineSpacingExtra="1sp"
-        android:text="Enter the 4-digit OTP sent to your mail"
+        android:text="Enter the 6-digit OTP sent to your mail"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/confirm_pass_hdr" />
@@ -63,7 +63,7 @@
         android:layout_marginTop="66dp"
         android:inputType="number"
         android:textSize="32sp"
-        app:itemCount="4"
+        app:itemCount="6"
         app:itemHeight="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

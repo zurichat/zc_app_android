@@ -25,7 +25,6 @@ ext {
 
             production : [
                     channelBaseEndpoint : "https://channels.zuri.chat/api/v1/"
-
             ]
     ]
 }

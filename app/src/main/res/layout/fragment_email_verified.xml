@@ -14,7 +14,6 @@
         android:src="@drawable/rectangle_1033"
         />
 
-
     <ImageView
         android:id="@+id/imageView13"
         android:layout_width="294dp"
