@@ -1,8 +1,6 @@
 package com.zurichat.app.ui.main
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -27,6 +25,9 @@ class MainActivity : BaseActivity() {
     }
 
     private fun setupUI(): Unit = with(binding){
+        // loads back the main theme after displaying the splash screen
+        setTheme(R.style.Theme_ZuriChat_NoActionBar)
+
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)

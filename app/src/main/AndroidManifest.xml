@@ -20,7 +20,7 @@
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.ZuriChat.NoActionBar">
+            android:theme="@style/Theme.ZuriChat.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -28,6 +28,12 @@
 
     <style name="Theme.ZuriChat.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="Theme.ZuriChat.SplashScreen" parent="Theme.ZuriChat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <!--Button-->
     <style name="BrandedButton" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="android:theme">@style/Theme.MaterialComponents</item>
