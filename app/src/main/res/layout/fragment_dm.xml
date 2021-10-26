@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/body_color"
     android:id="@+id/root_layout"
     tools:context=".ui.dm_chat.fragment.RoomFragment">
 
@@ -21,7 +20,6 @@
         app:logo="@drawable/image_channel"
         app:menu="@menu/dm_chat"
         app:navigationIcon="@drawable/ic_back"
-        app:navigationIconTint="@android:color/white"
         app:subtitle="online"
         app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
         app:subtitleTextColor="@color/white"

@@ -10,11 +10,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:tint="@color/background_color"
         app:layout_constraintBottom_toBottomOf="@+id/view7"
         app:layout_constraintStart_toEndOf="@+id/textView18"
         app:layout_constraintTop_toTopOf="@+id/view7"
-        app:srcCompat="@drawable/ic_arrow_forward" />
+        app:srcCompat="@drawable/ic_arrow_forward"
+        app:tint="@color/background_color" />
 
     <View
         android:id="@+id/view8"
