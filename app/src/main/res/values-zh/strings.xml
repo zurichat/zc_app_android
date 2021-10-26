@@ -251,8 +251,7 @@
 <string name="zuri_dms_team_tolstoy">Zuri DM：
 Team Tolstoy -
  Kotlin 和 Java Mobile</string>
-<string name="app_name">祖里聊天</string>
- <string name="hello_blank_fragment">
+    <string name="hello_blank_fragment">
 没有网络连接！</string>
  <string name="lbl_terms_and_conditions"><u>条款和条件</u></string>
 </resources>
