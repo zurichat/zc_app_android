@@ -10,9 +10,11 @@ import android.os.Looper
 import android.os.Parcelable
 import android.text.InputType
 import android.text.format.DateUtils
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
-import android.widget.AbsListView
 import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
@@ -55,7 +57,6 @@ import com.zurichat.app.util.mapToMemberList
 import com.zurichat.app.util.setClickListener
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ronnie.github.imagepicker.ImagePicker
-import dev.ronnie.github.imagepicker.ImageResult
 import hani.momanii.supernova_emoji_library.Actions.EmojIconActions
 import io.github.centrifugal.centrifuge.*
 import kotlinx.coroutines.*
@@ -112,8 +113,7 @@ class ChannelChatFragment : Fragment() {
 
         sharedPref = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-        database = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "zuri_chat")
-            .build()
+        database = Room.databaseBuilder(requireActivity().applicationContext, AppDatabase::class.java, "zuri_chat").build()
         roomDao = database.roomDao()
         channelMessagesDao = database.channelMessagesDao()
         organizationMembersDao = database.organizationMembersDao()
@@ -307,7 +307,7 @@ class ChannelChatFragment : Fragment() {
                                 organizationID,
                                 messagesArrayList
                             )
-                            val channelsWithDateHeaders = createMessagesList(updatedList)
+                            val channelsWithDateHeaders = createMessagesList(messagesArrayList)
                             channelListAdapter.submitList(channelsWithDateHeaders)
                             binding.introGroupText.visibility = View.GONE
                             binding.recyclerMessagesList.scrollToPosition(channelsWithDateHeaders.size - 1)
@@ -407,7 +407,7 @@ class ChannelChatFragment : Fragment() {
                     organizationID,
                     messagesArrayList
                 )
-                val channelsWithDateHeaders = createMessagesList(updatedList)
+                val channelsWithDateHeaders = createMessagesList(messagesArrayList)
                 channelListAdapter.submitList(channelsWithDateHeaders)
                 binding.introGroupText.visibility = View.GONE
                 binding.recyclerMessagesList.scrollToPosition(channelsWithDateHeaders.size - 1)
@@ -451,7 +451,7 @@ class ChannelChatFragment : Fragment() {
             messagesArrayList.remove(it)
             messagesArrayList.add(it)
             val updatedList = channelMsgViewModel.getProfilePictures(organizationID, messagesArrayList)
-            val channelsWithDateHeaders = createMessagesList(updatedList)
+            val channelsWithDateHeaders = createMessagesList(messagesArrayList)
             channelListAdapter.submitList(channelsWithDateHeaders)
             if (scrollDown) {
                 lifecycleScope.launch {
@@ -551,21 +551,19 @@ class ChannelChatFragment : Fragment() {
     private lateinit var client: Client
     private fun connectToSocket() {
         val channelChatEdit = binding.channelChatEditText
+        var subscription : Subscription
 
         uiScope.launch(Dispatchers.IO) {
             try {
-                if (CentrifugeClient.isConnected()){
-                    CentrifugeClient.subscribeToChannel(roomData!!.socket_name)
-                }
-                client = CentrifugeClient.getClient(user)
-                CentrifugeClient.setCustomListener(object : CentrifugeClient.ChannelListener {
+                CentrifugeClient.setCentrifugoRoomListener(object :
+                    CentrifugeClient.CentrifugoRoomListener {
                     override fun onConnected(connected: Boolean) {
                         try{
                             if(connected){
                                 uiScope.launch(Dispatchers.Main) {
                                     Toast.makeText(requireContext(),roomData!!.socket_name,Toast.LENGTH_SHORT).show()
                                 }
-                                CentrifugeClient.subscribeToChannel(roomData!!.socket_name)
+                                subscription = CentrifugeClient.subscribeToCentrifugoRoom(roomData!!.socket_name)
                             }
                         }catch (e : Exception){
                             e.printStackTrace()
@@ -573,7 +571,9 @@ class ChannelChatFragment : Fragment() {
                     }
 
                     override fun onConnectError(client: Client?, event: ErrorEvent?) {
-
+                        uiScope.launch(Dispatchers.Main) {
+                            Toast.makeText(requireContext(),"roomData!!.socket_name",Toast.LENGTH_SHORT).show()
+                        }
                     }
 
                     override fun onChannelSubscribed(isSubscribed: Boolean, subscription: Subscription?) {
@@ -583,6 +583,9 @@ class ChannelChatFragment : Fragment() {
                     }
 
                     override fun onChannelSubscriptionError(subscription: Subscription?, event: SubscribeErrorEvent?) {
+                        uiScope.launch(Dispatchers.Main) {
+                            Toast.makeText(requireContext(),"roomData!!.socket_name",Toast.LENGTH_SHORT).show()
+                        }
                     }
 
                     override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
@@ -596,7 +599,12 @@ class ChannelChatFragment : Fragment() {
                             Toast.makeText(requireContext(),roomData!!.socket_name,Toast.LENGTH_SHORT).show()
                         }
                     }
+
                 })
+                client = CentrifugeClient.getClient(user)
+                if (CentrifugeClient.isConnected()){
+                    //subscription = CentrifugeClient.subscribeToChannel(roomData!!.socket_name)
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -604,8 +612,9 @@ class ChannelChatFragment : Fragment() {
 
         binding.sendMessageBtn.setOnClickListener {
             if (channelChatEdit.text.toString().isNotEmpty()) {
-                val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+                val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss",Locale.getDefault())
                 s.timeZone = TimeZone.getTimeZone("UTC")
+
                 val time = s.format(Date(System.currentTimeMillis()))
                 val data = Data(
                     generateID().toString(),
@@ -624,12 +633,7 @@ class ChannelChatFragment : Fragment() {
                     user.id
                 )
 
-                channelMsgViewModel.sendMessages(
-                    data,
-                    organizationID,
-                    channel._id,
-                    messagesArrayList
-                )
+                channelMsgViewModel.sendMessages(data, organizationID, channel._id, messagesArrayList)
             }
         }
     }

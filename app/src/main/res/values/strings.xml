@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Zuri Chat</string>
+    <string name="app_name" translatable="false">Zuri Chat</string>
     <string name="zuri_dms_team_tolstoy">Zuri DMs: \nTeam Tolstoy -\n Kotlin &amp; Java Mobile</string>
     <string name="enter_registered_email">Enter registered zuri chat email</string>
     <string name="verify_email">Verify Email</string>
