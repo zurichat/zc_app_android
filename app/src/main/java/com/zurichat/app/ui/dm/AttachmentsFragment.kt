@@ -107,7 +107,7 @@ class AttachmentsFragment : Fragment(R.layout.fragment_attachments) {
             it.setNavigationOnClickListener {
                 requireActivity().onBackPressed()
             }
-            it.title = getString(R.string.all_view, media.name.lowercase())
+            it.title = getString(R.string.all_view)
         }
 
 
