@@ -561,7 +561,7 @@ class ChannelChatFragment : Fragment() {
                         try{
                             if(connected){
                                 uiScope.launch(Dispatchers.Main) {
-                                    Toast.makeText(requireContext(),roomData!!.socket_name,Toast.LENGTH_SHORT).show()
+
                                 }
                                 subscription = CentrifugeClient.subscribeToCentrifugoRoom(roomData!!.socket_name)
                             }
@@ -572,19 +572,19 @@ class ChannelChatFragment : Fragment() {
 
                     override fun onConnectError(client: Client?, event: ErrorEvent?) {
                         uiScope.launch(Dispatchers.Main) {
-                            Toast.makeText(requireContext(),"roomData!!.socket_name",Toast.LENGTH_SHORT).show()
+
                         }
                     }
 
                     override fun onChannelSubscribed(isSubscribed: Boolean, subscription: Subscription?) {
                         uiScope.launch(Dispatchers.Main) {
-                            Toast.makeText(requireContext(),"roomData!!.socket_name",Toast.LENGTH_SHORT).show()
+
                         }
                     }
 
                     override fun onChannelSubscriptionError(subscription: Subscription?, event: SubscribeErrorEvent?) {
                         uiScope.launch(Dispatchers.Main) {
-                            Toast.makeText(requireContext(),"roomData!!.socket_name",Toast.LENGTH_SHORT).show()
+
                         }
                     }
 
@@ -596,7 +596,7 @@ class ChannelChatFragment : Fragment() {
                             channelMsgViewModel.receiveMessage(data)
                         }
                         uiScope.launch(Dispatchers.Main) {
-                            Toast.makeText(requireContext(),roomData!!.socket_name,Toast.LENGTH_SHORT).show()
+
                         }
                     }
 
@@ -701,7 +701,7 @@ class ChannelChatFragment : Fragment() {
     private fun convertStringDateToLong(date: String): Long {
         val s = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
         s.timeZone = TimeZone.getTimeZone("UTC")
-        var d = s.parse(date)
+        val d = s.parse(date)
         return d.time
     }
 
