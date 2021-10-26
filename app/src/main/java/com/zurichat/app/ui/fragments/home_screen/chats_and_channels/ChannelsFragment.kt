@@ -165,7 +165,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
     private fun addHeaders(){
         uiScope.launch(Dispatchers.IO){
             try{
-                client = CentrifugeClient.getClient(user)
+                //client = CentrifugeClient.getClient(user)
             }catch (e : Exception){
                 e.printStackTrace()
             }
