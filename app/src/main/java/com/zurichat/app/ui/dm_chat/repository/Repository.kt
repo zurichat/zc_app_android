@@ -1,6 +1,7 @@
 package com.zurichat.app.ui.dm_chat.repository
 
 import com.zurichat.app.models.organization_model.UserOrganizationModel
+import com.zurichat.app.ui.dm_chat.apiservice.ApiDMService
 import com.zurichat.app.ui.dm_chat.apiservice.RetrofitInstance
 import com.zurichat.app.ui.dm_chat.model.request.SendMessageBody
 import com.zurichat.app.ui.dm_chat.model.request.createroom.CreateRoomBody
@@ -10,8 +11,10 @@ import com.zurichat.app.ui.dm_chat.model.response.message.GetMessageResponse
 import com.zurichat.app.ui.dm_chat.model.response.message.SendMessageResponse
 import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponse
 import retrofit2.Response
+import javax.inject.Inject
 
-class Repository {
+class Repository @Inject constructor(private val roomService: ApiDMService) {
+
     suspend fun getRooms(orgId: String, memId: String): Response<RoomsListResponse> {
         return RetrofitInstance.retrofitService.getRooms(orgId, memId)
     }
@@ -21,11 +24,11 @@ class Repository {
     }
 
     suspend fun getMessages(orgId: String,roomId: String): Response<GetMessageResponse> {
-        return RetrofitInstance.retrofitService.getMessages(orgId, roomId)
+        return roomService.getMessages(orgId, roomId)
     }
 
     suspend fun sendMessages(orgId: String, roomId: String, messageBody: SendMessageBody): Response<SendMessageResponse> {
-        return RetrofitInstance.retrofitService.sendMessages(orgId, roomId, messageBody)
+        return roomService.sendMessages(orgId, roomId, messageBody)
     }
 
     suspend fun getMemberIds(email: String): Response<UserOrganizationModel> {

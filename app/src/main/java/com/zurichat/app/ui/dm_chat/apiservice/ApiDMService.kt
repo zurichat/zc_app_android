@@ -58,4 +58,8 @@ interface ApiDMService {
         @Body createRoomBody: CreateRoomBody
     ): Response<CreateRoomsResponse>
 
+    companion object {
+        const val BASE_URL = "https://dm.zuri.chat/"
+        const val DM_API = "api/v1/org/"
+    }
 }
