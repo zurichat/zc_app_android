@@ -134,7 +134,7 @@
 	<string name="dm_notification_channel_name">إشعار DM</string>
 	<string name="unread_messages">رسائل غير مقروءة</string>
 	<string name="channels_">القنوات</string>
-	<string name="lbl_terms_and_conditions"><u> الشروط والأحكام </ u></string>
+	<string name="lbl_terms_and_conditions"><u> الشروط والأحكام </u></string>
 	<string name="online">عبر الانترنت</string>
 	<string name="android_devs">الروبوت ديفس</string>
 	<string name="channel_group_members">لوكس، حامد، جو، + 234707 …</string>
