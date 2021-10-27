@@ -11,7 +11,7 @@
 <string name="invite_link">Generar enlace</string>
 <string name="empty_starrred_message_info">Toca y mantén presionado cualquier mensaje \ nen cualquier chat para destacarlo, \ npara que puedas encontrarlo fácilmente \ n más tarde</string>
 <string name="starred_messages">Mensajes destacados</string>
-<string name="retrieving_user_org">Recuperando la organización del usuario ...</string>
+<string name="retrieving_user_org">Recuperando la organización del usuario …</string>
 <string name="successful_get_user_org">organizaciones de usuarios recuperadas con éxito</string>
 <string name="invite_user">Invitar usuario</string>
 <string name="sign_in">Iniciar sesión</string>
@@ -66,7 +66,7 @@
 <string name="click_button_to_join_a_channel">Haga clic en el botón para unirse a un canal</string>
 <string name="contacts_who_can_t_add_you">Los contactos que no puedan agregarte a un canal tendrán la opción de invitarte en privado.</string>
 <string name="you_aren_t_sharing_live_location">No estás compartiendo la ubicación en vivo en ningún chat</string>
-<string name="thirty_minutes">Despues de 30 minutos</string>
+<string name="thirty_minutes">Después de 30 minutos</string>
 <string name="one_minute">Después de 1 minuto</string>
 <string name="immediately">Inmediatamente</string>
 <string name="live_location_manage__device_settings">La ubicación en vivo requiere una ubicación en segundo plano. Puede administrar esto en la configuración de su dispositivo.</string>
@@ -240,7 +240,6 @@ no podrás ver lo último visto de otras personas</string>
 <string name="verify_email">Verificar correo electrónico</string>
 <string name="enter_registered_email">Ingrese el correo electrónico de chat de zuri registrado</string>
 <string name="zuri_dms_team_tolstoy">DM de Zuri: \ nTeam Tolstoy - \ n Kotlin y Java Mobile</string>
-<string name="app_name">Chat de Zuri</string>
     <string name="hello_blank_fragment">¡Sin conexión a Internet!</string>
     <string name="lbl_terms_and_conditions"><u>Términos y condiciones</u></string>
 </resources>
