@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room.databaseBuilder
+import com.google.gson.Gson
 import com.zurichat.app.R
 import com.zurichat.app.data.localSource.AppDatabase
 import com.zurichat.app.data.localSource.dao.RoomMessageDao
@@ -153,10 +154,13 @@ class RoomFragment : Fragment() {
             if (response.isSuccessful) {
                 messagesArrayList.clear()
                 val messageResponse = response.body()
+                Log.i("Message Body", messageResponse?.results?.get(0).toString())
+                var x = 0
                 messageResponse?.results?.forEach{
                     if (it.sender_id == senderId){
+                        x++
                         val data = Data(it.created_at,it.message,it.sender_id)
-                        val sendMessageResponse = SendMessageResponse(data,"",it.id,it.room_id,"",false)
+                        val sendMessageResponse = SendMessageResponse(data,"",x.toString(),it.room_id,"",false)
                         val newBaseRoomData = BaseRoomData(null, sendMessageResponse, true)
                         messagesArrayList.add(newBaseRoomData)
                     }else{
@@ -187,8 +191,7 @@ class RoomFragment : Fragment() {
             }
         })
 
-        emojiIconsActions =
-            EmojIconActions(context, view, binding.channelChatEditText, binding.iconBtn)
+        emojiIconsActions = EmojIconActions(context, view, binding.channelChatEditText, binding.iconBtn)
         emojiIconsActions.ShowEmojIcon()
         emojiIconsActions.addEmojiconEditTextList()
 
@@ -290,14 +293,7 @@ class RoomFragment : Fragment() {
             }
         })
 
-        //connectToSocket()
-        val handler = Handler(Looper.getMainLooper())
-        handler.post(object : Runnable {
-            override fun run() {
-                roomMsgViewModel.getMessages(organizationID, roomId)
-                handler.postDelayed(this,3500)
-            }
-        })
+        connectToSocket()
     }
 
     private var messagesArrayList: ArrayList<BaseRoomData> = ArrayList()
@@ -378,11 +374,14 @@ class RoomFragment : Fragment() {
 
                     override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
                         val dataString = String(publishEvent!!.data, StandardCharsets.UTF_8)
-                        //val data = Gson().fromJson(dataString, Data::class.java)
-                       /* if (data.channel_id == channel._id) {
-                            channelMsgViewModel.receiveMessage(data)
-                        }*/
-                        Log.i("Room",dataString)
+                        try {
+                            val data = Gson().fromJson(dataString, SendMessageResponse::class.java)
+                            if (data.room_id == roomId){
+
+                            }
+                        }catch (e : Exception){
+                            e.printStackTrace()
+                        }
                     }
                 })
             } catch (e: Exception) {

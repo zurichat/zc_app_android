@@ -535,13 +535,13 @@ class ChannelChatFragment : Fragment() {
             true
         }
 
-        val handler = Handler(Looper.getMainLooper())
+        /*val handler = Handler(Looper.getMainLooper())
         handler.post(object : Runnable {
             override fun run() {
                 //channelMsgViewModel.retrieveAllMessages(organizationID, channel._id)
                 //handler.postDelayed(this,2000)
             }
-        })
+        })*/
     }
 
     var scrollDown = true
@@ -555,14 +555,10 @@ class ChannelChatFragment : Fragment() {
 
         uiScope.launch(Dispatchers.IO) {
             try {
-                CentrifugeClient.setCentrifugoRoomListener(object :
-                    CentrifugeClient.CentrifugoRoomListener {
+                CentrifugeClient.setCentrifugoRoomListener(object : CentrifugeClient.CentrifugoRoomListener {
                     override fun onConnected(connected: Boolean) {
                         try{
                             if(connected){
-                                uiScope.launch(Dispatchers.Main) {
-
-                                }
                                 subscription = CentrifugeClient.subscribeToCentrifugoRoom(roomData!!.socket_name)
                             }
                         }catch (e : Exception){
@@ -571,21 +567,14 @@ class ChannelChatFragment : Fragment() {
                     }
 
                     override fun onConnectError(client: Client?, event: ErrorEvent?) {
-                        uiScope.launch(Dispatchers.Main) {
 
-                        }
                     }
 
                     override fun onChannelSubscribed(isSubscribed: Boolean, subscription: Subscription?) {
-                        uiScope.launch(Dispatchers.Main) {
-
-                        }
                     }
 
                     override fun onChannelSubscriptionError(subscription: Subscription?, event: SubscribeErrorEvent?) {
-                        uiScope.launch(Dispatchers.Main) {
 
-                        }
                     }
 
                     override fun onDataPublished(subscription: Subscription?, publishEvent: PublishEvent?) {
@@ -595,15 +584,12 @@ class ChannelChatFragment : Fragment() {
                         if (data.channel_id == channel._id) {
                             channelMsgViewModel.receiveMessage(data)
                         }
-                        uiScope.launch(Dispatchers.Main) {
-
-                        }
                     }
 
                 })
                 client = CentrifugeClient.getClient(user)
                 if (CentrifugeClient.isConnected()){
-                    //subscription = CentrifugeClient.subscribeToChannel(roomData!!.socket_name)
+                    subscription = CentrifugeClient.subscribeToCentrifugoRoom(roomData!!.socket_name)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
