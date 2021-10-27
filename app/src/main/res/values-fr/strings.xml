@@ -243,4 +243,6 @@
 	<string name="create_new_organization">Créer une nouvelle organisation</string>
 	<string name="forgot_password_txt">Mot de passe oublié?</string>
 	<string name="continue_txt">Continuer</string>
+    <string name="languages">Langages</string>
+    <string name="title">Titre</string>
 </resources>

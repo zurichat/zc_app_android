@@ -289,5 +289,7 @@
     <string name="create_new_organization">Create New Organization</string>
     <string name="forgot_password_txt">Forgot Password?</string>
     <string name="continue_txt">Continue</string>
+    <string name="languages">Languages</string>
+    <string name="title">Title</string>
 
 </resources>

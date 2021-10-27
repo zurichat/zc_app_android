@@ -149,6 +149,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
             val securitySettings = findPreference<Preference>("security_header")
             val storageSettings = findPreference<Preference>("storage_header")
             val notificationSettings = findPreference<Preference>("notification_header")
+            val languageSettings = findPreference<Preference>("languages")
             val logout = findPreference<Preference>("logout_header")
             val profileContainer = activity?.findViewById<ConstraintLayout>(R.id.profile_container)
 
@@ -231,6 +232,21 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
                 }
                 false
             }
+            languageSettings!!.setOnPreferenceClickListener {
+                if (profileContainer != null) {
+                    profileContainer.visibility = View.GONE
+                }
+                if (manageStorageContainer != null) {
+                    manageStorageContainer.visibility = View.GONE
+                }
+                if (networkUsageContainer != null) {
+                    networkUsageContainer.visibility = View.GONE
+                }
+                if (divider != null) {
+                    divider.visibility = View.GONE
+                }
+                false
+            }
             logout!!.setOnPreferenceClickListener {
                 //logout()
                 val callback: Callback = { logoutUser() }
@@ -288,6 +304,13 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
 
 
         }
+    }
+
+    class LanguagesFragment : PreferenceFragmentCompat(){
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            setPreferencesFromResource(R.xml.language_preferences, rootKey)
+        }
+
     }
 
     class NotificationAndSounds : PreferenceFragmentCompat() {

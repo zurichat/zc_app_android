@@ -251,4 +251,6 @@ Team Tolstoi -
  Kotlin &amp; Java Mobile</string>
     <string name="hello_blank_fragment">Keine Internetverbindung!</string>
  <string name="lbl_terms_and_conditions"><u>Geschäftsbedingungen</u></string>
+    <string name="languages">Sprachen</string>
+    <string name="title">Titel</string>
 </resources>

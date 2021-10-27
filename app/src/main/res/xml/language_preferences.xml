@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:title="Languages"
+        android:summary="Select a language translation">
+
+    </PreferenceCategory>
+    <Preference
+        android:title="English UK"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true"
+        android:key="uk"/>
+
+    <Preference
+        android:title="English US"
+        android:key="us"/>
+
+    <Preference
+        android:title="French"
+        android:key="fr"/>
+    <Preference
+        android:title="Chinese"
+        android:key="ch"/>
+    <Preference
+        android:title="Arabic"
+        android:key="ar"/>
+    <Preference
+        android:title="Deutch"
+        android:key="den"/>
+    <Preference
+        android:title="Espanol"
+        android:key="sp"/>
+    <Preference
+        android:title="Italiano"
+        android:key="ita"/>
+    <Preference
+        android:title="Hebrew"
+        android:key="he"/>
+    <Preference
+        android:title="Portuguese"
+        android:key="por"/>
+
+</PreferenceScreen>

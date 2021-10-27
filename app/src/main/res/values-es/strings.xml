@@ -242,5 +242,7 @@ no podrás ver lo último visto de otras personas</string>
 <string name="zuri_dms_team_tolstoy">DM de Zuri: \ nTeam Tolstoy - \ n Kotlin y Java Mobile</string>
     <string name="hello_blank_fragment">¡Sin conexión a Internet!</string>
     <string name="lbl_terms_and_conditions"><u>Términos y condiciones</u></string>
+    <string name="languages">Idiomas</string>
+    <string name="title">Título</string>
 </resources>
 

@@ -254,4 +254,6 @@ Team Tolstoy -
     <string name="hello_blank_fragment">
 没有网络连接！</string>
  <string name="lbl_terms_and_conditions"><u>条款和条件</u></string>
+    <string name="languages">语言</string>
+    <string name="title">标题</string>
 </resources>

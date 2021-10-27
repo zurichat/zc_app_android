@@ -243,4 +243,6 @@
 	<string name="create_new_organization">إنشاء منظمة جديدة</string>
 	<string name="forgot_password_txt">هل نسيت كلمة السر؟</string>
 	<string name="continue_txt">يكمل</string>
+    <string name="languages">اللغات</string>
+    <string name="title">عنوان</string>
 </resources>
