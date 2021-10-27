@@ -1,5 +1,4 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Preference
         app:fragment="com.zurichat.app.ui.settings.fragments.ChatFragment"
@@ -27,7 +26,7 @@
         app:title="Notification and Sounds" />
 
     <Preference
-        app:fragment=""
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$LanguagesFragment"
         app:icon="@drawable/ic_baseline_translate"
         app:key="@string/languages"
         app:title="@string/languages" />

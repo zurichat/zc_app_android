@@ -3,43 +3,53 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-        android:title="Languages"
-        android:summary="Select a language translation">
+        android:title="@string/languages"
+        android:summary="@string/select_language">
 
     </PreferenceCategory>
     <Preference
-        android:title="English UK"
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$TranslationSelectFragment"
+        app:title="@string/english_uk"
         app:allowDividerAbove="true"
         app:allowDividerBelow="true"
-        android:key="uk"/>
+        app:key="uk"/>
 
     <Preference
-        android:title="English US"
-        android:key="us"/>
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$TranslationSelectFragment"
+        app:title="@string/english_us"
+        app:key="us"/>
 
     <Preference
-        android:title="French"
-        android:key="fr"/>
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$TranslationSelectFragment"
+        app:title="@string/fr"
+        app:key="fr"/>
     <Preference
-        android:title="Chinese"
-        android:key="ch"/>
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$TranslationSelectFragment"
+        app:title="@string/zh"
+        app:key="ch"/>
     <Preference
-        android:title="Arabic"
-        android:key="ar"/>
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$TranslationSelectFragment"
+        app:title="@string/ar"
+        app:key="ar"/>
     <Preference
-        android:title="Deutch"
-        android:key="den"/>
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$TranslationSelectFragment"
+        app:title="@string/den"
+        app:key="den"/>
     <Preference
-        android:title="Espanol"
-        android:key="sp"/>
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$TranslationSelectFragment"
+        app:title="@string/sp"
+        app:key="sp"/>
     <Preference
-        android:title="Italiano"
-        android:key="ita"/>
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$TranslationSelectFragment"
+        app:title="@string/it"
+        app:key="ita"/>
     <Preference
-        android:title="Hebrew"
-        android:key="he"/>
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$TranslationSelectFragment"
+        app:title="@string/iw"
+        app:key="he"/>
     <Preference
-        android:title="Portuguese"
-        android:key="por"/>
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$TranslationSelectFragment"
+        app:title="@string/por"
+        app:key="por"/>
 
 </PreferenceScreen>

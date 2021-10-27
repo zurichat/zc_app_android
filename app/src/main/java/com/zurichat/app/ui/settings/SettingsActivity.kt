@@ -8,6 +8,7 @@ import android.media.SoundPool
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -15,10 +16,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.viewModels
-import androidx.preference.Preference
-import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
-import androidx.preference.SwitchPreference
+import androidx.preference.*
 import com.zurichat.app.R
 import com.zurichat.app.models.LogoutBody
 import com.zurichat.app.models.User
@@ -149,7 +147,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
             val securitySettings = findPreference<Preference>("security_header")
             val storageSettings = findPreference<Preference>("storage_header")
             val notificationSettings = findPreference<Preference>("notification_header")
-            val languageSettings = findPreference<Preference>("languages")
+            val languageSettings = findPreference<Preference>(getString(R.string.languages))
             val logout = findPreference<Preference>("logout_header")
             val profileContainer = activity?.findViewById<ConstraintLayout>(R.id.profile_container)
 
@@ -309,6 +307,15 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
     class LanguagesFragment : PreferenceFragmentCompat(){
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.language_preferences, rootKey)
+            TranslationSelectFragment()
+        }
+
+    }
+
+    class TranslationSelectFragment: PreferenceFragmentCompat(){
+        override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+            val langIntent: Intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+            startActivity(langIntent)
         }
 
     }

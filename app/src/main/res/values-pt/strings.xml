@@ -245,4 +245,17 @@
 	<string name="continue_txt">Prosseguir</string>
 	<string name="languages">"línguas "</string>
 	<string name="title">Título</string>
+	<string name = "select_language"> Selecione a tradução de um idioma </string>
+	<string name = "english_uk"> Inglês do Reino Unido </string>
+	<string name = "english_us"> Inglês dos EUA </string>
+	<string name = "fr"> Francês </string>
+	<string name = "zh"> Chinês </string>
+	<string name = "ar"> Árabe </string>
+	<string name = "den"> Alemão </string>
+	<string name = "sp"> Espanhol </string>
+	<string name = "it"> Italiano </string>
+	<string name = "iw"> Hebraico </string>
+	<string name = "por"> Português </string>
+    <string name="add_workspace">Adicionar Espaço de Trabalho</string>
+    <string name="create_workspace">Criar novo espaço de trabalho</string>
 </resources>

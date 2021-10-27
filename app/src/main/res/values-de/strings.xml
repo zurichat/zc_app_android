@@ -253,4 +253,17 @@ Team Tolstoi -
  <string name="lbl_terms_and_conditions"><u>Geschäftsbedingungen</u></string>
     <string name="languages">Sprachen</string>
     <string name="title">Titel</string>
+    <string name="select_language">Wählen Sie eine Sprachübersetzung aus</string>
+    <string name="english_uk">Englisch UK</string>
+    <string name="english_us">Englisch USA</string>
+    <string name="fr">Französisch</string>
+    <string name="zh">Chinesisch</string>
+    <string name="ar">Arabisch</string>
+    <string name="den">Deutsch</string>
+    <string name="sp">Spanisch</string>
+    <string name="it">Italienisch</string>
+    <string name="iw">Hebräisch</string>
+    <string name="por">Portugiesisch</string>
+    <string name="add_workspace">Arbeitsbereich hinzufügen</string>
+    <string name="create_workspace">Neuen Arbeitsbereich erstellen</string>
 </resources>

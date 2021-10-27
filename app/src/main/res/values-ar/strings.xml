@@ -245,4 +245,17 @@
 	<string name="continue_txt">يكمل</string>
     <string name="languages">اللغات</string>
     <string name="title">عنوان</string>
+	<string name = "select_language"> حدد ترجمة لغة </string>
+	<string name = "english_uk"> الإنجليزية المملكة المتحدة </string>
+	<string name = "english_us"> الإنجليزية الأمريكية </string>
+	<string name = "fr"> الفرنسية </string>
+	<string name = "zh"> الصينية </string>
+	<string name = "ar"> العربية </string>
+	<string name = "den"> الألمانية </string>
+	<string name = "sp"> الأسبانية </string>
+	<string name = "it"> الإيطالية </string>
+	<string name = "iw"> العبرية </string>
+	<string name = "por"> البرتغالية </string>
+    <string name="add_workspace">أضف مساحة العمل</string>
+    <string name="create_workspace">قم بإنشاء مساحة عمل جديدة</string>
 </resources>
