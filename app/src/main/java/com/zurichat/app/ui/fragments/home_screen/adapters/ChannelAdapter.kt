@@ -9,19 +9,14 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.gson.Gson
 import com.zurichat.app.R
 import com.zurichat.app.data.localSource.AppDatabase
 import com.zurichat.app.models.Channel
 import com.zurichat.app.models.ChannelModel
 import com.zurichat.app.ui.fragments.channel_chat.localdatabase.RoomDao
-import com.zurichat.app.ui.fragments.home_screen.CentrifugeClient
-import com.zurichat.app.ui.fragments.model.Data
-import io.github.centrifugal.centrifuge.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.nio.charset.StandardCharsets
 
 class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>,val uiScope: CoroutineScope,val roomDao: RoomDao) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var onItemClickListener: ((channel:ChannelModel) -> Unit)? = null
@@ -62,7 +57,7 @@ class ChannelAdapter(val context: Activity, private val list: List<ChannelModel>
                             if (CentrifugeClient.isConnected()){
                                // CentrifugeClient.subscribeToChannel(roomDataObject.socketName)
                             }
-                            CentrifugeClient.setCustomListener(object : CentrifugeClient.ChannelListener {
+                            CentrifugeClient.setCustomListener(object : CentrifugeClient.CentrifugoRoomListener {
                                 override fun onConnected(connected: Boolean) {
                                     try{
                                       //  CentrifugeClient.subscribeToChannel(roomDataObject.socketName)

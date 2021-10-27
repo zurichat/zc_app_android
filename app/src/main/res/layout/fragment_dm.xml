@@ -22,7 +22,6 @@
         app:logo="@drawable/image_channel"
         app:menu="@menu/dm_chat"
         app:navigationIcon="@drawable/ic_back"
-        app:navigationIconTint="@android:color/white"
         app:subtitle="online"
         app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
         app:subtitleTextColor="@color/white"
