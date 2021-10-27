@@ -134,5 +134,4 @@ class UserRepository @Inject constructor(
     suspend fun createRoom(orgId: String, userId: String, room: CreateRoom) =
         usersService.createRoom(orgId, userId, room).result()
 
-
 }

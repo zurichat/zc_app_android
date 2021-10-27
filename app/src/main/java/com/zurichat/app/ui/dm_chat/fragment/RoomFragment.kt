@@ -31,6 +31,7 @@ import com.zurichat.app.ui.dm.MEDIA
 import com.zurichat.app.ui.dm_chat.model.request.SendMessageBody
 import com.zurichat.app.ui.dm_chat.model.response.message.BaseRoomData
 import com.zurichat.app.ui.dm_chat.model.response.message.Data
+import com.zurichat.app.ui.dm_chat.model.response.message.Result
 import com.zurichat.app.ui.dm_chat.model.response.message.SendMessageResponse
 import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponseItem
 import com.zurichat.app.ui.dm_chat.repository.Repository
@@ -154,7 +155,6 @@ class RoomFragment : Fragment() {
             if (response.isSuccessful) {
                 messagesArrayList.clear()
                 val messageResponse = response.body()
-                Log.i("Message Body", messageResponse?.results?.get(0).toString())
                 var x = 0
                 messageResponse?.results?.forEach{
                     if (it.sender_id == senderId){
@@ -346,7 +346,6 @@ class RoomFragment : Fragment() {
                     CentrifugeClient.subscribeToCentrifugoRoom(roomId)
                 }
                 client = CentrifugeClient.getClient(user)
-                //client.connect()
                 CentrifugeClient.setCentrifugoRoomListener(object : CentrifugeClient.CentrifugoRoomListener {
                     override fun onConnected(connected: Boolean) {
                         try{
@@ -377,7 +376,15 @@ class RoomFragment : Fragment() {
                         try {
                             val data = Gson().fromJson(dataString, SendMessageResponse::class.java)
                             if (data.room_id == roomId){
-
+                                if (data.data.sender_id == senderId){
+                                    val newBaseRoomData = BaseRoomData(null, data, true)
+                                    messagesArrayList.add(newBaseRoomData)
+                                }else{
+                                    //TODO: Check Centrifugo Response For Incoming Messages
+                                }
+                            }
+                            createMessagesList(messagesArrayList).let {
+                                roomsListAdapter.submitList(it)
                             }
                         }catch (e : Exception){
                             e.printStackTrace()
