@@ -21,7 +21,7 @@ class RoomAdapter(val context: Activity, val roomList: ArrayList<RoomsListRespon
     }
 
     private var myList = ArrayList<RoomsListResponseItem>()
-    private var userNameNew: String = "Hamid"
+    private var userNameNew: String = ""
     private var memId: String = ""
 
     inner class RoomViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
