@@ -243,4 +243,19 @@
 	<string name="create_new_organization">Créer une nouvelle organisation</string>
 	<string name="forgot_password_txt">Mot de passe oublié?</string>
 	<string name="continue_txt">Continuer</string>
+    <string name="languages">Langages</string>
+    <string name="title">Titre</string>
+	<string name="select_language">Sélectionnez une traduction de langue</string>
+	<string name="english_uk">Anglais britannique</string>
+	<string name="english_us">Anglais US</string>
+	<string name="fr">français</string>
+	<string name="zh">chinois</string>
+	<string name="ar">arabe</string>
+	<string name="den">allemand</string>
+	<string name="sp">espagnol</string>
+	<string name="it">italien</string>
+	<string name="iw">hébreu</string>
+	<string name="por">Portugais</string>
+    <string name="add_workspace">Ajouter un espace de travail</string>
+    <string name="create_workspace">Créer un nouvel espace de travail</string>
 </resources>

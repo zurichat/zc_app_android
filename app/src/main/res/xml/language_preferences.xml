@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        android:title="@string/languages"
+        android:summary="@string/select_language">
+
+    </PreferenceCategory>
+    <Preference
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$TranslationSelectFragment"
+        app:title="@string/english_uk"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true"
+        app:key="uk"/>
+
+    <Preference
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$TranslationSelectFragment"
+        app:title="@string/english_us"
+        app:key="us"/>
+
+    <Preference
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$TranslationSelectFragment"
+        app:title="@string/fr"
+        app:key="fr"/>
+    <Preference
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$TranslationSelectFragment"
+        app:title="@string/zh"
+        app:key="ch"/>
+    <Preference
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$TranslationSelectFragment"
+        app:title="@string/ar"
+        app:key="ar"/>
+    <Preference
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$TranslationSelectFragment"
+        app:title="@string/den"
+        app:key="den"/>
+    <Preference
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$TranslationSelectFragment"
+        app:title="@string/sp"
+        app:key="sp"/>
+    <Preference
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$TranslationSelectFragment"
+        app:title="@string/it"
+        app:key="ita"/>
+    <Preference
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$TranslationSelectFragment"
+        app:title="@string/iw"
+        app:key="he"/>
+    <Preference
+        app:fragment="com.zurichat.app.ui.settings.SettingsActivity$TranslationSelectFragment"
+        app:title="@string/por"
+        app:key="por"/>
+
+</PreferenceScreen>
