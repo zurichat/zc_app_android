@@ -43,8 +43,6 @@ class ChannelMessagesViewModel @Inject constructor(val organizationService: Orga
         }
     }
 
-
-
     // This function gets called to send a message
     fun sendMessages(data: Data, organizationId: String, channelId: String, dataList: List<Data>) {
         viewModelScope.launch {

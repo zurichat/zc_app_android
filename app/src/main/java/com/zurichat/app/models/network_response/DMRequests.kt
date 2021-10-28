@@ -7,7 +7,6 @@ import com.google.gson.annotations.SerializedName
  * @author Jeffrey Orazulike [https://github.com/jeffreyorazulike]
  * Created 22-Sep-21
  */
-
 data class CreateRoom(
     @SerializedName("org_id")
     @Expose
