@@ -47,7 +47,6 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
     lateinit var userList: List<OrganizationMember>
     private val adapter = NewChannelAdapter(this).also {
         it.itemClickListener = { member ->
-
             progressDialog.setMessage("Loading")
             progressDialog.show()
 
