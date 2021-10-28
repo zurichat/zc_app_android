@@ -23,6 +23,7 @@ import com.zurichat.app.models.*
 import com.zurichat.app.models.organization_model.OrgData
 import com.zurichat.app.ui.activities.MainActivity
 import com.zurichat.app.ui.dm.response.RoomListResponseItem
+import com.zurichat.app.ui.dm_chat.apiservice.ApiDMService
 import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponseItem
 import com.zurichat.app.ui.dm_chat.repository.Repository
 import com.zurichat.app.ui.dm_chat.utils.ModelPreferencesManager
@@ -58,12 +59,10 @@ class HomeScreenFragment : Fragment() {
     private lateinit var organizationID: String
     private lateinit var organizationName: String
     private lateinit var memberId: String
+    private lateinit var roomService: ApiDMService
 
     private lateinit var searchView: JSearchView
-    private val roomViewModel: RoomViewModel by viewModels {
-        val repository = Repository()
-        RoomViewModelFactory(repository)
-    }
+    private val roomViewModel by viewModels<RoomViewModel>()
 
     private val channelsViewModel: ChannelViewModel by viewModels()
 
