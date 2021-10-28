@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import com.zurichat.app.data.remoteSource.FilesService
 import com.zurichat.app.data.remoteSource.UsersService
 import com.zurichat.app.data.remoteSource.hasNetwork
+import com.zurichat.app.ui.dm_chat.apiservice.ApiDMService
 import com.zurichat.app.util.RETROFIT_CACHE_SIZE
 import com.zurichat.app.util.USER_TOKEN
 import dagger.Module
@@ -16,7 +17,9 @@ import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 
 @Module
@@ -89,6 +92,16 @@ object RetrofitModule {
     @Provides
     fun provideUserService(builder: Retrofit.Builder): UsersService =
         builder.baseUrl("https://api.zuri.chat/").build().create(UsersService::class.java)
+
+    @Provides
+    fun roomService(client: OkHttpClient.Builder, gson: Gson) =
+        Retrofit.Builder().client(client.build())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .baseUrl(ApiDMService.BASE_URL)
+            .build()
+    @Provides
+    fun provideRoomApiService(retrofit: Retrofit): ApiDMService =
+        retrofit.create(ApiDMService::class.java)
 
     @Provides
     fun provideFileService(builder: Retrofit.Builder) =

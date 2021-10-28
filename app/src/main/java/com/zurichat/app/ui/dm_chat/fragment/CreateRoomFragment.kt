@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +17,7 @@ import com.zurichat.app.databinding.FragmentDmBinding
 import com.zurichat.app.models.User
 import com.zurichat.app.ui.dm_chat.adapter.CreateRoomAdapter
 import com.zurichat.app.ui.dm_chat.adapter.RoomAdapter
+import com.zurichat.app.ui.dm_chat.apiservice.ApiDMService
 import com.zurichat.app.ui.dm_chat.model.request.createroom.CreateRoomBody
 import com.zurichat.app.ui.dm_chat.repository.Repository
 import com.zurichat.app.ui.dm_chat.viewmodel.RoomViewModel
@@ -46,6 +48,7 @@ class CreateRoomFragment : Fragment() {
     private lateinit var createRoomAdapter: CreateRoomAdapter
     private lateinit var member: DataX
     private lateinit var viewModelRoom: RoomViewModel
+    private val roomViewModel by viewModels<RoomViewModel>()
 
     private lateinit var binding: FragmentCreateRoomBinding
 
@@ -88,11 +91,6 @@ class CreateRoomFragment : Fragment() {
         var organizationId = "6162210d8e856323d6f12110"
         //getMemberId(organizationId)
         setupRecyclerView()
-        //setup viewModel and Retrofit
-        val repository = Repository()
-        val viewModelFactory = RoomViewModelFactory(repository)
-        viewModelRoom = ViewModelProvider(this, viewModelFactory).get(RoomViewModel::class.java)
-
         selectMember()
     }
 
@@ -157,8 +155,8 @@ class CreateRoomFragment : Fragment() {
             roomMemberIdList.add(creatorMemId)
             roomMemberIdList.add(otherUserMemId)
             val createRoomBody = CreateRoomBody(orgId, roomMemberIdList, otherUserName)
-            viewModelRoom.createRoom(creatorMemId, createRoomBody)
-            viewModelRoom.myCreateRoomResponse.observe(viewLifecycleOwner) {response ->
+            roomViewModel.createRoom(creatorMemId, createRoomBody)
+            roomViewModel.myCreateRoomResponse.observe(viewLifecycleOwner) {response ->
                 if (response.isSuccessful) {
                     val roomId: String = response.body()!!.data.ID
                     Log.i("Created Room Id", "$roomId")
