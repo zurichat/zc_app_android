@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -28,6 +29,7 @@ import com.zurichat.app.models.User
 import com.zurichat.app.ui.add_channel.BaseItem
 import com.zurichat.app.ui.add_channel.BaseListAdapter
 import com.zurichat.app.ui.dm.MEDIA
+import com.zurichat.app.ui.dm_chat.apiservice.ApiDMService
 import com.zurichat.app.ui.dm_chat.model.request.SendMessageBody
 import com.zurichat.app.ui.dm_chat.model.response.message.BaseRoomData
 import com.zurichat.app.ui.dm_chat.model.response.message.Data
@@ -41,6 +43,7 @@ import com.zurichat.app.ui.fragments.channel_chat.ChannelHeaderItem
 import com.zurichat.app.ui.fragments.home_screen.CentrifugeClient
 import com.zurichat.app.util.isInternetAvailable
 import com.zurichat.app.util.setClickListener
+import dagger.hilt.android.AndroidEntryPoint
 import hani.momanii.supernova_emoji_library.Actions.EmojIconActions
 import io.github.centrifugal.centrifuge.*
 import kotlinx.coroutines.CoroutineScope
@@ -55,7 +58,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.random.Random
 
-
+@AndroidEntryPoint
 class RoomFragment : Fragment() {
     private lateinit var roomsListAdapter : BaseListAdapter
     private lateinit var roomId: String
@@ -65,8 +68,8 @@ class RoomFragment : Fragment() {
     private lateinit var user : User
     private lateinit var room : RoomsListResponseItem
     private var currentPosition: Int? = null
-    private lateinit var roomMsgViewModel: RoomViewModel
     private lateinit var binding: FragmentDmBinding
+    private val roomMsgViewModel by viewModels<RoomViewModel>()
 
     private val PREFS_NAME = "ORG_INFO"
     private val ORG_NAME = "org_name"
@@ -146,9 +149,6 @@ class RoomFragment : Fragment() {
         binding.listDm.adapter = roomsListAdapter
         binding.listDm.itemAnimator = null
 
-        val repository = Repository()
-        val viewModelFactory = RoomViewModelFactory(repository)
-        roomMsgViewModel = ViewModelProvider(this, viewModelFactory).get(RoomViewModel::class.java)
         roomMsgViewModel.getMessages(organizationID, roomId)
 
         roomMsgViewModel.myGetMessageResponse.observe(viewLifecycleOwner, { response ->

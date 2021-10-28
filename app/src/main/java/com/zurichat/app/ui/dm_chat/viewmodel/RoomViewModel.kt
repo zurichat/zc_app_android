@@ -12,10 +12,13 @@ import com.zurichat.app.ui.dm_chat.model.response.message.GetMessageResponse
 import com.zurichat.app.ui.dm_chat.model.response.message.SendMessageResponse
 import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponse
 import com.zurichat.app.ui.dm_chat.repository.Repository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import retrofit2.Response
+import javax.inject.Inject
 
-class RoomViewModel(private val repository: Repository) : ViewModel() {
+@HiltViewModel
+class RoomViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
     val myResponse: MutableLiveData<Response<RoomsListResponse>> = MutableLiveData()
 
