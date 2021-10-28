@@ -42,7 +42,7 @@
                 android:layout_marginEnd="8dp"
                 android:drawableEnd="@drawable/organization_creator_fab"
                 android:fontFamily="@font/lato"
-                android:text="Create a new workspace"
+                android:text="@string/create_workspace"
                 android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

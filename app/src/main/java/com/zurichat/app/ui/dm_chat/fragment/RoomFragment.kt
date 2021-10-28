@@ -21,9 +21,9 @@ import androidx.room.Room.databaseBuilder
 import com.zurichat.app.R
 import com.zurichat.app.data.localSource.AppDatabase
 import com.zurichat.app.data.localSource.dao.RoomMessageDao
-import com.zurichat.app.models.RoomModel
 import com.zurichat.app.databinding.FragmentDmBinding
 import com.zurichat.app.databinding.PartialAttachmentPopupBinding
+import com.zurichat.app.models.RoomModel
 import com.zurichat.app.models.User
 import com.zurichat.app.ui.add_channel.BaseItem
 import com.zurichat.app.ui.add_channel.BaseListAdapter
@@ -347,15 +347,15 @@ class RoomFragment : Fragment() {
         uiScope.launch(Dispatchers.IO) {
             try {
                 if (CentrifugeClient.isConnected()){
-                    CentrifugeClient.subscribeToDm(roomId)
+                    CentrifugeClient.subscribeToCentrifugoRoom(roomId)
                 }
                 client = CentrifugeClient.getClient(user)
                 //client.connect()
-                CentrifugeClient.setCustomListener(object : CentrifugeClient.ChannelListener {
+                CentrifugeClient.setCentrifugoRoomListener(object : CentrifugeClient.CentrifugoRoomListener {
                     override fun onConnected(connected: Boolean) {
                         try{
                             if(connected){
-                                CentrifugeClient.subscribeToDm(roomId)
+                                CentrifugeClient.subscribeToCentrifugoRoom(roomId)
                             }
                         }catch (e : Exception){
                             e.printStackTrace()

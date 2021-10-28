@@ -8,7 +8,7 @@
     android:background="@color/primaryColor"
     android:minHeight="?attr/actionBarSize"
     android:theme="?attr/actionBarTheme"
-    app:title="Create a new Workspace"
+    app:title="@string/create_workspace"
     app:titleTextColor="@color/white"
     app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
     app:navigationIcon="@drawable/ic_arrow_back">

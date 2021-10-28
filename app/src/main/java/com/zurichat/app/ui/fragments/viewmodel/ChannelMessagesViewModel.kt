@@ -86,7 +86,7 @@ class ChannelMessagesViewModel @Inject constructor(val organizationService: Orga
         }
     }
 
-    // This function gets called after entering a channel to get the Centrifugo socket is
+    // This function gets called after entering a channel to get the Centrifugo socket name
     fun retrieveRoomData(organizationId : String, channelId : String){
         viewModelScope.launch {
             try {
@@ -110,7 +110,7 @@ class ChannelMessagesViewModel @Inject constructor(val organizationService: Orga
 
     fun getProfilePictures(orgId: String, list: List<Data>): List<Data> {
         val newList = list
-        list.forEachIndexed { index, data ->
+       /* list.forEachIndexed { index, data ->
             viewModelScope.launch {
                 try{
                     if (newList.isNotEmpty()){
@@ -121,7 +121,7 @@ class ChannelMessagesViewModel @Inject constructor(val organizationService: Orga
                     e.printStackTrace()
                 }
             }
-        }
+        }*/
         return newList
     }
 }

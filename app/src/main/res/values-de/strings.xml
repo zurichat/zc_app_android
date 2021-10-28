@@ -84,7 +84,7 @@ später leicht wiederfinden</string>
 <string name="label">Melden Sie sich bei Ihrem Zuri-Konto an</string>
 <string name="didn_t_rece">Haben Sie keinen Code erhalten?</string>
 <string name="back_to_sig">Zurück zur Anmeldung</string>
-<string name="email_addre">E-Mail-Addresse</string>
+<string name="email_addre">E-Mail-Adresse</string>
 <string name="please_ente">Bitte geben Sie die E-Mail-Adresse ein, die bei der Registrierung dieses Kontos verwendet wurde</string>
 <string name="no_account_to_switch_text">Melden Sie sich mit mehr als einem Konto auf diesem Gerät an, um diese Funktion zu verwenden</string>
 <string name="switch_accounts_toolbar_header">Zuvor verwendete Konten</string>
@@ -219,7 +219,7 @@ Sie können die Zuletzt gesehen von anderen Personen nicht sehen</string>
 <string name="x_selected">%1$d ausgewählt</string>
 <string name="send_to">Senden an %1$s</string>
 <string name="welcome_image">Willkommensbild</string>
-<string name="register_mail">E-Mail-Addresse</string>
+<string name="register_mail">E-Mail-Adresse</string>
 <string name="welcome_text">Senden Sie ganz einfach DMs an Ihre Kontakte und Kanäle, starten Sie Unterhaltungen mit nur einem Klick</string>
 <string name="welcome_title">Willkommen bei Zuri-Chat</string>
 <string name="title_activity_settings">Einstellungen</string>
@@ -249,7 +249,21 @@ Sie können die Zuletzt gesehen von anderen Personen nicht sehen</string>
 <string name="zuri_dms_team_tolstoy">Zuri-DMs: 
 Team Tolstoi -
  Kotlin &amp; Java Mobile</string>
-<string name="app_name">Zuri-Chat</string>
- <string name="hello_blank_fragment">Keine Internetverbindung!</string>
+    <string name="hello_blank_fragment">Keine Internetverbindung!</string>
  <string name="lbl_terms_and_conditions"><u>Geschäftsbedingungen</u></string>
+    <string name="languages">Sprachen</string>
+    <string name="title">Titel</string>
+    <string name="select_language">Wählen Sie eine Sprachübersetzung aus</string>
+    <string name="english_uk">Englisch UK</string>
+    <string name="english_us">Englisch USA</string>
+    <string name="fr">Französisch</string>
+    <string name="zh">Chinesisch</string>
+    <string name="ar">Arabisch</string>
+    <string name="den">Deutsch</string>
+    <string name="sp">Spanisch</string>
+    <string name="it">Italienisch</string>
+    <string name="iw">Hebräisch</string>
+    <string name="por">Portugiesisch</string>
+    <string name="add_workspace">Arbeitsbereich hinzufügen</string>
+    <string name="create_workspace">Neuen Arbeitsbereich erstellen</string>
 </resources>
