@@ -1,4 +1,19 @@
 <resources>
+<string name="create_workspace">Crear nuevo espacio de trabajo</string>
+<string name="add_workspace">Agregar espacio de trabajo</string>
+<string name="por">portugués</string>
+<string name="iw">hebreo</string>
+<string name="it">Italiano</string>
+<string name="sp">Español</string>
+<string name="den">Deutch</string>
+<string name="ar">Arábica</string>
+<string name="zh">chino</string>
+<string name="fr">francés</string>
+<string name="english_us">Inglés EE. UU.</string>
+<string name="english_uk">inglés del Reino Unido</string>
+<string name="select_language">Seleccione una traducción de idioma</string>
+<string name="title">Título</string>
+<string name="languages">Idiomas</string>
 <string name="continue_txt">Continuar</string>
 <string name="forgot_password_txt">¿Has olvidado tu contraseña?</string>
 <string name="create_new_organization">Crear nueva organización</string>
@@ -11,7 +26,7 @@
 <string name="invite_link">Generar enlace</string>
 <string name="empty_starrred_message_info">Toca y mantén presionado cualquier mensaje \ nen cualquier chat para destacarlo, \ npara que puedas encontrarlo fácilmente \ n más tarde</string>
 <string name="starred_messages">Mensajes destacados</string>
-<string name="retrieving_user_org">Recuperando la organización del usuario …</string>
+<string name="retrieving_user_org">Recuperando la organización del usuario ...</string>
 <string name="successful_get_user_org">organizaciones de usuarios recuperadas con éxito</string>
 <string name="invite_user">Invitar usuario</string>
 <string name="sign_in">Iniciar sesión</string>
@@ -66,7 +81,7 @@
 <string name="click_button_to_join_a_channel">Haga clic en el botón para unirse a un canal</string>
 <string name="contacts_who_can_t_add_you">Los contactos que no puedan agregarte a un canal tendrán la opción de invitarte en privado.</string>
 <string name="you_aren_t_sharing_live_location">No estás compartiendo la ubicación en vivo en ningún chat</string>
-<string name="thirty_minutes">Después de 30 minutos</string>
+<string name="thirty_minutes">Despues de 30 minutos</string>
 <string name="one_minute">Después de 1 minuto</string>
 <string name="immediately">Inmediatamente</string>
 <string name="live_location_manage__device_settings">La ubicación en vivo requiere una ubicación en segundo plano. Puede administrar esto en la configuración de su dispositivo.</string>
@@ -141,7 +156,7 @@
 <string name="document">Documento</string>
 <string name="audio">Audio</string>
 <string name="gallery">Galería</string>
-<string name="no_item_here_txt">Lo sentimos, no tienes ningún \ nartículo aquí.</string>
+<string name="no_item_here_txt">Lo sentimos, no tienes ningún artículo aquí.</string>
 <string name="profile_about">Sobre</string>
 <string name="_10_07">10:07</string>
 <string name="hey_what_s_good_">Hey que esta bien</string>
@@ -151,15 +166,13 @@
 <string name="blocked_contacts_header">Contactos bloqueados</string>
 <string name="live_locations_header">Ubicación en vivo</string>
 <string name="channels_header">Canales</string>
-<string name="read_receipt_summary">Si está desactivado, no enviará ni recibirá recibos de lectura.
-Los recibos de lectura siempre se envían para los canales</string>
+<string name="read_receipt_summary">Si está desactivado, no enviará ni recibirá recibos de lectura. Los recibos de lectura siempre se envían para los canales</string>
 <string name="read_receipt_header">Leer el recibo</string>
 <string name="status_header">Estado</string>
 <string name="about_header">Sobre</string>
 <string name="profile_photo_header">Foto de perfil</string>
 <string name="last_seen_header">Ultima vez visto</string>
-<string name="who_can_see_summary">Si no comparte su último visto,
-no podrás ver lo último visto de otras personas</string>
+<string name="who_can_see_summary">Si no comparte su Última vista, no podrá ver la Última vista de otras personas.</string>
 <string name="who_can_see_header">¿Quién puede ver mi información personal?</string>
 <string name="default_wallpaper">Fondo de pantalla predeterminado</string>
 <string name="my_photos_cat">Mis fotos</string>
@@ -200,7 +213,7 @@ no podrás ver lo último visto de otras personas</string>
 <string name="network_usage">Uso de la red</string>
 <string name="manage_storage">Administrar almacenamiento</string>
 <string name="attachment_summary_off">Descargue archivos adjuntos solo cuando se soliciten manualmente</string>
-<string name="attachment_summary_on">Descargar automáticamente archivos adjuntos para correos electrónicos entrantes</string>
+<string name="attachment_summary_on">&quot;Descargar automáticamente los archivos adjuntos para los correos electrónicos entrantes&quot;</string>
 <string name="attachment_title">Descargar archivos adjuntos entrantes</string>
 <string name="sync_title">Sincronizar el correo electrónico periódicamente</string>
 <string name="reply_title">Acción de respuesta predeterminada</string>
@@ -215,7 +228,7 @@ no podrás ver lo último visto de otras personas</string>
 <string name="send_to">Enviar a %1$s</string>
 <string name="welcome_image">Imagen de bienvenida</string>
 <string name="register_mail">Dirección de correo electrónico</string>
-<string name="welcome_text">Envíe mensajes directos a sus contactos y canales con \ n facilidad, inicie conversaciones con solo un clic</string>
+<string name="welcome_text">Envíe mensajes directos a sus contactos y canales con facilidad, inicie conversaciones con solo un clic</string>
 <string name="welcome_title">Bienvenido a Zuri Chat</string>
 <string name="title_activity_settings">Ajustes</string>
 <string name="customize_your_chat_environment_to_suit_your_preference">Personalice su entorno de chat para que se adapte a sus preferencias</string>
@@ -228,7 +241,7 @@ no podrás ver lo último visto de otras personas</string>
 <string name="never_miss_a_chat">No te pierdas ni una charla</string>
 <string name="slider_image">Imagen del control deslizante</string>
 <string name="skip">Saltar</string>
-<string name="verification_code">Se envió un código de verificación a \ n, ingrese el código \ n para verificar su cuenta.</string>
+<string name="verification_code">Se ha enviado un código de verificación para que ingrese el código para verificar su cuenta.</string>
 <string name="skip_intro">Presiona Intro</string>
 <string name="next">próximo</string>
 <string name="title_text">Texto del título</string>
@@ -239,23 +252,8 @@ no podrás ver lo último visto de otras personas</string>
 <string name="email_verified">Correo Electrónico Verificado</string>
 <string name="verify_email">Verificar correo electrónico</string>
 <string name="enter_registered_email">Ingrese el correo electrónico de chat de zuri registrado</string>
-<string name="zuri_dms_team_tolstoy">DM de Zuri: \ nTeam Tolstoy - \ n Kotlin y Java Mobile</string>
-    <string name="hello_blank_fragment">¡Sin conexión a Internet!</string>
+<string name="zuri_dms_team_tolstoy">TitZuri DMs: Equipo Tolstoy - Kotlin Java Mobile</string>
+<string name="app_name">Zuri Chat: Canales y DM</string>
     <string name="lbl_terms_and_conditions"><u>Términos y condiciones</u></string>
-    <string name="languages">Idiomas</string>
-    <string name="title">Título</string>
-    <string name = "select_language"> Seleccione una traducción de idioma </string>
-    <string name = "english_uk"> inglés del Reino Unido </string>
-    <string name = "english_us"> Inglés de EE. UU. </string>
-    <string name = "fr"> francés </string>
-    <string name = "zh"> chino </string>
-    <string name = "ar"> árabe </string>
-    <string name = "den"> Alemán </string>
-    <string name = "sp"> español </string>
-    <string name = "it"> italiano </string>
-    <string name = "iw"> hebreo </string>
-    <string name = "por"> portugués </string>
-    <string name="add_workspace">Agregar espacio de trabajo</string>
-    <string name="create_workspace">Crear nuevo espacio de trabajo</string>
+    <string name="hello_blank_fragment">¡Sin conexión a Internet!</string>
 </resources>
-

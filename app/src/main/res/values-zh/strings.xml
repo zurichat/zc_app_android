@@ -1,4 +1,19 @@
 <resources>
+<string name="create_workspace">创建新工作区</string>
+<string name="add_workspace">添加工作区</string>
+<string name="por">葡萄牙语</string>
+<string name="iw">希伯来语</string>
+<string name="it">意大利语</string>
+<string name="sp">西班牙语</string>
+<string name="den">荷兰语</string>
+<string name="ar">阿拉伯</string>
+<string name="zh">中国人</string>
+<string name="fr">法语</string>
+<string name="english_us">英语 美国</string>
+<string name="english_uk">英语 英国</string>
+<string name="select_language">选择语言翻译</string>
+<string name="title">标题</string>
+<string name="languages">语言</string>
 <string name="continue_txt">继续</string>
 <string name="forgot_password_txt">忘记密码？</string>
 <string name="create_new_organization">创建新组织</string>
@@ -146,8 +161,7 @@
 <string name="document">文档</string>
 <string name="audio">声音的</string>
 <string name="gallery">画廊</string>
-<string name="no_item_here_txt">抱歉，您这里没有任何
-项目。</string>
+<string name="no_item_here_txt">抱歉，您这里没有任何项目。</string>
 <string name="profile_about">关于</string>
 <string name="_10_07">10:07</string>
 <string name="hey_what_s_good_">嘿有什么好</string>
@@ -157,15 +171,13 @@
 <string name="blocked_contacts_header">已屏蔽的联系人</string>
 <string name="live_locations_header">现场位置</string>
 <string name="channels_header">频道</string>
-<string name="read_receipt_summary">如果关闭，您将不会发送或接收已读回执。
-阅读回执总是发送给频道</string>
+<string name="read_receipt_summary">如果关闭，您将不会发送或接收已读回执。阅读回执总是发送给频道</string>
 <string name="read_receipt_header">阅读回执</string>
 <string name="status_header">地位</string>
 <string name="about_header">关于</string>
 <string name="profile_photo_header">头像照片</string>
 <string name="last_seen_header">最后一次露面</string>
-<string name="who_can_see_summary">如果你不分享你的最后一次看到，
-你将无法看到其他人的 Last seen</string>
+<string name="who_can_see_summary">如果您不分享您的 Last seen，您将无法看到其他人的 Last seen</string>
 <string name="who_can_see_header">谁可以看到我的个人信息</string>
 <string name="default_wallpaper">默认壁纸</string>
 <string name="my_photos_cat">我的照片</string>
@@ -206,7 +218,7 @@
 <string name="network_usage">网络使用</string>
 <string name="manage_storage">管理存储</string>
 <string name="attachment_summary_off">仅在手动请求时下载附件</string>
-<string name="attachment_summary_on">自动下载传入电子邮件的附件</string>
+<string name="attachment_summary_on">“自动下载收到的电子邮件的附件”</string>
 <string name="attachment_title">下载传入的附件</string>
 <string name="sync_title">定期同步电子邮件</string>
 <string name="reply_title">默认回复操作</string>
@@ -221,8 +233,7 @@
 <string name="send_to">发给 %1$s</string>
 <string name="welcome_image">欢迎图片</string>
 <string name="register_mail">电子邮件地址</string>
-<string name="welcome_text">轻松向您的联系人和频道发送 DM，
- 只需单击即可开始对话</string>
+<string name="welcome_text">轻松向您的联系人和频道发送 DM，只需单击即可开始对话</string>
 <string name="welcome_title">欢迎来到 Zuri 聊天</string>
 <string name="title_activity_settings">设置</string>
 <string name="customize_your_chat_environment_to_suit_your_preference">自定义您的聊天环境以满足您的喜好</string>
@@ -235,9 +246,7 @@
 <string name="never_miss_a_chat">不错过任何聊天</string>
 <string name="slider_image">滑块图像</string>
 <string name="skip">跳过</string>
-<string name="verification_code">验证码已发送至
- 请输入验证码
- 以验证您的帐户。</string>
+<string name="verification_code">验证码已发送至请输入验证码以验证您的帐户。</string>
 <string name="skip_intro">跳过介绍</string>
 <string name="next">下一个</string>
 <string name="title_text">标题文字</string>
@@ -248,25 +257,8 @@
 <string name="email_verified">电子邮件已验证</string>
 <string name="verify_email">验证邮件</string>
 <string name="enter_registered_email">输入已注册的 zuri 聊天电子邮件</string>
-<string name="zuri_dms_team_tolstoy">Zuri DM：
-Team Tolstoy -
- Kotlin 和 Java Mobile</string>
-    <string name="hello_blank_fragment">
-没有网络连接！</string>
+<string name="zuri_dms_team_tolstoy">TitZuri DM：托尔斯泰团队 - Kotlin Java Mobile</string>
+<string name="app_name">Zuri 聊天：频道和 DM</string>
  <string name="lbl_terms_and_conditions"><u>条款和条件</u></string>
-    <string name="languages">语言</string>
-    <string name="title">标题</string>
-    <string name="select_language">选择语言翻译</string>
-    <string name="english_uk">英语英国</string>
-    <string name="english_us">英语美国</string>
-    <string name="fr">法语</string>
-    <string name="zh">中文</string>
-    <string name="ar">阿拉伯语</string>
-    <string name="den">德语</string>
-    <string name="sp">西班牙语</string>
-    <string name="it">意大利语</string>
-    <string name="iw">希伯来语</string>
-    <string name="por">葡萄牙语</string>
-    <string name="add_workspace">添加工作区</string>
-    <string name="create_workspace">创建新工作区</string>
+ <string name="hello_blank_fragment">没有网络连接！</string>
 </resources>
