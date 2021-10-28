@@ -16,7 +16,7 @@ import javax.inject.Inject
 class Repository @Inject constructor(private val roomService: ApiDMService) {
 
     suspend fun getRooms(orgId: String, memId: String): Response<RoomsListResponse> {
-        return RetrofitInstance.retrofitService.getRooms(orgId, memId)
+        return roomService.getRooms(orgId, memId)
     }
 
     suspend fun getMember(memId: String): Response<MemberResponse> {
