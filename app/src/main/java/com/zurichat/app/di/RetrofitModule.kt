@@ -94,14 +94,12 @@ object RetrofitModule {
         builder.baseUrl("https://api.zuri.chat/").build().create(UsersService::class.java)
 
     @Provides
-    @Singleton
     fun roomService(client: OkHttpClient.Builder, gson: Gson) =
         Retrofit.Builder().client(client.build())
             .addConverterFactory(GsonConverterFactory.create(gson))
             .baseUrl(ApiDMService.BASE_URL)
             .build()
     @Provides
-    @Singleton
     fun provideRoomApiService(retrofit: Retrofit): ApiDMService =
         retrofit.create(ApiDMService::class.java)
 

@@ -41,6 +41,7 @@ import com.zurichat.app.ui.fragments.channel_chat.ChannelHeaderItem
 import com.zurichat.app.ui.fragments.home_screen.CentrifugeClient
 import com.zurichat.app.util.isInternetAvailable
 import com.zurichat.app.util.setClickListener
+import dagger.hilt.android.AndroidEntryPoint
 import hani.momanii.supernova_emoji_library.Actions.EmojIconActions
 import io.github.centrifugal.centrifuge.*
 import kotlinx.coroutines.CoroutineScope
@@ -55,7 +56,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.random.Random
 
-
+@AndroidEntryPoint
 class RoomFragment : Fragment() {
     private lateinit var roomsListAdapter : BaseListAdapter
     private lateinit var roomId: String

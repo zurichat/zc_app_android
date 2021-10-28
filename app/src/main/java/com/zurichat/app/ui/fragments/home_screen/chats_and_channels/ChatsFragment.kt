@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +17,7 @@ import com.zurichat.app.databinding.FragmentChatsBinding
 import com.zurichat.app.models.User
 import com.zurichat.app.models.organization_model.UserOrganizationModel
 import com.zurichat.app.ui.dm_chat.adapter.RoomAdapter
+import com.zurichat.app.ui.dm_chat.apiservice.ApiDMService
 import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponse
 import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponseItem
 import com.zurichat.app.ui.dm_chat.repository.Repository
@@ -24,9 +26,11 @@ import com.zurichat.app.ui.dm_chat.viewmodel.RoomViewModel
 import com.zurichat.app.ui.dm_chat.viewmodel.RoomViewModelFactory
 import com.zurichat.app.ui.fragments.home_screen.HomeScreenFragment
 import com.zurichat.app.ui.fragments.home_screen.HomeScreenViewModel
+import com.zurichat.app.ui.login.LoginViewModel
 import com.zurichat.app.ui.notification.NotificationUtils
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 @AndroidEntryPoint
@@ -45,6 +49,7 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
     private lateinit var room: RoomsListResponseItem
     private lateinit var roomList: RoomsListResponse
     private lateinit var roomsArrayList: ArrayList<RoomsListResponseItem>
+    private val roomViewModel by viewModels<RoomViewModel>()
 
     private lateinit var memberList: UserOrganizationModel
     private lateinit var email: String
@@ -97,14 +102,10 @@ class ChatsFragment : Fragment(R.layout.fragment_chats) {
             NotificationUtils().setNotification(mNotificationTime, requireActivity())
         }
 
-        //setup viewModel and Retrofit
-        val repository = Repository()
-        val viewModelFactory = RoomViewModelFactory(repository)
-        viewModelRoom = ViewModelProvider(this, viewModelFactory).get(RoomViewModel::class.java)
 
         //call retrofit service function to get rooms
-        viewModelRoom.getRooms(organizationID, memberId)
-        viewModelRoom.myResponse.observe(viewLifecycleOwner) { response ->
+        roomViewModel.getRooms(organizationID, memberId)
+        roomViewModel.myResponse.observe(viewLifecycleOwner) { response ->
             roomsArrayList.clear()
             if (response.isSuccessful) {
                 roomList = response.body()!!
