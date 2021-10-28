@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:gravity="center"
-        android:text="Add Workspace"
+        android:text="@string/add_workspace"
         android:textColor="@color/white"
         android:textSize="18sp" />
 

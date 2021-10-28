@@ -242,5 +242,20 @@ no podrás ver lo último visto de otras personas</string>
 <string name="zuri_dms_team_tolstoy">DM de Zuri: \ nTeam Tolstoy - \ n Kotlin y Java Mobile</string>
     <string name="hello_blank_fragment">¡Sin conexión a Internet!</string>
     <string name="lbl_terms_and_conditions"><u>Términos y condiciones</u></string>
+    <string name="languages">Idiomas</string>
+    <string name="title">Título</string>
+    <string name = "select_language"> Seleccione una traducción de idioma </string>
+    <string name = "english_uk"> inglés del Reino Unido </string>
+    <string name = "english_us"> Inglés de EE. UU. </string>
+    <string name = "fr"> francés </string>
+    <string name = "zh"> chino </string>
+    <string name = "ar"> árabe </string>
+    <string name = "den"> Alemán </string>
+    <string name = "sp"> español </string>
+    <string name = "it"> italiano </string>
+    <string name = "iw"> hebreo </string>
+    <string name = "por"> portugués </string>
+    <string name="add_workspace">Agregar espacio de trabajo</string>
+    <string name="create_workspace">Crear nuevo espacio de trabajo</string>
 </resources>
 
