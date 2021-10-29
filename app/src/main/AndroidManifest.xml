@@ -31,7 +31,6 @@
 
             android:theme="@style/Theme.MaterialComponents.Light" />
 
-
         <activity
             android:name=".ui.activities.SplashActivity"
             android:exported="true"

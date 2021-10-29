@@ -1,4 +1,19 @@
 <resources>
+<string name="create_workspace">Neuen Arbeitsbereich erstellen</string>
+<string name="add_workspace">Arbeitsbereich hinzufügen</string>
+<string name="por">Portugiesisch</string>
+<string name="iw">hebräisch</string>
+<string name="it">Italiano</string>
+<string name="sp">Spanisch</string>
+<string name="den">Deutsch</string>
+<string name="ar">Arabisch</string>
+<string name="zh">Chinesisch</string>
+<string name="fr">Französisch</string>
+<string name="english_us">Amerikanisches Englisch</string>
+<string name="english_uk">Englisch UK</string>
+<string name="select_language">Wählen Sie eine Sprachübersetzung aus</string>
+<string name="title">Titel</string>
+<string name="languages">Sprachen</string>
 <string name="continue_txt">Weitermachen</string>
 <string name="forgot_password_txt">Passwort vergessen?</string>
 <string name="create_new_organization">Neue Organisation erstellen</string>
@@ -233,9 +248,7 @@ Sie können die Zuletzt gesehen von anderen Personen nicht sehen</string>
 <string name="never_miss_a_chat">Verpasse keinen Chat</string>
 <string name="slider_image">Slider-Bild</string>
 <string name="skip">Überspringen</string>
-<string name="verification_code">Ein Bestätigungscode wurde an 
- gesendet. Geben Sie den Code ein, 
- um Ihr Konto zu bestätigen.</string>
+<string name="verification_code">Ein Bestätigungscode wurde gesendet, bitte geben Sie den Code ein, um Ihr Konto zu bestätigen.</string>
 <string name="skip_intro">Intro überspringen</string>
 <string name="next">Nächste</string>
 <string name="title_text">Titeltext</string>
@@ -246,26 +259,10 @@ Sie können die Zuletzt gesehen von anderen Personen nicht sehen</string>
 <string name="email_verified">Email überprüft</string>
 <string name="verify_email">E-Mail bestätigen</string>
 <string name="enter_registered_email">Geben Sie die registrierte zuri-Chat-E-Mail ein</string>
-<string name="zuri_dms_team_tolstoy">Zuri-DMs: 
-Team Tolstoi -
- Kotlin &amp; Java Mobile</string>
-    <string name="hello_blank_fragment">Keine Internetverbindung!</string>
+<string name="zuri_dms_team_tolstoy">TitZuri DMs: Team Tolstoy - Kotlin Java Mobile</string>
+<string name="app_name">Zuri Chat: Kanäle und DMs</string>
  <string name="lbl_terms_and_conditions"><u>Geschäftsbedingungen</u></string>
-    <string name="languages">Sprachen</string>
-    <string name="title">Titel</string>
-    <string name="select_language">Wählen Sie eine Sprachübersetzung aus</string>
-    <string name="english_uk">Englisch UK</string>
-    <string name="english_us">Englisch USA</string>
-    <string name="fr">Französisch</string>
-    <string name="zh">Chinesisch</string>
-    <string name="ar">Arabisch</string>
-    <string name="den">Deutsch</string>
-    <string name="sp">Spanisch</string>
-    <string name="it">Italienisch</string>
-    <string name="iw">Hebräisch</string>
-    <string name="por">Portugiesisch</string>
-    <string name="add_workspace">Arbeitsbereich hinzufügen</string>
-    <string name="create_workspace">Neuen Arbeitsbereich erstellen</string>
+ <string name="hello_blank_fragment">Keine Internetverbindung!</string>
     <string name="error">Error</string>
     <string name="channel_tones">channel_tones</string>
     <string name="message_tone">message_tone</string>
