@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">Zuri Chat</string>
+
+    <!--
+    Screens
+    The section below this comment is for screens (i.e fragments)
+     -->
+    <!-- Home Screen -->
+    <string name="zuri">ZURI</string>
+    <string name="chats">Chats</string>
+    <string name="channels">Channels</string>
+    <string name="start_a_chat">Start a Chat</string>
+    <string name="mates_on_zuri_chat"><b>%1$s</b> and %2$d of your teammates are available on Zuri for a chat</string>
+
+    <!--
+    Menus
+    The section below this comment is for menus
+     -->
+    <!-- Default Menu -->
+    <string name="search">Search</string>
+    <!-- Home Menu -->
+    <string name="new_chanenl">New Channel</string>
+    <string name="saved_messages">Saved Messages</string>
+    <string name="settings">Settings</string>
 </resources>
