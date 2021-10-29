@@ -57,7 +57,7 @@ class CreateDialog(private val layoutInflaterr: LayoutInflater,
                 //save to shared preferences
                 val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
                 val editor = preferences.edit()
-                editor.putString("name", java.lang.String.valueOf(name.text.toString()))
+                editor.putString(getString(R.string.name), java.lang.String.valueOf(name.text.toString()))
                 editor.apply()
             }
         }
@@ -89,7 +89,7 @@ class CreateDialog(private val layoutInflaterr: LayoutInflater,
 
                 val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
                 val editor = preferences.edit()
-                editor.putString("about", java.lang.String.valueOf(about.text.toString()))
+                editor.putString(getString(R.string.about), java.lang.String.valueOf(about.text.toString()))
                 editor.apply()
             }
         }

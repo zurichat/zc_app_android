@@ -266,4 +266,18 @@ Team Tolstoi -
     <string name="por">Portugiesisch</string>
     <string name="add_workspace">Arbeitsbereich hinzufügen</string>
     <string name="create_workspace">Neuen Arbeitsbereich erstellen</string>
+    <string name="error">Error</string>
+    <string name="channel_tones">channel_tones</string>
+    <string name="message_tone">message_tone</string>
+    <string name="vibrate">vibrate</string>
+    <string name="Channel_tones_off">Channel tones off</string>
+    <string name="channel_tones_on">Channel tones on</string>
+    <string name="message_tones_off">Message tones off</string>
+    <string name="message_tones_on">Message tones on</string>
+    <string name="vibrate_off">Vibrate off</string>
+    <string name="vibrate_on">Vibrate on</string>
+    <string name="high_priority_notification">High priority Notifications off</string>
+    <string name="fragment_view_destroyed">Should not attempt to get bindings when Fragment views are destroyed.</string>
+    <string name="name">name</string>
+    <string name="about">about</string>
 </resources>
