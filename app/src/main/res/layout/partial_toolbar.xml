@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.appbar.MaterialToolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:theme="@style/Toolbar"
+    app:layout_scrollFlags="scroll|enterAlways"
+    app:menu="@menu/menu_default"
+    app:popupTheme="@style/Toolbar.MenuItem"
+    app:subtitleTextAppearance="@style/Toolbar.SubtitleText"
+    app:subtitleTextColor="@color/white"
+    app:titleTextAppearance="@style/Toolbar.TitleText"
+    app:titleTextColor="@color/white"
+    tools:subtitle="@string/app_name"
+    tools:title="@string/app_name" />
