@@ -45,7 +45,7 @@ public class OpenCameraActivity extends AppCompatActivity {
             if (intent.resolveActivity(getPackageManager()) != null){
                 activityResultLauncher.launch(intent);
             }else{
-                Toast.makeText(OpenCameraActivity.this, "Unable to Start Camera!",
+                Toast.makeText(OpenCameraActivity.this, getString(R.string.unable_to_start_camera),
                         Toast.LENGTH_SHORT).show();
             }
         });

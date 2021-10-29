@@ -104,7 +104,7 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
                         if (it.orgData.isNotEmpty()) {
                             firstTime = false
                             setUpViews(it.orgData)
-                            binding.toolbar4.subtitle = "${it.orgData.size} Organization(s)"
+                            binding.toolbar4.subtitle = "${it.orgData.size}" + getString(R.string.orgz)
                         } else {
                             firstTime = true
                         }
@@ -184,7 +184,7 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
                             // progressLoader.hide()
                             if (firstTime) {
                                 progressLoader.hide()
-                                val errorMessage = "An Error Occurred"
+                                val errorMessage = getString(R.string.an_error_occured)
                                 snackBar(errorMessage)
                             }
                         }
@@ -211,7 +211,7 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
                 adapter = userOrgAdapter
             }
         } catch (e: NullPointerException) {
-            Toast.makeText(context, "User has no organization", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, getString(R.string.user_no_org), Toast.LENGTH_LONG).show()
         }
 
     }
@@ -256,7 +256,7 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
                     requireActivity().finish()
                 }
                 is Result.Error -> {
-                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.error), Toast.LENGTH_SHORT).show()
                     progressLoader.hide()
                 }
                 is Result.Loading -> {

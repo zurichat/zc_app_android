@@ -14,7 +14,7 @@ class BackUpOverDialogFragment(val activity: Activity?) : DialogFragment() {
 
         return activity?.let {
             val builder = AlertDialog.Builder(it)
-            builder.setTitle("Back up Over")
+            builder.setTitle(getString(R.string.back_up_over))
                 .setSingleChoiceItems(
                     R.array.back_up_over,
                     0,

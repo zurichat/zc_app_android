@@ -237,7 +237,7 @@ class ChannelChatFragment : Fragment() {
                     //sendVoiceNote.visibility = View.VISIBLE
                     dimmerBox.visibility = View.GONE
                     toolbar.subtitle = channel.members.plus(1).toString().plus(" Members")
-                    Toast.makeText(requireContext(), "Joined Channel Successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.join_channel_success), Toast.LENGTH_SHORT).show()
                     binding.channelJoinBar.visibility = View.GONE
                     channelJoined = true
                 } else {

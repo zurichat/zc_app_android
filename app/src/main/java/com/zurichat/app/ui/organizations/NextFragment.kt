@@ -37,8 +37,8 @@ class NextFragment : Fragment(R.layout.fragment_add_to_organization) {
         if(prevDestLabel.equals("fragment_add_by_email")){
 
         }else{
-            generateMaterialDialog(requireActivity(),"Successful","You have successfully created" +
-                    " $organizationName","Dismiss",null)
+            generateMaterialDialog(requireActivity(),getString(R.string.successful),getString(R.string.successfully_created) +
+                    " $organizationName",getString(R.string.dismiss),null)
         }
 
 

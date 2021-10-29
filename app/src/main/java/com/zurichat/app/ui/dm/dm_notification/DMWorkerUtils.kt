@@ -35,7 +35,7 @@ fun makeNotification(context: Context, message: String) {
     val notification = NotificationCompat.Builder(context, CHANNEL_ID)
                        .setContentText(message)
                        .setAutoCancel(true)
-                       .setContentTitle("New message")
+                       .setContentTitle(context.getString(R.string.new_message))
                        .setPriority(NotificationCompat.PRIORITY_HIGH)
                        .setSmallIcon(R.drawable.notifications_icon)
                        .setContentIntent(pendingIntent)

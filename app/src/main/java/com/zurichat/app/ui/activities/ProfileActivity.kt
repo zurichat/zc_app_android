@@ -69,7 +69,7 @@ open class ProfileActivity: AppCompatActivity() {
 
         //user = intent.extras?.getParcelable("USER")!!
 
-        user = intent.getParcelableExtra<User>("USER") as User
+        user = intent.getParcelableExtra<User>(getString(R.string.user)) as User
         setContentView(R.layout.activity_profile)
 
         token = user?.token
@@ -154,8 +154,8 @@ open class ProfileActivity: AppCompatActivity() {
             val phoneTextView = findViewById<TextView>(R.id.tv_phoneno)
 
             with(builder){
-                setTitle("Edit Phone Number")
-                setPositiveButton("Save"){ _, _ ->
+                setTitle(getString(R.string.edit_number))
+                setPositiveButton(getString(R.string.save)){ _, _ ->
 
                     phoneTextView.text = editText.text.toString() // populates the value of the
 
@@ -169,7 +169,7 @@ open class ProfileActivity: AppCompatActivity() {
                     editor.apply()
 
                 }
-                setNegativeButton("Cancel") { _, _ ->
+                setNegativeButton(getString(R.string.cancel_mute_channel_settings)) { _, _ ->
                     Timber.d("This button clicked successfully!!") //just for log purposes
                 }
                 setView(dialogLayout)
@@ -196,7 +196,7 @@ open class ProfileActivity: AppCompatActivity() {
             //set profile photo to image uri
             profilePhoto.setImageURI(uri)
             profilePhoto.invalidate()
-            Toast.makeText(this, "Update Successful", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.successful), Toast.LENGTH_SHORT).show()
             updateProfilePhoto(uri)
         }
     }

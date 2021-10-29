@@ -66,7 +66,7 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
 
                     progressDialog.dismiss()
                 }catch (e:Exception){
-                    Toast.makeText(requireContext(), "an error occurred please try again later", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.err_occured_try_again), Toast.LENGTH_SHORT).show()
                     progressDialog.dismiss()
                 }
 
@@ -213,7 +213,7 @@ class SelectNewChannelFragment : Fragment(R.layout.fragment_select_new_channel) 
             viewModel._endPointResult.collect {
                 endPointLoadingState = it
                 if ( it is SelectNewChannelViewState.Error) {
-                    Toast.makeText(requireContext(),"Error in Loading data from server", Toast.LENGTH_LONG).show()
+                    Toast.makeText(requireContext(),getString(R.string.err_loading_data), Toast.LENGTH_LONG).show()
                 }
             }
         }

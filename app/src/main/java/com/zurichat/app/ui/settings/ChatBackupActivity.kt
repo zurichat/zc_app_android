@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
+import com.zurichat.app.R
 import com.zurichat.app.databinding.ActivityChatBackupBinding
 import com.zurichat.app.ui.settings.dialogs.BackUpGoogleDialogFragment
 import com.zurichat.app.ui.settings.dialogs.BackUpOverDialogFragment
@@ -40,12 +41,12 @@ class ChatBackupActivity : AppCompatActivity() {
 
         binding.btnBackupOver.setOnClickListener {
             val backupOverDialog = BackUpOverDialogFragment(this)
-            backupOverDialog.show(supportFragmentManager, "Back up Dialog")
+            backupOverDialog.show(supportFragmentManager, getString(R.string.backup_dialog))
         }
 
         binding.btnBackupGoogle.setOnClickListener {
             val backupGoogleDialog = BackUpGoogleDialogFragment(this)
-            backupGoogleDialog.show(supportFragmentManager, "Back up Google")
+            backupGoogleDialog.show(supportFragmentManager, getString(R.string.backup_google))
         }
 
 

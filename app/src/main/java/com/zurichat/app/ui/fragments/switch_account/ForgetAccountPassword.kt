@@ -40,10 +40,10 @@ class ForgetAccountPassword : Fragment(R.layout.fragment_forget_account_pass) {
                     success(message)
                 }
                 is Result.Error -> {
-                    Toast.makeText(requireContext(), "please try again", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.please_try_again), Toast.LENGTH_SHORT).show()
                 }
                 is Result.Loading ->{
-                    Toast.makeText(requireContext(), "please wait", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.pls_wait), Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -51,12 +51,12 @@ class ForgetAccountPassword : Fragment(R.layout.fragment_forget_account_pass) {
 
     private fun dialogue (){
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Confirmation ")
-            .setMessage("Are you sure you want to reset the password for this account?")
-            .setNegativeButton("No"){dialog,which->
+            .setTitle(getString(R.string.confirm))
+            .setMessage(getString(R.string.sure_reset_password))
+            .setNegativeButton(getString(R.string.no)){dialog,which->
 
             }
-            .setPositiveButton("Yes"){dialog,which->
+            .setPositiveButton(getString(R.string.yes)){dialog,which->
                 viewModel.passwordReset(PasswordResetBody(args.account.email))
             }
             .show()
