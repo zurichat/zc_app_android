@@ -157,7 +157,6 @@
 
     <string name="unread_messages">Unread messages</string>
     <string name="channels_">Channels</string>
-    <string name="lbl_terms_and_conditions"><u>terms and conditions</u></string>
     <string name="online">online</string>
     <string name="android_devs">Android Devs</string>
     <string name="channel_group_members">Lux, Hamid, Joe, +234707…</string>
@@ -301,4 +300,84 @@
     <string name="por">Portuguese</string>
     <string name="add_workspace">Add Workspace</string>
     <string name="create_workspace">Create New Workspace</string>
+    <string name="chat_header" translatable="false">chat_header</string>
+    <string name="security_header" translatable="false">security_header</string>
+    <string name="storage_header" translatable="false">storage_header</string>
+    <string name="notification_header" translatable="false">notification_header</string>
+    <string name="logout_header" translatable="false">logout_header</string>
+    <string name="user" translatable="false">USER</string>
+    <string name="logged_out" translatable="false">LOG_OUT</string>
+    <string name="current_org_id">Current Organization ID</string>
+    <string name="error">Error</string>
+    <string name="channel_tones" translatable="false">channel_tones</string>
+    <string name="message_tone" translatable="false">message_tone</string>
+    <string name="vibrate">vibrate</string>
+    <string name="high_priority">high_priority</string>
+    <string name="Channel_tones_off">Channel tones off</string>
+    <string name="channel_tones_on">Channel tones on</string>
+    <string name="message_tones_off">Message tones off</string>
+    <string name="message_tones_on">Message tones on</string>
+    <string name="vibrate_off">Vibrate off</string>
+    <string name="vibrate_on">Vibrate on</string>
+    <string name="high_priority_notification">High priority Notifications off</string>
+    <string name="high_priority_notifications_on">High priority Notifications on</string>
+    <string name="fragment_view_destroyed">Should not attempt to get bindings when Fragment views are destroyed.</string>
+    <string name="name">name</string>
+    <string name="about">about</string>
+    <string name="permission_granted">Permission Granted!</string>
+    <string name="permission_denied">Permission Denied!</string>
+    <string name="recording">recording</string>
+    <string name="unable_to_start_camera">Unable to Start Camera!</string>
+    <string name="edit_number">Edit Phone Number</string>
+    <string name="save">Save</string>
+    <string name="successful">Update Successful</string>
+    <string name="sent_successfully">Sent Successfully</string>
+    <string name="invalid_error">Error 400, invalid</string>
+    <string name="not_found_error">Error 404, Not found</string>
+    <string name="new_message">New message</string>
+    <string name="show_emoji">Show Emoji</string>
+    <string name="picture_not_taken">Picture not taken</string>
+    <string name="join_channel_success">Joined Channel Successfully</string>
+    <string name="retry">Retry</string>
+    <string name="accts">\" Account(s)\"</string>
+    <string name="password_match">Password match</string>
+    <string name="password_not_match">Password doesn\'t match</string>
+    <string name="fresh_sign_in">\"password change successful\n Fresh sign in required\"</string>
+    <string name="please_try_again">Please retry again</string>
+    <string name="pls_wait">Please wait</string>
+    <string name="log_out_success">You have been successfully logged out of previous account</string>
+    <string name="loading">Loading</string>
+    <string name="wrong_code_retry">Wrong code try again</string>
+    <string name="correct_code">Current code</string>
+    <string name="sure_reset_password">Are you sure you want to reset the password for this account?</string>
+    <string name="confirm">Confirmation</string>
+    <string name="err_occured_try_again">\"An Error occurred please try again \"</string>
+    <string name="err_msg">ERROR MESSAGE</string>
+    <string name="channel_name_not_empty">Channel name can\'t be empty.</string>
+    <string name="out_of">out of</string>
+    <string name="selected">selected</string>
+    <string name="err_loading_data">Error in Loading data from server</string>
+    <string name="user_no_org">User has no organization</string>
+    <string name="orgz">Organization(s)</string>
+    <string name="invite_by_email">Invite By Email</string>
+    <string name="add_one_email">You must at least add one email</string>
+    <string name="invite_sent_succesfully">Invitation sent successfully</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="successfully_created">You have successfully created</string>
+    <string name="link_copied">link copied</string>
+    <string name="backup_google_drive">Back up to Google Drive</string>
+    <string name="back_up_over">Back up Over</string>
+    <string name="choose_category">Choose Wallpaper Category</string>
+    <string name="bar">bar</string>
+    <string name="click_save">click to save</string>
+    <string name="click_delete">click to delete</string>
+    <string name="backup_dialog">Back up Dialog</string>
+    <string name="backup_google">Back up Google</string>
+    <string name="lbl_terms_and_conditions"><u>terms and conditions</u></string>
+    <string name="privacy">Privacy</string>
+    <string name="storage_n_data">Storage and Data</string>
+    <string name="chat_setting">Chat Settings</string>
+    <string name="notice_n_sounds">Notification and Sounds</string>
+    <string name="logout_">Log out</string>
+    <string name="switch_organisation">Switch Organisation</string>
 </resources>

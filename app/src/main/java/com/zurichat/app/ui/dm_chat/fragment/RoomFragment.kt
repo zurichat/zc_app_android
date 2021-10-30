@@ -3,8 +3,6 @@ package com.zurichat.app.ui.dm_chat.fragment
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.format.DateUtils
 import android.util.Log
 import android.view.LayoutInflater
@@ -29,16 +27,12 @@ import com.zurichat.app.models.User
 import com.zurichat.app.ui.add_channel.BaseItem
 import com.zurichat.app.ui.add_channel.BaseListAdapter
 import com.zurichat.app.ui.dm.MEDIA
-import com.zurichat.app.ui.dm_chat.apiservice.ApiDMService
 import com.zurichat.app.ui.dm_chat.model.request.SendMessageBody
 import com.zurichat.app.ui.dm_chat.model.response.message.BaseRoomData
 import com.zurichat.app.ui.dm_chat.model.response.message.Data
-import com.zurichat.app.ui.dm_chat.model.response.message.Result
 import com.zurichat.app.ui.dm_chat.model.response.message.SendMessageResponse
 import com.zurichat.app.ui.dm_chat.model.response.room.RoomsListResponseItem
-import com.zurichat.app.ui.dm_chat.repository.Repository
 import com.zurichat.app.ui.dm_chat.viewmodel.RoomViewModel
-import com.zurichat.app.ui.dm_chat.viewmodel.RoomViewModelFactory
 import com.zurichat.app.ui.fragments.channel_chat.ChannelHeaderItem
 import com.zurichat.app.ui.fragments.home_screen.CentrifugeClient
 import com.zurichat.app.util.isInternetAvailable

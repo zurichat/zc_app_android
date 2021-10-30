@@ -59,7 +59,7 @@ class ShareLinkFragment : Fragment() {
             val clipboard = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
             val clip = ClipData.newPlainText("TextView", binding.linkGenerated.text.toString())
             clipboard.setPrimaryClip(clip)
-            Toast.makeText(context, "link copied", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, getString(R.string.link_copied), Toast.LENGTH_SHORT).show()
         }
         // Set function to each item on the toolbar when they are been clicked
         binding.toolbarAddToSL.setNavigationOnClickListener { requireActivity().onBackPressed() }

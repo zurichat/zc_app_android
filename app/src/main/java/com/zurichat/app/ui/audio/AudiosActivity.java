@@ -67,15 +67,15 @@ public class AudiosActivity extends AppCompatActivity {
             @java.lang.Override
             public void onResponse(Call call, Response response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(AudiosActivity.this, "Sent Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AudiosActivity.this, getString(R.string.sent_successfully), Toast.LENGTH_SHORT).show();
                 }else if (response.code() == 400){
-                    Toast.makeText(AudiosActivity.this, "Error 400, invalid", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AudiosActivity.this, getString(R.string.invalid_error), Toast.LENGTH_SHORT).show();
 
                 }else if (response.code() == 404){
-                    Toast.makeText(AudiosActivity.this, "Error 404, Not found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AudiosActivity.this, getString(R.string.not_found_error), Toast.LENGTH_SHORT).show();
 
                 }else if (response.code() == 401){
-                    Toast.makeText(AudiosActivity.this, "Error 400, invalid", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AudiosActivity.this, getString(R.string.invalid_error), Toast.LENGTH_SHORT).show();
 
                 }
             }

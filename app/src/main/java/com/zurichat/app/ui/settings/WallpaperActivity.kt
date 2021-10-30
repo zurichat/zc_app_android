@@ -73,14 +73,14 @@ class WallpaperActivity : AppCompatActivity(),
 //                startActivity(Intent(activity, ManageWallpaperActivity::class.java))
 //            }
 
-            val change = findPreference<Preference>("change_wallpaper")
+            val change = findPreference<Preference>(getString(R.string.change_wallpaper))
             change?.setOnPreferenceClickListener {
                 startActivity(Intent(activity,ChooseWallpaperCategory::class.java))
                 true
             }
 
             //background dimming code
-            val barPref = findPreference<SeekBarPreference>("bar")
+            val barPref = findPreference<SeekBarPreference>(getString(R.string.bar))
             barPref?.updatesContinuously = true
 
             PreferenceManager.getDefaultSharedPreferences(context).registerOnSharedPreferenceChangeListener(this)
@@ -89,7 +89,7 @@ class WallpaperActivity : AppCompatActivity(),
 
         override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
             val dimmer:View? = view?.findViewById<View>(R.id.dimmer_view)
-            if (key == "bar"){
+            if (key == getString(R.string.bar)){
                 val barIncr = sharedPreferences?.getInt("bar",50)?.toFloat()
                 val flt = barIncr?.div(100.0f)
                 if (flt != null) {

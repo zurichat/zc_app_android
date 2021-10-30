@@ -80,15 +80,15 @@ public class DocumentActivity extends AppCompatActivity {
             @java.lang.Override
             public void onResponse(Call call, Response response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(DocumentActivity.this, "Sent Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DocumentActivity.this, getString(R.string.successful), Toast.LENGTH_SHORT).show();
                 }else if (response.code() == 400){
-                    Toast.makeText(DocumentActivity.this, "Error 400, invalid", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DocumentActivity.this, getString(R.string.invalid_error), Toast.LENGTH_SHORT).show();
 
                 }else if (response.code() == 404){
-                    Toast.makeText(DocumentActivity.this, "Error 404, Not found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DocumentActivity.this, getString(R.string.not_found_error), Toast.LENGTH_SHORT).show();
 
                 }else if (response.code() == 401){
-                    Toast.makeText(DocumentActivity.this, "Error 400, invalid", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DocumentActivity.this, getString(R.string.invalid_error), Toast.LENGTH_SHORT).show();
 
                 }
             }

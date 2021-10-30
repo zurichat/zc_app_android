@@ -259,7 +259,7 @@ class NewChannelDataFragment : Fragment(R.layout.fragment_new_channel_data) {
         bundle.putBoolean("Channel Joined", true)
 
         if (binding.channelName.text!!.isEmpty()) {
-            binding.channelName.error = "Channel name can't be empty."
+            binding.channelName.error = getString(R.string.channel_name_not_empty)
         } else {
             try {
                 findNavController().navigate(R.id.channelChatFragment,

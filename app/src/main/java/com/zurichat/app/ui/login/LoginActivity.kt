@@ -56,7 +56,7 @@ class LoginActivity : AppCompatActivity() {
         val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
 
         if(!isConnected){
-            Toast.makeText(applicationContext,"No Internet Connection!",Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext,getString(R.string.hello_blank_fragment),Toast.LENGTH_LONG).show()
             /*val ft = supportFragmentManager.beginTransaction()
             ft.replace(R.id.fragment_placeholder, InternetFragment())
             ft.commit()*/

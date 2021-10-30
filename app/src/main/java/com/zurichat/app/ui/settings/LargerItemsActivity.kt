@@ -32,11 +32,11 @@ class LargerItemsActivity : AppCompatActivity() {
         return when (item.itemId) {
 
             R.id.action_save -> {
-                Toast.makeText(applicationContext, "click to save", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, getString(R.string.click_save), Toast.LENGTH_SHORT).show()
                 true
             }
             R.id.action_delete -> {
-                Toast.makeText(applicationContext, "click to delete", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, getString(R.string.click_delete), Toast.LENGTH_SHORT).show()
                 true
             }
             else ->

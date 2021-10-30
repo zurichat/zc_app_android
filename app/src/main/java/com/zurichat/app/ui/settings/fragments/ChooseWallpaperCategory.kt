@@ -9,7 +9,7 @@ class ChooseWallpaperCategory: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_choose_wallpaper_category)
-        title = "Choose Wallpaper Category"
+        title = getString(R.string.choose_category)
         supportActionBar?.setDisplayShowHomeEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

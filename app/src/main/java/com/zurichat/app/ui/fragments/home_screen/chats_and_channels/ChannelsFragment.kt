@@ -336,8 +336,8 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
 
     private fun showSnackBar() {
         val view: View = CoordinatorLayout(requireContext())
-        val snack = Snackbar.make(view, "An Error Occurred!", Snackbar.LENGTH_INDEFINITE)
-        snack.setAction("Retry") {
+        val snack = Snackbar.make(view, getString(R.string.an_error_occured), Snackbar.LENGTH_INDEFINITE)
+        snack.setAction(getString(R.string.retry)) {
             viewModel.getChannelsList(organizationID)
         }
         snack.show()
