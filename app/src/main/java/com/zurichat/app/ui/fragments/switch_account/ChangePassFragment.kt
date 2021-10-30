@@ -58,10 +58,10 @@ class ChangePassFragment: Fragment(R.layout.fragment_confirm_password) {
         val newPassFld = binding.textEditNewpass
         val confPassFld = binding.textEditConfirmpassWord
         if (newPassFld.text.toString()==confPassFld.text.toString()){
-            Toast.makeText(requireContext(), "Password match", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), getString(R.string.password_match), Toast.LENGTH_SHORT).show()
             updatePass(newPassFld.text.toString())
         }else if (newPassFld.text.toString()!=confPassFld.text.toString()){
-            binding.textEditNewpass.error = "Password doesn't match"
+            binding.textEditNewpass.error = getString(R.string.password_not_match)
             }
     }
 
@@ -83,19 +83,19 @@ class ChangePassFragment: Fragment(R.layout.fragment_confirm_password) {
 
         userViewModel.deleteUser(args.account)
         val action = ChangePassFragmentDirections.actionChangePassFragmentToLoginActivity()
-        Toast.makeText(requireContext(), "password change successful\n Fresh sign in required",
+        Toast.makeText(requireContext(), getString(R.string.fresh_sign_in),
             Toast.LENGTH_SHORT).show()
         findNavController().navigate(action)
         requireActivity().finish()
     }
 
     private fun updateError(throwable: Throwable){
-        Toast.makeText(requireContext(), "Please try again", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), getString(R.string.please_try_again), Toast.LENGTH_SHORT).show()
         Timber.e(throwable)
     }
 
     private fun handleLoading(){
-        Toast.makeText(requireContext(), "Please wait", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), getString(R.string.pls_wait), Toast.LENGTH_SHORT).show()
     }
 
     //update user state in database
@@ -119,16 +119,16 @@ class ChangePassFragment: Fragment(R.layout.fragment_confirm_password) {
             when (it) {
                 is Result.Success -> {
                     Toast.makeText(context,
-                        "You have been successfully logged out of previous account",
+                        getString(R.string.log_out_success),
                         Toast.LENGTH_SHORT).show()
                     updateUser()
                     logoutSuccess()
                 }
                 is Result.Error -> {
-                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.error), Toast.LENGTH_SHORT).show()
                 }
                 is Result.Loading -> {
-                    Toast.makeText(context, "Loading", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.loading), Toast.LENGTH_SHORT).show()
                 }
             }
         })

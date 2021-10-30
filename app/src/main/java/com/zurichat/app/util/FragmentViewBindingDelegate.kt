@@ -9,6 +9,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.viewbinding.ViewBinding
+import com.zurichat.app.R
 import kotlin.properties.ReadOnlyProperty
 import kotlin.reflect.KProperty
 
@@ -53,7 +54,7 @@ class FragmentViewBindingDelegate<T : ViewBinding>(
 
         val lifecycle = fragment.viewLifecycleOwner.lifecycle
         if (!lifecycle.currentState.isAtLeast(Lifecycle.State.INITIALIZED)) {
-            throw IllegalStateException("Should not attempt to get bindings when Fragment views are destroyed.")
+            throw IllegalStateException(fragment.getString(R.string.fragment_view_destroyed))
         }
 
         return viewBindingFactory(thisRef.requireView()).also { this.binding = it }

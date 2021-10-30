@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="unread_messages">Unread messages</string>
+    <string name="name">name</string>
 </resources>

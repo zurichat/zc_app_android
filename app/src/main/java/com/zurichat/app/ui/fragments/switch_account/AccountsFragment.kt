@@ -54,7 +54,7 @@ class AccountsFragment : Fragment() {
             if (!user.isNullOrEmpty())textView.visibility = View.GONE
             adapter.setData(user)
             if (user.isNotEmpty()){
-                toolbar.subtitle = user.size.toString()+ " Account(s)"
+                toolbar.subtitle = user.size.toString()+ getString(R.string.accts)
             }
         })
 

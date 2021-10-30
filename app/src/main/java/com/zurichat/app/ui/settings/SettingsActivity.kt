@@ -71,7 +71,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        user = intent.extras?.getParcelable("USER")!!
+        user = intent.extras?.getParcelable(getString(R.string.user))!!
         if (!(user.first_name.isEmpty() && user.last_name.isEmpty())){
             nameTxt.text = user.first_name.plus(" "+user.last_name)
         }else if (user.first_name.isNotEmpty()){
@@ -140,15 +140,15 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.settings_preferences, rootKey)
 
-            user = requireActivity().intent.extras?.getParcelable("USER")!!
+            user = requireActivity().intent.extras?.getParcelable(getString(R.string.user))!!
 
 
-            val chatSettings = findPreference<Preference>("chat_header")
-            val securitySettings = findPreference<Preference>("security_header")
-            val storageSettings = findPreference<Preference>("storage_header")
-            val notificationSettings = findPreference<Preference>("notification_header")
+            val chatSettings = findPreference<Preference>(getString(R.string.chat_header))
+            val securitySettings = findPreference<Preference>(getString(R.string.security_header))
+            val storageSettings = findPreference<Preference>(getString(R.string.storage_header))
+            val notificationSettings = findPreference<Preference>(getString(R.string.notification_header))
             val languageSettings = findPreference<Preference>(getString(R.string.languages))
-            val logout = findPreference<Preference>("logout_header")
+            val logout = findPreference<Preference>(getString(R.string.logout_header))
             val profileContainer = activity?.findViewById<ConstraintLayout>(R.id.profile_container)
 
 
@@ -164,7 +164,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
             //make profile container clickable
             profileContainer?.setOnClickListener {
                 val bundle = Bundle()
-                bundle.putParcelable("USER",user)
+                bundle.putParcelable(getString(R.string.user),user)
                 val intent = Intent(requireContext(), ProfileActivity::class.java)
                 intent.putExtras(bundle)
                 startActivity(intent)
@@ -249,7 +249,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
                 //logout()
                 val callback: Callback = { logoutUser() }
                 val logoutDialog = LogOutDialogFragment(callback)
-                logoutDialog.show(childFragmentManager, "LOG_OUT")
+                logoutDialog.show(childFragmentManager, getString(R.string.logged_out))
                 true
             }
         }
@@ -258,7 +258,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
             userViewModel.logoutResponse.observe(viewLifecycleOwner, {
                 when (it) {
                     is Result.Success -> {
-                        ZuriSharePreference(requireContext()).setString("Current Organization ID","")
+                        ZuriSharePreference(requireContext()).setString(getString(R.string.current_org_id),"")
                         //Toast.makeText(context, "You have been successfully logged out", Toast.LENGTH_SHORT).show()
                         progressLoader.hide()
                         updateUser()
@@ -266,7 +266,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
                         startActivity(intent)
                     }
                     is Result.Error -> {
-                        Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), getString(R.string.error), Toast.LENGTH_SHORT).show()
                         progressLoader.hide()
                     }
                     is Result.Loading -> {
@@ -329,39 +329,39 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
 
             setPreferencesFromResource(R.xml.notifications_and_sound, rootKey)
-            val channelTones = findPreference<SwitchPreference>("channel_tones")
-            val messageTone = findPreference<SwitchPreference>("message_tone")
-            val vibrate = findPreference<SwitchPreference>("vibrate")
-            val highPriority = findPreference<SwitchPreference>("high_priority")
+            val channelTones = findPreference<SwitchPreference>(getString(R.string.channel_tones))
+            val messageTone = findPreference<SwitchPreference>(getString(R.string.message_tone))
+            val vibrate = findPreference<SwitchPreference>(getString(R.string.vibrate))
+            val highPriority = findPreference<SwitchPreference>(getString(R.string.high_priority))
 
 
             channelTones?.setOnPreferenceChangeListener { preference, newValue ->
                 if (channelTones.isChecked){
                     isChannelToneChecked = true
-                    Toast.makeText(activity, "Channel tones off", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, getString(R.string.Channel_tones_off), Toast.LENGTH_SHORT).show()
                 }else{
                     isChannelToneChecked = false
-                    Toast.makeText(activity, "Channel tones on", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, getString(R.string.channel_tones_on), Toast.LENGTH_SHORT).show()
                 }
                 return@setOnPreferenceChangeListener true
             }
             messageTone?.setOnPreferenceChangeListener { preference, newValue ->
                 if (messageTone.isChecked){
                     isMessageToneChecked = true
-                    Toast.makeText(activity, "Message tones off", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, getString(R.string.message_tones_off), Toast.LENGTH_SHORT).show()
                 }else{
                     isMessageToneChecked = false
-                    Toast.makeText(activity, "Message tones on", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, getString(R.string.message_tones_on), Toast.LENGTH_SHORT).show()
                 }
                 return@setOnPreferenceChangeListener true
             }
             vibrate?.setOnPreferenceChangeListener { preference, newValue ->
                 if (vibrate.isChecked){
                     isVibrateChecked = true
-                    Toast.makeText(activity, "Vibrate off", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, getString(R.string.vibrate_off), Toast.LENGTH_SHORT).show()
                 }else{
                     isVibrateChecked = false
-                    Toast.makeText(activity, "Vibrate on", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, getString(R.string.vibrate_on), Toast.LENGTH_SHORT).show()
                     vibrateDevice(requireContext())
                 }
                 return@setOnPreferenceChangeListener true
@@ -369,10 +369,10 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
             highPriority?.setOnPreferenceChangeListener { preference, newValue ->
                 if (highPriority.isChecked){
                     isHighPriorityChecked = true
-                    Toast.makeText(activity, "High priority Notifications off", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity, getString(R.string.high_priority_notification), Toast.LENGTH_LONG).show()
                 }else{
                     isHighPriorityChecked = false
-                    Toast.makeText(activity, "High priority Notifications on", Toast.LENGTH_LONG).show()
+                    Toast.makeText(activity, getString(R.string.high_priority_notifications_on), Toast.LENGTH_LONG).show()
                 }
                 return@setOnPreferenceChangeListener true
             }

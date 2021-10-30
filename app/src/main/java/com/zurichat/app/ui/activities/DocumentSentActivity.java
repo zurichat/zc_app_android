@@ -143,7 +143,7 @@ public class DocumentSentActivity extends AppCompatActivity {
         try {
             mediaRecorder.prepare();
             mediaRecorder.start();
-            Toast.makeText(DocumentSentActivity.this, "recording", Toast.LENGTH_SHORT).show();
+            Toast.makeText(DocumentSentActivity.this, getString(R.string.recording), Toast.LENGTH_SHORT).show();
         }catch (Exception e){
             e.printStackTrace();
             // Toast.makeText(MainActivity.this, "recording error", Toast.LENGTH_SHORT).show();

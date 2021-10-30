@@ -45,7 +45,7 @@ class ChatFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.chat_preferences, rootKey)
 
-        findPreference<Preference>("chat_backup")?.setOnPreferenceClickListener {
+        findPreference<Preference>(getString(R.string.chat_backup))?.setOnPreferenceClickListener {
             val intent = Intent(requireActivity(), ChatBackupActivity::class.java)
             startActivity(intent)
 

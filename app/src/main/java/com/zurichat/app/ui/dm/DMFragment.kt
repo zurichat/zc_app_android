@@ -83,7 +83,7 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
         senderId = roomList.room_user_ids.last()
 
         binding.iconBtn.setOnClickListener {
-            Toast.makeText(context, "Show Emoji", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, getString(R.string.show_emoji), Toast.LENGTH_LONG).show()
         }
 
 //        arguments?.let { bundle ->
@@ -202,7 +202,7 @@ class DMFragment : Fragment(R.layout.fragment_dm) {
         when (imageResult) {
             is ImageResult.Success -> handleAttachmentUpload(listOf(imageResult.value))
             is ImageResult.Failure -> {
-                Toast.makeText(requireContext(), "Picture not taken", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(), getString(R.string.picture_not_taken), Toast.LENGTH_LONG).show()
             }
         }
     }
