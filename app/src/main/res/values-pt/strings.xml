@@ -323,4 +323,10 @@
 	<string name = "backup_google"> Backup do Google </string>
 	<string name="vibrate">vibrar</string>
 	<string name="current_org_id">ID da organização atual</string>
+	<string name = "privacy"> Privacidade </string>
+	<string name = "storage_n_data"> Armazenamento e dados </string>
+	<string name = "chat_setting"> Configurações de bate-papo </string>
+	<string name = "notice_n_sounds"> Notificação e sons </string>
+	<string name = "logout_"> Sair </string>
+	<string name="switch_organisation">Mudar de organização</string>
 </resources>

@@ -324,4 +324,10 @@
     <string name="backup_dialog">备份对话框</string>
     <string name="backup_google">备份谷歌</string>
     <string name="hello_blank_fragment">没有网络连接</string>
+    <string name="privacy">隐私</string>
+    <string name="storage_n_data">存储和数据</string>
+    <string name="chat_setting">聊天设置</string>
+    <string name="notice_n_sounds">通知和声音</string>
+    <string name="logout_">注销</string>
+    <string name="switch_organisation">切换组织</string>
 </resources>

@@ -320,4 +320,10 @@
 	<string name="backup_dialog">Finestra di backup</string>
 	<string name="backup_google">Esegui il backup di Google</string>
 	<string name="vibrate">vibrare</string>
+	<string name="privacy">Privacy</string>
+	<string name="storage_n_data">Memoria e dati</string>
+	<string name="chat_setting">Impostazioni chat</string>
+	<string name="notice_n_sounds">Notifiche e suoni</string>
+	<string name="logout_">Disconnetti</string>
+	<string name="switch_organisation">Cambia organizzazione</string>
 </resources>

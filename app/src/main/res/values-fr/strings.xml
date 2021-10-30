@@ -305,7 +305,7 @@
 	<string name="out_of">sur</string>
 	<string name="selected">sélectionné</string>
 	<string name="err_loading_data">Erreur lors du chargement des données depuis le serveur</string>
-	<string name="user_no_org">L\'utilisateur n\'a pas d'organisation</string>
+	<string name="user_no_org">L\'utilisateur n\'a pas d\'organisation</string>
 	<string name="orgz">Organisation(s)</string>
 	<string name="invite_by_email">Inviter par e-mail</string>
 	<string name="add_one_email">Vous devez ajouter au moins un e-mail</string>
@@ -322,4 +322,10 @@
 	<string name="backup_dialog">Boîte de dialogue de sauvegarde</string>
 	<string name="backup_google">Sauvegarder Google</string>
 	<string name="vibrate">vibrer</string>
+	<string name="privacy">Confidentialité</string>
+	<string name="storage_n_data">Stockage et données</string>
+	<string name="chat_setting">Paramètres de discussion</string>
+	<string name="notice_n_sounds">Notification et sons</string>
+	<string name="logout_">Déconnexion</string>
+	<string name="switch_organisation">Changer d\'organisation</string>
 </resources>

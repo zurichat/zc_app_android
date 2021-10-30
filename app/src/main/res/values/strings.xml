@@ -374,4 +374,10 @@
     <string name="backup_dialog">Back up Dialog</string>
     <string name="backup_google">Back up Google</string>
     <string name="lbl_terms_and_conditions"><u>terms and conditions</u></string>
+    <string name="privacy">Privacy</string>
+    <string name="storage_n_data">Storage and Data</string>
+    <string name="chat_setting">Chat Settings</string>
+    <string name="notice_n_sounds">Notification and Sounds</string>
+    <string name="logout_">Log out</string>
+    <string name="switch_organisation">Switch Organisation</string>
 </resources>

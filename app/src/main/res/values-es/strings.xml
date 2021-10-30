@@ -321,4 +321,10 @@
     <string name = "click_delete"> haga clic para eliminar </string>
     <string name = "backup_dialog"> Cuadro de diálogo de copia de seguridad </string>
     <string name = "backup_google"> Copia de seguridad de Google </string>
+    <string name = "privacy"> Privacidad </string>
+    <string name = "storage_n_data"> Almacenamiento y datos </string>
+    <string name = "chat_setting"> Configuración de chat </string>
+    <string name = "notice_n_sounds"> Notificación y sonidos </string>
+    <string name = "logout_"> Cerrar sesión </string>
+    <string name="switch_organisation">Cambiar de organización</string>
 </resources>

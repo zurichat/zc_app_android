@@ -322,4 +322,10 @@
 	<string name = "click_delete"> انقر للحذف </string>
 	<string name = "backup_dialog"> مربع حوار النسخ الاحتياطي </string>
 	<string name = "backup_google"> نسخ Google احتياطيًا </string>
+	<string name = "privacy"> الخصوصية </string>
+	<string name = "storage_n_data"> التخزين والبيانات </string>
+	<string name = "chat_setting"> إعدادات الدردشة </string>
+	<string name = "notice_n_sounds"> الإخطار والأصوات </string>
+	<string name = "logout_"> تسجيل الخروج </string>
+	<string name="switch_organisation">منظمة التبديل</string>
 </resources>

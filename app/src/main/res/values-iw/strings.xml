@@ -324,4 +324,10 @@
     <string name="backup_google">גבה את Google</string>
     <string name="zuri_dms_team_tolstoy">TitZuri DMs: Team Tolstoy - Kotlin Java Mobile</string>
     <string name="action_video_call">שיחת וידאו</string>
+    <string name="privacy">פרטיות</string>
+    <string name="storage_n_data">אחסון ונתונים</string>
+    <string name="chat_setting">הגדרות צ\'אט</string>
+    <string name="notice_n_sounds">הודעות וצלילים</string>
+    <string name="logout_">צא</string>
+    <string name="switch_organisation">החלף ארגון</string>
 </resources>

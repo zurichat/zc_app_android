@@ -1,8 +1,9 @@
 package com.zurichat.app.ui.login
 
-import android.app.Application
-import androidx.lifecycle.*
-import com.zurichat.app.R
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.zurichat.app.data.repository.UserRepository
 import com.zurichat.app.models.*
 import com.zurichat.app.ui.login.password.confirm.ConfirmPasswordData
@@ -11,13 +12,13 @@ import com.zurichat.app.ui.login.password.resetuserpass.ResetUserPasswordRespons
 import com.zurichat.app.util.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
-import kotlinx.coroutines.Dispatchers
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(private val repository: UserRepository) : AndroidViewModel(Application()) {
+class LoginViewModel @Inject constructor(private val repository: UserRepository) : ViewModel() {
 
 
     private val _loginResponse = MutableLiveData<Result<LoginResponse>>()
@@ -74,8 +75,7 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
                     _logoutResponse.postValue(Result.Success(it))
                 }
             }else {
-                _logoutResponse.postValue(Result.Error(Exception(getApplication<Application>().resources.getString(
-                    R.string.err_occured_try_again))))
+                _logoutResponse.postValue(Result.Error(Exception("Error occurred please try again ")))
             }
         }
     }
@@ -92,8 +92,7 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
                 }
 
             } else {
-                _resetCodeResponse.postValue(Result.Error(Exception(getApplication<Application>().resources.getString(
-                    R.string.err_occured_try_again))))
+                _resetCodeResponse.postValue(Result.Error(Exception("Error occurred please try again ")))
             }
 
         }
@@ -112,8 +111,7 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
 
             } else {
                 _updatePassResponse.postValue(Result
-                    .Error(Exception(getApplication<Application>().resources.getString(
-                        R.string.err_occured_try_again))))
+                    .Error(Exception("Error occurred please try again ")))
             }
 
         }
@@ -130,8 +128,7 @@ class LoginViewModel @Inject constructor(private val repository: UserRepository)
                     _passwordReset.postValue(Result.Success(it))
                 }
             }else{
-                _passwordReset.postValue(Result.Error(Exception(getApplication<Application>().resources.getString(
-                    R.string.err_msg))))
+                _passwordReset.postValue(Result.Error(Exception("ERROR MESSAGE")))
             }
         }
 
