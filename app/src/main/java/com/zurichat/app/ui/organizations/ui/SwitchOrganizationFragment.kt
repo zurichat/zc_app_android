@@ -104,7 +104,7 @@ class SwitchOrganizationsFragment : Fragment(R.layout.fragment_switch_organizati
                         if (it.orgData.isNotEmpty()) {
                             firstTime = false
                             setUpViews(it.orgData)
-                            binding.toolbar4.subtitle = "${it.orgData.size}" + getString(R.string.orgz)
+                            binding.toolbar4.subtitle = "${it.orgData.size} " + getString(R.string.orgz)
                         } else {
                             firstTime = true
                         }
