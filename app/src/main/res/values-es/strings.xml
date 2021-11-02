@@ -267,7 +267,7 @@
 <string name="click_button_to_join_a_channel">Haga clic en el botón para unirse a un canal</string>
 <string name="contacts_who_can_t_add_you">Los contactos que no puedan agregarte a un canal tendrán la opción de invitarte en privado.</string>
 <string name="you_aren_t_sharing_live_location">No estás compartiendo la ubicación en vivo en ningún chat</string>
-<string name="thirty_minutes">Despues de 30 minutos</string>
+<string name="thirty_minutes">Después de 30 minutos</string>
 <string name="one_minute">Después de 1 minuto</string>
 <string name="immediately">Inmediatamente</string>
 <string name="live_location_manage__device_settings">La ubicación en vivo requiere una ubicación en segundo plano. Puede administrar esto en la configuración de su dispositivo.</string>
@@ -414,7 +414,7 @@
 <string name="send_to">Enviar a %1$s</string>
 <string name="welcome_image">Imagen de bienvenida</string>
 <string name="register_mail">Dirección de correo electrónico</string>
-<string name="welcome_text">Envíe mensajes directos a sus contactos y canales con facilidad, inicie conversaciones con solo un clic</string>
+<string name="welcome_text">Envíe mensajes directos a sus contactos y canales con \ n facilidad, inicie conversaciones con solo un clic</string>
 <string name="welcome_title">Bienvenido a Zuri Chat</string>
 <string name="title_activity_settings">Ajustes</string>
 <string name="customize_your_chat_environment_to_suit_your_preference">Personalice su entorno de chat para que se adapte a sus preferencias</string>

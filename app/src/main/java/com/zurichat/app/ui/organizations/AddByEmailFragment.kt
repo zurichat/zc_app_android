@@ -48,7 +48,7 @@ class AddByEmailFragment : Fragment(R.layout.fragment_add_by_email) {
 
         val toolbar = binding.toolbarContainer.toolbar
         progressDialog = ProgressDialog(context)
-        toolbar.title = "Invite By Email"
+        toolbar.title = getString(R.string.invite_by_email)
         toolbar.subtitle = organizationName
         binding.toolbarContainer.toolbar.setLogo(drawable.ic_back)
         val logoView = toolbar.getChildAt(1)
@@ -84,7 +84,7 @@ class AddByEmailFragment : Fragment(R.layout.fragment_add_by_email) {
                 list.add(recipientEmail.email)
             }
             if (list.size == 0){
-                binding.recipientEmailEdit.setError("You must at least add one email")
+                binding.recipientEmailEdit.setError(getString(R.string.add_one_email))
             }else{
                 val sendInviteBody = SentInviteBody(list)
                 val call = apiService.sendInvite(organizationId, sendInviteBody)
@@ -96,7 +96,7 @@ class AddByEmailFragment : Fragment(R.layout.fragment_add_by_email) {
                         response: Response<SendInviteResponse?>
                     ) {
                         if (response.code() == 200) {
-                            Toast.makeText(context, "Invitation sent successfully", Toast.LENGTH_SHORT)
+                            Toast.makeText(context, getString(R.string.invite_sent_succesfully), Toast.LENGTH_SHORT)
                                 .show()
                             val bundle = bundleOf(
                                 "organizationId" to organizationId,

@@ -157,7 +157,6 @@
 
     <string name="unread_messages">Unread messages</string>
     <string name="channels_">Channels</string>
-    <string name="lbl_terms_and_conditions"><u>terms and conditions</u></string>
     <string name="online">online</string>
     <string name="android_devs">Android Devs</string>
     <string name="channel_group_members">Lux, Hamid, Joe, +234707…</string>
@@ -495,4 +494,5 @@
     <string name="_200_4_mb_sent_1_5_gb_received">200.4 MB sent - 1.5 GB received</string>
     <string name="_600_9_mb">600.9 MB</string>
     <string name="a_freelancer_ui_ux_des">A freelancer UI/UX Des....</string>
+    <string name="lbl_terms_and_conditions"><u>terms and conditions</u></string>
 </resources>

@@ -103,13 +103,14 @@ class SelectMemberFragment : Fragment(R.layout.fragment_select_member) {
             if (it.isEmpty()) {
                 binding.topRecyclerView.visibility = View.GONE
                 binding.fabAddChannel.visibility = View.GONE
-                binding.toolbar.subtitle = "Choose Channel Members"
+                binding.toolbar.subtitle = getString(R.string.choose_channel_members)
             } else {
                 binding.topRecyclerView.visibility = View.VISIBLE
                 binding.fabAddChannel.visibility = View.VISIBLE
                 selectedMemberAdapter.selectedUserList = it
                 selectedMemberAdapter.notifyDataSetChanged()
-                binding.toolbar.subtitle = "${selectedUsers.size} out of ${userList.size} selected"
+                binding.toolbar.subtitle = "${selectedUsers.size}" + getString(R.string.out_of) + "${userList.size}" + getString(
+                                    R.string.selected)
                 binding.topRecyclerView.smoothScrollToPosition(selectedUsers.size - 1)
 
             }

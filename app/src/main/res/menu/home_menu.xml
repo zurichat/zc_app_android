@@ -19,7 +19,7 @@
         android:visible="true" />-->
     <item
         android:id="@+id/switch_workspace"
-        android:title="Switch Organisation"
+        android:title="@string/switch_organisation"
         android:visible="true" />
    <!-- <item
         android:id="@+id/create_organisation"

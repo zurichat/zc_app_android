@@ -9,9 +9,7 @@
 <string name="i_m_a_person_of_the_word">我是这个词的人</string>
 <string name="_5_52_am">上午 5:52</string>
 <string name="google_com">google.com</string>
-<string name="google_com_is_so_cool_nbut_nion">Google.com 太酷了
-但是
-ion</string>
+<string name="google_com_is_so_cool_nbut_nion">Google.com 太酷了但是ion</string>
 <string name="google">谷歌</string>
 <string name="admin_invited_you">管理员邀请你</string>
 <string name="_5">5</string>
@@ -211,6 +209,8 @@ Zuri Chat 时恢复它们。您的消息也会
 <string name="select_language">选择语言翻译</string>
 <string name="title">标题</string>
 <string name="languages">语言</string>
+=======
+>>>>>>> upstream/develop
 <string name="continue_txt">继续</string>
 <string name="forgot_password_txt">忘记密码？</string>
 <string name="create_new_organization">创建新组织</string>
@@ -459,4 +459,5 @@ Zuri Chat 时恢复它们。您的消息也会
  <string name="hello_blank_fragment">
 没有网络连接！</string>
  <string name="lbl_terms_and_conditions"><u>条款和条件</u></string>
+
 </resources>

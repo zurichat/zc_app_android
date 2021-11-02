@@ -62,7 +62,7 @@ class EnterOtpACFragment:Fragment(R.layout.fragment_enter_otp) {
     }
 
     private fun resetSuccess(){
-        Toast.makeText(requireContext(), "correct code", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), getString(R.string.correct_code), Toast.LENGTH_SHORT).show()
         val otpCode = binding.pinView.text.toString()
         val action = EnterOtpACFragmentDirections
             .actionEnterOtpACFragmentToChangePassFragment(args.account,otpCode,args.curUser)
@@ -70,12 +70,12 @@ class EnterOtpACFragment:Fragment(R.layout.fragment_enter_otp) {
     }
 
     private fun resetError(throwable: Throwable){
-        Toast.makeText(requireContext(), "Wrong code try again", Toast.LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), getString(R.string.wrong_code_retry), Toast.LENGTH_SHORT).show()
         Timber.e(throwable)
     }
 
     private fun handleLoading() {
-        Toast.makeText(context, "Please wait", Toast.LENGTH_LONG).show()
+        Toast.makeText(context, getString(R.string.pls_wait), Toast.LENGTH_LONG).show()
     }
 
 }

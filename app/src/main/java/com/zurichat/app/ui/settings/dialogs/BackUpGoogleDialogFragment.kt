@@ -14,7 +14,7 @@ class BackUpGoogleDialogFragment(val activity: Activity?) : DialogFragment() {
 
         return activity?.let {
             val builder = AlertDialog.Builder(it)
-            builder.setTitle("Back up to Google Drive")
+            builder.setTitle(getString(R.string.backup_google_drive))
                 .setMultiChoiceItems(
                     R.array.back_up_google,
                     null,

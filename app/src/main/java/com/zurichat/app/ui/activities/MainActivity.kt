@@ -66,9 +66,9 @@ class MainActivity : AppCompatActivity() {
         val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             //Shows Toast message if permission is granted or denied.
             if (isGranted) {
-                Toast.makeText(this, "Permission Granted!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.permission_granted), Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(this, "Permission Denied!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, getString(R.string.permission_denied), Toast.LENGTH_LONG).show()
             }
         }
 
@@ -96,7 +96,7 @@ class MainActivity : AppCompatActivity() {
         val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
 
         if(!isConnected){
-            Toast.makeText(applicationContext,"No Internet Connection!",Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext,getString(R.string.hello_blank_fragment),Toast.LENGTH_LONG).show()
         }
     }
 
