@@ -19,7 +19,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/mentions_notify_txtview"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="🔒 Stage 3" />
+        android:text="@string/stage_3" />
 
     <TextView
         android:id="@+id/mentions_notify_txtview"
@@ -32,7 +32,7 @@
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Naza mentioned you in " />
+        android:text="@string/naza_mentioned_you_in" />
 
     <TextView
         android:id="@+id/time_mentioned_txtView"
@@ -46,7 +46,7 @@
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintStart_toEndOf="@+id/mentions_notify_txtview"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="10m" />
+        android:text="@string/_10m" />
 
     <ImageView
         android:id="@+id/mention_imageView"
@@ -79,7 +79,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             tools:fontFamily="@font/lato"
-            tools:text="Naza" />
+            android:text="@string/naza" />
 
         <TextView
             android:id="@+id/mentions_textDesc"
@@ -88,7 +88,7 @@
             android:layout_marginTop="2dp"
             android:textColor="#E01C1B1C"
             android:textSize="16sp"
-            tools:text="All Team leads should submit their \nlist of active members..." />
+            android:text="@string/all_team_leads_should_submit_their_nlist_of_active_members" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -109,7 +109,7 @@
                     android:visibility="gone"
                     app:chipBackgroundColor="#E3EEFF"
                     tools:chipIcon="@drawable/emoji_1f44d"
-                    tools:text="7" />
+                    android:text="@string/_7" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip2"
@@ -118,7 +118,7 @@
                     android:visibility="gone"
                     app:chipBackgroundColor="#E3EEFF"
                     tools:chipIcon="@drawable/emoji_1f4aa"
-                    tools:text="8" />
+                    android:text="@string/_8" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip3"
@@ -127,7 +127,7 @@
                     android:visibility="gone"
                     app:chipBackgroundColor="#E3EEFF"
                     tools:chipIcon="@drawable/emoji_2705"
-                    tools:text="5" />
+                    android:text="@string/_5" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipMain"

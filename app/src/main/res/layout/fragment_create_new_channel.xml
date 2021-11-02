@@ -76,7 +76,7 @@
         android:background="@null"
         android:padding="16dp"
         android:paddingStart="64dp"
-        android:text="Type a message"
+        android:text="@string/type_a_message"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2"
         app:layout_constraintVertical_bias="0.97"

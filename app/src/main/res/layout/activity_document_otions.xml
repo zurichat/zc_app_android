@@ -36,7 +36,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Documents"
+                    android:text="@string/documents"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -44,7 +44,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tap to select"
+                    android:text="@string/tap_to_select"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
 
@@ -88,7 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="ABC Resources 1.pdf"
+                    android:text="@string/abc_resources_1_pdf"
                     android:textColor="@color/text_color"
                     android:textSize="18sp" />
 
@@ -98,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="576 KB" />
+                    android:text="@string/_576_kb" />
             </LinearLayout>
 
             <TextView
@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="25dp"
-                android:text="31/06/2021" />
+                android:text="@string/_31_06_2021" />
 
         </RelativeLayout>
 
@@ -143,7 +143,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="CDF Resources 1.pptx"
+                    android:text="@string/cdf_resources_1_pptx"
                     android:textColor="@color/text_color"
                     android:textSize="18sp" />
 
@@ -153,7 +153,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="1.3 MB" />
+                    android:text="@string/_1_3_mb" />
             </LinearLayout>
 
             <TextView
@@ -161,7 +161,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="25dp"
-                android:text="2/06/2021" />
+                android:text="@string/_2_06_2021" />
         </RelativeLayout>
 
         <View
@@ -197,7 +197,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="CST Resources 1.pptx"
+                    android:text="@string/cst_resources_1_pptx"
                     android:textColor="@color/text_color"
                     android:textSize="18sp" />
 
@@ -207,7 +207,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="1.9 MB" />
+                    android:text="@string/_1_9_mb" />
             </LinearLayout>
 
             <TextView
@@ -215,7 +215,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="25dp"
-                android:text="2/06/2021" />
+                android:text="@string/_2_06_2021" />
         </RelativeLayout>
 
         <View
@@ -251,7 +251,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Egg Resources 1.docx"
+                    android:text="@string/egg_resources_1_docx"
                     android:textColor="@color/text_color"
                     android:textSize="18sp" />
 
@@ -261,7 +261,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="351 KB" />
+                    android:text="@string/_351_kb" />
             </LinearLayout>
 
             <TextView
@@ -269,7 +269,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="25dp"
-                android:text="4/06/2021" />
+                android:text="@string/_4_06_2021" />
         </RelativeLayout>
 
         <View
@@ -305,7 +305,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="First Resources 1.docx"
+                    android:text="@string/first_resources_1_docx"
                     android:textColor="@color/text_color"
                     android:textSize="18sp" />
 
@@ -315,7 +315,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="383 KB" />
+                    android:text="@string/_383_kb" />
             </LinearLayout>
 
             <TextView
@@ -323,7 +323,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="25dp"
-                android:text="7/06/2021" />
+                android:text="@string/_7_06_2021" />
         </RelativeLayout>
 
         <View
@@ -359,7 +359,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="New First Bank Resources For Ne... "
+                    android:text="@string/new_first_bank_resources_for_ne"
                     android:textColor="@color/text_color"
                     android:textSize="18sp" />
 
@@ -369,7 +369,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="576 KB" />
+                    android:text="@string/_576_kb" />
             </LinearLayout>
 
             <TextView
@@ -377,7 +377,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="25dp"
-                android:text="31/06/2021" />
+                android:text="@string/_31_06_2021" />
         </RelativeLayout>
 
         <View
@@ -413,7 +413,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="PST Resources 1.pptx"
+                    android:text="@string/pst_resources_1_pptx"
                     android:textColor="@color/text_color"
                     android:textSize="18sp" />
 
@@ -423,7 +423,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="1.3 MB" />
+                    android:text="@string/_1_3_mb" />
             </LinearLayout>
 
             <TextView
@@ -431,7 +431,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="25dp"
-                android:text="2/06/2021" />
+                android:text="@string/_2_06_2021" />
         </RelativeLayout>
 
         <View
@@ -467,7 +467,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="SRF Resources 1.pptx"
+                    android:text="@string/srf_resources_1_pptx"
                     android:textColor="@color/text_color"
                     android:textSize="18sp" />
 
@@ -477,7 +477,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="1.3 MB" />
+                    android:text="@string/_1_3_mb" />
             </LinearLayout>
 
             <TextView
@@ -485,7 +485,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="25dp"
-                android:text="2/06/2021" />
+                android:text="@string/_2_06_2021" />
         </RelativeLayout>
 
         <View
@@ -521,7 +521,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="The Fame Resources 1.docx"
+                    android:text="@string/the_fame_resources_1_docx"
                     android:textColor="@color/text_color"
                     android:textSize="18sp" />
 
@@ -531,7 +531,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="542 KB" />
+                    android:text="@string/_542_kb" />
             </LinearLayout>
 
             <TextView
@@ -539,7 +539,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="25dp"
-                android:text="4/06/2021" />
+                android:text="@string/_4_06_2021" />
         </RelativeLayout>
 
         <View
@@ -575,7 +575,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Twin Resources 1.docx"
+                    android:text="@string/twin_resources_1_docx"
                     android:textColor="@color/text_color"
                     android:textSize="18sp" />
 
@@ -585,7 +585,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="582 KB" />
+                    android:text="@string/_582_kb" />
             </LinearLayout>
 
             <TextView
@@ -593,7 +593,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="25dp"
-                android:text="7/06/2021" />
+                android:text="@string/_7_06_2021" />
         </RelativeLayout>
 
         <View
@@ -629,7 +629,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Two First Bank Resources for Ne..."
+                    android:text="@string/two_first_bank_resources_for_ne"
                     android:textColor="@color/text_color"
                     android:textSize="18sp" />
 
@@ -639,7 +639,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="586 KB" />
+                    android:text="@string/_586_kb" />
             </LinearLayout>
 
             <TextView
@@ -647,7 +647,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="25dp"
-                android:text="30/06/2021" />
+                android:text="@string/_30_06_2021" />
         </RelativeLayout>
 
         <View
@@ -683,7 +683,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Yali First Bank Resources for Ne..."
+                    android:text="@string/yali_first_bank_resources_for_ne"
                     android:textColor="@color/text_color"
                     android:textSize="18sp" />
 
@@ -693,7 +693,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="582 KB" />
+                    android:text="@string/_582_kb" />
             </LinearLayout>
 
             <TextView
@@ -701,7 +701,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="25dp"
-                android:text="28/06/2021" />
+                android:text="@string/_28_06_2021" />
         </RelativeLayout>
 
         <View
@@ -737,7 +737,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:text="Zoo facts.docx"
+                    android:text="@string/zoo_facts_docx"
                     android:textColor="@color/text_color"
                     android:textSize="18sp" />
 
@@ -747,7 +747,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="386 KB" />
+                    android:text="@string/_386_kb" />
             </LinearLayout>
 
             <TextView
@@ -755,7 +755,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_marginTop="25dp"
-                android:text="30/06/2021" />
+                android:text="@string/_30_06_2021" />
         </RelativeLayout>
 
 

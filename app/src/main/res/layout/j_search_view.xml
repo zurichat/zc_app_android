@@ -26,7 +26,7 @@
                 android:autofillHints=""
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:hint="Search"
+                android:hint="@string/search"
                 android:imeOptions="actionSearch"
                 android:inputType="textNoSuggestions"
                 android:lines="1"

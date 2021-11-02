@@ -20,11 +20,11 @@
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="@drawable/ic_arrow_back"
             app:popupTheme="@style/Theme.MaterialComponents.Light.NoActionBar"
-            app:subtitle="26 channels"
+            app:subtitle="@string/_26_channels"
             app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
             app:subtitleTextColor="@color/white"
             app:theme="@style/ToolbarTheme"
-            app:title="Channel Browser"
+            app:title="@string/channel_browser"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
             app:titleTextColor="@color/white" />
 

@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato"
-                android:text="Used"
+                android:text="@string/used"
                 android:textColor="#FF0000"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato"
-                android:text="Available"
+                android:text="@string/available"
                 android:textColor="@color/primaryColor"
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/lato"
-                android:text="1.5 GB"
+                android:text="@string/_1_5_gb"
                 android:textColor="#454545"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/lato"
-                android:text="500 MB"
+                android:text="@string/_500_mb"
                 android:textColor="#454545"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -126,7 +126,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/lato"
-                android:text="Zuri Media"
+                android:text="@string/zuri_media"
                 android:textColor="@color/black"
                 android:textSize="11sp"
                 app:layout_constraintStart_toEndOf="@id/icon_zuri_media"
@@ -149,7 +149,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="44dp"
                 android:fontFamily="@font/lato"
-                android:text="Other Items"
+                android:text="@string/other_items"
                 android:textColor="@color/black"
                 android:textSize="11sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -175,7 +175,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/lato"
-        android:text="Review and delete items"
+        android:text="@string/review_and_delete_items"
         android:textColor="@color/primaryColor"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -188,7 +188,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/lato"
-        android:text="Larger items"
+        android:text="@string/larger_items"
         android:textColor="@color/primaryColor"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -212,7 +212,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/lato"
-            android:text="Items consume more than 5 MB"
+            android:text="@string/items_consume_more_than_5_mb"
             android:textColor="@color/black"
             android:textSize="15sp" />
 
@@ -223,7 +223,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="70dp"
             android:fontFamily="@font/lato"
-            android:text="500.7 MB"
+            android:text="@string/_500_7_mb"
             android:textColor="@color/primaryColor"
             android:textSize="14sp" />
 
@@ -243,7 +243,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/lato"
-        android:text="Other"
+        android:text="@string/other"
         android:textColor="@color/primaryColor"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -276,7 +276,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/lato"
-            android:text="Joseph Kalu"
+            android:text="@string/joseph_kalu"
             android:textColor="#454545"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -288,7 +288,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="160dp"
             android:fontFamily="@font/lato"
-            android:text="119 MB"
+            android:text="@string/_119_mb"
             android:textColor="@color/primaryColor"
             android:textSize="14sp" />
     </LinearLayout>
@@ -319,7 +319,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/lato"
-            android:text="Design Channel"
+            android:text="@string/design_channel"
             android:textColor="#454545"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -331,7 +331,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="135dp"
             android:fontFamily="@font/lato"
-            android:text="320 MB"
+            android:text="@string/_320_mb"
             android:textColor="@color/primaryColor"
             android:textSize="14sp" />
     </LinearLayout>
@@ -362,7 +362,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/lato"
-            android:text="Announcement"
+            android:text="@string/announcement"
             android:textColor="#454545"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -374,7 +374,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="135dp"
             android:fontFamily="@font/lato"
-            android:text="235 MB"
+            android:text="@string/_235_mb"
             android:textColor="@color/primaryColor"
             android:textSize="14sp" />
     </LinearLayout>

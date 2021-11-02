@@ -15,12 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Hi there, this is the beginning of the conversation \nin this channel"
+        android:text="@string/hi_there_this_is_the_beginning_of_the_conversation_nin_this_channel"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        tools:ignore="HardcodedText" />
+        />
 
     <View
         android:id="@+id/dm_chat_dimmer"
@@ -232,7 +232,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="1dp"
-                android:text="chat-funny"
+                android:text="@string/chat_funny"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/text_color"
                 android:textStyle="bold"

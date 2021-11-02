@@ -21,7 +21,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Hello Boss, how are you doing today.\nIt's been a while" />
+        android:text="@string/hello_boss_how_are_you_doing_today_nit_s_been_a_while" />
 
     <include
         android:id="@+id/include_m_t_sent"

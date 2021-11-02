@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/lato"
-                android:text="Name"
+                android:text="@string/name"
                 android:textSize="14sp" />
 
             <TextView
@@ -73,7 +73,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/lato"
-                android:text="Abeid Juma"
+                android:text="@string/abeid_juma"
                 android:textColor="#454545"
                 android:textSize="18sp" />
 
@@ -83,8 +83,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/lato"
-                android:text="This is not in anyway your pin, the name will be
-visible to all memebers of the channel"
+                android:text="@string/this_is_not_in_anyway_your_pin_the_name_will_be_visible_to_all_members_of_the_channel"
                 android:textSize="12sp" />
 
         </LinearLayout>
@@ -149,7 +148,7 @@ visible to all memebers of the channel"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/lato"
-                android:text="About"
+                android:text="@string/about"
                 android:textSize="14sp" />
 
             <TextView
@@ -159,7 +158,7 @@ visible to all memebers of the channel"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/lato"
-                android:text="HNG Intern..."
+                android:text="@string/hng_intern"
                 android:textColor="#454545"
                 android:textSize="18sp" />
 
@@ -225,7 +224,7 @@ visible to all memebers of the channel"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/lato"
-                android:text="Phone"
+                android:text="@string/phone"
                 android:textSize="14sp" />
 
             <TextView
@@ -235,7 +234,7 @@ visible to all memebers of the channel"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/lato"
-                android:text="+255719858439"
+                android:text="@string/_255719858439"
                 android:textColor="#454545"
                 android:textSize="18sp" />
 

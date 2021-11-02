@@ -57,7 +57,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:text="Start a Chat"
+        android:text="@string/start_a_chat"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/view7"
         app:layout_constraintStart_toStartOf="parent"

@@ -15,7 +15,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="10dp"
         android:fontFamily="@font/lato"
-        android:text="email@email.com"
+        android:text="@string/email_email_com"
         android:textSize="16sp"
         android:textColor="@color/text_color"
         app:layout_constraintBottom_toTopOf="@+id/view6"

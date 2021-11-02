@@ -22,7 +22,7 @@
         app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
         app:titleTextColor="@color/white"
         app:title="@string/select_contact_"
-        app:subtitle="Choose Channel Members"
+        app:subtitle="@string/choose_channel_members"
         app:theme="@style/ToolbarTheme"/>
 
     <androidx.recyclerview.widget.RecyclerView

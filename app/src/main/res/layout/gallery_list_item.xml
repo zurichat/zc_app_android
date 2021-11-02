@@ -32,7 +32,7 @@
         android:layout_marginLeft="4dp"
         android:layout_marginTop="-41dp"
         android:layout_toRightOf="@id/img_icon"
-        android:text="All Images"
+        android:text="@string/all_images"
         android:textColor="@android:color/white"
         android:textStyle="bold" />
 

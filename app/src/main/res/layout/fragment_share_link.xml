@@ -92,7 +92,7 @@
         android:id="@+id/link_generated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="https://api.zuri.chat/organizations/${organizationID}"
+        android:text="@string/https_api_zuri_chat_organizations_organizationid"
         android:textColor="@color/onboarding_black"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/to_add_team"

@@ -43,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/lato"
-                android:text="John Doe Felix"
+                android:text="@string/john_doe_felix"
                 android:textAlignment="textStart"
                 android:textAppearance="?attr/textAppearanceBody1"
                 android:textColor="@color/white"
@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="last seen at 5:50am"
+                android:text="@string/last_seen_at_5_50am"
                 android:textColor="@color/white" />
         </LinearLayout>
 
@@ -116,7 +116,7 @@
                         android:layout_height="25dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="5dp"
-                        android:contentDescription="Todo"
+                        android:contentDescription="@string/todo"
                         android:src="@drawable/ic_smile"
                         app:tint="#737373" />
 
@@ -137,7 +137,7 @@
                         android:layout_height="25dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="15dp"
-                        android:contentDescription="Todo"
+                        android:contentDescription="@string/todo"
                         android:src="@drawable/link"
                         app:tint="#737373" />
 
@@ -146,7 +146,7 @@
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_gravity="center_vertical"
-                        android:contentDescription="Todo"
+                        android:contentDescription="@string/todo"
                         android:src="@drawable/ic_camera"
                         app:tint="#737373" />
 
@@ -160,7 +160,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:backgroundTint="@color/green_color"
-                android:contentDescription="Todo"
+                android:contentDescription="@string/todo"
                 android:src="@drawable/ic_voice" />
 
         </LinearLayout>

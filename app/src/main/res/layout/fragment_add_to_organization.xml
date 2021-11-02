@@ -34,7 +34,7 @@
                     app:layout_constrainedWidth="true"
                     android:maxLines="1"
                     android:ellipsize="end"
-                    android:text="Share Organization"
+                    android:text="@string/share_organization"
                     android:textColor="#ffffff"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     app:layout_constraintBottom_toBottomOf="parent"

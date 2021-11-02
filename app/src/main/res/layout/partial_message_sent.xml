@@ -13,7 +13,7 @@
         android:layout_gravity="center"
         android:layout_weight="1"
         android:textAlignment="center"
-        tools:text="5:52 AM" />
+        android:text="@string/_5_52_am" />
 
     <ImageView
         android:id="@+id/image_p_message_sending"

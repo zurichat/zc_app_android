@@ -35,7 +35,7 @@
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/image_p_url_image"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Google" />
+            android:text="@string/google" />
 
         <TextView
             android:id="@+id/text_p_url_description"
@@ -47,7 +47,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/text_p_url_title"
             app:layout_constraintTop_toBottomOf="@+id/text_p_url_title"
-            tools:text="Google.com is soooooooooooooooooooooooooooooooooo cool\nbut\nion" />
+            android:text="@string/google_com_is_so_cool_nbut_nion" />
 
         <TextView
             android:id="@+id/text_p_url_link"
@@ -58,7 +58,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/text_p_url_description"
             app:layout_constraintTop_toBottomOf="@+id/text_p_url_description"
-            tools:text="google.com" />
+            android:text="@string/google_com" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

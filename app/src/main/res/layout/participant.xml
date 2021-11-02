@@ -33,7 +33,7 @@
         android:id="@+id/textView_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="I'm a Person of the word"
+        android:text="@string/i_m_a_person_of_the_word"
         android:textColor="@color/text_black"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/textView_username"

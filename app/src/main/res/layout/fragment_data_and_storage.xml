@@ -58,7 +58,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/lato"
-        android:text="Size"
+        android:text="@string/size"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="@+id/no_item_here_view"
         app:layout_constraintStart_toStartOf="parent"

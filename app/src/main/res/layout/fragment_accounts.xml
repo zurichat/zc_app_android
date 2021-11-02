@@ -16,11 +16,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navigationIcon="@drawable/ic_arrow_back"
         app:popupTheme="@style/Theme.MaterialComponents.Light.NoActionBar"
-        app:subtitle="0 Account(s)"
+        app:subtitle="@string/_0_accounts"
         app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
         app:subtitleTextColor="@color/white"
         app:theme="@style/ToolbarTheme"
-        app:title="Previously Used Accounts"
+        app:title="@string/previously_used_account"
         app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
         app:titleTextColor="#ffffff">
 

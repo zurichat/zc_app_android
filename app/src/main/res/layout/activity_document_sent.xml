@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/lato"
-                android:text="John Doe Felix"
+                android:text="@string/john_doe_felix"
                 android:textAlignment="textStart"
                 android:textAppearance="?attr/textAppearanceBody1"
                 android:textColor="@color/white"
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="last seen at 5:50am"
+                android:text="@string/last_seen_at_5_50am"
                 android:textColor="@color/white" />
         </LinearLayout>
 
@@ -90,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/basic"
-                android:text="They know you\'re here. Its better you get across to them as soon as possible"
+                android:text="@string/they_know_you_re_here_its_better_you_get_across_to_them_as_soon_as_possible"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textDirection="ltr"
                 android:textSize="18sp" />
@@ -106,7 +106,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="4dp"
             android:layout_toEndOf="@id/chat_linea"
-            android:text="5:40 AM" />
+            android:text="@string/_5_40_am" />
 
         <ImageView
             android:layout_width="18dp"
@@ -137,7 +137,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/basic"
-                android:text="They know you\'re here"
+                android:text="@string/they_know_you_re_here"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -149,7 +149,7 @@
             android:layout_alignBottom="@id/chat2"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="28dp"
-            android:text="5:40 AM" />
+            android:text="@string/_5_40_am" />
 
         <ImageView
             android:layout_width="18dp"
@@ -178,7 +178,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/basic"
-                android:text="I understand your point. But i think it is best i find my foot first before taking any decision"
+                android:text="@string/i_understand_your_point_but_i_think_it_is_best_i_find_my_foot_first_before_taking_any_decision"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textSize="18sp" />
 
@@ -191,7 +191,7 @@
             android:layout_alignBottom="@id/chat3"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="21dp"
-            android:text="5:40 AM" />
+            android:text="@string/_5_40_am" />
 
         <ImageView
             android:layout_width="18dp"
@@ -220,7 +220,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/basic"
-                android:text="They know you\'re here"
+                android:text="@string/they_know_you_re_here"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textSize="18sp" />
 
@@ -233,7 +233,7 @@
             android:layout_alignBottom="@id/chat4"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="21dp"
-            android:text="5:40 AM" />
+            android:text="@string/_5_40_am" />
 
         <ImageView
             android:layout_width="18dp"
@@ -266,7 +266,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/basic"
-                android:text="They know you\'re here"
+                android:text="@string/they_know_you_re_here"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -279,7 +279,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="28dp"
-            android:text="5:40 AM" />
+            android:text="@string/_5_40_am" />
 
         <ImageView
             android:layout_width="18dp"
@@ -311,7 +311,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:fontFamily="@font/basic"
-                android:text="They know you\'re here. Its better you get across to them as soon as possible"
+                android:text="@string/they_know_you_re_here_its_better_you_get_across_to_them_as_soon_as_possible"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textDirection="ltr"
                 android:textSize="18sp" />
@@ -327,7 +327,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="1dp"
             android:layout_toEndOf="@id/chat_linea1"
-            android:text="5:40 AM" />
+            android:text="@string/_5_40_am" />
 
         <ImageView
             android:layout_width="18dp"
@@ -376,7 +376,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="3dp"
                 android:fontFamily="@font/basic"
-                android:text="New First Bank Resources For New..."
+                android:text="@string/new_first_bank_resources_for_new"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:textSize="13sp" />
         </LinearLayout>
@@ -393,7 +393,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="1dp"
-                android:text="45 pages • 456 KB" />
+                android:text="@string/_45_pages_456_kb" />
         </LinearLayout>
 
         <TextView
@@ -404,7 +404,7 @@
             android:layout_alignParentBottom="true"
             android:layout_marginEnd="21dp"
             android:layout_marginBottom="3dp"
-            android:text="5:40 AM" />
+            android:text="@string/_5_40_am" />
 
         <ImageView
             android:layout_width="18dp"
@@ -450,7 +450,7 @@
                         android:layout_height="25dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="5dp"
-                        android:contentDescription="Todo"
+                        android:contentDescription="@string/todo"
                         android:src="@drawable/ic_smile"
                         app:tint="#737373" />
 
@@ -471,7 +471,7 @@
                         android:layout_height="25dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginEnd="15dp"
-                        android:contentDescription="Todo"
+                        android:contentDescription="@string/todo"
                         android:src="@drawable/link"
                         app:tint="#737373" />
 
@@ -480,7 +480,7 @@
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_gravity="center_vertical"
-                        android:contentDescription="Todo"
+                        android:contentDescription="@string/todo"
                         android:src="@drawable/ic_camera"
                         app:tint="#737373" />
 
@@ -494,7 +494,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:backgroundTint="@color/green_color"
-                android:contentDescription="Todo"
+                android:contentDescription="@string/todo"
                 android:src="@drawable/ic_voice" />
 
         </LinearLayout>

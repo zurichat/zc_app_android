@@ -22,10 +22,10 @@
         app:logo="@drawable/image_channel"
         app:menu="@menu/dm_chat"
         app:navigationIcon="@drawable/ic_back"
-        app:subtitle="online"
+        app:subtitle="@string/online"
         app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
         app:subtitleTextColor="@color/white"
-        app:title="John Doe Felix"
+        app:title="@string/john_doe_felix"
         app:titleMarginStart="32dp"
         app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
         app:titleTextColor="@android:color/white" />
@@ -181,7 +181,7 @@
             android:id="@+id/send_message_btn"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:contentDescription="send button"
+            android:contentDescription="@string/send_button"
             android:enabled="false"
             android:outlineProvider="none"
             android:src="@drawable/ic_send_"
@@ -192,7 +192,7 @@
             app:layout_constraintStart_toEndOf="@id/cardView"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white"
-            tools:ignore="HardcodedText" />
+            />
         <!--endregion-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>

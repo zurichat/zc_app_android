@@ -12,8 +12,8 @@
         android:theme="@style/App.ToolbarStyle"
         app:menu="@menu/home_menu"
         app:navigationIcon="@drawable/ic_arrow_back_24"
-        app:subtitle="Subtitle"
+        app:subtitle="@string/sub_title"
         app:subtitleTextColor="@android:color/white"
-        app:title="Title"
+        app:title="@string/title"
         app:titleTextColor="@android:color/white" />
 </com.google.android.material.appbar.AppBarLayout>

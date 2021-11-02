@@ -22,7 +22,7 @@
             app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
             app:subtitleTextColor="@color/white"
             app:theme="@style/ToolbarTheme"
-            app:title="Android Devs"
+            app:title="@string/android_devs"
             app:titleMarginStart="32dp"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
             app:titleTextColor="@color/white" />

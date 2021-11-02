@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="ABC Resources 1.pdf"
+                android:text="@string/abc_resources_1_pdf"
                 android:textColor="@color/text_color"
                 android:textSize="18sp" />
 
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
-                android:text="576 KB" />
+                android:text="@string/_542_kb" />
         </LinearLayout>
 
         <TextView
@@ -62,7 +62,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="25dp"
             android:layout_marginEnd="10dp"
-            android:text="31/06/2021" />
+            android:text="@string/_30_06_2021" />
 
     </RelativeLayout>
 
@@ -115,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="ABC Resources 1.pdf"
+                android:text="@string/abc_resources_1_pdf"
                 android:textColor="@color/text_color"
                 android:textSize="18sp" />
 
@@ -125,7 +125,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
-                android:text="576 KB" />
+                android:text="@string/_542_kb" />
         </LinearLayout>
 
         <TextView
@@ -135,7 +135,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="25dp"
             android:layout_marginEnd="10dp"
-            android:text="31/06/2021" />
+            android:text="@string/_30_06_2021" />
 
     </RelativeLayout>
 
@@ -188,7 +188,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="ABC Resources 1.pdf"
+                android:text="@string/abc_resources_1_pdf"
                 android:textColor="@color/text_color"
                 android:textSize="18sp" />
 
@@ -198,7 +198,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
-                android:text="576 KB" />
+                android:text="@string/_542_kb" />
         </LinearLayout>
 
         <TextView
@@ -208,7 +208,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="25dp"
             android:layout_marginEnd="10dp"
-            android:text="31/06/2021" />
+            android:text="@string/_30_06_2021" />
 
     </RelativeLayout>
 

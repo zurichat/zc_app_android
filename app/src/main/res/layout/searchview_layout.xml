@@ -73,11 +73,11 @@
                             android:id="@+id/searchEditText"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:hint="Search"
+                            android:hint="@string/search"
                             android:maxLines="1"
                             android:inputType="text"
                             android:imeOptions="actionSearch"
-                            tools:ignore="HardcodedText" />
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -93,9 +93,8 @@
                         android:id="@+id/videos_chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Videos"
+                        android:text="@string/videos"
                         style="@style/Widget.MaterialComponents.Chip.Action"
-                        tools:ignore="HardcodedText"
                         app:chipIcon="@drawable/ic_videocam"
                         app:chipIconTint="@color/text_black" />
 
@@ -103,9 +102,8 @@
                         android:id="@+id/photos_chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Photos"
+                        android:text="@string/photos"
                         style="@style/Widget.MaterialComponents.Chip.Action"
-                        tools:ignore="HardcodedText"
                         app:chipIcon="@drawable/gallery"
                         app:chipIconTint="@color/text_black" />
 
@@ -113,25 +111,25 @@
                         android:id="@+id/links_chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Links"
+                        android:text="@string/links"
                         style="@style/Widget.MaterialComponents.Chip.Action"
-                        tools:ignore="HardcodedText" />
+                        />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/docs_chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Documents"
+                        android:text="@string/documents"
                         style="@style/Widget.MaterialComponents.Chip.Action"
-                        tools:ignore="HardcodedText" />
+                         />
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/audio_chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Audio"
+                        android:text="@string/audio"
                         style="@style/Widget.MaterialComponents.Chip.Action"
-                        tools:ignore="HardcodedText" />
+                        />
 
 
                 </com.google.android.material.chip.ChipGroup>

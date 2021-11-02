@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Last backup"
+            android:text="@string/last_backup"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/image_backup"
@@ -38,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Back up your messages and media to Google\nDrive. You can also restore them when you reinstall\nZuri Chat . Your messages will also back\nup to your phones internal storage"
+            android:text="@string/back_up_your_messages_and_media_to_google_ndrive_you_can_also_restore_them_when_you_reinstall_nzuri_chat_your_messages_will_also_back_nup_to_your_phones_internal_storage"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@id/tv_last_backup"
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Local: 5:04AM"
+            android:text="@string/local_5_04am"
             android:textColor="@color/text_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Google Drive: September 6, 9:09 PM"
+            android:text="@string/google_drive_september_6_9_09_pm"
             android:textColor="@color/text_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
@@ -76,7 +76,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Size: 2.4 MB"
+            android:text="@string/size_2_4_mb"
             android:textColor="@color/text_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
@@ -88,7 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Back up"
+            android:text="@string/back_up"
             android:textAllCaps="false"
             android:textSize="13sp"
             app:layout_constraintStart_toStartOf="@id/tv_last_backup"
@@ -119,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Google drive settings"
+            android:text="@string/google_drive_settings"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toEndOf="@id/image_drive"
@@ -131,7 +131,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Messages and media backed up in Google\nDrive are not encrypted by Zuri chat end-to-\nend encryption"
+            android:text="@string/messages_and_media_backed_up_in_google_ndrive_are_not_encrypted_by_zuri_chat_end_to_nend_encryption"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@id/tv_google_drive"
@@ -158,7 +158,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato"
-                    android:text="Back up to Google Drive"
+                    android:text="@string/back_up_to_google_drive"
                     android:textColor="@color/text_color"
                     android:textSize="16sp" />
 
@@ -168,7 +168,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/lato"
-                    android:text="Monthly"
+                    android:text="@string/monthly"
                     android:textColor="@color/grey"
                     android:textSize="16sp" />
 
@@ -186,7 +186,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato"
-                    android:text="Google Accounts"
+                    android:text="@string/google_accounts"
                     android:textColor="@color/text_color"
                     android:textSize="16sp" />
 
@@ -196,7 +196,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/lato"
-                    android:text="femidpo3@gmail.com"
+                    android:text="@string/femidpo3_gmail_com"
                     android:textColor="@color/grey"
                     android:textSize="16sp" />
 
@@ -214,7 +214,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato"
-                    android:text="Back up Over"
+                    android:text="@string/back_up_over"
                     android:textColor="@color/text_color"
                     android:textSize="16sp" />
 
@@ -225,7 +225,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/lato"
-                    android:text="Wi-Fi or cellular"
+                    android:text="@string/wi_fi_or_cellular"
                     android:textColor="@color/grey"
                     android:textSize="16sp" />
 
@@ -243,7 +243,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:fontFamily="@font/lato"
-                    android:text="Include Videos"
+                    android:text="@string/include_videos"
                     android:textColor="@color/text_color"
                     android:textSize="16sp" />
 

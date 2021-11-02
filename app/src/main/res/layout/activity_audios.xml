@@ -39,7 +39,7 @@ tools:context=".ui.audio.AudiosActivity">
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:fontFamily="@font/lato"
-            android:text="John Doe Felix"
+            android:text="@string/john_doe_felix"
             android:textAlignment="textStart"
             android:textColor="@color/white"
             android:textAppearance="?attr/textAppearanceBody1"
@@ -48,7 +48,7 @@ tools:context=".ui.audio.AudiosActivity">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="last seen at 5:50am"
+            android:text="@string/last_seen_at_5_50am"
             android:textColor="@color/white"
             android:layout_marginStart="10dp"/>
     </LinearLayout>
@@ -102,7 +102,7 @@ tools:context=".ui.audio.AudiosActivity">
                     android:layout_marginEnd="5dp"
                     android:src="@drawable/ic_smile"
                     app:tint="#737373"
-                    android:contentDescription="Todo" />
+                    android:contentDescription="@string/todo" />
 
                 <EditText
                     android:id="@+id/message_edit"
@@ -123,7 +123,7 @@ tools:context=".ui.audio.AudiosActivity">
                     android:layout_marginEnd="15dp"
                     android:src="@drawable/link"
                     app:tint="#737373"
-                    android:contentDescription="Todo" />
+                    android:contentDescription="@string/todo" />
 
                 <ImageView
                     android:id="@+id/camera_btn"
@@ -132,7 +132,7 @@ tools:context=".ui.audio.AudiosActivity">
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/ic_camera"
                     app:tint="#737373"
-                    android:contentDescription="Todo" />
+                    android:contentDescription="@string/todo" />
 
             </LinearLayout>
 
@@ -145,7 +145,7 @@ tools:context=".ui.audio.AudiosActivity">
             android:layout_margin="5dp"
             android:backgroundTint="@color/green_color"
             android:src="@drawable/ic_voice"
-            android:contentDescription="Todo" />
+            android:contentDescription="@string/todo" />
 
     </LinearLayout>
 

@@ -55,7 +55,7 @@
                 android:textColor="#2979FF"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                tool:text="Luxanne" />
+                android:text="@string/luxanne" />
 
             <TextView
                 android:id="@+id/messageText"
@@ -64,7 +64,7 @@
                 android:maxWidth="200dp"
                 android:textColor="#000000"
                 android:textSize="14sp"
-                tool:text="On it boss, let's see if it'll be" />
+                android:text="@string/on_it_boss_let_s_see_if_it_ll_be" />
 
         </LinearLayout>
 
@@ -78,7 +78,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#9C9C9C"
             android:textSize="14sp"
-            tool:text="5:38 AM" />
+            android:text="@string/_5_38_am" />
 
     </LinearLayout>
 
@@ -103,7 +103,7 @@
             android:maxWidth="200dp"
             android:textColor="@color/text_color"
             android:textSize="14sp"
-            tool:text="On it boss, let's see if it'll be alright to get it done" />
+            android:text="@string/on_it_boss_let_s_see_if_it_ll_be_alright_to_get_it_done" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -119,7 +119,7 @@
                 android:maxWidth="200dp"
                 android:textColor="#9C9C9C"
                 android:textSize="14sp"
-                tool:text="5:38 AM" />
+                android:text="@string/_5_38_am" />
 
             <ImageView
                 android:id="@+id/sending_indicator"

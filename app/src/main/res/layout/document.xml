@@ -32,7 +32,7 @@
                 android:ellipsize="marquee"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:singleLine="true"
-                android:text="ABC Resources 1.pdf"
+                android:text="@string/abc_resources_1_pdf"
                 android:textColor="@color/text_color"
                 android:textSize="18sp" />
 
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
-                android:text="576 KB" />
+                android:text="@string/_576_kb" />
         </LinearLayout>
 
         <TextView
@@ -52,7 +52,7 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="30dp"
             android:layout_marginTop="20dp"
-            android:text="31/06/2021"
+            android:text="@string/_31_06_2021"
             android:visibility="gone" />
     </LinearLayout>
 
