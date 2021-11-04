@@ -7,11 +7,13 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.media.RingtoneManager
 import android.net.*
 import android.os.Build
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -25,13 +27,13 @@ import com.zurichat.app.ui.fragments.home_screen.HomeScreenFragment
 import com.zurichat.app.ui.notification.NotificationService
 import com.zurichat.app.ui.notification.NotificationUtils
 import com.zurichat.app.ui.settings.SettingsActivity
+import com.zurichat.app.util.LocaleHelper
 import com.zurichat.app.util.setUpApplicationTheme
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
     private val CHANNEL_ID = "channel_id_example"
     private val notificationId = 101
     private var notificationSettings: SettingsActivity.NotificationAndSounds? = null
@@ -50,6 +52,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setLanguage()
         setContentView(binding.root)
         
         if (!mNotified) {
@@ -86,11 +89,15 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         internetConnection()
         super.onResume()
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val langKey = preferences.getString(SELECTED_LANGUAGE,"en")
+        if (!langKey.equals(current_lang)){
+            recreate()
+        }
     }
 
     // Internet Connectivity checking
-    private fun internetConnection()
-    {
+    private fun internetConnection() {
         val cm = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
         val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
@@ -98,6 +105,16 @@ class MainActivity : AppCompatActivity() {
         if(!isConnected){
             Toast.makeText(applicationContext,getString(R.string.hello_blank_fragment),Toast.LENGTH_LONG).show()
         }
+    }
+
+    val SELECTED_LANGUAGE = "Locale.Helper.Selected.Language"
+    var current_lang = "en"
+    private fun setLanguage(){
+        //Todo: Change To DataStore
+        val preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        val langKey = preferences.getString(SELECTED_LANGUAGE,"en")
+        current_lang = langKey.toString()
+        LocaleHelper.setLocale(this,langKey)
     }
 
     // creation of notification bar
@@ -116,8 +133,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // show new messages of notification bar
-    fun showNotification(name: String?, message: String?, pattern: LongArray?,sound: Uri?)
-    {
+    fun showNotification(name: String?, message: String?, pattern: LongArray?,sound: Uri?) {
         val intent = Intent(this,HomeScreenFragment::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
@@ -137,8 +153,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // setting of notification from notification and sound Fragment
-    fun notificationSetting(name: String, message: String, vibratePattern: LongArray,messageSound: Uri)
-    {
+    fun notificationSetting(name: String, message: String, vibratePattern: LongArray,messageSound: Uri) {
         if(notificationSettings!!.isChannelToneChecked)
         {
             showNotification(name,message,null,messageSound)
@@ -172,6 +187,7 @@ class MainActivity : AppCompatActivity() {
         serviceIntent.putExtra("channel_tones, message_tone,vibrate,high_priority", notificationAndSounds)
         ContextCompat.startForegroundService(this, serviceIntent)
     }
+
     fun stopService(view: View) {
         val serviceIntent = Intent(this, NotificationService::class.java)
         stopService(serviceIntent)

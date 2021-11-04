@@ -5,35 +5,41 @@
         app:icon="@drawable/ic_chat"
         app:key="chat_header"
         app:title="@string/chat_setting"
+        app:iconSpaceReserved="false"
         />
 
     <Preference
         app:fragment="com.zurichat.app.ui.settings.SettingsActivity$PrivacyAndSecurityFragment"
         app:icon="@drawable/ic_lock"
         app:key="security_header"
-        app:title="@string/privacy" />
+        app:title="@string/privacy"
+        app:iconSpaceReserved="false"/>
 
     <Preference
         app:fragment="com.zurichat.app.ui.settings.SettingsActivity$StorageAndDataFragment"
         app:icon="@drawable/ic_folder"
         app:key="storage_header"
-        app:title="@string/storage_n_data" />
+        app:title="@string/storage_n_data"
+        app:iconSpaceReserved="false"/>
 
     <Preference
         app:fragment="com.zurichat.app.ui.settings.SettingsActivity$NotificationAndSounds"
         app:icon="@drawable/ic_alarm"
         app:key="notification_header"
-        app:title="@string/notice_n_sounds" />
+        app:title="@string/notice_n_sounds"
+        app:iconSpaceReserved="false"/>
 
     <Preference
         app:fragment="com.zurichat.app.ui.settings.SettingsActivity$LanguagesFragment"
         app:icon="@drawable/ic_baseline_translate"
         app:key="@string/languages"
-        app:title="@string/languages" />
+        app:title="@string/languages"
+        app:iconSpaceReserved="false"/>
     <Preference
         app:fragment="com.zurichat.app.ui.settings.dialogs.LogoutDialogFragment"
         app:icon="@drawable/ic_logout"
         app:key="logout_header"
-        app:title="@string/logout_"/>
+        app:title="@string/logout_"
+        app:iconSpaceReserved="false"/>
 
 </PreferenceScreen>

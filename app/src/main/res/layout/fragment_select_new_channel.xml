@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:menu="@menu/new_channel_menu"
-        app:title="Select Member"
+        app:title="@string/select_member_s"
         app:titleTextColor="#ffffff"
         app:subtitle="0 Member(s)"
         app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"

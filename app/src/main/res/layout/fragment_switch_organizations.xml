@@ -118,7 +118,7 @@
         app:popupTheme="@style/Theme.ZuriChat.Toolbar"
         app:logo="@drawable/zuri_chat_icon"
         app:titleMarginStart="32dp"
-        app:title="Choose Organization"
+        app:title="@string/choose_organization"
         app:subtitle="No Organizations"
         app:subtitleTextColor="@color/white"
         app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"

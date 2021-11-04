@@ -17,7 +17,6 @@
 	<string name="never_miss_a_chat">Non perdere mai una chat</string>
 	<string name="sub_heading_1">Niente più scuse per le chat mancanti, togli la tua chat con te</string>
 	<string name="powered_by_zuri_chat">Powered By Zuri Chat</string>
-	<string name="zuri_logo">Logo bianco</string>
 	<string name="swift_response_to_dms">Risposta rapida al DMS</string>
 	<string name="receive_notifications_on_chats_and_responds_swiftly">Ricevi notifiche sulle chat e risponde rapidamente</string>
 	<string name="customize_your_chat_experience">Personalizza la tua esperienza di chat</string>
@@ -47,7 +46,6 @@
 	<string name="new_channel">Nuovo canale</string>
 	<string name="saved_messages">Messaggi salvati</string>
 	<string name="settings">Impostazioni</string>
-	<string name="zuri">Chat bianca</string>
 	<string name="profile_image">Immagine del profilo</string>
 	<string name="display_header">Schermo</string>
 	<string name="theme">Tema</string>
@@ -128,8 +126,6 @@
 	<string name="high_priority_summary">Visualizza l\'anteprima della notifica nella parte superiore dello schermo</string>
 	<string name="dm_notification_channel_name">Notifica DM.</string>
 	<string name="unread_messages">Messaggi non letti</string>
-	<string name="channels_">Canali</string>
-	<string name="lbl_terms_and_conditions"><u>Termini e Condizioni</u></string>
 	<string name="online">in linea</string>
 	<string name="android_devs">Android Devs.</string>
 	<string name="channel_group_members">Lux, Hamid, Joe, + 234707 …</string>
@@ -258,6 +254,7 @@
 	<string name="create_workspace">Creare un nuovo spazio di lavoro</string>
 	<string name="current_org_id">ID organizzazione corrente</string>
 	<string name="error">Errore</string>
+	<string name="vibrate">vibrare</string>
 	<string name="high_priority">high_priority</string>
 	<string name="Channel_tones_off">Toni canale disattivati</string>
 	<string name="channel_tones_on">Toni del canale attivati</string>
@@ -319,11 +316,19 @@
 	<string name="click_delete">fai clic per eliminare</string>
 	<string name="backup_dialog">Finestra di backup</string>
 	<string name="backup_google">Esegui il backup di Google</string>
-	<string name="vibrate">vibrare</string>
+	<string name="lbl_terms_and_conditions">Termini e Condizioni</string>
 	<string name="privacy">Privacy</string>
 	<string name="storage_n_data">Memoria e dati</string>
 	<string name="chat_setting">Impostazioni chat</string>
 	<string name="notice_n_sounds">Notifiche e suoni</string>
 	<string name="logout_">Disconnetti</string>
 	<string name="switch_organisation">Cambia organizzazione</string>
+	<string name="choose_organization">Scegli Organizzazione</string>
+	<string name="view_mentions">Visualizza menzioni</string>
+	<string name="channels_">Canali</string>
+	<string name="select_member_s">Seleziona il membro</string>
+	<string name="channel_browser_s">Browser di canale</string>
+	<string name="channel_s">canali</string>
+	<string name="ch_channel_members">Scegli i membri del canale</string>
+	<string name="previous_accounts">Conti precedentemente utilizzati</string>
 </resources>

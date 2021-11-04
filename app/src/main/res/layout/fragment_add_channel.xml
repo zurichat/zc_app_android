@@ -24,7 +24,7 @@
             app:subtitleTextAppearance="@style/TextAppearance.AppCompat.Small"
             app:subtitleTextColor="@color/white"
             app:theme="@style/ToolbarTheme"
-            app:title="Channel Browser"
+            app:title="@string/channel_browser_s"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Medium"
             app:titleTextColor="@color/white" />
 
