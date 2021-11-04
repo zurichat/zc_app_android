@@ -26,6 +26,7 @@ import com.zurichat.app.ui.login.LoginActivity
 import com.zurichat.app.ui.login.LoginViewModel
 import com.zurichat.app.ui.organizations.utils.ZuriSharePreference
 import com.zurichat.app.ui.settings.dialogs.LogOutDialogFragment
+import com.zurichat.app.util.LocaleHelper
 import com.zurichat.app.util.ProgressLoader
 import com.zurichat.app.util.Result
 import com.zurichat.app.util.vibrateDevice
@@ -52,6 +53,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         val networkUsageContainer = findViewById<ConstraintLayout>(R.id.network_usage_container)
         val divider = findViewById<View>(R.id.divider)
         val nameTxt = findViewById<TextView>(R.id.name)
+
         profileImage = findViewById(R.id.profile_image)
 
         if (savedInstanceState == null) {
@@ -104,6 +106,7 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
             return true
         }
         super.onBackPressed()
+        //finish()
         return false
     }
 
@@ -288,8 +291,6 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
         }
     }
 
-
-
     class PrivacyAndSecurityFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.privacy_and_security_preferences, rootKey)
@@ -307,9 +308,89 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
     class LanguagesFragment : PreferenceFragmentCompat(){
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.language_preferences, rootKey)
-            TranslationSelectFragment()
-        }
 
+            val englishUK = findPreference<Preference>("en-uk")
+            val englishUS = findPreference<Preference>("en-us")
+            val french = findPreference<Preference>("fr")
+            val chinese = findPreference<Preference>("zh")
+            val arabic = findPreference<Preference>("ar")
+            val deutsch = findPreference<Preference>("de")
+            val spanish = findPreference<Preference>("es")
+            val italian = findPreference<Preference>("it")
+            val hebrew = findPreference<Preference>("iw")
+            val portuguese = findPreference<Preference>("pt")
+
+            englishUK!!.setOnPreferenceClickListener {
+                LocaleHelper.setLocale(requireActivity(), "en").let {
+                    requireActivity().recreate()
+                }
+                false
+            }
+
+            englishUS!!.setOnPreferenceClickListener {
+                LocaleHelper.setLocale(requireActivity(), "en").let {
+                    requireActivity().recreate()
+                }
+                false
+            }
+
+            french!!.setOnPreferenceClickListener {
+                LocaleHelper.setLocale(requireActivity(), "fr").let {
+                    requireActivity().recreate()
+                }
+                false
+            }
+
+            chinese!!.setOnPreferenceClickListener {
+                LocaleHelper.setLocale(requireActivity(), "zh").let {
+                    requireActivity().recreate()
+                }
+                false
+            }
+
+            arabic!!.setOnPreferenceClickListener {
+                LocaleHelper.setLocale(requireActivity(), "ar").let {
+                    requireActivity().recreate()
+                }
+                false
+            }
+
+            deutsch!!.setOnPreferenceClickListener {
+                LocaleHelper.setLocale(requireActivity(), "de").let {
+                    requireActivity().recreate()
+                }
+                false
+            }
+
+            spanish!!.setOnPreferenceClickListener {
+                LocaleHelper.setLocale(requireActivity(), "es").let {
+                    requireActivity().recreate()
+                }
+                false
+            }
+
+            italian!!.setOnPreferenceClickListener {
+                LocaleHelper.setLocale(requireActivity(), "it").let {
+                    requireActivity().recreate()
+                }
+                false
+            }
+
+            hebrew!!.setOnPreferenceClickListener {
+                LocaleHelper.setLocale(requireActivity(), "iw").let {
+                    requireActivity().recreate()
+                }
+                false
+            }
+
+            portuguese!!.setOnPreferenceClickListener {
+                LocaleHelper.setLocale(requireActivity(), "pt").let {
+                    requireActivity().recreate()
+                }
+                false
+            }
+            //TranslationSelectFragment()
+        }
     }
 
     class TranslationSelectFragment: PreferenceFragmentCompat(){
@@ -317,7 +398,6 @@ class SettingsActivity : AppCompatActivity(), PreferenceFragmentCompat.OnPrefere
             val langIntent: Intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
             startActivity(langIntent)
         }
-
     }
 
     class NotificationAndSounds : PreferenceFragmentCompat() {

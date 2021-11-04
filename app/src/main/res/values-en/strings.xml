@@ -1,0 +1,387 @@
+<resources>
+	<string name="enter_registered_email">Enter registered zuri chat email</string>
+	<string name="verify_email">Verify Email</string>
+	<string name="email_verified">Email Verified</string>
+	<string name="continue_to_zuri_chat">Continue to Zuri Chat</string>
+	<string name="proceed_to_chat_button">Proceed to Chat</string>
+	<string name="imagelogo">imageLogo</string>
+	<string name="description">Description</string>
+	<string name="title_text">Title Text</string>
+	<string name="next">Next</string>
+	<string name="skip_intro">Skip Intro</string>
+	<string name="verification_code">A verification code has been sent to   <b> nwevopeacechinedu@gmail.com,</b> please enter the code   to verify your account.</string>
+	<string name="hello_blank_fragment">No Internet Connection!</string>
+	<string name="skip">Skip</string>
+	<string name="slider_image">Slider Image</string>
+	<string name="never_miss_a_chat">Never miss a chat</string>
+	<string name="sub_heading_1">No more apologies for missing chats, take your chat with you</string>
+	<string name="powered_by_zuri_chat">Powered by Zuri Chat</string>
+	<string name="swift_response_to_dms">Swift response to DMs</string>
+	<string name="receive_notifications_on_chats_and_responds_swiftly">Receive notifications on chats and responds swiftly</string>
+	<string name="customize_your_chat_experience">Customize your chat experience</string>
+	<string name="customize_your_chat_environment_to_suit_your_preference">Customize your chat environment to suit your preference</string>
+	<string name="title_activity_settings">Settings</string>
+	<string name="welcome_title">Welcome to Zuri Chat</string>
+	<string name="welcome_text">Send DMs to your contacts and channels with   ease, start conversations with just a click</string>
+	<string name="register_mail">Email Address</string>
+	<string name="welcome_image">Welcome Image</string>
+
+	<!-- Attachments -->
+	<string name="send_to">Send to %1$s</string>
+	<string name="x_selected">%1$d selected</string>
+	<string name="all_view">All %1$s</string>
+	<string name="tap_to_select">Tap to select</string>
+
+	<!-- Menu: DM -->
+	<string name="action_voice_call">Voice Call</string>
+
+	<!-- Preference Titles -->
+	<string name="messages_header">Messages</string>
+	<string name="sync_header">Sync</string>
+
+	<!-- Messages Preferences -->
+	<string name="signature_title">Your signature</string>
+	<string name="reply_title">Default reply action</string>
+
+	<!-- Sync Preferences -->
+	<string name="sync_title">Sync email periodically</string>
+	<string name="attachment_title">Download incoming attachments</string>
+	<string name="attachment_summary_on">"Automatically download attachments for incoming emails     "</string>
+	<string name="attachment_summary_off">Only download attachments when manually requested</string>
+	<string name="manage_storage">Manage Storage</string>
+	<string name="network_usage">Network usage</string>
+	<string name="type_a_message">Type a message</string>
+	<string name="search">Search</string>
+	<string name="new_channel">New Channel</string>
+	<string name="saved_messages">Saved Messages</string>
+	<string name="settings">Settings</string>
+	<string name="profile_image">Profile image</string>
+
+	<!-- Chat Settings -->
+	<string name="display_header">Display</string>
+	<string name="theme">Theme</string>
+	<string name="theme_dialog">Choose your Theme</string>
+	<string name="Wallpaper">Wallpaper</string>
+	<string name="enter_send">Enter is send</string>
+	<string name="system_default">System Default</string>
+	<string name="chat_settings_header">Chat Settings</string>
+	<string name="enter_to_send_main">Enter is send</string>
+	<string name="enter_to_send_subtitle">Enter key will send your message</string>
+	<string name="media_visibility_header">Media visibility</string>
+	<string name="media_visibility_subtitle">Show newly downloaded media in your phone’s gallery</string>
+	<string name="font_size_header">Font size</string>
+	<string name="font_dialog">Choose Font Size</string>
+	<string name="font_size_default">Medium</string>
+	<string name="chat_backup">Chat backup</string>
+	<string name="chat_history">Chat history</string>
+	<string name="string_manage_storage">Manage Storage</string>
+	<string name="profile_activity">Profile</string>
+	<string name="delete_txt">delete</string>
+	<string name="save_txt">save</string>
+	<string name="larger_items_or_no_items_string">No Item here</string>
+
+	<!-- Wallpaper Settings -->
+	<string name="wallpaper_dimming_header">Wallpaper Dimming</string>
+	<string name="change_wallpaper">Change</string>
+	<string name="bright_cat">Bright</string>
+	<string name="dark_cat">Dark</string>
+	<string name="solid_cat">Solid Colors</string>
+	<string name="my_photos_cat">My Photos</string>
+	<string name="default_wallpaper">Default Wallpaper</string>
+
+
+	<!-- Privacy Settings -->
+	<string name="who_can_see_header">Who can see my personal info</string>
+	<string name="who_can_see_summary">If you don’t share your Last seen,          you won’t be able to see other people’s Last seen</string>
+	<string name="last_seen_header">Last seen</string>
+	<string name="profile_photo_header">Profile photo</string>
+	<string name="about_header">About</string>
+	<string name="status_header">Status</string>
+	<string name="read_receipt_header">Read receipt</string>
+	<string name="read_receipt_summary">If turned off, you won’t send or receive Read receipts.         Read receipts are always sent for channels</string>
+	<string name="channels_header">Channels</string>
+	<string name="live_locations_header">Live location</string>
+	<string name="blocked_contacts_header">Blocked contacts</string>
+	<string name="fingerprint_lock_header">Fingerprint lock</string>
+
+	<!-- Theme Selection -->
+	<string name="prefsThemesList_default">none</string>
+	<string name="username_">Username</string>
+	<string name="hey_what_s_good_">Hey what\'s good</string>
+	<string name="_10_07">10:07</string>
+
+	<string name="profile_about">About</string>
+
+	<string name="no_item_here_txt">Sorry, you do not have any  item here.</string>
+	<string name="gallery">Gallery</string>
+	<string name="audio">Audio</string>
+	<string name="document">Document</string>
+
+	<!--Channels-->
+	<string name="make_your_channel_private">Make your channel private</string>
+	<string name="set_your_channel_privacy">Set your channel privacy</string>
+	<string name="channel_members">Channel members</string>
+	<string name="make_your_channel_public">Make your channel public</string>
+	<string name="et_channel_name">Name</string>
+	<string name="todo">TODO</string>
+	<string name="_22">22</string>
+	<string name="channels">CHANNELS</string>
+	<string name="Channel_info">Channel Info</string>
+	<string name="tab_title_media">MEDIA</string>
+	<string name="tab_title_docs">DOCS</string>
+	<string name="tab_title_links">LINKS</string>
+	<string name="mute_notifications">Mute notifications</string>
+	<string name="chanel_search">Search</string>
+	<string name="channel_media">Channel media</string>
+	<string name="select_contact">Select Contact</string>
+	<string name="members">Member(s)</string>
+	<string name="changephoneno_hint_txt">Enter your new phone number</string>
+	<string name="search_for_channels">Search for channels</string>
+
+
+	<!--    Notifications & Sounds-->
+	<string name="channel_tones_header">Channel tones</string>
+	<string name="channel_tones_summary">Play sound for incoming and outgoing message in channels</string>
+	<string name="messages_cat_header">Messages</string>
+	<string name="message_tones_header">Message tones</string>
+	<string name="message_tones_summary">Play sound on new messages</string>
+	<string name="vibrate_header">Vibrate</string>
+	<string name="vibrate_summary">Vibrate on new messages</string>
+	<string name="high_priority_header">High priority Notification</string>
+	<string name="high_priority_summary">Display Preview of notification at the top of the screen</string>
+	<string name="dm_notification_channel_name">DM Notification</string>
+
+
+	<string name="unread_messages">Unread messages</string>
+	<string name="online">online</string>
+	<string name="android_devs">Android Devs</string>
+	<string name="channel_group_members">Lux, Hamid, Joe, +234707…</string>
+	<string name="search_hint">Search</string>
+	<string name="item_action_phone">Item_action_phone</string>
+	<string name="hi_there_this_is_the_beginning_of_n_the_conversation_in_this_channel">Hi there, this is the beginning of \n the conversation in this channel</string>
+	<string name="john_felix_doe">John Felix Doe</string>
+	<string name="last_seen_">last seen at 5:50am</string>
+
+
+	<string name="welcome_desc">Send DMs to your contacts and channels with\n ease, start conversations with just a click</string>
+	<string name="register_string">Register</string>
+	<string name="sign_in_txt">Sign in to your Zuri account</string>
+	<string name="welcome_zc_txt">Welcome to Zuri Chat</string>
+	<string name="welcome_rect">welcome top rectangle</string>
+
+	<!-- Confirm Password-->
+	<string name="confirm_pass_hdr">Confirm Password</string>
+	<string name="confirm_pass">Confirm password to sign in with account</string>
+
+	<!--Forget Account Password -->
+	<string name="forgot_pass_sub_1">Please press continue to reset the password for the account</string>
+
+
+	<!--Home screen Menu-->
+	<string name="switch_acc">Switch Account</string>
+	<string name="logout">Log out</string>
+	<string name="logout_dialog">Do you want to log out?</string>
+	<string name="no">No</string>
+	<string name="yes">Yes</string>
+	<string name="final_logout">Logging out…</string>
+
+	<!--Switch Accounts Menu-->
+	<string name="switch_accounts_toolbar_header">Previously Used Accounts</string>
+	<string name="no_account_to_switch_text">Sign in with more than one account on this device to use this feature</string>
+
+
+	<!--                      Forgot Password-->
+	<string name="please_ente">
+        Please enter the email used in registering this account</string>
+	<string name="email_addre">Email Address</string>
+	<string name="back_to_sig">Back to Sign In </string>
+	<string name="didn_t_rece">Didn\u00E2\u0080\u0099t receive any code?</string>
+	<string name="label">Sign in to your Zuri account</string>
+	<string name="forgotten_password">Forgot Password</string>
+	<string name="new_password">Your new password must be different from previously used password</string>
+	<string name="new_pass">New Password</string>
+	<string name="channels_who_add">Who can Add me to channels</string>
+	<string name="everyone">Everyone</string>
+	<string name="my_contacts">My Contacts</string>
+	<string name="my_contacts_except">My Contacts Except</string>
+	<string name="nobody">Nobody</string>
+	<string name="live_location_manage__device_settings">Live location requires background location. You can manage this in your device settings.</string>
+	<string name="immediately">Immediately</string>
+	<string name="one_minute">After 1 minute</string>
+	<string name="thirty_minutes">After 30 minutes</string>
+	<string name="you_aren_t_sharing_live_location">You aren’t sharing live location in any chats</string>
+	<string name="contacts_who_can_t_add_you">Contacts who can’t add you to a channel will have the option of inviting you privately instead.</string>
+	<string name="click_button_to_join_a_channel">Click button to join a channel</string>
+	<string name="button_to_join_channel">Button to join a channel</string>
+	<string name="you_are_viewing">You are viewing</string>
+	<string name="join_channel">Join Channel</string>
+	<string name="mute_channel">Mute Channel</string>
+	<string name="leave_channel">Leave Channel</string>
+	<string name="_add_channel">Add Channel</string>
+	<string name="provide_basic_information">Provide basic information</string>
+	<string name="enter_channel_name">Enter channel name</string>
+	<string name="set_your_channel_privacy_here">Set your channel privacy here</string>
+	<string name="make_my_channel_public">Make my channel public</string>
+	<string name="make_my_channel_private">Make my channel private</string>
+	<string name="select_members_">Select Members</string>
+	<string name="choose_channel_members">Choose Channel Members</string>
+	<string name="select_contact_">Select Contact</string>
+	<string name="leave_channel_warning_message">Are you sure you want to leave this channel? You will no longer receive messages from this channel once you leave</string>
+	<string name="leave_channel_warning_cancel_option">Cancel</string>
+	<string name="leave_channel_warning_leave_option">LEAVE</string>
+	<string name="unable_to_create_new_channel">Unable to create a new channel</string>
+	<string name="invalid_information">Channel with <b>\"%1$s\"</b> already exist.</string>
+	<string name="user_not_found">User not found</string>
+	<string name="successful_new_channel_creation">Successful create new channel</string>
+	<string name="creating_new_channel">creating new channel.......</string>
+	<string name="gif">GIF</string>
+	<string name="an_error_occured">An Error Occurred</string>
+
+	<string name="image1">All images</string>
+	<string name="image2">All videos</string>
+	<string name="image3">Camera</string>
+	<string name="image4">Dev App images</string>
+	<string name="image5">Xender images</string>
+	<string name="image6">Xender images</string>
+	<string name="image7">WhatsApp images</string>
+	<string name="image8">WhatsApp videos</string>
+	<string name="you_are_already_a_member_of_this_channel">You are already a member of this channel</string>
+	<string name="joined">Joined</string>
+	<string name="mute_channel_notifications_for">Mute notifications for…</string>
+	<string name="mute_for_8_hours">8 hours</string>
+	<string name="mute_for_1_week">1 week</string>
+	<string name="mute_for_always">Always</string>
+	<string name="show_notifi">Show notifications</string>
+	<string name="cancel_mute_channel_settings">Cancel</string>
+	<string name="ok_mute_channel">OK</string>
+	<string name="who_else_is">Who else is working on this project?</string>
+	<string name="to_add_team">To add teammates, you can either send a link or invite from your contacts.</string>
+	<string name="share_a_link">Share link</string>
+	<string name="add_from_contacts">Add from contacts</string>
+	<string name="add_by_email">Add by email</string>
+	<string name="signout">Logout</string>
+	<string name="switch_workspace">Switch Workspace</string>
+	<string name="sign_in">Sign In</string>
+	<string name="invite_user">Invite User</string>
+	<string name="successful_get_user_org">user organizations retrieved successfully</string>
+	<string name="retrieving_user_org">Retrieving user organization....</string>
+	<string name="starred_messages">Starred Messages</string>
+	<string name="empty_starrred_message_info">Tap and hold on any message \nin any chat to star it, \nso you can easily \nfind it later</string>
+	<string name="invite_link">Generate Link</string>
+	<string name="channel_invite">Channel Invite</string>
+	<string name="create_link">Create Link</string>
+	<string name="generated_link">Generated Link</string>
+
+	<string name="notification">New Notification</string>
+	<string name="notification_channel_description">This is a sample notification channel for demonstration purpose.</string>
+	<string name="didn_t_receive_any_code">Didn\'t Receive Any Code?</string>
+	<string name="create_new_organization">Create New Organization</string>
+	<string name="forgot_password_txt">Forgot Password?</string>
+	<string name="continue_txt">Continue</string>
+	<string name="languages">Languages</string>
+	<string name="title">Title</string>
+	<string name="zuri_dms_team_tolstoy">TitZuri DMs: Team Tolstoy - Kotlin Java Mobile</string>
+	<string name="action_video_call">Video Call</string>
+	<string name="chats">CHATS</string>
+	<string name="select_language">Select a language translation</string>
+	<string name="english_uk">English UK</string>
+	<string name="english_us">English US</string>
+	<string name="fr">French</string>
+	<string name="zh">Chinese</string>
+	<string name="ar">Arabic</string>
+	<string name="den">Deutch</string>
+	<string name="sp">Espanol</string>
+	<string name="it">Italiano</string>
+	<string name="iw">Hebrew</string>
+	<string name="por">Portuguese</string>
+	<string name="add_workspace">Add Workspace</string>
+	<string name="create_workspace">Create New Workspace</string>
+	<string name="chat_header" translatable="false">chat_header</string>
+	<string name="security_header" translatable="false">security_header</string>
+	<string name="storage_header" translatable="false">storage_header</string>
+	<string name="notification_header" translatable="false">notification_header</string>
+	<string name="logout_header" translatable="false">logout_header</string>
+	<string name="user" translatable="false">USER</string>
+	<string name="logged_out" translatable="false">LOG_OUT</string>
+	<string name="current_org_id">Current Organization ID</string>
+	<string name="error">Error</string>
+	<string name="channel_tones" translatable="false">channel_tones</string>
+	<string name="message_tone" translatable="false">message_tone</string>
+	<string name="vibrate">vibrate</string>
+	<string name="high_priority">high_priority</string>
+	<string name="Channel_tones_off">Channel tones off</string>
+	<string name="channel_tones_on">Channel tones on</string>
+	<string name="message_tones_off">Message tones off</string>
+	<string name="message_tones_on">Message tones on</string>
+	<string name="vibrate_off">Vibrate off</string>
+	<string name="vibrate_on">Vibrate on</string>
+	<string name="high_priority_notification">High priority Notifications off</string>
+	<string name="high_priority_notifications_on">High priority Notifications on</string>
+	<string name="fragment_view_destroyed">Should not attempt to get bindings when Fragment views are destroyed.</string>
+	<string name="name">name</string>
+	<string name="about">about</string>
+	<string name="permission_granted">Permission Granted!</string>
+	<string name="permission_denied">Permission Denied!</string>
+	<string name="recording">recording</string>
+	<string name="unable_to_start_camera">Unable to Start Camera!</string>
+	<string name="edit_number">Edit Phone Number</string>
+	<string name="save">Save</string>
+	<string name="successful">Update Successful</string>
+	<string name="sent_successfully">Sent Successfully</string>
+	<string name="invalid_error">Error 400, invalid</string>
+	<string name="not_found_error">Error 404, Not found</string>
+	<string name="new_message">New message</string>
+	<string name="show_emoji">Show Emoji</string>
+	<string name="picture_not_taken">Picture not taken</string>
+	<string name="join_channel_success">Joined Channel Successfully</string>
+	<string name="retry">Retry</string>
+	<string name="accts">\" Account(s)\"</string>
+	<string name="password_match">Password match</string>
+	<string name="password_not_match">Password doesn\'t match</string>
+	<string name="fresh_sign_in">\"password change successful\n Fresh sign in required\"</string>
+	<string name="please_try_again">Please retry again</string>
+	<string name="pls_wait">Please wait</string>
+	<string name="log_out_success">You have been successfully logged out of previous account</string>
+	<string name="loading">Loading</string>
+	<string name="wrong_code_retry">Wrong code try again</string>
+	<string name="correct_code">Current code</string>
+	<string name="sure_reset_password">Are you sure you want to reset the password for this account?</string>
+	<string name="confirm">Confirmation</string>
+	<string name="err_occured_try_again">\"An Error occurred please try again \"</string>
+	<string name="err_msg">ERROR MESSAGE</string>
+	<string name="channel_name_not_empty">Channel name can\'t be empty.</string>
+	<string name="out_of">out of</string>
+	<string name="selected">selected</string>
+	<string name="err_loading_data">Error in Loading data from server</string>
+	<string name="user_no_org">User has no organization</string>
+	<string name="orgz">Organization(s)</string>
+	<string name="invite_by_email">Invite By Email</string>
+	<string name="add_one_email">You must at least add one email</string>
+	<string name="invite_sent_succesfully">Invitation sent successfully</string>
+	<string name="dismiss">Dismiss</string>
+	<string name="successfully_created">You have successfully created</string>
+	<string name="link_copied">link copied</string>
+	<string name="backup_google_drive">Back up to Google Drive</string>
+	<string name="back_up_over">Back up Over</string>
+	<string name="choose_category">Choose Wallpaper Category</string>
+	<string name="bar">bar</string>
+	<string name="click_save">click to save</string>
+	<string name="click_delete">click to delete</string>
+	<string name="backup_dialog">Back up Dialog</string>
+	<string name="backup_google">Back up Google</string>
+	<string name="privacy">Privacy</string>
+	<string name="storage_n_data">Storage and Data</string>
+	<string name="chat_setting">Chat Settings</string>
+	<string name="notice_n_sounds">Notification and Sounds</string>
+	<string name="logout_">Log out</string>
+	<string name="switch_organisation">Switch Organisation</string>
+	<string name="choose_organization">Choose Organization</string>
+	<string name="view_mentions">View mentions</string>
+	<string name="channels_">Channels</string>
+	<string name="select_member_s">Select Member</string>
+	<string name="channel_browser_s">Channel Browser</string>
+	<string name="channel_s">channels</string>
+	<string name="ch_channel_members">Choose Channel Members</string>
+	<string name="previous_accounts">Previously Used Accounts</string>
+	<string name="lbl_terms_and_conditions">terms and conditions</string>
+</resources>

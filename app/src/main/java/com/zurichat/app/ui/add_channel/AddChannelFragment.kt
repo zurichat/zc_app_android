@@ -55,7 +55,7 @@ class AddChannelFragment : Fragment() {
             channelsArrayList = bundle.getParcelableArrayList("Channels List")!!
             joinedChannelsArrayList = bundle.getParcelableArrayList("Joined Channels List")!!
 
-            binding.channelToolbar.subtitle = channelsArrayList.size.toString().plus(" channels")
+            binding.channelToolbar.subtitle = channelsArrayList.size.toString().plus(" ").plus(getString(R.string.channel_s))
 
             val channelsWithAlphabetHeaders = createAlphabetizedChannelsList(channelsArrayList)
 

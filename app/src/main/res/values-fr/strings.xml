@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="zuri_dms_team_tolstoy">Zuri DMS: \ Nteam Tolstoy - \ N KOTLIN &amp; Java Mobile</string>
 	<string name="enter_registered_email">Entrez un courriel de chat zuri enregistré</string>
 	<string name="verify_email">Vérifier les courriels</string>
 	<string name="email_verified">Email verifié</string>
@@ -18,7 +17,6 @@
 	<string name="never_miss_a_chat">Ne manquez jamais une discussion</string>
 	<string name="sub_heading_1">Pas de plus d\'excuses pour des discussions manquantes, prenez votre chat avec vous</string>
 	<string name="powered_by_zuri_chat">Powered by Zuri Chat</string>
-	<string name="zuri_logo">Logo blanc</string>
 	<string name="swift_response_to_dms">Réponse rapide à DMS</string>
 	<string name="receive_notifications_on_chats_and_responds_swiftly">Recevez des notifications sur Chats et répond rapidement</string>
 	<string name="customize_your_chat_experience">Personnalisez votre expérience de chat</string>
@@ -32,7 +30,6 @@
 	<string name="x_selected">% 1 $ D sélectionné</string>
 	<string name="all_view">Tous les% 1 $ s</string>
 	<string name="tap_to_select">Appuyez sur pour sélectionner</string>
-	<string name="action_video_call">Appel vidéo</string>
 	<string name="action_voice_call">Appel vocal</string>
 	<string name="messages_header">messages</string>
 	<string name="sync_header">Synchronisation</string>
@@ -49,9 +46,7 @@
 	<string name="new_channel">Nouveau canal</string>
 	<string name="saved_messages">Messages sauvegardés</string>
 	<string name="settings">Paramètres</string>
-	<string name="zuri">Chat blanc</string>
 	<string name="profile_image">Image de profil</string>
-	<string name="chats">CHATS</string>
 	<string name="display_header">Affichage</string>
 	<string name="theme">Thème</string>
 	<string name="theme_dialog">Choisissez votre thème</string>
@@ -133,8 +128,6 @@
 	<string name="high_priority_summary">Afficher l\'aperçu de la notification en haut de l\'écran</string>
 	<string name="dm_notification_channel_name">Notification DM</string>
 	<string name="unread_messages">Non lu</string>
-	<string name="channels_">Canaux</string>
-	<string name="lbl_terms_and_conditions"><u>termes et conditions</u></string>
 	<string name="online">en ligne</string>
 	<string name="android_devs">Android Devs</string>
 	<string name="channel_group_members">Lux, Hamid, Joe, + 234707 …</string>
@@ -243,8 +236,11 @@
 	<string name="create_new_organization">Créer une nouvelle organisation</string>
 	<string name="forgot_password_txt">Mot de passe oublié?</string>
 	<string name="continue_txt">Continuer</string>
-    <string name="languages">Langages</string>
-    <string name="title">Titre</string>
+	<string name="languages">Langages</string>
+	<string name="title">Titre</string>
+	<string name="zuri_dms_team_tolstoy">Zuri DMS: \ Nteam Tolstoy - \ N KOTLIN &amp; Java Mobile</string>
+	<string name="action_video_call">Appel vidéo</string>
+	<string name="chats">CHATS</string>
 	<string name="select_language">Sélectionnez une traduction de langue</string>
 	<string name="english_uk">Anglais britannique</string>
 	<string name="english_us">Anglais US</string>
@@ -256,10 +252,11 @@
 	<string name="it">italien</string>
 	<string name="iw">hébreu</string>
 	<string name="por">Portugais</string>
-    <string name="add_workspace">Ajouter un espace de travail</string>
-    <string name="create_workspace">Créer un nouvel espace de travail</string>
+	<string name="add_workspace">Ajouter un espace de travail</string>
+	<string name="create_workspace">Créer un nouvel espace de travail</string>
 	<string name="current_org_id">ID d\'organisation actuel</string>
 	<string name="error">Erreur</string>
+	<string name="vibrate">vibrer</string>
 	<string name="high_priority">high_priority</string>
 	<string name="Channel_tones_off">Sons des canaux désactivés</string>
 	<string name="channel_tones_on">Sonneries de canal activées</string>
@@ -321,11 +318,19 @@
 	<string name="click_delete">cliquer pour supprimer</string>
 	<string name="backup_dialog">Boîte de dialogue de sauvegarde</string>
 	<string name="backup_google">Sauvegarder Google</string>
-	<string name="vibrate">vibrer</string>
+	<string name="lbl_terms_and_conditions">termes et conditions</string>
 	<string name="privacy">Confidentialité</string>
 	<string name="storage_n_data">Stockage et données</string>
 	<string name="chat_setting">Paramètres de discussion</string>
 	<string name="notice_n_sounds">Notification et sons</string>
 	<string name="logout_">Déconnexion</string>
 	<string name="switch_organisation">Changer d\'organisation</string>
+	<string name="choose_organization">Choisir une organisation</string>
+	<string name="view_mentions">Voir les mentions</string>
+	<string name="channels_">Canaux</string>
+	<string name="select_member_s">Sélectionner</string>
+	<string name="channel_browser_s">Navigateur de canal</string>
+	<string name="channel_s">canaux</string>
+	<string name="ch_channel_members">Choisissez des membres du canal</string>
+	<string name="previous_accounts">Comptes précédemment utilisés</string>
 </resources>

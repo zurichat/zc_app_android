@@ -174,7 +174,7 @@ class ChannelsFragment : Fragment(R.layout.fragment_channels) {
         val newList: ArrayList<ChannelModel> = ArrayList()
 
         val unreadList: ArrayList<ChannelModel> = ArrayList()
-        val unreadChannelHeader = ChannelModel("Channels", false, false, "channel_header_unread", generateRandomLong().toString(), 0)
+        val unreadChannelHeader = ChannelModel(getString(R.string.channels_), false, false, "channel_header_unread", generateRandomLong().toString(), 0)
 
         val readList: ArrayList<ChannelModel> = ArrayList()
         val addChannelHeader = ChannelModel(getString(R.string._add_channel), false, false, "channel_header_add", generateRandomLong().toString(), 0)

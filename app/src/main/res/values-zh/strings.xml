@@ -194,8 +194,7 @@
 <string name="display_header">展示</string>
 <string name="chats">聊天</string>
 <string name="profile_image">个人资料图片</string>
-<string name="zuri">祖里聊天</string>
-<string name="settings">设置</string>
+    <string name="settings">设置</string>
 <string name="saved_messages">保存的消息</string>
 <string name="new_channel">新频道</string>
 <string name="search">搜索</string>
@@ -225,8 +224,7 @@
 <string name="customize_your_chat_experience">自定义您的聊天体验</string>
 <string name="receive_notifications_on_chats_and_responds_swiftly">接收聊天通知并迅速回复</string>
 <string name="swift_response_to_dms">对 DM 的快速响应</string>
-<string name="zuri_logo">祖里标志</string>
-<string name="powered_by_zuri_chat">由 Zuri Chat 提供支持</string>
+    <string name="powered_by_zuri_chat">由 Zuri Chat 提供支持</string>
 <string name="sub_heading_1">不再为错过的聊天道歉，带上你的聊天</string>
 <string name="never_miss_a_chat">不错过任何聊天</string>
 <string name="slider_image">滑块图像</string>
@@ -243,7 +241,6 @@
 <string name="verify_email">验证邮件</string>
 <string name="enter_registered_email">输入已注册的 zuri 聊天电子邮件</string>
 <string name="zuri_dms_team_tolstoy">TitZuri DM：托尔斯泰团队 - Kotlin Java Mobile</string>
-    <string name="lbl_terms_and_conditions"><u>条款和条件</u></string>
     <string name="languages">语言</string>
     <string name="title">标题</string>
     <string name="select_language">选择语言翻译</string>
@@ -330,4 +327,12 @@
     <string name="notice_n_sounds">通知和声音</string>
     <string name="logout_">注销</string>
     <string name="switch_organisation">切换组织</string>
+    <string name="choose_organization">选择组织</string>
+    <string name="view_mentions">查看提及</string>
+    <string name="select_member_s">选择成员</string>
+    <string name="channel_browser_s">频道浏览器</string>
+    <string name="channel_s">频道</string>
+    <string name="ch_channel_members">选择频道成员</string>
+    <string name="previous_accounts">以前使用的帐户</string>
+    <string name="lbl_terms_and_conditions">条款和条件</string>
 </resources>
