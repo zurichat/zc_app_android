@@ -14,7 +14,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Navigation bar color -->
-        <item name="android:navigationBarColor">@color/navigation_bar_color</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
         <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <!-- Custom Style For Commonly Used Views -->
