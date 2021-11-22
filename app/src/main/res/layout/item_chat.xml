@@ -74,28 +74,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:textColor="?attr/colorAccent"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/text_chat_username"
         tools:text="10:07" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/text_chat_unread_messages"
+    <include
+        android:id="@+id/chat_unread_messages"
+        layout="@layout/partial_unread_bubble"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:background="@drawable/recv_bg_mic"
-        android:backgroundTint="?attr/colorAccent"
-        android:gravity="center"
-        android:maxLines="1"
-        android:textColor="@android:color/white"
-        android:textSize="11sp"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/text_chat_last_message"
         app:layout_constraintEnd_toEndOf="@+id/text_chat_time"
         app:layout_constraintStart_toStartOf="@+id/text_chat_time"
-        app:layout_constraintTop_toBottomOf="@+id/text_chat_username"
-        tools:text="22"
-        tools:visibility="visible" />
+        app:layout_constraintTop_toBottomOf="@+id/text_chat_username"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"

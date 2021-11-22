@@ -17,6 +17,7 @@ import com.zurichat.app.databinding.ItemAttachmentImageBinding
 import com.zurichat.app.databinding.ItemChatBinding
 import com.zurichat.app.ui.base.BaseFragment
 import com.zurichat.app.ui.main.home.domain.Chat
+import com.zurichat.app.utils.show
 import com.zurichat.app.utils.toDp
 import com.zurichat.app.utils.views.viewBinding
 import kotlinx.coroutines.launch
@@ -96,8 +97,8 @@ class ChatListFragment: BaseFragment(R.layout.fragment_chat_list) {
                 textChatUsername.text = chat.name
                 textChatLastMessage.text = chat.message
                 textChatTime.text = chat.time
-                textChatUnreadMessages.apply {
-                    isVisible = chat.unread > 0
+                chatUnreadMessages.root.apply {
+                    if(chat.unread > 0) show()
                     text = chat.unread.toString()
                 }
             }
