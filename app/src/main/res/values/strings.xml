@@ -11,6 +11,9 @@
     <string name="channels">Channels</string>
     <string name="start_a_chat">Start a Chat</string>
     <string name="mates_on_zuri_chat"><b>%1$s</b> and %2$d of your teammates are available on Zuri for a chat</string>
+    <string name="unread_messages">Unread messages</string>
+    <string name="view_mentions">View mentions</string>
+    <string name="retrieve_channels_error">An error occurred while retrieving channels</string>
 
     <!--
     Menus

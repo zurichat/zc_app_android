@@ -99,4 +99,11 @@
         <item name="tabIndicatorColor">@android:color/white</item>
         <item name="tabTextColor">@android:color/white</item>
     </style>
+
+    <!-- ImageView -->
+    <style name="ImageView"/>
+    <style name="ImageView.Rounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

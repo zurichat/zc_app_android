@@ -1,6 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include
+            android:id="@+id/c_l_view_mentions"
+            layout="@layout/item_channel"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/channel_item_margin"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="@dimen/channel_item_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/unread_messages"
+            app:layout_constraintStart_toStartOf="@+id/c_l_view_mentions"
+            app:layout_constraintTop_toBottomOf="@+id/c_l_view_mentions" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_unread_channels"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            android:scrollbars="none"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@+id/c_l_view_mentions"
+            app:layout_constraintStart_toStartOf="@+id/c_l_view_mentions"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_channel" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/list_unread_channels" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/channels"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/c_l_view_mentions"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_cl_add_channel"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:background="?attr/colorAccent"
+            android:theme="@style/ImageView.Rounded"
+            android:tint="@android:color/white"
+            app:contentPadding="1dp"
+            app:layout_constraintBottom_toBottomOf="@+id/textView2"
+            app:layout_constraintEnd_toEndOf="@+id/c_l_view_mentions"
+            app:layout_constraintTop_toTopOf="@+id/textView2"
+            app:srcCompat="@drawable/ic_add" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/list_joined_channels"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            android:requiresFadingEdge="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="@+id/c_l_view_mentions"
+            app:layout_constraintStart_toStartOf="@+id/c_l_view_mentions"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            tools:itemCount="4"
+            tools:listitem="@layout/item_channel" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.zurichat.app.ui.base.BaseViewModel
+import com.zurichat.app.ui.main.home.domain.Channel
 import com.zurichat.app.ui.main.home.domain.Chat
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
@@ -21,6 +22,9 @@ class HomeViewModel: BaseViewModel(){
     private val _chats = MutableLiveData<ChatListState>()
     val chats: LiveData<ChatListState> get() = _chats
 
+    private val _channels = MutableLiveData<ChannelListState>()
+    val channels: LiveData<ChannelListState> get() = _channels
+
     private fun time() = LocalTime.now().format(DateTimeFormatter.ofPattern("hh:mm"))
 
     fun getChats() = viewModelScope.launch {
@@ -37,6 +41,20 @@ class HomeViewModel: BaseViewModel(){
         ))
     }
 
+    fun getJoinedChannels() = viewModelScope.launch {
+        // TODO: Get data from real source
+        delay(6000)
+        _channels.value = ChannelListState.Success(listOf(
+            Channel("Android-devs", 5, true, ""),
+            Channel("Mentors", 9, true, ""),
+            Channel("Design-stage-6", 3, true, ""),
+            Channel("Chat-comedy-and-riddles", 0, false, ""),
+            Channel("Random", 0, false, ""),
+            Channel("Music", 0, false, ""),
+            Channel("Chess", 0, false, ""),
+        ))
+    }
+
     suspend fun getMembers() = viewModelScope.async {
         delay(1000)
         return@async listOf("jeffreyorazulike","hamidO.","cephas", "PTech", "Vicksoson", "x5s")
@@ -50,5 +68,15 @@ class HomeViewModel: BaseViewModel(){
     sealed class ChatListState {
         object EmptyChatList: ChatListState()
         class Success(val chats: List<Chat>): ChatListState()
+    }
+
+    /**
+     * @author Jeffrey Orazulike [chukwudumebiorazulike@gmail.com]
+     *
+     * Represents the state of the channel list screen
+     * */
+    sealed class ChannelListState {
+        class Failure(val message: String): ChannelListState()
+        class Success(val channels: List<Channel>): ChannelListState()
     }
 }
