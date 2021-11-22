@@ -18,6 +18,7 @@ import com.zurichat.app.databinding.ItemChatBinding
 import com.zurichat.app.ui.base.BaseFragment
 import com.zurichat.app.ui.main.home.domain.Chat
 import com.zurichat.app.utils.toDp
+import com.zurichat.app.utils.views.viewBinding
 import kotlinx.coroutines.launch
 
 /**
@@ -28,7 +29,7 @@ import kotlinx.coroutines.launch
  */
 class ChatListFragment: BaseFragment(R.layout.fragment_chat_list) {
 
-    private lateinit var binding: FragmentChatListBinding
+    private val binding by viewBinding(FragmentChatListBinding::bind)
     private val viewModel: HomeViewModel by lazy {
         (parentFragment as HomeFragment).viewModel
     }
@@ -38,7 +39,6 @@ class ChatListFragment: BaseFragment(R.layout.fragment_chat_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentChatListBinding.bind(view)
         setupUI()
         setupObservers()
     }

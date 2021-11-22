@@ -10,6 +10,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentHomeBinding
 import com.zurichat.app.ui.base.BaseFragment
+import com.zurichat.app.utils.views.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 /**
@@ -21,13 +22,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment: BaseFragment(R.layout.fragment_home){
 
-    private lateinit var binding: FragmentHomeBinding
+    private val binding by viewBinding(FragmentHomeBinding::bind)
     val viewModel: HomeViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentHomeBinding.bind(view)
         setupUI()
     }
 

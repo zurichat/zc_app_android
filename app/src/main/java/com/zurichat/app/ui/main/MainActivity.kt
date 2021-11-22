@@ -4,17 +4,17 @@ import android.os.Bundle
 import com.zurichat.app.R
 import com.zurichat.app.databinding.ActivityMainBinding
 import com.zurichat.app.ui.base.BaseActivity
+import com.zurichat.app.utils.views.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : BaseActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private val binding by viewBinding(ActivityMainBinding::inflate)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
         setupUI()
     }
 

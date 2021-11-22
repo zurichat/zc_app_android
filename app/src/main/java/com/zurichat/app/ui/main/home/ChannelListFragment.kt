@@ -11,6 +11,7 @@ import com.zurichat.app.ui.main.home.domain.Channel
 import com.zurichat.app.utils.hide
 import com.zurichat.app.utils.showSnackbar
 import com.zurichat.app.utils.views.MarginItemDecoration
+import com.zurichat.app.utils.views.viewBinding
 
 /**
  *
@@ -19,7 +20,8 @@ import com.zurichat.app.utils.views.MarginItemDecoration
  *
  */
 class ChannelListFragment: BaseFragment(R.layout.fragment_channel_list) {
-    private lateinit var binding: FragmentChannelListBinding
+
+    private val binding by viewBinding(FragmentChannelListBinding::bind)
     private val viewModel: HomeViewModel by lazy {
         (parentFragment as HomeFragment).viewModel
     }
@@ -29,7 +31,6 @@ class ChannelListFragment: BaseFragment(R.layout.fragment_channel_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentChannelListBinding.bind(view)
         setupUI()
         setupObservers()
     }
