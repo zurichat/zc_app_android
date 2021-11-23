@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:padding="4dp">
+
+    <ImageView
+        android:id="@+id/image_chat_user"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/ic_person" />
+
+    <ImageView
+        android:id="@+id/image_chat_online"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:layout_marginBottom="8dp"
+        android:contentDescription="user status"
+        app:layout_constraintBottom_toBottomOf="@+id/image_chat_user"
+        app:layout_constraintEnd_toEndOf="@+id/image_chat_user"
+        app:layout_constraintStart_toEndOf="@+id/image_chat_user"
+        app:srcCompat="@drawable/ic_ring"
+        app:tint="?attr/colorAccent"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/text_chat_username"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textStyle="bold"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toTopOf="@+id/text_chat_last_message"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toEndOf="@+id/image_chat_user"
+        app:layout_constraintTop_toTopOf="@+id/image_chat_user"
+        tools:text="Mary Besset" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text_chat_last_message"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="@+id/image_chat_user"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintStart_toStartOf="@id/text_chat_username"
+        app:layout_constraintTop_toBottomOf="@id/text_chat_username"
+        tools:text="Hey, what's good?" />
+
+    <TextClock
+        android:id="@+id/text_chat_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:textColor="?attr/colorAccent"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/text_chat_username"
+        tools:text="10:07" />
+
+    <include
+        android:id="@+id/chat_unread_messages"
+        layout="@layout/partial_unread_bubble"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/text_chat_last_message"
+        app:layout_constraintEnd_toEndOf="@+id/text_chat_time"
+        app:layout_constraintStart_toStartOf="@+id/text_chat_time"
+        app:layout_constraintTop_toBottomOf="@+id/text_chat_username"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.8" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

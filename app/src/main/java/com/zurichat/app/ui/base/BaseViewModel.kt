@@ -4,9 +4,9 @@ import androidx.lifecycle.ViewModel
 
 /**
  *
- * @author Jeffrey Orazulike <chukwudumebiorazulike@gmail.com>
- * Created 24-Oct-21 at 9:26 PM
+ * @author Jeffrey Orazulike [chukwudumebiorazulike@gmail.com]
+ * Created on 24-Oct-21 at 9:26 PM
  *
- * The base fragment that every fragment should extend from
+ * The base view model that every view model should extend
  */
 abstract class BaseViewModel: ViewModel()

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textview.MaterialTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="25dp"
+    android:layout_height="25dp"
+    android:background="@drawable/recv_bg_mic"
+    android:backgroundTint="?attr/colorAccent"
+    android:gravity="center"
+    android:maxLines="1"
+    android:textColor="@android:color/white"
+    android:textSize="11sp"
+    android:visibility="gone"
+    tools:text="22"
+    tools:visibility="visible" />
