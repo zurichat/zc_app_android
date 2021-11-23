@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.zurichat.app.R
+import com.zurichat.app.data.model.Channel
 import com.zurichat.app.databinding.ItemChannelBinding
-import com.zurichat.app.ui.main.home.domain.Channel
 import com.zurichat.app.utils.show
 
 /**

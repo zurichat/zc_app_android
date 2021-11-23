@@ -5,9 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.updateLayoutParams
 import com.zurichat.app.R
+import com.zurichat.app.data.model.Channel
 import com.zurichat.app.databinding.FragmentChannelListBinding
 import com.zurichat.app.ui.base.BaseFragment
-import com.zurichat.app.ui.main.home.domain.Channel
 import com.zurichat.app.utils.hide
 import com.zurichat.app.utils.showSnackbar
 import com.zurichat.app.utils.views.MarginItemDecoration

@@ -1,22 +1,19 @@
 package com.zurichat.app.ui.main.home
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.zurichat.app.R
+import com.zurichat.app.data.model.Chat
 import com.zurichat.app.databinding.FragmentChatListBinding
 import com.zurichat.app.databinding.ItemAttachmentImageBinding
 import com.zurichat.app.databinding.ItemChatBinding
 import com.zurichat.app.ui.base.BaseFragment
-import com.zurichat.app.ui.main.home.domain.Chat
+import com.zurichat.app.ui.base.BaseItem
+import com.zurichat.app.ui.base.BaseListAdapter
 import com.zurichat.app.utils.show
 import com.zurichat.app.utils.toDp
 import com.zurichat.app.utils.views.viewBinding
@@ -35,7 +32,7 @@ class ChatListFragment: BaseFragment(R.layout.fragment_chat_list) {
         (parentFragment as HomeFragment).viewModel
     }
 
-    private val adapter = ChatsAdapter()
+    private val adapter = BaseListAdapter(null)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,7 +55,7 @@ class ChatListFragment: BaseFragment(R.layout.fragment_chat_list) {
             is HomeViewModel.ChatListState.Success -> {
                 groupChatBlank.visibility = View.GONE
                 // populate the chat list
-                adapter.submitList(chatState.chats)
+                adapter.submitList(chatState.chats.map { ChatItem(it) })
             }
             HomeViewModel.ChatListState.EmptyChatList -> lifecycleScope.launch {
                 val members = viewModel.getMembers()
@@ -66,7 +63,9 @@ class ChatListFragment: BaseFragment(R.layout.fragment_chat_list) {
                 groupChatBlank.visibility = View.VISIBLE
                 val count = 3
                 // show some members of the organization
-                listAvailableTeammates.adapter = ChatMembersAdapter(members.subList(0, count))
+                listAvailableTeammates.adapter = BaseListAdapter(null).also{
+                    it.submitList(members.subList(0, count).map{ MemberItem(it) })
+                }
                 textAvailableTeammates.text = getString(
                     R.string.mates_on_zuri_chat,
                     // show the names of the first $count members
@@ -77,73 +76,50 @@ class ChatListFragment: BaseFragment(R.layout.fragment_chat_list) {
         }
     }
 
-    class ChatsAdapter: ListAdapter<Chat, ChatsAdapter.ChatViewHolder>(DIFF_CALLBACK) {
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {
-            return ChatViewHolder(ItemChatBinding
-                .inflate(LayoutInflater.from(parent.context), parent, false))
-        }
+    class ChatItem(
+        private val chat: Chat
+    ) : BaseItem<Chat, ItemChatBinding>(chat, R.layout.item_chat, chat.roomId) {
 
-        override fun onBindViewHolder(holder: ChatViewHolder, position: Int) {
-            holder.bind(currentList[position])
-        }
+        override fun initializeViewBinding(view: View) = ItemChatBinding.bind(view)
 
-        class ChatViewHolder(private val binding: ItemChatBinding):
-            RecyclerView.ViewHolder(binding.root){
-
-            fun bind(chat: Chat): Unit = with(binding){
-                Glide.with(root.context).load(chat.image)
-                    .placeholder(R.drawable.ic_person).into(imageChatUser)
-                imageChatOnline.isVisible = chat.online
-                textChatUsername.text = chat.name
-                textChatLastMessage.text = chat.message
-                textChatTime.text = chat.time
-                chatUnreadMessages.root.apply {
-                    if(chat.unread > 0) show()
-                    text = chat.unread.toString()
-                }
+        override fun bind(
+            binding: ItemChatBinding,
+            itemClickCallback: ((BaseItem<Chat, ItemChatBinding>) -> Unit)?
+        ): Unit = with(binding) {
+            Glide.with(root.context).load(chat.image)
+                .placeholder(R.drawable.ic_person).into(imageChatUser)
+            imageChatOnline.isVisible = chat.online
+            textChatUsername.text = chat.name
+            textChatLastMessage.text = chat.message
+            textChatTime.text = chat.time
+            chatUnreadMessages.root.apply {
+                if(chat.unread > 0) show()
+                text = chat.unread.toString()
             }
         }
     }
 
-    class ChatMembersAdapter(private val images: List<String>):
-        RecyclerView.Adapter<ChatMembersAdapter.ChatMembersViewHolder>() {
+    class MemberItem(
+        private val member: String
+    ) : BaseItem<String, ItemAttachmentImageBinding>(
+        member, R.layout.item_attachment_image, member
+    ){
+        override fun initializeViewBinding(view: View) = ItemAttachmentImageBinding.bind(view)
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatMembersViewHolder {
-            return ChatMembersViewHolder(
-                ItemAttachmentImageBinding
-                    .inflate(LayoutInflater.from(parent.context), parent, false)
-            )
-        }
-
-        override fun onBindViewHolder(holder: ChatMembersViewHolder, position: Int) {
-            holder.bind(images[position])
-        }
-
-        override fun getItemCount() = images.size
-
-        class ChatMembersViewHolder(private val binding: ItemAttachmentImageBinding):
-            RecyclerView.ViewHolder(binding.root){
-
-            fun bind(image: String): Unit = with(binding){
-                root.updateLayoutParams {
-                    width = 50.toDp(root.resources)
-                }
-                Glide.with(root.context).load(image)
-                    .placeholder(R.drawable.ic_person)
-                    .into(imageIAI)
+        override fun bind(
+            binding: ItemAttachmentImageBinding,
+            itemClickCallback: ((BaseItem<String, ItemAttachmentImageBinding>) -> Unit)?
+        ) : Unit = with(binding){
+            root.updateLayoutParams {
+                width = 50.toDp(root.resources)
             }
+            Glide.with(root.context).load(member)
+                .placeholder(R.drawable.ic_person)
+                .into(imageIAI)
         }
     }
 
     companion object {
         val TAG = ChatListFragment::class.simpleName
-        val DIFF_CALLBACK = object: DiffUtil.ItemCallback<Chat>() {
-            override fun areItemsTheSame(oldItem: Chat, newItem: Chat): Boolean {
-                return oldItem.roomId == newItem.roomId
-            }
-            override fun areContentsTheSame(oldItem: Chat, newItem: Chat): Boolean {
-                return oldItem == newItem
-            }
-        }
     }
 }
