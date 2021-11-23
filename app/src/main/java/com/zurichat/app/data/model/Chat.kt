@@ -1,4 +1,4 @@
-package com.zurichat.app.ui.main.home.domain
+package com.zurichat.app.data.model
 
 /**
  *
