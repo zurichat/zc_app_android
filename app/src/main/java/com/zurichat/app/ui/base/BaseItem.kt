@@ -13,13 +13,11 @@ import androidx.viewbinding.ViewBinding
  * @property item The data item this base item is bound to
  * @property layoutId The resource id of the item
  * @property uniqueId Used to compare items when diffing so RecyclerView knows how to animate
- * @property itemClickCallback The function called when this item is clicked
  */
 abstract class BaseItem <T, VB : ViewBinding>(
     val item: T,
     val layoutId: Int,
-    val uniqueId: Any,
-    val itemClickCallback: ((T) -> Unit)? = null
+    val uniqueId: Any
 ) {
 
     /**
