@@ -13,12 +13,8 @@ import androidx.recyclerview.widget.ListAdapter
  *
  * Base List Adapter that should help to easily create a list adapter without the over head of
  * writing a new class
- *
- * @param itemClickCallback the callback to be invoked when an item is clicked
  */
-open class BaseListAdapter(
-    private val itemClickCallback: ((BaseItem<*, *>) -> Unit)?
-) : ListAdapter<BaseItem<*, *>, BaseViewHolder<*>>(
+open class BaseListAdapter : ListAdapter<BaseItem<*, *>, BaseViewHolder<*>>(
 
     AsyncDifferConfig.Builder(object : DiffUtil.ItemCallback<BaseItem<*, *>>() {
         override fun areItemsTheSame(oldItem: BaseItem<*, *>, newItem: BaseItem<*, *>): Boolean {
@@ -45,7 +41,7 @@ open class BaseListAdapter(
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
-        getItem(position).bind(holder, itemClickCallback)
+        getItem(position).bind(holder)
     }
 
     /**
