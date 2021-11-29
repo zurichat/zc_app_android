@@ -9,6 +9,6 @@ import android.util.TypedValue
  *
  * @return the dp equivalent of this number in int
  * */
-fun Number.toDp(resources: Resources) = TypedValue.applyDimension(
-    TypedValue.COMPLEX_UNIT_DIP, this.toFloat(), resources.displayMetrics
+fun Number.dp(resources: Resources) = TypedValue.applyDimension(
+    TypedValue.COMPLEX_UNIT_DIP, toFloat(), resources.displayMetrics
 ).toInt()
