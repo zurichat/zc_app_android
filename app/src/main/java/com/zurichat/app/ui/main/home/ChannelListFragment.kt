@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.zurichat.app.R
 import com.zurichat.app.data.model.Channel
-import com.zurichat.app.databinding.FragmentChannelListBinding
+import com.zurichat.app.databinding.FragmentListBinding
 import com.zurichat.app.ui.base.BaseFragment
 import com.zurichat.app.ui.base.BaseItem
 import com.zurichat.app.ui.base.BaseListAdapter
@@ -22,9 +22,9 @@ import com.zurichat.app.utils.views.viewBinding
  * Created on 25-Oct-21 at 9:07 PM
  *
  */
-class ChannelListFragment: BaseFragment(R.layout.fragment_channel_list) {
+class ChannelListFragment: BaseFragment(R.layout.fragment_list) {
 
-    private val binding by viewBinding(FragmentChannelListBinding::bind)
+    private val binding by viewBinding(FragmentListBinding::bind)
     private val viewModel: HomeViewModel by lazy {
         (parentFragment as HomeFragment).viewModel
     }
@@ -42,7 +42,7 @@ class ChannelListFragment: BaseFragment(R.layout.fragment_channel_list) {
         setupObservers()
     }
 
-    private fun setupUI() = binding.listJoinedChannels.also{ list ->
+    private fun setupUI() = binding.lList.also{ list ->
         // add the view mentions item and unread messages header to the list
         adapter.submitList(defaultItems)
         // add spacing to the lists
