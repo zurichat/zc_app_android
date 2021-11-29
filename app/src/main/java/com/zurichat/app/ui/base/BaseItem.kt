@@ -21,6 +21,7 @@ abstract class BaseItem <T, VB : ViewBinding>(
 ) {
 
     /**
+     * This should look like [ViewBinding.bind(view)]
      * @param view the view to bind
      * @return a view binding bound to [view]
      * */

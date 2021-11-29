@@ -16,14 +16,14 @@ import androidx.recyclerview.widget.RecyclerView.NO_POSITION
  * @param space the space between each item in pixels
  * @param span the number of columns the list has, this defaults to one
  * @param orientation is the list vertical or horizontal, defaults to vertical
- * @param addSpacingToStart should the spacing be added to the start of the list, defaults to true
  */
 class MarginItemDecoration(
     private val space: Int,
     private val span: Int = 1,
-    private val orientation: Int = GridLayoutManager.VERTICAL,
-    private val addSpacingToStart: Boolean = true
+    private val orientation: Int = GridLayoutManager.VERTICAL
 ) : RecyclerView.ItemDecoration() {
+
+    private val exclusion = mutableSetOf<Int>()
 
     override fun getItemOffsets(
         outRect: Rect,
@@ -33,21 +33,33 @@ class MarginItemDecoration(
     ) = with(outRect) {
 
         val childAdapterPosition = parent.getChildAdapterPosition(view)
+        val exclude = exclusion.contains(view.id)
 
         if(childAdapterPosition == NO_POSITION) return
 
         when(orientation){
             GridLayoutManager.VERTICAL -> {
-                if(addSpacingToStart && childAdapterPosition < span) top = space
-                if(span != 1 && childAdapterPosition % span == 0) left = space
-                if(span != 1 && childAdapterPosition % span != span - 1) right = space
+                if(childAdapterPosition < span) top = space
+                if(!exclude && childAdapterPosition % span == 0){
+                    left = space
+//                    if(childAdapterPosition % span != span - 1) right = space
+                }
             }
             else -> {
-                if(addSpacingToStart && childAdapterPosition < span) left = space
-                if(span != 1 && childAdapterPosition % span == 0) top = space
+                if(childAdapterPosition < span) left = space
+                if(childAdapterPosition % span == 0) top = space
             }
         }
 
+        if(!exclude) right = space
         bottom = space
     }
+
+    /**
+     *
+     * Calling this method makes sure that this view is not given a left and right margin in the list.
+     * This is particularly useful for dividers in the list
+     * @param viewId the id of view to exclude
+     * */
+    fun exclude(viewId: Int) = exclusion.add(viewId)
 }
