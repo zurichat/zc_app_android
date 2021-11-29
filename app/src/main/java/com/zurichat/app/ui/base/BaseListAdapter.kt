@@ -34,10 +34,8 @@ open class BaseListAdapter : ListAdapter<BaseItem<*, *>, BaseViewHolder<*>>(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
         // The layoutId is used as the viewType
         val itemView = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
-
         // Get the item so we can create the specific binding that the holder needs
-        val item = getItemForViewType(viewType)
-        return BaseViewHolder(item.initializeViewBinding(itemView))
+        return BaseViewHolder(getItemForViewType(viewType).initializeViewBinding(itemView))
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
@@ -49,37 +47,26 @@ open class BaseListAdapter : ListAdapter<BaseItem<*, *>, BaseViewHolder<*>>(
      *
      * This idea was copied from Epoxy. :wave: Bright idea guys!
      *
-     *
      * Find the model that has the given view type so we can create a viewholder for that model.
-     *
      *
      * To make this efficient, we rely on the RecyclerView implementation detail that [ListAdapter.getItemViewType]
      * is called immediately before [ListAdapter.onCreateViewHolder]. We cache the last model
      * that had its view type looked up, and unless that implementation changes we expect to have a
      * very fast lookup for the correct model.
      *
-     *
      * To be safe, we fallback to searching through all models for a view type match. This is slow and
      * shouldn't be needed, but is a guard against RecyclerView behavior changing.
      */
     private fun getItemForViewType(viewType: Int): BaseItem<*, *> {
-        val lastItemForViewTypeLookup = lastItemForViewTypeLookup
-
-        if (lastItemForViewTypeLookup != null &&
-            lastItemForViewTypeLookup.layoutId == viewType
-        ) {
+        if (lastItemForViewTypeLookup?.layoutId == viewType) {
             // We expect this to be a hit 100% of the time
-            return lastItemForViewTypeLookup
+            return lastItemForViewTypeLookup as BaseItem<*, *>
         }
-
         // To be extra safe in case RecyclerView implementation details change...
-        for (i in 0 until itemCount) {
-            val item: BaseItem<*, *> = getItem(i)
-            if (getItem(i).layoutId == viewType) {
-                this.lastItemForViewTypeLookup = item
-                return item
-            }
-        }
-        throw IllegalStateException("Could not find model for view type: $viewType")
+        val item = currentList.firstOrNull { it.layoutId == viewType }
+        if(item == null)
+            throw IllegalStateException("Could not find model for view type: $viewType")
+        else lastItemForViewTypeLookup = item
+        return item
     }
 }
