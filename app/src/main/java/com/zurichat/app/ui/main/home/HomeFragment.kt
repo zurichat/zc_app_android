@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.zurichat.app.R
@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment: BaseFragment(R.layout.fragment_home){
 
     private val binding by viewBinding(FragmentHomeBinding::bind)
-    val viewModel: HomeViewModel by viewModels()
+    val viewModel by activityViewModels<HomeViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

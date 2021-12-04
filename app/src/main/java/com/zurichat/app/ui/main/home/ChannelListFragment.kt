@@ -2,6 +2,7 @@ package com.zurichat.app.ui.main.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import com.zurichat.app.R
 import com.zurichat.app.data.model.Channel
 import com.zurichat.app.databinding.FragmentListBinding
@@ -77,7 +78,7 @@ class ChannelListFragment: BaseFragment(R.layout.fragment_list) {
             }
             // add the add channel item to the list
             add(TitleItem(getString(R.string.channels), true){
-                this@ChannelListFragment.requireView().showSnackbar(R.string.channels)
+                findNavController().navigate(R.id.action_homeFragment_to_channelBrowserFragment)
             })
             // add the remaining channels to the list
             addAll(channels.asSequence()
