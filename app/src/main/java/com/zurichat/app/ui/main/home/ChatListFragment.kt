@@ -7,8 +7,8 @@ import com.zurichat.app.R
 import com.zurichat.app.databinding.FragmentChatListBinding
 import com.zurichat.app.ui.base.BaseFragment
 import com.zurichat.app.ui.base.BaseListAdapter
-import com.zurichat.app.utils.views.list_items.ChatItem
-import com.zurichat.app.utils.views.list_items.MemberItem
+import com.zurichat.app.utils.views.list_item.ChatItem
+import com.zurichat.app.utils.views.list_item.MemberItem
 import com.zurichat.app.utils.views.viewBinding
 import kotlinx.coroutines.launch
 

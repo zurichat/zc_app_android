@@ -11,10 +11,7 @@ import com.zurichat.app.ui.base.BaseItem
 import com.zurichat.app.ui.base.BaseListAdapter
 import com.zurichat.app.utils.showSnackbar
 import com.zurichat.app.utils.views.MarginItemDecoration
-import com.zurichat.app.utils.views.list_items.ChannelItem
-import com.zurichat.app.utils.views.list_items.DividerItem
-import com.zurichat.app.utils.views.list_items.TitleItem
-import com.zurichat.app.utils.views.list_items.ViewMentionItem
+import com.zurichat.app.utils.views.list_item.*
 import com.zurichat.app.utils.views.viewBinding
 
 /**
@@ -30,10 +27,18 @@ class ChannelListFragment: BaseFragment(R.layout.fragment_list) {
         (parentFragment as HomeFragment).viewModel
     }
 
+    private var itemList: List<BaseItem<*, *>> = emptyList()
     private val adapter by lazy { BaseListAdapter() }
-    private val listSpacing by lazy { MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.channel_item_margin)) }
+    private val listSpacing by lazy {
+        MarginItemDecoration(resources.getDimensionPixelSize(R.dimen.channel_item_margin)){ position, rect ->
+            if(itemList.isNotEmpty() && itemList[position] is DividerItem) with(rect){
+                left = 0
+                right = 0
+            }
+        }
+    }
     private val defaultItems by lazy {
-        listOf(ViewMentionItem(), TitleItem(getString(R.string.unread_messages)))
+        listOf(ViewMentionItem(), TextItem(getString(R.string.unread_messages)))
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,25 +70,24 @@ class ChannelListFragment: BaseFragment(R.layout.fragment_list) {
     }
 
     private fun updateChannelsList(channels: List<Channel>){
-        val updatedItemList = mutableListOf<BaseItem<*,*>>().apply {
+        itemList = mutableListOf<BaseItem<*,*>>().apply {
             // add the default items to the list
             addAll(defaultItems)
             // add the unread channels to the list
             addAll(channels.asSequence()
                 .filter { it.unread > 0 }.map { ChannelItem(it) }.sortedBy { it.item.name }.toList())
             // add the divider to the list
-            DividerItem().apply {
-                add(this)
-                listSpacing.exclude(uniqueId as Int)
-            }
+            add(DividerItem())
             // add the add channel item to the list
-            add(TitleItem(getString(R.string.channels), true){
-                findNavController().navigate(R.id.action_homeFragment_to_channelBrowserFragment)
+            add(TextAndButtonItem(getString(R.string.channels)){
+                it.setOnClickListener {
+                    findNavController().navigate(R.id.action_homeFragment_to_channelBrowserFragment)
+                }
             })
             // add the remaining channels to the list
             addAll(channels.asSequence()
                 .filter { it.unread == 0 }.map { ChannelItem(it) }.sortedBy { it.item.name }.toList())
         }
-        adapter.submitList(updatedItemList)
+        adapter.submitList(itemList)
     }
 }

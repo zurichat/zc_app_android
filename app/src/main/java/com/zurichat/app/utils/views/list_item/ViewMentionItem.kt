@@ -1,6 +1,6 @@
-package com.zurichat.app.utils.views.list_items
+package com.zurichat.app.utils.views.list_item
 
-import android.view.View
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.updateLayoutParams
 import com.zurichat.app.R
@@ -18,7 +18,9 @@ import com.zurichat.app.utils.hide
 class ViewMentionItem :
     BaseItem<Unit, ItemChannelBinding>(Unit, R.layout.item_channel, R.layout.item_channel){
 
-    override fun initializeViewBinding(view: View) = ItemChannelBinding.bind(view)
+    override fun inflate(parent: ViewGroup) =
+        ItemChannelBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
     override fun bind(binding: ItemChannelBinding) : Unit = with(binding){
         // remove the icon since it is not needed in the view mentions display
         imageIChannelPrivate.hide()

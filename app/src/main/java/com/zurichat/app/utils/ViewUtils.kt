@@ -1,7 +1,12 @@
 package com.zurichat.app.utils
 
+import android.graphics.drawable.Drawable
 import android.view.View
+import android.widget.LinearLayout
+import androidx.core.view.setPadding
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
+import com.zurichat.app.R
 
 /**
  * @author Jeffrey Orazulike [chukwudumebiorazulike@gmail.com]
@@ -53,4 +58,22 @@ fun View.showSnackbar(message: String, duration: Int = Snackbar.LENGTH_SHORT){
  * */
 fun View.showSnackbar(resId: Int, duration: Int = Snackbar.LENGTH_SHORT){
     Snackbar.make(this, resId, duration).show()
+}
+
+fun MaterialButton.asFabButton(
+    buttonIcon: Drawable?,
+    size: Int,
+    iconSpacing: Int = 2.dp(resources)){
+
+    layoutParams = LinearLayout.LayoutParams(size, size)
+    icon = buttonIcon
+    iconSize = size - iconSpacing
+    iconGravity = MaterialButton.ICON_GRAVITY_TEXT_START
+    iconPadding = 0
+    setPadding(0)
+    cornerRadius = size
+    insetBottom = 0
+    insetTop = 0
+    setIconTintResource(android.R.color.white)
+    setBackgroundColor(context.colorFromAttr(R.attr.colorAccent))
 }

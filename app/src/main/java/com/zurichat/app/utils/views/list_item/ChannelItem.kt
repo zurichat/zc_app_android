@@ -1,6 +1,7 @@
-package com.zurichat.app.utils.views.list_items
+package com.zurichat.app.utils.views.list_item
 
-import android.view.View
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import com.zurichat.app.R
 import com.zurichat.app.data.model.Channel
@@ -16,11 +17,13 @@ import com.zurichat.app.utils.show
  * Represents a channel item in a list
  * @param channel the channel to bind to this item
  */
-class ChannelItem(
+open class ChannelItem(
     private val channel: Channel
 ) : BaseItem<Channel, ItemChannelBinding>(channel, R.layout.item_channel, channel.roomId){
 
-    override fun initializeViewBinding(view: View) = ItemChannelBinding.bind(view)
+    override fun inflate(parent: ViewGroup) =
+        ItemChannelBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
     override fun bind(binding: ItemChannelBinding) : Unit = with(binding){
         if(channel.isPrivate)
             // change the channel icon to private if the channel is private

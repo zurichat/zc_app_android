@@ -1,6 +1,7 @@
-package com.zurichat.app.utils.views.list_items
+package com.zurichat.app.utils.views.list_item
 
-import android.view.View
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.zurichat.app.R
@@ -21,7 +22,9 @@ class ChatItem(
     private val chat: Chat
 ) : BaseItem<Chat, ItemChatBinding>(chat, R.layout.item_chat, chat.roomId) {
 
-    override fun initializeViewBinding(view: View) = ItemChatBinding.bind(view)
+    override fun inflate(parent: ViewGroup) =
+        ItemChatBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
     override fun bind(binding: ItemChatBinding): Unit = with(binding) {
         Glide.with(root.context).load(chat.image)
             .placeholder(R.drawable.ic_person).into(imageChatUser)

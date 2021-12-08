@@ -11,8 +11,8 @@ import com.zurichat.app.ui.base.BaseItem
 import com.zurichat.app.ui.base.BaseListAdapter
 import com.zurichat.app.utils.show
 import com.zurichat.app.utils.showSnackbar
-import com.zurichat.app.utils.views.list_items.AlphabetItem
-import com.zurichat.app.utils.views.list_items.ChannelItem
+import com.zurichat.app.utils.views.list_item.AlphabetItem
+import com.zurichat.app.utils.views.list_item.ChannelBrowserItem
 import com.zurichat.app.utils.views.viewBinding
 
 /**
@@ -71,7 +71,7 @@ class ChannelBrowserFragment: BaseFragment(R.layout.fragment_list) {
                 currentAlphabet = channel.name[0]
                 alphabetizedList.add(AlphabetItem(currentAlphabet))
             }
-            alphabetizedList.add(ChannelItem(channel))
+            alphabetizedList.add(ChannelBrowserItem(channel))
         }
         adapter.submitList(alphabetizedList)
     }

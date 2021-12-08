@@ -1,6 +1,7 @@
-package com.zurichat.app.utils.views.list_items
+package com.zurichat.app.utils.views.list_item
 
-import android.view.View
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.core.view.updateLayoutParams
 import com.bumptech.glide.Glide
 import com.zurichat.app.R
@@ -20,7 +21,9 @@ class MemberItem(
 ) : BaseItem<String, ItemAttachmentImageBinding>(
     image, R.layout.item_attachment_image, image
 ){
-    override fun initializeViewBinding(view: View) = ItemAttachmentImageBinding.bind(view)
+    override fun inflate(parent: ViewGroup) =
+        ItemAttachmentImageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+
     override fun bind(binding: ItemAttachmentImageBinding) : Unit = with(binding){
         root.updateLayoutParams {
             width = 50.dp(root.resources)

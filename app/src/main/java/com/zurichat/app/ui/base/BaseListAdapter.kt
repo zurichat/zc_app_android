@@ -1,6 +1,5 @@
 package com.zurichat.app.ui.base
 
-import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncDifferConfig
 import androidx.recyclerview.widget.DiffUtil
@@ -29,13 +28,10 @@ open class BaseListAdapter : ListAdapter<BaseItem<*, *>, BaseViewHolder<*>>(
 ) {
     private var lastItemForViewTypeLookup: BaseItem<*, *>? = null
 
-    override fun getItemViewType(position: Int) = getItem(position).layoutId
+    override fun getItemViewType(position: Int) = getItem(position).itemId
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<*> {
-        // The layoutId is used as the viewType
-        val itemView = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
-        // Get the item so we can create the specific binding that the holder needs
-        return BaseViewHolder(getItemForViewType(viewType).initializeViewBinding(itemView))
+        return BaseViewHolder(getItemForViewType(viewType).inflate(parent))
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<*>, position: Int) {
@@ -58,12 +54,12 @@ open class BaseListAdapter : ListAdapter<BaseItem<*, *>, BaseViewHolder<*>>(
      * shouldn't be needed, but is a guard against RecyclerView behavior changing.
      */
     private fun getItemForViewType(viewType: Int): BaseItem<*, *> {
-        if (lastItemForViewTypeLookup?.layoutId == viewType) {
+        if (lastItemForViewTypeLookup?.itemId == viewType) {
             // We expect this to be a hit 100% of the time
             return lastItemForViewTypeLookup as BaseItem<*, *>
         }
         // To be extra safe in case RecyclerView implementation details change...
-        val item = currentList.firstOrNull { it.layoutId == viewType }
+        val item = currentList.firstOrNull { it.itemId == viewType }
         if(item == null)
             throw IllegalStateException("Could not find model for view type: $viewType")
         else lastItemForViewTypeLookup = item

@@ -3,19 +3,16 @@ package com.zurichat.app.utils
 import android.content.Context
 import android.util.TypedValue
 import androidx.annotation.ColorInt
-import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
 
-/**
- *
- * @author Jeffrey Orazulike [chukwudumebiorazulike@gmail.com]
- *
- */
+
+private fun Context.typedValueFromAttr(attr: Int) = TypedValue().also {
+    theme.resolveAttribute(attr, it, true)
+}
+
 @ColorInt
-fun Context.colorFromAttr(attr: Int) = with(TypedValue()) {
-    theme.resolveAttribute(attr, this, true)
-    data
-}
+fun Context.colorFromAttr(attr: Int) =
+    ContextCompat.getColor(this, typedValueFromAttr(attr).resourceId)
 
-fun Context.drawableFromAttr(attr: Int) = with(theme.obtainStyledAttributes(IntArray(attr))) {
-    AppCompatResources.getDrawable(this@drawableFromAttr, getResourceId(0,0))
-}
+fun Context.drawableFromAttr(attr: Int) =
+    ContextCompat.getDrawable(this, typedValueFromAttr(attr).resourceId)
