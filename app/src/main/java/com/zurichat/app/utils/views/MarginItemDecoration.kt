@@ -16,13 +16,13 @@ import androidx.recyclerview.widget.RecyclerView.NO_POSITION
  * @param space the space between each item in pixels
  * @param span the number of columns the list has, this defaults to one
  * @param orientation is the list vertical or horizontal, defaults to vertical
- * @param addSpacingToStart should the spacing be added to the start of the list, defaults to true
+ * @param modify performs any other modifications to the rect, the current adapter position and rect are passed
  */
 class MarginItemDecoration(
     private val space: Int,
     private val span: Int = 1,
     private val orientation: Int = GridLayoutManager.VERTICAL,
-    private val addSpacingToStart: Boolean = true
+    private inline val modify: ((Int, Rect) -> Unit)? = null
 ) : RecyclerView.ItemDecoration() {
 
     override fun getItemOffsets(
@@ -30,7 +30,7 @@ class MarginItemDecoration(
         view: View,
         parent: RecyclerView,
         state: RecyclerView.State
-    ) = with(outRect) {
+    ): Unit = with(outRect) {
 
         val childAdapterPosition = parent.getChildAdapterPosition(view)
 
@@ -38,16 +38,19 @@ class MarginItemDecoration(
 
         when(orientation){
             GridLayoutManager.VERTICAL -> {
-                if(addSpacingToStart && childAdapterPosition < span) top = space
-                if(span != 1 && childAdapterPosition % span == 0) left = space
-                if(span != 1 && childAdapterPosition % span != span - 1) right = space
+                if(childAdapterPosition < span) top = space
+                if(childAdapterPosition % span == 0) left = space
+//              if(childAdapterPosition % span != span - 1) right = space
             }
             else -> {
-                if(addSpacingToStart && childAdapterPosition < span) left = space
-                if(span != 1 && childAdapterPosition % span == 0) top = space
+                if(childAdapterPosition < span) left = space
+                if(childAdapterPosition % span == 0) top = space
             }
         }
 
+        right = space
         bottom = space
+
+        modify?.invoke(childAdapterPosition, this)
     }
 }

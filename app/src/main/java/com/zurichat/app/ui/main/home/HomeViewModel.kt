@@ -3,9 +3,9 @@ package com.zurichat.app.ui.main.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.zurichat.app.data.model.Channel
+import com.zurichat.app.data.model.Chat
 import com.zurichat.app.ui.base.BaseViewModel
-import com.zurichat.app.ui.main.home.domain.Channel
-import com.zurichat.app.ui.main.home.domain.Chat
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

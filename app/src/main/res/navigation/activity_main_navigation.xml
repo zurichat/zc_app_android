@@ -8,5 +8,13 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.zurichat.app.ui.main.home.HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_channelBrowserFragment"
+            app:destination="@id/channelBrowserFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/channelBrowserFragment"
+        android:name="com.zurichat.app.ui.main.home.ChannelBrowserFragment"
+        tools:layout="@layout/fragment_list" />
 </navigation>
